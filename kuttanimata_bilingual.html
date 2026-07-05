@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>クッタニーマタ 対訳 — Kuttanīmata Bilingual</title>
+<style>
+:root {
+  --ground: #f4f2ec;
+  --surface: #ece8df;
+  --border: #d2cbbe;
+  --text: #1e1710;
+  --text-secondary: #4a3f30;
+  --accent: #7a5c2e;
+  --accent-dim: #a8956a;
+  --header-bg: #1e1710;
+  --header-text: #e8e2d8;
+  --verse-bg: #f0ece4;
+  --rule: rgba(122, 92, 46, 0.25);
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --ground: #131110;
+    --surface: #1c1915;
+    --border: #2e2820;
+    --text: #e0dbd2;
+    --text-secondary: #a89e8e;
+    --accent: #c4a060;
+    --accent-dim: #8a7040;
+    --header-bg: #0a0908;
+    --header-text: #e8e2d8;
+    --verse-bg: #1a1714;
+    --rule: rgba(196, 160, 96, 0.2);
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #131110;
+  --surface: #1c1915;
+  --border: #2e2820;
+  --text: #e0dbd2;
+  --text-secondary: #a89e8e;
+  --accent: #c4a060;
+  --accent-dim: #8a7040;
+  --header-bg: #0a0908;
+  --header-text: #e8e2d8;
+  --verse-bg: #1a1714;
+  --rule: rgba(196, 160, 96, 0.2);
+}
+:root[data-theme="light"] {
+  --ground: #f4f2ec;
+  --surface: #ece8df;
+  --border: #d2cbbe;
+  --text: #1e1710;
+  --text-secondary: #4a3f30;
+  --accent: #7a5c2e;
+  --accent-dim: #a8956a;
+  --header-bg: #1e1710;
+  --header-text: #e8e2d8;
+  --verse-bg: #f0ece4;
+  --rule: rgba(122, 92, 46, 0.25);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'YuMincho', 'Yu Mincho', 'Hiragino Mincho ProN', 'Noto Serif JP', serif;
+  background: var(--ground);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+}
+header {
+  background: var(--header-bg);
+  color: var(--header-text);
+  padding: 3.5em 2em 2.8em;
+  text-align: center;
+}
+header h1 {
+  font-size: 1.6em;
+  font-weight: 400;
+  letter-spacing: 0.25em;
+  margin-bottom: 0.6em;
+}
+header .sub {
+  font-family: Georgia, 'DejaVu Serif', serif;
+  font-style: italic;
+  font-size: 0.88em;
+  opacity: 0.6;
+  letter-spacing: 0.04em;
+}
+.colophon-note {
+  max-width: 52em;
+  margin: 2em auto 0;
+  padding: 1em 1.5em;
+  border-left: 2px solid var(--accent);
+  background: var(--surface);
+  font-size: 0.82em;
+  line-height: 1.9;
+  color: var(--text-secondary);
+}
+.wrap {
+  max-width: 62em;
+  margin: 0 auto;
+  padding: 2em 1.5em 5em;
+}
+.section-title {
+  text-align: center;
+  padding: 2em 0 1.5em;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 1.5em;
+}
+.section-title .skt {
+  font-family: Georgia, 'DejaVu Serif', serif;
+  font-style: italic;
+  font-size: 1.15em;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+}
+.section-title .jpn {
+  display: block;
+  margin-top: 0.4em;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+table { width: 100%; border-collapse: collapse; }
+tr.verse-row td { padding: 1em 1.5em; vertical-align: top; }
+td.skt-cell { width: 50%; border-right: 1px solid var(--rule); }
+td.jpn-cell { width: 50%; }
+.verse-pair {
+  border-bottom: 1px solid var(--border);
+}
+.verse-pair:last-child { border-bottom: none; }
+.skt-verse {
+  font-family: Georgia, 'DejaVu Serif', 'Times New Roman', serif;
+  font-style: italic;
+  font-size: 0.9em;
+  line-height: 1.85;
+  letter-spacing: 0.01em;
+  padding: 0.8em 1em;
+  background: var(--verse-bg);
+  border-radius: 2px;
+}
+.skt-verse .vnum {
+  font-style: normal;
+  font-size: 0.75em;
+  color: var(--accent-dim);
+  float: right;
+  margin-left: 1em;
+  font-variant-numeric: tabular-nums;
+}
+.jpn-verse {
+  font-size: 0.88em;
+  line-height: 2.0;
+  padding: 0.8em 1em;
+  background: var(--verse-bg);
+  border-radius: 2px;
+}
+.jpn-verse .vnum {
+  font-size: 0.75em;
+  color: var(--accent-dim);
+  margin-right: 0.3em;
+  font-variant-numeric: tabular-nums;
+}
+footer {
+  text-align: center;
+  padding: 2.5em 1em;
+  font-size: 0.75em;
+  color: var(--text-secondary);
+  border-top: 1px solid var(--border);
+  letter-spacing: 0.08em;
+}
+@media (max-width: 800px) {
+  header { padding: 2.5em 1.2em 2em; }
+  header h1 { font-size: 1.3em; letter-spacing: 0.15em; }
+  .wrap { padding: 1.2em 0.8em 3em; }
+  tr.verse-row td {
+    display: block;
+    width: 100%;
+    border-right: none;
+    padding: 0.6em 0.4em;
+  }
+  td.skt-cell { border-bottom: none; padding-bottom: 0.3em; }
+  td.jpn-cell { padding-top: 0.3em; }
+  .verse-pair { padding: 0.5em 0; }
+}
+</style>
+</head>
+<body>
+<header>
+  <h1>クッタニーマタ ― 対訳</h1>
+  <div class="sub">Kuttanīmata — Dāmodaragupta — Bilingual Edition</div>
+</header>
+<div class="colophon-note">
+  ダーモーダラグプタ作『クッタニーマタ』（取り持ち女の教え）全1059詩節の対訳版。左にサンスクリット原典（IAST転写）、右に和訳を配する。本作は8世紀カシミール宮廷詩人による教訓的物語詩で、ヴァーラーナシーの老練な取り持ち女ヴィカラーラーが若き遊女マーラティーに処世術を説く枠組みを持つ。
+</div>
+<div class="wrap">
+
+<div class="section-title">
+  <span class="skt">kuttanīmatam</span>
+  <span class="jpn">クッタニーマタ（取り持ち女の教え）</span>
+</div>
+
+<table>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">1</span>sa jayati saṃkalpabhavo ratimukhaśatapatracumbanabhramaraḥ |<br/>yasyānuraktalalanānayanāntavilokitaṃ vasatiḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（1）</span>想像から生まれ、ラティの顔という蓮華に口づけする蜜蜂なる彼（カーマ神）は勝利する。彼に惹かれた美女たちの流し目こそが、その住処である。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">2</span>avadhīrya doṣanicayaṃ guṇaleśe saṃniveśya matimāryāḥ |<br/>kuṭṭanyā matametaddāmodaraguptaviracitaṃ śṛṇuta</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（2）</span>欠点の山を退けて、わずかな美点にこそ心を寄せる高貴な方々よ。取り持ち女（クッタニー）の教え——ダーモーダラグプタの作を、お聞きなさい。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">3</span>asti khalu nikhilabhūtalabhūṣaṇabhūtā vibhūtiguṇayuktā |<br/>yuktābhiyuktajanatā nagarī vārāṇasī nāma</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（3）</span>実に、全世界の装飾となり、繁栄と美徳に恵まれ、有能で熟達した人々の住むヴァーラーナシーという名の都がある。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">4</span>anubhavatāmapi yasyāmupabhogān kāmataḥ śarīravatām |<br/>śaśadharakhaṇḍavibhūṣitadehalayaḥ kila na duṣprāpaḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（4）</span>その都で欲のままに享楽を味わう肉体ある者にとっても、月の欠片で飾られた身体の神殿（シヴァの恩寵）は得難いものではないという。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">5</span>candravibhūṣitadehā bhūtiratāḥ sadbhajaṅgaparivārāḥ |<br/>vārastriyo 'pi yasyāṃ paśupatitanutulyatāṃ yātāḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（5）</span>月で飾られた身体を持ち、聖灰を好み、立派な蛇を従者とする——その都の遊女たちさえもパシュパティ（シヴァ）の姿と同等になっている。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">6</span>atituṅgasuraniketanaśikharasamutkṣiptapavanacalitābhiḥ |<br/>mañjaritamiva virājati yattra nabho vaijayantībhiḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（6）</span>非常に高い神殿の尖塔から投げ上げられた風にはためく勝利旗によって、そこでは空が花咲いているかのように輝いている。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">7</span>aviratasaṃcaradabalā-caraṇatalālaktakadravāruṇitam |<br/>sthalakamalavatīṃ lakṣmīṃ bibharti vasudhātalaṃ yattra</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（7）</span>絶えず往来する美女たちの足裏の紅い染料（ラークシャ）で赤く染まり、そこでは大地が蓮華を持つラクシュミーを宿している。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">8</span>yatra ca ramaṇībhūṣaṇaravabadhiritasakaladiṅanabhobhāge |<br/>śiṣyāṇāṃ nācāryairavadyamavadhāryate paṭhatām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（8）</span>そこでは美女たちの装身具の音が全方位の空間を聾させるため、師に学ぶ弟子たちの誤りも聞き取れないのだ。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">9</span>vindhyadharādharabhūriva yā rājati mattavāraṇopetā |<br/>bahulaniśīthavatīva projjvaladhiṣṇyopaśobhitā yā ca</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（9）</span>酔象を伴ってヴィンディヤ山の麓のように輝き、また煌めく祭火に飾られて深夜のようにも見えるその都。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">10</span>yatigaraṇaguṇasamupetā yā nityaṃ chandasāmiva pracitiḥ |<br/>vanapaṅkiriva sasālā turuṣkaseneva bahalagandharvā</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（10）</span>苦行者・長老の美徳を備え、常にヴェーダ讃歌の集積のようであり、サーラ樹のある森の列のようであり、トゥルシュカの軍勢のように濃厚なガンダルヴァ（芳香／天楽）に満ちている。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">11</span>tārāgaṇo 'kulīnaḥ priyadoṣā yatra kauśikāḥ satatam |<br/>gadye vṛttacyavanaṃ paragṛharodhastathāceṣu</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（11）</span>そこでは星々の群れは卑しい生まれであり、フクロウ（カウシカ）たちは常に闇（ドーシャ＝欠点）を愛し、散文においても韻律の逸脱があり、他人の家の閨房においてもそうである。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">12</span>śūlabhṛto vyālāsthā padavediṣu yatra dhātuvāditvam |<br/>surateṣvabalākramaṇaṃ dānacchedo madacyutau kariṇām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（12）</span>そこでは三叉戟を持つ者たちは悪い場所に留まり、道の祭壇では錬金術があり、情事では女たちへの攻めがあり、象の発情期には布施の断絶と狂酔の落下がある。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">13</span>tīvrakaratvaṃ bhānoraviveko yatra mivahṛdayānām |<br/>yogiṣu daṇḍagrahaṇaṃ saṃdhicchedaḥ pragṛhyeṣu</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（13）</span>そこでは太陽の光線は激しく、恋する者の心には無分別があり、行者には杖の把持があり、連声規則においてはサンディの断絶がある。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">14</span>chandaḥprastāravidhau guravo yasyāmanārjavasthitayaḥ |<br/>vīṇāyāṃ parivādo dvijanilayeṣvaprasannatvam</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（14）</span>その都では韻律の展開法において師（グル＝重音節）たちは不誠実な態度をとり、ヴィーナーにおいては誹謗（パリヴァーダ＝低音弦）があり、バラモンの住処では不満がある。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">15</span>anurūpavṛttaghaṭanā satkavikṛtarūpakeṣu loke ca |<br/>ramaṇīvacane yasyāṃ mādhuryaṃ kāvyabandhe ca</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（15）</span>その都では相応しい韻律の構成が優れた詩人の戯曲にも世間にもあり、美女の言葉にも詩の綴りにも甘美さがある。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">16</span>yasyāmupavanavīthyāṃ tamālapattrāṇi yuvativadane ca |<br/>nakharaprahārakaṇitaṃ tantrīvādye ca suratakalahe ca</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（16）</span>その都の庭園の小径にはタマーラの葉があり若い女の顔にも飾りがあり、弦楽器にも情事の諍いにも爪の一撃の傷跡がある。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">17</span>nandanavanābhirāmā vibudhavatī nākavāhinījuṣṭā |<br/>amarāvatīva yānyā viśvasṛjā nirmitā jagati</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（17）</span>ナンダナ園のように美しく、神々の知恵者に満ち、天の河に潤され——アマラーヴァティーのようにこの世に創造主によって造られた、もう一つの都。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">18</span>tasyāṃ khagapatitanuriva vilāsināṃ hṛdayaśokasaṃjananī |<br/>ākṛṣṭeśvarahṛdayā prāleyanagādhirājatanayeva</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（18）</span>その都に、鳥の王の身のように遊び女たちの心に悲しみを生じさせ、イーシュヴァラの心を惹きつけ、ヒマラヤの王の娘のように——</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">19</span>saṃsaktabhoginevā mandaradharaṇībhūto yathā mūrtiḥ |<br/>uparigatā śūlānāmandhāsuragātralekheva</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（19）</span>蛇に巻きつかれたかのように、マンダラ山を支える者の姿のように、三叉戟の上に昇り、暗黒のアスラの身体の線描のように——</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">20</span>samuvāsa vārarāmā mānasavasateḥ śarīriṇī śaktiḥ |<br/>niḥśeṣaveśayoṣidvibhūṣaṇaṃ mālatī nāma</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（20）</span>心の住処の具現化した力であり、すべての遊郭の女たちの装飾たる、マーラティーという名の遊女が住んでいた。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">21</span>peśalavacasāṃ vasatirlīlānāmālayaḥ sthitiḥ premnaḥ |<br/>bhūmiḥ parihāsānāmāvasatho vakrakathitānām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（21）</span>巧みな言葉の住処、遊戯の館、愛の安定、冗談の大地、曲折ある語りの宿——それがマーラティーであった。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">22</span>sā śuśrāva kadā ciddhavalālayapṛṣṭhadeśamadhirūḍhā |<br/>kenāpi gīyamānāṃ prasaṅgapatitāmimāmāryām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（22）</span>彼女はある時、白い館の屋上に登り、誰かが歌っている、ふと耳に入ったこのアーリヤー韻律の詩を聞いた。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">23</span>yauvanasaundaryamadaṃ dūreṇāpāsya vāravanitābhiḥ |<br/>yatnena veditavyāḥ kāmukahṛdayārjanopāyāḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（23）</span>「若さと美貌の驕りを遠く捨てて、遊女たちは努力して学ぶべきである——好色な男たちの心を得る術を。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">24</span>śrutvātha vipulajaghanā manasīdaṃ mālatī cakāra ciram |<br/>atisāmpratamupadiṣṭaṃ suhṛdevānena sādhunā paṭhatā</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（24）</span>これを聞いて、豊かな腰のマーラティーは長く心に思った。「まことに時宜を得た教えだ、親しい友のようにこの善き学者が読み上げてくれた」と。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">25</span>tadgatvā pṛcchāmo vikarālāṃ kalitasakalasaṃsārām |<br/>yasyāḥ kāmijanaugho divāniśaṃ dvāradeśamadhyāste</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（25）</span>「では行ってヴィカラーラーに尋ねよう。彼女は世間のすべてを心得ている。その門前には好色な客の群れが昼夜を問わず座している。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">26</span>iti manasi sā niveśya drutataramavatīrya veśmanaḥ śikharāt |<br/>vikarālābhavanavaraṃ parijanaparivāritā prayayau</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（26）</span>こう心に決めて、彼女は急いで館の屋上から降り、従者に囲まれてヴィカラーラーの立派な邸宅へと向かった。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">27</span>atha viralonnatadaśanāṃ nimnahaṃ sthūlacipiṭanāsāgrām |<br/>ulbaṇacūcukalakṣitaśuṣkakucasthānaśithilakṛttitanum</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（27）</span>さて（マーラティーが見たのは）歯はまばらに突き出し、低い顎に太く潰れた鼻先を持ち、醜く垂れた乳房の跡が目立つ干からびた皮膚の弛んだ身体の——</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">28</span>gambhīrāraktadṛśaṃ nirbhūṣaṇalambakarṇapālīṃ ca |<br/>katipayapāṇḍuracikurāṃ prakaṭaśirāsaṃtatāyatagrīvām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（28）</span>深く赤い目、飾りなく垂れた耳朶、わずかに白い髪、血管の浮き出た長い首を持つ——</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">29</span>sitadhautavasanayugalāṃ vividhauṣadhimaṇisanāthagalasūtrām |<br/>tanvīmaṅgulimūle tapanīyamayīṃ ca vālikāṃ dadhatīm</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（29）</span>白い洗った二枚の衣を纏い、様々な薬草と宝石を結んだ首飾りの紐をつけ、細い指の付け根に黄金の腕輪をはめた——</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">30</span>gaṇikāgaraṇaparikaritāṃ kāmijanopāyanaprasaktadṛśam |<br/>āsandyāmāsīnāṃ vilokayāmāsa vikarālām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（30）</span>遊女たちの長老として仕えられ、好色な客の貢物に目を注ぐ、椅子に座ったヴィカラーラーをマーラティーは見た。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">31</span>avalokya sā vidhāya kṣitimaṇḍalalīnamaulinā praṇatim |<br/>paripṛṣṭakuśalavārtā samanujñātāsanaṃ bheje</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（31）</span>彼女を見て、マーラティーは地に額をつけて礼をし、安否を問われた後、座を勧められて座った。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">32</span>atha viracitahastapuṭā sapraśrayamāsanaṃ samutsṛjya |<br/>idamūce vikarālāmavasaramāsādya mālatī vacanam</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（32）</span>それから両手を合わせ、恭しく席を少し離れ、機会を得てマーラティーはヴィカラーラーにこう言葉を述べた。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">33</span>vidadhāsi harimakaustubhamahari ravimagajanāthamamarendram |<br/>adraviṇaṃ draviṇapatitaṃ niyataṃ matigocare patitam</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（33）</span>「あなたはハリをカウストゥバ宝珠なしに、太陽を象の王なしに、インドラを不滅ならざるものにする。財なき者を財の主としているのだ、知恵の領域に入った者を。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">34</span>ayameva buddhivibhavaṃ hṛtavibhavaste paṭaccarāvaraṇaḥ |<br/>kāmukalokaḥ kathayati sattrāgāreṣu bhuñjānaḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（34）</span>「これこそあなたの知恵の威力。財を奪われぼろ布を纏ったこの好色な男たちの群れが、施食所で食事しながら語っているではないか。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">35</span>upasaṃhṛtānyakarmā dhanavarmā narmadāṅghiyugalasya |<br/>sakalasamarpitasampadyadupetaḥ pādapīṭhatvam</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（35）</span>「他の仕事をすべて捨てたダナヴァルマンが、ナルマダーの両足にすべての財を捧げ、足置き台の身分にまで成り下がったと。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">36</span>yadupanato nayadattaḥ sāgaradattasya madhyamaḥ putraḥ |<br/>prīṇayati madanasenāṃ vidhāya pitṛmandiraṃ riktam</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（36）</span>「サーガラダッタの次男ナヤダッタがやって来て、父の家を空にしてマダナセーナーを喜ばせていると。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">37</span>yallīlārpitacaraṇau mañjaryā bhaṭṭaputranarasiṃhaḥ |<br/>paritoṣaṃ vrajati paraṃ mṛdu mṛgan pāṇiyugalena</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（37）</span>「バッタの息子ナラシンハが、マンジャリーに戯れに足を委ね、その手で優しく撫でられて至上の満足を得ていると。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">38</span>yanniḥśeṣitavibhavo dīkṣitabhavadevaputraśubhadevaḥ |<br/>nirbhatsito 'pi nojjhati kesarasenāgṛhadvāram</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（38）</span>「ディークシタ・バヴァデーヴァの息子シュバデーヴァが全財産を使い果たし、追い払われてもケーサラセーナーの家の門を離れないと。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">39</span>anyā api kāmijanaṃ sādhāraṇayoṣito yadākramya |<br/>vidadhati karpaṭaśeṣaṃ vilasitametattavopadeśānām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（39）</span>「他の普通の女たちも、好色な客を取り込んでぼろ切れ一枚にしてしまう——これこそあなたの教えの輝かしい成果です。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">40</span>hīnānvayajanmāno guṇahīnā rogiṇo nirākṛtayaḥ |<br/>upasevitā mayāpi prakaṭīkṛtarāgasauṣṭhavaṃ puruṣāḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（40）</span>「卑しい家柄に生まれ、美徳なく、病み、見捨てられた者たち——そんな男たちでさえ私は奉仕して、愛の巧みさを見せてきました。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">41</span>mātaḥ kiṃ vidadhāmo hatadhāturvāmatābhiyogena |<br/>nāsādayāma iṣṭaṃ nijatanupaṇyaprasārakeṇāpi</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（41）</span>「母よ、どうしましょう。体質が悪く運に見放されて、自分の身体を売りに出しても望みのものを得られないのです。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">42</span>tatkuru mātaranugrahamabhidhatsva mamāpi dehino bhogyān |<br/>teṣāṃ ca veśaceṣṭitamanasijaśarajālapātanopāyān</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（42）</span>「ですから母よ、恩恵を施してください。私にも享受すべき裕福な男たちと、彼らに遊郭の振る舞いで愛の矢の網を放つ術を教えてください。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">43</span>iti giramudīrayantīṃ sapremāmṛśya pāṇinā pṛṣṭhe |<br/>ruciravaco vikarālā rucirākṛtimālatīmūce</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（43）</span>こう言葉を発するマーラティーの背を愛情込めて手で撫で、美しい声のヴィカラーラーは美しい姿のマーラティーにこう言った。</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">44</span>ayameva dahyamānasmaranirgatadhūmavartikākāraḥ |<br/>cikurabharastava sundari kāmijanaṃ kiṃkarīkurute</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（44）</span>「美しい娘よ、燃える恋の火から立ち昇る煙の渦巻きのようなこの豊かな黒髪だけで、好色な男たちを下僕にしているのだ。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">45</span>ayameva te kṛśodari mandollasitabhruvibhramādhāraḥ |<br/>adharīkaroti dhīrān madhurasmitasubhagavīkṣitaviśeṣaḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（45）</span>「細い腰の娘よ、ゆるやかに揺れる眉の戯れを宿し、甘い微笑みに恵まれた流し目の妙——それだけで堅固な男たちをも屈服させる。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">46</span>iyameva vadanakāntī ratikāntākūtamatitarāṃ kurute |<br/>śrutipathamapyupayātā niyataṃ tava kāmināṃ manasi</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（46）</span>「この顔の輝きこそが、ラティの夫（カーマ）の意図をいっそう遂げさせる。耳に届いただけでも、必ずやあなたを恋する男たちの心に刻まれる。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">47</span>iyameva daśanapaṅkī rucirācirakāntikāntisamakāntiḥ |<br/>utpādayati nitāntaṃ tava manmathadāhavedanāṃ puṃsām</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（47）</span>「この歯並びの美しさ——永く色褪せぬ輝きに等しい光——は、男たちにカーマの灼熱の苦痛をとことん生じさせる。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">48</span>idameva samullapitaṃ līlāvati vijitaparabhṛtadhvānam |<br/>tava niḥśeṣabhujaṅgavyākarṣaṇasiddhamanvavaccitram</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（48）</span>「遊び好きな娘よ、コーキラ鳥の声をも凌ぐこの語らいは、あらゆる蛇をも引き寄せる呪術のように、測り知れぬ力を持つ。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">49</span>idameva makaraketananiketanaṃ stanayugaṃ tavābhogi |<br/>bhogavati bhogasādhanamaparopāyagraho vyarthaḥ</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（49）</span>「享楽に長けた娘よ、愛の旗印の神の住処たるこの双つの乳房こそが享楽の手段。他の手立てに頼るのは無駄というもの。」</div>
+</td></tr>
+
+<tr class="verse-row verse-pair"><td class="skt-cell"><div class="skt-verse"><span class="vnum">50</span>idameva bāhuyugalaṃ mṛṇālatanusundaraṃ tavābhogi |<br/>kasya na janayati madanaṃ kanakāṅgadabhūṣaṇaṃ sutanu</div>
+</td><td class="jpn-cell"><div class="jpn-verse"><span class="vnum">（50）</span>「蓮の茎のように細く美しいこの両腕が、金の腕輪で飾られて——美しい娘よ、誰に情欲を起こさせずにいようか。」</div>
+</td></tr>
+
+</table>
+</div>
+<footer>KUTTANĪMATA — DĀMODARAGUPTA — BILINGUAL EDITION</footer>
+</body>
+</html>
