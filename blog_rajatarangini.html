@@ -3,223 +3,646 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Rājataraṅgiṇī 梗概・対訳プロジェクト</title>
+<title>Rājataraṅgiṇī — 梗概・対訳プロジェクト</title>
 <style>
+  @font-face {
+    font-family: 'Noto Serif JP';
+    font-style: normal;
+    font-weight: 400;
+    src: local('Noto Serif JP'), local('Noto Serif CJK JP');
+  }
+  @font-face {
+    font-family: 'Noto Serif JP';
+    font-style: normal;
+    font-weight: 700;
+    src: local('Noto Serif JP Bold'), local('Noto Serif CJK JP Bold');
+  }
+
   :root {
-    --ground: #f6f2ec; --ink: #2a2520; --ink-secondary: #6b5e52;
-    --accent: #8b4513; --rule: #d4c9ba; --highlight: #f0e0c8;
+    --ground: #f6f2ec;
+    --surface: #eee8df;
+    --ink: #2a2520;
+    --ink-secondary: #6b5e52;
+    --ink-tertiary: #9a8d80;
+    --accent: #8b4513;
+    --accent-light: #c4956a;
+    --rule: #d4c9ba;
+    --highlight: #f0e0c8;
+    --card-bg: #fffcf7;
+
+    --ff-display: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', 'Source Serif 4', 'Source Serif Pro', Georgia, serif;
     --ff-body: 'Noto Serif JP', 'Hiragino Mincho ProN', 'Yu Mincho', 'Source Serif 4', Georgia, serif;
     --ff-label: 'Helvetica Neue', 'Hiragino Sans', 'Yu Gothic', system-ui, sans-serif;
   }
+
   @media (prefers-color-scheme: dark) {
     :root {
-      --ground: #1a1714; --ink: #e0d8cc; --ink-secondary: #a89a8a;
-      --accent: #d4956a; --rule: #3d3529; --highlight: #302818;
+      --ground: #1a1714;
+      --surface: #252119;
+      --ink: #e0d8cc;
+      --ink-secondary: #a89a8a;
+      --ink-tertiary: #7a6e62;
+      --accent: #d4956a;
+      --accent-light: #8b6040;
+      --rule: #3d3529;
+      --highlight: #302818;
+      --card-bg: #211e18;
     }
   }
   :root[data-theme="dark"] {
-    --ground: #1a1714; --ink: #e0d8cc; --ink-secondary: #a89a8a;
-    --accent: #d4956a; --rule: #3d3529; --highlight: #302818;
+    --ground: #1a1714;
+    --surface: #252119;
+    --ink: #e0d8cc;
+    --ink-secondary: #a89a8a;
+    --ink-tertiary: #7a6e62;
+    --accent: #d4956a;
+    --accent-light: #8b6040;
+    --rule: #3d3529;
+    --highlight: #302818;
+    --card-bg: #211e18;
   }
   :root[data-theme="light"] {
-    --ground: #f6f2ec; --ink: #2a2520; --ink-secondary: #6b5e52;
-    --accent: #8b4513; --rule: #d4c9ba; --highlight: #f0e0c8;
+    --ground: #f6f2ec;
+    --surface: #eee8df;
+    --ink: #2a2520;
+    --ink-secondary: #6b5e52;
+    --ink-tertiary: #9a8d80;
+    --accent: #8b4513;
+    --accent-light: #c4956a;
+    --rule: #d4c9ba;
+    --highlight: #f0e0c8;
+    --card-bg: #fffcf7;
   }
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   body {
-    background: var(--ground); color: var(--ink);
-    font-family: var(--ff-body); font-size: 15px; line-height: 1.85;
+    background: var(--ground);
+    color: var(--ink);
+    font-family: var(--ff-body);
+    font-size: 15px;
+    line-height: 1.85;
     -webkit-font-smoothing: antialiased;
   }
-  .page { max-width: 800px; margin: 0 auto; padding: 2.5rem 1.5rem 4rem; }
-  h3 {
-    font-size: 1.4rem; font-weight: 700; color: var(--accent);
-    margin-bottom: 0.8rem; line-height: 1.4; text-wrap: balance;
+
+  .page {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 4rem;
   }
-  h4 {
-    font-size: 1.05rem; font-weight: 700; color: var(--ink);
-    margin-top: 2.2rem; margin-bottom: 0.6rem;
-    padding-bottom: 0.3rem; border-bottom: 1px solid var(--rule);
+
+  .header {
+    text-align: center;
+    padding-bottom: 2.5rem;
+    border-bottom: 1px solid var(--rule);
+    margin-bottom: 3rem;
   }
-  p {
-    margin-bottom: 0.8em; text-align: justify; text-justify: inter-ideograph;
-    font-size: 0.92rem; line-height: 1.9;
+  .header-sanskrit {
+    font-family: var(--ff-display);
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.03em;
+    line-height: 1.3;
+    text-wrap: balance;
   }
-  p strong { color: var(--accent); font-weight: 700; }
-  a { color: var(--accent); }
-  a:hover { text-decoration: underline; }
-  ul {
-    margin: 0.5rem 0 1.2rem 1.2rem; font-size: 0.9rem; line-height: 1.8;
+  .header-sub {
+    font-family: var(--ff-label);
+    font-size: 0.78rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-tertiary);
+    margin-top: 0.6rem;
   }
-  li { margin-bottom: 0.15em; }
-  li a { text-decoration: none; }
-  li a:hover { text-decoration: underline; }
-  table {
-    width: 100%; border-collapse: collapse; margin: 0.8rem 0 1.5rem;
-    font-size: 0.82rem; line-height: 1.6; font-variant-numeric: tabular-nums;
+  .header-jp {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    color: var(--ink-secondary);
+    margin-top: 1rem;
+    line-height: 1.6;
   }
-  th {
-    font-family: var(--ff-label); font-size: 0.7rem; font-weight: 600;
-    letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--ink-secondary); text-align: left;
-    padding: 0.5em 0.8em 0.5em 0; border-bottom: 2px solid var(--rule);
+  .header-note {
+    font-family: var(--ff-body);
+    font-size: 0.82rem;
+    color: var(--ink-tertiary);
+    margin-top: 0.8rem;
+    line-height: 1.6;
   }
-  td {
-    padding: 0.4em 0.8em 0.4em 0; border-bottom: 1px solid var(--rule);
+
+  .section {
+    margin-bottom: 2.8rem;
+  }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .section-label {
+    font-family: var(--ff-label);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .section-title {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+
+  .body-text {
+    font-family: var(--ff-body);
+    font-size: 0.92rem;
+    line-height: 1.9;
+    color: var(--ink);
+  }
+  .body-text p {
+    margin-bottom: 0.7em;
+    text-align: justify;
+    text-justify: inter-ideograph;
+  }
+  .body-text p:last-child { margin-bottom: 0; }
+  .body-text strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .body-text em { font-style: italic; }
+  .body-text a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.05em;
+    transition: border-color 0.2s;
+  }
+  .body-text a:hover {
+    border-color: var(--accent);
+  }
+
+  .toc {
+    margin-bottom: 2.8rem;
+  }
+  .toc-head {
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .toc-title {
+    font-family: var(--ff-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-tertiary);
+  }
+  .toc ul {
+    list-style: none;
+    font-family: var(--ff-body);
+    font-size: 0.88rem;
+    line-height: 2;
+  }
+  .toc li { padding-left: 0; }
+  .toc a {
+    color: var(--accent);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+  }
+  .toc a:hover {
+    border-bottom-color: var(--accent);
+  }
+  .toc .toc-sub {
+    font-family: var(--ff-label);
+    font-size: 0.72rem;
+    color: var(--ink-tertiary);
+    margin-left: 0.4em;
+    letter-spacing: 0.04em;
+  }
+
+  .taranga {
+    margin-bottom: 2.8rem;
+    page-break-inside: avoid;
+  }
+  .taranga-head {
+    display: flex;
+    align-items: baseline;
+    gap: 1rem;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+  }
+  .taranga-num {
+    font-family: var(--ff-label);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--accent);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .taranga-title {
+    font-family: var(--ff-display);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .taranga-verses {
+    font-family: var(--ff-label);
+    font-size: 0.72rem;
+    color: var(--ink-tertiary);
+    letter-spacing: 0.08em;
+    white-space: nowrap;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .taranga-meta {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.8rem;
+  }
+  .meta-tag {
+    font-family: var(--ff-label);
+    font-size: 0.68rem;
+    letter-spacing: 0.06em;
+    color: var(--accent);
+    background: var(--highlight);
+    padding: 0.15em 0.55em;
+    border-radius: 2px;
+  }
+
+  .detail-link {
+    display: inline-block;
+    margin-top: 0.6rem;
+    font-family: var(--ff-label);
+    font-size: 0.78rem;
+    color: var(--accent);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    border-bottom: 1px solid var(--rule);
+    padding-bottom: 0.1em;
+    transition: border-color 0.2s;
+  }
+  .detail-link:hover {
+    border-color: var(--accent);
+  }
+
+  .stats {
+    margin-top: 3rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
+  }
+  .stats-title {
+    font-family: var(--ff-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-tertiary);
+    margin-bottom: 1rem;
+  }
+  .stats-table-wrap {
+    overflow-x: auto;
+  }
+  .stats table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: var(--ff-body);
+    font-size: 0.82rem;
+    line-height: 1.6;
+    font-variant-numeric: tabular-nums;
+  }
+  .stats th {
+    font-family: var(--ff-label);
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-tertiary);
+    text-align: left;
+    padding: 0.4em 0.8em 0.4em 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .stats th:nth-child(3) { text-align: right; }
+  .stats td {
+    padding: 0.4em 0.8em 0.4em 0;
+    border-bottom: 1px solid var(--rule);
     vertical-align: top;
   }
-  em { font-style: italic; }
-  @media (max-width: 600px) {
-    .page { padding: 1.5rem 1rem 3rem; }
-    h3 { font-size: 1.2rem; }
+  .stats td:nth-child(3) { text-align: right; }
+
+  .refs {
+    margin-top: 2.5rem;
+    border-top: 1px solid var(--rule);
+    padding-top: 2rem;
   }
+  .refs-title {
+    font-family: var(--ff-label);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ink-tertiary);
+    margin-bottom: 1rem;
+  }
+  .refs ul {
+    list-style: none;
+    font-family: var(--ff-body);
+    font-size: 0.82rem;
+    line-height: 1.7;
+    color: var(--ink-secondary);
+  }
+  .refs li {
+    margin-bottom: 0.4em;
+    padding-left: 1em;
+    text-indent: -1em;
+  }
+  .refs em { font-style: italic; }
 </style>
 </head>
 <body>
 <div class="page">
 
-<h3>カルハナ『ラージャタランギニー』（Rājataraṅgiṇī）梗概・対訳プロジェクト</h3>
+  <header class="header">
+    <div class="header-sanskrit">Rājataraṅgiṇī</div>
+    <div class="header-sub">Kalhaṇa's Chronicle of the Kings of Kaśmīr</div>
+    <div class="header-jp">カルハナ『ラージャタランギニー』梗概・対訳プロジェクト</div>
+    <div class="header-note">全8巻7,826偈｜日本語梗概と梵和対訳を順次公開</div>
+  </header>
 
-<p>12世紀カシミールの詩人カルハナ（Kalhaṇa）が著したサンスクリット韻文年代記『ラージャタランギニー』（王河、Rājataraṅgiṇī）全8巻7,826偈の日本語梗概と梵和対訳を順次公開しています。底本は M. A. Stein 校訂本（Bombay, 1892）、英訳は同 Stein 訳（Westminster, 1900）を参照しています。</p>
+  <div class="section">
+    <div class="body-text">
+      <p>12世紀カシミールの詩人カルハナ（Kalhaṇa）が著したサンスクリット韻文年代記『ラージャタランギニー』（王河、Rājataraṅgiṇī）全8巻7,826偈の日本語梗概と梵和対訳を順次公開しています。底本は M. A. Stein 校訂本（Bombay, 1892）、英訳は同 Stein 訳（Westminster, 1900）を参照しています。</p>
+    </div>
+  </div>
 
-<h4>目次</h4>
-<ul>
-<li><a href="#overview">作品概要</a></li>
-<li><a href="#toc">全8巻一覧</a></li>
-<li><a href="#t1">第1巻（Prathama-taraṅga）梗概</a></li>
-<li><a href="#t2">第2巻（Dvitīya-taraṅga）梗概</a></li>
-<li><a href="#t3">第3巻（Tṛtīya-taraṅga）梗概</a></li>
-<li><a href="#t4">第4巻（Caturtha-taraṅga）梗概</a></li>
-<li><a href="#t4b">第4巻 梵和対訳（全720偈）</a></li>
-<li><a href="#t5">第5巻（Pañcama-taraṅga）梗概</a></li>
-<li><a href="#t5b">第5巻 梵和対訳（全483偈）</a></li>
-<li><a href="#t6">第6巻（Ṣaṣṭha-taraṅga）梗概</a></li>
-<li><a href="#t6b">第6巻 梵和対訳（全368偈）</a></li>
-<li><a href="#t7">第7巻（Saptama-taraṅga）梗概</a></li>
-<li><a href="#t7b">第7巻 梵和対訳（主要偈精選）</a></li>
-<li><a href="#t8">第8巻（Aṣṭama-taraṅga）梗概</a></li>
-<li><a href="#refs">参考文献</a></li>
-</ul>
+  <div class="toc">
+    <div class="toc-head">
+      <div class="toc-title">目次</div>
+    </div>
+    <ul>
+      <li><a href="#overview">作品概要</a></li>
+      <li><a href="#volumes">全8巻一覧</a></li>
+      <li><a href="#t1">第1巻 Prathama-taraṅga 梗概</a> <span class="toc-sub">373偈</span></li>
+      <li><a href="#t2">第2巻 Dvitīya-taraṅga 梗概</a> <span class="toc-sub">171偈</span></li>
+      <li><a href="#t3">第3巻 Tṛtīya-taraṅga 梗概</a> <span class="toc-sub">530偈</span></li>
+      <li><a href="#t4">第4巻 Caturtha-taraṅga 梗概</a> <span class="toc-sub">720偈</span></li>
+      <li><a href="#t4b">第4巻 梵和対訳</a> <span class="toc-sub">全720偈</span></li>
+      <li><a href="#t5">第5巻 Pañcama-taraṅga 梗概</a> <span class="toc-sub">483偈</span></li>
+      <li><a href="#t5b">第5巻 梵和対訳</a> <span class="toc-sub">全483偈</span></li>
+      <li><a href="#t6">第6巻 Ṣaṣṭha-taraṅga 梗概</a> <span class="toc-sub">368偈</span></li>
+      <li><a href="#t6b">第6巻 梵和対訳</a> <span class="toc-sub">全368偈</span></li>
+      <li><a href="#t7">第7巻 Saptama-taraṅga 梗概</a> <span class="toc-sub">1,723偈</span></li>
+      <li><a href="#t7b">第7巻 梵和対訳</a> <span class="toc-sub">主要偈精選</span></li>
+      <li><a href="#t8">第8巻 Aṣṭama-taraṅga 梗概</a> <span class="toc-sub">3,449偈</span></li>
+      <li><a href="#refs">参考文献</a></li>
+    </ul>
+  </div>
 
-<h4 id="overview">作品概要</h4>
+  <div class="section" id="overview">
+    <div class="section-head">
+      <span class="section-title">作品概要</span>
+    </div>
+    <div class="body-text">
+      <p>『ラージャタランギニー』は、カシミール地方の太古の神話時代から著者カルハナの同時代（1149/50 CE）に至るまでの王統を叙述した韻文史書であり、サンスクリット文学における歴史叙述の最高峰とされる。全8巻（taraṅga「波」）、計7,826偈から成る。カルハナは大宰相チャンパカ（Caṇpaka）の子であり、単なる宮廷詩人ではなく、碑文・勅令・先行文献を渉猟して批判的に史料を扱った点で、前近代インドにおける歴史意識の稀有な証人である。</p>
+      <p>M. A. Stein（マーク・オーレル・スタイン）は1892年に梵文校訂本を、1900年に詳細な注釈付き英訳2巻を刊行し、本作品の学術的研究の基礎を築いた。</p>
+    </div>
+  </div>
 
-<p>『ラージャタランギニー』は、カシミール地方の太古の神話時代から著者カルハナの同時代（1149/50 CE）に至るまでの王統を叙述した韻文史書であり、サンスクリット文学における歴史叙述の最高峰とされる。全8巻（taraṅga「波」）、計7,826偈から成る。カルハナは大宰相チャンパカ（Caṇpaka）の子であり、単なる宮廷詩人ではなく、碑文・勅令・先行文献を渉猟して批判的に史料を扱った点で、前近代インドにおける歴史意識の稀有な証人である。</p>
+  <div class="stats" id="volumes">
+    <div class="stats-title">全8巻一覧</div>
+    <div class="stats-table-wrap">
+    <table>
+      <thead>
+        <tr><th>巻</th><th>サンスクリット名</th><th>偈数</th><th>主要内容</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td>Prathama-taraṅga</td><td>373</td><td>神話時代〜Gonanda 王朝（Maurya・Kuṣāṇa 含む）</td></tr>
+        <tr><td>2</td><td>Dvitīya-taraṅga</td><td>171</td><td>Gonanda 朝末期〜Meghavāhana 朝</td></tr>
+        <tr><td>3</td><td>Tṛtīya-taraṅga</td><td>530</td><td>Pravarasena 朝・詩人 Mātṛgupta・Hūṇa 族侵入</td></tr>
+        <tr><td>4</td><td>Caturtha-taraṅga</td><td>720</td><td>Kārkoṭa 朝（Lalitāditya・Jayāpīḍa）</td></tr>
+        <tr><td>5</td><td>Pañcama-taraṅga</td><td>483</td><td>Utpala 朝前半（Avantivarman・Śaṅkaravarman）</td></tr>
+        <tr><td>6</td><td>Ṣaṣṭha-taraṅga</td><td>368</td><td>Utpala 朝末期・女王 Diddā</td></tr>
+        <tr><td>7</td><td>Saptama-taraṅga</td><td>1,723</td><td>Lohara 朝前半（Harṣa 王の暴政）</td></tr>
+        <tr><td>8</td><td>Aṣṭama-taraṅga</td><td>3,449</td><td>Lohara 朝後半（Kalhaṇa の同時代史）</td></tr>
+        <tr><td></td><td>計</td><td><strong>7,826</strong></td><td>神話時代〜1149/50 CE</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
 
-<p>M. A. Stein（マーク・オーレル・スタイン）は1892年に梵文校訂本を、1900年に詳細な注釈付き英訳2巻を刊行し、本作品の学術的研究の基礎を築いた。</p>
+  <div class="taranga" id="t1">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga I</span>
+      <span class="taranga-title">Prathama-taraṅga</span>
+      <span class="taranga-verses">373偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">神話時代</span>
+      <span class="meta-tag">Gonanda 朝</span>
+      <span class="meta-tag">Aśoka</span>
+      <span class="meta-tag">Kuṣāṇa</span>
+    </div>
+    <div class="body-text">
+      <p>全篇の序巻。冒頭にŚiva 神（Hara）への帰敬偈と、歴史家としての <strong>rāga-dveṣa-parityāga</strong>（愛憎の超克）の宣言が置かれ、先行する11の歴史著作（Suvrata、Kṣemendra、Helārāja 等）への批判的検討が行われる。前近代インドにおける最も体系的な史料論の一つである。</p>
+      <p>カシミール渓谷の起源神話として、太古の湖 <strong>Satīsaras</strong> から聖仙 <strong>Kaśyapa</strong> が水魔 Jalodbhava を退治し大地を出現させた経緯が語られる。続いて <strong>Gonanda I 世</strong>（Mahābhārata 期、Kṛṣṇa との戦い）から始まる王統が叙述され、<strong>Aśoka</strong>（Maurya 朝）の仏教興隆、Jalauka による Śaivism 復興、<strong>Kuṣāṇa 三王</strong>（Huṣka・Juṣka・Kaniṣka）の仏教再興と都市建設を経て、Gonanda III 世に至る21王・1,014年9ヶ月の圧縮された年代記。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t1.html" target="_blank">第1巻 詳細梗概を見る →</a>
+  </div>
 
-<h4 id="toc">全8巻一覧</h4>
+  <div class="taranga" id="t2">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga II</span>
+      <span class="taranga-title">Dvitīya-taraṅga</span>
+      <span class="taranga-verses">171偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">Lava 王朝</span>
+      <span class="meta-tag">Gopaditya</span>
+      <span class="meta-tag">Meghavāhana</span>
+      <span class="meta-tag">ahiṃsā</span>
+    </div>
+    <div class="body-text">
+      <p>全8巻中最も短い巻。Gonanda III 世の末裔から始まり、<strong>Lava 王朝</strong>の8王を経て、<strong>Gopaditya</strong>（vv. 63–80）の宗教改革（バラモン浄化政策、Śaṅkarācārya 丘上の寺院建立）を記述する。</p>
+      <p>巻の中心は <strong>Meghavāhana</strong> 王（v. 146ff.）の治世である。Gāndhāra 出身の彼は非殺生（ahiṃsā）を統治原理として掲げ、動物犠牲の禁止と生命保護を実践した仁王として描かれる。Gāndhāra 遠征と広大な領土統治の記述も含まれる。王朝断絶と空位期間（interregnum）を経ての Meghavāhana の登場は、Kalhaṇa の王権論における正統性と徳治の問題を提示する。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t2.html" target="_blank">第2巻 詳細梗概を見る →</a>
+  </div>
 
-<table>
-<thead>
-<tr><th>巻</th><th>サンスクリット名</th><th>偈数</th><th>主要内容</th></tr>
-</thead>
-<tbody>
-<tr><td>1</td><td>Prathama-taraṅga</td><td>373</td><td>神話時代〜Gonanda 王朝（Maurya・Kuṣāṇa 含む）</td></tr>
-<tr><td>2</td><td>Dvitīya-taraṅga</td><td>171</td><td>Gonanda 朝末期〜Meghavāhana 朝</td></tr>
-<tr><td>3</td><td>Tṛtīya-taraṅga</td><td>530</td><td>Pravarasena 朝・詩人 Mātṛgupta・Hūṇa 族侵入</td></tr>
-<tr><td>4</td><td>Caturtha-taraṅga</td><td>720</td><td>Kārkoṭa 朝（Lalitāditya・Jayāpīḍa）</td></tr>
-<tr><td>5</td><td>Pañcama-taraṅga</td><td>483</td><td>Utpala 朝前半（Avantivarman・Śaṅkaravarman）</td></tr>
-<tr><td>6</td><td>Ṣaṣṭha-taraṅga</td><td>368</td><td>Utpala 朝末期・女王 Diddā</td></tr>
-<tr><td>7</td><td>Saptama-taraṅga</td><td>1,723</td><td>Lohara 朝前半（Harṣa 王の暴政）</td></tr>
-<tr><td>8</td><td>Aṣṭama-taraṅga</td><td>3,449</td><td>Lohara 朝後半（Kalhaṇa の同時代史）</td></tr>
-<tr><td></td><td>計</td><td><strong>7,826</strong></td><td>神話時代〜1149/50 CE</td></tr>
-</tbody>
-</table>
+  <div class="taranga" id="t3">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga III</span>
+      <span class="taranga-title">Tṛtīya-taraṅga</span>
+      <span class="taranga-verses">530偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">Pravarasena 朝</span>
+      <span class="meta-tag">Mātṛgupta</span>
+      <span class="meta-tag">Hūṇa</span>
+      <span class="meta-tag">Mihirakula</span>
+    </div>
+    <div class="body-text">
+      <p>Pravarasena 朝の興亡を中心に、サンスクリット文学史上著名な挿話と外来民族の侵入を扱う。<strong>Pravarasena I 世</strong>（別名 Tunjina）の四方征服と Pravarapura（現 Srinagar）の建設が巻頭で語られる。</p>
+      <p>巻の最大の挿話は詩人 <strong>Mātṛgupta</strong> のカシミール王任命（vv. 125–287）である。Vikramāditya（Gupta 朝の覇王）が詩人を王に任じ、<strong>Pravarasena II 世</strong>（Prākrit 叙事詩『Setubandha』の作者）の帰還により Mātṛgupta は自発的に退位して Gaṅgā 川に入水する。学識による王権の正当化と精神的超越のドラマとして構成されている。</p>
+      <p>後半は <strong>Toramāṇa</strong>・<strong>Mihirakula</strong>（Hūṇa 族 / エフタル）の残虐な支配を叙述する。Mihirakula の仏教寺院破壊と大量殺戮は、玄奘（Xuanzang）の『大唐西域記』の記録と整合するインド側からの重要な証言である。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t3.html" target="_blank">第3巻 詳細梗概を見る →</a>
+  </div>
 
-<h4 id="t1">第1巻 Prathama-taraṅga（373偈）</h4>
+  <div class="taranga" id="t4">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga IV</span>
+      <span class="taranga-title">Caturtha-taraṅga</span>
+      <span class="taranga-verses">720偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">Kārkoṭa 朝</span>
+      <span class="meta-tag">Lalitāditya</span>
+      <span class="meta-tag">Jayāpīḍa</span>
+      <span class="meta-tag">Mārtāṇḍa</span>
+    </div>
+    <div class="body-text">
+      <p>Kārkoṭa 王朝の全盛期を扱う。Durlabhaka（別名 Pratapaditya II 世）から始まり、Candrapīḍa、Muktāpīḍa の治世を経て、<strong>Lalitāditya-Muktāpīḍa</strong>（vv. 126–355）の大征服へと至る。Lalitāditya はダルド族・トルコ人・チベットへの遠征を行い、Mārtāṇḍa 太陽神殿を建立した。後半は学問好きの王 <strong>Jayāpīḍa</strong>（vv. 402–700）の治世を詳述する。Kārkoṭa 朝17王、260年6ヶ月10日の歴史。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t4.html" target="_blank">第4巻 詳細梗概を見る →</a>
+  </div>
 
-<p>全篇の序巻。冒頭にŚiva 神（Hara）への帰敬偈と、歴史家としての <strong>rāga-dveṣa-parityāga</strong>（愛憎の超克）の宣言が置かれ、先行する11の歴史著作（Suvrata、Kṣemendra、Helārāja 等）への批判的検討が行われる。前近代インドにおける最も体系的な史料論の一つである。</p>
+  <div class="taranga" id="t4b">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga IV</span>
+      <span class="taranga-title">梵和対訳（全720偈）</span>
+    </div>
+    <div class="body-text">
+      <p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全720偈にわたって対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、韻律名の表示や注釈も付しています。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t4_bilingual.html" target="_blank">第4巻 梵和対訳を見る →</a>
+  </div>
 
-<p>カシミール渓谷の起源神話として、太古の湖 <strong>Satīsaras</strong> から聖仙 <strong>Kaśyapa</strong> が水魔 Jalodbhava を退治し大地を出現させた経緯が語られる。続いて <strong>Gonanda I 世</strong>（Mahābhārata 期、Kṛṣṇa との戦い）から始まる王統が叙述され、<strong>Aśoka</strong>（Maurya 朝）の仏教興隆、Jalauka による Śaivism 復興、<strong>Kuṣāṇa 三王</strong>（Huṣka・Juṣka・Kaniṣka）の仏教再興と都市建設を経て、Gonanda III 世に至る21王・1,014年9ヶ月の圧縮された年代記。</p>
+  <div class="taranga" id="t5">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga V</span>
+      <span class="taranga-title">Pañcama-taraṅga</span>
+      <span class="taranga-verses">483偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">Utpala 朝</span>
+      <span class="meta-tag">Avantivarman</span>
+      <span class="meta-tag">Suyya</span>
+      <span class="meta-tag">Śaṅkaravarman</span>
+    </div>
+    <div class="body-text">
+      <p>Utpala（蓮華）王朝の創始と前半を扱う。善政の理想として描かれる <strong>Avantivarman</strong>（vv. 2–127）が巻の前半の中心である。彼の治世における治水技師 <strong>Suyya</strong> の偉業（vv. 68–121）は、Vitastā（Jhelum）川の氾濫防止とカシミール渓谷の農地回復を記録し、インド土木工学史上も貴重な証言となっている。</p>
+      <p>Avantivarman の子 <strong>Śaṅkaravarman</strong>（vv. 128–221）は軍事的に野心的であったが苛税で悪名が高い。Gopālavarman（v. 222ff.）以降は Utpala 朝の衰退期に入り、Cakravarman、Śaṅkaravardhana、Partha らの短命な王が続き、宮廷内の陰謀と権力闘争の末に <strong>Yaśaskara</strong>（vv. 460–483）が即位して巻を閉じる。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t5.html" target="_blank">第5巻 詳細梗概を見る →</a>
+  </div>
 
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t1.html" target="_blank"><strong>第1巻 詳細梗概を見る</strong></a></p>
+  <div class="taranga" id="t5b">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga V</span>
+      <span class="taranga-title">梵和対訳（全483偈）</span>
+    </div>
+    <div class="body-text">
+      <p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全483偈にわたって対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、韻律名の表示や注釈も付しています。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t5_bilingual.html" target="_blank">第5巻 梵和対訳を見る →</a>
+  </div>
 
-<h4 id="t2">第2巻 Dvitīya-taraṅga（171偈）</h4>
+  <div class="taranga" id="t6">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga VI</span>
+      <span class="taranga-title">Ṣaṣṭha-taraṅga</span>
+      <span class="taranga-verses">368偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">Utpala 朝末期</span>
+      <span class="meta-tag">女王 Diddā</span>
+      <span class="meta-tag">Lohara 朝移行</span>
+    </div>
+    <div class="body-text">
+      <p>Utpala 王朝末期から Lohara 王朝初期への移行期を扱う。巻の前半は Utpala 朝末期の政治的混乱を記述し、Parvagupta、Kṣemagupta らの短命な治世が続く。</p>
+      <p>巻の核心は<strong>女王 Diddā</strong>（vv. 177–368）の統治である。Kṣemagupta 王の妃として権力を握り、夫の死後は息子 Abhimanyu、さらに孫たちの摂政として実権を掌握した。Diddā は足が不自由であったにもかかわらず、強靭な政治手腕で約50年にわたり実質的な支配者であり続けた。寵臣 Tuṅga との関係、反乱の鎮圧、そして最終的に Lohara 家の Saṃgrāmarāja を養子・後継者に指名したことで、Utpala 朝から Lohara 朝への王朝交代が実現する。Diddā の人物像は Rājataraṅgiṇī 中最も鮮烈な描写の一つである。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t6.html" target="_blank">第6巻 詳細梗概を見る →</a>
+  </div>
 
-<p>全8巻中最も短い巻。Gonanda III 世の末裔から始まり、<strong>Lava 王朝</strong>の8王を経て、<strong>Gopaditya</strong>（vv. 63–80）の宗教改革（バラモン浄化政策、Śaṅkarācārya 丘上の寺院建立）を記述する。</p>
+  <div class="taranga" id="t6b">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga VI</span>
+      <span class="taranga-title">梵和対訳（全368偈）</span>
+    </div>
+    <div class="body-text">
+      <p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全368偈にわたって対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、韻律名の表示や注釈も付しています。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t6_bilingual.html" target="_blank">第6巻 梵和対訳を見る →</a>
+  </div>
 
-<p>巻の中心は <strong>Meghavāhana</strong> 王（v. 146ff.）の治世である。Gāndhāra 出身の彼は非殺生（ahiṃsā）を統治原理として掲げ、動物犠牲の禁止と生命保護を実践した仁王として描かれる。Gāndhāra 遠征と広大な領土統治の記述も含まれる。王朝断絶と空位期間（interregnum）を経ての Meghavāhana の登場は、Kalhaṇa の王権論における正統性と徳治の問題を提示する。</p>
+  <div class="taranga" id="t7">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga VII</span>
+      <span class="taranga-title">Saptama-taraṅga</span>
+      <span class="taranga-verses">1,723偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">Lohara 朝</span>
+      <span class="meta-tag">Harṣa</span>
+      <span class="meta-tag">寺院略奪</span>
+      <span class="meta-tag">暴政</span>
+    </div>
+    <div class="body-text">
+      <p>Lohara 王朝前半を扱う大巻。Diddā の養子 <strong>Saṃgrāmarāja</strong> に始まる新王朝は、Ghazna 朝の外圧、Ḍāmara 豪族の反乱、世代間の王位争奪という三重の危機に直面する。<strong>Anantadeva</strong> は妃 Sūryamatī の強い影響下に35年間統治するが、息子 Kalaśa への譲位を後悔し、王位奪還を試みて失敗、自殺する。Sūryamatī も殉死した。</p>
+      <p><strong>Kalaśa</strong> の放蕩と財政悪化を経て即位した <strong>Harṣa</strong>（Harṣadeva）は、第7巻の核心人物である。詩学・音楽に通じた才人でありながら、財政危機に追い詰められて <strong>devottāraṇa-nāyaka</strong>（「神像引き降ろしの長官」）を新設し、カシミール全土の寺院から金属神像を組織的に略奪・溶融した。Kalhaṇa はこの行為を Turks（イスラム教徒の征服者）に比し、ヒンドゥー王による寺院破壊の稀有な記録を残す。放火癖・苛税・猜疑に沈む暴政の末、Uccala・Sussala の反乱により火中で命を落とした。Kalhaṇa の父 Caṇpaka はこの王の宰相であった。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t7.html" target="_blank">第7巻 詳細梗概を見る →</a>
+  </div>
 
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t2.html" target="_blank"><strong>第2巻 詳細梗概を見る</strong></a></p>
+  <div class="taranga" id="t7b">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga VII</span>
+      <span class="taranga-title">梵和対訳（主要偈精選）</span>
+    </div>
+    <div class="body-text">
+      <p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全1,723偈のうち叙述の骨格を構成する主要偈を精選して対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、Saṃgrāmarāja から Harṣa の滅亡に至る Lohara 朝前半の通史を辿ります。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t7_bilingual.html" target="_blank">第7巻 梵和対訳を見る →</a>
+  </div>
 
-<h4 id="t3">第3巻 Tṛtīya-taraṅga（530偈）</h4>
+  <div class="taranga" id="t8">
+    <div class="taranga-head">
+      <span class="taranga-num">Taraṅga VIII</span>
+      <span class="taranga-title">Aṣṭama-taraṅga</span>
+      <span class="taranga-verses">3,449偈</span>
+    </div>
+    <div class="taranga-meta">
+      <span class="meta-tag">同時代史</span>
+      <span class="meta-tag">Uccala</span>
+      <span class="meta-tag">Sussala</span>
+      <span class="meta-tag">Jayasiṃha</span>
+    </div>
+    <div class="body-text">
+      <p>全8巻中最長の巻であり、著者 Kalhaṇa の同時代史を記録する。Harṣa 王亡き後、Lohara 朝傍系の <strong>Uccala</strong>（c. 1101–1111 CE）が善政の王として秩序を回復するが、宮廷内の陰謀により暗殺される。弟 <strong>Sussala</strong> は二度にわたって王位に就くが、いずれも <strong>Dāmara</strong>（封建領主層）との果てしない軍事的対立に明け暮れ、最終的に戦死する。</p>
+      <p>その間に托鉢僧出身の簒奪者 <strong>Bhikṣācara</strong> が王位を奪い、Dāmara の傀儡と化して制度的崩壊を招く。Sussala の子 <strong>Jayasiṃha</strong>（c. 1128–1155+ CE）が長期安定政権を樹立し、Kalhaṇa はこの現役の王のもとで執筆を完了する（c. 1148–1150 CE）。Kalhaṇa の父 <strong>Caṃpaka</strong> が Jayasiṃha の大宰相を務めており、宮廷内部者としての特権的情報が叙述の基盤を成す。飢饉・貨幣劣化・自然災害の記録を含み、中世カシミールの社会経済史の第一級資料。</p>
+    </div>
+    <a class="detail-link" href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t8.html" target="_blank">第8巻 詳細梗概を見る →</a>
+  </div>
 
-<p>Pravarasena 朝の興亡を中心に、サンスクリット文学史上著名な挿話と外来民族の侵入を扱う。<strong>Pravarasena I 世</strong>（別名 Tunjina）の四方征服と Pravarapura（現 Srinagar）の建設が巻頭で語られる。</p>
-
-<p>巻の最大の挿話は詩人 <strong>Mātṛgupta</strong> のカシミール王任命（vv. 125–287）である。Vikramāditya（Gupta 朝の覇王）が詩人を王に任じ、<strong>Pravarasena II 世</strong>（Prākrit 叙事詩『Setubandha』の作者）の帰還により Mātṛgupta は自発的に退位して Gaṅgā 川に入水する。学識による王権の正当化と精神的超越のドラマとして構成されている。</p>
-
-<p>後半は <strong>Toramāṇa</strong>・<strong>Mihirakula</strong>（Hūṇa 族 / エフタル）の残虐な支配を叙述する。Mihirakula の仏教寺院破壊と大量殺戮は、玄奘（Xuanzang）の『大唐西域記』の記録と整合するインド側からの重要な証言である。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t3.html" target="_blank"><strong>第3巻 詳細梗概を見る</strong></a></p>
-
-<h4 id="t4">第4巻 Caturtha-taraṅga（720偈）</h4>
-
-<p>Kārkoṭa 王朝の全盛期を扱う。Durlabhaka（別名 Pratapaditya II 世）から始まり、Candrapīḍa、Muktāpīḍa の治世を経て、<strong>Lalitāditya-Muktāpīḍa</strong>（vv. 126–355）の大征服へと至る。Lalitāditya はダルド族・トルコ人・チベットへの遠征を行い、Mārtāṇḍa 太陽神殿を建立した。後半は学問好きの王 <strong>Jayāpīḍa</strong>（vv. 402–700）の治世を詳述する。Kārkoṭa 朝17王、260年6ヶ月10日の歴史。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t4.html" target="_blank"><strong>第4巻 詳細梗概を見る</strong></a></p>
-
-<h4 id="t4b">第4巻 梵和対訳（全720偈）</h4>
-
-<p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全720偈にわたって対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、韻律名の表示や注釈も付しています。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t4_bilingual.html" target="_blank"><strong>第4巻 梵和対訳（全720偈）を見る</strong></a></p>
-
-<h4 id="t5">第5巻 Pañcama-taraṅga（483偈）</h4>
-
-<p>Utpala（蓮華）王朝の創始と前半を扱う。善政の理想として描かれる <strong>Avantivarman</strong>（vv. 2–127）が巻の前半の中心である。彼の治世における治水技師 <strong>Suyya</strong> の偉業（vv. 68–121）は、Vitastā（Jhelum）川の氾濫防止とカシミール渓谷の農地回復を記録し、インド土木工学史上も貴重な証言となっている。</p>
-
-<p>Avantivarman の子 <strong>Śaṅkaravarman</strong>（vv. 128–221）は軍事的に野心的であったが苛税で悪名が高い。Gopālavarman（v. 222ff.）以降は Utpala 朝の衰退期に入り、Cakravarman、Śaṅkaravardhana、Partha らの短命な王が続き、宮廷内の陰謀と権力闘争の末に <strong>Yaśaskara</strong>（vv. 460–483）が即位して巻を閉じる。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t5.html" target="_blank"><strong>第5巻 詳細梗概を見る</strong></a></p>
-
-<h4 id="t5b">第5巻 梵和対訳（全483偈）</h4>
-
-<p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全483偈にわたって対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、韻律名の表示や注釈も付しています。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t5_bilingual.html" target="_blank"><strong>第5巻 梵和対訳（全483偈）を見る</strong></a></p>
-
-<h4 id="t6">第6巻 Ṣaṣṭha-taraṅga（368偈）</h4>
-
-<p>Utpala 王朝末期から Lohara 王朝初期への移行期を扱う。巻の前半は Utpala 朝末期の政治的混乱を記述し、Parvagupta、Kṣemagupta らの短命な治世が続く。</p>
-
-<p>巻の核心は<strong>女王 Diddā</strong>（vv. 177–368）の統治である。Kṣemagupta 王の妃として権力を握り、夫の死後は息子 Abhimanyu、さらに孫たちの摂政として実権を掌握した。Diddā は足が不自由であったにもかかわらず、強靭な政治手腕で約50年にわたり実質的な支配者であり続けた。寵臣 Tuṅga との関係、反乱の鎮圧、そして最終的に Lohara 家の Saṃgrāmarāja を養子・後継者に指名したことで、Utpala 朝から Lohara 朝への王朝交代が実現する。Diddā の人物像は Rājataraṅgiṇī 中最も鮮烈な描写の一つである。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t6.html" target="_blank"><strong>第6巻 詳細梗概を見る</strong></a></p>
-
-<h4 id="t6b">第6巻 梵和対訳（全368偈）</h4>
-
-<p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全368偈にわたって対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、韻律名の表示や注釈も付しています。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t6_bilingual.html" target="_blank"><strong>第6巻 梵和対訳（全368偈）を見る</strong></a></p>
-
-<h4 id="t7">第7巻 Saptama-taraṅga（1,723偈）</h4>
-
-<p>Lohara 王朝前半を扱う大巻。Diddā の養子 <strong>Saṃgrāmarāja</strong> に始まる新王朝は、Ghazna 朝の外圧、Ḍāmara 豪族の反乱、世代間の王位争奪という三重の危機に直面する。<strong>Anantadeva</strong> は妃 Sūryamatī の強い影響下に35年間統治するが、息子 Kalaśa への譲位を後悔し、王位奪還を試みて失敗、自殺する。Sūryamatī も殉死した。</p>
-
-<p><strong>Kalaśa</strong> の放蕩と財政悪化を経て即位した <strong>Harṣa</strong>（Harṣadeva）は、第7巻の核心人物である。詩学・音楽に通じた才人でありながら、財政危機に追い詰められて <strong>devottāraṇa-nāyaka</strong>（「神像引き降ろしの長官」）を新設し、カシミール全土の寺院から金属神像を組織的に略奪・溶融した。Kalhaṇa はこの行為を Turks（イスラム教徒の征服者）に比し、ヒンドゥー王による寺院破壊の稀有な記録を残す。放火癖・苛税・猜疑に沈む暴政の末、Uccala・Sussala の反乱により火中で命を落とした。Kalhaṇa の父 Caṇpaka はこの王の宰相であった。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t7.html" target="_blank"><strong>第7巻 詳細梗概を見る</strong></a></p>
-
-<h4 id="t7b">第7巻 梵和対訳（主要偈精選）</h4>
-
-<p>Stein 校訂本に基づくサンスクリット原文（IAST 翻字）と日本語訳を、全1,723偈のうち叙述の骨格を構成する主要偈を精選して対照形式で提示しています。左欄に梵文、右欄に和訳を配した二段組レイアウトで、Saṃgrāmarāja から Harṣa の滅亡に至る Lohara 朝前半の通史を辿ります。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t7_bilingual.html" target="_blank"><strong>第7巻 梵和対訳（主要偈精選）を見る</strong></a></p>
-
-<h4 id="t8">第8巻 Aṣṭama-taraṅga（3,449偈）</h4>
-
-<p>全8巻中最長の巻であり、著者 Kalhaṇa の同時代史を記録する。Harṣa 王亡き後、Lohara 朝傍系の <strong>Uccala</strong>（c. 1101–1111 CE）が善政の王として秩序を回復するが、宮廷内の陰謀により暗殺される。弟 <strong>Sussala</strong> は二度にわたって王位に就くが、いずれも <strong>Dāmara</strong>（封建領主層）との果てしない軍事的対立に明け暮れ、最終的に戦死する。</p>
-
-<p>その間に托鉢僧出身の簒奪者 <strong>Bhikṣācara</strong> が王位を奪い、Dāmara の傀儡と化して制度的崩壊を招く。Sussala の子 <strong>Jayasiṃha</strong>（c. 1128–1155+ CE）が長期安定政権を樹立し、Kalhaṇa はこの現役の王のもとで執筆を完了する（c. 1148–1150 CE）。Kalhaṇa の父 <strong>Caṃpaka</strong> が Jayasiṃha の大宰相を務めており、宮廷内部者としての特権的情報が叙述の基盤を成す。飢饉・貨幣劣化・自然災害の記録を含み、中世カシミールの社会経済史の第一級資料。</p>
-
-<p>→ <a href="https://htmlpreview.github.io/?https://github.com/Mandana1221/brahmasiddhi/blob/claude/rajatarangini-outline-e15elj/rajatarangini_t8.html" target="_blank"><strong>第8巻 詳細梗概を見る</strong></a></p>
-
-<h4 id="refs">参考文献</h4>
-
-<ul>
-<li>Kalhaṇa, <em>Rājataraṅgiṇī</em>, ed. M. A. Stein, Bombay, 1892.</li>
-<li>Stein, M. A. (trans.), <em>Kalhaṇa's Rājataraṅgiṇī: A Chronicle of the Kings of Kaśmīr</em>, 2 vols., Westminster, 1900.</li>
-</ul>
+  <div class="refs" id="refs">
+    <div class="refs-title">参考文献</div>
+    <ul>
+      <li>Kalhaṇa, <em>Rājataraṅgiṇī</em>, ed. M. A. Stein, Bombay, 1892.</li>
+      <li>Stein, M. A. (trans.), <em>Kalhaṇa's Rājataraṅgiṇī: A Chronicle of the Kings of Kaśmīr</em>, 2 vols., Westminster, 1900.</li>
+    </ul>
+  </div>
 
 </div>
 </body>
