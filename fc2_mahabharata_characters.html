@@ -1,0 +1,1072 @@
+<!-- マハーバーラタ 人物相関図 — FC2ブログ用 HTML（H3以下） -->
+
+<style>
+  .mbh-rel { font-family: 'Yu Mincho', 'Noto Serif JP', 'Hiragino Mincho ProN', serif; color: #2c2418; line-height: 1.85; max-width: 960px; margin: 0 auto; }
+  .mbh-rel h3 { font-size: 1.5em; color: #8b1a1a; border-bottom: 3px double #8b1a1a; padding-bottom: 0.3em; margin: 2.2em 0 0.8em; letter-spacing: 0.08em; }
+  .mbh-rel h4 { font-size: 1.2em; color: #4a2a0a; border-left: 4px solid #c9a96e; padding-left: 0.6em; margin: 1.8em 0 0.6em; }
+  .mbh-rel h5 { font-size: 1.05em; color: #6b4226; margin: 1.2em 0 0.4em; }
+  .mbh-rel p { margin: 0.6em 0; text-align: justify; text-indent: 1em; }
+  .mbh-rel .no-indent { text-indent: 0; }
+  .mbh-rel table { width: 100%; border-collapse: collapse; margin: 1em 0 1.5em; font-size: 0.92em; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+  .mbh-rel th { background: linear-gradient(180deg, #4a2a0a, #6b4226); color: #f0e8d8; padding: 0.6em 0.8em; text-align: center; font-weight: bold; border: 1px solid #3a1a00; }
+  .mbh-rel td { padding: 0.5em 0.8em; border: 1px solid #d4c8a8; vertical-align: top; }
+  .mbh-rel tr:nth-child(even) td { background: #faf6ee; }
+  .mbh-rel tr:nth-child(odd) td { background: #fff; }
+  .mbh-rel .fig-box { background: #fdf8f0; border: 2px solid #c9a96e; border-radius: 8px; padding: 1.2em; margin: 1.2em 0; box-shadow: 2px 2px 6px rgba(0,0,0,0.06); }
+  .mbh-rel .fig-caption { font-size: 0.85em; color: #666; margin-top: 0.5em; font-style: italic; text-align: center; }
+  .mbh-rel .note { font-size: 0.88em; color: #555; background: #f5f5f0; padding: 0.5em 1em; border-radius: 4px; margin: 0.5em 0; text-indent: 0; }
+
+  /* 系譜ツリー */
+  .mbh-rel .gen-card { display: inline-block; border: 2px solid #c9a96e; border-radius: 6px; padding: 0.3em 0.7em; margin: 0.15em 0; background: #fdf8f0; font-size: 0.9em; }
+  .mbh-rel .gen-card strong { color: #8b1a1a; }
+  .mbh-rel .gen-card small { font-size: 0.85em; color: #888; }
+  .mbh-rel .gen-card em { font-size: 0.82em; color: #6b4226; font-style: italic; }
+  .mbh-rel .gen-king { background: linear-gradient(135deg, #f5e0b0, #e8cc88); border-color: #b08830; font-size: 1em; }
+  .mbh-rel .gen-minor { background: #f0f0ea; border-color: #ccc; color: #999; font-size: 0.85em; }
+  .mbh-rel .gen-kaurava { background: #fce4e4; border-color: #c08080; }
+  .mbh-rel .gen-pandava { background: #dcf0dc; border-color: #80b880; }
+  .mbh-rel .gen-yadava { background: #dce4f5; border-color: #7088b8; }
+  .mbh-rel .gen-label { font-size: 0.82em; color: #6b4226; font-weight: bold; margin: 0.4em 0 0.1em; }
+  .mbh-rel .gen-level { margin-left: 1.5em; border-left: 2.5px solid #c9a96e; padding: 0.2em 0 0.3em 1em; margin-top: 0.2em; }
+
+  /* 相関図の凡例 */
+  .mbh-rel .legend { display: flex; flex-wrap: wrap; gap: 1em; justify-content: center; margin: 0.8em 0; font-size: 0.85em; }
+  .mbh-rel .legend-item { display: flex; align-items: center; gap: 0.3em; }
+  .mbh-rel .legend-line { width: 30px; height: 0; border-top: 3px solid; display: inline-block; }
+  .mbh-rel .legend-swatch { width: 16px; height: 16px; border-radius: 3px; border: 1.5px solid; display: inline-block; }
+
+  /* 陣営図 */
+  .mbh-rel .sides { display: flex; gap: 1.5em; flex-wrap: wrap; margin: 1em 0; }
+  .mbh-rel .sides > div { flex: 1; min-width: 280px; }
+  .mbh-rel .side-pandava { background: #f0f8f0; border: 2px solid #80b880; border-radius: 8px; padding: 1em; }
+  .mbh-rel .side-kaurava { background: #fdf0f0; border: 2px solid #c08080; border-radius: 8px; padding: 1em; }
+  .mbh-rel .side-pandava h5 { color: #2d6b3a; border-bottom: 2px solid #80b880; padding-bottom: 0.2em; }
+  .mbh-rel .side-kaurava h5 { color: #8b1a1a; border-bottom: 2px solid #c08080; padding-bottom: 0.2em; }
+  .mbh-rel .cmd-tag { display: inline-block; font-size: 0.75em; padding: 0.1em 0.5em; border-radius: 10px; color: #fff; font-weight: bold; margin-left: 0.3em; }
+
+  /* 関係ペア表示 */
+  .mbh-rel .rel-pair { display: flex; align-items: center; gap: 0; margin: 0.6em 0; flex-wrap: wrap; justify-content: center; }
+  .mbh-rel .rel-char { border: 2px solid #c9a96e; border-radius: 6px; padding: 0.35em 0.7em; font-size: 0.92em; text-align: center; min-width: 90px; }
+  .mbh-rel .rel-arrow { font-size: 0.8em; padding: 0.2em 0.6em; text-align: center; color: #6b4226; min-width: 80px; }
+  .mbh-rel .rel-arrow .rel-type { display: block; font-weight: bold; font-size: 1.05em; }
+
+  /* SVG レスポンシブ */
+  .mbh-rel .svg-wrap { width: 100%; overflow-x: auto; margin: 1em 0; }
+  .mbh-rel .svg-wrap svg { display: block; margin: 0 auto; max-width: 100%; height: auto; }
+</style>
+
+<div class="mbh-rel">
+
+<h3>マハーバーラタ 人物相関図</h3>
+
+<p class="no-indent" style="text-align:center; font-size:0.95em; color:#666;">
+サンスクリット原文：BORI批判校訂版 (Bhandarkar Oriental Research Institute, Pune, 1999) に基づく
+</p>
+
+<div class="fig-box" style="text-align:center; padding:0.8em;">
+<strong>関連資料：</strong>
+<a href="https://mandana1221.github.io/brahmasiddhi/fc2_mahabharata_guide.html" style="color:#8b1a1a; font-weight:bold;">散文要約ガイド（全18篇）</a>
+&nbsp;｜&nbsp;
+<a href="https://mandana1221.github.io/brahmasiddhi/fc2_mahabharata_toc.html" style="color:#8b1a1a; font-weight:bold;">全篇・全章 目次</a>
+&nbsp;｜&nbsp;
+<a href="https://mandana1221.github.io/brahmasiddhi/fc2_mahabharata_karna.html" style="color:#8b1a1a; font-weight:bold;">カルナ篇 詳細</a>
+</div>
+
+<p>
+マハーバーラタの主要登場人物の血縁・姻戚・師弟・同盟・敵対関係を図表で示す。人名の表記はIAST転写を併記し、BORI批判校訂版の構成テキストに基づく。
+</p>
+
+
+<!-- ==================== 大系図 ==================== -->
+<h4>バーラタ族大系図</h4>
+
+<p>
+批判校訂版 Ādi-parvan 第90章（01,090）の系譜に基づき、プーラヴァ族（Paurava）の王統をシャンタヌ王まで辿り、以下の主要人物への血脈を示す。
+</p>
+
+<div class="fig-box" style="text-align:left;">
+
+<div class="gen-label">太陽系譜 (Sūrya-vaṃśa) → 月種 (Candra-vaṃśa)</div>
+<div class="gen-card gen-minor">ダクシャ <small>Dakṣa</small></div> → <div class="gen-card gen-minor">アーディティ <small>Āditi</small></div> → <div class="gen-card gen-minor">ヴィヴァスヴァト <small>Vivasvat</small></div> → <div class="gen-card gen-minor">マヌ <small>Manu</small></div> → <div class="gen-card gen-minor">イラー <small>Ilā</small></div>
+
+<div class="gen-level">
+<div class="gen-card gen-minor">プルーラヴァス <small>Purūravas</small></div> → <div class="gen-card gen-minor">アーユス <small>Āyus</small></div> → <div class="gen-card gen-minor">ナフシャ <small>Nahuṣa</small></div>
+
+<div class="gen-level">
+<div class="gen-card gen-king"><strong>ヤヤーティ王</strong> <small>Yayāti</small></div>
+
+<div class="gen-level" style="border-color:#7088b8;">
+<div class="gen-label">＋ デーヴァヤーニー <small>Devayānī</small>（ウシャナスの娘）</div>
+<div class="gen-card gen-yadava"><strong>ヤドゥ</strong> <small>Yadu</small> <em>→ ヤーダヴァ族の始祖（クリシュナの家系）</em></div><br>
+<div class="gen-card gen-minor">トゥルヴァス <small>Turvasu</small></div>
+</div>
+
+<div class="gen-level">
+<div class="gen-label">＋ シャルミシュター <small>Śarmiṣṭhā</small>（ヴリシャパルヴァンの娘）</div>
+<div class="gen-card gen-minor">ドゥルヒユ <small>Druhyu</small></div>
+<div class="gen-card gen-minor">アヌ <small>Anu</small></div>
+<div class="gen-card"><strong>プール</strong> <small>Pūru</small> <em>→ クル族の直系祖先</em></div>
+</div>
+
+<div class="gen-level">
+<div class="gen-label">プール → … → クル（Kuru）→ … →</div>
+<div class="gen-card gen-king"><strong>シャンタヌ王</strong> <small>Śantanu</small></div>
+
+<div class="gen-level">
+<div class="gen-label">第一妃 ＋ ガンガー女神 <small>Gaṅgā</small></div>
+<div class="gen-card"><strong>デーヴァヴラタ（ビーシュマ）</strong> <small>Devavrata / Bhīṣma</small> <em>— 終生独身の誓い（bhīṣma-pratigñā）により王統から離脱</em></div>
+</div>
+
+<div class="gen-level">
+<div class="gen-label">第二妃 ＋ サティヤヴァティー <small>Satyavatī</small></div>
+<div class="gen-card gen-minor">チトラーンガダ <small>Citrāṅgada</small> <em>〔ガンダルヴァとの戦闘で早世〕</em></div><br>
+<div class="gen-card gen-minor">ヴィチトラヴィーリヤ <small>Vicitravīrya</small> <em>〔嗣子なく病死〕</em></div>
+
+<div class="gen-level" style="border-left-style:dashed; border-color:#b08030;">
+<div class="gen-label" style="color:#8b6914;">▼ サティヤヴァティーの命令によるヴィヤーサのニヨーガ（niyoga）</div>
+<p class="note">サティヤヴァティーは結婚前にパラーシャラ仙（Parāśara）との間にヴィヤーサ（Vyāsa = Kṛṣṇa Dvaipāyana）を産んでいた（01,057）。ヴィチトラヴィーリヤの死後、王統存続のため異父子ヴィヤーサに代理父（niyoga）を命じた。</p>
+
+<div class="gen-level" style="border-color:#c08080;">
+<div class="gen-label">ヴィヤーサ ＋ アンビカー <small>Ambikā</small>（ヴィチトラヴィーリヤの第一妃）</div>
+<div class="gen-card gen-kaurava"><strong>ドリタラーシュトラ</strong> <small>Dhṛtarāṣṭra</small> <em>〔生来盲目〕</em></div>
+<div class="gen-level" style="border-color:#c08080;">
+<div class="gen-label">＋ ガーンダーリー <small>Gāndhārī</small>（ガンダーラ王女、スバラの娘）</div>
+<div class="gen-card gen-kaurava"><strong>ドゥルヨーダナ</strong> <small>Duryodhana</small></div>
+<div class="gen-card gen-kaurava"><strong>ドゥフシャーサナ</strong> <small>Duḥśāsana</small></div>
+<div class="gen-card gen-kaurava">他カウラヴァ<strong>百王子</strong></div><br>
+<div class="gen-card gen-kaurava"><strong>ドゥフシャラー</strong> <small>Duḥśalā</small> <em>（唯一の娘）</em></div>
+<div class="gen-level" style="border-color:#aaa;">
+<div class="gen-label">＋ ジャヤドラタ <small>Jayadratha</small>（シンドゥ王）</div>
+</div>
+</div>
+</div>
+
+<div class="gen-level" style="border-color:#80b880;">
+<div class="gen-label">ヴィヤーサ ＋ アンバーリカー <small>Ambālikā</small>（ヴィチトラヴィーリヤの第二妃）</div>
+<div class="gen-card gen-pandava"><strong>パーンドゥ</strong> <small>Pāṇḍu</small> <em>〔白色の容貌〕</em></div>
+<div class="gen-level" style="border-color:#80b880;">
+<div class="gen-label">＋ 第一妃 クンティー <small>Kuntī</small>（= プリター Pṛthā、シューラ王の娘、クンティボージャの養女）</div>
+<div class="gen-card gen-pandava"><strong>ユディシュティラ</strong> <small>Yudhiṣṭhira</small> <em>（ダルマ神の子）</em></div><br>
+<div class="gen-card gen-pandava"><strong>ビーマセーナ</strong> <small>Bhīmasena</small> <em>（ヴァーユ神の子）</em></div><br>
+<div class="gen-card gen-pandava"><strong>アルジュナ</strong> <small>Arjuna</small> <em>（インドラ神の子）</em></div>
+</div>
+<div class="gen-level" style="border-color:#80b880;">
+<div class="gen-label">＋ 第二妃 マードリー <small>Mādrī</small>（マドラ国の王女）</div>
+<div class="gen-card gen-pandava"><strong>ナクラ</strong> <small>Nakula</small> <em>（アシュヴィン双神の子）</em></div>
+<div class="gen-card gen-pandava"><strong>サハデーヴァ</strong> <small>Sahadeva</small> <em>（アシュヴィン双神の子）</em></div>
+</div>
+</div>
+
+<div class="gen-level" style="border-color:#aaa;">
+<div class="gen-label">ヴィヤーサ ＋ 侍女（dāsī）</div>
+<div class="gen-card"><strong>ヴィドゥラ</strong> <small>Vidura</small> <em>（ダルマ神の化身とされる宰相）</em></div>
+</div>
+
+</div><!-- end niyoga -->
+</div><!-- end Satyavatī -->
+</div><!-- end Śantanu -->
+</div><!-- end Pūru line -->
+</div><!-- end Yayāti -->
+</div><!-- end Nahuṣa -->
+</div><!-- end Purūravas -->
+
+<div class="fig-caption">
+図1：バーラタ族大系図（BORI CE, 01,090 に基づく）<br>
+<span style="font-size:0.9em;">
+<span class="legend-swatch" style="background:#fce4e4; border-color:#c08080;"></span> カウラヴァ
+<span class="legend-swatch" style="background:#dcf0dc; border-color:#80b880;"></span> パーンダヴァ
+<span class="legend-swatch" style="background:#dce4f5; border-color:#7088b8;"></span> ヤーダヴァ
+<span style="display:inline-block;width:20px;border-top:2px dashed #b08030;"></span> ニヨーガ
+</span>
+</div>
+</div>
+
+
+<!-- ==================== ヤーダヴァとの姻戚 ==================== -->
+<h4>ヤーダヴァ族（Yādava）との姻戚関係</h4>
+
+<p>
+ヤーダヴァ族はヤヤーティ王の長子ヤドゥ（Yadu）を始祖とする。クル族（プール系）とヤーダヴァ族（ヤドゥ系）は共にヤヤーティの子孫であり、パーンダヴァとクリシュナの同盟は遠い血縁に基づく。BORI CE, Ādi-parvan に基づく関係は以下の通り。
+</p>
+
+<div class="fig-box" style="text-align:left;">
+
+<div class="gen-card gen-yadava"><strong>シューラ</strong> <small>Śūra</small> <em>（ヤーダヴァ族・ヴリシュニ家）</em></div>
+
+<div class="gen-level" style="border-color:#7088b8;">
+<div class="gen-label">シューラの子女</div>
+<div class="gen-card gen-pandava"><strong>プリター（クンティー）</strong> <small>Pṛthā / Kuntī</small> <em>→ クンティボージャの養女となり、パーンドゥに嫁ぐ</em></div><br>
+<div class="gen-card gen-yadava"><strong>ヴァスデーヴァ</strong> <small>Vasudeva</small></div>
+
+<div class="gen-level" style="border-color:#7088b8;">
+<div class="gen-label">ヴァスデーヴァの子女</div>
+<div class="gen-level" style="border-color:#7088b8;">
+<div class="gen-label">＋ デーヴァキー <small>Devakī</small></div>
+<div class="gen-card gen-yadava"><strong>クリシュナ</strong> <small>Kṛṣṇa / Vāsudeva</small></div>
+</div>
+<div class="gen-level" style="border-color:#7088b8;">
+<div class="gen-label">＋ ローヒニー <small>Rohiṇī</small></div>
+<div class="gen-card gen-yadava"><strong>バラデーヴァ</strong> <small>Baladeva / Balarāma</small></div>
+</div>
+<div class="gen-card gen-yadava"><strong>スバドラー</strong> <small>Subhadrā</small> <em>→ アルジュナに嫁ぐ（01,211ff.）</em></div>
+</div>
+</div>
+
+<div class="gen-level" style="border-color:#7088b8; margin-top:0.5em;">
+<div class="gen-label">結論：姻戚の環</div>
+<p class="note">クンティーとヴァスデーヴァは兄妹（同父シューラ）。従って<strong>クリシュナはパーンダヴァ五兄弟の従兄弟（母方）</strong>にあたる。さらにアルジュナがクリシュナの妹スバドラーと結婚することで、二重の姻戚関係が成立する。</p>
+</div>
+</div>
+
+<div class="fig-caption">図2：ヤーダヴァ族とパーンダヴァの姻戚関係</div>
+
+
+<!-- ==================== 中心人物相関図 (SVG) ==================== -->
+<h4>主要人物 相関図</h4>
+
+<p>
+中心人物12名の血縁・婚姻・師弟・敵対関係を図示する。色分けは勢力別（緑＝パーンダヴァ側、赤＝カウラヴァ側、青＝ヤーダヴァ、茶＝中立/教師）。
+</p>
+
+<div class="fig-box">
+<div class="svg-wrap">
+<svg viewBox="0 0 960 640" xmlns="http://www.w3.org/2000/svg" style="font-family:'Yu Mincho','Noto Serif JP','Hiragino Mincho ProN',serif;">
+
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#8b6914"/></marker>
+    <marker id="arr-red" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#b03030"/></marker>
+    <marker id="arr-green" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto"><path d="M0,0 L8,3 L0,6" fill="#2d6b3a"/></marker>
+  </defs>
+
+  <!-- ===== 背景ゾーン ===== -->
+  <rect x="10" y="210" width="380" height="280" rx="12" fill="#fce4e4" fill-opacity="0.25" stroke="#c08080" stroke-dasharray="6 3" stroke-opacity="0.5"/>
+  <text x="200" y="235" text-anchor="middle" fill="#c08080" font-size="11" font-weight="bold">カウラヴァ陣営</text>
+
+  <rect x="480" y="210" width="470" height="280" rx="12" fill="#dcf0dc" fill-opacity="0.25" stroke="#80b880" stroke-dasharray="6 3" stroke-opacity="0.5"/>
+  <text x="715" y="235" text-anchor="middle" fill="#2d6b3a" font-size="11" font-weight="bold">パーンダヴァ陣営</text>
+
+  <!-- ===== 人物ノード ===== -->
+  <!-- ビーシュマ (elder, gold) -->
+  <rect x="355" y="18" width="120" height="42" rx="6" fill="#f5e0b0" stroke="#b08830" stroke-width="2"/>
+  <text x="415" y="37" text-anchor="middle" fill="#4a2a0a" font-size="14" font-weight="bold">ビーシュマ</text>
+  <text x="415" y="52" text-anchor="middle" fill="#8b6914" font-size="9">Bhīṣma</text>
+
+  <!-- ドリタラーシュトラ (kaurava) -->
+  <rect x="130" y="105" width="160" height="42" rx="6" fill="#fce4e4" stroke="#c08080" stroke-width="2"/>
+  <text x="210" y="124" text-anchor="middle" fill="#6b1a1a" font-size="13" font-weight="bold">ドリタラーシュトラ</text>
+  <text x="210" y="139" text-anchor="middle" fill="#999" font-size="9">Dhṛtarāṣṭra〔盲目〕</text>
+
+  <!-- パーンドゥ (pandava) -->
+  <rect x="560" y="105" width="110" height="42" rx="6" fill="#dcf0dc" stroke="#80b880" stroke-width="2"/>
+  <text x="615" y="124" text-anchor="middle" fill="#1a4a1a" font-size="13" font-weight="bold">パーンドゥ</text>
+  <text x="615" y="139" text-anchor="middle" fill="#999" font-size="9">Pāṇḍu</text>
+
+  <!-- クンティー (pandava side) -->
+  <rect x="720" y="105" width="100" height="42" rx="6" fill="#e8f0e8" stroke="#80b880" stroke-width="1.5"/>
+  <text x="770" y="124" text-anchor="middle" fill="#2d6b3a" font-size="13" font-weight="bold">クンティー</text>
+  <text x="770" y="139" text-anchor="middle" fill="#999" font-size="9">Kuntī / Pṛthā</text>
+
+  <!-- ガーンダーリー (kaurava side) -->
+  <rect x="15" y="105" width="105" height="42" rx="6" fill="#fce4e4" stroke="#c08080" stroke-width="1.5"/>
+  <text x="68" y="124" text-anchor="middle" fill="#6b1a1a" font-size="12" font-weight="bold">ガーンダーリー</text>
+  <text x="68" y="139" text-anchor="middle" fill="#999" font-size="9">Gāndhārī</text>
+
+  <!-- ドゥルヨーダナ -->
+  <rect x="100" y="260" width="130" height="42" rx="6" fill="#fce4e4" stroke="#b03030" stroke-width="2.5"/>
+  <text x="165" y="279" text-anchor="middle" fill="#6b1a1a" font-size="13" font-weight="bold">ドゥルヨーダナ</text>
+  <text x="165" y="294" text-anchor="middle" fill="#999" font-size="9">Duryodhana</text>
+
+  <!-- ドゥフシャーサナ -->
+  <rect x="250" y="320" width="130" height="38" rx="6" fill="#fce4e4" stroke="#c08080" stroke-width="1.5"/>
+  <text x="315" y="337" text-anchor="middle" fill="#6b1a1a" font-size="12" font-weight="bold">ドゥフシャーサナ</text>
+  <text x="315" y="351" text-anchor="middle" fill="#999" font-size="9">Duḥśāsana</text>
+
+  <!-- シャクニ -->
+  <rect x="25" y="320" width="100" height="38" rx="6" fill="#fce4e4" stroke="#c08080" stroke-width="1.5"/>
+  <text x="75" y="337" text-anchor="middle" fill="#6b1a1a" font-size="13" font-weight="bold">シャクニ</text>
+  <text x="75" y="351" text-anchor="middle" fill="#999" font-size="9">Śakuni</text>
+
+  <!-- カルナ (between both sides) -->
+  <rect x="240" y="420" width="100" height="42" rx="6" fill="#fff0e0" stroke="#d08020" stroke-width="2"/>
+  <text x="290" y="439" text-anchor="middle" fill="#8b4a00" font-size="14" font-weight="bold">カルナ</text>
+  <text x="290" y="454" text-anchor="middle" fill="#999" font-size="9">Karṇa</text>
+
+  <!-- ユディシュティラ -->
+  <rect x="495" y="260" width="130" height="42" rx="6" fill="#dcf0dc" stroke="#2d7d46" stroke-width="2"/>
+  <text x="560" y="279" text-anchor="middle" fill="#1a4a1a" font-size="13" font-weight="bold">ユディシュティラ</text>
+  <text x="560" y="294" text-anchor="middle" fill="#999" font-size="9">Yudhiṣṭhira</text>
+
+  <!-- ビーマ -->
+  <rect x="645" y="260" width="85" height="42" rx="6" fill="#dcf0dc" stroke="#2d7d46" stroke-width="2"/>
+  <text x="688" y="279" text-anchor="middle" fill="#1a4a1a" font-size="14" font-weight="bold">ビーマ</text>
+  <text x="688" y="294" text-anchor="middle" fill="#999" font-size="9">Bhīma</text>
+
+  <!-- アルジュナ -->
+  <rect x="750" y="260" width="105" height="42" rx="6" fill="#dcf0dc" stroke="#2d7d46" stroke-width="2.5"/>
+  <text x="803" y="279" text-anchor="middle" fill="#1a4a1a" font-size="14" font-weight="bold">アルジュナ</text>
+  <text x="803" y="294" text-anchor="middle" fill="#999" font-size="9">Arjuna</text>
+
+  <!-- ドラウパディー -->
+  <rect x="530" y="390" width="130" height="42" rx="6" fill="#f5e0f5" stroke="#9060a0" stroke-width="2"/>
+  <text x="595" y="409" text-anchor="middle" fill="#5a2068" font-size="13" font-weight="bold">ドラウパディー</text>
+  <text x="595" y="424" text-anchor="middle" fill="#999" font-size="9">Draupadī / Yajñasenī</text>
+
+  <!-- スバドラー -->
+  <rect x="780" y="380" width="100" height="38" rx="6" fill="#e0e8f5" stroke="#7088b8" stroke-width="1.5"/>
+  <text x="830" y="397" text-anchor="middle" fill="#1a4a8b" font-size="13" font-weight="bold">スバドラー</text>
+  <text x="830" y="411" text-anchor="middle" fill="#999" font-size="9">Subhadrā</text>
+
+  <!-- クリシュナ -->
+  <rect x="855" y="270" width="95" height="42" rx="6" fill="#dce4f5" stroke="#1a4a8b" stroke-width="2.5"/>
+  <text x="903" y="289" text-anchor="middle" fill="#1a4a8b" font-size="14" font-weight="bold">クリシュナ</text>
+  <text x="903" y="304" text-anchor="middle" fill="#999" font-size="9">Kṛṣṇa</text>
+
+  <!-- ドローナ -->
+  <rect x="100" y="480" width="100" height="42" rx="6" fill="#f0e8d8" stroke="#8b6914" stroke-width="2"/>
+  <text x="150" y="499" text-anchor="middle" fill="#4a2a0a" font-size="14" font-weight="bold">ドローナ</text>
+  <text x="150" y="514" text-anchor="middle" fill="#999" font-size="9">Droṇa</text>
+
+  <!-- アシュヴァッターマン -->
+  <rect x="35" y="555" width="145" height="38" rx="6" fill="#f0e8d8" stroke="#8b6914" stroke-width="1.5"/>
+  <text x="108" y="572" text-anchor="middle" fill="#4a2a0a" font-size="12" font-weight="bold">アシュヴァッターマン</text>
+  <text x="108" y="586" text-anchor="middle" fill="#999" font-size="9">Aśvatthāman</text>
+
+  <!-- アビマニュ -->
+  <rect x="720" y="460" width="110" height="42" rx="6" fill="#dcf0dc" stroke="#80b880" stroke-width="2"/>
+  <text x="775" y="479" text-anchor="middle" fill="#1a4a1a" font-size="13" font-weight="bold">アビマニュ</text>
+  <text x="775" y="494" text-anchor="middle" fill="#999" font-size="9">Abhimanyu</text>
+
+  <!-- パリークシット -->
+  <rect x="720" y="540" width="120" height="38" rx="6" fill="#f5e0b0" stroke="#b08830" stroke-width="1.5"/>
+  <text x="780" y="557" text-anchor="middle" fill="#4a2a0a" font-size="12" font-weight="bold">パリークシット</text>
+  <text x="780" y="571" text-anchor="middle" fill="#999" font-size="9">Parīkṣit</text>
+
+  <!-- ジャナメージャヤ -->
+  <rect x="715" y="600" width="130" height="34" rx="6" fill="#f5e0b0" stroke="#b08830" stroke-width="1.5"/>
+  <text x="780" y="619" text-anchor="middle" fill="#4a2a0a" font-size="11" font-weight="bold">ジャナメージャヤ</text>
+  <text x="780" y="630" text-anchor="middle" fill="#999" font-size="9">Janamejaya（叙事詩の聴衆）</text>
+
+  <!-- ===== 関係線 ===== -->
+  <!-- ビーシュマ → ドリタラーシュトラ（大叔父） -->
+  <line x1="380" y1="60" x2="240" y2="105" stroke="#c9a96e" stroke-width="1.5"/>
+  <text x="290" y="80" fill="#8b6914" font-size="10" text-anchor="middle">大叔父</text>
+
+  <!-- ビーシュマ → パーンドゥ（大叔父） -->
+  <line x1="450" y1="60" x2="600" y2="105" stroke="#c9a96e" stroke-width="1.5"/>
+  <text x="540" y="80" fill="#8b6914" font-size="10" text-anchor="middle">大叔父</text>
+
+  <!-- ドリタラーシュトラ ─ ガーンダーリー（夫婦） -->
+  <line x1="130" y1="126" x2="120" y2="126" stroke="#d06090" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="95" y="100" fill="#d06090" font-size="10" text-anchor="middle">夫婦</text>
+
+  <!-- パーンドゥ ─ クンティー（夫婦） -->
+  <line x1="670" y1="126" x2="720" y2="126" stroke="#d06090" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="695" y="100" fill="#d06090" font-size="10" text-anchor="middle">夫婦</text>
+
+  <!-- ドリタラーシュトラ ─ パーンドゥ（異母兄弟） -->
+  <line x1="290" y1="130" x2="560" y2="130" stroke="#c9a96e" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="425" y="125" fill="#8b6914" font-size="10" text-anchor="middle">異母兄弟</text>
+
+  <!-- ドリタラーシュトラ → ドゥルヨーダナ（父子） -->
+  <line x1="210" y1="147" x2="175" y2="260" stroke="#c9a96e" stroke-width="1.5"/>
+  <text x="182" y="205" fill="#8b6914" font-size="10" text-anchor="middle">父子</text>
+
+  <!-- ドゥルヨーダナ ─ ドゥフシャーサナ（兄弟） -->
+  <line x1="230" y1="290" x2="260" y2="320" stroke="#c9a96e" stroke-width="1"/>
+  <text x="260" y="302" fill="#8b6914" font-size="9">兄弟</text>
+
+  <!-- ガーンダーリー ─ シャクニ（兄妹） -->
+  <line x1="68" y1="147" x2="68" y2="320" stroke="#c9a96e" stroke-width="1" stroke-dasharray="4 3"/>
+  <text x="48" y="240" fill="#8b6914" font-size="9" transform="rotate(-90,48,240)">兄妹</text>
+
+  <!-- シャクニ ─ ドゥルヨーダナ（叔父─甥、策略） -->
+  <line x1="125" y1="334" x2="115" y2="295" stroke="#b03030" stroke-width="1.5"/>
+  <text x="108" y="314" fill="#b03030" font-size="9">叔父</text>
+
+  <!-- パーンドゥ → ユディシュティラ → ビーマ → アルジュナ（父子） -->
+  <line x1="590" y1="147" x2="560" y2="260" stroke="#2d7d46" stroke-width="1.5"/>
+  <line x1="615" y1="147" x2="688" y2="260" stroke="#2d7d46" stroke-width="1.5"/>
+  <line x1="640" y1="147" x2="803" y2="260" stroke="#2d7d46" stroke-width="1.5"/>
+  <text x="575" y="210" fill="#2d7d46" font-size="10">父子</text>
+
+  <!-- クンティー → カルナ（秘密の母子） -->
+  <path d="M 745 147 Q 580 320 315 420" fill="none" stroke="#d08020" stroke-width="2" stroke-dasharray="3 5"/>
+  <text x="520" y="290" fill="#d08020" font-size="10" font-weight="bold" text-anchor="middle">秘密の母子</text>
+  <text x="520" y="302" fill="#d08020" font-size="9" text-anchor="middle">（スーリヤ神との子、出生時に遺棄）</text>
+
+  <!-- ドゥルヨーダナ ⟷ ユディシュティラ（従兄弟・宿敵） -->
+  <line x1="230" y1="275" x2="495" y2="275" stroke="#b03030" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="362" y="268" fill="#b03030" font-size="11" font-weight="bold" text-anchor="middle">従兄弟 ─ 宿敵</text>
+
+  <!-- ドゥルヨーダナ ⟷ ビーマ（宿敵 gadā-yuddha） -->
+  <line x1="230" y1="288" x2="645" y2="288" stroke="#b03030" stroke-width="1.5" stroke-dasharray="3 3" stroke-opacity="0.6"/>
+  <text x="440" y="300" fill="#b03030" font-size="9" text-anchor="middle">棍棒決闘で決着</text>
+
+  <!-- カルナ ⟷ アルジュナ（宿敵 + 異父兄弟） -->
+  <line x1="340" y1="435" x2="760" y2="295" stroke="#b03030" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="545" y="350" fill="#b03030" font-size="11" font-weight="bold" text-anchor="middle">宿敵</text>
+  <text x="545" y="363" fill="#b03030" font-size="9" text-anchor="middle">（実は異母兄弟）</text>
+
+  <!-- アルジュナ ─ ドラウパディー（夫婦、共通の妻） -->
+  <line x1="780" y1="302" x2="650" y2="390" stroke="#d06090" stroke-width="2"/>
+  <!-- ユディシュティラ ─ ドラウパディー -->
+  <line x1="560" y1="302" x2="585" y2="390" stroke="#d06090" stroke-width="1.5"/>
+  <!-- ビーマ ─ ドラウパディー -->
+  <line x1="688" y1="302" x2="610" y2="390" stroke="#d06090" stroke-width="1.5"/>
+  <text x="640" y="360" fill="#d06090" font-size="10" text-anchor="middle">五兄弟共通の妻</text>
+
+  <!-- アルジュナ ─ スバドラー（夫婦） -->
+  <line x1="815" y1="302" x2="830" y2="380" stroke="#d06090" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="845" y="350" fill="#d06090" font-size="9">妻</text>
+
+  <!-- クリシュナ ─ アルジュナ（従兄弟・親友・御者） -->
+  <line x1="855" y1="291" x2="855" y2="280" stroke="#1a4a8b" stroke-width="2"/>
+  <text x="870" y="258" fill="#1a4a8b" font-size="10" text-anchor="start">従兄弟</text>
+  <text x="870" y="248" fill="#1a4a8b" font-size="9" text-anchor="start">親友・御者</text>
+
+  <!-- クリシュナ ─ スバドラー（兄妹） -->
+  <line x1="880" y1="312" x2="860" y2="380" stroke="#1a4a8b" stroke-width="1"/>
+  <text x="890" y="355" fill="#1a4a8b" font-size="9">兄妹</text>
+
+  <!-- アルジュナ + スバドラー → アビマニュ -->
+  <line x1="810" y1="418" x2="775" y2="460" stroke="#2d7d46" stroke-width="1.5"/>
+  <text x="808" y="445" fill="#2d7d46" font-size="9">母子</text>
+  <line x1="803" y1="302" x2="775" y2="460" stroke="#2d7d46" stroke-width="1" stroke-dasharray="3 2"/>
+  <text x="780" y="438" fill="#2d7d46" font-size="9">父子</text>
+
+  <!-- アビマニュ → パリークシット → ジャナメージャヤ -->
+  <line x1="775" y1="502" x2="775" y2="540" stroke="#b08830" stroke-width="1.5"/>
+  <line x1="780" y1="578" x2="780" y2="600" stroke="#b08830" stroke-width="1.5"/>
+
+  <!-- ドローナ → アルジュナ/ドゥルヨーダナ（師弟） -->
+  <line x1="175" y1="480" x2="180" y2="302" stroke="#8b6914" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="188" y="400" fill="#8b6914" font-size="10">師弟</text>
+  <path d="M 200 485 Q 500 450 770 302" fill="none" stroke="#8b6914" stroke-width="1.5" stroke-dasharray="6 3"/>
+  <text x="500" y="440" fill="#8b6914" font-size="10" text-anchor="middle">師弟（最愛の弟子）</text>
+
+  <!-- ドローナ → アシュヴァッターマン（父子） -->
+  <line x1="130" y1="522" x2="115" y2="555" stroke="#c9a96e" stroke-width="1.5"/>
+  <text x="107" y="542" fill="#8b6914" font-size="9">父子</text>
+
+  <!-- ===== 凡例 ===== -->
+  <rect x="380" y="530" width="280" height="105" rx="6" fill="#fdf8f0" stroke="#c9a96e" stroke-width="1"/>
+  <text x="520" y="548" text-anchor="middle" fill="#4a2a0a" font-size="11" font-weight="bold">凡例</text>
+  <line x1="395" y1="558" x2="425" y2="558" stroke="#c9a96e" stroke-width="2"/>
+  <text x="432" y="562" fill="#4a2a0a" font-size="10">血縁（親子・兄弟）</text>
+  <line x1="395" y1="576" x2="425" y2="576" stroke="#d06090" stroke-width="2" stroke-dasharray="4 2"/>
+  <text x="432" y="580" fill="#4a2a0a" font-size="10">婚姻</text>
+  <line x1="395" y1="594" x2="425" y2="594" stroke="#b03030" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="432" y="598" fill="#4a2a0a" font-size="10">敵対・宿敵</text>
+  <line x1="395" y1="612" x2="425" y2="612" stroke="#8b6914" stroke-width="2" stroke-dasharray="6 3"/>
+  <text x="432" y="616" fill="#4a2a0a" font-size="10">師弟</text>
+  <line x1="545" y1="558" x2="575" y2="558" stroke="#d08020" stroke-width="2" stroke-dasharray="3 5"/>
+  <text x="582" y="562" fill="#4a2a0a" font-size="10">秘密の関係</text>
+
+</svg>
+</div>
+<div class="fig-caption">図3：マハーバーラタ主要人物相関図（BORI CE に基づく）</div>
+</div>
+
+
+<!-- ==================== 婚姻関係表 ==================== -->
+<h4>婚姻関係一覧</h4>
+
+<table>
+<tr><th>夫</th><th>妻</th><th>子</th><th>CE典拠</th></tr>
+<tr>
+  <td><strong>シャンタヌ</strong> <small>Śantanu</small></td>
+  <td>ガンガー <small>Gaṅgā</small></td>
+  <td>デーヴァヴラタ（ビーシュマ）</td>
+  <td>01,092–094</td>
+</tr>
+<tr>
+  <td><strong>シャンタヌ</strong></td>
+  <td>サティヤヴァティー <small>Satyavatī</small></td>
+  <td>チトラーンガダ、ヴィチトラヴィーリヤ</td>
+  <td>01,094–100</td>
+</tr>
+<tr>
+  <td><strong>パーンドゥ</strong> <small>Pāṇḍu</small></td>
+  <td>クンティー <small>Kuntī</small></td>
+  <td>ユディシュティラ、ビーマ、アルジュナ（各々神の子）</td>
+  <td>01,114–117</td>
+</tr>
+<tr>
+  <td><strong>パーンドゥ</strong></td>
+  <td>マードリー <small>Mādrī</small></td>
+  <td>ナクラ、サハデーヴァ（アシュヴィン双神の子）</td>
+  <td>01,118</td>
+</tr>
+<tr>
+  <td><strong>ドリタラーシュトラ</strong></td>
+  <td>ガーンダーリー <small>Gāndhārī</small></td>
+  <td>ドゥルヨーダナら百王子＋ドゥフシャラー</td>
+  <td>01,107–110</td>
+</tr>
+<tr>
+  <td><strong>アルジュナ</strong> <small>Arjuna</small></td>
+  <td>ドラウパディー <small>Draupadī</small>（五兄弟共通の妻）</td>
+  <td>シュルタキールティ <small>Śrutakīrti</small></td>
+  <td>01,182–190</td>
+</tr>
+<tr>
+  <td><strong>ユディシュティラ</strong></td>
+  <td>ドラウパディー</td>
+  <td>プラティヴィンディヤ <small>Prativindhya</small></td>
+  <td>01,182</td>
+</tr>
+<tr>
+  <td><strong>ビーマ</strong></td>
+  <td>ドラウパディー</td>
+  <td>スタソーマ <small>Sutasoma</small></td>
+  <td>01,182</td>
+</tr>
+<tr>
+  <td><strong>アルジュナ</strong></td>
+  <td>スバドラー <small>Subhadrā</small>（クリシュナの妹）</td>
+  <td>アビマニュ <small>Abhimanyu</small></td>
+  <td>01,211–213</td>
+</tr>
+<tr>
+  <td><strong>ビーマ</strong></td>
+  <td>ヒディンバー <small>Hiḍimbā</small>（羅刹女）</td>
+  <td>ガトートカチャ <small>Ghaṭotkaca</small></td>
+  <td>01,139–142</td>
+</tr>
+<tr>
+  <td><strong>アビマニュ</strong> <small>Abhimanyu</small></td>
+  <td>ウッタラー <small>Uttarā</small>（ヴィラータの娘）</td>
+  <td>パリークシット <small>Parīkṣit</small></td>
+  <td>04,067; 14,066</td>
+</tr>
+<tr>
+  <td><strong>ジャヤドラタ</strong> <small>Jayadratha</small></td>
+  <td>ドゥフシャラー <small>Duḥśalā</small>（ドリタラーシュトラの唯一の娘）</td>
+  <td>—</td>
+  <td>03,254ff.</td>
+</tr>
+</table>
+
+
+<!-- ==================== 師弟関係 ==================== -->
+<h4>師弟関係（武芸の系譜）</h4>
+
+<p>
+マハーバーラタでは武芸の伝授系譜が物語の対立構造を規定する。パラシュラーマ（Paraśurāma）を頂点とする武術の流れが、ドローナとカルナの双方に分岐し、それが大戦における悲劇的対立の一因となる。
+</p>
+
+<div class="fig-box" style="text-align:left;">
+
+<div class="gen-card" style="background:#f0e8d8; border-color:#8b6914;"><strong>パラシュラーマ</strong> <small>Paraśurāma / Rāma Jāmadagnya</small> <em>（武芸の至高の師）</em></div>
+
+<div class="gen-level" style="border-color:#8b6914;">
+<div class="gen-label">弟子</div>
+<div class="gen-card" style="background:#f0e8d8; border-color:#8b6914;"><strong>ドローナ</strong> <small>Droṇa</small> <em>（バラモン出身の武術師範）</em></div>
+
+<div class="gen-level" style="border-color:#8b6914;">
+<div class="gen-label">ドローナの弟子（クル族両家の王子たち）</div>
+<div class="gen-card gen-pandava"><strong>アルジュナ</strong> <small>Arjuna</small> <em>（最愛の弟子）</em></div>
+<div class="gen-card gen-pandava">ユディシュティラ、ビーマ、ナクラ、サハデーヴァ</div><br>
+<div class="gen-card gen-kaurava"><strong>ドゥルヨーダナ</strong> <small>Duryodhana</small></div>
+<div class="gen-card gen-kaurava">ドゥフシャーサナ他カウラヴァ王子</div>
+</div>
+
+<div class="gen-level" style="border-color:#8b6914;">
+<div class="gen-label">ドローナの息子</div>
+<div class="gen-card" style="background:#f0e8d8; border-color:#8b6914;"><strong>アシュヴァッターマン</strong> <small>Aśvatthāman</small> <em>（大戦後の夜襲を実行）</em></div>
+</div>
+</div>
+
+<div class="gen-level" style="border-color:#d08020;">
+<div class="gen-label">秘密の弟子</div>
+<div class="gen-card" style="background:#fff0e0; border-color:#d08020;"><strong>カルナ</strong> <small>Karṇa</small> <em>（バラモンと偽り弟子入り→呪いを受ける）</em></div>
+</div>
+</div>
+
+<div class="gen-level" style="border-color:#8b6914; margin-top: 0.8em;">
+<div class="gen-label">独自の師弟関係</div>
+<div class="gen-card" style="background:#f0e8d8; border-color:#8b6914;"><strong>クリパ</strong> <small>Kṛpa / Kṛpācārya</small> <em>（クル族王子たちの最初の師、シャラドヴァトの子）</em></div>
+</div>
+
+</div>
+
+<p class="note">
+ドローナとカルナは共にパラシュラーマの弟子であるが、大戦ではカルナがドローナの弟子であるアルジュナと戦う。師の系譜が交差するこの構図が、物語の悲劇性を深めている。ドローナの最期は、CE 07,165 において、息子アシュヴァッターマンの死を偽告されて武器を置き、ドリシュタデュムナに首を落とされる。
+</p>
+
+
+<!-- ==================== 大戦陣営 ==================== -->
+<h4>クルクシェートラ大戦の陣営</h4>
+
+<p>
+BORI CE Bhīṣma-parvan（第6篇）冒頭の軍勢描写に基づく、両軍の主要武将と総帥の一覧。大戦は18日間にわたり、カウラヴァ側は4人の総帥を順に立てた。
+</p>
+
+<div class="sides">
+<div class="side-pandava">
+<h5>パーンダヴァ軍（7アクシャウヒニー）</h5>
+
+<table style="font-size:0.88em;">
+<tr><th>武将</th><th>役割</th></tr>
+<tr><td><strong>ユディシュティラ</strong></td><td>軍の統率者・王</td></tr>
+<tr><td><strong>ビーマセーナ</strong></td><td>主力戦士</td></tr>
+<tr><td><strong>アルジュナ</strong></td><td>最強の弓手<span class="cmd-tag" style="background:#2d7d46;">御者＝クリシュナ</span></td></tr>
+<tr><td><strong>ナクラ・サハデーヴァ</strong></td><td>左右翼</td></tr>
+<tr><td><strong>ドリシュタデュムナ</strong> <small>Dhṛṣṭadyumna</small></td><td>全軍総帥（ドルパダの子）<span class="cmd-tag" style="background:#2d7d46;">総帥</span></td></tr>
+<tr><td><strong>シカンディン</strong> <small>Śikhaṇḍin</small></td><td>アンバーの転生（ビーシュマ攻略の鍵）</td></tr>
+<tr><td><strong>サーティヤキ</strong> <small>Sātyaki / Yuyudhāna</small></td><td>ヤーダヴァ族の武将（アルジュナの弟子）</td></tr>
+<tr><td><strong>ドルパダ</strong> <small>Drupada</small></td><td>パーンチャーラ王（ドラウパディーの父）</td></tr>
+<tr><td><strong>ヴィラータ</strong> <small>Virāṭa</small></td><td>マツヤ国王</td></tr>
+<tr><td><strong>ガトートカチャ</strong> <small>Ghaṭotkaca</small></td><td>ビーマの子（羅刹）、夜戦で活躍</td></tr>
+</table>
+</div>
+
+<div class="side-kaurava">
+<h5>カウラヴァ軍（11アクシャウヒニー）</h5>
+
+<table style="font-size:0.88em;">
+<tr><th>武将</th><th>役割</th></tr>
+<tr><td><strong>ドゥルヨーダナ</strong></td><td>軍の統率者・王</td></tr>
+<tr><td><strong>ビーシュマ</strong></td><td><span class="cmd-tag" style="background:#8b1a1a;">第1代総帥</span>1日目–10日目</td></tr>
+<tr><td><strong>ドローナ</strong></td><td><span class="cmd-tag" style="background:#8b1a1a;">第2代総帥</span>11日目–15日目</td></tr>
+<tr><td><strong>カルナ</strong></td><td><span class="cmd-tag" style="background:#8b1a1a;">第3代総帥</span>16日目–17日目</td></tr>
+<tr><td><strong>シャリヤ</strong> <small>Śalya</small></td><td><span class="cmd-tag" style="background:#8b1a1a;">第4代総帥</span>18日目</td></tr>
+<tr><td><strong>ドゥフシャーサナ</strong></td><td>ドゥルヨーダナの弟・主力</td></tr>
+<tr><td><strong>クリパ</strong> <small>Kṛpa</small></td><td>武術師範（大戦生存者）</td></tr>
+<tr><td><strong>アシュヴァッターマン</strong></td><td>ドローナの子（大戦生存者）</td></tr>
+<tr><td><strong>クリタヴァルマン</strong> <small>Kṛtavarmā</small></td><td>ヤーダヴァ族の武将（大戦生存者）</td></tr>
+<tr><td><strong>シャクニ</strong></td><td>ガーンダーリーの弟、策略家</td></tr>
+<tr><td><strong>ジャヤドラタ</strong> <small>Jayadratha</small></td><td>シンドゥ王（アビマニュの死の一因）</td></tr>
+<tr><td><strong>バガダッタ</strong> <small>Bhagadatta</small></td><td>プラーグジョーティシャ王（象軍）</td></tr>
+<tr><td><strong>ブーリシュラヴァス</strong> <small>Bhūriśravas</small></td><td>ソーマダッタの子</td></tr>
+</table>
+
+<p class="note" style="margin-top:0.5em;">大戦後のカウラヴァ側生存者は<strong>クリパ、アシュヴァッターマン、クリタヴァルマン</strong>の3名のみ（CE, 10,001）。</p>
+</div>
+</div>
+
+
+<!-- ==================== 主要人物表 ==================== -->
+<h4>主要人物一覧表</h4>
+
+<table>
+<tr><th>人物名</th><th>IAST</th><th>別名・異名</th><th>立場</th><th>特記事項</th></tr>
+<tr>
+  <td><strong>ビーシュマ</strong></td><td>Bhīṣma</td>
+  <td>デーヴァヴラタ Devavrata / ガンゲーヤ Gāṅgeya</td>
+  <td>長老・カウラヴァ総帥</td>
+  <td>終生独身・自死を選ぶ権能（icchā-mṛtyu）。矢の床（śara-śayyā）で教説を授ける</td>
+</tr>
+<tr>
+  <td><strong>ドローナ</strong></td><td>Droṇa</td>
+  <td>バーラドヴァージャ Bhāradvāja</td>
+  <td>武術師範・カウラヴァ第2代総帥</td>
+  <td>バラモン出身。息子の死を偽告されて戦意を失い殺害される（07,165）</td>
+</tr>
+<tr>
+  <td><strong>ヴィドゥラ</strong></td><td>Vidura</td>
+  <td>クシャッタル Kṣattṛ</td>
+  <td>宰相・パーンダヴァの助言者</td>
+  <td>ダルマ神の化身。侍女の子ゆえ王位から除外。隠退後ドリタラーシュトラと共に林住期へ</td>
+</tr>
+<tr>
+  <td><strong>クリシュナ</strong></td><td>Kṛṣṇa</td>
+  <td>ヴァースデーヴァ Vāsudeva / ケーシャヴァ Keśava / マーダヴァ Mādhava</td>
+  <td>ヤーダヴァ族長・アルジュナの御者</td>
+  <td>パーンダヴァの母方の従兄弟。ギーター（06,023–040）を説く。自ら武器を取らない誓い</td>
+</tr>
+<tr>
+  <td><strong>カルナ</strong></td><td>Karṇa</td>
+  <td>ヴァイカルタナ Vaikarttana / ラーデーヤ Rādheya / アンガラージャ Aṅgarāja</td>
+  <td>クンティーの秘密の長子・カウラヴァ第3代総帥</td>
+  <td>スーリヤ神の子。生来の鎧と耳飾り（kavaca-kuṇḍala）をインドラに譲る（03,284-294）</td>
+</tr>
+<tr>
+  <td><strong>ドラウパディー</strong></td><td>Draupadī</td>
+  <td>ヤージュニャセーニー Yājñasenī / クリシュナー Kṛṣṇā / パーンチャーリー Pāñcālī</td>
+  <td>パーンダヴァ五兄弟の共通の妻</td>
+  <td>ドルパダ王の娘。火祭壇（agni）から生まれる。賭博で凌辱される（02,060）</td>
+</tr>
+<tr>
+  <td><strong>ユディシュティラ</strong></td><td>Yudhiṣṭhira</td>
+  <td>ダルマラージャ Dharmarāja / アジャータシャトル Ajātaśatru</td>
+  <td>パーンダヴァ長兄・法の王</td>
+  <td>ダルマ神の子。賭博で王国を失う。最終的に天界に昇る唯一の人間（17,003）</td>
+</tr>
+<tr>
+  <td><strong>ビーマセーナ</strong></td><td>Bhīmasena</td>
+  <td>ヴリコーダラ Vṛkodara</td>
+  <td>パーンダヴァ次兄・主力戦士</td>
+  <td>ヴァーユ神の子。ドゥフシャーサナの血を飲む誓い（02,063）。棍棒でドゥルヨーダナを倒す</td>
+</tr>
+<tr>
+  <td><strong>アルジュナ</strong></td><td>Arjuna</td>
+  <td>パールタ Pārtha / ダナンジャヤ Dhanaṃjaya / キリーティン Kirīṭin / ヴィジャヤ Vijaya</td>
+  <td>パーンダヴァ第三子・最強の弓手</td>
+  <td>インドラ神の子。ガーンディーヴァ弓の使い手。ギーター受者。カルナを倒す</td>
+</tr>
+<tr>
+  <td><strong>ドゥルヨーダナ</strong></td><td>Duryodhana</td>
+  <td>スヤーダナ Suyodhana</td>
+  <td>カウラヴァ百王子の長子・大戦の引き金</td>
+  <td>嫉妬と野望が物語を推進。最終日にビーマとの棍棒決闘で大腿を砕かれて死す（09,058-059）</td>
+</tr>
+<tr>
+  <td><strong>シャクニ</strong></td><td>Śakuni</td>
+  <td>サウバラ Saubala</td>
+  <td>ガーンダーリーの弟・策略家</td>
+  <td>骰子の術でパーンダヴァを賭博に陥れる（02,044-060）。サハデーヴァに討たれる（09,028）</td>
+</tr>
+<tr>
+  <td><strong>ガーンダーリー</strong></td><td>Gāndhārī</td>
+  <td>—</td>
+  <td>ドリタラーシュトラの妃・カウラヴァの母</td>
+  <td>盲目の夫に殉じて目を布で覆う。百子を肉塊（māṃsa-peśī）から生む（01,107）。大戦後クリシュナを呪う（11,025）</td>
+</tr>
+<tr>
+  <td><strong>クンティー</strong></td><td>Kuntī</td>
+  <td>プリター Pṛthā</td>
+  <td>パーンドゥの第一妃・パーンダヴァの母</td>
+  <td>ドゥルヴァーサスの呪文で神を呼ぶ力を得る。婚前にスーリヤとの間にカルナを産み遺棄。大戦後にカルナの真実を告白（11,027）</td>
+</tr>
+<tr>
+  <td><strong>アシュヴァッターマン</strong></td><td>Aśvatthāman</td>
+  <td>ドラウニ Drauṇi</td>
+  <td>ドローナの子・大戦後の夜襲者</td>
+  <td>父の死に復讐し夜襲でドラウパディーの五子を殺害（10,005-008）。ブラフマシラス（brahmāstra）を放つ</td>
+</tr>
+<tr>
+  <td><strong>シカンディン</strong></td><td>Śikhaṇḍin</td>
+  <td>—</td>
+  <td>パーンダヴァ側の武将</td>
+  <td>前世のアンバー（Ambā）が転生。ビーシュマは女性として弓を向けず（05,170-192）、アルジュナの盾となる</td>
+</tr>
+</table>
+
+
+<!-- ==================== 因縁・誓い・秘密 ==================== -->
+<h4>物語を動かす誓い・秘密・因縁</h4>
+
+<p>
+マハーバーラタの叙事詩的構造は、登場人物たちの誓い（vrata / pratigñā）、秘密、因縁（vaira）によって駆動される。以下にBORI CE に基づく主要なものを表にまとめる。
+</p>
+
+<table>
+<tr><th>類型</th><th>関係者</th><th>内容</th><th>CE典拠</th><th>物語上の帰結</th></tr>
+<tr>
+  <td style="color:#8b1a1a; font-weight:bold;">誓い</td>
+  <td>ビーシュマ</td>
+  <td>終生独身の誓い（bhīṣma-pratigñā）：父シャンタヌがサティヤヴァティーと再婚できるよう、王位と妻子を永遠に放棄</td>
+  <td>01,094</td>
+  <td>王位継承の空白が物語全体の悲劇の根本原因</td>
+</tr>
+<tr>
+  <td style="color:#8b1a1a; font-weight:bold;">誓い</td>
+  <td>ビーマ</td>
+  <td>ドゥフシャーサナの胸を裂き血を飲むと誓う</td>
+  <td>02,063</td>
+  <td>大戦14日目に実行（08,061）</td>
+</tr>
+<tr>
+  <td style="color:#8b1a1a; font-weight:bold;">誓い</td>
+  <td>ドラウパディー</td>
+  <td>ドゥフシャーサナの血で髪を洗うまで髪を結わない</td>
+  <td>02,063</td>
+  <td>13年間の怒りが大戦開戦の圧力となる</td>
+</tr>
+<tr>
+  <td style="color:#8b1a1a; font-weight:bold;">誓い</td>
+  <td>アルジュナ</td>
+  <td>ジャヤドラタを日没前に殺すと誓う（殺せなければ自ら火に入る）</td>
+  <td>07,071</td>
+  <td>クリシュナの太陽隠蔽の策でジャヤドラタの首を落とす（07,121）</td>
+</tr>
+<tr>
+  <td style="color:#6b4226; font-weight:bold;">秘密</td>
+  <td>クンティー → カルナ</td>
+  <td>カルナはクンティーの婚前の子（スーリヤ神の子）で、パーンダヴァ五兄弟の異父兄にあたる</td>
+  <td>01,104; 03,284–290; 05,138–142</td>
+  <td>カルナはクリシュナからも母からも真実を告げられるが、ドゥルヨーダナへの忠義を選ぶ（05,138–142）</td>
+</tr>
+<tr>
+  <td style="color:#6b4226; font-weight:bold;">秘密</td>
+  <td>カルナ</td>
+  <td>生来の鎧と耳飾り（kavaca-kuṇḍala）をインドラに施す代わりに、一度だけ使えるシャクティ武器を得る</td>
+  <td>03,284–294</td>
+  <td>シャクティはガトートカチャ（ビーマの子）に使用され、アルジュナには使えず（07,155-156）</td>
+</tr>
+<tr>
+  <td style="color:#1a4a8b; font-weight:bold;">因縁</td>
+  <td>アンバー → ビーシュマ</td>
+  <td>ビーシュマに連れ去られた後、シャールヴァ王に拒絶されたアンバーが復讐のためシカンディンとして転生</td>
+  <td>05,170–192</td>
+  <td>シカンディンを盾にアルジュナがビーシュマを射落とす（06,114–117）</td>
+</tr>
+<tr>
+  <td style="color:#1a4a8b; font-weight:bold;">因縁</td>
+  <td>ドローナ ⟷ ドルパダ</td>
+  <td>幼友達だったドルパダがドローナを侮辱。復讐としてドローナは弟子アルジュナにドルパダ王国の半分を征服させる</td>
+  <td>01,121–128</td>
+  <td>ドルパダはドローナ殺害のため息子ドリシュタデュムナを火祭壇から生ませる（01,155）</td>
+</tr>
+<tr>
+  <td style="color:#1a4a8b; font-weight:bold;">因縁</td>
+  <td>ドゥルヨーダナ ⟷ パーンダヴァ</td>
+  <td>幼少期からの嫉妬（毒入り菓子、膠の家の暗殺未遂）が賭博の罠と凌辱を経て全面戦争へ</td>
+  <td>01,119ff.; 01,129–137; 02,044–072</td>
+  <td>クルクシェートラ大戦の18日間（06–09篇）</td>
+</tr>
+<tr>
+  <td style="color:#1a4a8b; font-weight:bold;">因縁</td>
+  <td>ガーンダーリーの呪い → クリシュナ</td>
+  <td>百子を失ったガーンダーリーが、大戦を止められたはずのクリシュナを呪い、ヤーダヴァ族の36年後の滅亡を予言</td>
+  <td>11,025</td>
+  <td>ムサラ篇（第16篇）でヤーダヴァ族は鉄杵の内輪もめで自滅（16,004–005）</td>
+</tr>
+</table>
+
+
+<!-- ==================== カルナの位置 ==================== -->
+<h4>カルナの位置づけ ─ 二つの家族の狭間</h4>
+
+<p>
+カルナはマハーバーラタにおいて最も複雑な人物の一人である。血縁的にはパーンダヴァ五兄弟の長兄にあたるが、社会的にはカウラヴァ側に属する。この二重性がCE全体を通して展開される。
+</p>
+
+<div class="fig-box">
+<div class="svg-wrap">
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="font-family:'Yu Mincho','Noto Serif JP','Hiragino Mincho ProN',serif;">
+
+  <!-- クンティー -->
+  <rect x="260" y="10" width="180" height="42" rx="6" fill="#e8f0e8" stroke="#80b880" stroke-width="2"/>
+  <text x="350" y="30" text-anchor="middle" fill="#2d6b3a" font-size="13" font-weight="bold">クンティー（Kuntī）</text>
+  <text x="350" y="45" text-anchor="middle" fill="#999" font-size="9">シューラの娘、パーンドゥの妃</text>
+
+  <!-- スーリヤ -->
+  <rect x="30" y="80" width="120" height="38" rx="6" fill="#fff5e0" stroke="#d0a020" stroke-width="1.5"/>
+  <text x="90" y="99" text-anchor="middle" fill="#8b6914" font-size="12" font-weight="bold">スーリヤ（太陽神）</text>
+  <text x="90" y="113" text-anchor="middle" fill="#999" font-size="9">Sūrya</text>
+
+  <!-- パーンドゥ -->
+  <rect x="520" y="80" width="140" height="38" rx="6" fill="#dcf0dc" stroke="#80b880" stroke-width="1.5"/>
+  <text x="590" y="99" text-anchor="middle" fill="#2d6b3a" font-size="12" font-weight="bold">パーンドゥ（Pāṇḍu）</text>
+
+  <!-- カルナ（中央） -->
+  <rect x="190" y="160" width="130" height="48" rx="8" fill="#fff0e0" stroke="#d08020" stroke-width="3"/>
+  <text x="255" y="182" text-anchor="middle" fill="#8b4a00" font-size="15" font-weight="bold">カルナ</text>
+  <text x="255" y="198" text-anchor="middle" fill="#8b6914" font-size="10">Karṇa / Vaikarttana</text>
+
+  <!-- パーンダヴァ五兄弟 -->
+  <rect x="430" y="160" width="240" height="48" rx="8" fill="#dcf0dc" stroke="#2d7d46" stroke-width="2"/>
+  <text x="550" y="182" text-anchor="middle" fill="#1a4a1a" font-size="13" font-weight="bold">パーンダヴァ五兄弟</text>
+  <text x="550" y="198" text-anchor="middle" fill="#999" font-size="9">Yudhiṣṭhira, Bhīma, Arjuna, Nakula, Sahadeva</text>
+
+  <!-- ドゥルヨーダナ -->
+  <rect x="20" y="250" width="160" height="42" rx="6" fill="#fce4e4" stroke="#c08080" stroke-width="2"/>
+  <text x="100" y="269" text-anchor="middle" fill="#6b1a1a" font-size="13" font-weight="bold">ドゥルヨーダナ</text>
+  <text x="100" y="284" text-anchor="middle" fill="#999" font-size="9">Duryodhana</text>
+
+  <!-- アルジュナ -->
+  <rect x="480" y="250" width="120" height="42" rx="6" fill="#dcf0dc" stroke="#2d7d46" stroke-width="2"/>
+  <text x="540" y="269" text-anchor="middle" fill="#1a4a1a" font-size="13" font-weight="bold">アルジュナ</text>
+  <text x="540" y="284" text-anchor="middle" fill="#999" font-size="9">Arjuna</text>
+
+  <!-- 線 -->
+  <!-- クンティー → スーリヤ（婚前） -->
+  <path d="M 280 52 Q 200 70 150 85" fill="none" stroke="#d08020" stroke-width="1.5" stroke-dasharray="3 5"/>
+  <text x="200" y="68" fill="#d08020" font-size="10" text-anchor="middle">婚前の子</text>
+
+  <!-- クンティー → パーンドゥ（夫婦） -->
+  <line x1="420" y1="40" x2="530" y2="80" stroke="#d06090" stroke-width="1.5" stroke-dasharray="4 2"/>
+  <text x="490" y="62" fill="#d06090" font-size="10">夫婦</text>
+
+  <!-- スーリヤ → カルナ -->
+  <line x1="110" y1="118" x2="210" y2="165" stroke="#d0a020" stroke-width="1.5"/>
+  <text x="150" y="140" fill="#8b6914" font-size="10">父神</text>
+
+  <!-- クンティー → カルナ -->
+  <line x1="330" y1="52" x2="270" y2="160" stroke="#d08020" stroke-width="2" stroke-dasharray="3 5"/>
+  <text x="310" y="110" fill="#d08020" font-size="10" font-weight="bold">秘密の母子</text>
+
+  <!-- クンティー → パーンダヴァ -->
+  <line x1="380" y1="52" x2="520" y2="160" stroke="#2d7d46" stroke-width="1.5"/>
+  <text x="465" y="110" fill="#2d7d46" font-size="10">母子</text>
+
+  <!-- パーンドゥ → パーンダヴァ -->
+  <line x1="590" y1="118" x2="560" y2="160" stroke="#2d7d46" stroke-width="1.5"/>
+
+  <!-- カルナ → パーンダヴァ（異母兄弟） -->
+  <line x1="320" y1="184" x2="430" y2="184" stroke="#d08020" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="375" y="178" fill="#d08020" font-size="10" text-anchor="middle">異母兄弟（秘密）</text>
+
+  <!-- カルナ → ドゥルヨーダナ（忠義） -->
+  <line x1="220" y1="208" x2="130" y2="250" stroke="#8b1a1a" stroke-width="2"/>
+  <text x="155" y="228" fill="#8b1a1a" font-size="10">忠義・親友</text>
+
+  <!-- カルナ → アルジュナ（宿敵） -->
+  <line x1="290" y1="208" x2="510" y2="250" stroke="#b03030" stroke-width="2.5" stroke-dasharray="5 3"/>
+  <text x="400" y="234" fill="#b03030" font-size="11" font-weight="bold" text-anchor="middle">宿敵</text>
+
+</svg>
+</div>
+<div class="fig-caption">図4：カルナの位置づけ ─ 血縁（パーンダヴァ側）と忠義（カウラヴァ側）の狭間<br>
+<small>CE, 05,138–142：クリシュナがカルナに出生の秘密を告げ、パーンダヴァ側への寝返りを促すが拒絶される</small></div>
+</div>
+
+
+<!-- ==================== 大戦後の生存者 ==================== -->
+<h4>大戦後の生存者</h4>
+
+<p>
+18日間の大戦を生き延びた主要武将は極めて少ない。BORI CE Sauptika-parvan（第10篇）および Strī-parvan（第11篇）に基づく。
+</p>
+
+<div class="sides">
+<div class="side-pandava" style="flex:1;">
+<h5>パーンダヴァ側 生存者</h5>
+<p class="no-indent" style="font-size:0.92em;">
+<strong>ユディシュティラ</strong>、<strong>ビーマ</strong>、<strong>アルジュナ</strong>、<strong>ナクラ</strong>、<strong>サハデーヴァ</strong>（五兄弟全員）<br>
+<strong>クリシュナ</strong>（御者）<br>
+<strong>サーティヤキ</strong>（ヤーダヴァ武将）
+</p>
+<p class="note">ドラウパディーの五子はアシュヴァッターマンの夜襲で全員殺害（10,008）。ドリシュタデュムナ、シカンディンも夜襲で死す。</p>
+</div>
+<div class="side-kaurava" style="flex:1;">
+<h5>カウラヴァ側 生存者</h5>
+<p class="no-indent" style="font-size:0.92em;">
+<strong>クリパ</strong>（武術師範）<br>
+<strong>アシュヴァッターマン</strong>（ドローナの子）<br>
+<strong>クリタヴァルマン</strong>（ヤーダヴァ武将）
+</p>
+<p class="note">この3名がドゥルヨーダナの最期を看取った後、夜襲を決行（10,005-008）。</p>
+</div>
+</div>
+
+
+<!-- ==================== 女性人物 ==================== -->
+<h4>女性人物の系譜と役割</h4>
+
+<table>
+<tr><th>人物名</th><th>IAST</th><th>出自</th><th>配偶者</th><th>物語上の役割</th></tr>
+<tr>
+  <td><strong>サティヤヴァティー</strong></td><td>Satyavatī</td>
+  <td>漁師の長の養女</td><td>シャンタヌ</td>
+  <td>ビーシュマの独身の誓いを引き起こす。ヴィヤーサの実母。ニヨーガを命令</td>
+</tr>
+<tr>
+  <td><strong>ガンガー</strong></td><td>Gaṅgā</td>
+  <td>河の女神</td><td>シャンタヌ</td>
+  <td>七子を川に流し、第八子ビーシュマのみ育てる（01,092–094）</td>
+</tr>
+<tr>
+  <td><strong>アンバー</strong></td><td>Ambā</td>
+  <td>カーシー王の長女</td><td>（なし）</td>
+  <td>ビーシュマに連れ去られ婚約者に拒絶。ビーシュマ殺害の誓いを立てシカンディンに転生（05,170–192）</td>
+</tr>
+<tr>
+  <td><strong>クンティー</strong></td><td>Kuntī</td>
+  <td>シューラの娘（ヤーダヴァ族）</td><td>パーンドゥ</td>
+  <td>ドゥルヴァーサスの呪文で神を招く力を持つ。婚前にカルナを産む。パーンダヴァ三兄の母</td>
+</tr>
+<tr>
+  <td><strong>マードリー</strong></td><td>Mādrī</td>
+  <td>マドラ国王女</td><td>パーンドゥ</td>
+  <td>双子ナクラ・サハデーヴァの母。パーンドゥの死後、殉死（satī）する（01,118-119）</td>
+</tr>
+<tr>
+  <td><strong>ガーンダーリー</strong></td><td>Gāndhārī</td>
+  <td>ガンダーラ国王女</td><td>ドリタラーシュトラ</td>
+  <td>盲目の夫に殉じて目隠し。肉塊から百子を産む。大戦後クリシュナを呪う（11,025）</td>
+</tr>
+<tr>
+  <td><strong>ドラウパディー</strong></td><td>Draupadī</td>
+  <td>パーンチャーラ国、ドルパダ王の娘</td><td>パーンダヴァ五兄弟</td>
+  <td>火祭壇から生まれる。賭博での凌辱が大戦の直接的引き金。13年間髪を結わない誓い</td>
+</tr>
+<tr>
+  <td><strong>スバドラー</strong></td><td>Subhadrā</td>
+  <td>ヤーダヴァ族、ヴァスデーヴァの娘</td><td>アルジュナ</td>
+  <td>クリシュナの妹。アビマニュの母。クル族とヤーダヴァ族の姻戚関係を結ぶ鍵</td>
+</tr>
+<tr>
+  <td><strong>ウッタラー</strong></td><td>Uttarā</td>
+  <td>マツヤ国、ヴィラータ王の娘</td><td>アビマニュ</td>
+  <td>パリークシット王の母。アシュヴァッターマンの武器から胎児を守られる（14,066-068）</td>
+</tr>
+<tr>
+  <td><strong>ヒディンバー</strong></td><td>Hiḍimbā</td>
+  <td>羅刹女</td><td>ビーマ</td>
+  <td>ガトートカチャの母。CE 01,139–142 で兄ヒディンバを殺したビーマと結ばれる</td>
+</tr>
+</table>
+
+
+<!-- ==================== 世代対照 ==================== -->
+<h4>世代対照表</h4>
+
+<table>
+<tr><th>世代</th><th>クル族（カウラヴァ系）</th><th>クル族（パーンダヴァ系）</th><th>ヤーダヴァ族</th><th>パーンチャーラ族</th></tr>
+<tr>
+  <td style="font-weight:bold;">祖父世代</td>
+  <td colspan="2" style="text-align:center;">シャンタヌ王、サティヤヴァティー</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td style="font-weight:bold;">父祖世代</td>
+  <td colspan="2" style="text-align:center;">ビーシュマ、ヴィヤーサ</td>
+  <td>シューラ</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td style="font-weight:bold;">親世代</td>
+  <td>ドリタラーシュトラ、ガーンダーリー</td>
+  <td>パーンドゥ、クンティー、マードリー</td>
+  <td>ヴァスデーヴァ、デーヴァキー</td>
+  <td>ドルパダ王</td>
+</tr>
+<tr>
+  <td style="font-weight:bold;">主人公世代</td>
+  <td>ドゥルヨーダナ、ドゥフシャーサナ、ドゥフシャラー</td>
+  <td>ユディシュティラ、ビーマ、アルジュナ、ナクラ、サハデーヴァ</td>
+  <td>クリシュナ、バラデーヴァ、スバドラー</td>
+  <td>ドリシュタデュムナ、ドラウパディー、シカンディン</td>
+</tr>
+<tr>
+  <td style="font-weight:bold;">子世代</td>
+  <td>—</td>
+  <td>アビマニュ、ドラウパディーの五子、ガトートカチャ</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td style="font-weight:bold;">孫世代</td>
+  <td>—</td>
+  <td>パリークシット</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+<tr>
+  <td style="font-weight:bold;">曾孫世代</td>
+  <td>—</td>
+  <td>ジャナメージャヤ（叙事詩の聴衆）</td>
+  <td>—</td>
+  <td>—</td>
+</tr>
+</table>
+
+
+<div class="fig-box" style="text-align:center; margin-top:2em; padding:0.8em;">
+<strong>関連資料：</strong>
+<a href="https://mandana1221.github.io/brahmasiddhi/fc2_mahabharata_guide.html" style="color:#8b1a1a; font-weight:bold;">散文要約ガイド（全18篇）</a>
+&nbsp;｜&nbsp;
+<a href="https://mandana1221.github.io/brahmasiddhi/fc2_mahabharata_toc.html" style="color:#8b1a1a; font-weight:bold;">全篇・全章 目次</a>
+&nbsp;｜&nbsp;
+<a href="https://mandana1221.github.io/brahmasiddhi/fc2_mahabharata_karna.html" style="color:#8b1a1a; font-weight:bold;">カルナ篇 詳細</a>
+</div>
+
+<p class="note" style="margin-top:1.5em;">
+本資料はBORI批判校訂版（Bhandarkar Oriental Research Institute, Pune, 1999, Muneo Tokunaga et al. 入力）の構成テキストに基づく。流布本（Vulgate）に含まれ批判校訂版で削除された人物・関係については省略した。人名のIAST転写は批判校訂版のローマ字テキストに従う。
+</p>
+
+</div>
