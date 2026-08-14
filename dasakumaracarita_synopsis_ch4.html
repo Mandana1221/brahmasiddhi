@@ -1,0 +1,927 @@
+<title>第4章 梗概 アルタパーラ物語</title>
+<style>
+  :root {
+    --bg: #f5f0e6;
+    --bg-card: #ebe4d4;
+    --bg-diagram: #e8e1d2;
+    --text: #2a1f1a;
+    --text-secondary: #6b5e4f;
+    --accent: #a0673c;
+    --accent-light: #c4956a;
+    --teal: #4a7c72;
+    --teal-light: #6a9e93;
+    --border: #c9b99a;
+    --border-light: #ddd3c0;
+    --white: #faf7f0;
+    --scene-line: #c9b99a;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1612;
+      --bg-card: #252019;
+      --bg-diagram: #1e1a15;
+      --text: #ddd5c8;
+      --text-secondary: #9a8e7d;
+      --accent: #c4956a;
+      --accent-light: #a0673c;
+      --teal: #6a9e93;
+      --teal-light: #4a7c72;
+      --border: #3d3529;
+      --border-light: #2e271e;
+      --white: #1e1a15;
+      --scene-line: #3d3529;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1612;
+    --bg-card: #252019;
+    --bg-diagram: #1e1a15;
+    --text: #ddd5c8;
+    --text-secondary: #9a8e7d;
+    --accent: #c4956a;
+    --accent-light: #a0673c;
+    --teal: #6a9e93;
+    --teal-light: #4a7c72;
+    --border: #3d3529;
+    --border-light: #2e271e;
+    --white: #1e1a15;
+    --scene-line: #3d3529;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: Georgia, 'Noto Serif JP', 'Yu Mincho', serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.75;
+  }
+
+  .hero {
+    background: var(--bg-card);
+    border-bottom: 3px solid var(--accent);
+    padding: 3em 1.5em 2.5em;
+    text-align: center;
+  }
+  .hero-eyebrow {
+    font-family: system-ui, sans-serif;
+    font-size: 0.72em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 0.6em;
+  }
+  .hero h1 {
+    font-size: 1.9em;
+    font-weight: 700;
+    color: var(--text);
+    letter-spacing: 0.06em;
+    text-wrap: balance;
+    margin-bottom: 0.3em;
+  }
+  .hero .subtitle {
+    font-size: 1.0em;
+    color: var(--text-secondary);
+    font-style: italic;
+  }
+  .hero .chapter-meta {
+    font-family: system-ui, sans-serif;
+    font-size: 0.78em;
+    color: var(--text-secondary);
+    margin-top: 1em;
+    display: flex;
+    justify-content: center;
+    gap: 2em;
+    flex-wrap: wrap;
+  }
+  .hero .chapter-meta span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.3em;
+  }
+
+  .wrap {
+    max-width: 820px;
+    margin: 0 auto;
+    padding: 2em 1.5em 4em;
+  }
+
+  h2 {
+    font-size: 1.25em;
+    color: var(--accent);
+    margin: 2.5em 0 0.8em;
+    padding-bottom: 0.3em;
+    border-bottom: 1.5px solid var(--border);
+    text-wrap: balance;
+  }
+  h3 {
+    font-size: 1.05em;
+    color: var(--teal);
+    margin: 1.8em 0 0.5em;
+  }
+
+  p {
+    font-size: 0.92em;
+    margin: 0.5em 0;
+    text-align: justify;
+  }
+  p.lead {
+    font-size: 1.0em;
+    line-height: 1.85;
+    color: var(--text);
+  }
+
+  .overview {
+    background: var(--bg-card);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 1.2em 1.5em;
+    margin: 1.2em 0;
+  }
+  .overview p { font-size: 0.9em; }
+
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1em 0 1.5em;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85em;
+    font-variant-numeric: tabular-nums;
+  }
+  thead th {
+    font-family: system-ui, sans-serif;
+    font-size: 0.78em;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    background: var(--bg-card);
+    color: var(--accent);
+    padding: 0.7em 0.8em;
+    text-align: left;
+    border-bottom: 2px solid var(--border);
+    white-space: nowrap;
+  }
+  tbody td {
+    padding: 0.6em 0.8em;
+    border-bottom: 1px solid var(--border-light);
+    vertical-align: top;
+  }
+  tbody tr:last-child td { border-bottom: none; }
+  tbody tr:nth-child(even) { background: var(--bg-card); }
+  .role-tag {
+    font-family: system-ui, sans-serif;
+    font-size: 0.75em;
+    display: inline-block;
+    padding: 0.1em 0.5em;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+  .role-hero { background: var(--teal); color: var(--white); }
+  .role-ally { background: var(--accent); color: var(--white); }
+  .role-enemy { background: #8b4049; color: #f0e0e0; }
+  .role-divine { background: #6b5b8d; color: #e8e0f0; }
+  .role-royal { background: #5a7a5a; color: #e0f0e0; }
+  .role-yaksha { background: #5b6e8d; color: #e0e8f0; }
+  .role-servant { background: #7a6b5a; color: #f0e8e0; }
+
+  .timeline {
+    position: relative;
+    margin: 1.5em 0 2em;
+    padding-left: 2.2em;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0.7em;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: var(--scene-line);
+  }
+  .scene {
+    position: relative;
+    margin-bottom: 1.2em;
+    padding: 0.8em 1em;
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 5px;
+  }
+  .scene::before {
+    content: '';
+    position: absolute;
+    left: -1.85em;
+    top: 1.1em;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 2px solid var(--bg);
+  }
+  .scene.climax::before { background: var(--teal); width: 12px; height: 12px; left: -1.9em; top: 1.0em; }
+  .scene-num {
+    font-family: system-ui, sans-serif;
+    font-size: 0.7em;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+    font-weight: 600;
+  }
+  .scene-title {
+    font-size: 0.95em;
+    font-weight: 700;
+    color: var(--text);
+    margin: 0.15em 0 0.25em;
+  }
+  .scene-desc {
+    font-size: 0.85em;
+    color: var(--text-secondary);
+    line-height: 1.7;
+  }
+  .scene-loc {
+    font-family: system-ui, sans-serif;
+    font-size: 0.72em;
+    color: var(--teal);
+    margin-top: 0.3em;
+  }
+
+  .diagram-wrap {
+    margin: 1.5em 0;
+    overflow-x: auto;
+  }
+  .diagram-wrap svg {
+    display: block;
+    margin: 0 auto;
+    max-width: 100%;
+    height: auto;
+  }
+  .diagram-caption {
+    font-family: system-ui, sans-serif;
+    font-size: 0.75em;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-top: 0.5em;
+  }
+
+  .phase {
+    display: flex;
+    align-items: center;
+    gap: 0.6em;
+    margin: 1.8em 0 0.6em;
+    padding-left: 0;
+  }
+  .phase-bar {
+    width: 4px;
+    height: 1.4em;
+    border-radius: 2px;
+  }
+  .phase-bar.p1 { background: var(--accent); }
+  .phase-bar.p2 { background: var(--teal); }
+  .phase-bar.p3 { background: #8b4049; }
+  .phase-bar.p4 { background: #6b5b8d; }
+  .phase-bar.p5 { background: #5a7a5a; }
+  .phase-label {
+    font-family: system-ui, sans-serif;
+    font-size: 0.82em;
+    font-weight: 600;
+    color: var(--text);
+    letter-spacing: 0.03em;
+  }
+
+  .theme-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 0.8em;
+    margin: 1em 0;
+  }
+  .theme-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-light);
+    border-radius: 5px;
+    padding: 0.8em 1em;
+  }
+  .theme-card h4 {
+    font-size: 0.88em;
+    color: var(--accent);
+    margin-bottom: 0.3em;
+  }
+  .theme-card p {
+    font-size: 0.82em;
+    color: var(--text-secondary);
+    text-align: left;
+  }
+
+  footer {
+    text-align: center;
+    padding: 2em 1em;
+    color: var(--text-secondary);
+    font-size: 0.75em;
+    border-top: 1px solid var(--border-light);
+    margin-top: 2em;
+  }
+
+  @media (max-width: 600px) {
+    .hero h1 { font-size: 1.5em; }
+    .wrap { padding: 1.2em 1em 3em; }
+    .timeline { padding-left: 1.8em; }
+    .scene::before { left: -1.45em; }
+    .scene.climax::before { left: -1.5em; }
+  }
+</style>
+
+<div class="hero">
+  <div class="hero-eyebrow">十王子物語 内容梗概</div>
+  <h1>第4章 アルタパーラ物語</h1>
+  <div class="subtitle">Caturtha Ucchvāsaḥ — Arthapālacaritam</div>
+  <div class="chapter-meta">
+    <span>全25節</span>
+    <span>語り手：アルタパーラ</span>
+    <span>舞台：ヴァーラーナスィー（カーシー）</span>
+    <span>Dkc_2,4</span>
+  </div>
+</div>
+
+<div class="wrap">
+
+<p class="lead">カーマパーラの息子アルタパーラが、ヴァーラーナスィーで出会った忠臣プールナバドラの嘆きから父の窮状を知り、毒蛇を用いた偽死の計略で父を救出し、地下道の掘削から偶然発見した秘密の王女マニカルニカーと婚姻し、王国を奪還する物語。三重の入れ子構造を持つ語りと、輪廻転生の啓示が物語の核心をなす。</p>
+
+<div class="overview">
+  <p>本章は物語の入れ子構造が最も精緻な章である。アルタパーラの語り（枠）の中に、プールナバドラの告白（第一層）、カーマパーラの自伝（第二層）、ターラーヴァリーの物語（第三層）、さらにクベーラの輪廻転生の啓示（第四層）が順に収められる。この多層的な語りを通じて、登場人物たちが前世から同一人物であるという壮大な宿縁の体系が明かされ、アルタパーラの救出行動に宿命的な正当性が付与される。毒蛇を操るマントラの術、殉死（サティー）の偽装、地下道による王宮侵入など、智謀と冒険が交錯する痛快な章でもある。</p>
+</div>
+
+<h2>登場人物</h2>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr><th>名前</th><th>サンスクリット</th><th>役割</th><th>説明</th></tr>
+</thead>
+<tbody>
+  <tr><td>アルタパーラ</td><td>Arthapāla</td><td><span class="role-tag role-hero">主人公</span></td><td>カーマパーラとカーンティマティーの息子。ヤクシャの女ターラーヴァリーに拾われ、ヴァスマティー妃に託されて育てられた。マントラと薬草の術で蛇毒を操る。</td></tr>
+  <tr><td>カーマパーラ</td><td>Kāmapāla</td><td><span class="role-tag role-royal">父・宰相</span></td><td>クスマプラ出身の宰相の息子。カーシー王女カーンティマティーと密通の後に宰相となるが、讒言により投獄され目を抉られる刑に処される。</td></tr>
+  <tr><td>プールナバドラ</td><td>Pūrṇabhadra</td><td><span class="role-tag role-ally">忠臣</span></td><td>元盗賊の商人の息子。処刑用の狂象を威嚇して退けた勇猛さを買われ、カーマパーラに登用された。主のために命を捨てる覚悟を持つ。</td></tr>
+  <tr><td>ターラーヴァリー</td><td>Tārāvalī</td><td><span class="role-tag role-yaksha">ヤクシャの娘</span></td><td>ヤクシャの首長マニバドラの娘。カーマパーラの前世からの恋人。火葬場で捨てられたアルタパーラを拾い、ヴァスマティー妃に託した。</td></tr>
+  <tr><td>カーンティマティー</td><td>Kāntimatī</td><td><span class="role-tag role-royal">王女・母</span></td><td>カーシー王チャンダスィンハの王女でカーマパーラの正妻。前世ではバンドゥマティー、ヴィナヤヴァティーと同一人物。</td></tr>
+  <tr><td>チャンダスィンハ</td><td>Caṇḍasiṃha</td><td><span class="role-tag role-royal">カーシー王</span></td><td>カーンティマティーの父。密通を発見してカーマパーラを処刑しようとするが、後に夜の王宮で制圧され婿として認める。</td></tr>
+  <tr><td>スィンハゴーシャ</td><td>Siṃhaghoṣa</td><td><span class="role-tag role-enemy">暴君</span></td><td>チャンダゴーシャの息子で五歳で即位したカーシーの幼王。悪臣の讒言に唆され、恩人カーマパーラの目を抉る刑を命じる。</td></tr>
+  <tr><td>マニカルニカー</td><td>Maṇikarṇikā</td><td><span class="role-tag role-royal">秘密の王女</span></td><td>チャンダゴーシャとアーチャーラヴァティーの娘。祖父チャンダスィンハにより地下宮殿で秘密裏に育てられた。アルタパーラの妻となる。</td></tr>
+  <tr><td>リッディマティー</td><td>Ṛddhimatī</td><td><span class="role-tag role-servant">乳母</span></td><td>マニカルニカーの乳母。十二年間地下宮殿で王女を育てた。</td></tr>
+  <tr><td>スラクシャナー</td><td>Sulakṣaṇā</td><td><span class="role-tag role-royal">先代王妃</span></td><td>チャンダスィンハの王妃。カーンティマティーの苦悩を聞き出し、王に密告してカーマパーラの逮捕の端緒を作る。</td></tr>
+  <tr><td>クベーラ</td><td>Kubera</td><td><span class="role-tag role-divine">財宝神</span></td><td>ヤクシャたちの王。登場人物の前世と輪廻転生の秘密を明かす。シヴァの友（harasakha）とも呼ばれる。</td></tr>
+  <tr><td>ムリティユヴィジャヤ</td><td>Mṛtyuvijaya</td><td><span class="role-tag role-enemy">処刑象</span></td><td>「死に勝つ者」の名を持つ殺戮を好む狂象。プールナバドラの怒声に怯えて逃走する。</td></tr>
+</tbody>
+</table>
+</div>
+
+<h2>物語構造</h2>
+
+<p>本章は五段階の展開を持ち、入れ子の語りが段階的に深まり、再び外側の物語に戻りながら行動へと転化する構造を取る。</p>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 700 320" xmlns="http://www.w3.org/2000/svg" style="font-family: system-ui, sans-serif;">
+  <!-- Background -->
+  <rect width="700" height="320" fill="var(--bg-diagram)" rx="8"/>
+
+  <!-- Phase 1: 邂逅と告白 -->
+  <rect x="20" y="30" width="120" height="60" rx="6" fill="var(--accent)" opacity="0.9"/>
+  <text x="80" y="55" text-anchor="middle" fill="var(--white)" font-size="11" font-weight="700">邂逅と告白</text>
+  <text x="80" y="72" text-anchor="middle" fill="var(--white)" font-size="9" opacity="0.8">SS1-3</text>
+
+  <!-- Phase 2: 入れ子の語り -->
+  <rect x="160" y="15" width="200" height="130" rx="6" fill="none" stroke="var(--teal)" stroke-width="2" stroke-dasharray="4,3"/>
+  <text x="260" y="32" text-anchor="middle" fill="var(--teal)" font-size="10" font-weight="600">入れ子の語り</text>
+
+  <rect x="175" y="40" width="170" height="30" rx="4" fill="var(--teal)" opacity="0.85"/>
+  <text x="260" y="60" text-anchor="middle" fill="var(--white)" font-size="10" font-weight="600">カーマパーラの自伝 SS4-5</text>
+
+  <rect x="185" y="78" width="150" height="28" rx="4" fill="#5b6e8d" opacity="0.85"/>
+  <text x="260" y="96" text-anchor="middle" fill="#e0e8f0" font-size="9.5" font-weight="600">ターラーヴァリーの物語 SS6-7</text>
+
+  <rect x="195" y="114" width="130" height="24" rx="4" fill="#6b5b8d" opacity="0.85"/>
+  <text x="260" y="130" text-anchor="middle" fill="#e8e0f0" font-size="9" font-weight="600">クベーラの輪廻啓示 SS8</text>
+
+  <!-- Arrow 1→2 -->
+  <line x1="140" y1="60" x2="158" y2="55" stroke="var(--border)" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+  <!-- Phase 3: 再会と宿縁 -->
+  <rect x="380" y="30" width="120" height="60" rx="6" fill="#5b6e8d" opacity="0.9"/>
+  <text x="440" y="55" text-anchor="middle" fill="#e0e8f0" font-size="11" font-weight="700">再会と宿縁</text>
+  <text x="440" y="72" text-anchor="middle" fill="#e0e8f0" font-size="9" opacity="0.8">SS9-11</text>
+
+  <!-- Arrow 2→3 -->
+  <line x1="362" y1="60" x2="378" y2="60" stroke="var(--border)" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+  <!-- Phase 4: 危機と計略 -->
+  <rect x="520" y="30" width="160" height="60" rx="6" fill="#8b4049" opacity="0.9"/>
+  <text x="600" y="55" text-anchor="middle" fill="#f0e0e0" font-size="11" font-weight="700">危機と救出計略</text>
+  <text x="600" y="72" text-anchor="middle" fill="#f0e0e0" font-size="9" opacity="0.8">SS12-20</text>
+
+  <!-- Arrow 3→4 -->
+  <line x1="500" y1="60" x2="518" y2="60" stroke="var(--border)" stroke-width="1.5" marker-end="url(#arr4)"/>
+
+  <!-- Phase 5: 奪還と婚姻 -->
+  <rect x="280" y="175" width="160" height="60" rx="6" fill="#5a7a5a" opacity="0.9"/>
+  <text x="360" y="200" text-anchor="middle" fill="#e0f0e0" font-size="11" font-weight="700">王国奪還と婚姻</text>
+  <text x="360" y="217" text-anchor="middle" fill="#e0f0e0" font-size="9" opacity="0.8">SS21-25</text>
+
+  <!-- Arrow 4→5 -->
+  <path d="M600,92 L600,170 Q600,185 585,190 L442,200" stroke="var(--border)" stroke-width="1.5" fill="none" marker-end="url(#arr4)"/>
+
+  <!-- Key insight box -->
+  <rect x="60" y="250" width="580" height="55" rx="6" fill="var(--bg-card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="350" y="270" text-anchor="middle" fill="var(--accent)" font-size="10" font-weight="700">四重の入れ子構造</text>
+  <text x="350" y="288" text-anchor="middle" fill="var(--text-secondary)" font-size="9">アルタパーラ → プールナバドラ → カーマパーラ → ターラーヴァリー → クベーラの輪廻啓示</text>
+  <text x="350" y="300" text-anchor="middle" fill="var(--text-secondary)" font-size="8.5">語りが深まるごとに、物語世界の時間は前世へと遡行し、宿縁の全体像が明かされる</text>
+
+  <defs>
+    <marker id="arr4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+      <path d="M0,0 L10,5 L0,10 Z" fill="var(--border)"/>
+    </marker>
+  </defs>
+</svg>
+</div>
+<div class="diagram-caption">第4章の五段階構造と四重の入れ子の語り</div>
+
+
+<h2>場面一覧（全25節）</h2>
+
+<!-- Phase 1 -->
+<div class="phase">
+  <div class="phase-bar p1"></div>
+  <div class="phase-label">第一幕：邂逅と告白（SS1-3）</div>
+</div>
+
+<div class="timeline">
+  <div class="scene">
+    <div class="scene-num">SS1</div>
+    <div class="scene-title">ヴァーラーナスィー到着</div>
+    <div class="scene-desc">アルタパーラがカーシー聖都に至り、マニカルニカー・ガートで沐浴し、アヴィムクテーシュヴァラ（シヴァ）を礼拝した後、涙を流して帯を締め直す男を発見する。</div>
+    <div class="scene-loc">ヴァーラーナスィー、マニカルニカー・ガート</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS2</div>
+    <div class="scene-title">プールナバドラの物語 ― 象による処刑</div>
+    <div class="scene-desc">男はプールナバドラと名乗り、元盗賊として処刑されることになった経緯を語る。殺戮を好む狂象ムリティユヴィジャヤが突進するが、プールナバドラは一喝して怯えさせ、「もっと立派な象を連れて来い」と豪語する。</div>
+    <div class="scene-loc">ヴァーラーナスィー、処刑場（回想）</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS3</div>
+    <div class="scene-title">宰相カーマパーラの賞賛と登用</div>
+    <div class="scene-desc">宰相カーマパーラがプールナバドラの勇猛さを見込んで登用し、「汚れた行いをやめ、高貴な生き方をせよ」と諭す。二人は友のように親しくなる。</div>
+    <div class="scene-loc">ヴァーラーナスィー、王宮</div>
+  </div>
+</div>
+
+<!-- Phase 2 -->
+<div class="phase">
+  <div class="phase-bar p2"></div>
+  <div class="phase-label">第二幕：入れ子の語り ― 前世と宿縁（SS4-9）</div>
+</div>
+
+<div class="timeline">
+  <div class="scene">
+    <div class="scene-num">SS4</div>
+    <div class="scene-title">カーマパーラの身の上話（一）― 放蕩と恋</div>
+    <div class="scene-desc">カーマパーラはクスマプラ（パータリプトラ）の宰相ダルマパーラの次男で、兄スミトラの諫めも聞かず放蕩を重ね、カーシーに流れ着いてカーシー王女カーンティマティーに恋する。</div>
+    <div class="scene-loc">クスマプラ（回想）、ヴァーラーナスィー遊園</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS5</div>
+    <div class="scene-title">カーマパーラの身の上話（二）― 密通と逃亡</div>
+    <div class="scene-desc">王女の居室に通い子を産ませるが、侍従が死産と偽って赤子を捨てる。シャバラ族の女が密告し、カーマパーラは火葬場で処刑されかけるが、運命の力で縄が切れ闇に紛れて逃亡する。</div>
+    <div class="scene-loc">王女居所、火葬場</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS6</div>
+    <div class="scene-title">ターラーヴァリーとの出会い</div>
+    <div class="scene-desc">森を彷徨うカーマパーラの前に、天上の姿をした涙の乙女ターラーヴァリーが現れ、菩提樹の下に座って甘い言葉を語り始める。</div>
+    <div class="scene-loc">森の中、菩提樹の下</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS7</div>
+    <div class="scene-title">ターラーヴァリーの物語 ― ヤクシャの娘</div>
+    <div class="scene-desc">ターラーヴァリーはヤクシャの首長マニバドラの娘と名乗り、ヴァーラーナスィーの火葬場で泣く赤子を拾い、クベーラ神の宮殿に連れて行った経緯を語る。</div>
+    <div class="scene-loc">マラヤ山、クベーラの宮殿（回想）</div>
+  </div>
+  <div class="scene climax">
+    <div class="scene-num">SS8</div>
+    <div class="scene-title">輪廻転生の啓示 ― クベーラの開示</div>
+    <div class="scene-desc">クベーラ神がシャウナカ＝シュードラカ＝カーマパーラ、バンドゥマティー＝ヴィナヤヴァティー＝カーンティマティーなど、登場人物が複数の前世で同一人物であることを明かす。火を証人として娶った牧女こそアーリヤダースィーであり、今のターラーヴァリーであるという。</div>
+    <div class="scene-loc">クベーラ神の宮殿（回想）</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS9</div>
+    <div class="scene-title">ターラーヴァリーの使命 ― 赤子の托身</div>
+    <div class="scene-desc">ターラーヴァリーは拾った赤子を、エーカピンガー（クベーラ）の指示により、森で苦行するラージャハンサ王妃ヴァスマティーに、未来の転輪聖王ラージャヴァーハナの侍者として託したと語る。カーマパーラは多世にわたる恋人を抱き、ヤクシャの神通力で現れた宮殿で至福を味わう。</div>
+    <div class="scene-loc">森の宮殿</div>
+  </div>
+</div>
+
+<!-- Phase 3 -->
+<div class="phase">
+  <div class="phase-bar p3"></div>
+  <div class="phase-label">第三幕：危機 ― 讒言と逮捕（SS10-14）</div>
+</div>
+
+<div class="timeline">
+  <div class="scene">
+    <div class="scene-num">SS10</div>
+    <div class="scene-title">チャンダスィンハへの対決 ― 夜の王宮侵入</div>
+    <div class="scene-desc">カーマパーラはターラーヴァリーの助けで深夜に王の寝室に侵入し、枕元の鉄杖を取って王を起こし、「私はあなたの婿だ」と宣言する。恐怖した王は平伏して婿入りを承認する。</div>
+    <div class="scene-loc">王宮寝室</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS11</div>
+    <div class="scene-title">正式な婚姻 ― 事実上の副王</div>
+    <div class="scene-desc">翌日、チャンダスィンハは臣下を召集してカーンティマティーの手をカーマパーラに正式に与える。宰相の名目で実質的な副王の権威を得る。</div>
+    <div class="scene-loc">王宮</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS12</div>
+    <div class="scene-title">悪臣たちの讒言</div>
+    <div class="scene-desc">義父と義兄の死後、幼王スィンハゴーシャが即位。悪臣たちが「カーマパーラは王女を誘拐し、王を脅迫し、兄を毒殺した。次はお前を殺すだろう」と唆す。</div>
+    <div class="scene-loc">王宮</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS13</div>
+    <div class="scene-title">カーンティマティーの苦悩</div>
+    <div class="scene-desc">ターラーヴァリーが嫉妬から去り、カーマパーラも衰弱する中、先代王妃スラクシャナーがカーンティマティーの苦悩を問い質す。カーンティマティーは共妻ターラーヴァリーとの不和を打ち明ける。</div>
+    <div class="scene-loc">王宮後宮</div>
+  </div>
+  <div class="scene climax">
+    <div class="scene-num">SS14</div>
+    <div class="scene-title">カーマパーラの逮捕 ― 両目を抉る刑</div>
+    <div class="scene-desc">スラクシャナーが王に密告。スィンハゴーシャはヤクシャの女の恐れがなくなったことを知り、カーマパーラを逮捕して各所で罪状を布告し、両目を抉り出してそれが原因で死に至るよう命じる。</div>
+    <div class="scene-loc">王宮</div>
+  </div>
+</div>
+
+<!-- Phase 4 -->
+<div class="phase">
+  <div class="phase-bar p4"></div>
+  <div class="phase-label">第四幕：毒蛇の計略 ― 偽死と救出（SS15-20）</div>
+</div>
+
+<div class="timeline">
+  <div class="scene">
+    <div class="scene-num">SS15</div>
+    <div class="scene-title">アルタパーラの正体明かし</div>
+    <div class="scene-desc">プールナバドラの涙の告白を聞いたアルタパーラが、自分こそヤクシャの女に拾われヴァスマティー妃に託されたカーマパーラの息子であると明かす。千人の武士をも倒す力があるが、混戦で父が傷つくことを恐れる。</div>
+    <div class="scene-loc">ヴァーラーナスィー</div>
+  </div>
+  <div class="scene climax">
+    <div class="scene-num">SS16</div>
+    <div class="scene-title">毒蛇の計略 ― 偽死の策</div>
+    <div class="scene-desc">城壁の穴から毒蛇が現れ、アルタパーラがマントラと薬の力で捕獲する。蛇で父を噛ませて偽死させ、母にはクシャトリヤの法と婦人の法を引き合いに殉死を申し出させ、遺体を自宅に引き取る計画を立てる。</div>
+    <div class="scene-loc">ヴァーラーナスィー城壁</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS17</div>
+    <div class="scene-title">処刑場での計略実行</div>
+    <div class="scene-desc">アルタパーラはタマリンドの木に隠れ、父が盗賊のように縛られて連行されるのを見守る。チャンダーラが三度、カーマパーラの「罪状」を布告する。</div>
+    <div class="scene-loc">処刑場、タマリンドの木</div>
+  </div>
+  <div class="scene climax">
+    <div class="scene-num">SS18</div>
+    <div class="scene-title">蛇の投下 ― 偽りの死</div>
+    <div class="scene-desc">群衆のざわめきの中、木の上から父の体に毒蛇を投げ落とす。蛇毒を瞬時に止めて父を死んだように見せかけ、「王を侮辱する者には天罰が下る」と叫んで群衆を煽動する。コブラは処刑人も噛んで逃走する。</div>
+    <div class="scene-loc">処刑場</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS19</div>
+    <div class="scene-title">母の殉死の装い ― 遺体の引き取り</div>
+    <div class="scene-desc">母カーンティマティーが殉死を申し出る。王は「姉の夫に相応しい葬儀を」と許可。処刑人がまじない師の治療妨害のため死亡したことで「天命による死」と確定し、遺体は自宅に運ばれる。</div>
+    <div class="scene-loc">カーマパーラ邸</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS20</div>
+    <div class="scene-title">母との再会 ― カーマパーラの蘇生</div>
+    <div class="scene-desc">母が殉死の装いで寝所に入ると、ガルダ鳥の力（蛇毒解毒術）で蘇生された父が横たわっている。母は歓喜の涙で息子を抱きしめ、「生まれたばかりのお前を捨てた罪深い母をなぜ慈しむのか」と嘆く。乳が自然に溢れるほどの再会の感動が描かれる。</div>
+    <div class="scene-loc">カーマパーラ邸、密室</div>
+  </div>
+</div>
+
+<!-- Phase 5 -->
+<div class="phase">
+  <div class="phase-bar p5"></div>
+  <div class="phase-label">第五幕：王国奪還と婚姻（SS21-25）</div>
+</div>
+
+<div class="timeline">
+  <div class="scene">
+    <div class="scene-num">SS21</div>
+    <div class="scene-title">反撃の策謀 ― 父子の協議</div>
+    <div class="scene-desc">父カーマパーラが城壁に囲まれた自宅を拠点とし、恩を受けた封臣を糾合し、外部の敵対勢力を蜂起させてスィンハゴーシャを打倒する戦略を提示する。王は焦って外交工作を仕掛けるが日々退けられる。</div>
+    <div class="scene-loc">カーマパーラ邸</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS22</div>
+    <div class="scene-title">地下道の発掘 ― マニカルニカー王女の発見</div>
+    <div class="scene-desc">プールナバドラの情報を元に王宮へ地下道を掘り進めると、偶然「地上の楽園」のような地下宮殿に辿り着く。月の光のように輝く乙女マニカルニカーと、白髪の乳母に出会う。</div>
+    <div class="scene-loc">地下道、地下宮殿</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS23</div>
+    <div class="scene-title">リッディマティーの物語 ― マニカルニカーの秘密</div>
+    <div class="scene-desc">乳母リッディマティーが、チャンダゴーシャの遺児マニカルニカーが十二年間この地下宮殿で秘密裏に育てられた経緯を語る。カーンティマティーが胎内の時から息子アルタパーラの妻と定めていたことが判明する。</div>
+    <div class="scene-loc">地下宮殿</div>
+  </div>
+  <div class="scene climax">
+    <div class="scene-num">SS24</div>
+    <div class="scene-title">スィンハゴーシャの捕縛 ― 王国の奪取</div>
+    <div class="scene-desc">地下道を通って深夜に王宮に侵入し、眠るスィンハゴーシャを生け捕りにする。「ガルダが蛇を引きずるように」もがく王を地下道を通して自宅に連行し、鉄の足枷をかけて両親に見せる。マニカルニカーとの正式な婚礼が行われ、王国は掌中に収まる。</div>
+    <div class="scene-loc">王宮寝室、地下道、カーマパーラ邸</div>
+  </div>
+  <div class="scene">
+    <div class="scene-num">SS25</div>
+    <div class="scene-title">結語 ― ラージャヴァーハナとの合流</div>
+    <div class="scene-desc">アンガ王スィンハヴァルマーの救援のため出陣し、ラージャヴァーハナと合流。スィンハゴーシャの赦免を願い出る。王は「縛られた義父を解放し、我に拝謁させよ」と応じ、次の語り手プラマティに物語を促す。</div>
+    <div class="scene-loc">ラージャヴァーハナの宮廷</div>
+  </div>
+</div>
+
+
+<h2>人物関係図</h2>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 700 420" xmlns="http://www.w3.org/2000/svg" style="font-family: system-ui, sans-serif;">
+  <rect width="700" height="420" fill="var(--bg-diagram)" rx="8"/>
+
+  <!-- Arthapala (center) -->
+  <rect x="280" y="180" width="140" height="48" rx="6" fill="var(--teal)" opacity="0.9"/>
+  <text x="350" y="200" text-anchor="middle" fill="var(--white)" font-size="12" font-weight="700">アルタパーラ</text>
+  <text x="350" y="216" text-anchor="middle" fill="var(--white)" font-size="9" opacity="0.8">Arthapala</text>
+
+  <!-- Kamapala (father) -->
+  <rect x="60" y="60" width="140" height="48" rx="6" fill="#5a7a5a" opacity="0.9"/>
+  <text x="130" y="80" text-anchor="middle" fill="#e0f0e0" font-size="11" font-weight="700">カーマパーラ</text>
+  <text x="130" y="96" text-anchor="middle" fill="#e0f0e0" font-size="9" opacity="0.8">父・宰相</text>
+
+  <!-- Kantimati (mother) -->
+  <rect x="280" y="60" width="140" height="48" rx="6" fill="#5a7a5a" opacity="0.9"/>
+  <text x="350" y="80" text-anchor="middle" fill="#e0f0e0" font-size="11" font-weight="700">カーンティマティー</text>
+  <text x="350" y="96" text-anchor="middle" fill="#e0f0e0" font-size="9" opacity="0.8">母・王女</text>
+
+  <!-- Marriage line parents -->
+  <line x1="200" y1="84" x2="278" y2="84" stroke="var(--accent)" stroke-width="2"/>
+  <text x="239" y="78" text-anchor="middle" fill="var(--accent)" font-size="8">婚姻</text>
+
+  <!-- Parent to child -->
+  <line x1="350" y1="108" x2="350" y2="178" stroke="var(--border)" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="358" y="145" fill="var(--text-secondary)" font-size="8">親子</text>
+
+  <!-- Taravali -->
+  <rect x="60" y="180" width="140" height="48" rx="6" fill="#5b6e8d" opacity="0.9"/>
+  <text x="130" y="200" text-anchor="middle" fill="#e0e8f0" font-size="11" font-weight="700">ターラーヴァリー</text>
+  <text x="130" y="216" text-anchor="middle" fill="#e0e8f0" font-size="9" opacity="0.8">ヤクシャの娘・前世の妻</text>
+
+  <!-- Taravali - Kamapala -->
+  <line x1="130" y1="108" x2="130" y2="178" stroke="var(--accent)" stroke-width="1.5"/>
+  <text x="112" y="145" fill="var(--accent)" font-size="8">宿縁</text>
+
+  <!-- Taravali - Arthapala -->
+  <line x1="200" y1="204" x2="278" y2="204" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="239" y="198" text-anchor="middle" fill="var(--text-secondary)" font-size="8">養育</text>
+
+  <!-- Purnabhadra -->
+  <rect x="500" y="180" width="140" height="48" rx="6" fill="var(--accent)" opacity="0.9"/>
+  <text x="570" y="200" text-anchor="middle" fill="var(--white)" font-size="11" font-weight="700">プールナバドラ</text>
+  <text x="570" y="216" text-anchor="middle" fill="var(--white)" font-size="9" opacity="0.8">忠臣・元盗賊</text>
+
+  <!-- Purnabhadra - Arthapala -->
+  <line x1="422" y1="204" x2="498" y2="204" stroke="var(--border)" stroke-width="1.5"/>
+  <text x="460" y="198" text-anchor="middle" fill="var(--text-secondary)" font-size="8">協力</text>
+
+  <!-- Purnabhadra - Kamapala -->
+  <line x1="570" y1="178" x2="570" y2="100" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+  <path d="M570,100 L202,88" stroke="var(--border)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="400" y="120" text-anchor="middle" fill="var(--text-secondary)" font-size="8">登用・恩義</text>
+
+  <!-- Chandasinha -->
+  <rect x="460" y="30" width="140" height="48" rx="6" fill="#5a7a5a" opacity="0.9"/>
+  <text x="530" y="50" text-anchor="middle" fill="#e0f0e0" font-size="11" font-weight="700">チャンダスィンハ</text>
+  <text x="530" y="66" text-anchor="middle" fill="#e0f0e0" font-size="9" opacity="0.8">カーシー王（先代）</text>
+
+  <!-- Chandasinha - Kantimati -->
+  <line x1="458" y1="54" x2="422" y2="74" stroke="var(--border)" stroke-width="1"/>
+  <text x="450" y="72" fill="var(--text-secondary)" font-size="8">父娘</text>
+
+  <!-- Simhagosha -->
+  <rect x="500" y="300" width="140" height="48" rx="6" fill="#8b4049" opacity="0.9"/>
+  <text x="570" y="320" text-anchor="middle" fill="#f0e0e0" font-size="11" font-weight="700">スィンハゴーシャ</text>
+  <text x="570" y="336" text-anchor="middle" fill="#f0e0e0" font-size="9" opacity="0.8">暴君・幼王</text>
+
+  <!-- Simhagosha - Kamapala -->
+  <path d="M500,324 L350,324 L130,324 L130,108" stroke="#8b4049" stroke-width="1.5" stroke-dasharray="5,3" fill="none"/>
+  <text x="250" y="318" text-anchor="middle" fill="#8b4049" font-size="8">讒言→迫害</text>
+
+  <!-- Simhagosha - Arthapala -->
+  <line x1="500" y1="324" x2="422" y2="228" stroke="#8b4049" stroke-width="1.5"/>
+  <text x="470" y="270" fill="#8b4049" font-size="8">捕縛</text>
+
+  <!-- Manikarnika -->
+  <rect x="280" y="300" width="140" height="48" rx="6" fill="#5a7a5a" opacity="0.9"/>
+  <text x="350" y="320" text-anchor="middle" fill="#e0f0e0" font-size="11" font-weight="700">マニカルニカー</text>
+  <text x="350" y="336" text-anchor="middle" fill="#e0f0e0" font-size="9" opacity="0.8">秘密の王女</text>
+
+  <!-- Manikarnika - Arthapala -->
+  <line x1="350" y1="228" x2="350" y2="298" stroke="var(--accent)" stroke-width="2"/>
+  <text x="365" y="268" fill="var(--accent)" font-size="8">婚姻</text>
+
+  <!-- Kubera -->
+  <rect x="60" y="300" width="130" height="48" rx="6" fill="#6b5b8d" opacity="0.9"/>
+  <text x="125" y="320" text-anchor="middle" fill="#e8e0f0" font-size="11" font-weight="700">クベーラ</text>
+  <text x="125" y="336" text-anchor="middle" fill="#e8e0f0" font-size="9" opacity="0.8">財宝神・輪廻の啓示者</text>
+
+  <!-- Kubera - Taravali -->
+  <line x1="125" y1="298" x2="130" y2="230" stroke="#6b5b8d" stroke-width="1.5"/>
+  <text x="108" y="268" fill="#6b5b8d" font-size="8">命令</text>
+
+  <!-- Riddhimati -->
+  <rect x="120" y="370" width="120" height="36" rx="5" fill="#7a6b5a" opacity="0.8"/>
+  <text x="180" y="393" text-anchor="middle" fill="#f0e8e0" font-size="10">リッディマティー（乳母）</text>
+
+  <!-- Riddhimati - Manikarnika -->
+  <line x1="240" y1="388" x2="290" y2="348" stroke="var(--border)" stroke-width="1"/>
+  <text x="260" y="362" fill="var(--text-secondary)" font-size="7">養育</text>
+
+  <!-- Rajavahana -->
+  <rect x="300" y="378" width="120" height="36" rx="5" fill="var(--teal)" opacity="0.7"/>
+  <text x="360" y="401" text-anchor="middle" fill="var(--white)" font-size="10">ラージャヴァーハナ</text>
+
+  <!-- Rajavahana - Arthapala -->
+  <line x1="360" y1="378" x2="360" y2="348" stroke="var(--teal)" stroke-width="1" stroke-dasharray="3,3"/>
+  <text x="375" y="365" fill="var(--teal)" font-size="7">主従</text>
+</svg>
+</div>
+<div class="diagram-caption">第4章の主要人物関係図</div>
+
+
+<h2>舞台一覧</h2>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr><th>場所</th><th>サンスクリット</th><th>該当節</th><th>出来事</th></tr>
+</thead>
+<tbody>
+  <tr><td>ヴァーラーナスィー（カーシー）</td><td>Vārāṇasī / Kāśīpurī</td><td>SS1-3, SS10-25</td><td>物語の主舞台。聖都でのアルタパーラとプールナバドラの出会い、カーマパーラの逮捕と救出、王国奪還のすべてがここで起こる。</td></tr>
+  <tr><td>マニカルニカー・ガート</td><td>Maṇikarṇikā</td><td>SS1</td><td>ヴァーラーナスィーの最も神聖な火葬ガート。アルタパーラが沐浴し、シヴァを礼拝する場。</td></tr>
+  <tr><td>クスマプラ（パータリプトラ）</td><td>Kusumapura</td><td>SS4</td><td>カーマパーラの故郷。父ダルマパーラはリプンジャヤ王の宰相。</td></tr>
+  <tr><td>遊園（プラマダヴァナ）</td><td>Pramadavana</td><td>SS4</td><td>カーマパーラがカーンティマティーにまり遊びの姿を見染めた場所。</td></tr>
+  <tr><td>火葬場</td><td>Śmaśāna</td><td>SS5, SS7, SS17-18</td><td>カーマパーラの処刑未遂の場。ターラーヴァリーが赤子を拾った場所でもある。後にアルタパーラが毒蛇計略を実行する処刑場となる。</td></tr>
+  <tr><td>森の菩提樹の下</td><td>Vanavaṭadruma</td><td>SS6, SS9</td><td>カーマパーラとターラーヴァリーの再会の場。ヤクシャの神通力で宮殿が現れる。</td></tr>
+  <tr><td>クベーラの宮殿</td><td>Alakeśvarasthānī</td><td>SS7-8</td><td>ヤクシャの王クベーラが輪廻転生の秘密を明かす場所。</td></tr>
+  <tr><td>カーマパーラ邸</td><td>Svabhavanam</td><td>SS19-21</td><td>広大な城壁と備蓄を持つ宰相邸。カーマパーラの蘇生と母子の再会、反撃の策謀の拠点。</td></tr>
+  <tr><td>地下宮殿</td><td>Bhūmigṛha</td><td>SS22-23</td><td>チャンダスィンハが孫娘マニカルニカーを十二年間秘密裏に育てさせた人工の岩山の中の宮殿。地下道の掘削中に偶然発見される。</td></tr>
+  <tr><td>王宮寝室</td><td>Vāsagṛha</td><td>SS10, SS24</td><td>チャンダスィンハの夜の対決とスィンハゴーシャの捕縛、二度にわたって侵入される。</td></tr>
+</tbody>
+</table>
+</div>
+
+
+<h2>毒蛇計略の構造図</h2>
+
+<p>本章の中心的な策略は、毒蛇を用いた偽死計画である。マントラと薬草の術による蛇毒の制御、サティー（殉死）の法的制度の利用、さらに群衆心理の操作を組み合わせた多層的な欺瞞である。</p>
+
+<div class="diagram-wrap">
+<svg viewBox="0 0 700 400" xmlns="http://www.w3.org/2000/svg" style="font-family: system-ui, sans-serif;">
+  <rect width="700" height="400" fill="var(--bg-diagram)" rx="8"/>
+
+  <!-- Title -->
+  <text x="350" y="28" text-anchor="middle" fill="var(--accent)" font-size="13" font-weight="700">毒蛇計略（Sarpayukti）の三層構造</text>
+
+  <!-- Layer 1: Outer deception - what the public sees -->
+  <rect x="30" y="45" width="640" height="108" rx="8" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="50" y="65" fill="var(--accent)" font-size="11" font-weight="700">第一層：公衆への欺瞞（外部認識）</text>
+
+  <rect x="50" y="75" width="180" height="32" rx="4" fill="var(--accent)" opacity="0.15"/>
+  <text x="140" y="96" text-anchor="middle" fill="var(--text)" font-size="9">木の上から蛇が「偶然」落下</text>
+
+  <text x="242" y="94" fill="var(--border)" font-size="14">→</text>
+
+  <rect x="260" y="75" width="180" height="32" rx="4" fill="var(--accent)" opacity="0.15"/>
+  <text x="350" y="96" text-anchor="middle" fill="var(--text)" font-size="9">「王を侮辱する者には天罰」</text>
+
+  <text x="452" y="94" fill="var(--border)" font-size="14">→</text>
+
+  <rect x="470" y="75" width="180" height="32" rx="4" fill="var(--accent)" opacity="0.15"/>
+  <text x="560" y="96" text-anchor="middle" fill="var(--text)" font-size="9">処刑人も死亡 → 天罰説の補強</text>
+
+  <rect x="120" y="118" width="460" height="26" rx="4" fill="var(--bg-card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="350" y="136" text-anchor="middle" fill="var(--text-secondary)" font-size="9">結果：群衆は「神の裁き」と認識 → 王の正統性への疑念が広まる</text>
+
+  <!-- Layer 2: Legal/institutional deception -->
+  <rect x="30" y="168" width="640" height="108" rx="8" fill="none" stroke="var(--teal)" stroke-width="2"/>
+  <text x="50" y="188" fill="var(--teal)" font-size="11" font-weight="700">第二層：制度的欺瞞（法の利用）</text>
+
+  <rect x="50" y="198" width="140" height="44" rx="4" fill="var(--teal)" opacity="0.15"/>
+  <text x="120" y="215" text-anchor="middle" fill="var(--text)" font-size="9">クシャトリヤの法</text>
+  <text x="120" y="230" text-anchor="middle" fill="var(--text-secondary)" font-size="8">「罪人は容赦なく罰すべし」</text>
+
+  <rect x="210" y="198" width="140" height="44" rx="4" fill="var(--teal)" opacity="0.15"/>
+  <text x="280" y="215" text-anchor="middle" fill="var(--text)" font-size="9">婦人の法</text>
+  <text x="280" y="230" text-anchor="middle" fill="var(--text-secondary)" font-size="8">「夫の運命に従うべし」</text>
+
+  <text x="362" y="224" fill="var(--border)" font-size="14">→</text>
+
+  <rect x="380" y="198" width="140" height="44" rx="4" fill="var(--teal)" opacity="0.15"/>
+  <text x="450" y="215" text-anchor="middle" fill="var(--text)" font-size="9">殉死（サティー）の申出</text>
+  <text x="450" y="230" text-anchor="middle" fill="var(--text-secondary)" font-size="8">法的に拒絶不可能</text>
+
+  <text x="532" y="224" fill="var(--border)" font-size="14">→</text>
+
+  <rect x="540" y="198" width="120" height="44" rx="4" fill="var(--teal)" opacity="0.15"/>
+  <text x="600" y="215" text-anchor="middle" fill="var(--text)" font-size="9">遺体引き取り</text>
+  <text x="600" y="230" text-anchor="middle" fill="var(--text-secondary)" font-size="8">合法的に自宅搬送</text>
+
+  <rect x="120" y="250" width="460" height="18" rx="4" fill="var(--bg-card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="350" y="264" text-anchor="middle" fill="var(--text-secondary)" font-size="9">結果：王自らが「盛大な葬儀を」と命じ、自分の権威を自ら掘り崩す</text>
+
+  <!-- Layer 3: Hidden truth -->
+  <rect x="30" y="290" width="640" height="98" rx="8" fill="none" stroke="#6b5b8d" stroke-width="2"/>
+  <text x="50" y="310" fill="#6b5b8d" font-size="11" font-weight="700">第三層：隠された真実（蛇毒制御術）</text>
+
+  <rect x="50" y="320" width="130" height="32" rx="4" fill="#6b5b8d" opacity="0.15"/>
+  <text x="115" y="340" text-anchor="middle" fill="var(--text)" font-size="9">マントラで蛇を捕獲</text>
+
+  <text x="190" y="340" fill="var(--border)" font-size="14">→</text>
+
+  <rect x="200" y="320" width="130" height="32" rx="4" fill="#6b5b8d" opacity="0.15"/>
+  <text x="265" y="340" text-anchor="middle" fill="var(--text)" font-size="9">噛ませて即座に止毒</text>
+
+  <text x="340" y="340" fill="var(--border)" font-size="14">→</text>
+
+  <rect x="350" y="320" width="130" height="32" rx="4" fill="#6b5b8d" opacity="0.15"/>
+  <text x="415" y="340" text-anchor="middle" fill="var(--text)" font-size="9">ガルダ鳥の力で解毒</text>
+
+  <text x="490" y="340" fill="var(--border)" font-size="14">→</text>
+
+  <rect x="500" y="320" width="150" height="32" rx="4" fill="#6b5b8d" opacity="0.15"/>
+  <text x="575" y="340" text-anchor="middle" fill="var(--text)" font-size="9">密室で蘇生・母子再会</text>
+
+  <rect x="120" y="360" width="460" height="18" rx="4" fill="var(--bg-card)" stroke="var(--border)" stroke-width="1"/>
+  <text x="350" y="374" text-anchor="middle" fill="var(--text-secondary)" font-size="9">鍵：vainateyatā（ガルダの力）＝ mantrauṣadhabala（マントラと薬草の力）による蛇毒支配</text>
+</svg>
+</div>
+<div class="diagram-caption">毒蛇計略の三層構造 ― 群衆心理・法制度・蛇毒制御術の連動</div>
+
+
+<h2>輪廻転生の対応表</h2>
+
+<p>クベーラ神の啓示（SS8）により明かされる、登場人物の前世の対応関係。</p>
+
+<div class="table-wrap">
+<table>
+<thead>
+  <tr><th>第一世（シャウナカ期）</th><th>第二世（シュードラカ期）</th><th>第三世（カーマパーラ期）</th><th>系統</th></tr>
+</thead>
+<tbody>
+  <tr><td>シャウナカ（Śaunaka）</td><td>シュードラカ（Śūdraka）</td><td>カーマパーラ（Kāmapāla）</td><td>男性主人公</td></tr>
+  <tr><td>バンドゥマティー（Bandhumatī）</td><td>ヴィナヤヴァティー（Vinayavatī）</td><td>カーンティマティー（Kāntimatī）</td><td>正妻</td></tr>
+  <tr><td>牧女（Gopakanyā）</td><td>アーリヤダースィー（Āryadāsī）</td><td>ターラーヴァリー（Tārāvalī）</td><td>宿縁の恋人</td></tr>
+  <tr><td>ヴェーディマティー（Vedimatī）</td><td>アーリヤダースィー（同上）</td><td>ソーマデーヴィー（Somadevī）</td><td>侍女系統</td></tr>
+  <tr><td>ハンサーヴァリー（Haṃsāvalī）</td><td>シューラセーナー（Śūrasenā）</td><td>スロチャナー（Sulocanā）</td><td>侍女系統</td></tr>
+  <tr><td>ナンディニー（Nandinī）</td><td>ランガパターカー（Raṅgapatākā）</td><td>インドラセーナー（Indrasenā）</td><td>侍女系統</td></tr>
+</tbody>
+</table>
+</div>
+
+
+<h2>主題分析</h2>
+
+<div class="theme-grid">
+  <div class="theme-card">
+    <h4>宿業（Karmavipāka）</h4>
+    <p>輪廻転生の啓示により、登場人物の行動のすべてが前世からの因果の帰結として意味づけられる。アルタパーラの父への救出も自由意志ではなく宿縁の発動である。</p>
+  </div>
+  <div class="theme-card">
+    <h4>忠義（Bhakti）</h4>
+    <p>プールナバドラの元盗賊から忠臣への変容は、カーマパーラの人格的感化の力を示す。主のために命を捨てる覚悟は、ダルマの実践としての忠義を体現する。</p>
+  </div>
+  <div class="theme-card">
+    <h4>マーヤー（幻術・欺瞞）</h4>
+    <p>毒蛇計略は公衆への欺瞞、法制度の利用、蛇毒制御術の三層で構成される。偽死から蘇生への反転は死と再生の神話的パターンを世俗の策略として再演する。</p>
+  </div>
+  <div class="theme-card">
+    <h4>地下世界（Rasātala）</h4>
+    <p>地下道の掘削が偶然マニカルニカーの秘密の宮殿に通じる場面は、リアリズムの冒険譚と神話的な地下世界の発見を重ね合わせた叙述の妙である。</p>
+  </div>
+  <div class="theme-card">
+    <h4>讒言と暴政（Paiśunya）</h4>
+    <p>悪臣の讒言により恩人を迫害する幼王スィンハゴーシャの姿は、王権が幼少と無知に委ねられたときの危険を描く政治的寓話として機能する。</p>
+  </div>
+  <div class="theme-card">
+    <h4>母性の回復</h4>
+    <p>生後すぐに捨てられた子との再会における母カーンティマティーの描写（乳房が溢れる、頭の匂いを嗅ぐ、膝に乗せる）は、古典インド文学における母子再会の最も感動的な場面の一つである。</p>
+  </div>
+</div>
+
+
+<footer>
+  Daśakumāracarita — Caturtha Ucchvāsaḥ Synopsis<br>
+  Sanskrit text: GRETIL (Dkc_2,4) CC BY-NC-SA 4.0. Japanese translation based on M. R. Kale, <em>Daśakumāracarita of Daṇḍin</em>, 3rd ed.<br>
+  Synopsis: Claude (Anthropic), 2026
+</footer>
+
+</div>
