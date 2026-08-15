@@ -383,41 +383,58 @@ def build_chapter_endnotes_html(all_notes, ch_roman):
     h += '    </section>\n'
     return h
 
-def make_section_groups(de_sections, ja_sections):
-    """Pair DE and JA sections by proportional position.
+JA_ALLOC_OVERRIDES = {
+    0: [3, 9, 4, 1, 4, 1, 2, 5, 1, 3, 5, 3, 3, 4, 4],
+}
 
-    Returns a list of (de_group, ja_group) where each group is a list
-    of (sec_num, sec_text) tuples.  The side with fewer sections gets
-    1:1 mapping; the side with more sections has consecutive sections
-    merged into groups so both sides have the same number of groups.
-    """
-    m = len(de_sections)
-    n = len(ja_sections)
-
-    if m == 0 and n == 0:
+def pair_paras(de_paras, ja_paras):
+    """Pair paragraphs 1:1, bundling extras into the last row."""
+    nd = len(de_paras)
+    nj = len(ja_paras)
+    if nd == 0 and nj == 0:
         return []
-    if m == 0:
-        return [([], [s]) for s in ja_sections]
-    if n == 0:
-        return [([s], []) for s in de_sections]
+    if nd == 0:
+        return [([], ja_paras)]
+    if nj == 0:
+        return [(de_paras, [])]
+    paired = min(nd, nj)
+    rows = []
+    for i in range(paired):
+        if i < paired - 1:
+            rows.append(([de_paras[i]], [ja_paras[i]]))
+        else:
+            rows.append((de_paras[i:], ja_paras[i:]))
+    return rows
 
-    if m == n:
-        return [([de_sections[i]], [ja_sections[i]]) for i in range(m)]
 
-    if m <= n:
-        groups = []
-        for i in range(m):
-            ja_start = round(i * n / m)
-            ja_end = round((i + 1) * n / m)
-            groups.append(([de_sections[i]], ja_sections[ja_start:ja_end]))
-        return groups
-    else:
-        groups = []
-        for i in range(n):
-            de_start = round(i * m / n)
-            de_end = round((i + 1) * m / n)
-            groups.append((de_sections[de_start:de_end], [ja_sections[i]]))
-        return groups
+def allocate_ja_to_de(de_sec_data, ja_all, ch_idx):
+    """Return list of (start, end) index pairs into ja_all for each DE section."""
+    n_de = len(de_sec_data)
+    n_ja = len(ja_all)
+
+    if ch_idx in JA_ALLOC_OVERRIDES:
+        alloc = JA_ALLOC_OVERRIDES[ch_idx]
+        if len(alloc) == n_de and sum(alloc) == n_ja:
+            ranges = []
+            idx = 0
+            for count in alloc:
+                ranges.append((idx, idx + count))
+                idx += count
+            return ranges
+
+    total_de_len = sum(d[1] for d in de_sec_data)
+    ranges = []
+    ja_idx = 0
+    for si in range(n_de):
+        if si == n_de - 1:
+            ranges.append((ja_idx, n_ja))
+        else:
+            cum_len = sum(de_sec_data[j][1] for j in range(si + 1))
+            ja_end = round(cum_len * n_ja / total_de_len) if total_de_len else 0
+            ja_end = max(ja_end, ja_idx)
+            ranges.append((ja_idx, ja_end))
+            ja_idx = ja_end
+    return ranges
 
 
 def build_chapter_html(ch_idx, de_sections, ja_sections):
@@ -438,53 +455,46 @@ def build_chapter_html(ch_idx, de_sections, ja_sections):
 '''
 
     all_notes = []
-    groups = make_section_groups(de_sections, ja_sections)
 
-    for gi, (de_group, ja_group) in enumerate(groups):
-        de_paras = []
-        ja_paras = []
-        de_sec_nums = []
-        ja_sec_nums = []
+    de_sec_data = []
+    for sec_num, sec_text in de_sections:
+        main, de_notes = separate_notes_de(sec_text)
+        paras = merge_cross_page_paras(text_to_paras(main))
+        tlen = sum(len(p) for p in paras)
+        de_sec_data.append((paras, tlen))
+        for dn in de_notes:
+            all_notes.append((sec_num, dn, ('', '')))
 
-        for sec_num, sec_text in de_group:
-            main, de_notes = separate_notes_de(sec_text)
-            paras = merge_cross_page_paras(text_to_paras(main))
-            de_paras.extend(paras)
-            de_sec_nums.append(sec_num)
-            for dn in de_notes:
-                all_notes.append((sec_num, dn, ('', '')))
+    ja_all = []
+    for sec_num, sec_text in ja_sections:
+        main, ja_notes = separate_notes_ja(sec_text)
+        ja_all.extend(text_to_paras(main))
+        for jn in ja_notes:
+            all_notes.append((sec_num, ('', ''), jn))
 
-        for sec_num, sec_text in ja_group:
-            main, ja_notes = separate_notes_ja(sec_text)
-            paras = text_to_paras(main)
-            ja_paras.extend(paras)
-            ja_sec_nums.append(sec_num)
-            for jn in ja_notes:
-                all_notes.append((sec_num, ('', ''), jn))
+    ja_ranges = allocate_ja_to_de(de_sec_data, ja_all, ch_idx)
 
-        de_label = '·'.join(f'§{s}' for s in de_sec_nums)
-        ja_label = '·'.join(f'§{s}' for s in ja_sec_nums)
-        anchor = de_sec_nums[0] if de_sec_nums else (ja_sec_nums[0] if ja_sec_nums else gi)
-
+    for si, (de_paras, de_len) in enumerate(de_sec_data):
+        sn = si + 1
         h += f'''
-    <div class="section-marker" id="ch{ch_roman}-p{anchor}">
-      <span class="de">{de_label}</span>
-      <span class="ja">{ja_label}</span>
+    <div class="section-marker" id="ch{ch_roman}-p{sn}">
+      <span class="de">§{sn}</span><span class="ja">§{sn}</span>
     </div>'''
 
-        max_p = max(len(de_paras), len(ja_paras), 1)
-        for i in range(max_p):
-            de_text = escape(de_paras[i]) if i < len(de_paras) else ''
-            ja_text = escape(ja_paras[i]) if i < len(ja_paras) else ''
-            de_p = f'<p>{de_text}</p>' if de_text else ''
-            ja_p = f'<p>{ja_text}</p>' if ja_text else ''
+        ja_start, ja_end = ja_ranges[si]
+        ja_paras = ja_all[ja_start:ja_end]
+
+        rows = pair_paras(de_paras, ja_paras)
+        for de_cell, ja_cell in rows:
+            de_html = '\n            '.join(f'<p>{escape(p)}</p>' for p in de_cell)
+            ja_html = '\n            '.join(f'<p>{escape(p)}</p>' for p in ja_cell)
             h += f'''
     <div class="parallel">
       <div class="col de" lang="de">
-          {de_p}
+          {de_html}
       </div>
       <div class="col ja" lang="ja">
-          {ja_p}
+          {ja_html}
       </div>
     </div>'''
 
