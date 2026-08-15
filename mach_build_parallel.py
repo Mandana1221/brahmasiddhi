@@ -384,11 +384,11 @@ def build_chapter_endnotes_html(all_notes, ch_roman):
     return h
 
 JA_PARA_MERGES = {
-    0: [(8, 10), (10, 12)],
+    0: [(8, 12), (12, 14), (14, 16)],
 }
 
 JA_ALLOC_OVERRIDES = {
-    0: [3, 7, 4, 1, 4, 1, 2, 5, 1, 3, 5, 3, 3, 4, 4],
+    0: [3, 6, 2, 1, 4, 1, 2, 5, 1, 3, 5, 3, 3, 4, 4],
 }
 
 SEP = '\n\n'
