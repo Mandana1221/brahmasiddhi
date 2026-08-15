@@ -383,9 +383,15 @@ def build_chapter_endnotes_html(all_notes, ch_roman):
     h += '    </section>\n'
     return h
 
-JA_ALLOC_OVERRIDES = {
-    0: [3, 9, 4, 1, 4, 1, 2, 5, 1, 3, 5, 3, 3, 4, 4],
+JA_PARA_MERGES = {
+    0: [(8, 10), (10, 12)],
 }
+
+JA_ALLOC_OVERRIDES = {
+    0: [3, 7, 4, 1, 4, 1, 2, 5, 1, 3, 5, 3, 3, 4, 4],
+}
+
+SEP = '\n\n'
 
 def pair_paras(de_paras, ja_paras):
     """Pair paragraphs 1:1, bundling extras into the last row."""
@@ -405,6 +411,25 @@ def pair_paras(de_paras, ja_paras):
         else:
             rows.append((de_paras[i:], ja_paras[i:]))
     return rows
+
+
+def cell_to_html(cell):
+    parts = []
+    for p in cell:
+        for sub in p.split(SEP):
+            if sub.strip():
+                parts.append(f'<p>{escape(sub)}</p>')
+    return '\n            '.join(parts)
+
+
+def apply_ja_merges(ja_all, ch_idx):
+    if ch_idx not in JA_PARA_MERGES:
+        return ja_all
+    result = list(ja_all)
+    for start, end in reversed(JA_PARA_MERGES[ch_idx]):
+        merged = SEP.join(result[start:end])
+        result[start:end] = [merged]
+    return result
 
 
 def allocate_ja_to_de(de_sec_data, ja_all, ch_idx):
@@ -472,6 +497,7 @@ def build_chapter_html(ch_idx, de_sections, ja_sections):
         for jn in ja_notes:
             all_notes.append((sec_num, ('', ''), jn))
 
+    ja_all = apply_ja_merges(ja_all, ch_idx)
     ja_ranges = allocate_ja_to_de(de_sec_data, ja_all, ch_idx)
 
     for si, (de_paras, de_len) in enumerate(de_sec_data):
@@ -486,8 +512,8 @@ def build_chapter_html(ch_idx, de_sections, ja_sections):
 
         rows = pair_paras(de_paras, ja_paras)
         for de_cell, ja_cell in rows:
-            de_html = '\n            '.join(f'<p>{escape(p)}</p>' for p in de_cell)
-            ja_html = '\n            '.join(f'<p>{escape(p)}</p>' for p in ja_cell)
+            de_html = cell_to_html(de_cell)
+            ja_html = cell_to_html(ja_cell)
             h += f'''
     <div class="parallel">
       <div class="col de" lang="de">
