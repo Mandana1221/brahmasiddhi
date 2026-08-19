@@ -71,7 +71,7 @@ def is_ocr_junk(line):
         return True
     if re.match(r'^Mach,\s*Analyse', s):
         return True
-    if s in ('S.Z.18.', 'S.Z.'):
+    if re.match(r'^S\.Z\.\d*\.?$', s):
         return True
     if re.match(r'^\d+\*$', s):
         return True
@@ -735,6 +735,10 @@ def patch_de_ocr(lines):
 
     result = []
     for line in lines:
+        # Strip trailing S.Z. page markers (e.g. "S.Z.2", "S.Z.20.", "S.Z.18.")
+        line = re.sub(r'\s+S\.Z\.\d*\.?\s*$', '', line)
+        if not line.endswith('\n'):
+            line += '\n'
         stripped = line.strip()
         # Page 33 patch
         if 'so wird die Kugel auch' in line and stripped.endswith('auch'):
