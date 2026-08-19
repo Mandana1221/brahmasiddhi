@@ -65,7 +65,7 @@ def is_ocr_junk(line):
         return False
     if s.startswith('END_OF_PAGE'):
         return True
-    if re.match(r'^—?\s*\d+\s*—?\s*$', s):
+    if re.match(r'^[-—]?\s*\d+\s*[-—]?\s*$', s):
         return True
     if re.match(r'^[IVXL]+$', s) and len(s) <= 6:
         return True
@@ -715,10 +715,31 @@ def patch_de_ocr(lines):
         'eine Störung bei K L M . . . viel weiter und tiefer greift, als bei '
         'A B C . . . . Ein Magnet in unserer Umgebung stört die'
     )
+    # Ch I §14: footnote from S.25 bleeds into main text between
+    # "jede Denkform, welche" and "unwillkürlich oder willkürlich".
+    # Replace the footnote line with the correct continuation.
+    FOOTNOTE_LINE = (
+        'Natur der physikalischen Forschung" (Almanach der Wiener Akademie, '
+        '1882, S. 179 Anmerkung, und Populärwissenschaftliche Vorlesungen, '
+        '3. Aufl. 1903, S. 239). Endlich muß ich hier noch auf die '
+        'Einleitung zu W. Preyers „Reine Empfindungslehre" sowie auf Riehls '
+        'Freiburger Antrittsrede S. 40 und auf R. Wahles „Gehirn und '
+        'Bewußtsein", 1884, hinweisen. Meine Ansichten hatte ich 1882 und '
+        '1883 zuerst ausführlicher dargelegt, nachdem ich dieselben 1872 und '
+        '1875 kurz angedeutet hatte. Wahrscheinlich müßte ich noch viel mehr '
+        'oder weniger Verwandtes anführen, wenn ich eine ausgebreitetere '
+        'Literaturkenntnis hätte.'
+    )
+
     result = []
     for line in lines:
-        if 'so wird die Kugel auch' in line and line.rstrip().endswith('auch'):
+        stripped = line.strip()
+        # Page 33 patch
+        if 'so wird die Kugel auch' in line and stripped.endswith('auch'):
             result.append(line.rstrip() + ' ' + PAGE33_PATCH + '\n')
+        # Remove the specific bleeding footnote
+        elif stripped == FOOTNOTE_LINE:
+            result.append('\n')
         else:
             result.append(line)
     return result
