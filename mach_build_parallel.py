@@ -65,13 +65,15 @@ def is_ocr_junk(line):
         return False
     if s.startswith('END_OF_PAGE'):
         return True
-    if re.match(r'^[-—]?\s*\d+\s*[-—]?\s*$', s):
+    if re.match(r'^[-—]{0,2}\s*\d+\s*[-—]{0,2}\s*$', s):
         return True
     if re.match(r'^[IVXL]+$', s) and len(s) <= 6:
         return True
     if re.match(r'^Mach,\s*Analyse', s):
         return True
     if s in ('S.Z.18.', 'S.Z.'):
+        return True
+    if re.match(r'^\d+\*$', s):
         return True
     return False
 
@@ -740,6 +742,13 @@ def patch_de_ocr(lines):
         # Remove the specific bleeding footnote
         elif stripped == FOOTNOTE_LINE:
             result.append('\n')
+        # Page 275–276 signature mark: "Individualfalles 18*" split,
+        # continuation starts with duplicate "vidualfalles"
+        elif stripped.endswith('Individualfalles 18*'):
+            result.append(line.replace('Individualfalles 18*', 'Individualfalles') )
+        elif stripped.startswith('vidualfalles aus den Elementen'):
+            result.append(line.replace('vidualfalles aus den Elementen',
+                                       'aus den Elementen'))
         else:
             result.append(line)
     return result
