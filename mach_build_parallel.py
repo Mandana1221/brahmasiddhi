@@ -680,8 +680,52 @@ def get_colophon():
   </footer>
 '''
 
+def patch_de_ocr(lines):
+    """Fix known OCR defects in the 9th-edition scan."""
+    # Page 33 (S. 13) is entirely missing from the OCR.
+    # The text breaks mid-sentence at "so wird die Kugel auch"
+    # and resumes at "benachbarten Eisenmassen" on page 34.
+    # Restored from the 4th edition (1903), orthography updated to 9th ed.
+    PAGE33_PATCH = (
+        'gelb. Drücken wir ein Auge seitwärts, so sehen wir zwei Kugeln. '
+        'Schließen wir die Augen ganz, so ist gar keine Kugel da. '
+        'Durchschneiden wir den Gehörnerv, so klingt es nicht. '
+        'Die Elemente A B C . . . hängen also nicht nur untereinander, '
+        'sondern auch mit den Elementen K L M . . . zusammen. Insofern, '
+        'und nur insofern, nennen wir A B C . . . Empfindungen und '
+        'betrachten A B C als zum Ich gehörig. Wo in dem Folgenden neben '
+        'oder für die Ausdrücke „Element", „Elementenkomplex" die '
+        'Bezeichnungen „Empfindung", „Empfindungskomplex" gebraucht werden, '
+        'muß man sich gegenwärtig halten, daß die Elemente nur in der '
+        'bezeichneten Verbindung und Beziehung, in der bezeichneten '
+        'funktionalen Abhängigkeit Empfindungen sind. Sie sind in anderer '
+        'funktionaler Beziehung zugleich physikalische Objekte. Die '
+        'Nebenbezeichnung der Elemente als Empfindungen wird bloß deshalb '
+        'verwendet, weil den meisten Menschen die gemeinten Elemente eben als '
+        'Empfindungen (Farben, Töne, Drücke, Räume, Zeiten u. s. w.) viel '
+        'geläufiger sind, während nach der verbreiteten Auffassung die '
+        'Massenteilchen als physikalische Elemente gelten, an welchen die '
+        'Elemente in dem hier gebrauchten Sinne als „Eigenschaften", '
+        '„Wirkungen" haften. '
+        'Auf diesem Wege finden wir also nicht die vorher bezeichnete Kluft '
+        'zwischen Körpern und Empfindungen, zwischen außen und innen, '
+        'zwischen der materiellen und geistigen Welt 1). Alle Elemente '
+        'A B C . . . K L M . . . bilden nur eine zusammenhängende Masse, '
+        'welche, an jedem Element angefaßt, ganz in Bewegung gerät, nur daß '
+        'eine Störung bei K L M . . . viel weiter und tiefer greift, als bei '
+        'A B C . . . . Ein Magnet in unserer Umgebung stört die'
+    )
+    result = []
+    for line in lines:
+        if 'so wird die Kugel auch' in line and line.rstrip().endswith('auch'):
+            result.append(line.rstrip() + ' ' + PAGE33_PATCH + '\n')
+        else:
+            result.append(line)
+    return result
+
 def main():
     de_lines = read_file(GERMAN_FILE)
+    de_lines = patch_de_ocr(de_lines)
     ja_lines = read_file(JAPANESE_FILE)
 
     html = get_css()
