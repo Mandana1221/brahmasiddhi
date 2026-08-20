@@ -4,8 +4,8 @@ import re
 import os
 import html as html_mod
 
-SCRATCHPAD = "/tmp/claude-0/-home-user/7d69ae72-8b77-509c-9cc1-3ee6fe54ca69/scratchpad"
-OUTPUT_DIR = "/workspace/vidhiviveka/mach"
+SCRATCHPAD = os.path.join(os.path.dirname(os.path.abspath(__file__)))
+OUTPUT_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "html")
 
 CHAPTER_TITLES = {
     1: ("Antimetaphysische Vorbemerkungen", "反形而上学的予備考察"),
@@ -547,11 +547,14 @@ for ch in range(1, 16):
 
 # Zusätze
 filepath = os.path.join(SCRATCHPAD, "zusaetze_complete.txt")
-with open(filepath, 'r', encoding='utf-8') as f:
-    raw_lines = f.readlines()
-fname, content = generate_chapter_html(0, [l.rstrip('\n') for l in raw_lines[2:]], is_zusaetze=True)
-with open(os.path.join(OUTPUT_DIR, fname), 'w', encoding='utf-8') as f:
-    f.write(content)
-print(f"Created: {fname} ({len(raw_lines)} lines)")
+if os.path.exists(filepath):
+    with open(filepath, 'r', encoding='utf-8') as f:
+        raw_lines = f.readlines()
+    fname, content = generate_chapter_html(0, [l.rstrip('\n') for l in raw_lines[2:]], is_zusaetze=True)
+    with open(os.path.join(OUTPUT_DIR, fname), 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f"Created: {fname} ({len(raw_lines)} lines)")
+else:
+    print("SKIPPED: zusaetze_complete.txt not found")
 
 print(f"\nDone! All files in: {OUTPUT_DIR}")
