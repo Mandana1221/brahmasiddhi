@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>感覚の分析 — 目次と内容梗概</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Noto+Serif+JP:wght@400;700&display=swap">
+<style>
+:root {
+  --ground: #f8f5ef;
+  --surface: #fff;
+  --text: #2c2418;
+  --text-mid: #5a5040;
+  --text-muted: #8a8070;
+  --de-accent: #8b7332;
+  --ja-accent: #6b8cad;
+  --rule: #c4b07a;
+  --rule-light: #e0d5c0;
+  --card-bg: #fffcf6;
+  --card-border: #e8dcc8;
+  --diagram-bg: #faf7f0;
+  --diagram-box1: #f5f0e6;
+  --diagram-box2: #eef2f6;
+  --diagram-box3: #f0ebe0;
+  --hover-bg: #f0ead8;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1a1814;
+    --surface: #242018;
+    --text: #e0d8c8;
+    --text-mid: #b0a890;
+    --text-muted: #807868;
+    --de-accent: #c4a84e;
+    --ja-accent: #8bb0d0;
+    --rule: #6a5e3a;
+    --rule-light: #3a3428;
+    --card-bg: #1e1c16;
+    --card-border: #3a3428;
+    --diagram-bg: #1e1c16;
+    --diagram-box1: #2a2618;
+    --diagram-box2: #1c2228;
+    --diagram-box3: #282418;
+    --hover-bg: #2e2a1e;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1a1814;
+  --surface: #242018;
+  --text: #e0d8c8;
+  --text-mid: #b0a890;
+  --text-muted: #807868;
+  --de-accent: #c4a84e;
+  --ja-accent: #8bb0d0;
+  --rule: #6a5e3a;
+  --rule-light: #3a3428;
+  --card-bg: #1e1c16;
+  --card-border: #3a3428;
+  --diagram-bg: #1e1c16;
+  --diagram-box1: #2a2618;
+  --diagram-box2: #1c2228;
+  --diagram-box3: #282418;
+  --hover-bg: #2e2a1e;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: 'Noto Serif JP', 'Yu Mincho', serif;
+  background: var(--ground);
+  color: var(--text);
+  line-height: 1.8;
+}
+
+header {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3.5em 2em 2em;
+  text-align: center;
+}
+header .author {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.95em;
+  font-style: italic;
+  color: var(--text-mid);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 0.8em;
+}
+header h1 {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 2.2em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--de-accent);
+  text-wrap: balance;
+  margin-bottom: 0.15em;
+}
+header .ja-title {
+  font-size: 1.3em;
+  font-weight: 700;
+  color: var(--text);
+  margin-bottom: 0.6em;
+}
+header .edition {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+main {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 2em 4em;
+}
+
+h2 {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.5em;
+  font-weight: 600;
+  color: var(--de-accent);
+  border-bottom: 2px solid var(--rule);
+  padding-bottom: 0.3em;
+  margin: 2.5em 0 1em;
+  text-wrap: balance;
+}
+
+.section-label {
+  display: inline-block;
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.7em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  margin-bottom: 0.3em;
+}
+
+/* ── Structural Diagram ── */
+.diagram-wrapper {
+  margin: 2em 0 2.5em;
+  overflow-x: auto;
+}
+.diagram-wrapper svg {
+  display: block;
+  margin: 0 auto;
+  max-width: 100%;
+  height: auto;
+}
+
+/* ── Chapter Table ── */
+.chapter-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: 1.5em 0;
+  font-variant-numeric: tabular-nums;
+}
+.chapter-table thead th {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.75em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: left;
+  padding: 0.6em 0.8em;
+  border-bottom: 2px solid var(--rule);
+}
+.chapter-table thead th:last-child {
+  text-align: center;
+}
+.chapter-table tbody td {
+  padding: 0.8em 0.8em;
+  border-bottom: 1px solid var(--rule-light);
+  vertical-align: top;
+}
+.chapter-table tbody tr:hover td {
+  background: var(--hover-bg);
+}
+.chapter-table .ch-num {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.1em;
+  font-weight: 600;
+  color: var(--de-accent);
+  white-space: nowrap;
+  width: 3.5em;
+}
+.chapter-table .ch-title a {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.05em;
+  font-weight: 600;
+  color: var(--de-accent);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.chapter-table .ch-title a:hover {
+  border-bottom-color: var(--de-accent);
+}
+.chapter-table .ch-ja {
+  display: block;
+  font-size: 0.88em;
+  color: var(--ja-accent);
+  margin-top: 0.15em;
+}
+.chapter-table .ch-sections {
+  text-align: center;
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.85em;
+  color: var(--text-mid);
+  white-space: nowrap;
+  width: 5em;
+}
+
+/* ── Synopsis Cards ── */
+.synopsis-group {
+  margin: 2em 0;
+}
+.group-label {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  margin-bottom: 1.2em;
+}
+.group-label .bar {
+  flex: 0 0 4px;
+  height: 1.6em;
+  border-radius: 2px;
+}
+.group-label .bar.ep { background: var(--de-accent); }
+.group-label .bar.sn { background: var(--ja-accent); }
+.group-label .bar.ph { background: var(--rule); }
+.group-label span {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.78em;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.synopsis {
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 4px;
+  padding: 1.2em 1.5em;
+  margin-bottom: 1em;
+}
+.synopsis .ch-head {
+  display: flex;
+  align-items: baseline;
+  gap: 0.6em;
+  margin-bottom: 0.4em;
+  flex-wrap: wrap;
+}
+.synopsis .ch-head .num {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-weight: 700;
+  font-size: 1.1em;
+  color: var(--de-accent);
+  flex-shrink: 0;
+}
+.synopsis .ch-head .de-title {
+  font-family: 'Cormorant Garamond', 'Georgia', serif;
+  font-size: 1.05em;
+  font-weight: 600;
+  font-style: italic;
+  color: var(--de-accent);
+}
+.synopsis .ch-head .de-title a {
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.2s;
+}
+.synopsis .ch-head .de-title a:hover {
+  border-bottom-color: var(--de-accent);
+}
+.synopsis .ja-subtitle {
+  font-size: 0.92em;
+  color: var(--ja-accent);
+  margin-bottom: 0.5em;
+}
+.synopsis .body {
+  font-size: 0.88em;
+  line-height: 1.9;
+  color: var(--text-mid);
+}
+.synopsis .keywords {
+  margin-top: 0.5em;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+}
+.synopsis .kw {
+  font-family: -apple-system, 'Segoe UI', sans-serif;
+  font-size: 0.72em;
+  padding: 0.2em 0.6em;
+  border: 1px solid var(--rule-light);
+  border-radius: 3px;
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+/* ── Back Link ── */
+.back-link {
+  margin-top: 3em;
+  padding-top: 1.5em;
+  border-top: 1px solid var(--rule-light);
+  text-align: center;
+}
+.back-link a {
+  font-size: 0.85em;
+  color: var(--de-accent);
+  text-decoration: none;
+}
+.back-link a:hover { text-decoration: underline; }
+
+footer {
+  text-align: center;
+  padding: 2em;
+  font-size: 0.75em;
+  color: var(--text-muted);
+  border-top: 1px solid var(--rule-light);
+}
+
+@media (max-width: 640px) {
+  header { padding: 2.5em 1.2em 1.5em; }
+  header h1 { font-size: 1.6em; }
+  main { padding: 0 1.2em 3em; }
+  .chapter-table { font-size: 0.92em; }
+  .chapter-table .ch-num { width: 2.5em; }
+  .synopsis { padding: 1em 1.2em; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="author">Ernst Mach</div>
+  <h1>Die Analyse der Empfindungen<br>und das Verhältnis des Physischen zum Psychischen</h1>
+  <div class="ja-title">感覚の分析——物理的なものと心理的なものの関係</div>
+  <div class="edition">Neunte Auflage, Jena 1922 &middot; 第9版 独日対訳</div>
+</header>
+
+<main>
+
+<!-- ═══════════════ 構造図 ═══════════════ -->
+
+<h2>全体構成</h2>
+
+<div class="diagram-wrapper">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 820 420" width="820" height="420">
+  <style>
+    .d-label { font-family: -apple-system, 'Segoe UI', sans-serif; font-size: 11px; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; }
+    .d-ch { font-family: 'Noto Serif JP', serif; font-size: 12px; }
+    .d-ch-num { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 13px; font-weight: 700; }
+    .d-group { font-family: 'Noto Serif JP', serif; font-size: 13px; font-weight: 700; }
+  </style>
+
+  <!-- Background -->
+  <rect width="820" height="420" rx="6" fill="var(--diagram-bg)" stroke="var(--rule-light)" stroke-width="1"/>
+
+  <!-- Group I: 認識論的基盤 (Ch. I–III) -->
+  <rect x="20" y="20" width="240" height="380" rx="4" fill="var(--diagram-box1)" stroke="var(--de-accent)" stroke-width="1.5" opacity="0.7"/>
+  <text x="140" y="48" text-anchor="middle" class="d-label" fill="var(--de-accent)">Erkenntnistheorie</text>
+  <text x="140" y="68" text-anchor="middle" class="d-group" fill="var(--text)">認識論的基盤</text>
+
+  <rect x="35" y="88" width="210" height="44" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="48" y="108" class="d-ch-num" fill="var(--de-accent)">I</text>
+  <text x="68" y="108" class="d-ch" fill="var(--text)">反形而上学的予備考察</text>
+  <text x="48" y="124" class="d-ch" fill="var(--text-muted)" font-size="10px">要素一元論・自我の解体</text>
+
+  <rect x="35" y="142" width="210" height="44" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="48" y="162" class="d-ch-num" fill="var(--de-accent)">II</text>
+  <text x="68" y="162" class="d-ch" fill="var(--text)">先入見について</text>
+  <text x="48" y="178" class="d-ch" fill="var(--text-muted)" font-size="10px">実体概念の批判</text>
+
+  <rect x="35" y="196" width="210" height="44" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="48" y="216" class="d-ch-num" fill="var(--de-accent)">III</text>
+  <text x="68" y="216" class="d-ch" fill="var(--text)">他の研究者との関係</text>
+  <text x="48" y="232" class="d-ch" fill="var(--text-muted)" font-size="10px">アヴェナリウス・ジェイムズ</text>
+
+  <!-- Group II: 感覚の分析 (Ch. IV–XIII) -->
+  <rect x="280" y="20" width="340" height="380" rx="4" fill="var(--diagram-box2)" stroke="var(--ja-accent)" stroke-width="1.5" opacity="0.7"/>
+  <text x="450" y="48" text-anchor="middle" class="d-label" fill="var(--ja-accent)">Sinnesanalyse</text>
+  <text x="450" y="68" text-anchor="middle" class="d-group" fill="var(--text)">感覚の分析</text>
+
+  <!-- Sub-group: 方法論 -->
+  <rect x="295" y="82" width="150" height="84" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="305" y="100" class="d-ch-num" fill="var(--ja-accent)">IV</text>
+  <text x="325" y="100" class="d-ch" fill="var(--text)" font-size="11px">研究の主要観点</text>
+  <text x="305" y="132" class="d-ch-num" fill="var(--ja-accent)">V</text>
+  <text x="325" y="132" class="d-ch" fill="var(--text)" font-size="11px">物理学と生物学</text>
+  <text x="305" y="156" class="d-ch" fill="var(--text-muted)" font-size="9px">方法論</text>
+
+  <!-- Sub-group: 空間感覚 -->
+  <rect x="455" y="82" width="150" height="138" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="465" y="100" class="d-ch-num" fill="var(--ja-accent)">VI</text>
+  <text x="485" y="100" class="d-ch" fill="var(--text)" font-size="11px">目の空間感覚</text>
+  <text x="465" y="126" class="d-ch-num" fill="var(--ja-accent)">VII</text>
+  <text x="490" y="126" class="d-ch" fill="var(--text)" font-size="11px">空間感覚の研究</text>
+  <text x="465" y="152" class="d-ch-num" fill="var(--ja-accent)">VIII</text>
+  <text x="498" y="152" class="d-ch" fill="var(--text)" font-size="11px">意志</text>
+  <text x="465" y="178" class="d-ch-num" fill="var(--ja-accent)">IX</text>
+  <text x="490" y="178" class="d-ch" fill="var(--text)" font-size="11px">空間の生物学</text>
+  <text x="465" y="210" class="d-ch" fill="var(--text-muted)" font-size="9px">空間・意志・身体</text>
+
+  <!-- Sub-group: 視覚・記憶・時間 -->
+  <rect x="295" y="176" width="150" height="112" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="305" y="196" class="d-ch-num" fill="var(--ja-accent)">X</text>
+  <text x="325" y="196" class="d-ch" fill="var(--text)" font-size="11px">視覚感覚の関係</text>
+  <text x="305" y="222" class="d-ch-num" fill="var(--ja-accent)">XI</text>
+  <text x="330" y="222" class="d-ch" fill="var(--text)" font-size="11px">感覚・記憶・連合</text>
+  <text x="305" y="248" class="d-ch-num" fill="var(--ja-accent)">XII</text>
+  <text x="330" y="248" class="d-ch" fill="var(--text)" font-size="11px">時間感覚</text>
+  <text x="305" y="278" class="d-ch" fill="var(--text-muted)" font-size="9px">視覚・記憶・時間</text>
+
+  <!-- Sub-group: 音 -->
+  <rect x="455" y="234" width="150" height="50" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="465" y="256" class="d-ch-num" fill="var(--ja-accent)">XIII</text>
+  <text x="495" y="256" class="d-ch" fill="var(--text)" font-size="11px">音の感覚</text>
+  <text x="465" y="276" class="d-ch" fill="var(--text-muted)" font-size="9px">聴覚・音楽理論</text>
+
+  <!-- Group III: 物理学と方法論 (Ch. XIV–XV) -->
+  <rect x="640" y="20" width="160" height="380" rx="4" fill="var(--diagram-box3)" stroke="var(--rule)" stroke-width="1.5" opacity="0.7"/>
+  <text x="720" y="48" text-anchor="middle" class="d-label" fill="var(--rule)">Physik</text>
+  <text x="720" y="68" text-anchor="middle" class="d-group" fill="var(--text)">物理学と方法</text>
+
+  <rect x="655" y="88" width="130" height="60" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="665" y="108" class="d-ch-num" fill="var(--de-accent)">XIV</text>
+  <text x="692" y="108" class="d-ch" fill="var(--text)" font-size="11px">物理学への影響</text>
+  <text x="665" y="128" class="d-ch" fill="var(--text-muted)" font-size="10px">思考の経済・因果性</text>
+  <text x="665" y="140" class="d-ch" fill="var(--text-muted)" font-size="10px">＝記述の理論</text>
+
+  <rect x="655" y="160" width="130" height="50" rx="3" fill="var(--surface)" stroke="var(--rule-light)" stroke-width="1"/>
+  <text x="665" y="180" class="d-ch-num" fill="var(--de-accent)">XV</text>
+  <text x="692" y="180" class="d-ch" fill="var(--text)" font-size="11px">見解の受容</text>
+  <text x="665" y="200" class="d-ch" fill="var(--text-muted)" font-size="10px">批判者への応答</text>
+
+  <!-- Arrows -->
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="6" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6" fill="none" stroke="var(--text-muted)" stroke-width="1.2"/>
+    </marker>
+  </defs>
+  <line x1="260" y1="200" x2="278" y2="200" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#arr)"/>
+  <line x1="620" y1="200" x2="638" y2="200" stroke="var(--text-muted)" stroke-width="1.2" marker-end="url(#arr)"/>
+
+  <!-- Legend -->
+  <text x="140" y="370" text-anchor="middle" class="d-ch" fill="var(--text-muted)" font-size="10px">第Ⅰ〜Ⅲ章</text>
+  <text x="140" y="386" text-anchor="middle" class="d-ch" fill="var(--text-muted)" font-size="10px">§1–21</text>
+  <text x="450" y="370" text-anchor="middle" class="d-ch" fill="var(--text-muted)" font-size="10px">第Ⅳ〜ⅩⅢ章</text>
+  <text x="450" y="386" text-anchor="middle" class="d-ch" fill="var(--text-muted)" font-size="10px">§1–143</text>
+  <text x="720" y="370" text-anchor="middle" class="d-ch" fill="var(--text-muted)" font-size="10px">第ⅩⅣ〜ⅩⅤ章</text>
+  <text x="720" y="386" text-anchor="middle" class="d-ch" fill="var(--text-muted)" font-size="10px">§1–31</text>
+</svg>
+</div>
+
+
+<!-- ═══════════════ 目次一覧表 ═══════════════ -->
+
+<h2>目次一覧</h2>
+
+<div style="overflow-x:auto;">
+<table class="chapter-table">
+<thead>
+<tr>
+  <th></th>
+  <th>章題</th>
+  <th>§数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+  <td class="ch-num">I</td>
+  <td class="ch-title"><a href="kapitel_01.html">Antimetaphysische Vorbemerkungen</a><span class="ch-ja">反形而上学的予備考察</span></td>
+  <td class="ch-sections">§1–15</td>
+</tr>
+<tr>
+  <td class="ch-num">II</td>
+  <td class="ch-title"><a href="kapitel_02.html">Über vorgefaßte Meinungen</a><span class="ch-ja">先入見について</span></td>
+  <td class="ch-sections">§1–4</td>
+</tr>
+<tr>
+  <td class="ch-num">III</td>
+  <td class="ch-title"><a href="kapitel_03.html">Mein Verhältnis zu R. Avenarius und andern Forschern</a><span class="ch-ja">アヴェナリウスおよび他の研究者との関係</span></td>
+  <td class="ch-sections">§1–2</td>
+</tr>
+<tr>
+  <td class="ch-num">IV</td>
+  <td class="ch-title"><a href="kapitel_04.html">Die Hauptgesichtspunkte für die Untersuchung der Sinne</a><span class="ch-ja">感覚の研究のための主要な観点</span></td>
+  <td class="ch-sections">§1–10</td>
+</tr>
+<tr>
+  <td class="ch-num">V</td>
+  <td class="ch-title"><a href="kapitel_05.html">Physik und Biologie. Kausalität und Teleologie</a><span class="ch-ja">物理学と生物学。因果性と目的論</span></td>
+  <td class="ch-sections">§1–10</td>
+</tr>
+<tr>
+  <td class="ch-num">VI</td>
+  <td class="ch-title"><a href="kapitel_06.html">Die Raumempfindungen des Auges</a><span class="ch-ja">目の空間感覚</span></td>
+  <td class="ch-sections">§1–12</td>
+</tr>
+<tr>
+  <td class="ch-num">VII</td>
+  <td class="ch-title"><a href="kapitel_07.html">Weitere Untersuchung der Raumempfindungen</a><span class="ch-ja">空間感覚のさらなる研究</span></td>
+  <td class="ch-sections">§1–22</td>
+</tr>
+<tr>
+  <td class="ch-num">VIII</td>
+  <td class="ch-title"><a href="kapitel_08.html">Der Wille</a><span class="ch-ja">意志</span></td>
+  <td class="ch-sections">§1–6</td>
+</tr>
+<tr>
+  <td class="ch-num">IX</td>
+  <td class="ch-title"><a href="kapitel_09.html">Eine biologisch-teleologische Betrachtung über den Raum</a><span class="ch-ja">空間についての生物学的・目的論的考察</span></td>
+  <td class="ch-sections">§1–9</td>
+</tr>
+<tr>
+  <td class="ch-num">X</td>
+  <td class="ch-title"><a href="kapitel_10.html">Beziehungen der Gesichtsempfindungen zu einander und zu andern psychischen Elementen</a><span class="ch-ja">視覚感覚の相互関係と他の心的要素との関係</span></td>
+  <td class="ch-sections">§1–17</td>
+</tr>
+<tr>
+  <td class="ch-num">XI</td>
+  <td class="ch-title"><a href="kapitel_11.html">Empfindung, Gedächtnis und Assoziation</a><span class="ch-ja">感覚・記憶・連合</span></td>
+  <td class="ch-sections">§1–6</td>
+</tr>
+<tr>
+  <td class="ch-num">XII</td>
+  <td class="ch-title"><a href="kapitel_12.html">Die Zeitempfindung</a><span class="ch-ja">時間感覚</span></td>
+  <td class="ch-sections">§1–10</td>
+</tr>
+<tr>
+  <td class="ch-num">XIII</td>
+  <td class="ch-title"><a href="kapitel_13.html">Die Tonempfindungen</a><span class="ch-ja">音の感覚</span></td>
+  <td class="ch-sections">§1–21</td>
+</tr>
+<tr>
+  <td class="ch-num">XIV</td>
+  <td class="ch-title"><a href="kapitel_14.html">Einfluß der vorausgehenden Untersuchungen auf die Auffassung der Physik</a><span class="ch-ja">以上の研究が物理学の把握に及ぼす影響</span></td>
+  <td class="ch-sections">§1–22</td>
+</tr>
+<tr>
+  <td class="ch-num">XV</td>
+  <td class="ch-title"><a href="kapitel_15.html">Die Aufnahme der hier dargelegten Ansichten</a><span class="ch-ja">ここで述べた見解の受容</span></td>
+  <td class="ch-sections">§1–9</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+
+<!-- ═══════════════ 内容梗概 ═══════════════ -->
+
+<h2>内容梗概</h2>
+
+<!-- ── 第一部：認識論的基盤 ── -->
+<div class="synopsis-group">
+<div class="group-label">
+  <div class="bar ep"></div>
+  <span>第一部　認識論的基盤（第Ⅰ〜Ⅲ章）</span>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">I</span>
+    <span class="de-title"><a href="kapitel_01.html">Antimetaphysische Vorbemerkungen</a></span>
+  </div>
+  <div class="ja-subtitle">反形而上学的予備考察　§1–15</div>
+  <div class="body">
+    本書の理論的核心。世界は「物」と「自我」という実体的区分ではなく、色・音・圧力・空間・時間・感情などの<strong>要素</strong>（Elemente）の関数的連関から成る。物体は要素の比較的安定した複合体（ABC…）にすぎず、自我もまた要素の別の複合体（KLM…）にすぎない。物理的なものと心理的なものの区別は、研究の観点の違いであって、実在の差異ではない。自我は「救いがたい」（unrettbar）ものであり、永続する実体ではなく、要素の一時的な結合である。
+  </div>
+  <div class="keywords">
+    <span class="kw">要素一元論</span>
+    <span class="kw">自我の解体</span>
+    <span class="kw">関数的依存</span>
+    <span class="kw">物心並行</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">II</span>
+    <span class="de-title"><a href="kapitel_02.html">Über vorgefaßte Meinungen</a></span>
+  </div>
+  <div class="ja-subtitle">先入見について　§1–4</div>
+  <div class="body">
+    科学における形而上学的先入見の批判。実体概念（Substanzbegriff）や絶対的因果概念、物自体（Ding an sich）への信仰が科学の進歩をいかに妨げてきたかを論じる。科学は先入見なき要素間の関数的依存関係の探究へ向かうべきであるとする。
+  </div>
+  <div class="keywords">
+    <span class="kw">実体概念批判</span>
+    <span class="kw">物自体</span>
+    <span class="kw">形而上学の排除</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">III</span>
+    <span class="de-title"><a href="kapitel_03.html">Mein Verhältnis zu R. Avenarius und andern Forschern</a></span>
+  </div>
+  <div class="ja-subtitle">アヴェナリウスおよび他の研究者との関係　§1–2</div>
+  <div class="body">
+    経験批判論（Empiriokritizismus）の創始者R・アヴェナリウスとの理論的親縁性を論じつつ、両者の独立した発展を強調する。さらにW・ジェイムズの根本的経験論、ツィーエン、シュッペらの同時代の研究者との関係にも言及する。
+  </div>
+  <div class="keywords">
+    <span class="kw">経験批判論</span>
+    <span class="kw">アヴェナリウス</span>
+    <span class="kw">ジェイムズ</span>
+  </div>
+</div>
+</div>
+
+<!-- ── 第二部：感覚の分析 ── -->
+<div class="synopsis-group">
+<div class="group-label">
+  <div class="bar sn"></div>
+  <span>第二部　感覚の分析（第Ⅳ〜ⅩⅢ章）</span>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">IV</span>
+    <span class="de-title"><a href="kapitel_04.html">Die Hauptgesichtspunkte für die Untersuchung der Sinne</a></span>
+  </div>
+  <div class="ja-subtitle">感覚の研究のための主要な観点　§1–10</div>
+  <div class="body">
+    要素間の関数的依存関係を三つの方向から研究する方法論を提示。物理学的研究（要素A,B,C…の相互依存）、生理学的研究（身体要素K,L,M…による感覚A,B,C…の変化）、心理学的研究（心的要素α,β,γ…の連関）。感覚生理学の諸成果を援用しつつ、物理学・生理学・心理学が同一の要素を異なる観点から研究するものであることを示す。
+  </div>
+  <div class="keywords">
+    <span class="kw">三方向の研究</span>
+    <span class="kw">関数的依存</span>
+    <span class="kw">ABC / KLM</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">V</span>
+    <span class="de-title"><a href="kapitel_05.html">Physik und Biologie. Kausalität und Teleologie</a></span>
+  </div>
+  <div class="ja-subtitle">物理学と生物学。因果性と目的論　§1–10</div>
+  <div class="body">
+    物理学的因果性と生物学的目的論の関係を考察。<strong>思考の事実への適応</strong>（Anpassung der Gedanken an die Tatsachen）と<strong>思考相互の適応</strong>（Anpassung der Gedanken aneinander）という二つの過程を区別し、前者が経験、後者が理論に対応するとする。科学的認識の生物学的・進化論的基盤を論じる。
+  </div>
+  <div class="keywords">
+    <span class="kw">思考の適応</span>
+    <span class="kw">因果性</span>
+    <span class="kw">目的論</span>
+    <span class="kw">進化認識論</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">VI</span>
+    <span class="de-title"><a href="kapitel_06.html">Die Raumempfindungen des Auges</a></span>
+  </div>
+  <div class="ja-subtitle">目の空間感覚　§1–12</div>
+  <div class="body">
+    眼の空間感覚を詳細に分析。幾何学的光学的錯視の体系的分類と説明、対称性の知覚（上下・左右の非対称性）、奥行き知覚の問題。E・ヘリングの空間説との関係。網膜上の局所徴標（Lokalzeichen）と運動感覚の協働による空間表象の構成を論じる。
+  </div>
+  <div class="keywords">
+    <span class="kw">幾何学的錯視</span>
+    <span class="kw">対称性</span>
+    <span class="kw">ヘリング</span>
+    <span class="kw">局所徴標</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">VII</span>
+    <span class="de-title"><a href="kapitel_07.html">Weitere Untersuchung der Raumempfindungen</a></span>
+  </div>
+  <div class="ja-subtitle">空間感覚のさらなる研究　§1–22</div>
+  <div class="body">
+    本書最大の章。触覚・運動感覚による空間表象の補完を論じ、生理学的空間と幾何学的空間の根本的相違を明らかにする。方向感覚・身体感覚・左右対称性の問題を扱い、ロッツェの局所徴標説を批判的に検討。空間の多次元性と位相的性質にまで考察を及ぼす。
+  </div>
+  <div class="keywords">
+    <span class="kw">触覚空間</span>
+    <span class="kw">運動感覚</span>
+    <span class="kw">生理学的空間</span>
+    <span class="kw">ロッツェ</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">VIII</span>
+    <span class="de-title"><a href="kapitel_08.html">Der Wille</a></span>
+  </div>
+  <div class="ja-subtitle">意志　§1–6</div>
+  <div class="body">
+    意志作用を要素の連関として分析する試み。随意運動と不随意運動の区別、注意の現象学的記述。意志を独立の心的能力として実体化することを退け、要素間の特定の関数的連関の表現として解明する。
+  </div>
+  <div class="keywords">
+    <span class="kw">意志</span>
+    <span class="kw">随意運動</span>
+    <span class="kw">注意</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">IX</span>
+    <span class="de-title"><a href="kapitel_09.html">Eine biologisch-teleologische Betrachtung über den Raum</a></span>
+  </div>
+  <div class="ja-subtitle">空間についての生物学的・目的論的考察　§1–9</div>
+  <div class="body">
+    空間知覚能力の進化論的起源を考察。空間感覚が生物学的適応の産物であること、動物ごとに異なる空間表象を持つことを論じる。空間感覚は生得的であるが、これは種の経験の蓄積によるものであるとし、カントの超越論的空間論を生物学的に読み替える。
+  </div>
+  <div class="keywords">
+    <span class="kw">空間知覚の進化</span>
+    <span class="kw">生物学的適応</span>
+    <span class="kw">カント批判</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">X</span>
+    <span class="de-title"><a href="kapitel_10.html">Beziehungen der Gesichtsempfindungen zu einander und zu andern psychischen Elementen</a></span>
+  </div>
+  <div class="ja-subtitle">視覚感覚の相互関係と他の心的要素との関係　§1–17</div>
+  <div class="body">
+    色彩感覚を中心とした視覚論。対比現象（同時対比・継時対比）、順応（Adaptation）、残像。ゲーテ、ヘルムホルツ、ヘリングの色彩理論を比較検討し、マッハ自身の立場を表明する。色彩恒常性、照明の影響、感覚の相互依存関係を詳述。
+  </div>
+  <div class="keywords">
+    <span class="kw">色彩論</span>
+    <span class="kw">対比・順応</span>
+    <span class="kw">ゲーテ</span>
+    <span class="kw">ヘルムホルツ</span>
+    <span class="kw">ヘリング</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">XI</span>
+    <span class="de-title"><a href="kapitel_11.html">Empfindung, Gedächtnis und Assoziation</a></span>
+  </div>
+  <div class="ja-subtitle">感覚・記憶・連合　§1–6</div>
+  <div class="body">
+    感覚と記憶の連続性の問題。記憶像（Erinnerungsbild）と知覚印象の質的差異は程度の差にすぎないとする。連合法則の批判的検討。想起・再認・習慣形成を要素間の結合強度の変化として統一的に説明する。
+  </div>
+  <div class="keywords">
+    <span class="kw">記憶像</span>
+    <span class="kw">連合法則</span>
+    <span class="kw">再認</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">XII</span>
+    <span class="de-title"><a href="kapitel_12.html">Die Zeitempfindung</a></span>
+  </div>
+  <div class="ja-subtitle">時間感覚　§1–10</div>
+  <div class="body">
+    時間知覚の分析。リズム・テンポ・時間間隔の推定。時間感覚の生理学的基盤（有機体の内的過程のリズム）を探り、時間表象が空間表象と類比的に、感覚要素の秩序づけの形式であることを論じる。
+  </div>
+  <div class="keywords">
+    <span class="kw">時間知覚</span>
+    <span class="kw">リズム</span>
+    <span class="kw">テンポ</span>
+    <span class="kw">生理学的時間</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">XIII</span>
+    <span class="de-title"><a href="kapitel_13.html">Die Tonempfindungen</a></span>
+  </div>
+  <div class="ja-subtitle">音の感覚　§1–21</div>
+  <div class="body">
+    音感覚の包括的分析。音程・音程関係と協和・不協和の問題、音色の感覚。ヘルムホルツの共鳴理論の批判的検討。シュトゥンプフの音融合（Verschmelzung）論との対話。音の感覚空間と視覚空間の類比、および音楽的要素の心理学的基盤を論じる。
+  </div>
+  <div class="keywords">
+    <span class="kw">音程・協和</span>
+    <span class="kw">ヘルムホルツ</span>
+    <span class="kw">シュトゥンプフ</span>
+    <span class="kw">音融合</span>
+  </div>
+</div>
+</div>
+
+<!-- ── 第三部：物理学と方法 ── -->
+<div class="synopsis-group">
+<div class="group-label">
+  <div class="bar ph"></div>
+  <span>第三部　物理学と方法論（第ⅩⅣ〜ⅩⅤ章）</span>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">XIV</span>
+    <span class="de-title"><a href="kapitel_14.html">Einfluß der vorausgehenden Untersuchungen auf die Auffassung der Physik</a></span>
+  </div>
+  <div class="ja-subtitle">以上の研究が物理学の把握に及ぼす影響　§1–22</div>
+  <div class="body">
+    前章までの感覚分析の成果が物理学にもたらす帰結。<strong>思考の経済</strong>（Denkökonomie）の原理を展開し、科学理論は事実の経済的記述であるとする。概念形成の理論、因果的「説明」は要素における普遍的記述にすぎないという主張。機械論的自然観の権威を相対化し、数学的記述の優位性を論じる。ゴンペルツ、リボーの概念論との対比。微分方程式による現象の叙述をもって説明と記述の一致を主張する。
+  </div>
+  <div class="keywords">
+    <span class="kw">思考の経済</span>
+    <span class="kw">記述としての説明</span>
+    <span class="kw">概念形成</span>
+    <span class="kw">機械論批判</span>
+    <span class="kw">微分方程式</span>
+  </div>
+</div>
+
+<div class="synopsis">
+  <div class="ch-head">
+    <span class="num">XV</span>
+    <span class="de-title"><a href="kapitel_15.html">Die Aufnahme der hier dargelegten Ansichten</a></span>
+  </div>
+  <div class="ja-subtitle">ここで述べた見解の受容　§1–9</div>
+  <div class="body">
+    マッハの要素一元論に対する同時代の反応と批判への応答。M・プランクとの有名な論争（物理学的世界像の統一性をめぐって）、シュトゥンプフの批判への反論、ヴント、イェルーザレム、ペツォルトらの評価。マッハの見解が唯物論でも観念論でもなく、両者の対立を超える立場であることを改めて弁明する。
+  </div>
+  <div class="keywords">
+    <span class="kw">プランク論争</span>
+    <span class="kw">唯物論でも観念論でもない</span>
+    <span class="kw">批判への応答</span>
+  </div>
+</div>
+</div>
+
+
+<div class="back-link">
+  <a href="index.html">← 対訳集トップへ戻る</a>
+</div>
+
+</main>
+
+<footer>
+  Ernst Mach, <em>Die Analyse der Empfindungen</em>, 9. Aufl. 1922 &middot; 独日対訳
+</footer>
+
+</body>
+</html>
