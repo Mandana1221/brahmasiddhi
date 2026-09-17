@@ -1,0 +1,388 @@
+<title>Raghuvaṃśa 対訳</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@300;400;500;700&family=Noto+Serif+Devanagari:wght@400;600&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #faf8f5;
+    --surface: #fff;
+    --text: #2c2418;
+    --text-secondary: #6b5e4f;
+    --accent: #8b4513;
+    --accent-light: #c4956a;
+    --border: #d9cfc2;
+    --border-light: #ebe5dc;
+    --highlight: #f5ede3;
+    --link: #6b3a0a;
+    --link-hover: #a0522d;
+    --chapter-bg: #fdf9f4;
+    --verse-count: #9b7d5a;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1612;
+      --surface: #252019;
+      --text: #e0d6c8;
+      --text-secondary: #a89880;
+      --accent: #d4a06a;
+      --accent-light: #b8895a;
+      --border: #3d352a;
+      --border-light: #2e271f;
+      --highlight: #2a231a;
+      --link: #d4a06a;
+      --link-hover: #e8c090;
+      --chapter-bg: #1f1b15;
+      --verse-count: #9b7d5a;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --bg: #1a1612;
+    --surface: #252019;
+    --text: #e0d6c8;
+    --text-secondary: #a89880;
+    --accent: #d4a06a;
+    --accent-light: #b8895a;
+    --border: #3d352a;
+    --border-light: #2e271f;
+    --highlight: #2a231a;
+    --link: #d4a06a;
+    --link-hover: #e8c090;
+    --chapter-bg: #1f1b15;
+    --verse-count: #9b7d5a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', 'Hiragino Kaku Gothic ProN', sans-serif;
+    line-height: 1.8;
+    max-width: 780px;
+    margin: 0 auto;
+    padding-inline: 16px;
+    padding-block: 0;
+  }
+
+  .iast {
+    font-family: 'Gentium Book Plus', 'Times New Roman', serif;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.97em;
+    letter-spacing: 0.01em;
+  }
+
+  .devanagari {
+    font-family: 'Noto Serif Devanagari', serif;
+    color: var(--accent);
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 0 1.5rem;
+    border-bottom: 2px solid var(--border);
+    margin-bottom: 2rem;
+  }
+
+  header .devanagari-title {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+    line-height: 1.5;
+  }
+
+  header h1 {
+    font-size: 1.3rem;
+    font-weight: 500;
+    color: var(--text);
+    margin: 0.3rem 0 0.5rem;
+    letter-spacing: 0.03em;
+  }
+
+  header .subtitle {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .intro {
+    background: var(--surface);
+    border: 1px solid var(--border-light);
+    border-radius: 6px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    font-size: 0.92rem;
+    line-height: 2;
+  }
+
+  .intro h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0 0 0.8rem;
+    letter-spacing: 0.05em;
+  }
+
+  .intro p {
+    margin: 0.6rem 0;
+  }
+
+  .intro ul {
+    margin: 0.5rem 0;
+    padding-left: 1.3rem;
+  }
+
+  .intro li {
+    margin: 0.3rem 0;
+  }
+
+  .toc {
+    margin-bottom: 2rem;
+  }
+
+  .toc h2 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    color: var(--accent);
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  .chapter-card {
+    background: var(--chapter-bg);
+    border: 1px solid var(--border-light);
+    border-left: 4px solid var(--accent-light);
+    border-radius: 4px;
+    padding: 1.2rem 1.4rem;
+    margin-bottom: 1rem;
+    transition: border-left-color 0.2s;
+  }
+
+  .chapter-card:hover {
+    border-left-color: var(--accent);
+  }
+
+  .chapter-card .chapter-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 0.4rem;
+  }
+
+  .chapter-card .chapter-num {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--verse-count);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .chapter-card .verse-count {
+    font-size: 0.75rem;
+    color: var(--verse-count);
+  }
+
+  .chapter-card h3 {
+    font-size: 1.05rem;
+    font-weight: 600;
+    margin: 0.2rem 0 0.5rem;
+  }
+
+  .chapter-card h3 a {
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s, color 0.2s;
+  }
+
+  .chapter-card h3 a:hover {
+    color: var(--link-hover);
+    border-bottom-color: var(--link-hover);
+  }
+
+  .chapter-card .sanskrit-title {
+    font-family: 'Gentium Book Plus', serif;
+    color: var(--accent);
+    font-size: 0.88rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .chapter-card .synopsis {
+    font-size: 0.88rem;
+    color: var(--text-secondary);
+    line-height: 1.9;
+  }
+
+  .chapter-card .synopsis strong {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  .chapter-card .key-figures {
+    font-size: 0.82rem;
+    color: var(--verse-count);
+    margin-top: 0.5rem;
+    padding-top: 0.5rem;
+    border-top: 1px solid var(--border-light);
+  }
+
+  .colophon-section {
+    text-align: center;
+    margin: 2rem 0 1rem;
+    padding: 1.5rem 1rem;
+    border-top: 2px solid var(--border);
+    border-bottom: 2px solid var(--border);
+  }
+
+  .colophon-section .devanagari {
+    font-size: 1.05rem;
+    line-height: 2;
+  }
+
+  .colophon-section .note {
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    margin-top: 0.8rem;
+    line-height: 1.8;
+  }
+
+  footer {
+    text-align: center;
+    padding: 1.5rem 0 2rem;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+</style>
+
+<header>
+  <div class="devanagari-title">रघुवंशम्</div>
+  <h1>Raghuvaṃśa 対訳 ― サンスクリット原文と日本語訳</h1>
+  <div class="subtitle">
+    カーリダーサ作『ラグヴァンシャ』（ラグの王統）<br>
+    Vallabhadeva注（Raghupañcikā）付き ― Goodall &amp; Isaacson 校訂版（2003）第1巻に基づく
+  </div>
+</header>
+
+<div class="intro">
+  <h2>本サイトについて</h2>
+  <p>本ページは、古典サンスクリット文学の最高峰の一つである、カーリダーサ（<span class="iast">Kālidāsa</span>）の大叙事詩『ラグヴァンシャ』（<span class="iast">Raghuvaṃśa</span>、「ラグの王統」）の対訳です。</p>
+  <p>テキストは Dominic Goodall &amp; Harunaga Isaacson 校訂の批判的校訂版（2003年、第1巻：第1章〜第6章）に基づき、現存最古の注釈であるカシュミールの学者 Vallabhadeva による『ラグパンチカー』（<span class="iast">Raghupañcikā</span>）を参照しています。</p>
+  <p>各詩節は以下の構成になっています：</p>
+  <ul>
+    <li><strong>左列</strong>：サンスクリット原文（デーヴァナーガリー文字）</li>
+    <li><strong>右列</strong>：日本語訳（和訳）</li>
+    <li><strong>注釈</strong>：Vallabhadeva の Raghupañcikā に基づく注（サンスクリット術語は IAST 転写）</li>
+    <li><strong>校訂注</strong>：Goodall &amp; Isaacson の校訂版から事実的情報のみ（異読・出典同定・テキスト校正）</li>
+  </ul>
+  <p style="font-size:0.82rem; color:var(--text-secondary);">※ 英語の校訂注は著作権で保護されているため、編集者の解釈や論評は含まず、事実的情報（出典同定、重要異読、テキスト校正）のみを記載しています。</p>
+</div>
+
+<div class="toc">
+  <h2>目次 ― 全6章（<span class="iast">ṣaṭ sargāḥ</span>）</h2>
+
+  <!-- Sarga 1 -->
+  <div class="chapter-card">
+    <div class="chapter-header">
+      <span class="chapter-num">第1章 ― <span class="iast">prathamaḥ sargaḥ</span></span>
+      <span class="verse-count">全94詩節</span>
+    </div>
+    <h3><a href="raghuvamsa_sarga1_bilingual.html">ディリーパ王の誓願と牝牛ナンディニー</a></h3>
+    <div class="sanskrit-title">序詞・ディリーパの苦行・ナンディニーの守護</div>
+    <div class="synopsis">
+      カーリダーサは太陽王朝（<span class="iast">Sūryavaṃśa</span>）を讃えるべく、シヴァとパールヴァティーに帰依して詩を始める。子のないディリーパ王は師ヴァシシュタの教えに従い、聖牛<strong>ナンディニー</strong>（<span class="iast">Nandinī</span>）に仕える苦行を行う。森で獅子がナンディニーを襲い、ディリーパは自らの身を差し出すが、獅子は消え、ナンディニーは王の献身を認めて恩寵を授ける。
+    </div>
+    <div class="key-figures">主要人物：ディリーパ（<span class="iast">Dilīpa</span>）、スダクシナー（<span class="iast">Sudakṣiṇā</span>）、ヴァシシュタ（<span class="iast">Vasiṣṭha</span>）、ナンディニー（<span class="iast">Nandinī</span>）</div>
+  </div>
+
+  <!-- Sarga 2 -->
+  <div class="chapter-card">
+    <div class="chapter-header">
+      <span class="chapter-num">第2章 ― <span class="iast">dvitīyaḥ sargaḥ</span></span>
+      <span class="verse-count">全75詩節</span>
+    </div>
+    <h3><a href="raghuvamsa_sarga2_bilingual.html">ラグの誕生と即位</a></h3>
+    <div class="sanskrit-title">ラグの誕生・ディリーパの譲位・ラグの即位</div>
+    <div class="synopsis">
+      ナンディニーの乳を飲んでスダクシナーは懐妊し、<strong>ラグ</strong>（<span class="iast">Raghu</span>）が誕生する。ラグは武芸・学問に優れ、若くして父の片腕となる。ディリーパは息子の成長を見届けると、聖典の定めに従い王位をラグに譲り、林住期へと退く。新王ラグは世界守護神たちの威徳を分かち持つ者として大地を治める。
+    </div>
+    <div class="key-figures">主要人物：ディリーパ、ラグ（<span class="iast">Raghu</span>）、スダクシナー</div>
+  </div>
+
+  <!-- Sarga 3 -->
+  <div class="chapter-card">
+    <div class="chapter-header">
+      <span class="chapter-num">第3章 ― <span class="iast">tṛtīyaḥ sargaḥ</span></span>
+      <span class="verse-count">全70詩節</span>
+    </div>
+    <h3><a href="raghuvamsa_sarga3_bilingual.html">ラグのインドラへの勝利とヴィシュヴァジット祭</a></h3>
+    <div class="sanskrit-title">インドラとの戦い・全施祭・カウツヤへの施し</div>
+    <div class="synopsis">
+      ラグ王は<strong>ヴィシュヴァジット</strong>（<span class="iast">Viśvajit</span>）大祭を行い、全財産を布施として施す。折しもバラモン学生<strong>カウツヤ</strong>（<span class="iast">Kautsa</span>）が師への謝礼のために訪れるが、王の財はすでに空。ラグはインドラ（<span class="iast">Indra</span>）の宝庫クベーラの富を武力で奪い、カウツヤに惜しみなく与える。施しの極致が描かれる章。
+    </div>
+    <div class="key-figures">主要人物：ラグ、カウツヤ（<span class="iast">Kautsa</span>）、クベーラ（<span class="iast">Kubera</span>）、インドラ</div>
+  </div>
+
+  <!-- Sarga 4 -->
+  <div class="chapter-card">
+    <div class="chapter-header">
+      <span class="chapter-num">第4章 ― <span class="iast">caturthaḥ sargaḥ</span></span>
+      <span class="verse-count">全87詩節</span>
+    </div>
+    <h3><a href="raghuvamsa_sarga4_bilingual.html">ラグの世界征服（<span class="iast">digvijaya</span>）</a></h3>
+    <div class="sanskrit-title">四方征服・東方から北方まで</div>
+    <div class="synopsis">
+      ラグ王は<strong>世界征服</strong>（<span class="iast">digvijaya</span>）の遠征に出発する。東方のスフマ族・ヴァンガ族から始まり、南方ではパーンディヤ族を破り、西方ではペルシア人（<span class="iast">Pārasīka</span>）、北方ではフーナ族（<span class="iast">Hūṇa</span>）・カンボージャ族と戦い、ヒマラヤに至る。各地の風土・文化・戦闘が鮮やかに描写される。凱旋後、ラージャスーヤ祭を行い、皇帝（<span class="iast">samrāṭ</span>）の称号を得る。
+    </div>
+    <div class="key-figures">主要人物：ラグ ｜ 登場する民族・地域：スフマ、ヴァンガ、カリンガ、パーンディヤ、ケーララ、パーラシーカ、フーナ、カンボージャ</div>
+  </div>
+
+  <!-- Sarga 5 -->
+  <div class="chapter-card">
+    <div class="chapter-header">
+      <span class="chapter-num">第5章 ― <span class="iast">pañcamaḥ sargaḥ</span></span>
+      <span class="verse-count">全76詩節</span>
+    </div>
+    <h3><a href="raghuvamsa_sarga5_bilingual.html">アジャ王子の旅と天のナーラダの教え</a></h3>
+    <div class="sanskrit-title">アジャの旅立ち・ガンダルヴァとの戦い・プリヤンヴァダーの物語</div>
+    <div class="synopsis">
+      ラグの孫<strong>アジャ</strong>（<span class="iast">Aja</span>）は、ヴィダルバ王国の姫インドゥマティー（<span class="iast">Indumati</span>）の<strong>自選婚</strong>（<span class="iast">svayaṃvara</span>）に赴く途上、ガンダルヴァの攻撃を受ける。天の仙人<strong>ナーラダ</strong>から授かった神秘の武器で敵を退け、倒されたガンダルヴァの正体が呪いを受けた天女の夫<strong>プリヤンヴァダ</strong>であったことを知る。アジャは呪いを解き、感謝の印に魔法の武器を受け取り、自選婚の会場へと向かう。
+    </div>
+    <div class="key-figures">主要人物：アジャ（<span class="iast">Aja</span>）、ナーラダ（<span class="iast">Nārada</span>）、プリヤンヴァダー（<span class="iast">Priyaṃvadā</span>）</div>
+  </div>
+
+  <!-- Sarga 6 -->
+  <div class="chapter-card">
+    <div class="chapter-header">
+      <span class="chapter-num">第6章 ― <span class="iast">ṣaṣṭhaḥ sargaḥ</span></span>
+      <span class="verse-count">全86詩節</span>
+    </div>
+    <h3><a href="raghuvamsa_sarga6_bilingual.html">インドゥマティーの選婿式（<span class="iast">svayaṃvara</span>）</a></h3>
+    <div class="sanskrit-title">諸王の紹介・インドゥマティーの選択・アジャとの結婚</div>
+    <div class="synopsis">
+      自選婚の会場で、侍女<strong>スナンダー</strong>（<span class="iast">Sunandā</span>）が各国の王を一人ずつインドゥマティーに紹介する。マガダ王パランタパ、アンガ王、アヴァンティー王、アヌーパ王プラディーパ、シューラセーナ王スシェーナ、カリンガ王ヘーマーンガダ、パーンディヤ王と次々に紹介されるが、姫はすべてを退ける。最後にラグの王統たる<strong>アジャ</strong>の前で立ち止まり、花輪をかけて選ぶ。蓮と月光の喩えで市民が祝福し、喜ぶ花婿方と意気消沈する落選王たちの対比で章は閉じる。
+    </div>
+    <div class="key-figures">主要人物：インドゥマティー（<span class="iast">Indumati</span>）、スナンダー（<span class="iast">Sunandā</span>）、アジャ ｜ 登場する王：パランタパ、アンガ王、アヴァンティー王、プラディーパ、スシェーナ、ヘーマーンガダ、パーンディヤ王</div>
+  </div>
+</div>
+
+<div class="colophon-section">
+  <div class="devanagari">
+    श्रीमद्वल्लभदेवविरचितायां रघुपञ्चिकायां<br>
+    प्रथमखण्डे षट्सर्गाः समाप्ताः
+  </div>
+  <div class="note">
+    底本：<span class="iast">The Raghupañcikā of Vallabhadeva, being the earliest commentary on the Raghuvaṃśa of Kālidāsa</span><br>
+    Vol. 1 (Sargas 1–6), critically edited by Dominic Goodall &amp; Harunaga Isaacson<br>
+    Groningen: Egbert Forsten, 2003（Groningen Oriental Studies, XVIII）
+  </div>
+</div>
+
+<footer>
+  Raghuvaṃśa 対訳プロジェクト ― サンスクリット・日本語対訳（Vallabhadeva Raghupañcikā 付き）
+</footer>
