@@ -1,0 +1,326 @@
+<title>Kādambarī 注釈対訳</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+Devanagari:wght@400;600&display=swap');
+
+  :root {
+    --bg: #faf8f5;
+    --bg-card: #ffffff;
+    --bg-note: #f5f0ea;
+    --text: #2c2418;
+    --text-secondary: #6b5d4d;
+    --text-muted: #9a8d7e;
+    --accent: #8b4513;
+    --accent-light: #c4956a;
+    --border: #e0d6c8;
+    --border-light: #ede6db;
+    --sanskrit: #3a1f00;
+    --verse-num: #b8860b;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1714;
+      --bg-card: #242019;
+      --bg-note: #2a2520;
+      --text: #e8e0d4;
+      --text-secondary: #b0a494;
+      --text-muted: #7a6e60;
+      --accent: #d4a06a;
+      --accent-light: #8b6a42;
+      --border: #3a332a;
+      --border-light: #302a22;
+      --sanskrit: #f0d8b8;
+      --verse-num: #d4a832;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1714;
+    --bg-card: #242019;
+    --bg-note: #2a2520;
+    --text: #e8e0d4;
+    --text-secondary: #b0a494;
+    --text-muted: #7a6e60;
+    --accent: #d4a06a;
+    --accent-light: #8b6a42;
+    --border: #3a332a;
+    --border-light: #302a22;
+    --sanskrit: #f0d8b8;
+    --verse-num: #d4a832;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Sans JP', sans-serif;
+    line-height: 1.8;
+    padding-inline: 16px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    padding-block: 2rem 1.5rem;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  header h1 {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 1.6rem;
+    font-weight: 600;
+    color: var(--accent);
+    margin: 0 0 0.25rem;
+  }
+
+  header .subtitle {
+    font-size: 0.95rem;
+    color: var(--text-secondary);
+    margin: 0;
+  }
+
+  header .meta {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.5rem;
+  }
+
+  .verse-block {
+    margin-bottom: 2.5rem;
+    border-left: 3px solid var(--accent-light);
+    padding-left: 1rem;
+  }
+
+  .verse-num {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--verse-num);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+
+  .parallel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+
+  @media (max-width: 600px) {
+    .parallel {
+      grid-template-columns: 1fr;
+      gap: 0.75rem;
+    }
+  }
+
+  .col-label {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .sanskrit-text {
+    font-family: 'Gentium Book Plus', 'Times New Roman', serif;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--sanskrit);
+  }
+
+  .devanagari-text {
+    font-family: 'Noto Serif Devanagari', serif;
+    font-size: 1.05rem;
+    line-height: 2;
+    color: var(--text-muted);
+    margin-top: 0.3rem;
+  }
+
+  .japanese-text {
+    font-size: 0.95rem;
+    line-height: 1.9;
+    color: var(--text);
+  }
+
+  .notes {
+    margin-top: 1rem;
+    background: var(--bg-note);
+    border-radius: 6px;
+    padding: 0.75rem 1rem;
+    font-size: 0.85rem;
+    line-height: 1.7;
+    color: var(--text-secondary);
+  }
+
+  .notes .note-heading {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    margin-bottom: 0.3rem;
+  }
+
+  .notes p {
+    margin: 0.4rem 0;
+  }
+
+  .iast {
+    font-family: 'Gentium Book Plus', 'Times New Roman', serif;
+    font-style: normal;
+    color: var(--accent);
+    font-size: 0.97em;
+    letter-spacing: 0.01em;
+  }
+
+  .japanese-text .iast {
+    color: var(--text-secondary);
+  }
+
+  .separator {
+    border: none;
+    border-top: 1px solid var(--border-light);
+    margin: 0.5rem 0;
+  }
+
+  .legend {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    margin-bottom: 2rem;
+    padding: 0.75rem 1rem;
+    background: var(--bg-note);
+    border-radius: 6px;
+    line-height: 1.6;
+  }
+
+  .prose-block {
+    margin-bottom: 2.5rem;
+    border-left: 3px solid var(--border);
+    padding-left: 1rem;
+  }
+
+  .section-label {
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: var(--verse-num);
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
+  }
+</style>
+
+<header>
+  <h1>कादम्बरी</h1>
+  <p class="subtitle"><span class="iast">Bāṇabhaṭṭa, Kādambarī</span> ― サンスクリット原文（IAST）・和訳・注釈対照</p>
+  <p class="meta"><span class="iast">Bhānucandra</span>注参照 ｜ <span class="iast">Mitra</span>校訂版に基づく ｜ 前篇（<span class="iast">Pūrvabhāga</span>）</p>
+</header>
+
+<div class="legend">
+  <strong>凡例:</strong> 左にサンスクリット原文（IAST転写）、右に和訳を配置。下段には<span class="iast">Bhānucandra</span>注からの語義解説・構文分析・哲学的背景を記載。サンスクリット原語はIAST方式で表記。韻文部分には詩節番号を付す。
+</div>
+
+<!-- ===== 詩節 1 ===== -->
+<div class="verse-block">
+  <div class="verse-num">第1詩節（v.1）― 帰敬偈</div>
+  <div class="parallel">
+    <div>
+      <div class="col-label">Sanskrit（IAST）</div>
+      <div class="sanskrit-text">
+        rajo juṣe janmani sattva-vṛttaye<br>
+        sthitau prajānāṃ pralaye tamaḥ-spṛśe |<br>
+        ajāya sarga-sthiti-nāśa-hetave<br>
+        trayīmayāya tri-guṇātmane namaḥ || 1 ||
+      </div>
+    </div>
+    <div>
+      <div class="col-label">和訳</div>
+      <div class="japanese-text">
+        衆生の誕生においてはラジャス（<span class="iast">rajas</span>：活動性）を帯び、存続においてはサットヴァ（<span class="iast">sattva</span>：純質）に住し、滅亡においてはタマス（<span class="iast">tamas</span>：暗性）に触れる者――創造・維持・破壊の原因であり、三ヴェーダの体現にして三グナの本質たる、不生なる者に帰命する。
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="note-heading">Bhānucandra注より ― 語義・構文</div>
+    <p><span class="iast">ajāya svayaṃbhuve namaḥ</span>（不生の自存者に帰命する）が構文の骨格。<span class="iast">ajāya</span> = <span class="iast">kūṭastha-nityāya parabrahmaṇe</span>（不変常住なる最高のブラフマンに）。</p>
+    <p>各修飾語の解説：<span class="iast">rajo juṣe</span>（ラジャスを帯びた）= 創造時にプラジャーパティの相をとること。<span class="iast">sattva-vṛttaye</span>（サットヴァに住する）= 維持時にヴィシュヌの相をとること。<span class="iast">tamaḥ-spṛśe</span>（タマスに触れる）= 滅亡時にシヴァの相をとること。</p>
+    <hr class="separator">
+    <div class="note-heading">Bhānucandra注より ― 哲学的解釈</div>
+    <p>注釈者は先行解釈（<span class="iast">prācīna-vyākhyā</span>：ブラフマー＝ラジャス、ヴィシュヌ＝サットヴァ、シヴァ＝タマスという三神格への帰敬）を批判する。その解釈では、ブラフマーが創造のみを司るとされるため三グナ具有（<span class="iast">tri-guṇātmaka</span>）と矛盾するし、前半と後半が重複する。</p>
+    <p>代案として、ヴェーダーンタ的一元論を提示：一なるパラ・ブラフマンが、水晶（<span class="iast">sphaṭika</span>）が青や黄の色を映すように、グナとの接触により創造時にはブラフマー、維持時にはヴィシュヌ、破壊時にはイーシュヴァラと呼ばれる。<span class="iast">trayīmaya</span> =「ヴェーダの三組の体現」すなわち「<span class="iast">veda eva paraṃ brahma</span>（ヴェーダこそ最高のブラフマン）」。</p>
+  </div>
+</div>
+
+<!-- ===== 詩節 2 ===== -->
+<div class="verse-block">
+  <div class="verse-num">第2詩節（v.2）― シヴァ讃歌</div>
+  <div class="parallel">
+    <div>
+      <div class="col-label">Sanskrit（IAST）</div>
+      <div class="sanskrit-text">
+        jayanti bāṇāsura-mauli-lālitā<br>
+        daśāsya-cūḍāmaṇi-cakra-cumbinaḥ |<br>
+        surāsurādhīśa-śikhānta-śāyino<br>
+        bhavacchidaḥ tryambaka-pāda-pāṃsavaḥ || 2 ||
+      </div>
+    </div>
+    <div>
+      <div class="col-label">和訳</div>
+      <div class="japanese-text">
+        バーナースラの冠に愛撫され、ラーヴァナの頂冠の宝石群に接吻され、神々とアスラたちの王の頭頂に憩う、輪廻を断つ三眼神（<span class="iast">Tryambaka</span>）の足の塵――それは勝利あれ。
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="note-heading">Bhānucandra注より</div>
+    <p><span class="iast">tryambakasya śivasya pāda-pāṃsavaḥ caraṇa-reṇavo jayanti</span>（シヴァの足の塵＝足元の微塵が勝利する＝あらゆるものに優越する）。</p>
+    <p>三つの修飾語が足の塵の超越性を示す：(1) <span class="iast">bāṇāsura-mauli-lālitāḥ</span>＝バーナースラの冠（<span class="iast">mukuṭa</span> / <span class="iast">mastaka</span>）に親しまれる。(2) <span class="iast">daśāsya-cūḍāmaṇi-cakra-cumbinaḥ</span>＝ラーヴァナの頂上宝石の集まり（<span class="iast">samūha</span>）に触れる。(3) <span class="iast">surāsurādhīśa-śikhānta-śāyinaḥ</span>＝神々とアスラの主の髻の先端に横たわる。</p>
+    <p>前の三修飾語でパラメーシュヴァラの足の塵の至高性（<span class="iast">parameśvaratva</span>）を、<span class="iast">bhavacchidaḥ</span>で輪廻苦の除去力（<span class="iast">saṃsāra-duḥkha-nivārakatva</span>）を述べる。</p>
+  </div>
+</div>
+
+<!-- ===== 散文部分の例 ===== -->
+<div class="prose-block">
+  <div class="section-label">散文 ― 注釈者系譜</div>
+  <div class="parallel">
+    <div>
+      <div class="col-label">Sanskrit（IAST）</div>
+      <div class="sanskrit-text">
+        śrīmat-tapaḥ-pakṣa-sahasra-dīdhitiḥ śrī-Hīrasūriḥ samabhūn mahodayaḥ ... tat-paṭṭa-pāthonidhipūrṇacandro virājate śrī-Vijayādisenaḥ ... tat-saṃpradāye prathita-prabhāvo babhūva Dānarṣir atiiprasiddhaḥ ... śrī-Vācakendraḥ sakalādicandro babhūva viśvādbhuta-vāg-vilāsaḥ ... śrī-Vācakaḥ saṃprati Bhānucandro ... śrī-Śāhi-cetoja-baṣaḍ-vṛtullyaḥ śrī-Siddhacandro 'sti madīya-śiṣyaḥ | Kādambarī-vṛttir iyaṃ tadīya-manoude tena mayā pratanyate ||
+      </div>
+    </div>
+    <div>
+      <div class="col-label">和訳</div>
+      <div class="japanese-text">
+        〔注釈者系譜〕苦行の翼の千光明たるシュリー・ヒーラスーリが現れた。……その法統の満月たるシュリー・ヴィジャヤーディセーナが輝く。……その伝統において名高きダーナルシが現れた。……万人の驚嘆すべき弁才を持つシュリー・ヴァーチャケーンドラが現れた。……現在の教師はシュリー・バーヌチャンドラである。……シュリー・シッダチャンドラは私の弟子であり、この『カーダンバリー注釈』（<span class="iast">Kādambarī-vṛtti</span>）は、彼の心の喜びのために、私によって展開される。
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="note-heading">解説</div>
+    <p>本注釈はジャイナ教シュヴェーターンバラ派の学統に属する。<span class="iast">Hīrasūri → Vijayādisena → Vijayatilakasūri → Bhānucandra → Siddhacandra</span>。注釈者バーヌチャンドラは弟子シッダチャンドラのためにこの注釈を著した。アクバル帝の宮廷とも関わりを持つジャイナ教知識人の系譜である。</p>
+  </div>
+</div>
+
+<!-- ===== 散文部分：本文開始 ===== -->
+<div class="prose-block">
+  <div class="section-label">散文本文 ― 冒頭注釈の例</div>
+  <div class="parallel">
+    <div>
+      <div class="col-label">Sanskrit（IAST）</div>
+      <div class="sanskrit-text">
+        iha hi viśiṣṭa-śiṣṭācārānamita-śruti-bodhita-kartavyatākaṃ prāripista-vighna-vighāta-phalakaṃ hiraṇyagarbha-namaskārātmakaṃ maṅgalam ācarati — <em>rajo 'juṣe</em> iti.
+      </div>
+    </div>
+    <div>
+      <div class="col-label">和訳</div>
+      <div class="japanese-text">
+        ここで〔バーナは〕、優れた学者の慣行に従い、シュルティ（聖典）によって教示された義務としての、企図された障害の破壊を目的とする、ヒラニヤガルバへの帰敬という形の吉祥句（<span class="iast">maṅgala</span>）を行う――「<span class="iast">rajo juṣe</span>」〔という句で〕。
+      </div>
+    </div>
+  </div>
+  <div class="notes">
+    <div class="note-heading">Bhānucandra注より ― 構文分析</div>
+    <p><span class="iast">ajāya svayaṃbhuve nama ity anvayaḥ</span>（「不生なる自存者に帰命する」が構文の骨格）。各修飾語は与格（<span class="iast">kiṃbhūtāya</span>：どのような性質の者に）で連結。</p>
+    <p><span class="iast">janmani</span>, <span class="iast">sthitau</span>, <span class="iast">pralaye</span> は処格（<span class="iast">nimittasaptamī</span>：原因を示す第七格）として解釈可能。</p>
+    <p><span class="iast">prajānām</span>（衆生の）は全修飾語にかかる（<span class="iast">sarvatra anuṣaṅgaḥ</span>：全体に係属）。すなわち、衆生の創造・維持・破壊の原因たる者。</p>
+  </div>
+</div>
+
