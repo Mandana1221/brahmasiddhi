@@ -11,6 +11,7 @@ data/sN_*.txt（N = 百頌番号）を読み、../hala_sattasai_N.html を出力
   ja: 和訳
   n: 見出し | 解説本文（**太字** 可）
   q: 引用（デーヴァナーガリー） || 引用の和訳
+  comm: Ajaḍa             注釈者名（省略時は Bhuvanapāla）
   appendix: 見出し | 副題    （以降の偈を付録として扱う）
 """
 import glob, html, os, re
@@ -50,7 +51,7 @@ def parse(path):
             continue
         if line.startswith('# '):
             cur = {'num': line[2:].strip(), 'w': '', 'poet': None, 'pk': [], 'ch': [],
-                   'ja': [], 'notes': [], 'appendix': appendix}
+                   'ja': [], 'notes': [], 'appendix': appendix, 'comm': 'Bhuvanapāla'}
             appendix = None
             verses.append(cur)
             continue
@@ -58,6 +59,8 @@ def parse(path):
         val = val.strip()
         if key == 'w':
             cur['w'] = val
+        elif key == 'comm':
+            cur['comm'] = val
         elif key == 'poet':
             cur['poet'] = [x.strip() for x in val.split('|')]
         elif key in ('pk', 'ch', 'ja'):
@@ -110,9 +113,9 @@ def render_verse(v, sataka):
     if notes:
         comm = '''
   <div class="commentary">
-    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <div class="commentary-title">解説 · %s</div>
 %s
-  </div>''' % '\n'.join(notes)
+  </div>''' % (html.escape(v['comm']), '\n'.join(notes))
     out.append('''<div class="verse-block" id="%s">
   <div class="verse-number">%s%s</div>
   <div class="verse-columns">
@@ -145,6 +148,12 @@ INTRO_FULL = '''<section class="intro">
 
 INTRO_SHORT = '''<section class="intro">
   <p>左：プラークリット原文とチャーヤー（サンスクリット訳）／右：和訳／下：ブヴァナパーラ注に基づく解説。偈番号はパトワルダン版、「W」はヴェーバー版の番号。読み方の詳しい説明は<a href="hala_sattasai_1.html">第一百頌</a>の冒頭を参照。和訳・解説は試訳です。</p>
+</section>'''
+
+
+INTRO_7 = '''<section class="intro">
+  <p>左：プラークリット原文とチャーヤー（サンスクリット訳）／右：和訳／下：注釈に基づく解説。偈番号はパトワルダン版、「W」はヴェーバー版、「R」はヴェーバーが用いた写本Rの番号。和訳・解説は試訳です。</p>
+  <p><strong>第七百頌の伝承について。</strong>ブヴァナパーラ注の二写本（BORI写本・アフマダーバード写本）は第六百頌までしか伝えていません。そこで編者パトワルダンは付録として、第601〜637偈を<strong>アジャダ（Ajaḍa）の注</strong>を伴う BORI 写本（No. 385 of 1887–91）から、第641〜700偈を、おそらくブヴァナパーラの注と思われる注釈を伴う<strong>バローダ写本</strong>（No. 12681）から収めました。第638〜640偈は、両写本とも該当する葉が欠けているため伝わりません。各偈の解説欄の見出しに、どちらの注に基づくかを示しています。末尾には、アジャダ注写本が第六百頌の終わりに伝える四偈を付録として加えました。</p>
 </section>'''
 
 
@@ -205,7 +214,7 @@ def build(sataka):
 </body>
 </html>
 ''' % dict(jp=jp, skt=skt, css=css, nav=' · '.join(nav), first=first, last=last,
-           intro=INTRO_FULL if sataka == 1 else INTRO_SHORT, toc=toc, body=body)
+           intro=INTRO_FULL if sataka == 1 else INTRO_7 if sataka == 7 else INTRO_SHORT, toc=toc, body=body)
     out = os.path.join(ROOT, 'hala_sattasai_%d.html' % sataka)
     open(out, 'w', encoding='utf-8').write(page)
     return out, len(verses)
