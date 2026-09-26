@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>サッタサイー対訳 第三百頌</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --chaya: #6B5E52;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --verse-num: #7E7265;
+  --note-bg: #EDE8DF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --chaya: #A89E92;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --verse-num: #8A7F73;
+    --note-bg: #27251F;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --chaya: #A89E92;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --verse-num: #8A7F73;
+  --note-bg: #27251F;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  line-height: 1.9;
+  padding: 3rem 1.5rem 5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.65rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.intro {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.intro h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.intro p + p { margin-top: 0.6rem; }
+.intro ul { margin: 0.6rem 0 0 1.2rem; }
+
+.verse-block { padding: 1.6rem 0; }
+.verse-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--verse-num);
+  margin-bottom: 0.7rem;
+}
+.verse-number .poet {
+  font-family: 'Shippori Mincho', serif;
+  letter-spacing: 0.02em;
+  margin-left: 0.6rem;
+}
+.verse-columns {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 2rem;
+  align-items: start;
+}
+.verse-divider {
+  background: var(--rule);
+  width: 1px;
+  align-self: stretch;
+}
+.verse-prakrit {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.15rem;
+  line-height: 2.1;
+  padding: 0.5rem 0;
+}
+.verse-prakrit .pada, .verse-chaya .pada { display: block; }
+.verse-chaya {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  line-height: 1.95;
+  color: var(--chaya);
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed var(--rule);
+}
+.verse-japanese {
+  font-size: 1.05rem;
+  line-height: 2;
+  padding: 0.5rem 0;
+}
+.lang-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verse-num);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.commentary {
+  margin-top: 1rem;
+  padding: 0.8rem 1.1rem;
+  background: var(--note-bg);
+  border-left: 2px solid var(--accent);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+.commentary p + p { margin-top: 0.45rem; }
+.commentary-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.commentary .tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  border-radius: 3px;
+  padding: 0 0.35rem;
+  margin-right: 0.35rem;
+  line-height: 1.5;
+}
+.skt { font-family: 'Noto Serif Devanagari', serif; }
+.commentary em, .intro em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05em;
+}
+.commentary .quote {
+  margin: 0.4rem 0 0.4rem 1rem;
+  padding-left: 0.7rem;
+  border-left: 1px solid var(--rule);
+}
+
+.verse-sep {
+  border: none;
+  border-top: 1px solid var(--rule-light);
+  margin: 0 6rem;
+  opacity: 0.6;
+}
+
+.colophon {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--verse-num);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  body { padding: 2rem 1rem 3rem; }
+  .header h1 { font-size: 1.35rem; }
+  .header-devanagari { font-size: 1.15rem; }
+  .verse-columns { grid-template-columns: 1fr; gap: 0.75rem 0; }
+  .verse-divider { display: none; }
+  .verse-prakrit { font-size: 1.05rem; }
+  .verse-japanese { font-size: 0.95rem; }
+  .verse-sep { margin: 0 3rem; }
+  .commentary { font-size: 0.88rem; padding: 0.6rem 0.8rem; }
+}
+@media print {
+  .verse-block { page-break-inside: avoid; }
+}
+
+.nav-sataka {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 0.9rem;
+  margin-bottom: 2rem; font-size: 0.85rem;
+}
+.nav-sataka a { color: var(--accent); text-decoration: none; }
+.nav-sataka a:hover { color: var(--accent-soft); }
+.nav-sataka .current { color: var(--ink); font-weight: 600; }
+.toc-grid {
+  display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem; margin-top: 0.6rem;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.9rem;
+}
+.toc-grid a { color: var(--accent); text-decoration: none; min-width: 2.2rem; }
+.appendix-head {
+  margin: 3rem 0 1rem; padding-top: 2rem; border-top: 1px solid var(--rule);
+  text-align: center; font-size: 1.05rem; color: var(--accent);
+}
+.appendix-head .sub { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-devanagari">गाहाकोसो · तइयं सयं</div>
+  <h1>Hāla's Gāhākosa (Sattasaī)</h1>
+  <div class="header-sub">with the commentary <span>Chekoktivicāralīlā</span> of Bhuvanapāla · ed. M. V. Patwardhan (1980)</div>
+  <div class="header-jp">ハーラ編『ガーハーコーサ（サッタサイー／七百頌）』第三百頌<br>ブヴァナパーラ注に基づく対訳　—　第201〜225偈</div>
+</div>
+
+<nav class="nav-sataka"><a href="hala_sattasai_1.html">第一百頌</a> · <a href="hala_sattasai_2.html">第二百頌</a> · <span class="current">第三百頌</span> · <span>第四百頌</span> · <span>第五百頌</span> · <span>第六百頌</span> · <span>第七百頌</span></nav>
+
+<section class="intro">
+  <p>左：プラークリット原文とチャーヤー（サンスクリット訳）／右：和訳／下：ブヴァナパーラ注に基づく解説。偈番号はパトワルダン版、「W」はヴェーバー版の番号。読み方の詳しい説明は<a href="hala_sattasai_1.html">第一百頌</a>の冒頭を参照。和訳・解説は試訳です。</p>
+</section>
+
+<nav class="intro"><h2>偈 番 号</h2><div class="toc-grid"><a href="#g201">201</a> <a href="#g202">202</a> <a href="#g203">203</a> <a href="#g204">204</a> <a href="#g205">205</a> <a href="#g206">206</a> <a href="#g207">207</a> <a href="#g208">208</a> <a href="#g209">209</a> <a href="#g210">210</a> <a href="#g211">211</a> <a href="#g212">212</a> <a href="#g213">213</a> <a href="#g214">214</a> <a href="#g215">215</a> <a href="#g216">216</a> <a href="#g217">217</a> <a href="#g218">218</a> <a href="#g219">219</a> <a href="#g220">220</a> <a href="#g221">221</a> <a href="#g222">222</a> <a href="#g223">223</a> <a href="#g224">224</a> <a href="#g225">225</a></div></nav>
+
+<div class="verse-block" id="g201">
+  <div class="verse-number">GĀTHĀ 201 · W 576<span class="poet">作者：インドゥラージャ（<span class="skt">इन्दुराजस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">कस्स करो बहुपुण्णप्फलेक्कतरुणो तुहं विसम्मिहिइ ।</span>
+        <span class="pada">थणपरिणाहे वम्महणिहाणकलसे व्व पारोहो ॥१॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">कस्य करो बहुपुण्यफलैकतरोस्तव विश्रमिष्यति ।</span>
+        <span class="pada">स्तनपरिणाहे मन्मथनिधानकलश इव प्ररोहः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>積み重ねた功徳がたわわに実った、ただ一本の木のような果報者——いったい誰の手が、あなたの豊かな胸の上に休むことになるのだろう。恋の神の宝を納めた壺の上に、木の若枝が伸びて覆いかぶさるように。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">冒頭</span>注は第三百頌の初めにも「<span class="skt">ओं नमो जिनाय</span>（ジナに帰命す）」と記します。</p>
+    <p><span class="tag">背景</span>注によれば、「地中に埋められた宝の壺の上には、木が枝（根）を伸ばす」という俗信がありました。胸をその宝の壺に、そこに置かれる男の手を、壺の上に伸びる若枝にたとえています。</p>
+    <p><span class="tag">趣旨</span>注は「あなたの胸に手を置くことになる男は、なんと幸運なことか」という意味だと言います。女性を遠回しにほめる言葉です。</p>
+    <p><span class="tag">語注</span><span class="skt">पारोह</span> = <span class="skt">प्ररोह</span>（若枝、根）／<span class="skt">णिहाण</span> = <span class="skt">निधान</span>（埋蔵された宝）。注は <span class="skt">पुण्णप्फल</span> の子音の重なりを、ヴァラルチ 3.58 で説明します。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g202">
+  <div class="verse-number">GĀTHĀ 202 · W 249<span class="poet">作者：ハーラ（<span class="skt">हालस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अज्ज मए गंतव्वं घणंधयारे वि तस्स सुहयस्स ।</span>
+        <span class="pada">अज्झा निमीलियच्छी पयपरिवाडिं घरे कुणइ ॥२॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अद्य मया गन्तव्यं घनान्धकारेऽपि तस्य सुभगस्य ।</span>
+        <span class="pada">आर्या निमीलिताक्षी पदपरिपाटीं गृहे करोति ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>「今夜は、真っ暗闇の中でも、あの人のところへ行かなくては」——若い女は目を閉じて、家の中で歩く練習をしている。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>「目の見えない闇の中でどうやって行けばいいのかしら」と、あらかじめ恋人の家への道筋を思い描き、目を閉じたまま家の中を行ったり来たりして練習しているのです。名高い偈の一つです。</p>
+    <p><span class="tag">類型</span><strong>みずから恋人のもとへ忍んで行く女</strong>（<span class="skt">अभिसारिका</span>）。注の定義：「使いの女が来るまで待ちきれず、恋の熱に苦しみ、恋人の唇を求めて自ら出かけていく女」。注はさらに、季節や時刻、自分の妻か他人の妻かによる忍び逢いのさまざまな型を論じていますが、その部分は本文がひどく乱れています。</p>
+    <p><span class="tag">文法</span>注は、<span class="skt">तस्स सुहयस्स</span>（あの人の）が「〜のために」の意味で属格になっていると説明します。</p>
+    <p><span class="tag">本文</span>OCRでは <span class="skt">अज्या</span>。注の説明（<span class="skt">उपभोगयोग्या युवतिः</span>）により <span class="skt">अज्झा</span> としました。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g203">
+  <div class="verse-number">GĀTHĀ 203 · W 255<span class="poet">作者：シュードラカ（<span class="skt">शूद्रकस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">लहुयंति लहुं पुरिसं पव्वयमेत्तं पि दो वि कज्जाइं ।</span>
+        <span class="pada">निव्वरियमणिव्वूढे निव्वूढे जं अणिव्वरियं ॥३॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">लघयतो लघु पुरुषं पर्वतमात्रमपि द्वे अपि कार्ये ।</span>
+        <span class="pada">निवेदनमनिर्व्यूढे निर्व्यूढे यदनिवेदनम् ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>山のように偉い人でも、たちまち小さくしてしまうことが二つある——〔苦しみを〕受け止められない人に打ち明けること、そして、受け止めてくれる人に打ち明けないこと。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>注によれば、<span class="skt">अणिव्वूढ</span> は「重荷に耐えられない人」、<span class="skt">निव्वरिय</span> は「苦しみを打ち明けること」（第149偈参照）。相談相手を選び違えると、人の値打ちは下がってしまう、という格言です。</p>
+    <p><span class="tag">作者</span>シュードラカは、戯曲『ムリッチャカティカー（土の小車）』の作者とされる王と同じ名です。</p>
+    <p><span class="tag">異読</span>ヴェーバー版も <span class="skt">दो वि कज्जाइं</span>。OCRは <span class="skt">दो य</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g204">
+  <div class="verse-number">GĀTHĀ 204 · W 256<span class="poet">作者：ゴーヴィンダスヴァーミン（<span class="skt">गोविन्दस्वामिनः</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">कं तुंगथणुक्खित्तेण पुत्ति दारट्ठिया पलोएसि ।</span>
+        <span class="pada">उन्नामियकलसणिवेसियग्घकमलेण व मुहेण ॥४॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">कं तुङ्गस्तनोत्क्षिप्तेन पुत्रि द्वारस्थिता प्रलोकयसि ।</span>
+        <span class="pada">उन्नामितकलशनिवेशितार्घकमलेनेव मुखेन ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>娘や、戸口に立って、高い胸の上に掲げたようなその顔で、誰を待っているの——高く掲げた壺の上に、供え物の蓮を載せたようなその顔で。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">背景</span>大切な客を迎えるとき、戸口に水を満たした壺を置き、その上に蓮の花を載せる習わしがありました。豊かな胸をその壺に、その上の顔を蓮の花にたとえています。</p>
+    <p><span class="tag">注の説明</span>「あなたにこうして待たれている男は、なんと幸せなことか」。</p>
+    <p><span class="tag">修辞</span>直喩と<strong>ジャーティ</strong>の併存。</p>
+    <p><span class="tag">付記</span>刊本の編者は、この偈のあたりの注は本文が乱れ、引用が多いと注記しています。ヴェーバー版は <span class="skt">पलोएसि</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g205">
+  <div class="verse-number">GĀTHĀ 205 · W 257<span class="poet">作者：パーリッタカ（<span class="skt">पालित्तकस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">वइविवरणिग्गयदलो एरंडो साहइ व्व तरुणाणं ।</span>
+        <span class="pada">एत्थ घरे हलियवहू एद्दहमेत्तत्थणी वसइ ॥५॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">वृतिविवरनिर्गतदल एरण्डः कथयतीव तरुणानाम् ।</span>
+        <span class="pada">अत्र गृहे हालिकवधूरेतावन्मात्रस्तनी वसति ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>垣根のすき間から葉を突き出したヒマの木が、若者たちに告げているかのようだ——「この家には、これくらいの胸をした農夫の嫁が住んでいるよ」と。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">趣向</span>ヒマ（トウゴマ）の葉は、指を広げた手のひらの形をしています。それが垣根から突き出しているのを、「これくらい」と手で大きさを示す身ぶりに見立てた、名高い偈です。</p>
+    <p><span class="tag">修辞</span><strong>ウトプレークシャー</strong>（見立て）。注は、推論による見立てだとして、クンタカ『ヴァクローークティ・ジーヴィタ』3.25 を引きます。</p>
+    <p><span class="tag">語注</span><span class="skt">एरंड</span> = ヒマ（注は「ガンダルヴァの手の木」とも呼ぶ）／<span class="skt">एद्दहमेत्त</span> =「これくらいの」／<span class="skt">वइ</span> = <span class="skt">वृति</span>（垣根）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g206">
+  <div class="verse-number">GĀTHĀ 206 · W 258<span class="poet">作者：パーリッタカ（前偈と同じ）（<span class="skt">पालित्तकस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">करिकलहकुंभसंनिहघणपीणनिरंतरेहि तुंगेहिं ।</span>
+        <span class="pada">ऊससिउं पि न तीरइ किं पुण गंतुं हयथणेहिं ॥६॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">करिकलभकुम्भसंनिभघनपीननिरन्तराभ्यां तुङ्गाभ्याम् ।</span>
+        <span class="pada">उच्छ्वसितुमपि न शक्यते किं पुनर्गन्तुं हतस्तनाभ्याम् ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>子象の額のこぶのように、固く、豊かで、すき間もなく高くそびえる——このいまいましい胸のせいで、息をするのさえやっとなのに、ましてや出かけるなんて。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">状況</span>注によれば、「恋人のもとへ忍んで行きなさい」と友に言われた女の答え。体じゅうに若さがみなぎった女が、「こんな胸では息もできない。出かけるなんてとんでもない」と言っているのです。</p>
+    <p><span class="tag">語注</span><span class="skt">हय</span> = <span class="skt">हत</span>（いまいましい、ののしりの言葉）／<span class="skt">करिकलह</span> = 子象。ヴェーバー版は <span class="skt">गअकलह</span>…。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g207">
+  <div class="verse-number">GĀTHĀ 207 · W 259<span class="poet">作者：カヴィラージャ（<span class="skt">कविराजस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">मासपसूयं छम्मासगब्भिणिं एक्कदियहजरियं च ।</span>
+        <span class="pada">रंगुत्तिण्णं च पियं पुत्तय कामंतओ होहि ॥७॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">मासप्रसूतां षण्मासगर्भिणीमेकदिवसज्वरितां च ।</span>
+        <span class="pada">रङ्गोत्तीर्णां च प्रियां पुत्रक कामयमानो भव ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>息子よ、お産からひと月たった妻、身ごもって六か月の妻、一日だけ熱を出した妻、そして踊りの舞台から降りてきたばかりの妻——そういうときの妻をこそ愛しなさい。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>注は医学的な理由も交えて説明します。お産からひと月たてば体が回復し、夫への愛情も深まっている。六か月までは流産を恐れて避けるが、それ以降は胎児の体ができあがっているので差し支えない。一日の熱では体力は衰えない。踊り終えたばかりの女は、疲れて手足がゆるみ、かえって魅力が増す——。</p>
+    <p><span class="tag">別解</span>注は、ほかにもいくつかの解釈があることを紹介していますが、その部分は本文が乱れています。</p>
+    <p><span class="tag">語注</span><span class="skt">रंग</span> = 舞台（踊りの場）／<span class="skt">कामंतअ</span> =「愛する者」。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g208">
+  <div class="verse-number">GĀTHĀ 208 · W 260<span class="poet">作者：ハーラ（<span class="skt">हालस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">पडिवक्खमन्नुपुंजे लायण्णउडे अणंगगयकुंभे ।</span>
+        <span class="pada">पुरिससयहिययधरिए कीस थणंती थणे वहसि ॥८॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">प्रतिपक्षमन्युपुञ्जौ लावण्यघटावनङ्गगजकुम्भौ ।</span>
+        <span class="pada">पुरुषशतहृदयधृतौ कस्मात्स्तनन्ती स्तनौ वहसि ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>恋敵の妬みの山であり、美しさを満たした壺であり、恋の神の象の額のこぶであり、百人の男の心に支えられている——そんな乳房を、どうしてあなたは、ため息をつきながら重たそうに運んでいるの？</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">趣向</span><span class="skt">थणंती</span>（ため息をつきながら）と <span class="skt">थणे</span>（乳房を）は音が似た言葉遊び。注によれば、「その胸は、百人もの若者の心が分けて支えているのだから、重いはずがない」という機知です。</p>
+    <p><span class="tag">修辞</span>隠喩（<span class="skt">रूपक</span>）などを伴う<strong>パリヤーヨークタ</strong>。</p>
+    <p><span class="tag">語注</span><span class="skt">मन्नु</span> = <span class="skt">मन्यु</span>（怒り、妬み）／<span class="skt">उड</span> = <span class="skt">घट</span>（壺）。ヴェーバー版は <span class="skt">लावण्णउडे</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g209">
+  <div class="verse-number">GĀTHĀ 209 · W 261<span class="poet">作者：ウールドヴァヴァンシャ（?）（<span class="skt">ऊर्ध्ववंशस्य (?)</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">घरिणिघणत्थणपेल्लणसुहेल्लिपडियस्स होंतपहियस्स ।</span>
+        <span class="pada">अवसउणंगारयवारविट्ठिदियहा सुहावेंति ॥९॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">गृहिणीघनस्तनप्रेरणसुखकेलिपतितस्य भविष्यत्पथिकस्य ।</span>
+        <span class="pada">अपशकुनाङ्गारकवारविष्टिदिवसाः सुखयन्ति ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>妻の豊かな胸に押しつけられる楽しみにひたっている、旅立ちを控えた男にとっては——不吉な兆しも、火曜日も、凶日（ヴィシュティ）も、〔出発が延びるので〕かえって嬉しいものだ。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>ふつう旅に出る人にとって、不吉な兆しや凶日は困りもの。ところがこの男には、それを口実に出発を延ばし、妻のそばにいられるので、かえって喜びになるのです。</p>
+    <p><span class="tag">類型</span><strong>誠実な夫</strong>（<span class="skt">अनुकूल</span>）。</p>
+    <p><span class="tag">語注</span><span class="skt">अंगारयवार</span> = 火曜日（火星の日、旅立ちに不吉とされる）／<span class="skt">विट्ठि</span> = <span class="skt">विष्टि</span>（暦の上の凶の区分、<span class="skt">भद्रा</span> とも）／<span class="skt">सुहेल्लि</span> = 楽しみ（第116偈参照）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g210">
+  <div class="verse-number">GĀTHĀ 210 · W 262<span class="poet">作者：ドゥルヴィダグダ（<span class="skt">दुर्विदग्धस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">सा तुज्झ कए बालय अणिसं घरदारतोरणणिसण्णा ।</span>
+        <span class="pada">ओसूसइ वंदणमालिय व्व दियहं चिय वराई ॥१०॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">सा तव कृते बालक नित्यं गृहद्वारतोरणनिषण्णा ।</span>
+        <span class="pada">ओ शुष्यति वन्दनमालिकेव दिवसमेव वराकी ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>坊や、かわいそうなあの子は、あなたのために、いつも家の戸口の門飾りに寄りかかって、戸口に掛けた祝いの花綱のように、一日じゅうしおれていくの。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">比喩</span>戸口の門には、祝いの花綱（<span class="skt">वन्दनमालिका</span>）が掛けられ、日ごとにしおれていく。その花綱のそばで、あなたの来る道を見つめながら、彼女もやつれていくのです。</p>
+    <p><span class="tag">修辞</span>注は<strong>サホークティ</strong>（<span class="skt">सहोक्ति</span>、「〜とともに」）の趣とし、別の人々は「列挙の直喩」と呼ぶ、と言います。</p>
+    <p><span class="tag">語注</span><span class="skt">ओ</span> = ここでは「ほら」と注意を引く不変化詞、と注は言います。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">निच्च</span> をヴェーバー版の <span class="skt">अणिसं</span> により直しました。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g211">
+  <div class="verse-number">GĀTHĀ 211 · W 263<span class="poet">作者：パーリッタカ（<span class="skt">पालित्तकस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">हसियं सहत्थतालं सुक्कवडं आइएहि पहिएहिं ।</span>
+        <span class="pada">पत्तप्फलसारिच्छे उड्डीणे पूसवंद्रम्मि ॥११॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">हसितं स्वहस्ततालं शुष्कवटमागतैः पथिकैः ।</span>
+        <span class="pada">पत्रफलसदृक्षे उड्डीने शुकवृन्दे ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>〔木陰を求めて〕枯れたバニヤンの木の下にやって来た旅人たちは、葉や実とそっくりに見えていた鸚鵡の群れがいっせいに飛び立つと、手を打って笑いだした。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>鸚鵡は、緑の羽が葉に、赤いくちばしが実に見える。旅人たちは、葉の茂った木だと思って近づいたら、じつは枯れ木で、「葉」も「実」もすべて鸚鵡だった——その驚きとおかしさに、手を打って笑ったのです。</p>
+    <p><span class="tag">笑いの理論</span>注は、これを<strong>笑いの情趣</strong>（<span class="skt">हास्य रस</span>）の例とします。鸚鵡の飛び立つのが笑いの対象（<span class="skt">आलम्बनविभाव</span>）、手を打つのがその表れ（<span class="skt">अनुभाव</span>）。</p>
+    <p><span class="tag">修辞</span><strong>ヘートゥ</strong>（原因）。</p>
+    <p><span class="tag">語注</span><span class="skt">पूस</span> = 鸚鵡（地方語）／<span class="skt">वंद्र</span> = <span class="skt">वृन्द</span>（群れ）。ヴェーバー版は <span class="skt">उवगएहि</span>・<span class="skt">पत्तअफलाण सरिसे</span>・<span class="skt">पूसविंदम्मि</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g212">
+  <div class="verse-number">GĀTHĀ 212 · W 264<span class="poet">作者：アーンドララクシュミー（女性詩人）（<span class="skt">अन्ध्रलक्ष्म्याः</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अज्ज म्हि हासिया मामि तेण पाएसु तह पडंतेण ।</span>
+        <span class="pada">तीए वि जलंतिं दीववट्टिमब्भुत्तणंतीए ॥१२॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अद्यास्मि हासिता सखि तेन पादयोस्तथा पतता ।</span>
+        <span class="pada">तयापि ज्वलन्तीं दीपवर्तिमभ्युत्क्षिपन्त्या ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>ねえ、今日はおかしくて笑ってしまったわ——あの人が、わたしの足もとにあんなふうにひれ伏したのにも、〔そばにいた〕あの女が、もう燃えている灯心を、わざわざかき立てたのにも。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">状況</span>注によれば、男は女をなだめようとして足もとにひれ伏したが、そのとき<strong>恋敵の名で</strong>呼んでしまった。そこで、「薄暗い明かりのせいで、この人はわたしが誰だかわからないのかしら。それなら灯をかき立てて、わたしの顔を見せてあげましょう」と、わざと灯心を上げた——という皮肉なしぐさです。</p>
+    <p><span class="tag">修辞・情趣</span><strong>スークシュマ</strong>（しぐさから察せられる意味、『カーヴィヤーダルシャ』2.260）。情趣は<strong>笑い</strong>（<span class="skt">हास्य</span>）で、注は笑いの演じ方と起こり方を述べた定義を引きます（第10偈参照）。</p>
+    <p><span class="tag">付記</span>注のこの部分は本文が一部欠けていて、誰が灯心をかき立てたのかについて、解釈に不確かさが残ります。ヴェーバー版は <span class="skt">अब्भुत्तअंतीए</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g213">
+  <div class="verse-number">GĀTHĀ 213 · W 265<span class="poet">作者：シュードラカ（<span class="skt">शूद्रकस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अणुवत्तणं कुणंतो वेसे वि जणे अभिन्नमुहराओ ।</span>
+        <span class="pada">अप्पवसो वि सुयणो परव्वसो आहिजाईए ॥१३॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अनुवर्तनं कुर्वन्द्वेष्येऽपि जनेऽभिन्नमुखरागः ।</span>
+        <span class="pada">आत्मवशोऽपि सुजनः परवश आभिजात्येन ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>自分の思いのままにできる身でありながら、育ちのよい人は、その家柄のよさゆえに〔他人に〕縛られている——嫌いな相手にさえ顔色ひとつ変えず、調子を合わせてやるのだから。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">状況</span>注によれば、ほかの女に心を移しながら、礼儀正しさから相変わらず自分に優しくする夫に、妻が皮肉をこめて言う言葉。「あなたはわたしへの愛をなくしたのに、それでも合わせてくれるのね」。第22偈とよく似た場面です。</p>
+    <p><span class="tag">類型</span>自分の妻で、中位の（<span class="skt">मध्या</span>）女。</p>
+    <p><span class="tag">語注</span><span class="skt">आहिजाई</span> = <span class="skt">अभिजाति</span>（家柄のよさ）。ā が長くなることについては第22偈参照。ヴェーバー版は <span class="skt">अहिण्ण</span>…・<span class="skt">अप्पवसो वि हु सुअणो</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g214">
+  <div class="verse-number">GĀTHĀ 214 · W 266<span class="poet">作者：ハーラ（<span class="skt">हालस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अणुदियहवड्ढियायरविन्नाणगुणेहि जणियमाहप्पो ।</span>
+        <span class="pada">पुत्तय अहिजायजणो विरज्जमाणो वि दुल्लक्खो ॥१४॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अनुदिवसवर्धितादरविज्ञानगुणैर्जनितमाहात्म्यः ।</span>
+        <span class="pada">पुत्रिके अभिजातजनो विरज्यमानोऽपि दुर्लक्षः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>娘や、育ちのよい人は、日ごとに増していく心づかいや、たしなみの深さで人に重んじられるから、心が離れていくときでさえ、それとは気づきにくいものよ。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>「育ちのよい人は、心が離れるほど、かえってますます丁寧になる。だから、〈この人はわたしを愛している〉と思いこんではいけない」。初心な娘を諭す言葉です。</p>
+    <p><span class="tag">類型</span>男は<strong>気配りの男</strong>（<span class="skt">दक्षिण</span>）。注は「ほかの女に心を移しても、前の女への真心・恐れ・敬意を捨てない男」と定義を引きます（第131偈参照）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g215">
+  <div class="verse-number">GĀTHĀ 215 · W 267<span class="poet">作者：パラークラマ（<span class="skt">पराक्रमस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">विन्नाणगुणमहग्घे पुरिसे वेसत्तणं पि रमणिज्जं ।</span>
+        <span class="pada">जणनिंदिए उण जणे पियत्तणेणावि लज्जामो ॥१५॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">विज्ञानगुणमहार्घे पुरुषे द्वेष्यत्वमपि रमणीयम् ।</span>
+        <span class="pada">जननिन्दिते पुनर्जने प्रियत्वेनापि लज्जामहे ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>たしなみも人柄もすぐれた男になら、嫌われることさえ悪くない。けれど世間に悪く言われる男には、好かれることさえ恥ずかしい。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>「すぐれた人に疎まれるほうが、つまらない人に好かれるよりまし」。注は「<strong>分別ある人をたたえる</strong>言葉」とします。</p>
+    <p><span class="tag">語注</span><span class="skt">वेसत्तण</span> = <span class="skt">द्वेष्यत्व</span>（嫌われていること）／<span class="skt">महग्घ</span> = <span class="skt">महार्घ</span>（値打ちの高い）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g216">
+  <div class="verse-number">GĀTHĀ 216 · W 268<span class="poet">作者：サマラシャクティ（<span class="skt">समरशक्तेः</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">कह नाम तीऍ तं तह सहावगरुओ वि थणहरो पडिओ ।</span>
+        <span class="pada">अहवा महिलाण चिरं को वा हिययम्मि संठाइ ॥१६॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">कथं नाम तस्यास्तत्तथा स्वभावगुरुकोऽपि स्तनभरः पतितः ।</span>
+        <span class="pada">अथवा महिलानां चिरं को वा हृदये संतिष्ठते ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>どうしてあの人の、生まれつきあれほど重々しかった胸が、あんなにも垂れてしまったのだろう——いや、女の胸（心）に、いつまでもとどまっていられる者などいるだろうか。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">掛詞</span><span class="skt">हियअ</span> は「胸」と「心」の両方。「重い（<span class="skt">गरुअ</span>＝重々しい、重要な）」ものでさえ女の胸にはとどまらない、という皮肉で、注は「女の愛は、さざ波のように移ろいやすい」と言います。</p>
+    <p><span class="tag">修辞</span><strong>アークシェーパ</strong>。注はルドラタ 8.59 の定義を引きます。</p>
+    <p><span class="tag">異読</span>ヴェーバー版は <span class="skt">तीअ तह सा</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g217">
+  <div class="verse-number">GĀTHĀ 217 · W 269<span class="poet">作者：ハーラ（<span class="skt">हालस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">सुयणु वयणं छिवंतं मा सूरं साहुलीऍ वारेहि ।</span>
+        <span class="pada">एयस्स पंकयस्स य जाणउ कयरं सुहप्फंसं ॥१७॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">सुतनु वदनं स्पृशन्तं मा सूर्यं मयूरपिच्छच्छत्रिकया वारय ।</span>
+        <span class="pada">एतस्य पङ्कजस्य च जानातु कतरत्सुखस्पर्शम् ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>美しい人よ、あなたの顔に触れる太陽を、孔雀の羽の日傘でさえぎらないで——あなたの顔とこの蓮の花と、どちらが触れて心地よいか、太陽に確かめさせてあげなさい。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">背景</span>インド詩では、太陽は蓮の恋人とされます（太陽が昇ると蓮が開く）。その太陽に、恋人である蓮とあなたの顔とを比べさせよう、という機知で、顔の美しさをたたえています。</p>
+    <p><span class="tag">修辞</span><strong>パリヤーヨークタ</strong>。</p>
+    <p><span class="tag">語注</span><span class="skt">साहुली</span> = 孔雀の羽の日傘。注によれば、「枝」や「布」と解する人もいる。ヴェーバー版は <span class="skt">साउलीअ</span>。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">मा मरं</span> を注の引用 <span class="skt">मा सूरं</span> により直しました。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g218">
+  <div class="verse-number">GĀTHĀ 218 · W 270<span class="poet">作者：メーガニーラ（<span class="skt">मेघनीलस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">माणोसहं व पिज्जइ पियाएँ माणंसिणीऍ दइयस्स ।</span>
+        <span class="pada">करसंपुडवलिउत्ताणवयणं मइराएँ गंडूसो ॥१८॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">मानौषधमिव पीयते प्रियया मनस्विन्या दयितस्य ।</span>
+        <span class="pada">करसंपुटवलितोत्तानवदनं मदिराया गण्डूषः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>意地を張っている恋人は、〔恋人に〕両手で顔をはさまれ、上を向かされて、恋人が口移しにする一口の酒を、意地を治す薬のように飲まされる。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">趣向</span>酒は心をやわらげ、意地を解くもの。恋人が口移しで飲ませる酒を、「意地を治す薬」にたとえています。</p>
+    <p><span class="tag">修辞</span>直喩（<span class="skt">उपमा</span>）。注は、「両手ではさんで上向かせた顔で」という様子を表す語が「酒」と一つの複合語になっている点は、検討を要すると述べます。</p>
+    <p><span class="tag">語注</span><span class="skt">गंडूस</span> = <span class="skt">गण्डूष</span>（口いっぱいの量）。ヴェーバー版は <span class="skt">माणोसह</span>・<span class="skt">करसंपुडवलिउद्धाणणा</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g219">
+  <div class="verse-number">GĀTHĀ 219 · W 430<span class="poet">作者：ラーガヴァ（<span class="skt">राघवस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अन्नो को वि सहावो वम्महसिहिणो हला हयासस्स ।</span>
+        <span class="pada">विज्झाइ नीरसाणं हियए सरसाण पज्जलइ ॥१९॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अन्यः कोऽपि स्वभावो मन्मथशिखिनो हला हताशस्य ।</span>
+        <span class="pada">निर्वाति नीरसानां हृदये सरसानां प्रज्वलति ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>ねえ、このいまいましい恋の炎は、ふつうの火とはまるで性質が違うのね——乾いた者の胸では消えて、潤った者の胸で燃え上がるのだから。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">掛詞</span><span class="skt">नीरस</span> は「乾いた」と「情のない」、<span class="skt">सरस</span> は「湿った」と「情の深い」。ふつうの火は湿った木では燃えず、乾いた薪でよく燃える。ところが恋の火は、情のない人の心では消え、情の深い人の心で燃えさかる——注は、この矛盾めいた趣が「心ある人を驚かせる」と称えます。</p>
+    <p><span class="tag">修辞</span>注は、同類との違いを示す<strong>サジャーティ・ヴィヤティレーカ</strong>（『カーヴィヤーダルシャ』2.198）とします。</p>
+    <p><span class="tag">語注</span><span class="skt">हला</span> = 女友だちや侍女への呼びかけ／<span class="skt">विज्झा</span> = 消える（第12偈参照）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g220">
+  <div class="verse-number">GĀTHĀ 220 · W 271<span class="poet">作者：ラーマデーヴァ（<span class="skt">रामदेवस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">कह सा निव्वण्णिज्जइ जीऍ जहालोइयम्मि अंगम्मि ।</span>
+        <span class="pada">दिट्ठी दुब्बलगाइ व्व पंकपडिया न उत्तरइ ॥२०॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">कथं सा निर्वर्ण्यते यस्या यथालोकितेऽङ्गे ।</span>
+        <span class="pada">दृष्टिर्दुर्बलगौरिव पङ्कपतिता नोत्तरति ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>どうしてあの人のことを描き尽くせよう——あの人の体のどこであれ、目を向けたその場所から、泥にはまった痩せ牛のように、視線が抜け出せなくなるのだから。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">趣旨</span>第180偈と同じ趣向。体のどこもかしこも美しいので、見た場所から目が離せない。それを、ぬかるみにはまって抜け出せない痩せた牛にたとえたところが、田舎の詩らしいユーモアです。</p>
+    <p><span class="tag">修辞</span>直喩（<span class="skt">उपमा</span>）。</p>
+    <p><span class="tag">異読</span>ヴェーバー版は <span class="skt">णिव्वण्णिज्जउ</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g221">
+  <div class="verse-number">GĀTHĀ 221 · W 272<span class="poet">作者：パルヴァタクマーラ（<span class="skt">पर्वतकुमारस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">कीरंती च्चिय नासइ उयए रेह व्व खलयणे मेत्ती ।</span>
+        <span class="pada">सा उण सुयणम्मि कया अणहा पाहाणरेह व्व ॥२१॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">क्रियमाणैव नश्यत्युदके रेखेव खलजने मैत्री ।</span>
+        <span class="pada">सा पुनः सुजने कृतानघा पाषाणरेखेव ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>悪人との友情は、水に引いた線のように、結んだそばから消えてしまう。善人と結んだ友情は、石に刻んだ線のように、いつまでも損なわれない。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">趣旨</span>水の上の線と石の上の線という、わかりやすい対比で友情を語る格言です。</p>
+    <p><span class="tag">修辞</span>直喩（<span class="skt">उपमा</span>）。</p>
+    <p><span class="tag">語注</span><span class="skt">उयअ</span> = <span class="skt">उदक</span>（水）／<span class="skt">पाहाण</span> = <span class="skt">पाषाण</span>（石）／<span class="skt">अणह</span> = <span class="skt">अनघ</span>（損なわれない）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g222">
+  <div class="verse-number">GĀTHĀ 222 · W 273</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अव्वो दुक्करयारय पुणो वि तत्तिं करेसि गमणस्स ।</span>
+        <span class="pada">अज्ज वि न होंति सरला वेणीऍ तरंगिणो चिहुरा ॥२२॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">हंहो दुष्करकारक पुनरपि चिन्तां करोषि गमनस्य ।</span>
+        <span class="pada">अद्यापि न भवन्ति सरला वेण्यास्तरङ्गिणश्चिकुराः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>まあ、なんてひどいことをする人。また旅に出ることを考えているの？　〔あなたの留守中〕編んだままにしていたわたしの髪は、その波うちが、まだまっすぐに戻ってもいないのに。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">背景</span>夫の留守中、妻は髪を一本の三つ編み（<span class="skt">एकवेणी</span>）にしたまま、手入れをしないのが習わしでした。</p>
+    <p><span class="tag">注の説明</span>「あなたが旅に出ていた間、編んだままにしていた髪は、今もまだ波うっている。それほど最近帰ってきたばかりなのに、もう次の旅を考えるなんて」。</p>
+    <p><span class="tag">修辞</span><strong>アークシェーパ</strong>。</p>
+    <p><span class="tag">語注</span><span class="skt">अव्वो</span> = 嘆きを表す間投詞（ヴァラルチ 9.10）／<span class="skt">तत्ति</span> = 考え、心配ごと（地方語）／<span class="skt">चिहुर</span> = <span class="skt">चिकुर</span>（髪、第107偈参照）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g223">
+  <div class="verse-number">GĀTHĀ 223 · W 274<span class="poet">作者：ハーラ（<span class="skt">हालस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">न वि तह छेयरयाइँ वि हरंति पुणरुत्तरायरसियाइं ।</span>
+        <span class="pada">जह जत्थ व तत्थ व जह व तह व सब्भावरमियाइं ॥२३॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">नैव तथा छेकरतान्यपि हरन्ति पुनरुक्तरागरसिकानि ।</span>
+        <span class="pada">यथा यत्र वा तत्र वा यथा वा तथा वा सद्भावरमितानि ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>技巧を尽くし、くり返し情熱を味わう洗練された交わりも、それほどには心を奪わない——どこであれ、どんなふうであれ、真心から交わす愛ほどには。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>抱擁・口づけ・歯の跡など、あらゆる技に通じた交わりよりも、自然な愛情に満ちた交わりのほうがまさる、と注は言います。技巧より真心、という偈です。</p>
+    <p><span class="tag">語注</span><span class="skt">छेअ</span> = 巧みな（第1偈の注釈名 <span class="skt">छेकोक्ति</span> の <span class="skt">छेक</span> と同じ語）／<span class="skt">सब्भाव</span> = <span class="skt">सद्भाव</span>（真心）。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g224">
+  <div class="verse-number">GĀTHĀ 224 · W 276<span class="poet">作者：作者不明（<span class="skt">कस्यापि (?)</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">दढमूढबद्धगंठि व्व मोइया कह वि तेण मे बाहू ।</span>
+        <span class="pada">अम्हेहि वि तस्स उरे खुत्त व्व समुक्खया थणया ॥२४॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">दृढमूढबद्धग्रन्थिरिव मोचितौ कथमपि तेन मे बाहू ।</span>
+        <span class="pada">अस्माभिरपि तस्योरसि मग्नाविव समुत्खातौ स्तनौ ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>固く、でたらめに結んだ結び目をほどくように、あの人はやっとのことでわたしの腕をほどいた。わたしのほうも、あの人の胸に埋まっていたかのような乳房を、やっとのことで引き離した。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">趣旨</span>固く抱き合った二人が、やっと離れる場面。それほど強く抱き合っていた、ということです。</p>
+    <p><span class="tag">修辞</span>前半は直喩、後半はウトプレークシャー（「埋まっていたかのような」）。</p>
+    <p><span class="tag">類型</span>女は<strong>夫を意のままにする女</strong>（<span class="skt">स्वाधीनपतिका</span>）、男は<strong>誠実な夫</strong>（<span class="skt">अनुकूल</span>）。</p>
+    <p><span class="tag">語注</span><span class="skt">खुत्त</span> =「沈んだ、埋まった」（地方語）。ヴェーバー版は <span class="skt">दढमूलबंधगंठि व्व</span>。</p>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="g225">
+  <div class="verse-number">GĀTHĀ 225 · W 275<span class="poet">作者：サマラ（<span class="skt">समरस्य</span>）</span></div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">वुज्झसि पियाइ समयं तह वि हु रे भणसि कीस किसिय त्ति ।</span>
+        <span class="pada">उवरिभरेण अयाणुय मुयइ बइल्लो वि अंगाइं ॥२५॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">उह्यसे प्रियया समं तथापि खलु रे भणसि कस्मात्कृशेति ।</span>
+        <span class="pada">उपरिभरेण अज्ञ मुञ्चति बलीवर्दोऽप्यङ्गानि ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>あなたは、〔わたしの心の中で〕あの恋人の女と一緒に運ばれているのよ。それなのに、ねえ、「どうしてやせたの」なんて聞くの？　わからずやさん、上に重い荷を積まれたら、牡牛だってやせ細るものよ。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説 · Bhuvanapāla</div>
+    <p><span class="tag">注の説明</span>「わたしの心にはあなたがいて、あなたの心にはあの女がいる。だからわたしは二人分の重さを運んでいるのよ。やせないはずがないでしょう」。夫に「なぜやせたのか」と聞かれた妻の、皮肉な切り返しです。</p>
+    <p><span class="tag">修辞</span><strong>ウッタラ</strong>と<strong>アルターンタラニヤーサ</strong>の併存。</p>
+    <p><span class="tag">語注</span><span class="skt">वुज्झ</span> = 「運ばれる」（<span class="skt">वह्</span> の受動形）／<span class="skt">रे</span> = さげすみを含む呼びかけ（ヴァラルチ 9.15）／<span class="skt">अयाणुअ</span> = <span class="skt">अज्ञ</span>（わからずや）。ヴェーバー版は <span class="skt">उज्झसि</span>・<span class="skt">तह वि अरे</span>。</p>
+  </div>
+</div>
+
+<nav class="nav-sataka" style="margin-top:3rem"><a href="hala_sattasai_1.html">第一百頌</a> · <a href="hala_sattasai_2.html">第二百頌</a> · <span class="current">第三百頌</span> · <span>第四百頌</span> · <span>第五百頌</span> · <span>第六百頌</span> · <span>第七百頌</span></nav>
+
+<div class="colophon">
+  底本：M. V. Patwardhan (ed.), <em>Hāla's Gāhākosa (Gāthāsaptaśatī) with the Sanskrit Commentary of Bhuvanapāla</em>, Part I, Prakrit Text Series 21, Ahmedabad 1980（jainelibrary.org 所収OCRテキスト）。<br>
+  和訳・解説は試訳です。
+</div>
+
+</body>
+</html>
