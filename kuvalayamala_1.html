@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>クヴァラヤマーラー対訳</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --chaya: #6B5E52;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --verse-num: #7E7265;
+  --note-bg: #EDE8DF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --chaya: #A89E92;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --verse-num: #8A7F73;
+    --note-bg: #27251F;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --chaya: #A89E92;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --verse-num: #8A7F73;
+  --note-bg: #27251F;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  line-height: 1.9;
+  padding: 3rem 1.5rem 5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.65rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.intro {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.intro h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.intro p + p { margin-top: 0.6rem; }
+.intro ul { margin: 0.6rem 0 0 1.2rem; }
+
+.verse-block { padding: 1.6rem 0; }
+.verse-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--verse-num);
+  margin-bottom: 0.7rem;
+}
+.verse-number .poet {
+  font-family: 'Shippori Mincho', serif;
+  letter-spacing: 0.02em;
+  margin-left: 0.6rem;
+}
+.verse-columns {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 2rem;
+  align-items: start;
+}
+.verse-divider {
+  background: var(--rule);
+  width: 1px;
+  align-self: stretch;
+}
+.verse-prakrit {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.15rem;
+  line-height: 2.1;
+  padding: 0.5rem 0;
+}
+.verse-prakrit .pada, .verse-chaya .pada { display: block; }
+.verse-chaya {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  line-height: 1.95;
+  color: var(--chaya);
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed var(--rule);
+}
+.verse-japanese {
+  font-size: 1.05rem;
+  line-height: 2;
+  padding: 0.5rem 0;
+}
+.lang-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verse-num);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.commentary {
+  margin-top: 1rem;
+  padding: 0.8rem 1.1rem;
+  background: var(--note-bg);
+  border-left: 2px solid var(--accent);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+.commentary p + p { margin-top: 0.45rem; }
+.commentary-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.commentary .tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  border-radius: 3px;
+  padding: 0 0.35rem;
+  margin-right: 0.35rem;
+  line-height: 1.5;
+}
+.skt { font-family: 'Noto Serif Devanagari', serif; }
+.commentary em, .intro em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05em;
+}
+.commentary .quote {
+  margin: 0.4rem 0 0.4rem 1rem;
+  padding-left: 0.7rem;
+  border-left: 1px solid var(--rule);
+}
+
+.verse-sep {
+  border: none;
+  border-top: 1px solid var(--rule-light);
+  margin: 0 6rem;
+  opacity: 0.6;
+}
+
+.colophon {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--verse-num);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  body { padding: 2rem 1rem 3rem; }
+  .header h1 { font-size: 1.35rem; }
+  .header-devanagari { font-size: 1.15rem; }
+  .verse-columns { grid-template-columns: 1fr; gap: 0.75rem 0; }
+  .verse-divider { display: none; }
+  .verse-prakrit { font-size: 1.05rem; }
+  .verse-japanese { font-size: 0.95rem; }
+  .verse-sep { margin: 0 3rem; }
+  .commentary { font-size: 0.88rem; padding: 0.6rem 0.8rem; }
+}
+@media print {
+  .verse-block { page-break-inside: avoid; }
+}
+
+.nav-sataka {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 0.9rem;
+  margin-bottom: 2rem; font-size: 0.85rem;
+}
+.nav-sataka a { color: var(--accent); text-decoration: none; }
+.nav-sataka a:hover { color: var(--accent-soft); }
+.nav-sataka .current { color: var(--ink); font-weight: 600; }
+.toc-grid {
+  display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem; margin-top: 0.6rem;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.9rem;
+}
+.toc-grid a { color: var(--accent); text-decoration: none; min-width: 2.2rem; }
+.appendix-head {
+  margin: 3rem 0 1rem; padding-top: 2rem; border-top: 1px solid var(--rule);
+  text-align: center; font-size: 1.05rem; color: var(--accent);
+}
+.appendix-head .sub { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.3rem; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-devanagari">उज्जोयणसूरिविरइया कुवलयमाला</div>
+  <h1>Uddyotanasūri's Kuvalayamālā</h1>
+  <div class="header-sub">a Campū in Prakrit · ed. A. N. Upadhye, Part I (1959)</div>
+  <div class="header-jp">ウッディヨータナスーリ作『クヴァラヤマーラー』<br>プラークリット原文・チャーヤー・和訳・解説　—　見本（§1 冒頭）</div>
+</div>
+
+<section class="intro">
+  <h2>こ の 対 訳 の 読 み 方</h2>
+  <p>『クヴァラヤマーラー』（<span class="skt">कुवलयमाला</span>「青蓮の花環」）は、ジャイナ教の僧<strong>ウッディヨータナスーリ</strong>（<span class="skt">उज्जोयणसूरि</span>）が、奥書によれば779年に完成させたプラークリットの長編物語です。散文と韻文を交えた「チャンプー」の形式で書かれています。</p>
+  <p>各偈は<strong>左にプラークリット原文</strong>（マハーラーシュトリー語）、その下に<strong>チャーヤー</strong>（<span class="skt">छाया</span>「影」＝原文を一語ずつサンスクリットに置き換えたもの）、<strong>右に和訳</strong>を置き、下の枠に<strong>解説</strong>を付けました。</p>
+  <ul>
+    <li>「§」はウパーディエー版の節番号、「p. / l.」は同版の頁と行です。</li>
+    <li>刊本にはチャーヤーがないため、<strong>チャーヤーは訳者の試案</strong>です。</li>
+    <li>原本はOCRテキストです。明らかな誤読は韻律と脚注の異読（J＝ジャイサルメール写本、P＝プーナ写本）に基づいて直し、各偈の「本文」の項に記しました。</li>
+    <li>和訳・解説は試訳です。とくに「推定」「自信がない」とした箇所は、刊本で確認してください。</li>
+  </ul>
+</section>
+
+<nav class="intro"><h2>偈 番 号</h2><div class="toc-grid"><a href="#s1-1">§1.1</a> <a href="#s1-2">§1.2</a> <a href="#s1-3">§1.3</a> <a href="#s1-4">§1.4</a> <a href="#s1-5">§1.5</a> <a href="#s1-6">§1.6</a> <a href="#s1-7">§1.7</a></div></nav>
+
+<h2 class="appendix-head" id="s1">§ 1<span class="sub">冒頭の礼拝（1）——初代ジナ、リシャバ</span></h2>
+
+<div class="verse-block" id="s1-0">
+  <div class="verse-number">§ 1 · INVOCATION · p. 1, l. 1</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">॥ ओं नमो वीतरागाय ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">॥ ओं नमो वीतरागाय ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>オーム。離欲者（ヴィータラーガ、すなわちジナ）に帰命したてまつる。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">本文</span>写本の冒頭に書かれる祈りの句（本文以前の書き出し）です。脚注によれば、J本・P本とも、この句の前に「<span class="skt">ओं</span>」を表す記号（デーヴァナーガリーの <span class="skt">६०</span> に似た形）が書かれています。<strong><span class="skt">वीतराग</span></strong>（「欲情を離れた者」）はジャイナ教でジナを指すよく知られた呼び名です。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s1-1">
+  <div class="verse-number">§ 1 · GĀTHĀ 1 · p. 1, l. 2</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">पढमं णमह जिणिंदं जाए णच्चंति जम्मि देवीओ ।</span>
+        <span class="pada">उव्वेल्लिर-बाहु-लया-रणंत-मणि-वलय-तालेहिं ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">प्रथमं नमत जिनेन्द्रं जाते नृत्यन्ति यस्मिन् देव्यः ।</span>
+        <span class="pada">उद्वेल्लनशील-बाहु-लता-रणन्-मणि-वलय-तालैः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>まず、ジナの王に礼拝せよ。——その方がお生まれになったとき、女神たちは、揺れ動く蔓のような腕に鳴り響く宝石の腕輪の拍子に合わせて踊った。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">情景</span>7つの詩節（第1〜7偈）は初代ティールタンカラの<strong>リシャバ</strong>（<span class="skt">ऋषभ</span>、アーディナータ）を讃え、その生涯を<strong>誕生→即位→統治→出家→悟り→教団の創設→涅槃</strong>の順にたどります。この偈は<strong>誕生</strong>の場面です。ジナが生まれると、神々が降りてきて祝うと伝えられています。</p>
+    <p><span class="tag">構成</span>冒頭の <span class="skt">पढमं</span>（「まず」）は第7偈の <span class="skt">पढमं</span> と呼応して、7つの詩節全体を枠のように囲んでいます。この二語の間に、「最初の王」「最初に法輪を転じた者」のように、<span class="skt">पढम</span>（「最初の」）が何度も出てきます。</p>
+    <p><span class="tag">語注</span><span class="skt">णमह</span> = <span class="skt">नमत</span>（命令形・2人称複数、語尾 -<span class="skt">ह</span> ＝ -<span class="skt">त</span>）／<span class="skt">जाए</span> = <span class="skt">जाते</span>（「生まれたとき」、処格の絶対句）／<span class="skt">जम्मि</span> = <span class="skt">यस्मिन्</span>（処格の語尾 -<span class="skt">म्मि</span>）／<span class="skt">णच्चंति</span> = <span class="skt">नृत्यन्ति</span>（tya → <span class="skt">च्च</span>）／<span class="skt">उव्वेल्लिर</span>：-<span class="skt">इर</span> は「〜する性質の」を表す接尾辞で、サンスクリットの -<span class="skt">नशील</span> に当たります。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">पढम, जिणिदं, णचंति</span> を、韻律と綴りに従って <span class="skt">पढमं, जिणिंदं, णच्चंति</span> に直しました。異読：P本 <span class="skt">नमह, नञ्चंति, जंमि, उव्विल्लर-, तालेहिं</span>。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s1-2">
+  <div class="verse-number">§ 1 · GĀTHĀ 2 · p. 1, l. 3</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">पुरिस-कर-धरिय-कोमल-णलिणी-दल-जल-तरंग-रंगंतं ।</span>
+        <span class="pada">णिव्वत्त-राय-मज्जण-बिंबं जेणप्पणो दिट्ठं ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">पुरुष-कर-धृत-कोमल-नलिनी-दल-जल-तरङ्ग-रङ्गत् ।</span>
+        <span class="pada">निर्वृत्त-राज-मज्जन-बिम्बं येनात्मनो दृष्टम् ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>その方は王の灌頂の沐浴を終えたとき、人々が手に捧げ持つ柔らかな蓮の葉の水に、自らの姿が映って揺らめくのをご覧になった。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">情景</span><strong>即位</strong>の場面です。リシャバが王位に就くとき、インドラが灌頂を行いました。人々（ユガリカ）は蓮の葉で水を汲んで持ってきました。その水面に、灌頂を終えた王の姿が波に揺れて映った、という情景です。</p>
+    <p><span class="tag">語注</span><span class="skt">पुरिस</span> = <span class="skt">पुरुष</span>／<span class="skt">णलिणी</span> = <span class="skt">नलिनी</span>（語頭の <span class="skt">न</span> → <span class="skt">ण</span>）／<span class="skt">बिंब</span> = <span class="skt">बिम्ब</span>（映った姿）／<span class="skt">दिट्ठं</span> = <span class="skt">दृष्टम्</span>（ṣṭa → <span class="skt">ट्ठ</span>）／<span class="skt">जेणप्पणो</span> = <span class="skt">जेण</span> + <span class="skt">अप्पणो</span>（<span class="skt">येन आत्मनः</span>、「その方によって自分の」）。「自分の姿が見られた」という受動の構文です。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">णिवत्त, दिटं</span> を <span class="skt">णिव्वत्त, दिट्ठं</span> に直しました。異読：（写本）<span class="skt">विम्वं</span>。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s1-3">
+  <div class="verse-number">§ 1 · GĀTHĀ 3 · p. 1, l. 4</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">वसिउं चिरं कुलहरे कला-कलाव-सहिया णरिंदेसु ।</span>
+        <span class="pada">धूय व्व जस्स लच्छी अज्ज वि य सयंवरा भमइ ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">उषित्वा चिरं कुलगृहे कला-कलाप-सहिता नरेन्द्रेषु ।</span>
+        <span class="pada">दुहितेव यस्य लक्ष्मीः अद्यापि च स्वयंवरा भ्रमति ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>その方の王の幸運（ラクシュミー）は、娘のように長く生家で暮らし、あらゆる技芸を身につけた。そして今もなお、自ら夫を選ぶ花嫁のように、王たちのあいだをめぐり歩いている。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">情景</span><strong>統治</strong>の場面です。王の幸運を<strong>娘</strong>に見立てています。娘は生家で育ち、技芸を身につけると、自分で夫を選ぶ式（スヴァヤンヴァラ）に臨みます。同じように、リシャバの家で育った「王の幸運」は、今も後の王たちのあいだを渡り歩いている、というわけです。リシャバがこの時代で<strong>最初の王</strong>であり、人々に72の技芸を教えたという伝承が背景にあります。</p>
+    <p><span class="tag">修辞</span><strong>ウパマー</strong>（<span class="skt">उपमा</span>、直喩）。「娘のように（<span class="skt">धूय व्व</span>）」がそれに当たります。<span class="skt">कला-कलाव</span>（技芸の集まり）には、「娘がたしなむ芸事」と「王が人々に教えた技芸」の二つの意味が重ねられています。</p>
+    <p><span class="tag">語注</span><span class="skt">वसिउं</span> = <span class="skt">उषित्वा</span>（「住んで」、プラークリットでは -<span class="skt">उं</span> が連続体の語尾）／<span class="skt">कुलहर</span> = <span class="skt">कुलगृह</span>（「生家」、gṛha → <span class="skt">हर</span>）／<span class="skt">धूय</span> = <span class="skt">दुहिता</span>（「娘」）／<span class="skt">व्व</span> = <span class="skt">इव</span>／<span class="skt">लच्छी</span> = <span class="skt">लक्ष्मी</span>（kṣm → <span class="skt">च्छ</span>）／<span class="skt">अज्ज</span> = <span class="skt">अद्य</span>（dy → <span class="skt">ज्ज</span>）／<span class="skt">भमइ</span> = <span class="skt">भ्रमति</span>。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">वसिउ, गरिंदेसु, व्च, अज</span> を直しました。異読：P本 <span class="skt">सहिआ, धूअ</span>。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s1-4">
+  <div class="verse-number">§ 1 · GĀTHĀ 4 · p. 1, l. 5</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">जेण कओ गुरु-गुरुणा गिरि-वर-गुरु-णियम-गहण-समयम्मि ।</span>
+        <span class="pada">स-हरिस-हरि-वासद्धंत-भूसणो केस-पब्भारो ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">येन कृतो गुरु-गुरुणा गिरि-वर-गुरु-नियम-ग्रहण-समये ।</span>
+        <span class="pada">स-हर्ष-हरि-वासो-ऽर्धान्त(?)-भूषणः केश-प्राग्भारः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>師の中の師であるその方は、大山のように重い誓戒を受けるとき、豊かな髪を抜いた。その髪は、喜ぶインドラ（ハリ）の衣の端を飾るものとなった。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">情景</span><strong>出家</strong>の場面です。ジナは出家するとき、自分の手で髪を抜きます（<strong><span class="skt">केशलोच</span></strong>、ケーシャローチャ）。インドラがその髪を衣で受け取った、という伝承によっています。</p>
+    <p><span class="tag">修辞</span><strong>アヌプラーサ</strong>（<span class="skt">अनुप्रास</span>、同じ音の繰り返し）。<span class="skt">गुरु-गुरुणा</span>（「師の中の師」）と <span class="skt">गिरि-वर-गुरु</span>（「大山のように重い」）では、<span class="skt">गुरु</span> が「師」と「重い」という別々の意味で繰り返されています。<span class="skt">स-हरिस-हरि</span> でも <span class="skt">ह</span>・<span class="skt">र</span> の音が重ねられています。</p>
+    <p><span class="tag">語注</span><span class="skt">कओ</span> = <span class="skt">कृतः</span>／<span class="skt">गहण</span> = <span class="skt">ग्रहण</span>（gr → <span class="skt">ग</span>）／<span class="skt">पब्भार</span> = <span class="skt">प्राग्भार</span>（「たくさんの量」）／<span class="skt">भूसणो</span> = <span class="skt">भूषणः</span>（ṣ → <span class="skt">स</span>）。<span class="skt">वासद्धंत</span> は「衣（<span class="skt">वास</span>）の端」と解しましたが、<span class="skt">अद्ध</span>（＝<span class="skt">अर्ध</span>「半分」）の読み方には<strong>自信がありません</strong>。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">भूखणो</span> を <span class="skt">भूसणो</span> に直しました。異読：J本 <span class="skt">गुरु-गुण-णियम-समयंमि</span>, P本 -<span class="skt">नियम-, -समयंमि</span>。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s1-5">
+  <div class="verse-number">§ 1 · GĀTHĀ 5 · p. 1, l. 6</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">तव-तविय-पाव-कलिणो णाणुप्पत्तीए जस्स सुर-णिवहा ।</span>
+        <span class="pada">संसार-णीर-णाहं तरिय त्ति पणच्चिरे तुट्ठा ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">तपस्-तापित-पाप-कलेः ज्ञानोत्पत्तौ यस्य सुर-निवहाः ।</span>
+        <span class="pada">संसार-नीर-नाथं तीर्ण इति प्रनृत्यन्ति तुष्टाः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>その方は苦行によって罪の汚れを焼き尽くした。その方に知が生じたとき、神々の群れは「輪廻の大海は渡られた」と喜んで踊った。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">情景</span><strong>悟り</strong>の場面です。ジナが<strong>ケーヴァラ知</strong>（<span class="skt">केवलज्ञान</span>、完全な知）を得たとき、神々は喜んで集まります。「輪廻（<span class="skt">संसार</span>）を海にたとえ、それを渡る」という比喩はジャイナ教でよく使われます。「ティールタンカラ」（渡し場を作る人）という呼び名も、この比喩から来ています。</p>
+    <p><span class="tag">語注</span><span class="skt">तविय</span> = <span class="skt">तापित</span>（「熱せられた、焼かれた」）／<span class="skt">कलि</span> = 争い・悪／<span class="skt">णीर-णाह</span> = <span class="skt">नीर-नाथ</span>（「水の主」＝海）／<span class="skt">तरिय</span> = <span class="skt">तीर्ण</span>／<span class="skt">त्ति</span> = <span class="skt">इति</span>（引用の終わりを示す）／<span class="skt">पणच्चिरे</span>：語尾 <strong>-<span class="skt">इरे</span></strong> の由来はサンスクリットの完了形（-ire）ですが、プラークリットでは<strong>3人称複数・現在</strong>の語尾として使われます（ヘーマチャンドラ 3.142）。そのため、チャーヤーは <span class="skt">प्रनृत्यन्ति</span> としました。和訳の「踊った」は、過去の場面を現在形で語る書き方（歴史的現在）として訳しています。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">णाणुप्पत्ती</span> は韻律が合わないので、J本の異読 <span class="skt">णाणुप्पत्तीए</span> を採りました（P本 <span class="skt">नाणुप्पत्तीइ</span>）。OCRの <span class="skt">तुट्टा</span> は <span class="skt">तुट्ठा</span> に直しました。異読：JP本 <span class="skt">निवहा, नीरनाहं</span>。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s1-6">
+  <div class="verse-number">§ 1 · GĀTHĀ 6 · p. 1, l. 7</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">जस्स य तित्थारंभे तियस-वइत्तण-विमुक्क-माहप्पा ।</span>
+        <span class="pada">कर-कमल-मउलि-सोहा चलणेसु णमंति सुर-वइणो ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">यस्य च तीर्थारम्भे त्रिदश-पतित्व-विमुक्त-माहात्म्याः ।</span>
+        <span class="pada">कर-कमल-मुकुल-शोभाः चरणयोः नमन्ति सुर-पतयः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>その方が教団（ティールタ）を開いたとき、神々の主たちは「神々の王」という誇りを捨て、蓮のつぼみのように合わせた両手も美しく、その御足にひれ伏す。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">情景</span><strong>教団の創設</strong>の場面です。<strong><span class="skt">तीर्थ</span></strong>（ティールタ）はもともと「渡し場」の意味で、ジャイナ教では教団そのものを指します。ティールタンカラ（「ティールタを作る人」）の名はここから来ています。</p>
+    <p><span class="tag">修辞</span>合わせた両手を<strong>蓮のつぼみ</strong>（<span class="skt">मउलि</span> = <span class="skt">मुकुल</span>）にたとえています。インドの詩でよく使われる見立てです。</p>
+    <p><span class="tag">語注</span><span class="skt">तियस</span> = <span class="skt">त्रिदश</span>（「三十の者」＝神々）／<span class="skt">वइत्तण</span> = <span class="skt">पतित्व</span>（「主であること」、接尾辞 -<span class="skt">त्तण</span> = -<span class="skt">त्व</span>）／<span class="skt">माहप्प</span> = <span class="skt">माहात्म्य</span>／<span class="skt">चलण</span> = <span class="skt">चरण</span>（r → <span class="skt">ल</span>）。</p>
+    <p><span class="tag">本文</span>OCRでは <span class="skt">सुर-वाणो</span> ですが、意味が通らないので <span class="skt">सुर-वइणो</span>（<span class="skt">सुर-पतयः</span>「神々の主たち」）と<strong>推定</strong>しました。脚注にはこの行の異読がないため、<strong>刊本で必ず確認してください</strong>。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s1-7">
+  <div class="verse-number">§ 1 · GĀTHĀ 7 · p. 1, l. 8</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">तं पढम-पुहइ-पालं पढम-पवत्तिय-सुधम्म-वर-चक्कं ।</span>
+        <span class="pada">णिव्वाण-गमण-इद्धं पढमं पणमह मुणि-गणिंदं ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">तं प्रथम-पृथिवी-पालं प्रथम-प्रवर्तित-सुधर्म-वर-चक्रम् ।</span>
+        <span class="pada">निर्वाण-गमन-ऋद्धं (इद्धं) प्रथमं प्रणमत मुनि-गणेन्द्रम् ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>その方は最初に大地を守った王であり、正しい法のすぐれた輪を最初に転じた方である。涅槃に至って輝き、聖者の群れを率いる。——まずこの方に礼拝せよ。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">情景</span><strong>涅槃</strong>の場面で、同時に第1〜7偈のまとめでもあります。第1〜6偈はすべて関係代名詞（<span class="skt">जाए</span>… <span class="skt">जम्मि</span>／<span class="skt">जेण</span>／<span class="skt">जस्स</span>）で「〜した方」と述べてきました。それを最後に <strong><span class="skt">तं</span></strong>（「その方を」）で受け止め、「礼拝せよ」（<span class="skt">पणमह</span>）で結ぶ構成です。</p>
+    <p><span class="tag">語注</span><span class="skt">पुहइ</span> = <span class="skt">पृथिवी</span>／<span class="skt">पवत्तिय</span> = <span class="skt">प्रवर्तित</span>（「転じられた」）／<span class="skt">चक्क</span> = <span class="skt">चक्र</span>（法輪）／<span class="skt">इद्ध</span> = <span class="skt">इद्ध</span> または <span class="skt">ऋद्ध</span>（「輝く、栄える」）／<span class="skt">गणिंद</span> = <span class="skt">गणेन्द्र</span>。</p>
+    <p><span class="tag">本文</span>OCRの <span class="skt">णिवाण, इंदं, पढम, गणिंद</span> を直しました。<span class="skt">इद्धं</span> は脚注の異読（<span class="skt">इद्धं</span> または <span class="skt">इ</span>y）に従っています。異読：P本 <span class="skt">पवित्तिय</span>, J本 <span class="skt">णेवाण</span>, P本 <span class="skt">निवाण</span>, J本 <span class="skt">पढम</span>（<span class="skt">पणमह</span> の代わり）, J本は次の <span class="skt">अहवा</span> を欠く。</p>
+  </div>
+</div>
+
+<div class="colophon">
+  底本：A. N. Upadhye (ed.), <em>Uddyotanasūri's Kuvalayamālā</em>, Part I, Singhi Jain Series 45, Bombay: Bharatiya Vidya Bhavan, 1959（jainelibrary.org 所収OCRテキスト, No. 002777）。<br>
+  チャーヤー・和訳・解説は試訳です。
+</div>
+
+</body>
+</html>
