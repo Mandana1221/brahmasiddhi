@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>クヴァラヤマーラー対訳 第39巻</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --chaya: #6B5E52;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --verse-num: #7E7265;
+  --note-bg: #EDE8DF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --chaya: #A89E92;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --verse-num: #8A7F73;
+    --note-bg: #27251F;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --chaya: #A89E92;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --verse-num: #8A7F73;
+  --note-bg: #27251F;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  line-height: 1.9;
+  padding: 3rem 1.5rem 5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 600;
+  font-size: 1.65rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.intro {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
+}
+.intro h2 {
+  font-size: 0.85rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.intro p + p { margin-top: 0.6rem; }
+.intro ul { margin: 0.6rem 0 0 1.2rem; }
+
+.verse-block { padding: 1.6rem 0; }
+.verse-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.78rem;
+  letter-spacing: 0.15em;
+  color: var(--verse-num);
+  margin-bottom: 0.7rem;
+}
+.verse-number .poet {
+  font-family: 'Shippori Mincho', serif;
+  letter-spacing: 0.02em;
+  margin-left: 0.6rem;
+}
+.verse-columns {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 2rem;
+  align-items: start;
+}
+.verse-divider {
+  background: var(--rule);
+  width: 1px;
+  align-self: stretch;
+}
+.verse-prakrit {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.15rem;
+  line-height: 2.1;
+  padding: 0.5rem 0;
+}
+.verse-prakrit .pada, .verse-chaya .pada { display: block; }
+.verse-chaya {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  line-height: 1.95;
+  color: var(--chaya);
+  margin-top: 0.9rem;
+  padding-top: 0.7rem;
+  border-top: 1px dashed var(--rule);
+}
+.verse-japanese {
+  font-size: 1.05rem;
+  line-height: 2;
+  padding: 0.5rem 0;
+}
+.lang-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verse-num);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.commentary {
+  margin-top: 1rem;
+  padding: 0.8rem 1.1rem;
+  background: var(--note-bg);
+  border-left: 2px solid var(--accent);
+  font-size: 0.95rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+.commentary p + p { margin-top: 0.45rem; }
+.commentary-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.3rem;
+  font-weight: 600;
+}
+.commentary .tag {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--accent);
+  border: 1px solid var(--accent-soft);
+  border-radius: 3px;
+  padding: 0 0.35rem;
+  margin-right: 0.35rem;
+  line-height: 1.5;
+}
+.skt { font-family: 'Noto Serif Devanagari', serif; }
+.commentary em, .intro em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05em;
+}
+.commentary .quote {
+  margin: 0.4rem 0 0.4rem 1rem;
+  padding-left: 0.7rem;
+  border-left: 1px solid var(--rule);
+}
+
+.verse-sep {
+  border: none;
+  border-top: 1px solid var(--rule-light);
+  margin: 0 6rem;
+  opacity: 0.6;
+}
+
+.colophon {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--verse-num);
+  line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+  body { padding: 2rem 1rem 3rem; }
+  .header h1 { font-size: 1.35rem; }
+  .header-devanagari { font-size: 1.15rem; }
+  .verse-columns { grid-template-columns: 1fr; gap: 0.75rem 0; }
+  .verse-divider { display: none; }
+  .verse-prakrit { font-size: 1.05rem; }
+  .verse-japanese { font-size: 0.95rem; }
+  .verse-sep { margin: 0 3rem; }
+  .commentary { font-size: 0.88rem; padding: 0.6rem 0.8rem; }
+}
+@media print {
+  .verse-block { page-break-inside: avoid; }
+}
+
+.nav-sataka {
+  display: flex; flex-wrap: wrap; justify-content: center; gap: 0.4rem 0.9rem;
+  margin-bottom: 2rem; font-size: 0.85rem;
+}
+.nav-sataka a { color: var(--accent); text-decoration: none; }
+.nav-sataka a:hover { color: var(--accent-soft); }
+.nav-sataka .current { color: var(--ink); font-weight: 600; }
+.toc-grid {
+  display: flex; flex-wrap: wrap; gap: 0.3rem 0.5rem; margin-top: 0.6rem;
+  font-family: 'Cormorant Garamond', serif; font-size: 0.9rem;
+}
+.toc-grid a { color: var(--accent); text-decoration: none; min-width: 2.2rem; }
+.appendix-head {
+  margin: 3rem 0 1rem; padding-top: 2rem; border-top: 1px solid var(--rule);
+  text-align: center; font-size: 1.05rem; color: var(--accent);
+}
+.appendix-head .sub { display: block; font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.3rem; }
+.intro a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-devanagari">उज्जोयणसूरिविरइया कुवलयमाला</div>
+  <h1>Uddyotanasūri's Kuvalayamālā</h1>
+  <div class="header-sub">a Campū in Prakrit · ed. A. N. Upadhye, Part I (1959)</div>
+  <div class="header-jp">ウッディヨータナスーリ作『クヴァラヤマーラー』　第39巻「五人そろう」<br>ラージャグリハのシュレーニカ王、八歳の王子マハーラタ、マニラタの最期　—　§411〜§413</div>
+</div>
+
+<nav class="nav-sataka"><a href="kuvalayamala_1.html" title="序章">第1巻</a> · <a href="kuvalayamala_2.html" title="ヴィニーターの王">第2巻</a> · <a href="kuvalayamala_3.html" title="王子の修業と馬">第3巻</a> · <a href="kuvalayamala_4.html" title="コーシャーンビーの王と師ダルマナンダナ">第4巻</a> · <a href="kuvalayamala_5.html" title="怒りの物語">第5巻</a> · <a href="kuvalayamala_6.html" title="慢心の物語">第6巻</a> · <a href="kuvalayamala_7.html" title="欺きの物語">第7巻</a> · <a href="kuvalayamala_8.html" title="貪りの物語">第8巻</a> · <a href="kuvalayamala_9.html" title="迷いの物語">第9巻</a> · <a href="kuvalayamala_10.html" title="夜の都と五人の約束">第10巻</a> · <a href="kuvalayamala_11.html" title="天界の物語">第11巻</a> · <a href="kuvalayamala_12.html" title="サーガラダッタの物語">第12巻</a> · <a href="kuvalayamala_13.html" title="ヴィンディヤの森">第13巻</a> · <a href="kuvalayamala_14.html" title="森の庵">第14巻</a> · <a href="kuvalayamala_15.html" title="ビッラの首領">第15巻</a> · <a href="kuvalayamala_16.html" title="首領の正体">第16巻</a> · <a href="kuvalayamala_17.html" title="ヴィジャヤーの都">第17巻</a> · <a href="kuvalayamala_18.html" title="恋の病">第18巻</a> · <a href="kuvalayamala_19.html" title="庭園の出会い">第19巻</a> · <a href="kuvalayamala_20.html" title="海を見る">第20巻</a> · <a href="kuvalayamala_21.html" title="旅立ち">第21巻</a> · <a href="kuvalayamala_22.html" title="輪廻の絵">第22巻</a> · <a href="kuvalayamala_23.html" title="運のない兄弟">第23巻</a> · <a href="kuvalayamala_24.html" title="錬金術師たち">第24巻</a> · <a href="kuvalayamala_25.html" title="宗教くらべ">第25巻</a> · <a href="kuvalayamala_26.html" title="得がたい四つのもの">第26巻</a> · <a href="kuvalayamala_27.html" title="師ダルパパリガ">第27巻</a> · <a href="kuvalayamala_28.html" title="マハーヴィーラの説法">第28巻</a> · <a href="kuvalayamala_29.html" title="牝鹿とスンダリー">第29巻</a> · <a href="kuvalayamala_30.html" title="業のむくい">第30巻</a> · <a href="kuvalayamala_31.html" title="月夜の空の旅">第31巻</a> · <a href="kuvalayamala_32.html" title="夢か、本当か">第32巻</a> · <a href="kuvalayamala_33.html" title="墓場の夜">第33巻</a> · <a href="kuvalayamala_34.html" title="地下の王国">第34巻</a> · <a href="kuvalayamala_35.html" title="七日めの夜明け">第35巻</a> · <a href="kuvalayamala_36.html" title="神をおがむ意味">第36巻</a> · <a href="kuvalayamala_37.html" title="バニヤンの木の鳥たち">第37巻</a> · <a href="kuvalayamala_38.html" title="夜明けに飛びたつ鳥">第38巻</a> · <span class="current">第39巻</span> · <a href="kuvalayamala_40.html" title="すべての生き物に、ゆるしを">第40巻</a> · <a href="kuvalayamala_41.html" title="おろかな死と、賢い死">第41巻</a> · <a href="kuvalayamala_42.html" title="五つの礼拝">第42巻</a> · <a href="kuvalayamala_43.html" title="作者のあとがき">第43巻</a></nav>
+
+<section class="intro">
+  <p>左：プラークリット原文とチャーヤー（訳者によるサンスクリット訳の試案）／右：和訳／下：解説。「§」はウパーディエー版の節番号。原文はOCRテキストを韻律・文脈・脚注の異読に基づいて直したものです。読み方の詳しい説明は<a href="kuvalayamala_1.html">第1巻</a>の冒頭を参照。和訳・解説は試訳です。</p>
+</section>
+
+<nav class="intro"><h2>節 番 号</h2><div class="toc-grid"><a href="#s411-1">§411</a> <a href="#s412-1">§412</a> <a href="#s413-1">§413</a></div></nav>
+
+<h2 class="appendix-head">シュレーニカ王の礼拝<span class="sub">五つの知識</span></h2>
+
+<div class="verse-block" id="s411-1">
+  <div class="verse-number">§ 411 · 1</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">एवं च भगवं भव्व-कुमुयागर-लहस्स-संबोहओ (?) विहरमाणो मगहा णाम देसो, तत्थ य रायगिहं णाम णयरं, तत्थ संपत्तो, देव-दाणव-गणेहिं विरइयं समवसरणं । तत्थ य सिरिसेणिओ णाम राया । सो य तं भगवंतं सोऊण समागयं जिणचंदं हरिस-वस-वियसमाण-मुह-पंकओ सयल-जण-हलबोल-वड्ढमाण-कलयलो गंतुं पयत्तो । भगवंतं वंदिउं संपत्तो, समवसरणं पविट्ठो। ति-पयाहिणीकओ भगवं जिणयंदो, पायवडणुट्ठिएण य भणियं तेण ।</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">एवं च भगवान् भव्य-कुमुदाकर-… (?) -सम्बोधको विहरन् मगधा नाम देशः, तत्र च राजगृहं नाम नगरम्, तत्र सम्प्राप्तः, देव-दानव-गणैर् विरचितं समवसरणम् । तत्र च श्रीश्रेणिको नाम राजा । स च तं भगवन्तं श्रुत्वा समागतं जिनचन्द्रं हर्ष-वश-विकसन्-मुख-पङ्कजः सकल-जन-कोलाहल-वर्धमान-कलकलो गन्तुं प्रवृत्तः । भगवन्तं वन्दितुं सम्प्राप्तः, समवसरणं प्रविष्टः । त्रि-प्रदक्षिणीकृतो भगवाञ् जिनचन्द्रः, पाद-पतनोत्थितेन च भणितं तेन ।</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>こうして、救われうる者たちという夜咲きの睡蓮の池を、目ざめさせる尊い方は、めぐり歩いて、<strong>マガダ</strong>という国の、<strong>ラージャグリハ</strong>という都に、着かれた。神々や悪魔の群れが、集会の場を作った。そこには、<strong>シュリー・シュレーニカ</strong>という王がいた。王は、ジナの月である尊い方が来られたと聞いて、よろこびで、蓮のような顔をかがやかせ、人々のざわめきがわきあがるなかを、出かけていった。尊い方を礼拝するために着くと、集会の場に入った。ジナの月である尊い方のまわりを、三度、右まわりにめぐり、足もとにひれふして、立ちあがると、言った。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">人物</span><strong>シュレーニカ（ビンビサーラ）王</strong>は、<strong>マガダ国の、歴史上の王</strong>です。<strong>仏教では、ブッダの信者</strong>として、<strong>ジャイナ教では、マハーヴィーラの熱心な信者</strong>として、えがかれています。<strong>ジャイナ教の伝承では、次の時代に、最初のティールタンカラ（パドマナーバ）として生まれる</strong>とされる、<strong>とても大切な人物</strong>です。</p>
+    <p><span class="tag">背景</span><strong>ラージャグリハ（今のラージギル）</strong>は、<strong>マガダ国の都</strong>で、<strong>マハーヴィーラも、ブッダも、何度も訪れた</strong>、<strong>インドの宗教の歴史で、とても大切な都</strong>です。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s411-2">
+  <div class="verse-number">§ 411 · 2</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अवि य । &#x27;जय दुज्जय-मोह-महा-गइंद-णिद्दारणम्मि पंचमुहा । जय विसम-कम्म-काणण-दहणेक्क-पयाव-जलण-समा ॥ जय कोवाणल-पसरिय-विवेय-जल-जलहरिंद-सारिच्छा । जय माणुद्धर-पव्वय-मुसुमूरण-पच्चला कुलिसा ॥ जय माया-रूसिय-महाभुयंगि तं णाग-मणि-सारिच्छा । जय लोह-महारक्खस-णिण्णासण-सिद्ध-मंत-समा ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अपि च । &#x27;जय दुर्जय-मोह-महा-गजेन्द्र-निर्दारणे पञ्चमुख । जय विषम-कर्म-कानन-दहनैक-प्रताप-ज्वलन-सम ॥ जय कोपानल-प्रसृत-विवेक-जल-जलधरेन्द्र-सदृक्ष । जय मानोद्धुर-पर्वत-चूर्णन-प्रत्यल कुलिश ॥ जय माया-रुष्ट-महाभुजङ्ग्यां त्वं नाग-मणि-सदृक्ष । जय लोभ-महाराक्षस-निर्नाशन-सिद्ध-मन्त्र-सम ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>すなわち——『勝利あれ、<strong>打ち負かしがたい迷いという大きな象を、ひきさくライオン</strong>よ。勝利あれ、けわしい業の森を焼く、ただ一つの力の火のような方よ。勝利あれ、<strong>怒りの火</strong>がひろがったとき、〔よしあしを〕見わける心という水をふらす、雨雲の王のような方よ。勝利あれ、<strong>慢心</strong>という、そびえたつ山を、こなごなにくだく、金剛杵よ。勝利あれ、<strong>ごまかし</strong>という、怒った大きな雌へびに対しては、〔毒を消す〕へびの宝石のような方よ。勝利あれ、<strong>貪欲</strong>という大きなラークシャサを、ほろぼす、すぐれた呪文のような方よ。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">構成</span><strong>迷い・怒り・慢心・ごまかし・貪欲</strong>——この本の<strong>五人の主人公の、五つの悪い感情</strong>が、<strong>そろって</strong>、<strong>ジナによって打ち負かされるもの</strong>として、たたえられています。<strong>五人の物語が、終わりに近づいている</strong>ことを、<strong>それとなく示して</strong>いるのでしょう。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s411-3">
+  <div class="verse-number">§ 411 · 3</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">जय अरई-रइ-णासण जय णिज्जिय-हास-वज्जिय जयाहि । जयहि दुगुंछा-मुक्का असोय जय जयसु तं देव ॥ जयहि ण-पुरिस ण-महिला णोभय जय वेय-वज्जिय जयाहि । सम्मत्त-मिच्छ-रहिया पंच-विहण्णाण-भय-मुक्का ॥ अज्जेव अहं जाओ अज्ज य पेच्छामि अज्ज णिसुणेमि । मगहा-रज्जम्मि ठिओ दट्ठुं तुह वीर मुहयंदं ॥ तं णाहो तं सरणं तं माया बंधवो तुमं ताओ । सासय-सुहस्स मुणिवर जेण तए देसिओ मग्गो ॥&#x27;</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">जयारति-रति-नाशन जय निर्जित-हास-वर्जित जय । जय जुगुप्सा-मुक्ताशोक जय जय त्वं देव ॥ जय न-पुरुष न-महिला नोभय जय वेद-वर्जित जय । सम्यक्त्व-मिथ्या-रहिताः पञ्च-विधाज्ञान-भय-मुक्ताः ॥ अद्यैवाहं जातो ऽद्य च प्रेक्षे ऽद्य निशृणोमि । मगधा-राज्ये स्थितो दृष्ट्वा तव वीर मुखचन्द्रम् ॥ त्वं नाथस् त्वं शरणं त्वं माता बान्धवस् त्वं तातः । शाश्वत-सुखस्य मुनिवर येन त्वया देशितो मार्गः ॥&#x27;</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>勝利あれ、<strong>不快と快楽</strong>をほろぼす方よ。勝利あれ、<strong>笑い</strong>を打ち負かし、すてた方よ。勝利あれ、<strong>嫌悪</strong>をはなれた方、<strong>悲しみ</strong>のない方よ。勝利あれ、勝利あれ、神よ。勝利あれ、<strong>男でも、女でも、そのどちらでもない方</strong>、勝利あれ、<strong>性の欲（ヴェーダ）</strong>をすてた方よ。〔あなたは、〕まちがった見方をはなれ、五種の無知とおそれから、解きはなたれています。ヴィーラよ、マガダの国にいて、あなたの月のような顔を見て、<strong>今日、わたしは、〔本当に〕生まれ、今日、〔本当に〕見て、今日、〔本当に〕聞く</strong>のです。すぐれた僧よ、あなたこそ、わたしの主、わたしのたより、母、身内、父です。<strong>いつまでもつづく幸福への道</strong>を、あなたが、しめしてくださったのですから』。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>不快・快楽・笑い・悲しみ・おそれ・嫌悪・性の欲（男・女・中性）</strong>は、ジャイナ教で、「<strong>迷わせる業</strong>」のうちの、<strong>「ノー・カシャーヤ（小さな悪い感情）」</strong>とよばれるものです。<strong>ジナは、これらを、すべて、打ち負かしている</strong>のです。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s411-4">
+  <div class="verse-number">§ 411 · 4</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">त्ति भणंतो णिवडिओ चलणेसु, णिसण्णो य णिययासणट्ठाणेसु । साहियं च भगवया अंगोवंग-पविट्ठं सुत्त-णाणं मइ-णाणं च, पच्चयं (?) भव-पच्चयं कम्मक्खओवसमयं च णाणा-संठाणं ओहि-णाणं, सिट्ठं तु उज्जु-विउल-मइ-भेयं मणुय-लोयब्भंतरं मणपज्जव-णाणं, वज्जरियं च सयल-लोयब्भंतर-पयत्थ-सत्थ-जहावट्ठिय-सहाव-पयासयं केवल-दंसणं केवल-णाणं च त्ति ।</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">इति भणन् निपतितश् चरणयोः, निषण्णश् च निजकासन-स्थानेषु । कथितं च भगवताङ्गोपाङ्ग-प्रविष्टं श्रुत-ज्ञानं मति-ज्ञानं च, … (?) भव-प्रत्ययं कर्म-क्षयोपशमजं च नाना-संस्थानम् अवधि-ज्ञानम्, शिष्टं त्व् ऋजु-विपुल-मति-भेदं मनुज-लोकाभ्यन्तरं मनःपर्यव-ज्ञानम्, व्याहृतं च सकल-लोकाभ्यन्तर-पदार्थ-सार्थ-यथावस्थित-स्वभाव-प्रकाशकं केवल-दर्शनं केवल-ज्ञानं चेति ।</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>こう言いながら、〔王は、尊い方の〕足もとにひれふし、自分の席にすわった。そして、尊い方は、〔<strong>五つの知識</strong>を〕説かれた——<strong>聖典〔アンガとウパーンガ〕に入っている「聞く知識（シュルタ）」</strong>と、「<strong>考える知識（マティ）</strong>」。<strong>生まれによるものと、業のほろびとしずまりによるもの</strong>があり、いろいろな形をとる「<strong>千里眼の知識（アヴァディ）</strong>」。「<strong>まっすぐな〔心〕</strong>」と「<strong>ひろい心</strong>」の区別があり、人間の世界の中の〔心を知る〕「<strong>他人の心を知る知識（マナハパリヤーヤ）</strong>」。そして、全世界の中のあらゆるものの、ありのままの本性を照らしだす「<strong>全知の見る力</strong>」と「<strong>全知の知識（ケーヴァラ）</strong>」を、説かれた。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>ジャイナ教の「五つの知識」</strong>——<strong>①マティ（感覚と心による知識）②シュルタ（聖典などのことばによる知識）③アヴァディ（千里眼）④マナハパリヤーヤ（他人の心を知る）⑤ケーヴァラ（全知）</strong>。<strong>§371 の「知識をおおう業」</strong>がほろびるにつれて、<strong>この知識が、あらわれてくる</strong>とされます。</p>
+  </div>
+</div>
+
+<h2 class="appendix-head">占いの知識<span class="sub">シュレーニカ王の質問</span></h2>
+
+<div class="verse-block" id="s412-1">
+  <div class="verse-number">§ 412 · 1</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">एत्थंतरम्मि आबद्ध-करयलंजलिउडेण पुच्छियं महारायाहिराइणा सिरिसेणिएण &#x27;भगवं, केण उण णाणेण एए णेमित्तिणो सुहासुहं तीयाणागय-पच्चुप्पण्णं वियाणंता दीसंति, केण वा पयारेणं&#x27; ति। भगवया भणियं । अवि य । &#x27;देवाणुप्पिया एयं सुय-णाणं जेण जाणए लोओ । केवलि-सुत्त-णिबद्धं केवलिणा केवली-सुत्तं ॥ जइ जाणिऊण इच्छसि सुणेसु णरणाह थोव-वित्थरियं । अप्पक्खरं महत्थं जह भणियं केवलि-रिसीहिं ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अत्रान्तर आबद्ध-करतलाञ्जलिपुटेन पृष्टं महाराजाधिराजेन श्रीश्रेणिकेन &#x27;भगवन्, केन पुनर् ज्ञानेनैते नैमित्तिकाः शुभाशुभम् अतीतानागत-प्रत्युत्पन्नं विजानन्तो दृश्यन्ते, केन वा प्रकारेण&#x27; इति । भगवता भणितम् । अपि च । &#x27;देवानुप्रियैतच् छ्रुत-ज्ञानं येन जानाति लोकः । केवलि-सूत्र-निबद्धं केवलिना केवली-सूत्रम् ॥ यदि ज्ञातुम् इच्छसि शृणु नरनाथ स्तोक-विस्तृतम् । अल्पाक्षरं महार्थं यथा भणितं केवलि-ऋषिभिः ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>そのとき、大王の中の大王、シュリー・シュレーニカが、手のひらをあわせて、たずねた——『尊い方よ、この<strong>占い師（ナイミッティカ）</strong>たちは、どのような知識で、どのようなやりかたで、<strong>過去・未来・現在の、よいこと・わるいこと</strong>を、知っているのですか』。尊い方は言われた。すなわち——『神々に愛される者よ、それは、<strong>「聞く知識（シュルタ）」の一つ</strong>で、それによって、人々は〔ものごとを〕知るのだ。〔それは、〕全知者の聖典にまとめられた、全知者の〔説いた〕「<strong>ケーヴァリー・スートラ</strong>」だ。王よ、知りたいなら、少しだけ、ひろげて話そう。全知の聖仙たちが説いたとおり、<strong>ことばは少ないが、意味は大きい</strong>〔教え〕を、聞きなさい。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">論点</span><strong>ジナが、占いのしかたを説く</strong>のは、<strong>少しふしぎ</strong>に思えます。けれども、<strong>ジャイナ教では、占い（ニミッタ）も、「聞く知識」の一部</strong>とされ、<strong>すぐれた占い師は、教えをひろめる人（プラバーヴァカ）の一人</strong>とされていました（§413.5）。<strong>作者ウッディヨータナ自身、占いや、いろいろな学問に、とても、くわしかった</strong>ようです。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s412-2">
+  <div class="verse-number">§ 412 · 2</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">होंति इमे अ-इ-क-च-ट-त-प-य-स-क्खरा वि य सोहणा वण्णा । आ-ई-ख-छ-ठ-थ-फ-र-सा (?) असोहणा ते पुणो भणिया ॥ उ-ऊ (?) -ग-ज-ड-द-ब-ल-सा (?) सुहया अह होंति सव्व-कज्जेसु । ए-ऐ (?) -घ-झ-ढ-ध-भ-व-हा ण सोहणा सव्व-कज्जेसु ॥ ओ-औ-ङ-ञ-ण-न-मा (?) मीस-सहावा हवंति कज्जेसु । संपइ फलं पि वोच्छं एयाणं सव्व-वण्णाणं ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">भवन्तीमे अ-इ-क-च-ट-त-प-य-स-अक्षराण्य् अपि च शोभना वर्णाः । आ-ई-ख-छ-ठ-थ-फ-र-षा (?) अशोभनास् ते पुनर् भणिताः ॥ उ-ऊ (?) -ग-ज-ड-द-ब-ल-शाः (?) शुभदा अथ भवन्ति सर्व-कार्येषु । ए-ऐ (?) -घ-झ-ढ-ध-भ-व-हा न शोभनाः सर्व-कार्येषु ॥ ओ-औ-ङ-ञ-ण-न-मा (?) मिश्र-स्वभावा भवन्ति कार्येषु । साम्प्रतं फलम् अपि वक्ष्याम्य् एतेषां सर्व-वर्णानाम् ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>〔まず、文字の占い。〕<strong>ア・イ・カ・チャ・タ・タ・パ・ヤ・サ</strong>の文字は、<strong>よい文字</strong>だ。<strong>アー・イー・カ〔有気音〕・チャ〔有気音〕・タ・タ・パ〔有気音〕・ラ・シャ</strong>は、<strong>よくない</strong>と言われる。<strong>ウ・ウー・ガ・ジャ・ダ・ダ・バ・ラ・シャ</strong>は、どんなことにも、<strong>よいことをもたらす</strong>。<strong>エ・アイ・ガ〔有気音〕・ジャ〔有気音〕・ダ・ダ・バ〔有気音〕・ヴァ・ハ</strong>は、どんなことにも、<strong>よくない</strong>。<strong>オ・アウ・ン〔の音〕・ニャ・ナ・ナ・マ</strong>は、<strong>よいとも、わるいとも言えない</strong>。次に、これらすべての文字〔の占い〕の、結果を話そう。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">背景</span><strong>インドの文字（デーヴァナーガリーなど）は、音のしくみにしたがって、きちんとならんで</strong>います。たとえば、<strong>カ・カ〔有気〕・ガ・ガ〔有気〕・ン</strong>のように、<strong>同じ口の形の音が、五つずつ、ならんで</strong>いるのです。<strong>この占いでは、各列の一番め・三番めの文字は「よい」、二番め・四番めは「わるい」、五番め（鼻音）は「どちらでもない」</strong>とされている、と考えられます（推定）。</p>
+    <p><span class="tag">本文</span>文字のならびは、本文がかなりこわれているので、<strong>上の規則にしたがって、推定でなおしたところ</strong>があります。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s412-3">
+  <div class="verse-number">§ 412 · 3</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">सोहणमसोहणं वा सुह-दुक्खं संधि-विग्गहं चेय । एइ ण एइ व लाभो लाभ-जय-अजय-कज्जे य ॥ होइ ण होइ व कज्जं खेममखेमं च अत्थि णत्थी वा । संपत्ती व विवत्ती जीविय-मरणं व सरिसमसरिसं ॥ पढम-वयणम्मि पढमा सुह-वण्णा होंति अहव बहुया वा । ता जाण कज्ज-सिद्धी असुहेहिँ ण सिज्झए कज्जं ॥ अहवा पुच्छय-वयणं पढमं घेत्तूण ते णिरूवेसु । विहि-वयणे होइ सुहं असुहं पडिसेह-वयणम्मि ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">शोभनम् अशोभनं वा सुख-दुःखं सन्धि-विग्रहं चैव । एति न एति वा लाभो लाभ-जयाजय-कार्ये च ॥ भवति न भवति वा कार्यं क्षेमम् अक्षेमं चास्ति नास्ति वा । सम्पत्तिर् वा विपत्तिर् जीवित-मरणं वा सदृशम् असदृशम् ॥ प्रथम-वचने प्रथमाः शुभ-वर्णा भवन्त्य् अथवा बहुका वा । तज् जानीहि कार्य-सिद्धिम् अशुभैर् न सिध्यति कार्यम् ॥ अथवा प्रच्छक-वचनं प्रथमं गृहीत्वा तान् निरूपय । विधि-वचने भवति शुभम् अशुभं प्रतिषेध-वचने ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>〔この占いで、わかるのは、〕よいか、わるいか、楽しみか、苦しみか、和平か、戦争か、〔旅の人が〕来るか、来ないか、もうけがあるか、勝つか、負けるか、ことが、なるか、ならないか、無事か、無事でないか、あるか、ないか、さかえるか、おちぶれるか、生きるか、死ぬか、にているか、にていないか、などだ。〔たずねる人の〕最初のことばで、<strong>最初〔の文字〕が、よい文字</strong>であるか、<strong>よい文字が多ければ</strong>、ことが、なしとげられると知りなさい。わるい〔文字〕なら、ことは、なしとげられない。あるいは、<strong>たずねる人の最初のことば</strong>をとって、しらべなさい。〔それが〕<strong>「〜せよ」という〔肯定の〕ことばなら、よい。「〜するな」という〔否定の〕ことばなら、わるい</strong>のだ。</p>
+    </div>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s412-4">
+  <div class="verse-number">§ 412 · 4</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अहवा । फल-कुसुमक्खय-पत्ते रूवय अण्णं च पुरिस-रूवं च । अट्ठ-विभत्ते लद्धं तेण फलं सुणसु तं एयं ॥ होइ झए सव्व-फलं धूमे फल-णिप्फलं च संतावो । सीहे विक्कम-लाभो साणे तुच्छा (?) -वइ-वित्ती ॥ वसहे गउरव-लाभो खरम्मि कलहो य सोय-संतावो । होइ गए पुण पूया धंखे (?) णिच्चं परिब्भमणं ॥ अहवा । पुच्छाणंतर-पुलइय-दिट्ठे णिसुए व सोहणे अत्थे । कज्जस्स अत्थि सिद्धी विवरीए णत्थि सा भणसु ॥&#x27;</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अथवा । फल-कुसुमाक्षत-पत्त्रे रूपकम् अन्यच् च पुरुष-रूपं च । अष्ट-विभक्ते लब्धं तेन फलं शृणु तद् एतत् ॥ भवति ध्वजे सर्व-फलं धूमे फल-निष्फलं च सन्तापः । सिंहे विक्रम-लाभः श्वाने तुच्छा (?) -वृत्तिः ॥ वृषभे गौरव-लाभः खरे कलहश् च शोक-सन्तापः । भवति गजे पुनः पूजा ध्वाङ्क्षे (?) नित्यं परिभ्रमणम् ॥ अथवा । प्रश्नानन्तर-प्रलोकित-दृष्टे निश्रुते वा शोभने ऽर्थे । कार्यस्यास्ति सिद्धिर् विपरीते नास्ति सा भण ॥&#x27;</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>あるいは、〔たずねる人がもってきた〕<strong>果物、花、生米、葉、貨幣、そのほかのもの、人の姿</strong>〔の数〕を、<strong>八でわった、あまり</strong>によって〔占う〕。その結果を聞きなさい。〔あまりが〕<strong>旗（ドヴァジャ）</strong>なら、すべてが実をむすぶ。<strong>煙（ドゥーマ）</strong>なら、実がむすんだり、むすばなかったりで、苦しみがある。<strong>ライオン（シンハ）</strong>なら、勇気によって得るものがある。<strong>犬（シュヴァン）</strong>なら、つまらない〔くらし〕になる。<strong>牛（ヴリシャ）</strong>なら、名誉を得る。<strong>ろば（カラ）</strong>なら、あらそいと、悲しみと、苦しみがある。<strong>象（ガジャ）</strong>なら、うやまわれる。<strong>からす（ドゥヴァーンクシャ）</strong>なら、いつまでも、さまよい歩く。あるいは、<strong>たずねたすぐあとに、よいものを見たり、聞いたりしたら、ことは、なしとげられる</strong>。その反対なら、なしとげられない、と言いなさい』。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">背景</span><strong>旗・煙・ライオン・犬・牛・ろば・象・からす</strong>の八つは、インドの<strong>建築学や占星術で使われる「八つのアーヤ」</strong>とよばれる、<strong>よく知られた占いの区分</strong>です。<strong>ある数を八でわった「あまり」</strong>が、<strong>一なら旗、二なら煙……</strong>というように、<strong>この八つのどれかにあてはめて、吉凶を占う</strong>のです（推定をふくみます）。</p>
+    <p><span class="tag">本文</span>「犬」「からす」のところは、本文がこわれていて（「<span class="skt">तुच्छाह-वदिचित्ती</span>」「<span class="skt">टंके</span>」）、<strong>八つのアーヤの知識にもとづく推定</strong>です。</p>
+  </div>
+</div>
+
+<h2 class="appendix-head">八歳の王子の夢<span class="sub">鉄と金のかたまり</span></h2>
+
+<div class="verse-block" id="s412-5">
+  <div class="verse-number">§ 412 · 5</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">त्ति साहिय-मेत्ते भगवया जिणयंदेणं एत्थंतरम्मि सिरिसेणिय-रण्णो पुत्तो महारह-कुमारो णाम अट्ठ-वरिस-मेत्तो तेण चलण-पणाम-पच्चुट्ठिएण भणियं । अवि य । &#x27;जाणामि अज्ज सुमिणे भगवं पेच्छामि कसिण-घण-वण्णं । कालायस-कंचण-मीसियं व एक्कं महापुंजं ॥ जाणामि मए धमियं जलियं जालोलि-तावियं गलियं । कालायस-मीस-गलियं जच्च-सुवण्णं ठियं तत्थ ॥ एत्थंतरे विउद्धो भगवं पडु-पडह-संख-सद्देहिं । साहसु सुमिणस्स फलं संपइ किं एत्थ भवियव्वं ॥&#x27;</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">इति कथित-मात्रे भगवता जिनचन्द्रेणात्रान्तरे श्रीश्रेणिक-राज्ञः पुत्रो महारथ-कुमारो नामाष्ट-वर्ष-मात्रस् तेन चरण-प्रणाम-प्रत्युत्थितेन भणितम् । अपि च । &#x27;जानामि अद्य स्वप्ने भगवन् प्रेक्षे कृष्ण-घन-वर्णम् । कालायस-काञ्चन-मिश्रितम् इवैकं महापुञ्जम् ॥ जानामि मया ध्मातं ज्वलितं ज्वालावली-तापितं गलितम् । कालायस-मिश्र-गलितं जात्य-सुवर्णं स्थितं तत्र ॥ अत्रान्तरे विबुद्धो भगवन् पटु-पटह-शङ्ख-शब्दैः । कथय स्वप्नस्य फलं साम्प्रतं किम् अत्र भवितव्यम् ॥&#x27;</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>ジナの月である尊い方が、こう話しおえたとき、<strong>シュリー・シュレーニカ王の息子で、まだ八歳の、マハーラタという王子</strong>が、〔尊い方の〕足もとにひれふして、立ちあがると、言った。すなわち——『尊い方よ、今日、わたしは、夢の中で、<strong>黒い雨雲のような色の、黒い鉄と金がまじったような、大きなかたまり</strong>を、見ました。<strong>わたしが、それに〔ふいごで〕風をおくると、燃えあがり、炎で熱せられて、とけました。黒い鉄のまじったものが、とけて流れ、そこに、純金がのこりました</strong>。そのとき、尊い方よ、太鼓やほら貝の音で、目がさめました。この夢の意味を、教えてください。これから、なにが起こるのでしょう』。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">構成</span><strong>八歳の王子が見た夢</strong>——<strong>五人の仲間の、最後の一人</strong>が、ここで登場します。<strong>カーマガジェーンドラ、ヴァジュラグプタ、スヴァヤンブデーヴァ</strong>とちがって、<strong>この王子は、ふしぎな体験ではなく、夢によって、目ざめる</strong>のです。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s412-6">
+  <div class="verse-number">§ 412 · 6</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">भगवया भणियं । &#x27;भद्दमुह एस सुमिणो साहइ सम्मत्त-चरण-दिक्खाए । केवल-णाणं सिद्धी सासय-सुह-संगमं अंते ॥ कालायसयं कम्मं जीयं कणयं च मीसियं तत्थ । झाणाणलेण धमिउं सुद्धो जीवो तए ठविओ ॥ अण्णं च तुमं एरिसो चरिम-सरीरो य एत्थ उप्पण्णो । कुवलयमाला-जीवो देवो देवत्तणाओ (?) तुमं ॥ सव्वं च तस्स कहियं मायाइच्चादि-देव-पज्जंतं । &#x27;सव्वे ते पव्वइया तुम्ह सहाया इमे पेच्छ&#x27; ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">भगवता भणितम् । &#x27;भद्रमुखैष स्वप्नः कथयति सम्यक्त्व-चरण-दीक्षायाः । केवल-ज्ञानं सिद्धिं शाश्वत-सुख-सङ्गमम् अन्ते ॥ कालायसकं कर्म जीवः कनकं च मिश्रितं तत्र । ध्यानानलेन ध्मात्वा शुद्धो जीवस् त्वया स्थापितः ॥ अन्यच् च त्वम् ईदृशश् चरम-शरीरश् चात्रोत्पन्नः । कुवलयमाला-जीवो देवो देवत्वात् (?) त्वम् ॥ सर्वं च तस्य कथितं मायादित्यादि-देव-पर्यन्तम् । &#x27;सर्वे ते प्रव्रजितास् तव सहाया इमान् प्रेक्षस्व&#x27; ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>尊い方は言われた——『よい顔の者よ、この夢は、〔あなたが、〕<strong>正しい信仰、行い、出家を〔得て〕、全知の知識と、完成（シッディ）を〔得て〕、最後には、いつまでもつづく幸福と、ひとつになる</strong>ことを、しめしている。<strong>黒い鉄は業</strong>で、<strong>金は魂</strong>だ。〔それが〕そこで、まじりあっている。<strong>〔しずかな〕瞑想の火</strong>で、風をおくって、あなたは、<strong>きよらかな魂</strong>を、〔あとに〕のこしたのだ。それに、あなたは、<strong>最後のからだ</strong>をもって、ここに生まれてきた。<strong>あなたは、クヴァラヤマーラーの魂で、神〔の生〕から、〔ここに生まれてきた〕のだ</strong>』。そして、〔尊い方は、〕その王子に、<strong>マーヤーディティヤから、神〔の生〕まで〔の、生まれかわり〕</strong>を、すべて話された。〔そして言われた。〕『<strong>あなたの仲間たちは、みな、もう出家している。ほら、ここにいる</strong>』。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">人物</span><strong>マハーラタは、マーヤーディティヤ（第7巻、「ごまかし」の人）の魂</strong>でした。<strong>マーヤーディティヤ → パドマサーラ?（パドマ天宮）→ クヴァラヤマーラー → ヴァイドゥーリヤ天宮の神 → マハーラタ</strong>。<strong>五人のうち、最後まで天界にのこっていた神</strong>が、<strong>この王子として、生まれてきた</strong>のです。</p>
+    <p><span class="tag">論点</span><strong>パドマ天宮での名前</strong>は、<strong>§177.5 の注</strong>と、<strong>§353・§375.4 の本文</strong>とで、<strong>くいちがい</strong>があります（<strong>マーナバタとマーヤーディティヤの、どちらが「パドマサーラ」なのか</strong>）。ここでは、<strong>「?」をつけて</strong>おきます。</p>
+    <p><span class="tag">教義</span><strong>鉄と金がまじったかたまりを、火でとかして、純金をとりだす</strong>——<strong>業（鉄）と魂（金）が、まじりあっている状態から、苦行や瞑想の火によって、きよらかな魂をとりだす</strong>。<strong>ジャイナ教で、とてもよく使われる、たとえ</strong>です。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s412-7">
+  <div class="verse-number">§ 412 · 7</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">इमं च वुत्तंतं णिसामिऊण भणियं महारह-कुमारेण &#x27;भगवं, जइ एवं तो चलिओ (?) एस चित्त-तुरंगमो&#x27; । &#x27;किं विलंबेसि&#x27; त्ति भणिए भगवया गणहारिणा दिक्खिओ जहा-विहिणा महारह-कुमारो त्ति । मिलिया य ते पंच वि जणा अवरोप्परं जाणंति जहा &#x27;कय-पुव्व-संकेया सम्मत्त-लंभे अम्हे&#x27; त्ति । एवं च ताण भगवया जिणयंदेण समं विहरमाणाणं वोलीणाइं बहुयाइं वासाइं।</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">इमं च वृत्तान्तं निशम्य भणितं महारथ-कुमारेण &#x27;भगवन्, यद्य् एवं ततश् चलित (?) एष चित्त-तुरङ्गमः&#x27; । &#x27;किं विलम्बस&#x27; इति भणिते भगवता गणधारिणा दीक्षितो यथा-विधिना महारथ-कुमार इति । मिलिताश् च ते पञ्चापि जनाः परस्परं जानन्ति यथा &#x27;कृत-पूर्व-सङ्केताः सम्यक्त्व-लाभे वयम्&#x27; इति । एवं च तेषां भगवता जिनचन्द्रेण समं विहरतां व्यतिक्रान्तानि बहुकानि वर्षाणि ।</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>このいきさつを聞いて、マハーラタ王子は言った——『尊い方よ、そういうことなら、<strong>わたしの心という馬は、もう、走りだしてしまいました</strong>』。〔尊い方が〕『なにを、ぐずぐずしているのか』と言われると、尊いガナダラが、マハーラタ王子を、きまりどおりに、出家させた。こうして、<strong>五人がみな、そろった</strong>。そして、たがいに、「<strong>わたしたちは、以前に、正しい信仰を得ることについて、約束をかわした者どうしだ</strong>」と、わかりあった。こうして、五人は、ジナの月である尊い方とともに、めぐり歩き、<strong>多くの年月</strong>が、すぎていった。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">構成</span><strong>ついに、五人がそろいました</strong>。<strong>マニラタ（マーナバタ、慢心）、カーマガジェーンドラ（モーハダッタ、迷い）、ヴァジュラグプタ（ローバデーヴァ、貪り）、スヴァヤンブデーヴァ（チャンダソーマ、怒り）、マハーラタ（マーヤーディティヤ、ごまかし）</strong>——<strong>五つの悪い感情の、五人の魂</strong>が、<strong>マハーヴィーラの弟子として、ひとつになった</strong>のです。<strong>第10巻（§170）の約束</strong>が、<strong>すべて、はたされた</strong>のです。</p>
+  </div>
+</div>
+
+<h2 class="appendix-head">マニラタの最期<span class="sub">四つのアーラーダナー</span></h2>
+
+<div class="verse-block" id="s413-1">
+  <div class="verse-number">§ 413 · 1</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">साहियं च भगवया सव्वण्णुणा मणिरह-कुमार-साहुणो जहा &#x27;तुज्झ थोवं आउयं&#x27; ति । जाणिऊण जहासुहं संलेहणा-कम्मं पडिवज्जिऊण उत्तिम-ट्ठाणाराहणं ति । तओ मणिरहकुमारो वि &#x27;इच्छं&#x27; ति अणुमण्णमाणेण समाढत्ता चउ-खंधा आराहणा काउं । कय-संलेहणा-कम्मो दिण्णालोयण-वित्थरो णिसण्णो तक्कालप्पाओग्गे फासुय-संथारए, तत्थ भणिउं समाढत्तो।</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">कथितं च भगवता सर्वज्ञेन मणिरथ-कुमार-साधवे यथा &#x27;तव स्तोकम् आयुष्कम्&#x27; इति । ज्ञात्वा यथासुखं संलेखना-कर्म प्रतिपद्योत्तम-स्थानाराधनम् इति । ततो मणिरथकुमारो ऽपि &#x27;इच्छामी&#x27;त्य् अनुमन्यमानेन समारब्धा चतुः-स्कन्धाराधना कर्तुम् । कृत-संलेखना-कर्मा दत्तालोचना-विस्तरो निषण्णस् तत्काल-प्रायोग्ये प्रासुक-संस्तारके, तत्र भणितुं समारब्धः ।</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>〔ある時、〕全知の尊い方は、<strong>僧マニラタ王子</strong>に、「<strong>あなたの寿命は、のこり少ない</strong>」と、告げられた。〔マニラタは、〕それを知って、心やすらかに、<strong>サッレーカナー（だんだんと食を断つ行）</strong>を受けいれ、<strong>最高の境地をめざす行（アーラーダナー）</strong>を〔始めた〕。マニラタ王子も、「<strong>のぞむところです</strong>」と受けいれて、<strong>四つの部分からなるアーラーダナー</strong>を、始めた。サッレーカナーの行をおこない、〔自分のあやまちの〕<strong>告白（アーローチャナー）</strong>を、くわしくすませて、その時にふさわしい、<strong>生き物のいない、きよらかな寝床</strong>に、横たわった。そして、〔こう〕となえはじめた。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>アーラーダナー</strong>は、「<strong>〔教えを〕なしとげること</strong>」の意味で、とくに、<strong>死にのぞんで、それまでの修行の、しあげをすること</strong>をいいます。<strong>四つの部分</strong>とは、<strong>①知識（ジュニャーナ）②見方・信仰（ダルシャナ）③行い（チャーリトラ）④力・苦行（ヴィーリヤ／タパス）</strong>です。<strong>それぞれについて、自分のあやまちを、一つ一つ、ふりかえり、くいあらためる</strong>のです。</p>
+    <p><span class="tag">背景</span><strong>「生き物のいない（プラースカ）」寝床</strong>——<strong>死にぎわにも、自分のからだの下で、小さな虫などを死なせないよう、気をつける</strong>のです。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-2">
+  <div class="verse-number">§ 413 · 2</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">अवि य । &#x27;पणमामि तित्थणाहं तित्थे तित्थाहिवं च उसभ-जिणं । अवसेसे तित्थयरे वीर-जिणिंदं च णमिऊणं ॥ णमिऊण गणहरिंदे आयरिए धम्मदायए सिरसा । णमिऊण सव्व-साधू चउविहाराहणं वोच्छं ।। णाणे दंसण-चरणे विरिया आराहणा चउत्थी उ । णाणे अट्ठ वियप्पा तं चिय वोच्छामि ता णिउणं ॥ पढमं काले विणए बहुमाणुवहाण तह य णिण्हवणे । वंजण-अत्थ-तदुभए णाणस्साराहओ तेसु ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">अपि च । &#x27;प्रणमामि तीर्थनाथं तीर्थे तीर्थाधिपं चर्षभ-जिनम् । अवशेषांस् तीर्थकरान् वीर-जिनेन्द्रं च नत्वा ॥ नत्वा गणधरेन्द्रान् आचार्यान् धर्मदायकाञ् शिरसा । नत्वा सर्व-साधूंश् चतुर्विधाराधनां वक्ष्ये ॥ ज्ञाने दर्शन-चरणयोर् वीर्याराधना चतुर्थी तु । ज्ञाने ऽष्टौ विकल्पास् तान् एव वक्ष्यामि तन् निपुणम् ॥ प्रथमं काले विनये बहुमानोपधानयोस् तथा च निह्नवे । व्यञ्जनार्थ-तदुभयेषु ज्ञानस्याराधकस् तेषु ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>すなわち——『〔今の〕教えの渡し場の主〔マハーヴィーラ〕と、<strong>最初の渡し場の主、リシャバ・ジナ</strong>に、礼拝します。のこりのティールタンカラたちと、ジナの王ヴィーラに、礼拝して、ガナダラの長たち、教えを与えてくれた師たちに、頭をさげて礼拝し、すべての僧たちに礼拝して、<strong>四種のアーラーダナー</strong>を、となえます。<strong>知識、見方〔信仰〕、行い、そして第四に、力</strong>のアーラーダナーです。知識には、<strong>八つの面</strong>があります。それを、くわしく、となえましょう。<strong>①〔学ぶべき〕時、②うやまい、③尊敬、④〔学ぶための〕苦行、⑤〔師を〕かくさないこと、⑥ことば〔の正しさ〕、⑦意味〔の正しさ〕、⑧その両方</strong>——これらによって、知識をなしとげるのです。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>知識をなしとげる八つの面（ジュニャーナーチャーラ）</strong>——ジャイナ教の僧が、<strong>聖典を学ぶときに、まもるべき八つのきまり</strong>です。たとえば、「<strong>学んではいけない時間（夜明けや夕暮れなど）に学ばない</strong>」「<strong>教えてくれた師の名を、かくさない</strong>」「<strong>聖典のことばや意味を、かってに変えない</strong>」などです。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-3">
+  <div class="verse-number">§ 413 · 3</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">जो काले सज्झाओ सो ण कओ जो कओ अकालम्मि । जं जह-कालं ण कयं तं णिंदे तं च गरिहामि ॥ अब्भुट्ठाणं अंजलि आसण-णीयं च विणय-पडिवत्ती । जा ण कया म्ह गुरूणं तमहं णिंदामि भावेणं ॥ भावेण अणुदिणं चिय एस गुरू पंडिओ महप्पा य । ण कओ जो बहु-माणो मिच्छा हो दुक्कडं तस्स ॥ जं जत्थ तवचरणं अंगोवंगेसु तह पइण्णेसु । ण कयं उवहाणं मे एण्हिं णिंदामि तं सव्वं ॥ असुयं पि सुयं भणियं सुयं पि ण सुयं ति कह वि मूढेण । अण्णाए णिण्हवियं तमहं णिंदामि भावेण ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">यत् काले स्वाध्यायः स न कृतो यः कृतो ऽकाले । यद् यथा-कालं न कृतं तन् निन्दामि तच् च गर्हे ॥ अभ्युत्थानम् अञ्जलिर् आसन-नीचं च विनय-प्रतिपत्तिः । या न कृतास्माभिर् गुरुभ्यस् ताम् अहं निन्दामि भावेन ॥ भावेनानुदिनम् एवैष गुरुः पण्डितो महात्मा च । न कृतो यो बहुमानो मिथ्या भोः दुष्कृतं तस्य ॥ यद् यत्र तपश्चरणम् अङ्गोपाङ्गेषु तथा प्रकीर्णेषु । न कृतम् उपधानं मे इदानीं निन्दामि तत् सर्वम् ॥ अश्रुतम् अपि श्रुतं भणितं श्रुतम् अपि न श्रुतम् इति कथम् अपि मूढेन । अज्ञानेन निह्नुतं तद् अहं निन्दामि भावेन ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p><strong>〔学ぶべき〕時に、学ばなかったこと、〔学んではいけない〕時に学んだこと、時にかなって、しなかったこと</strong>——それを、わたしは、くやみ、はじます。<strong>師がこられたときに立ちあがること、合掌すること、〔師より〕ひくい座にすわること</strong>などの、うやまいのふるまいを、師に対して、しなかったこと——それを、心から、くやみます。「<strong>この師は、かしこく、偉大な方だ</strong>」と、毎日、心から、尊敬しなかったこと——<strong>そのあやまちが、むなしくなりますように（ミッチャー・ドゥッカダム）</strong>。アンガやウパーンガ、プラキールナカ〔などの聖典〕で、きめられた苦行を、〔学ぶための〕苦行として、しなかったこと——それを、今、すべて、くやみます。おろかにも、<strong>聞いていないことを「聞いた」と言い、聞いたことを「聞いていない」と言い</strong>、知らずに、〔師を〕かくしたこと——それを、心から、くやみます。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">言語</span><strong>「ミッチャー・ミ・ドゥッカダム（わたしのあやまちが、むなしくなりますように）」</strong>は、<strong>§401.4 の注でふれた、ジャイナ教の、くいあらための決まり文句</strong>です。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-4">
+  <div class="verse-number">§ 413 · 4</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">मत्ता-बिंदु-वियप्पं काउं अण्णत्थ जोडियं अत्थं । वंजण-विवंजणेण य एण्हिं णिंदामि तं पावं ॥ अमयप्पवाह-सरिसे जिण-वयणे कहा-विमूढेण । अत्थस्स विवज्जासो रइओ णिंदे तयं पावं ॥ सुत्तत्थाणं दोण्ह वि मोहेण व अहव होज्ज हासेण । जो कह वि विवज्जासो एण्हिं णिंदामि तं पावं ॥ उस्सुत्तो उम्मग्गो उक्करणिज्जो व्व एत्थ जो जोग्गो (?) । मोहंधेण ण दिट्ठो संपइ आराहिमो णाणं ॥ एसो णाणायारो भगवं जइ खंडिओ मए कह वि । मिच्छामि दुक्कडं तं संपइ अह दंसणं वोच्छं ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">मात्रा-बिन्दु-विकल्पं कृत्वान्यत्र योजितो ऽर्थः । व्यञ्जन-विव्यञ्जनेन चेदानीं निन्दामि तत् पापम् ॥ अमृत-प्रवाह-सदृशे जिन-वचने कथा-विमूढेन । अर्थस्य विपर्यासो रचितो निन्दे तत् पापम् ॥ सूत्रार्थयोर् द्वयोर् अपि मोहेन वाथवा भवेद् धासेन । यः कथम् अपि विपर्यास इदानीं निन्दामि तत् पापम् ॥ उत्सूत्र उन्मार्ग … (?) वात्र यो योग्यः (?) । मोहान्धेन न दृष्टः सम्प्रत्य् आराधयामि ज्ञानम् ॥ एष ज्ञानाचारो भगवन् यदि खण्डितो मया कथम् अपि । मिथ्या मे दुष्कृतं तत् सम्प्रत्य् अथ दर्शनं वक्ष्ये ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p><strong>母音の記号や鼻音の点を、かえて、意味を別のものにしてしまったこと</strong>、ことばを、まちがえたこと——その罪を、今、くやみます。甘露の流れのようなジナのことばで、話にまどわされて、意味を、さかさまにしてしまったこと——その罪を、くやみます。<strong>聖典のことばと意味の両方について、迷いから、あるいは、たわむれから、まちがえたこと</strong>——その罪を、今、くやみます。聖典にない〔教え〕、まちがった道など、ここで〔さけるべき〕ものを、迷いに目がくらんで、見わけなかったこと——〔それをくやんで、〕今、知識をなしとげます。尊い方よ、もし、わたしが、この知識のきまりを、どこかで、やぶったなら、<strong>そのあやまちが、むなしくなりますように</strong>。次に、見方〔信仰〕について、となえます。</p>
+    </div>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-5">
+  <div class="verse-number">§ 413 · 5</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">णिस्संकिय-णिक्कंखिय-णिव्वितिगिच्छा अमूढ-दिट्ठी य । उववूह-थिरीकरणे वच्छल्ल-पभावणे अट्ठ ।। सच्चं जिणाण वयणं एत्थ वियप्पो ण चेय कायव्वो। एयं होज्ज ण होज्ज व जइ मह संका तयं णिंदे ॥ गेण्हामि इमं दिक्खं एयं लिंगं इमो य परमत्थो । मूढेण कंखिओ मे मिच्छा हो दुक्कडं तत्थ ।। अह होज्ज ण वा मोक्खं आयरियादीण जा य वितिगिच्छा । जइ मे कह वि कया सा णिंदामि हं पावयं एण्हिं ।। दट्ठूण रिद्धि-पूयं परवाईणं कुतित्थ-मग्गेसु । जइ मह दिट्ठी मूढा एण्हिं णिंदामि तं पावं ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">निःशङ्कित-निष्काङ्क्षित-निर्विचिकित्सा अमूढ-दृष्टिश् च । उपबृंहण-स्थिरीकरणे वात्सल्य-प्रभावने ऽष्टौ ॥ सत्यं जिनानां वचनम् अत्र विकल्पो नैव कर्तव्यः । एतद् भवेन् न भवेद् वा यदि मम शङ्का तां निन्दे ॥ गृह्णामीमां दीक्षाम् एतल् लिङ्गम् अयं च परमार्थः । मूढेन काङ्क्षितो मे मिथ्या भोः दुष्कृतं तत्र ॥ अथ भवेन् न वा मोक्ष आचार्यादीनां या च विचिकित्सा । यदि मे कथम् अपि कृता सा निन्दाम्य् अहं पापकम् इदानीम् ॥ दृष्ट्वर्द्धि-पूजां परवादिनां कुतीर्थ-मार्गेषु । यदि मम दृष्टिर् मूढेदानीं निन्दामि तत् पापम् ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>〔見方〔信仰〕の八つの面は、〕<strong>①うたがわないこと、②〔ほかの教えを〕ほしがらないこと、③〔きたないものを〕いやがらないこと、④まどわされない見方、⑤〔よい行いを〕ほめること、⑥〔ゆらぐ人を〕ささえること、⑦〔なかまへの〕愛情、⑧〔教えを〕ひろめること</strong>の、八つです。<strong>ジナのことばは、本当</strong>です。これを、うたがってはいけません。「これは、本当だろうか、ちがうだろうか」と、わたしが、うたがったことがあれば、それを、くやみます。〔ほかの教えについて、〕「<strong>この出家、このしるし〔姿〕、これこそが本当だ</strong>」と、おろかにも、ほしがったことがあれば、そのあやまちが、むなしくなりますように。「<strong>救いは、あるのだろうか、ないのだろうか</strong>」と、〔うたがったり〕、師たちの〔きたない身なりを〕いやがったりしたことがあれば、その罪を、今、くやみます。<strong>ほかの教えを説く者たちの、まちがった道で、〔かれらが得ている〕富や供養を見て、わたしの見方が、まどわされたことがあれば</strong>、その罪を、今、くやみます。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>正しい見方〔信仰〕の八つの面（ダルシャナーチャーラ）</strong>——<strong>ジャイナ教の信仰の、基本</strong>です。「<strong>いやがらないこと</strong>」とは、<strong>僧が、きびしい苦行で、からだを洗わず、きたない身なりをしていても、それを、いやがらないこと</strong>をいいます。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-6">
+  <div class="verse-number">§ 413 · 6</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">खमगं वेयावच्चे सज्झाए चेव वावडं साहुं । उववूहणा ण कया एस पमाओ तयं णिंदे ॥ साहु-किरियासु कासु वि दट्ठुं सीयंतयं मुणिं ण कया। बहु-दोसे माणुस्से थिरीकरणा णिंदिमो तमहं ॥ गुरु-बाल-तवस्सीण समाण-धम्माण वा वि सव्वाण । वच्छल्लं ण कयं मे आहारादीहिं तं णिंदे ॥ मेरु व्व णिप्पकंपं जिणाण वयणं तहा वि सत्तीए । ण कयं पभावणं मे एस पमाओ तयं णिंदे ॥ पावयणी धम्मकही वाई णेमित्तिओ तवस्सी य । विज्जा-सिद्धो य कवी अट्ठेव पभावया भणिया ॥ सव्वाणं पि पसंसा कायव्वा सव्वहा विसुद्धेण । सा ण कया तं णिंदे सम्मत्ताराहणा सा हु॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">क्षपकं वैयावृत्त्ये स्वाध्याये चैव व्यापृतं साधुम् । उपबृंहणा न कृतैष प्रमादस् तं निन्दे ॥ साधु-क्रियासु कास्व् अपि दृष्ट्वा सीदन्तं मुनिं न कृता । बहु-दोषे मानुष्ये स्थिरीकरणा निन्दामि ताम् अहम् ॥ गुरु-बाल-तपस्विनां समान-धर्माणां वापि सर्वेषाम् । वात्सल्यं न कृतं मयाहारादिभिस् तन् निन्दे ॥ मेरुर् इव निष्प्रकम्पं जिनानां वचनं तथापि शक्त्या । न कृतं प्रभावनं मयैष प्रमादस् तं निन्दे ॥ प्रावचनी धर्मकथी वादी नैमित्तिकस् तपस्वी च । विद्या-सिद्धश् च कविर् अष्टाव् एव प्रभावका भणिताः ॥ सर्वेषाम् अपि प्रशंसा कर्तव्या सर्वथा विशुद्धेन । सा न कृता तां निन्दे सम्यक्त्वाराधना सा खलु ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>苦行をしている僧、〔ほかの僧の〕世話をしている僧、〔聖典の〕学習にはげんでいる僧を、<strong>ほめなかった</strong>こと——このなまけを、くやみます。僧のつとめのどれかで、<strong>くじけそうになっている僧を見ても、ささえなかった</strong>こと——あやまちの多い人の世で〔そうしたこと〕を、くやみます。師、幼い僧、苦行者、そして、同じ教えの、すべてのなかまに、<strong>食べものなどで、愛情をしめさなかった</strong>こと——それを、くやみます。<strong>ジナのことばは、メール山のように、ゆるがない</strong>けれど、それでも、わたしが、力のかぎり、<strong>〔教えを〕ひろめなかった</strong>こと——このなまけを、くやみます。<strong>聖典にくわしい者、教えを語る者、議論する者、占い師、苦行者、術（ヴィディヤー）をもつ者、〔神通力を〕きわめた者、詩人</strong>——〔教えを〕ひろめる者は、〔これらの〕<strong>八つ</strong>だと言われます。すべての〔そういう人々〕を、心から、ほめるべきなのに、ほめなかったこと——それを、くやみます。<strong>これが、正しい見方〔信仰〕の、アーラーダナー</strong>です。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>教えをひろめる八種の人（プラバーヴァカ）</strong>——<strong>聖典にくわしい者、教えを語る者、議論する者、占い師、苦行者、術をもつ者、〔神通力を〕きわめた者、詩人</strong>の八つ。<strong>詩人（カヴィ）も、教えをひろめる人</strong>とされているのです。<strong>この本の作者ウッディヨータナも、物語という形で、教えをひろめる「詩人」</strong>なのです。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-7">
+  <div class="verse-number">§ 413 · 7</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">पंच समिईओ सम्मं गुत्तीओ तिण्णि जाओ भणियाओ । पवयण-मायाओ (?) चारित्ताराहणा एसा ॥ इरियावहं पयत्तो जुगमेत्त-णिहित्त-णयण-णिक्खेवो । जं ण गओ हं तइया मिच्छामि हु दुक्कडं तस्स ॥ जंपंतेण य तइया भासा-समिएण जं ण आलत्तं । तस्स पमायस्साहं पायच्छित्तं पवज्जामि ॥ वत्थे पाणे भत्तेलण-गहण-घासमादीया (?) । एसण-समिई ण कया तं आणा-खंडणं णिंदे ।। आयाण-भंड-मेत्ते णिक्खेव-ग्गहण-ठावणे जं च । दुप्पमज्जिय-पडिलेहा एस पमाओ तयं णिंदे ॥ उच्चारे पासवणे खेले सिंघाण-जल्ल-समिईओ । दुप्पडिलेह-पमज्जिय उम्मग्गे णिंदिओ सो हु ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">पञ्च समितयः सम्यग् गुप्तयस् तिस्रो या भणिताः । प्रवचन-मातरः (?) चारित्राराधनैषा ॥ ईर्यापथं प्रयत्तो युग-मात्र-निहित-नयन-निक्षेपः । यन् न गतो ऽहं तदा मिथ्या मे खलु दुष्कृतं तस्य ॥ जल्पता च तदा भाषा-समितेन यन् नालप्तम् । तस्य प्रमादस्याहं प्रायश्चित्तं प्रपद्ये ॥ वस्त्रे पाने भक्त-… (?) -ग्रहण-ग्रासादिकाः । एषणा-समितिर् न कृता तद् आज्ञा-खण्डनं निन्दे ॥ आदान-भाण्ड-मात्रे निक्षेप-ग्रहण-स्थापने यच् च । दुष्प्रमार्जित-प्रतिलेखैष प्रमादस् तं निन्दे ॥ उच्चारे प्रस्रवणे खेले सिङ्घाण-जल्ल-समितयः । दुष्प्रतिलेख-प्रमार्जित उन्मार्गे निन्दितः स खलु ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p><strong>正しい五つの注意（サミティ）と、三つのつつしみ（グプティ）</strong>——〔これが、〕<strong>教えの母〔と言われるもの〕</strong>で、<strong>行いのアーラーダナー</strong>です。〔<strong>①歩くときの注意</strong>——〕<strong>くびき一つ分〔前方〕の地面に目をおとして、気をつけて歩かなかった</strong>こと——そのあやまちが、むなしくなりますように。〔<strong>②話すときの注意</strong>——〕話すときに、ことばに気をつけて、話さなかったこと——そのなまけのために、つぐないをいたします。〔<strong>③食べものを受けるときの注意</strong>——〕<strong>衣、飲みもの、食べもの</strong>を受けとったり、口に入れたりするときに、〔きよらかなものかどうか〕注意しなかったこと——その、〔ジナの〕命令をやぶったことを、くやみます。〔<strong>④ものを置いたり、とったりするときの注意</strong>——〕持ちものや器を、置いたり、とったり、しまったりするときに、よく見て、はらい清めなかったこと——このなまけを、くやみます。〔<strong>⑤排せつの注意</strong>——〕大便、小便、たん、はなじる、あかを、〔すてるときに〕、よく見て、はらい清めずに、ふさわしくない所に〔すてた〕こと——それを、くやみます。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>「くびき一つ分（ユガ・マートラ）前方の地面を見て歩く」</strong>——<strong>牛車のくびきの長さ（約1.8メートル）ほど先の地面を、よく見ながら歩き、虫などをふみつぶさないようにする</strong>、という、<strong>ジャイナ教の僧の、有名な歩きかたのきまり</strong>です。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-8">
+  <div class="verse-number">§ 413 · 8</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">भंजंतो सीलवणं मत्तो मण-कुंजरो वियरमाणो । जिण-वयण-वारि-बंधे जेण ण गुत्तो तयं णिंदे ॥ जो वयण-वण-दवग्गी पज्जलिओ डहइ संजमारामं । मोण-जलेण ण सित्तो (?) एस पमाओ तयं णिंदे ॥ अय-गोलओ व्व काओ जोग-फुलिंगेहिँ डहइ सव्व-जिए । तुंडेण (?) सो ण गुत्तो संजम-मइएण तं णिंदे ॥ इय एत्थ अईयारो पंचसु समिईसु तिसु व गुत्तीसु । जो जो य महं जाओ तं णिंदे तं च गरिहामि ॥ बारस-विहम्मि वि तवे सब्भिंतर-बाहिरे जिणक्खाए । संते विरियम्मि मए णिगूहियं जं तयं णिंदे ॥&#x27;</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">भञ्जञ् शील-वनं मत्तो मनः-कुञ्जरो विचरन् । जिन-वचन-वारी-बन्धे येन न गुप्तस् तं निन्दे ॥ यो वचन-वन-दवाग्निः प्रज्वलितो दहति संयमारामम् । मौन-जलेन न सिक्त (?) एष प्रमादस् तं निन्दे ॥ अयो-गोलक इव कायो योग-स्फुलिङ्गैर् दहति सर्व-जीवान् । … (?) स न गुप्तः संयम-मयेन तं निन्दे ॥ इत्य् अत्रातिचारः पञ्चसु समितिषु तिसृषु वा गुप्तिषु । यो यश् च मम जातस् तं निन्दे तं च गर्हे ॥ द्वादश-विधे ऽपि तपसि साभ्यन्तर-बाह्ये जिनाख्याते । सति वीर्ये मया निगूहितं यत् तन् निन्दे ॥&#x27;</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>〔<strong>⑥心のつつしみ</strong>——〕<strong>心という、酔った象</strong>が、よい行いの林を、ふみあらしながら、あばれまわっているのに、<strong>ジナのことばという「象をとらえる囲い」</strong>に、とじこめなかったこと——それを、くやみます。〔<strong>⑦ことばのつつしみ</strong>——〕<strong>ことばという、森の火事</strong>が、燃えあがって、<strong>自制の庭</strong>を焼いているのに、<strong>沈黙という水</strong>を、かけなかったこと——このなまけを、くやみます。〔<strong>⑧からだのつつしみ</strong>——〕からだは、<strong>〔まっかに焼けた〕鉄の玉</strong>のように、〔その〕うごきという火花で、すべての生き物を、焼いてしまう。それを、自制によって、つつしまなかったこと——それを、くやみます。このように、<strong>五つの注意と三つのつつしみ</strong>について、わたしがおかした、どんなあやまちも、くやみ、はじます。〔そして、<strong>力（ヴィーリヤ）のアーラーダナー</strong>として——〕ジナが説いた、<strong>内と外の、十二種の苦行</strong>について、<strong>力があったのに、〔その力を〕出しおしみした</strong>こと——それを、くやみます』。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>十二種の苦行</strong>——<strong>外の苦行六つ（断食、少食、食べものの制限、おいしいものを断つ、からだを苦しめる、ひとりでいる）</strong>と、<strong>内の苦行六つ（つぐない、うやまい、世話、学習、からだをすてる瞑想、瞑想）</strong>。ジャイナ教では、<strong>からだの苦行だけでなく、心の苦行も、同じように大切</strong>とされます。</p>
+    <p><span class="tag">修辞</span><strong>心＝酔った象、ことば＝森の火事、からだ＝焼けた鉄の玉</strong>——<strong>三つのつつしみ</strong>を、<strong>それぞれ、あぶないものに、たとえて</strong>います。<strong>「焼けた鉄の玉は、どこにふれても、生き物を焼いてしまう」</strong>——<strong>からだは、うごくだけで、小さな生き物を、たくさん傷つけている</strong>、という、<strong>ジャイナ教らしい考え</strong>です。</p>
+  </div>
+</div>
+
+<hr class="verse-sep">
+
+<div class="verse-block" id="s413-9">
+  <div class="verse-number">§ 413 · 9</div>
+  <div class="verse-columns">
+    <div>
+      <span class="lang-label">Prakrit</span>
+      <div class="verse-prakrit">
+        <span class="pada">एवं च चउक्खंधं आराहणं आराहिऊण मणिरहकुमारो साहू अपुव्वकरणेणं खवग-सेढीए अणंत-वर-णाण-दंसणं उप्पाडिऊण तक्काले कालस्स खवगत्ताए (?) अंतगड-केवली जाओ त्ति ॥</span>
+      </div>
+      <div class="verse-chaya">
+        <span class="lang-label">Chāyā</span>
+        <span class="pada">एवं च चतुः-स्कन्धाम् आराधनाम् आराध्य मणिरथकुमारः साधुर् अपूर्वकरणेन क्षपक-श्रेण्याम् अनन्त-वर-ज्ञान-दर्शनम् उत्पाद्य तत्काले कालस्य क्षपकतया (?) अन्तकृत्-केवली जात इति ॥</span>
+      </div>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese">
+      <span class="lang-label">和訳</span>
+      <p>こうして、四つの部分からなるアーラーダナーを、なしとげて、<strong>僧マニラタ王子</strong>は、「<strong>まだなかった境地（アプールヴァカラナ）</strong>」によって、「<strong>業をほろぼすはしご（クシャパカ・シュレーニ）</strong>」をのぼり、<strong>かぎりない、すぐれた知識と見る力</strong>を、あらわして、<strong>死ぬ、まさにその時に、全知者となって、そのまま救いを得る者（アンタクリト・ケーヴァリン）</strong>となった。</p>
+    </div>
+  </div>
+  <div class="commentary">
+    <div class="commentary-title">解説</div>
+    <p><span class="tag">教義</span><strong>アンタクリト・ケーヴァリン</strong>は、「<strong>〔輪廻を〕終わらせる全知者</strong>」の意味で、<strong>死のまぎわに全知を得て、すぐに救い（モークシャ）を得る人</strong>をいいます。<strong>§371 で、シーマンダラが説いた「アプールヴァカラナ」「はしご」</strong>が、<strong>ここで、マニラタの身の上に、実際に起こった</strong>のです。</p>
+    <p><span class="tag">人物</span><strong>マニラタは、クヴァラヤチャンドラ（この本の主人公）の魂</strong>です。<strong>マーナバタ（慢心）として始まった、この魂の長い旅</strong>が、<strong>ここで、ついに、救いによって終わった</strong>のです。<strong>五人の中で、最初に救いを得た</strong>のは、<strong>主人公の魂</strong>でした。</p>
+  </div>
+</div>
+
+<nav class="nav-sataka" style="margin-top:3rem"><a href="kuvalayamala_1.html" title="序章">第1巻</a> · <a href="kuvalayamala_2.html" title="ヴィニーターの王">第2巻</a> · <a href="kuvalayamala_3.html" title="王子の修業と馬">第3巻</a> · <a href="kuvalayamala_4.html" title="コーシャーンビーの王と師ダルマナンダナ">第4巻</a> · <a href="kuvalayamala_5.html" title="怒りの物語">第5巻</a> · <a href="kuvalayamala_6.html" title="慢心の物語">第6巻</a> · <a href="kuvalayamala_7.html" title="欺きの物語">第7巻</a> · <a href="kuvalayamala_8.html" title="貪りの物語">第8巻</a> · <a href="kuvalayamala_9.html" title="迷いの物語">第9巻</a> · <a href="kuvalayamala_10.html" title="夜の都と五人の約束">第10巻</a> · <a href="kuvalayamala_11.html" title="天界の物語">第11巻</a> · <a href="kuvalayamala_12.html" title="サーガラダッタの物語">第12巻</a> · <a href="kuvalayamala_13.html" title="ヴィンディヤの森">第13巻</a> · <a href="kuvalayamala_14.html" title="森の庵">第14巻</a> · <a href="kuvalayamala_15.html" title="ビッラの首領">第15巻</a> · <a href="kuvalayamala_16.html" title="首領の正体">第16巻</a> · <a href="kuvalayamala_17.html" title="ヴィジャヤーの都">第17巻</a> · <a href="kuvalayamala_18.html" title="恋の病">第18巻</a> · <a href="kuvalayamala_19.html" title="庭園の出会い">第19巻</a> · <a href="kuvalayamala_20.html" title="海を見る">第20巻</a> · <a href="kuvalayamala_21.html" title="旅立ち">第21巻</a> · <a href="kuvalayamala_22.html" title="輪廻の絵">第22巻</a> · <a href="kuvalayamala_23.html" title="運のない兄弟">第23巻</a> · <a href="kuvalayamala_24.html" title="錬金術師たち">第24巻</a> · <a href="kuvalayamala_25.html" title="宗教くらべ">第25巻</a> · <a href="kuvalayamala_26.html" title="得がたい四つのもの">第26巻</a> · <a href="kuvalayamala_27.html" title="師ダルパパリガ">第27巻</a> · <a href="kuvalayamala_28.html" title="マハーヴィーラの説法">第28巻</a> · <a href="kuvalayamala_29.html" title="牝鹿とスンダリー">第29巻</a> · <a href="kuvalayamala_30.html" title="業のむくい">第30巻</a> · <a href="kuvalayamala_31.html" title="月夜の空の旅">第31巻</a> · <a href="kuvalayamala_32.html" title="夢か、本当か">第32巻</a> · <a href="kuvalayamala_33.html" title="墓場の夜">第33巻</a> · <a href="kuvalayamala_34.html" title="地下の王国">第34巻</a> · <a href="kuvalayamala_35.html" title="七日めの夜明け">第35巻</a> · <a href="kuvalayamala_36.html" title="神をおがむ意味">第36巻</a> · <a href="kuvalayamala_37.html" title="バニヤンの木の鳥たち">第37巻</a> · <a href="kuvalayamala_38.html" title="夜明けに飛びたつ鳥">第38巻</a> · <span class="current">第39巻</span> · <a href="kuvalayamala_40.html" title="すべての生き物に、ゆるしを">第40巻</a> · <a href="kuvalayamala_41.html" title="おろかな死と、賢い死">第41巻</a> · <a href="kuvalayamala_42.html" title="五つの礼拝">第42巻</a> · <a href="kuvalayamala_43.html" title="作者のあとがき">第43巻</a></nav>
+
+<div class="colophon">
+  底本：A. N. Upadhye (ed.), <em>Uddyotanasūri's Kuvalayamālā</em>, Part I, Singhi Jain Series 45, Bombay: Bharatiya Vidya Bhavan, 1959（jainelibrary.org 所収OCRテキスト, No. 002777）。<br>
+  チャーヤー・和訳・解説は試訳です。
+</div>
+
+</body>
+</html>
