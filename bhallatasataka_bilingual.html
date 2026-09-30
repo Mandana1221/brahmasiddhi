@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>バッラタ百詠対訳</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --verse-num: #7E7265;
+  --note-bg: #EDE8DF;
+  --sanskrit-color: #2A2520;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --verse-num: #8A7F73;
+    --note-bg: #27251F;
+    --sanskrit-color: #DDD8D0;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --verse-num: #8A7F73;
+  --note-bg: #27251F;
+  --sanskrit-color: #DDD8D0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  line-height: 1.9;
+  padding: 3rem 1.5rem 5rem;
+  max-width: 960px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 1.65rem;
+  letter-spacing: 0.05em;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  letter-spacing: 0.03em;
+}
+.header-jp {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.toc {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+.toc h2 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.toc-list a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.92rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  transition: color 0.15s;
+}
+.toc-list a:hover { color: var(--accent-soft); }
+.toc-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem;
+  color: var(--verse-num);
+  flex-shrink: 0;
+  min-width: 1.2rem;
+}
+.toc-sanskrit {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.92rem;
+}
+
+.synopsis {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.synopsis h2 {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 1rem;
+}
+.synopsis-entry {
+  margin-bottom: 1.2rem;
+}
+.synopsis-head {
+  margin-bottom: 0.3rem;
+}
+.synopsis-head a {
+  text-decoration: none;
+  color: var(--ink);
+  display: flex;
+  align-items: baseline;
+  gap: 0.4rem;
+  flex-wrap: wrap;
+}
+.synopsis-head a:hover {
+  color: var(--accent);
+}
+.synopsis-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem;
+  color: var(--verse-num);
+  flex-shrink: 0;
+}
+.synopsis-skt {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.synopsis-jp {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 0.88rem;
+  font-weight: 500;
+  color: var(--accent);
+}
+.synopsis-text {
+  font-size: 0.82rem;
+  color: var(--ink-soft);
+  line-height: 1.8;
+  margin-left: 1.6rem;
+}
+
+.biblio {
+  padding-bottom: 2rem;
+  margin-bottom: 1rem;
+  border-bottom: 1px solid var(--rule);
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  line-height: 1.7;
+}
+.biblio h3 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  margin-bottom: 0.6rem;
+  letter-spacing: 0.04em;
+}
+.bib-quote {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.9rem;
+  font-style: italic;
+  color: var(--ink-soft);
+  padding-left: 1rem;
+  border-left: 2px solid var(--rule);
+  margin-bottom: 0.8rem;
+  line-height: 1.7;
+}
+.biblio p {
+  margin-bottom: 0.5rem;
+}
+
+.sarga-header {
+  text-align: center;
+  padding: 3rem 0 2rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.5rem;
+}
+.sarga-header h2 {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+}
+.sarga-header .sarga-jp {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+.sarga-header .sarga-meter {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.82rem;
+  font-style: italic;
+  color: var(--verse-num);
+  margin-top: 0.35rem;
+}
+
+.verse-block {
+  margin-bottom: 0;
+  padding: 1.6rem 0;
+}
+.verse-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--verse-num);
+  margin-bottom: 0.7rem;
+  padding-left: 2px;
+}
+.verse-columns {
+  display: grid;
+  grid-template-columns: 1fr 1px 1fr;
+  gap: 0 2rem;
+  align-items: start;
+}
+.verse-divider {
+  background: var(--rule);
+  width: 1px;
+  align-self: stretch;
+}
+.verse-sanskrit {
+  font-family: 'Gentium Book Plus', 'Noto Serif', serif;
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 2.1;
+  color: var(--sanskrit-color);
+  padding: 0.5rem 0;
+}
+.verse-sanskrit .pada {
+  display: block;
+}
+.verse-japanese {
+  font-family: 'Shippori Mincho', serif;
+  font-size: 1.05rem;
+  font-weight: 400;
+  line-height: 2;
+  color: var(--ink);
+  padding: 0.5rem 0;
+}
+.verse-japanese p {
+  margin: 0;
+}
+.lang-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--verse-num);
+  margin-bottom: 0.35rem;
+  display: block;
+}
+
+.commentary {
+  grid-column: 1 / -1;
+  margin-top: 0.6rem;
+  padding: 0.6rem 1.1rem;
+  background: var(--note-bg);
+  border-left: 2px solid var(--accent);
+  font-size: 0.95rem;
+  line-height: 1.75;
+  color: var(--ink-soft);
+}
+.commentary p {
+  margin: 0;
+}
+.commentary p + p {
+  margin-top: 0.3rem;
+}
+.commentary-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.2rem;
+  font-weight: 600;
+}
+.commentary em {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 0.9em;
+}
+
+.verse-sep {
+  border: none;
+  border-top: 1px solid var(--rule-light);
+  margin: 0 6rem;
+  opacity: 0.6;
+}
+
+.back-top {
+  display: block;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.78rem;
+  color: var(--verse-num);
+  text-decoration: none;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.1em;
+}
+.back-top:hover { color: var(--accent); }
+
+.colophon {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--verse-num);
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.08em;
+}
+.colophon-jp {
+  font-family: 'Shippori Mincho', serif;
+  letter-spacing: 0;
+  margin-top: 0.3rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 640px) {
+  body { padding: 2rem 1rem 3rem; }
+  .header h1 { font-size: 1.35rem; }
+  .header-devanagari { font-size: 1.15rem; }
+  .verse-columns {
+    grid-template-columns: 1fr;
+    gap: 0.75rem 0;
+  }
+  .verse-divider { display: none; }
+  .verse-sanskrit { font-size: 1.05rem; }
+  .verse-japanese { font-size: 0.95rem; }
+  .verse-sep { margin: 0 3rem; }
+  .commentary { font-size: 0.88rem; padding: 0.5rem 0.8rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; }
+}
+
+@media print {
+  .back-top, .toc { display: none; }
+  .verse-block { page-break-inside: avoid; }
+}
+.vasudeva {
+  margin-top: 0.5rem;
+  padding-top: 0.4rem;
+  border-top: 1px dashed var(--rule);
+  font-size: 0.9rem;
+}
+.vasudeva .tag {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  margin-right: 0.4rem;
+}
+.pending { color: var(--verse-num); font-style: normal; }
+.iast { font-family: 'Gentium Book Plus', 'Noto Serif', serif; font-style: italic; }
+.gloss { margin-top: 0.3rem; }
+.gloss dt { display: inline; font-family: 'Gentium Book Plus', serif; font-style: italic; color: var(--ink); }
+.gloss dd { display: inline; margin: 0 0 0 0.3rem; }
+.gloss dd::after { content: ""; display: block; }
+.notice {
+  font-size: 0.85rem; color: var(--ink-soft); background: var(--note-bg);
+  padding: 0.8rem 1rem; border-left: 2px solid var(--accent-soft); margin-bottom: 2rem; line-height: 1.8;
+}
+</style>
+
+</head>
+<body>
+<div id="top"></div>
+
+<div class="header">
+  <div class="header-devanagari">भल्लटशतकम्</div>
+  <h1>Bhallaṭaśataka</h1>
+  <div class="header-sub">Bhallaṭa · The Hundred Allegories</div>
+  <div class="header-jp">バッラタ作『バッラタ百詠（バッラタ・シャタカ）』対訳【見本：第1–10偈】</div>
+</div>
+
+<div class="notice">
+  <p><strong>凡例</strong></p>
+  <p>・左欄はサンスクリット原文（IAST）、右欄は和訳です。<strong>底本は Vasudeva 2005（Clay Sanskrit Library）の本文</strong>です。Vasudeva はこの作品について、Kāvyamālā 版（gucchaka IV, 1899）と Vedkumari Ghai &amp; Rampratap の校訂本（1985）、および詞華集の引用を用いています。GRETIL 版は参考として照合し、主な異同を解説の【本文】に記しました。</p>
+  <p>・和訳はサンスクリット原文から直接訳し、Vasudeva の英訳は解釈の確認に使いました。解説では、Vasudeva の英訳・注を<strong>短い語句の引用と要約</strong>で紹介し、頁数を示しています（英訳全文の転載はしていません）。Vasudeva の注には、注釈者マヘーシュヴァラ（Maheśvara）の注がしばしば引かれています。</p>
+  <p>・表記：CSL 版独自の表記（複合語の区切り「|」、連声を示す â・ê など）は通常の IAST に直し、複合語の切れ目はハイフンで示しました。長い韻律の偈は、底本と同じく、各パーダ（四分の一偈）を切れ目（休止）で二行に分け、後半を字下げして示しました。句読点（！？“ ”）は底本に従いました。</p>
+  <p>・原作は9世紀の作品で、原文そのものに著作権はありません。ただし校訂本文は Vasudeva 氏の成果なので、出典を明記し、学習・研究用途にとどめてください。</p>
+  <p>・この作品は偈ごとに韻律が異なるため、各偈の解説に【韻律】を記しました。</p>
+</div>
+
+<div class="biblio">
+  <h3>参照文献</h3>
+  <p>Vasudeva, Somadeva (ed. &amp; tr.). <i>Three Satires: Nīlakaṇṭha, Kṣemendra &amp; Bhallaṭa</i>. Clay Sanskrit Library. New York: New York University Press / JJC Foundation, 2005. 〔<strong>底本</strong>。以下「V」と略し、頁数を付す。本文 pp. 28–90（偶数頁）、英訳 pp. 29–91（奇数頁）、注 pp. 342–344〕</p>
+  <p>GRETIL: Bhallaṭa, <i>Bhallaṭaśataka</i>. Data entry: Somadeva Vasudeva (2020-07-31 版). CC BY-NC-SA 4.0.〔参考・照合用〕</p>
+  <p>作者バッラタは、9世紀カシミールのアヴァンティヴァルマン王（在位855–883年）に仕えた宮廷詩人です。歴史家カルハナによれば、次のシャンカラヴァルマン王（在位883–902年）が詩人への保護を打ち切ったため、バッラタたちは卑しい仕事で生計を立てることになりました。『バッラタ百詠』は、一偈ずつ独立した「単独詩（muktaka）」を集めたもので、寓意による風刺（anyāpadeśa）だけで編まれた詩集としては、現存最古のものとされます。木・宝石・蛇・太陽・海などの姿に託して、恩知らずの権力者や、成り上がりの悪人、報われない才人の嘆きを詠います。</p>
+</div>
+
+<div class="sarga-header" id="part1">
+  <h2>Bhallaṭaśataka</h2>
+  <div class="sarga-jp">第1–10偈（見本）</div>
+  <div class="sarga-meter">muktaka · anyāpadeśa</div>
+</div>
+
+<div class="verse-block" id="v1">
+  <div class="verse-number">Verse 1</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">tāṃ bhavānīṃ bhavānīta-</span>
+      <span class="pada">kleśa-nāśa-viśāradām,</span>
+      <span class="pada">śāradāṃ śarad-ambhoda-</span>
+      <span class="pada">sita-siṃhāsanāṃ numaḥ!</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>輪廻がもたらす苦しみを滅ぼすことに長け、秋の雲のように白い獅子座に座す、シャーラダー（弁才の女神）なるバヴァーニー（シヴァの妃）を、われらは讃える。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】アヌシュトゥブ（一行8音節×4）。</p>
+      <p>【音】<span class="iast">bhavānīṃ bhavānīta</span>（バヴァーニーを／生存〈bhava〉がもたらした）、<span class="iast">śāradāṃ śarad-ambhoda</span>（シャーラダーを／秋〈śarad〉の雲の）と、同じ音を意味を変えて繰り返す「ヤマカ」という技法です。</p>
+      <p>【構成】冒頭の帰敬偈です。『バッラタ百詠』は、一偈ずつ独立した「単独詩（muktaka）」を百あまり集めたもので、そのほとんどが、自然の事物に託して人の世を風刺する「寓意詩（anyāpadeśa）」です。</p>
+      <p>【本文】V は <span class="iast">numaḥ</span>「讃える」、GRETIL は <span class="iast">namaḥ</span>「帰命」です。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva 注 (Bh 1, p. 342)</span>シャーラダーはカシミールの守護女神で、しばしば弁才の女神サラスヴァティーと同一視される、とあります。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v2">
+  <div class="verse-number">Verse 2</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">yuṣmākam ambara-maṇeḥ prathame mayūkhās</span>
+      <span class="pada">te maṅgalaṃ vidadhatūdaya-rāga-bhājaḥ,</span>
+      <span class="pada">kurvanti ye divasa-janma-mahotsaveṣu</span>
+      <span class="pada">sindūra-pāṭala-mukhīr iva dik-purandhrīḥ.</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>天の宝珠（太陽）の最初の光が、あなたがたに吉祥をもたらしますように。朝焼けの紅をまとったその光は、日の誕生という大祝祭にあたって、方角の女たちの顔を、朱で赤く染めるかのようである。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】ヴァサンタティラカー（一行14音節）。</p>
+      <p>【語彙】<span class="iast">ambara-maṇi</span>「空の宝石」＝太陽。<span class="iast">dik-purandhrī</span>「方角の婦人」は、四方の方角を女性に見立てる詩の約束事です。</p>
+      <p>【構成】第二の祝福の偈です。太陽の光が方角の女たちの顔を赤く染めるのを、祝いの日に顔に朱を塗る習慣に重ねています。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva 注 (Bh 2, p. 342)</span>注釈者マヘーシュヴァラは、このように顔を赤く染めるのは、息子の誕生の祝いの習わしだったと注している、とあります。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v3">
+  <div class="verse-number">Verse 3</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">baddhā yad-arpaṇa-rasena vimarda-pūrvam</span>
+      <span class="pada">arthān kathaṃ jhaṭiti tān prakṛtān na dadyuḥ?</span>
+      <span class="pada">caurā ivātimṛdavo mahatāṃ kavīnām</span>
+      <span class="pada">arthāntarāṇy api haṭhād vitaranti śabdāḥ.</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>大詩人たちの言葉は、ある意味を伝えたいという思いから、よく吟味されて結びつけられている。それなら、どうしてその本来の意味をすぐに差し出さないことがあろうか。ところが、その言葉は、ごくおとなしい盗人のように、強いて問い詰められると、別の意味まで白状するのだ。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】ヴァサンタティラカー。</p>
+      <p>【掛詞】言葉と盗人の二重写しです。<span class="iast">baddhāḥ</span>「（言葉が）組み合わされた／（盗人が）縛られた」、<span class="iast">vimarda</span>「吟味／尋問、拷問」、<span class="iast">prakṛtān arthān</span>「本来の意味／盗まれた品」、<span class="iast">arthāntarāṇi</span>「別の意味（言外の意味）／余罪」、<span class="iast">atimṛdu</span>「ごく穏やかな／こっそりと動く」。</p>
+      <p>【背景】すぐれた詩の言葉は、字義どおりの意味（abhidhā）のほかに、言外の意味（dhvani）を含む、というカシミールの詩論家アーナンダヴァルダナの説を踏まえています。この作品自体が、言外の意味を読ませる寓意詩集であることの宣言でもあります。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva</span>V は英訳で、言葉の意味と盗人の意味を「：」で並べて示しています（V p. 29）。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v4">
+  <div class="verse-number">Verse 4</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">kāco maṇir maṇiḥ kāco</span>
+      <span class="pada">yeṣāṃ te 'nye hi dehinaḥ;</span>
+      <span class="pada">santi te sudhiyo yeṣāṃ</span>
+      <span class="pada">kācaḥ kāco maṇir maṇiḥ.</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>ガラスが宝石に、宝石がガラスに見える者たちは、（人間ではなく）別の生き物にすぎない。ガラスはガラス、宝石は宝石と見分ける者たちこそが、賢者なのだ。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】アヌシュトゥブ。</p>
+      <p>【修辞】前半と後半で <span class="iast">kāca</span>「ガラス」と <span class="iast">maṇi</span>「宝石」を入れ替えて繰り返す、言葉遊びの構成です。ここでの「宝石」は、真に価値ある人（すぐれた学者や詩人）の比喩です。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva 注 (Bh 4, p. 342)</span>マヘーシュヴァラ注「彼らは、手足などの肢体をもつ体という重荷を運ぶだけの者にすぎない」を引いています。V は <span class="iast">anye dehinaḥ</span> を「もの言わぬ獣（dumb beasts）」と訳しています。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v5">
+  <div class="verse-number">Verse 5</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">nanv āśraya-sthitir iyaṃ tava, kālakūṭa!</span>
+      <span class="pada">kenottarottara-viśiṣṭa-padopadiṣṭā?</span>
+      <span class="pada">prāg arṇavasya hṛdaye, vṛṣa-lakṣmaṇo 'tha</span>
+      <span class="pada">kaṇṭhe, 'dhunā vasasi vāci punaḥ khalānām.</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>ねえ、猛毒カーラクータよ、住む所を次々とより高い地位へ移していくこの処世術を、いったい誰がお前に教えたのか。はじめは海の胸の中に、次には牛の旗印をもつ神（シヴァ）の喉に住み、そして今は、悪人たちの言葉の中に住んでいる。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】ヴァサンタティラカー。</p>
+      <p>【背景】神々と阿修羅が乳海をかき混ぜたとき、世界を焼き尽くす猛毒カーラクータが現れました。シヴァがそれを飲み込んで喉にとどめたため、喉が青くなった（ニーラカンタ＝青い喉）とされます。毒が「海→神の喉→悪人の口」と出世していく、という皮肉で、悪人の言葉はシヴァの喉よりも「高い」＝恐ろしい、というわけです。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva 注 (Bh 5, p. 342)</span>マヘーシュヴァラ注「悪人は、わずかな地位を得ると、さらに高く昇ろうとする」を引いています。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v6">
+  <div class="verse-number">Verse 6</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">draviṇam āpadi, bhūṣaṇam utsave,</span>
+      <span class="pada">śaraṇam ātma-bhaye, niśi dīpakaḥ,</span>
+      <span class="pada">bahu-vidhābhyupakāra-bhara-kṣamo</span>
+      <span class="pada">bhavati ko 'pi bhavān iva san-maṇiḥ?</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>困ったときには財となり、祝いのときには飾りとなり、身の危険には避難所となり、夜には灯火となる――このように、さまざまな助け（飾り）の重責に耐える、あなたのような真の宝石が、ほかにあろうか。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】ドルタヴィランビタ（一行12音節）。</p>
+      <p>【寓意】表向きは宝石への賛辞ですが、真に役立つ立派な人物への賛辞として読みます。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva 注 (Bh 6c, p. 342)</span><span class="iast">abhyupakāra</span> は「飾り」と「助け、有用性」の両方の意味になる、とあります。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v7">
+  <div class="verse-number">Verse 7</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">śrīr viśṛṅkhala-khalābhisārikā</span>
+      <span class="pada">vartmabhir ghana-tamo-malīmasaiḥ</span>
+      <span class="pada">śabda-mātram api soḍhum akṣamā</span>
+      <span class="pada">bhūṣaṇasya guṇinaḥ samutthitam.</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>幸運の女神は、濃い闇で黒ずんだ道を通って、恥知らずな悪人のもとへ忍んで行く女である。だから、紐のついた装身具が立てるかすかな音にさえ耐えられない（＝徳ある人がかける一言にさえ耳を貸さない）。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】ラトッダター（一行11音節）。</p>
+      <p>【掛詞】<span class="iast">abhisārikā</span> は、恋人のもとへ忍んで行く女性（古典詩の女主人公の類型の一つ）で、鈴の鳴る腰帯などの音を立てないよう気をつけます。<span class="iast">guṇin</span> は「紐のある」と「徳のある」、<span class="iast">bhūṣaṇa</span> は「装身具」と「（人を）飾る言葉」の両方の意味です。幸運（富）は悪人のもとにばかり行き、善人の言葉を嫌う、という風刺です。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva</span>V は二つ目の意味として「徳ある人が語った一言さえ聞き入れようとしない」と訳しています（V p. 31）。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v8">
+  <div class="verse-number">Verse 8</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">māne necchati, vārayaty upaśame</span>
+      <span class="pada" style="padding-left:1.8em">kṣmām ālikhantyāṃ hriyāṃ,</span>
+      <span class="pada">svātantrye parivṛtya tiṣṭhati, karau</span>
+      <span class="pada" style="padding-left:1.8em">vyādhūya dhairyaṃ gate —</span>
+      <span class="pada">tṛṣṇe! tvām anubadhnatā phalam iyat</span>
+      <span class="pada" style="padding-left:1.8em">prāptaṃ janenāmunā:</span>
+      <span class="pada">yaḥ spṛṣṭo na padā sa eva caraṇau</span>
+      <span class="pada" style="padding-left:1.8em">spraṣṭuṃ na saṃmanyate.</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>欲よ！　誇りが望まず、自制が引きとめ、恥じらいが地面に線を引き、自由な心が背を向けて立ち、気概が手を振り払って去っていったのに、お前につき従ってきたこの私が得た報いは、これだけだった――足で触れる気にもならなかった男が、今は、その足に（ひれ伏して）触れることさえ許してくれない。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】シャールドゥーラヴィクリーディタ（一行19音節）。</p>
+      <p>【修辞】誇り（māna）・自制（upaśama）・恥じらい（hrī）・自由（svātantrya）・気概（dhairya）を、主人を止めようとする女たちのように擬人化しています。「地面に線を引く」は、恥じらう女性の典型的なしぐさです。</p>
+      <p>【寓意】欲に駆られて卑しい権力者にへつらった者の、屈辱の告白です。宮廷詩人の地位を失った作者自身の境遇も重ねられているのかもしれません。</p>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v9">
+  <div class="verse-number">Verse 9</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">patatu vāriṇi, yātu dig-antaraṃ,</span>
+      <span class="pada">viśatu vahnim, adho vrajatu kṣitim;</span>
+      <span class="pada">ravir asāv iyatāsya guṇeṣu kā</span>
+      <span class="pada">sakala-loka-camatkṛtiṣu kṣatiḥ?</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>あの太陽は、水に沈もうと、地平の彼方へ行こうと、火に入ろうと、地の下へ降りていこうと、構わない。それしきのことで、全世界を驚嘆させるその美点に、何の傷がつこうか。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】ドルタヴィランビタ。</p>
+      <p>【掛詞】V は、太陽の動きが酔っぱらいのふるまいにも読めると指摘しています（「水たまりに落ち、裸で走り回り、火に転げ込み、泥の中を転げ回る」）。偉大な人物は、多少の失態があっても、その美点が損なわれることはない、という寓意です。</p>
+      <p>【本文】V は <span class="iast">adho vrajatu</span>「下へ行こうと」、GRETIL は <span class="iast">atha vrajatu</span> です。</p>
+      <div class="vasudeva"><span class="tag">Vasudeva 注 (Bh 9, p. 342)</span>マヘーシュヴァラは「日の終わりに太陽は自らの輝きを火に預ける、と世間では言われる」と注している、とあります。また、太陽のいわゆる「不品行」は、掛詞で酔っぱらいのふるまいを描いている、とあります。</div>
+    </div>
+  </div>
+</div>
+<hr class="verse-sep">
+
+<div class="verse-block" id="v10">
+  <div class="verse-number">Verse 10</div>
+  <div class="verse-columns">
+    <div class="verse-sanskrit"><span class="lang-label">Sanskrit</span>
+      <span class="pada">sad-vṛttayaḥ sad-asad-artha-vivekino ye</span>
+      <span class="pada">te paśya kīdṛśam amuṃ samudāharanti;</span>
+      <span class="pada">caurāsatī-prabhṛtayo bruvate yad asya</span>
+      <span class="pada">tad gṛhyate yadi, kṛtaṃ tad ahas-kareṇa.</span>
+    </div>
+    <div class="verse-divider"></div>
+    <div class="verse-japanese"><span class="lang-label">和訳</span>
+      <p>行いが正しく、真実と虚偽とを見分ける人々が、この者（太陽）をどう語っているかを見るがよい。泥棒や浮気女たちが言うことを真に受けたら、日を作る者（太陽）は、もうおしまいだ。</p>
+    </div>
+    <div class="commentary">
+      <div class="commentary-title">解説</div>
+      <p>【韻律】ヴァサンタティラカー。</p>
+      <p>【寓意】泥棒や浮気女は、明るい昼を嫌うので、太陽の悪口を言います。人の評価は、悪人の陰口ではなく、正しい人々の言葉で判断せよ、という教えです。9 偈から続く「太陽」をめぐる寓意詩のまとまり（9–13 偈）の一つです。</p>
+    </div>
+  </div>
+</div>
+
+<a class="back-top" href="#top">↑ 冒頭へ</a>
+
+<div class="colophon">
+  Bhallaṭa, Bhallaṭaśataka 1–10 · Sanskrit text: ed. S. Vasudeva, <i>Three Satires</i> (CSL 2005); collated with GRETIL
+  <div class="colophon-jp">和訳・解説：見本版。Vasudeva 2005 からの引用は短い語句と注の要約にとどめています。</div>
+</div>
+</body>
+</html>
