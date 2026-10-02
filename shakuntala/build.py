@@ -28,6 +28,15 @@ SPEAKERS = {
     'anasūyā': 'アナスーヤー',
     'nepathye': '舞台裏で',
     'vidūṣakaḥ': '道化',
+    'dauvārikaḥ': '門番',
+    'senāpatiḥ': '将軍',
+    'parijanaḥ': 'お供の者たち',
+    'tāpasau': '二人の苦行者',
+    'ṛṣī': '二人の苦行者',
+    'ubhau': '二人',
+    'prathamaḥ': '一人目',
+    'dvitīyaḥ': '二人目',
+    'karabhakaḥ': 'カラバカ',
 }
 
 METERS = {
@@ -41,6 +50,9 @@ METERS = {
     'mālinī': 'マーリニー',
     'vaṃśastha': 'ヴァンシャスタ',
     'puṣpitāgrā': 'プシュピターグラー',
+    'upajāti': 'ウパジャーティ',
+    'drutavilambita': 'ドルタヴィランビタ',
+    'viyoginī': 'ヴィヨーギニー',
 }
 
 
