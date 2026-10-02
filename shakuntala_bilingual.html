@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>シャクンタラー対訳</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --verse-num: #7E7265;
+  --note-bg: #EDE8DF;
+  --verse-bg: #EFEAE1;
+  --prakrit: #4F5B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --verse-num: #8A7F73;
+    --note-bg: #27251F;
+    --verse-bg: #24221F;
+    --prakrit: #A9B78C;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --verse-num: #8A7F73;
+  --note-bg: #27251F;
+  --verse-bg: #24221F;
+  --prakrit: #A9B78C;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', serif;
+  line-height: 1.9;
+  padding: 3rem 1.5rem 5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 冒頭 ---------- */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-iast {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: 1.45rem;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.7rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.toc, .front-sec {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+.toc h2, .front-sec h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.9rem;
+}
+.front-sec h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 1.2rem 0 0.4rem;
+}
+.front-sec p, .front-sec li {
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.95;
+}
+.front-sec p + p { margin-top: 0.6rem; }
+.front-sec ul { padding-left: 1.3rem; }
+.front-sec li + li { margin-top: 0.3rem; }
+.toc-list { list-style: none; }
+.toc-list a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+.toc-list a:hover { color: var(--accent-soft); }
+.toc-num {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--verse-num);
+  min-width: 1.2rem;
+}
+.toc-skt { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.9rem; }
+.pending { color: var(--verse-num); font-size: 0.88rem; padding: 0.4rem 0; }
+
+.synopsis-entry { margin-bottom: 1rem; }
+.synopsis-head { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+
+table.cast {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+table.cast th, table.cast td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.45rem 0.6rem 0.45rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  line-height: 1.7;
+}
+table.cast th {
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+table.cast td.iast { font-family: 'Noto Serif', serif; font-style: italic; white-space: nowrap; }
+table.cast td.name { white-space: nowrap; font-weight: 600; }
+.lang-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  margin-left: 0.3rem;
+  font-weight: 400;
+}
+
+/* ---------- 幕 ---------- */
+.act-header {
+  text-align: center;
+  padding: 3rem 0 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.5rem;
+}
+.act-header h2 {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+.act-jp { font-size: 1.1rem; font-weight: 600; }
+.scene-head {
+  text-align: center;
+  margin: 2rem 0 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.scene-skt { font-family: 'Noto Serif', serif; font-style: italic; color: var(--accent); }
+.scene-jp { font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.15em; }
+
+.row {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+.row.verse {
+  background: var(--verse-bg);
+  padding: 1.1rem 1rem;
+  margin: 0.4rem -1rem;
+  border-bottom: none;
+  border-radius: 4px;
+}
+.speaker {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+.sp-skt {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+.sp-jp { font-size: 0.8rem; font-weight: 600; color: var(--accent); }
+.verse-number {
+  font-size: 0.75rem;
+  color: var(--verse-num);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.08em;
+}
+.meter {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  margin-left: 0.8rem;
+  letter-spacing: 0;
+}
+.cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  gap: 0 1.6rem;
+  align-items: start;
+}
+.divider { background: var(--rule); width: 1px; align-self: stretch; }
+.col-l {
+  font-family: 'Noto Serif', serif;
+  font-size: 1rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.col-r { font-size: 1rem; line-height: 1.95; }
+.col-l .prakrit, .verse-skt.prakrit { color: var(--prakrit); }
+.chaya, .verse-chaya {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  line-height: 1.7;
+}
+.lang-label {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--verse-num);
+  margin-right: 0.5rem;
+  font-style: italic;
+}
+.verse-chaya .lang-label { display: block; margin-bottom: 0.1rem; }
+.pada { display: block; }
+.verse-skt { font-size: 1.05rem; line-height: 1.9; }
+.verse-skt .pada + .pada { margin-top: 0.15rem; }
+.verse-ja { font-size: 1.02rem; }
+.sd-in { font-style: italic; color: var(--ink-soft); }
+.col-r .sd-in { font-style: normal; }
+.row.sd .col-l, .row.sd .col-r { font-style: italic; color: var(--ink-soft); font-size: 0.92rem; }
+.row.sd .col-r { font-style: normal; }
+.row.endline { text-align: center; border-bottom: none; padding-top: 2rem; }
+.row.endline .col-l, .row.endline .col-r { color: var(--accent); }
+
+.commentary {
+  margin-top: 0.7rem;
+  padding: 0.55rem 1rem;
+  background: var(--note-bg);
+  border-left: 2px solid var(--accent);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+.row.verse .commentary { background: var(--ground); }
+.commentary p + p { margin-top: 0.3rem; }
+.commentary-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.back-top {
+  display: block;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--verse-num);
+  text-decoration: none;
+}
+.back-top:hover { color: var(--accent); }
+.colophon {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--verse-num);
+  line-height: 1.8;
+}
+
+@media (max-width: 680px) {
+  body { padding: 2rem 1rem 3rem; }
+  .header h1 { font-size: 1.4rem; }
+  .cols { grid-template-columns: minmax(0, 1fr); gap: 0.5rem 0; }
+  .divider { display: none; }
+  .col-r { border-top: 1px dashed var(--rule-light); padding-top: 0.4rem; }
+  .row.verse { margin: 0.4rem 0; padding: 0.9rem 0.7rem; }
+  table.cast td.iast, table.cast td.name { white-space: normal; }
+  table.cast { font-size: 0.85rem; }
+}
+@media print {
+  .back-top, .toc { display: none; }
+  .row { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div id="top"></div>
+
+<div class="header">
+  <div class="header-iast">Abhijñānaśakuntalam</div>
+  <h1>シャクンタラー</h1>
+  <div class="header-sub">Kālidāsa · Sanskrit–Japanese</div>
+  <div class="header-jp">カーリダーサ作『アビジュニャーナ・シャクンタラム（しるしによって思い出されたシャクンタラー）』<br>サンスクリット・日本語対訳（ベンガル系伝本による）</div>
+</div>
+
+<nav class="toc">
+  <h2>目　次</h2>
+  <ul class="toc-list">
+    <li><a href="#about"><span class="toc-num">·</span><span>この対訳について</span></a></li>
+    <li><a href="#synopsis"><span class="toc-num">·</span><span>あらすじ</span></a></li>
+    <li><a href="#cast"><span class="toc-num">·</span><span>登場人物</span></a></li>
+    <li><a href="#act1"><span class="toc-num">1</span><span class="toc-skt">prathamo 'ṅkaḥ</span><span>第一幕　庵での出会い</span></a></li>
+  </ul>
+</nav>
+
+<section class="front-sec" id="about">
+  <h2>この対訳について</h2>
+  <p>『シャクンタラー』は、古代インド最大の詩人とされるカーリダーサ（4〜5世紀ごろ）の戯曲で、全七幕からなります。サンスクリット演劇の最高傑作とされ、18世紀末に西洋語に訳されるとゲーテらにも深い感動を与えました。</p>
+  <h3>本文について</h3>
+  <ul>
+    <li>原文は、いわゆる<strong>ベンガル系伝本</strong>（東インドに伝わった写本の系統）によります。日本でよく読まれる「デーヴァナーガリー系伝本」とは、語句や台詞の量が少しずつ異なります。</li>
+    <li>原文はすべて <strong>IAST</strong>（国際サンスクリット翻字方式）で表記しました。連声（サンディ：語と語の境目で起こる音の変化）は、ふつうの校訂本と同じく実際に起こった形で書いています。</li>
+    <li>王や聖仙など、教養ある男性の台詞は<strong>サンスクリット</strong>です。女性・子ども・道化などの台詞は<strong>プラークリット</strong>（日常の話し言葉。この劇では主にシャウラセーニー語）で、<span style="color:var(--prakrit)">緑がかった色</span>で示しました。その下に、プラークリットをサンスクリットに置き換えた<strong>チャーヤー（chāyā「影」）</strong>を添えています。</li>
+    <li>底本の読みが崩れていて意味がとりにくい箇所は、広く知られた読みに改め、そのことを注に記しました。</li>
+    <li>詩節の番号は、序幕の詩も含めて幕ごとに通し番号をつけたもので、この対訳独自のものです。</li>
+  </ul>
+  <h3>訳と注について</h3>
+  <ul>
+    <li>日本語訳は、サンスクリット・プラークリットの原文から<strong>直接</strong>訳した書き下ろしです。既存の翻訳（英訳を含む）を訳し直したものではありません。</li>
+    <li>注は、初めて読む人に必要なこと（言葉の意味、神話や習慣の背景、場面の仕かけ、詩の技法）にしぼって書き下ろしました。</li>
+    <li>括弧内の斜体は<strong>ト書き</strong>（しぐさや動きの指示）です。灰色の背景の段は<strong>詩節</strong>で、韻律（詩の型）の名前を添えています。</li>
+    <li>この訳は専門家の校閲を経ていません。論文などに引用するときは、必ず校訂本や既存の研究と照らし合わせてください。</li>
+  </ul>
+  <h3>舞台用語</h3>
+  <ul>
+    <li><strong>ātmagatam / svagatam</strong>（独り言）――ほかの人物には聞こえないことにして言う台詞。</li>
+    <li><strong>apavārya</strong>（わきを向いて）――顔をそむけて、特定の相手に聞かれないように言う台詞。</li>
+    <li><strong>janāntikam</strong>（そっと）――手で隠すしぐさをして、特定の相手にだけ聞こえることにして言う台詞。</li>
+    <li><strong>prakāśam</strong>（声に出して）――舞台の全員に聞こえる、ふつうの台詞に戻る印。</li>
+    <li><strong>nepathye</strong>（舞台裏で）――楽屋から声だけが聞こえる台詞。</li>
+  </ul>
+</section>
+
+<section class="front-sec" id="synopsis">
+  <h2>あらすじ</h2>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">序幕</div>
+    <p>座頭（一座の長）と女優が、夏の歌をうたって観客を劇の世界へ誘い、王ドゥシヤンタの登場を告げる。</p>
+  </div>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">第一幕　庵での出会い</div>
+    <p>プル族の王ドゥシヤンタは、狩りで鹿を追ううちに聖仙カンヴァの庵に行き着く。カンヴァは留守で、養女のシャクンタラーが二人の友（アナスーヤーとプリヤンヴァダー）と木に水をやっている。王は身分を隠して近づき、シャクンタラーが天女メーナカーと王仙ヴィシュヴァーミトラの娘で、自分と結婚できる身分だと知る。二人は互いに惹かれあうが、王の家来たちが森を騒がせたため、その場は別れる。</p>
+  </div>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">第二幕　王の打ち明け話</div>
+    <p>狩りに連れ回されてうんざりしている道化マーダヴィヤに、王はシャクンタラーへの恋を打ち明ける。そこへ庵の苦行者たちが来て、祭式を邪魔する悪鬼から庵を守ってほしいと頼む。同じとき、都の母后から帰りを求める使いが来る。王は道化を自分の代わりに都へ帰すが、そのとき「あの娘の話は冗談だ」と言っておく。このため、のちに道化が王に恋のことを思い出させることはない。</p>
+  </div>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">第三幕　ひそかな結婚</div>
+    <p>恋わずらいで弱ったシャクンタラーは、友たちにすすめられて、蓮の葉に恋文を書く。隠れて聞いていた王が姿を現し、二人は思いを確かめあう。二人は、親の許しを必要としない「ガンダルヴァ婚」という形で、ひそかに結ばれる。</p>
+  </div>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">第四幕　旅立ち</div>
+    <p>王は都へ帰っていった。王のことばかり考えているシャクンタラーは、庵を訪れた怒りっぽい聖仙ドゥルヴァーサスに気づかず、もてなしをおこたる。聖仙は「おまえが思っている男は、おまえを忘れるだろう」と呪う。友たちのとりなしで、「しるしの品を見せれば呪いは解ける」と和らげられる。旅から戻ったカンヴァは、シャクンタラーが身ごもったことを知り、王のもとへ送り出す。庵の木々や動物、友たちとの別れの場面は、この劇でもっとも名高い。</p>
+  </div>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">第五幕　拒まれた妻</div>
+    <p>都の王宮で、呪いのため王はシャクンタラーのことをまったく思い出せない。しるしの指輪は、途中の聖地で沐浴したときに指から抜け落ちていた。偽りの妻として拒まれたシャクンタラーは嘆き悲しむが、天から光が降りてきて、彼女を連れ去ってしまう。</p>
+  </div>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">第六幕　指輪の発見</div>
+    <p>漁師が魚の腹から王の指輪を見つけ、王はすべてを思い出す。王は深い後悔に沈み、春の祭りも禁じて、シャクンタラーの肖像画を描いては嘆く日々を送る。そこへインドラ神の御者マータリが現れ、悪魔との戦いのために王を天界へ連れていく。</p>
+  </div>
+  <div class="synopsis-entry">
+    <div class="synopsis-head">第七幕　再会</div>
+    <p>天界からの帰り道、王はヘーマクータ山にある神々の父マーリーチャ（カシュヤパ）の庵に立ち寄る。そこで、ライオンの子と遊ぶ勇ましい少年に出会い、それが自分の息子だと知る。シャクンタラーとも再会し、マーリーチャから呪いのいきさつを聞かされて、二人は和解する。少年はのちに全世界を治める王バラタとなる。</p>
+  </div>
+</section>
+
+<section class="front-sec" id="cast">
+  <h2>登場人物</h2>
+  <p>おもな人物を、最初に登場する幕の順に並べました。<span class="lang-tag">Pk</span>はプラークリットで話す人物です。</p>
+
+  <h3>中心となる人物</h3>
+  <table class="cast">
+    <tr><th>名前</th><th>IAST</th><th>どんな人物か</th></tr>
+    <tr><td class="name">ドゥシヤンタ</td><td class="iast">Duṣyanta</td><td>プル族の王。主人公。劇中では多く「王（rājā）」と呼ばれる。</td></tr>
+    <tr><td class="name">シャクンタラー<span class="lang-tag">Pk</span></td><td class="iast">Śakuntalā</td><td>ヒロイン。天女メーナカーと王仙ヴィシュヴァーミトラの娘で、生まれてすぐ捨てられ、聖仙カンヴァに育てられた。名前は「鳥（śakunta）に守られた娘」に由来する。</td></tr>
+    <tr><td class="name">アナスーヤー<span class="lang-tag">Pk</span></td><td class="iast">Anasūyā</td><td>シャクンタラーの友。落ちついた、思慮深い性格。名前は「ねたまない女」の意味。</td></tr>
+    <tr><td class="name">プリヤンヴァダー<span class="lang-tag">Pk</span></td><td class="iast">Priyaṃvadā</td><td>シャクンタラーの友。明るく、からかい好き。名前は「うれしいことを言う女」の意味。</td></tr>
+    <tr><td class="name">カンヴァ（カーシャパ）</td><td class="iast">Kaṇva / Kāśyapa</td><td>庵の主である聖仙で、シャクンタラーの養父。カシュヤパ家の出なので「カーシャパ」とも呼ばれる。第四幕に登場する。</td></tr>
+    <tr><td class="name">マーダヴィヤ<span class="lang-tag">Pk</span></td><td class="iast">Mādhavya</td><td>道化（vidūṣaka）。王の遊び相手のバラモンで、食いしん坊の笑い役。第二幕から登場する。</td></tr>
+  </table>
+
+  <h3>幕ごとのおもな脇役</h3>
+  <table class="cast">
+    <tr><th>名前</th><th>IAST</th><th>幕</th><th>どんな人物か</th></tr>
+    <tr><td class="name">座頭</td><td class="iast">sūtradhāra</td><td>序</td><td>一座の長。前口上を述べる。</td></tr>
+    <tr><td class="name">女優<span class="lang-tag">Pk</span></td><td class="iast">naṭī</td><td>序</td><td>座頭の相手をする女優。</td></tr>
+    <tr><td class="name">御者</td><td class="iast">sūta</td><td>1</td><td>王の戦車を操る。</td></tr>
+    <tr><td class="name">苦行者たち</td><td class="iast">tapasvin, tāpasa</td><td>1・2</td><td>カンヴァの庵に住む修行者。</td></tr>
+    <tr><td class="name">将軍</td><td class="iast">senāpati</td><td>2</td><td>王に狩りを続けるようすすめる。</td></tr>
+    <tr><td class="name">カラバカ<span class="lang-tag">Pk</span></td><td class="iast">Karabhaka</td><td>2</td><td>母后からの使い。</td></tr>
+    <tr><td class="name">ガウタミー<span class="lang-tag">Pk</span></td><td class="iast">Gautamī</td><td>3・4・5</td><td>庵の年長の女性苦行者。娘たちの母親がわり。</td></tr>
+    <tr><td class="name">ドゥルヴァーサス</td><td class="iast">Durvāsas</td><td>4</td><td>怒りっぽいことで有名な聖仙。シャクンタラーに呪いをかける（声だけで登場）。</td></tr>
+    <tr><td class="name">シャールンガラヴァ</td><td class="iast">Śārṅgarava</td><td>4・5</td><td>カンヴァの弟子。シャクンタラーを王宮へ送り届け、王に厳しく迫る。</td></tr>
+    <tr><td class="name">シャーラドヴァタ</td><td class="iast">Śāradvata</td><td>4・5</td><td>カンヴァの弟子。シャールンガラヴァとともに付き添う。</td></tr>
+    <tr><td class="name">侍従長</td><td class="iast">kañcukin</td><td>5・6</td><td>後宮に仕える老いた侍従。</td></tr>
+    <tr><td class="name">宮廷祭官</td><td class="iast">purohita</td><td>5</td><td>王家の祭官。シャクンタラーをあずかろうと申し出る。</td></tr>
+    <tr><td class="name">漁師<span class="lang-tag">Pk</span></td><td class="iast">puruṣa</td><td>6</td><td>魚の腹から指輪を見つける。</td></tr>
+    <tr><td class="name">警吏の長<span class="lang-tag">Pk</span></td><td class="iast">śyāla</td><td>6</td><td>王の義兄弟にあたる警察の長。漁師を捕らえる。</td></tr>
+    <tr><td class="name">アクシャマーラー<span class="lang-tag">Pk</span></td><td class="iast">Akṣamālā</td><td>6</td><td>天女。空を飛んで宮廷に来て、姿を隠したまま王の後悔を見届ける（デーヴァナーガリー系伝本ではサーヌマティーという名）。</td></tr>
+    <tr><td class="name">マータリ</td><td class="iast">Mātali</td><td>6・7</td><td>インドラ神の御者。王を天界へ導く。</td></tr>
+    <tr><td class="name">少年（サルヴァダマナ）<span class="lang-tag">Pk</span></td><td class="iast">bāla</td><td>7</td><td>王とシャクンタラーの息子。のちの帝王バラタ。</td></tr>
+    <tr><td class="name">マーリーチャ</td><td class="iast">Mārīca</td><td>7</td><td>神々の父である聖仙カシュヤパ。呪いのいきさつを明かす。</td></tr>
+    <tr><td class="name">アディティ</td><td class="iast">Aditi</td><td>7</td><td>マーリーチャの妻で、神々の母。</td></tr>
+  </table>
+</section>
+
+
+<section class="act" id="act1">
+<div class="act-header"><h2>prathamo 'ṅkaḥ</h2><div class="act-jp">第一幕　庵での出会い</div></div>
+<div class="scene-head"><span class="scene-skt">prastāvanā</span><span class="scene-jp">序幕</span></div>
+<div class="row verse" id="v1.1"><div class="verse-number">詩節 1.1<span class="meter">sragdharā（スラグダラー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">yā sraṣṭuḥ sṛṣṭir ādyā pibati vidhihutaṃ yā havir yā ca hotrī</span><span class="pada">ye dve kālaṃ vidhattaḥ śrutiviṣayaguṇā yā sthitā vyāpya viśvam</span><span class="pada">yām āhuḥ sarvabījaprakṛtir iti yayā prāṇinaḥ prāṇavantaḥ</span><span class="pada">pratyakṣābhiḥ prasannas tanubhir avatu nas tābhir aṣṭābhir īśaḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">創造主が最初に造ったもの<span class="sd-in">（水）</span>、作法どおりに捧げられた供物を飲むもの<span class="sd-in">（火）</span>、そして祭官。時を定める二つのもの<span class="sd-in">（太陽と月）</span>。耳でとらえられる性質<span class="sd-in">（音）</span>をもち、宇宙に行きわたっているもの<span class="sd-in">（虚空）</span>。「すべての種子の母胎」と呼ばれるもの<span class="sd-in">（大地）</span>。生き物がそれによって息をしているもの<span class="sd-in">（風）</span>。――目に見えるこの八つの身体をそなえた主<span class="sd-in">（シヴァ）</span>が、恵み深く、われらを守りたまわんことを。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>劇の冒頭に置かれる祝祷（ナーンディー）。シヴァ神は「八つの形をもつ者（アシュタムールティ）」と呼ばれ、水・火・祭官・太陽・月・虚空・大地・風がその八つの身体とされる。詩の中では名前を出さずに、謎かけのように八つを順に示している。</p><p>底本は pibati を v で pivati と綴る。ベンガル系の写本によくある b と v の混同なので、ここでは pibati と書いた。</p></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>nāndyante</p></div><div class="divider"></div><div class="col-r"><p>祝祷が終わると。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtradhāraḥ</span><span class="sp-jp">座頭</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(nepathyābhimukham avalokya)</span> ārye, yadi nepathyavidhānam avasitaṃ tad itas tāvad āgamyatām.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（楽屋のほうを見て）</span>奥よ、楽屋の支度が済んだなら、こちらへ来ておくれ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「スートラダーラ（座頭）」は一座の長で、演出も兼ねる。前口上は座頭と女優（ふつう座頭の妻）の会話で進むのが決まりである。</p></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>praviśya naṭī</p></div><div class="divider"></div><div class="col-r"><p>女優が登場する。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">naṭī</span><span class="sp-jp">女優</span></div><div class="cols"><div class="col-l"><p class="prakrit">ayya, ia mhi. āṇavedu ayyo ko ṇioo aṇuciṭṭhīadu tti.</p><p class="chaya"><span class="lang-label">chāyā</span>ārya, iyam asmi. ājñāpayatv āryaḥ ko niyogo 'nuṣṭhīyatām iti.</p></div><div class="divider"></div><div class="col-r"><p>旦那さま、ここにおります。どんなお役目をすればよいか、お申しつけください。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>女性や身分の低い人物はプラークリット語（日常の言葉）で話す。下段の「チャーヤー（影）」は、それをサンスクリットに置き換えたもの。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtradhāraḥ</span><span class="sp-jp">座頭</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(dṛṣṭvā)</span> abhirūpaprāyabhūyiṣṭheyaṃ pariṣat. asyāṃ ca kila kālidāsagrathitavastunā navena nāṭakenopasthātavyam asmābhiḥ. tat pratipātram āsthīyatāṃ yatnaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（客席を見渡して）</span>この客席は、目の肥えた方々がほとんどだ。しかも今日はこの方々の前に、カーリダーサが筋を組み立てた新しい劇を持って出なければならない。だから、役の一つ一つに心をこめて取り組むように。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">naṭī</span><span class="sp-jp">女優</span></div><div class="cols"><div class="col-l"><p class="prakrit">suvihidappaoadāe ayyassa ṇa kiṃci paḍihāissadi.</p><p class="chaya"><span class="lang-label">chāyā</span>suvihitaprayogatayāryasya na kiṃcit parihāsyate.</p></div><div class="divider"></div><div class="col-r"><p>旦那さまの演出は行き届いていますもの、何ひとつ手落ちはございませんわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtradhāraḥ</span><span class="sp-jp">座頭</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(smitaṃ kṛtvā)</span> ārye, kathayāmi te bhūtārtham.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（ほほえんで）</span>奥よ、本当のところを話そう。</p></div></div></div>
+<div class="row verse" id="v1.2"><div class="verse-number">詩節 1.2<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">ā paritoṣād viduṣāṃ na sādhu manye prayogavijñānam</span><span class="pada">balavad api śikṣitānām ātmany apratyayaṃ cetaḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">学識ある方々が満足なさるまでは、自分の演出の腕を良いものとは思えない。どれほどしっかり稽古を積んだ者でも、心は自分を信じきれないものだ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">naṭī</span><span class="sp-jp">女優</span></div><div class="cols"><div class="col-l"><p class="prakrit">evaṃ ṇedaṃ. aṇantarakaraṇīaṃ dāṇiṃ ayyo āṇavedu.</p><p class="chaya"><span class="lang-label">chāyā</span>evam etat. anantarakaraṇīyam idānīm ārya ājñāpayatu.</p></div><div class="divider"></div><div class="col-r"><p>まことにそのとおりです。では、次に何をすればよいか、お申しつけください。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtradhāraḥ</span><span class="sp-jp">座頭</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(dṛṣṭvā)</span> kim anyat, asyāḥ pariṣadaḥ śrutipramodahetor imam eva nāticirapravṛttam upabhogakṣamaṃ grīṣmakālam adhikṛtya gīyatāṃ tāvat. saṃprati hi —</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（見て）</span>ほかでもない。この客席の方々の耳を楽しませるために、始まって間もない、楽しみにうってつけのこの夏の季節を題に、まず一曲歌っておくれ。なにしろ今は――</p></div></div></div>
+<div class="row verse" id="v1.3"><div class="verse-number">詩節 1.3<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">subhagasalilāvagāhāḥ pāṭalasaṃsargasurabhivanavātāḥ</span><span class="pada">pracchāyasulabhanidrā divasāḥ pariṇāmaramaṇīyāḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">水に身を浸すのが心地よく、森を渡る風はパータラの花に触れて香り、深い木陰ではすぐに眠りが訪れ、日の暮れ方が美しい――そんな日々なのだから。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>パータラはノウゼンカズラ科の木で、夏に香りのよい薄紅色の花をつける。前口上で季節を歌うのは、観客の心を劇の世界に導くための決まった手順である。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">naṭī</span><span class="sp-jp">女優</span></div><div class="cols"><div class="col-l"><p class="prakrit">taha. <span class="sd-in">(gāyati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>tathā.</p></div><div class="divider"></div><div class="col-r"><p>かしこまりました。<span class="sd-in">（歌う）</span></p></div></div></div>
+<div class="row verse" id="v1.4"><div class="verse-number">詩節 1.4<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt prakrit"><span class="pada">khaṇacumbiāiṃ bhamarehiṃ suhaasuumārakesarasihāiṃ</span><span class="pada">odaṃsaanti pamadā daamāṇāo sirīsakusumāiṃ</span></div><div class="verse-chaya"><span class="lang-label">chāyā</span><span class="pada">kṣaṇacumbitāni bhramaraiḥ subhagasukumārakesaraśikhāni</span><span class="pada">avataṃsayanti pramadā dayamānāḥ śirīṣakusumāni</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">蜂たちにほんのつかのま口づけされた、愛らしくやわらかな花糸の先をもつシリーシャの花を、女たちはいとおしみながら耳飾りにする。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>シリーシャ（ネムノキの仲間）の花は、きわめてやわらかいものの代表として詩によく登場する。「つかのまの口づけ」には、このあと始まる短い出会いと別れの気配がほのめかされている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtradhāraḥ</span><span class="sp-jp">座頭</span></div><div class="cols"><div class="col-l"><p class="skt">suṣṭhu gītam. eṣa hi gītarāgānubaddhacittavṛttir ālikhita iva sarvato raṅgaḥ. tad idānīṃ katamat prakaraṇam āśritya janam ārādhayiṣyāvaḥ.</p></div><div class="divider"></div><div class="col-r"><p>見事な歌だ。歌の調べに心をとらわれて、客席は四方とも、まるで絵に描かれたように静まりかえっている。さて、どの演目で皆さまをお楽しませしようか。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">naṭī</span><span class="sp-jp">女優</span></div><div class="cols"><div class="col-l"><p class="prakrit">ṇaṃ paḍhamaṃ yyeva ayyeṇa āṇattaṃ, jahā abhiṇṇāṇasaüntalā ṇāma apuruvaṃ ṇāḍaaṃ paoeṇa adhikarīadu tti.</p><p class="chaya"><span class="lang-label">chāyā</span>nanu prathamam evāryeṇājñaptam, yathābhijñānaśakuntalā nāmāpūrvaṃ nāṭakaṃ prayogeṇādhikriyatām iti.</p></div><div class="divider"></div><div class="col-r"><p>はじめに旦那さまご自身が、『アビジュニャーナ・シャクンタラー』という新しい劇を上演しよう、とおっしゃったではありませんか。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>題名の「アビジュニャーナ」は「それと見分けるためのしるし」。指輪というしるしによってシャクンタラーが思い出される、という劇の筋そのものを表している。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtradhāraḥ</span><span class="sp-jp">座頭</span></div><div class="cols"><div class="col-l"><p class="skt">bhavati, samyag anuprabodhito 'smi. asmin kṣaṇe khalu vismṛtaṃ mayā tat. kutaḥ?</p></div><div class="divider"></div><div class="col-r"><p>そうだった、よく思い出させてくれた。たった今、すっかり忘れていたのだ。なぜかといえば――</p></div></div></div>
+<div class="row verse" id="v1.5"><div class="verse-number">詩節 1.5<span class="meter">śloka（シュローカ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">tavāsmi gītarāgeṇa hāriṇā prasabhaṃ hṛtaḥ</span><span class="pada"><span class="sd-in">(nepathyābhimukham avalokya)</span> eṣa rājeva duṣyantaḥ sāraṅgeṇātiraṃhasā</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">私は、そなたの歌の心を奪う調べに、むりやり連れ去られてしまったのだ。――<span class="sd-in">（楽屋のほうを見て）</span>――ちょうどここにいるドゥシヤンタ王が、ひどく足の速い鹿に連れ去られているように。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「連れ去られる（hṛta）」という一語で、座頭の話から王の登場へと場面をつなぐ。こうした前口上の結び方を、劇の理論では「カトーッドガータ（話の切り出し）」と呼ぶ。</p></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>iti niṣkrāntau. prastāvanā.</p></div><div class="divider"></div><div class="col-r"><p>二人、退場。〔序幕おわり〕</p></div></div></div>
+<div class="scene-head"><span class="scene-skt">prathamo 'ṅkaḥ</span><span class="scene-jp">本編</span></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>tataḥ praviśati rathayātakena mṛgānusārī cāpahasto duṣyantaḥ sūtaś ca.</p></div><div class="divider"></div><div class="col-r"><p>そこへ、戦車に乗り、弓を手にして鹿を追うドゥシヤンタ王と、御者が登場する。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(rājānaṃ mṛgaṃ cāvalokya)</span> āyuṣman,</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（王と鹿を見て）</span>王さま、</p></div></div></div>
+<div class="row verse" id="v1.6"><div class="verse-number">詩節 1.6<span class="meter">śloka（シュローカ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">kṛṣṇasāre dadac cakṣus tvayi cādhijyakārmuke</span><span class="pada">mṛgānusāriṇaṃ sākṣāt paśyāmīva pinākinam</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">黒鹿に目をやり、弦を張った弓を持つあなたさまに目をやると、鹿を追うピナーカ弓の神<span class="sd-in">（シヴァ）</span>を、まのあたりに見ているような気がいたします。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「ピナーカを持つ者」はシヴァの別名。祭祀が鹿の姿になって逃げ、シヴァが弓でそれを追ったという神話があり、王の姿をそれになぞらえている。</p><p>「アーユシュマン（長寿の方）」は、御者などが王に呼びかけるときの決まった敬称。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">sārathe, sudūram anena kṛṣṇasāreṇa vayam ākṛṣṭāḥ. ayam idānīm api</p></div><div class="divider"></div><div class="col-r"><p>御者よ、この黒鹿にずいぶん遠くまで引っぱってこられたものだ。今もあの鹿は――</p></div></div></div>
+<div class="row verse" id="v1.7"><div class="verse-number">詩節 1.7<span class="meter">sragdharā（スラグダラー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">grīvābhaṅgābhirāmaṃ muhur anupatati syandane dattadṛṣṭiḥ</span><span class="pada">paścārdhena praviṣṭaḥ śarapatanabhayād bhūyasā pūrvakāyam</span><span class="pada">śaṣpair ardhāvalīḍhaiḥ śramavitatamukhabhraṃśibhiḥ kīrṇavartmā</span><span class="pada">paśyodagraplutitvād viyati bahutaraṃ stokam urvyāṃ prayāti</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">首をひねる姿も愛らしく、追ってくる戦車に何度も目を向け、矢が落ちてくるのを恐れて、体の後ろ半分をほとんど前の半身に押しこむように縮め、疲れて開いた口からこぼれる、半分かんだ若草を道にまき散らしながら――見よ、高く跳ねるので、地面よりも空中をずっと多く進んでいく。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>写実的な動物描写の名詩として知られる。逃げる鹿の首、体、口、足の運びを、順に一つずつ描いていく。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">katham? anupātina eva me prayatnaprekṣaṇīyaḥ saṃvṛttaḥ.</p></div><div class="divider"></div><div class="col-r"><p>どうしたことだ。すぐ後を追っているのに、目をこらさないと見えなくなってしまった。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">āyuṣman, udghātinī bhūmir iyam. mayā raśmisaṃyamanād rathasya mandīkṛto vegaḥ. tenaiṣa mṛgo viprakṛṣṭāntaraḥ saṃvṛttaḥ. saṃprati tu samadeśavartī na te durāsado bhaviṣyati.</p></div><div class="divider"></div><div class="col-r"><p>王さま、このあたりは土地がでこぼこしておりました。それで手綱を引きしめて、戦車の速さを落としたのです。そのために鹿との間が開いてしまいました。でも今は平らな所におりますから、たやすく追いつけましょう。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">mucyantām abhīśavaḥ.</p></div><div class="divider"></div><div class="col-r"><p>では、手綱をゆるめよ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">yad ājñāpayaty āyuṣmān. <span class="sd-in">(tathā kṛtvā vegāntaraṃ nirūpayan)</span> āyuṣman, paśya paśya. ete</p></div><div class="divider"></div><div class="col-r"><p>仰せのとおりに。<span class="sd-in">（そのとおりにして、速さが変わったしぐさをしながら）</span>王さま、ご覧ください、ご覧ください。この馬たちは――</p></div></div></div>
+<div class="row verse" id="v1.8"><div class="verse-number">詩節 1.8<span class="meter">vasantatilakā（ヴァサンタティラカー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">mukteṣu raśmiṣu nirāyatapūrvakāyā niṣkampacāmaraśikhā nibhṛtordhvakarṇāḥ</span><span class="pada">ātmoddhatair api rajobhir alaṅghanīyā dhāvanty amī mṛgajavākṣamayeva rathyāḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">手綱がゆるむと、前の半身をぐっと伸ばし、頭のヤクの尾の飾りも揺らさず、耳をぴんと立てて動かさず、自分で巻き上げた土ぼこりさえ追いつけない速さで、鹿の足の速さが我慢ならないかのように走っていきます。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「チャーマラ」はヤクの尾の毛で作った房飾り。王の馬の頭につけられた。それすら揺れないほど、馬がまっすぐ走っているということ。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">satyam atītya harīharīn api harayo vartante. tathā hi</p></div><div class="divider"></div><div class="col-r"><p>まことに、この馬たちはインドラ神の馬さえ追い越して走っている。なにしろ――</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>hari には「馬」と「インドラ神」の両方の意味がある。harīharīn（インドラの馬たち）と harayaḥ（馬たち）で、同じ音をくり返す言葉遊びになっている。</p></div></div>
+<div class="row verse" id="v1.9"><div class="verse-number">詩節 1.9<span class="meter">śikhariṇī（シカリニー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">yad āloke sūkṣmaṃ vrajati sahasā tad vipulatāṃ</span><span class="pada">yad ardhe vicchinnaṃ bhavati kṛtasaṃdhānam iva tat</span><span class="pada">prakṛtyā yad vakraṃ tad api samarekhaṃ nayanayor</span><span class="pada">na me dūre kiṃcin na ca bhavati pārśve rathajavāt</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">見たとき小さかったものが、たちまち大きくなる。途中で切れていたものが、つながっているように見える。もともと曲がっているものも、目にはまっすぐな線に映る。戦車の速さのために、遠くにあるものは何ひとつなく、すぐ横に留まっているものも何ひとつない。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>高速で走る乗り物から見た景色の変化を、驚くほど正確に描いた詩として有名である。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">āyuṣman, asya khalu te bāṇapathavartinaḥ kṛṣṇasārasyāntare tapasvinaḥ.</p></div><div class="divider"></div><div class="col-r"><p>王さま、あなたさまの矢の届く所にいるあの黒鹿との間に、苦行者たちがおります。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(sasaṃbhramam)</span> tena hi nigṛhyantāṃ vājinaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（あわてて）</span>それなら、馬を止めよ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">tathā karomi. <span class="sd-in">(ity uktvā rathaṃ sthāpayati)</span></p></div><div class="divider"></div><div class="col-r"><p>かしこまりました。<span class="sd-in">（と言って、戦車を止める）</span></p></div></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>tataḥ praviśaty ātmanātṛtīyas tapasvī.</p></div><div class="divider"></div><div class="col-r"><p>そこへ、二人の弟子を連れた苦行者が登場する。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>ātmanātṛtīya は「自分を数に入れて三人目の」という意味で、つまり「二人の連れと一緒に」ということ。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">tapasvī</span><span class="sp-jp">苦行者</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(sasaṃbhramaṃ hastam udyamya)</span> rājan rājan, āśramamṛgo 'yam, āśramamṛgo 'yam.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（あわてて手を上げて）</span>王よ、王よ、これは庵の鹿です。庵の鹿なのです。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>苦行者の庵（アーシュラマ）の中では、動物を殺すことは許されない。庵で飼われ、人になれた鹿は特に大切にされた。</p></div></div>
+<div class="row verse" id="v1.10"><div class="verse-number">詩節 1.10<span class="meter">śloka（シュローカ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">tat sādhu kṛtasaṃdhānaṃ pratisaṃhara sāyakam</span><span class="pada">ārtatrāṇāya te śastraṃ na prahartum anāgasi</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">ですから、きちんとつがえたその矢を、どうかお収めください。あなたの武器は苦しむ者を救うためのもの。罪のない者を撃つためのものではありません。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">eṣa pratisaṃhṛtaḥ. <span class="sd-in">(yathoktaṃ karoti)</span></p></div><div class="divider"></div><div class="col-r"><p>このとおり、収めました。<span class="sd-in">（言われたとおりにする）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">tāpasaḥ</span><span class="sp-jp">苦行者</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(saharṣam)</span> sādhu bhoḥ, sadṛśam etat puruvaṃśajātasya bhavataḥ. sarvathā cakravartinaṃ putram avāpnuhi.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（喜んで）</span>おお、お見事です。プル族に生まれたお方にふさわしいふるまいです。きっと、世界を治める転輪王となる息子をお授かりになりますように。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「転輪王（チャクラヴァルティン）」は全世界を治める理想の帝王。この祝福は、のちにシャクンタラーとの間に生まれる息子バラタを予告している。インドの古名「バーラタ」はこのバラタ王にちなむとされる。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(sapraṇāmam)</span> pratigṛhītaṃ tapodhanavacanam.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（礼をして）</span>苦行者どののお言葉、ありがたくいただきます。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">tāpasaḥ</span><span class="sp-jp">苦行者</span></div><div class="cols"><div class="col-l"><p class="skt">samidāharaṇāya prasthitā vayam. eṣa cāsmadguroḥ kāśyapasya saṃsaktahimavatsānur anumālinītīram āśramo dṛśyate. na ced anyakāryātipātas tadā tat praviśyātra pratigṛhyatām atithisatkāraḥ. api ca</p></div><div class="divider"></div><div class="col-r"><p>私たちは、祭火にくべる薪を集めに出かけるところです。ほら、あそこに、ヒマーラヤの山腹に接し、マーリニー川の岸に沿った、私たちの師カーシャパの庵が見えます。ほかのご用に差しつかえがなければ、中に入って、客としてのもてなしをお受けください。それに――</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>カーシャパは「カシュヤパ家の人」という意味の氏の名で、シャクンタラーの養父カンヴァのこと。劇中では両方の名で呼ばれる。</p></div></div>
+<div class="row verse" id="v1.11"><div class="verse-number">詩節 1.11<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">dhanyās tapodhanānāṃ pratihatavighnāḥ kriyāḥ samālokya</span><span class="pada">jñāsyasi kiyad bhujo me rakṣati maurvīkiṇāṅka iti</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">苦行者たちの、さまたげを払いのけられた尊い祭式をご覧になれば、「弓弦<span class="sd-in">（ゆみづる）</span>のたこがついた私の腕が、どれほど多くのものを守っているか」がおわかりになるでしょう。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>引用の中の「私の」は王自身のこと。王が心の中で思うはずの言葉を、苦行者が代わりに言っている。祭式を守ることは王の大切な義務だった。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">ayaṃ saṃnihito 'tra kulapatiḥ?</p></div><div class="divider"></div><div class="col-r"><p>庵の主<span class="sd-in">（あるじ）</span>どのは、いまこちらにおいでか。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「クラパティ」は、多くの弟子を養う大きな庵の長を指す。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">tāpasaḥ</span><span class="sp-jp">苦行者</span></div><div class="cols"><div class="col-l"><p class="skt">adyaivānavadyāṃ duhitaraṃ śakuntalām atithisatkārāya saṃdiśya pratikūlam asyā daivaṃ śamayituṃ somatīrthaprabhāsaṃ gataḥ.</p></div><div class="divider"></div><div class="col-r"><p>ちょうど今日、非の打ちどころのない娘のシャクンタラーに客人のもてなしを言いつけて、この娘にふりかかる悪い運命をしずめるために、ソーマティールタ<span class="sd-in">（プラバーサ）</span>へお出かけになりました。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「悪い運命」は、のちにシャクンタラーにかけられる呪いを、ぼんやりと予告している。プラバーサはインド西岸の聖地。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(ātmagatam)</span> bhavatu. tām eva drakṣyāmi. sā māṃ viditabhaktiṃ maharṣeḥ kariṣyati.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（独り言）</span>よし、その娘に会おう。あの娘が、私が大聖仙を敬っていることを伝えてくれるだろう。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">tāpasaḥ</span><span class="sp-jp">苦行者</span></div><div class="cols"><div class="col-l"><p class="skt">sādhayāmas tāvat. <span class="sd-in">(iti saśiṣyo niṣkrāntaḥ)</span></p></div><div class="divider"></div><div class="col-r"><p>では、私たちは参ります。<span class="sd-in">（弟子たちとともに退場）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">sūta, codayāśvān. puṇyāśramadarśanena tāvad ātmānaṃ punīmahe.</p></div><div class="divider"></div><div class="col-r"><p>御者よ、馬を進めよ。清らかな庵を見て、我が身を清めよう。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">yad ājñāpayaty āyuṣmān. <span class="sd-in">(parikramya rathayātakaṃ nirūpayati)</span></p></div><div class="divider"></div><div class="col-r"><p>仰せのとおりに。<span class="sd-in">（舞台をめぐり、戦車で進むしぐさをする）</span></p></div></div><div class="commentary"><div class="commentary-title">注</div><p>サンスクリット劇には大がかりな舞台装置がない。戦車での移動なども、役者のしぐさで表す。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(samantād vilokya)</span> sūta, akathito 'pi jñāyata eva yathāyam ābhogas tapovanasyeti.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（あたりを見回して）</span>御者よ、言われなくても、このあたりが苦行林の外れだということはわかるな。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">katham iti?</p></div><div class="divider"></div><div class="col-r"><p>どうしてでございますか。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">kiṃ na paśyati bhavān? iha hi</p></div><div class="divider"></div><div class="col-r"><p>そなたには見えないのか。ここでは――</p></div></div></div>
+<div class="row verse" id="v1.12"><div class="verse-number">詩節 1.12<span class="meter">śārdūlavikrīḍita（シャールドゥーラヴィクリーディタ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">nīvārāḥ śukagarbhakoṭaramukhabhraṣṭās tarūṇām adhaḥ</span><span class="pada">prasnigdhāḥ kvacid iṅgudīphalabhidaḥ sūcyanta evopalāḥ</span><span class="pada">viśvāsopagamād abhinnagatayaḥ śabdaṃ sahante mṛgās</span><span class="pada">toyādhārapathāś ca valkalaśikhāniḥṣyandalekhāṅkitāḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">木々の下には、ひな鸚鵡のいる洞<span class="sd-in">（うろ）</span>の口からこぼれた野生の米粒が落ちている。あちこちに、イングディーの実を割ったために油じみてつやつやした石が、それと知れる。人を信じきっているので、鹿たちは足どりを乱さず、物音にも動じない。水場へ通じる小道には、樹皮の衣のすそからしたたった水の筋が、点々と跡をつけている。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>ニーヴァーラは野生の稲で、苦行者の食べ物。イングディーの実からは灯明の油をとった。樹皮の衣（ヴァルカラ）は苦行者の着るもの。どれも庵が近いことを示すしるしである。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">sarvam upapannam.</p></div><div class="divider"></div><div class="col-r"><p>まことに、すべて仰せのとおりです。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(stokam antaraṃ gatvā)</span> api ca</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（少し進んで）</span>それに――</p></div></div></div>
+<div class="row verse" id="v1.13"><div class="verse-number">詩節 1.13<span class="meter">mandākrāntā（マンダークラーンター）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">kulyāmbhobhiḥ prasṛtacapalaiḥ śākhino dhautamūlā</span><span class="pada">bhinno rāgaḥ kisalayarucām ājyadhūmodgamena</span><span class="pada">ete cārvāg upavanabhuvi chinnadarbhāṅkurāyāṃ</span><span class="pada">naṣṭāśaṅkā hariṇaśiśavo mandamandaṃ caranti</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">勢いよく流れて揺れる小川の水に、木々は根もとを洗われている。輝く若葉の色は、立ちのぼるギー<span class="sd-in">（澄ましバター）</span>の煙にくすんでいる。そしてこの手前の、ダルバ草の芽を刈りとった庭の地面では、子鹿たちが恐れを忘れて、のんびりと歩いている。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>ダルバ草（クシャ草）は祭式に欠かせない聖なる草。ギーは祭火に注ぐ供物。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">mā tapovananivāsinām uparodho bhūt. tad etāvaty eva rathaṃ sthāpaya yāvad avatarāmi.</p></div><div class="divider"></div><div class="col-r"><p>苦行林に住む方々の邪魔をしてはならない。このあたりで戦車を止めよ。降りるから。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">dhṛtāḥ pragrahāḥ. avataratv āyuṣmān.</p></div><div class="divider"></div><div class="col-r"><p>手綱を引きました。どうぞお降りください。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(avatīrya)</span> vinītaveṣeṇa praveśyāni tapovanāni. tad idaṃ tāvat pragṛhyatām. <span class="sd-in">(iti sūtāyābharaṇaṃ dattvā dhanuś cotsṛjya)</span> sūta, yāvad aham upāsya maharṣīn upāvarte tāvad ārdrapṛṣṭhāḥ kriyantāṃ vājinaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（降りて）</span>苦行林には、つつましい身なりで入るものだ。これを預かっておいてくれ。<span class="sd-in">（御者に装身具を渡し、弓も置いて）</span>御者よ、私が大聖仙の方々にご挨拶して戻ってくるまでに、馬の背中を水で冷やしておくように。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sūtaḥ</span><span class="sp-jp">御者</span></div><div class="cols"><div class="col-l"><p class="skt">yad ājñāpayaty āyuṣmān. <span class="sd-in">(iti niṣkrāntaḥ)</span></p></div><div class="divider"></div><div class="col-r"><p>仰せのとおりに。<span class="sd-in">（退場）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(parikramyāvalokya ca)</span> idam āśramadvāraṃ yāvat praviśāmi. <span class="sd-in">(praviśya, nimittaṃ sūcayan vimṛśati)</span></p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（歩きまわり、見回して）</span>ここが庵の入り口だ。さあ入ろう。<span class="sd-in">（中に入り、何かの前ぶれを感じたしぐさをして、考えこむ）</span></p></div></div></div>
+<div class="row verse" id="v1.14"><div class="verse-number">詩節 1.14<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">śāntam idam āśramapadaṃ sphurati ca bāhuḥ kutaḥ phalam ihāsya</span><span class="pada">athavā bhavitavyānāṃ dvārāṇi bhavanti sarvatra</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">この庵の地は静かだ。それなのに、腕がぴくぴくと震える。ここで、この前ぶれにどんな実りがあるというのか。いや、起こるべきことには、どこにでも入り口があるものだ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>男性の右腕が震えるのは、美しい女性と結ばれる前ぶれだと信じられていた。恋の始まりを予告する仕かけである。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">nepathye</span><span class="sp-jp">舞台裏で</span></div><div class="cols"><div class="col-l"><p class="prakrit">ido ido piasahī.</p><p class="chaya"><span class="lang-label">chāyā</span>ita itaḥ priyasakhi.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（舞台裏で）</span>こっちよ、こっちよ、ねえ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(karṇaṃ dattvā)</span> aye, dakṣiṇena kusumapādapavīthīm ālāpa iva. yāvad atra gacchāmi. <span class="sd-in">(parikramyāvalokya ca)</span> etās tapasvikanyakāḥ svapramāṇānurūpaiḥ secanaghaṭakair bālapādapān siñcantya ita evābhivartante. <span class="sd-in">(nipuṇaṃ nirūpya)</span> aho mādhuryakāntaṃ khalu darśanam āsām. yāvad etāṃ chāyām āśritya pratipālayāmi. <span class="sd-in">(vilokayan sthitaḥ)</span></p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（耳を澄まして）</span>おや、花の咲く並木道の右手で、話し声がするようだ。そちらへ行ってみよう。<span class="sd-in">（歩きまわり、見て）</span>苦行者の娘たちが、自分の背丈に見合った水がめで若木に水をやりながら、こちらへやって来る。<span class="sd-in">（よく見て）</span>ああ、なんと愛らしく美しい姿だろう。この木陰に身を寄せて、待っていよう。<span class="sd-in">（眺めながら立っている）</span></p></div></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>tataḥ praviśati yathoktavyāpārā saha sakhībhyāṃ śakuntalā.</p></div><div class="divider"></div><div class="col-r"><p>そこへ、いま述べたとおりに水やりをしながら、シャクンタラーが二人の友と一緒に登場する。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sakhyau</span><span class="sp-jp">二人の友</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā saüntale, taïtto vi kkhu tādakassavassa assamarukkhaā piā tti takkemha, jeṇa ṇomāliāpelavā vi tumaṃ edassa ālavālapūraṇe ṇiuttā.</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, tvatto 'pi khalu tātakāśyapasyāśramavṛkṣakāḥ priyā iti tarkayāmaḥ, yena navamālikāpelavāpi tvam etasyālavālapūraṇe niyuktā.</p></div><div class="divider"></div><div class="col-r"><p>ねえシャクンタラー、カーシャパ父さまには、あなたよりもこの庵の木々のほうが大事なんじゃないかしら。だって、ジャスミンの花のようにかよわいあなたに、木の根もとの水たまりを満たす仕事を言いつけたんですもの。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「ハラー」は女友だち同士の親しい呼びかけ。「ナヴァマーリカー」はジャスミンの一種で、かよわさのたとえ。「アーラヴァーラ」は木の根もとに水をためるために作る土の輪。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">ṇa kevalaṃ tādaṇioo tti. bahumāṇo jāva, mamāvi sodarīsiṇeho edesu atthi yyeva. <span class="sd-in">(vṛkṣasekaṃ rūpayati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>na kevalaṃ tātaniyoga iti. bahumāno yāvat, mamāpi sodarīsneha eteṣv asty eva.</p></div><div class="divider"></div><div class="col-r"><p>父さまの言いつけだからというだけではないの。大切に思っているし、私も、この木たちには姉妹のような愛情を持っているのよ。<span class="sd-in">（木に水をやるしぐさをする）</span></p></div></div><div class="commentary"><div class="commentary-title">注</div><p>シャクンタラーが庵の木や動物を家族のように思っていることは、第四幕の別れの場面で大きな意味をもつ。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">ubhe</span><span class="sp-jp">二人</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā saüntale, udaaṃ lambhidā gimhakālakusumadāiṇo gummaā. idāṇiṃ adikkantakusumasamae vi rukkhae siñcamha. tado ṇo aṇahisandhidapuruvo dhammo bhavissadi.</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, udakaṃ lambhitā grīṣmakālakusumadāyino gulmakāḥ. idānīm atikrāntakusumasamayān api vṛkṣakān siñcāmaḥ. tato no 'nabhisaṃdhitapūrvo dharmo bhaviṣyati.</p></div><div class="divider"></div><div class="col-r"><p>ねえシャクンタラー、夏に花を咲かせる茂みには、もう水をあげたわ。今度は、花の時期が過ぎた木々にも水をやりましょう。そうすれば、見返りを考えない功徳が私たちのものになるわ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>底本のこの箇所は読みにくいため、意味の通る形に整えて示した。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">ahiṇandaṇīaṃ mantedha. <span class="sd-in">(nāṭyena siñcati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>abhinandanīyaṃ mantrayethe.</p></div><div class="divider"></div><div class="col-r"><p>すてきなことを言うのね。<span class="sd-in">（水をやるしぐさをする）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(nirvarṇya sakautukam)</span> katham? iyaṃ sā kaṇvaduhitā? aho vismayaḥ!</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（つくづく眺めて、心ひかれて）</span>なんと、これがあのカンヴァの娘か。ああ、驚いた。</p></div></div></div>
+<div class="row verse" id="v1.15"><div class="verse-number">詩節 1.15<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">śuddhāntadurlabham idaṃ vapur āśramavāsino yadi janasya</span><span class="pada">dūrīkṛtāḥ khalu guṇair udyānalatā vanalatābhiḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">後宮にもめったにいないこの美しさが、庵に住む人のものだとは。なるほど、庭園の蔓草は、その美しさにおいて、森の蔓草にはるかに及ばないのだ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「庭園の蔓草」は王宮の女性たち、「森の蔓草」はシャクンタラーのたとえ。人の手で整えられた美しさより、自然のままの美しさがまさるということ。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">bhavatu. pādapāntarita eva viśvastabhāvām enāṃ paśyāmi. <span class="sd-in">(tathā karoti)</span></p></div><div class="divider"></div><div class="col-r"><p>よし、木の陰に隠れて、すっかりくつろいでいるこの娘を見ていよう。<span class="sd-in">（そうする）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">eso vāderidapallavaṅgulīhiṃ tuvarāvedi via maṃ baülarukkhao. jāva ṇaṃ saṃbhāvemi. <span class="sd-in">(rājñaḥ saṃnikarṣam āgacchati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>eṣa vāteritapallavāṅgulībhis tvarayatīva māṃ bakulavṛkṣakaḥ. yāvad enaṃ saṃbhāvayāmi.</p></div><div class="divider"></div><div class="col-r"><p>このバクラの木が、風に揺れる若葉の指で、私をせかしているみたい。この木の相手をしてあげましょう。<span class="sd-in">（王の近くへやって来る）</span></p></div></div><div class="commentary"><div class="commentary-title">注</div><p>バクラ（ミサキノハナ）は香りのよい花をつける木。木の葉が手招きする指に見立てられている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(nirvarṇya)</span> asādhudarśī tatrabhavān kāśyapo ya imām āśramadharmacaraṇe niyuṅkte.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（つくづく眺めて）</span>あのカーシャパどのも、ものの見えないお方だ。この娘に、庵の務めをさせるとは。</p></div></div></div>
+<div class="row verse" id="v1.16"><div class="verse-number">詩節 1.16<span class="meter">vaṃśastha（ヴァンシャスタ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">idaṃ kilāvyājamanoharaṃ vapus tapaḥkṣamaṃ sādhayituṃ ya icchati</span><span class="pada">dhruvaṃ sa nīlotpalapatradhārayā śamīlatāṃ chettum ṛṣir vyavasyati</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">飾らなくても心を奪うこの体を、苦行に耐えるものにしようと望む聖仙は、まちがいなく、青い睡蓮の花びらの縁で、かたいシャミーの枝を切ろうとしているのだ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>シャミーは非常にかたい木。やわらかい花びらでかたい木を切ろうとするような、無理なことだというたとえ。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā aṇasūe, atipiṇaddheṇa piaṃvadāe vakkaleṇa ṇiantida mhi. siḍhilehi dāva ṇaṃ. <span class="sd-in">(anasūyā śithilayati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>halānasūye, atipinaddhena priyaṃvadayā valkalena niyantritāsmi. śithilaya tāvad enat.</p></div><div class="divider"></div><div class="col-r"><p>ねえアナスーヤー、プリヤンヴァダーがきつく締めすぎた樹皮の衣で、体がしめつけられて苦しいの。ちょっとゆるめてちょうだい。<span class="sd-in">（アナスーヤーがゆるめる）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(sasmitam)</span> ettha paoharavitthāraïttaaṃ appaṇo jovvaṇaṃ uvālaha.</p><p class="chaya"><span class="lang-label">chāyā</span>atra payodharavistārayitṛ ātmano yauvanam upālabhasva.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（ほほえんで）</span>それなら、胸をふくらませている自分の若さに文句を言いなさいな。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">kāmam apratirūpam asya vayaso valkalaṃ na punar alaṅkāraśriyaṃ na puṣyati. kutaḥ?</p></div><div class="divider"></div><div class="col-r"><p>たしかに、樹皮の衣はこの年ごろの娘には似合わない。それでも、飾りのような美しさを添えていないわけではない。なぜなら――</p></div></div></div>
+<div class="row verse" id="v1.17"><div class="verse-number">詩節 1.17<span class="meter">mālinī（マーリニー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">sarasijam anuviddhaṃ śaivalenāpi ramyaṃ</span><span class="pada">malinam api himāṃśor lakṣma lakṣmīṃ tanoti</span><span class="pada">iyam adhikamanojñā valkalenāpi tanvī</span><span class="pada">kim iva hi madhurāṇāṃ maṇḍanaṃ nākṛtīnām</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">水草にからまれていても、蓮は美しい。黒ずんでいても、月の斑<span class="sd-in">（まだら）</span>は月の輝きを増す。このほっそりした娘も、樹皮の衣をまとってなお、いっそう心をひく。美しい姿にとって、飾りにならないものなど何があろうか。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>二つのたとえを並べたあとで、最後の行で一般的な真理として言い切る。この技法を「アルターンタラニヤーサ（別の事柄による裏づけ）」という。lakṣma（しるし）と lakṣmī（輝き）は音を重ねた言葉遊び。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā saüntale, esā tādakassaveṇa tumaṃ via saṃvaḍḍhidā alindae māhavīladā. pekkha ṇaṃ. kiṃ visumaridā de?</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, eṣā tātakāśyapena tvam iva saṃvardhitālindake mādhavīlatā. prekṣasvainām. kiṃ vismāritā te?</p></div><div class="divider"></div><div class="col-r"><p>ねえシャクンタラー、カーシャパ父さまが、あなたと同じように育てた、テラスのそばのマーダヴィーの蔓よ。見てあげて。忘れてしまったの？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">attā vi visumarissadi. <span class="sd-in">(iti tatsamīpaṃ gacchati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>ātmāpi vismariṣyate.</p></div><div class="divider"></div><div class="col-r"><p>そんなことをしたら、自分のことまで忘れてしまうわ。<span class="sd-in">（とその近くへ行く）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā saüntale, ciṭṭha idha yyeva muhuttaaṃ dāva baülarukkhasamīve.</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, tiṣṭhātraiva muhūrtakaṃ tāvad bakulavṛkṣasamīpe.</p></div><div class="divider"></div><div class="col-r"><p>ねえシャクンタラー、ちょっとの間、そのままバクラの木のそばに立っていて。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">kiṃ tti?</p><p class="chaya"><span class="lang-label">chāyā</span>kim iti?</p></div><div class="divider"></div><div class="col-r"><p>どうして？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">tae samīvaṭṭhidāe ladāsaṇādho via me baülarukkhao paḍibhādi.</p><p class="chaya"><span class="lang-label">chāyā</span>tvayā samīpasthitayā latāsanātha iva me bakulavṛkṣakaḥ pratibhāti.</p></div><div class="divider"></div><div class="col-r"><p>あなたがそばに立っていると、このバクラの木が、蔓草を連れ合いにしているように見えるんだもの。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>インドの詩では、木を夫、そこにからまる蔓草を妻に見立てることが多い。シャクンタラーに結婚相手がいる姿をからかっている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">ado kkhu piaṃvadā si.</p><p class="chaya"><span class="lang-label">chāyā</span>ataḥ khalu priyaṃvadāsi.</p></div><div class="divider"></div><div class="col-r"><p>だからあなたは「プリヤンヴァダー<span class="sd-in">（うれしいことを言う人）</span>」なのね。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>友の名前 Priyaṃvadā が「好ましいことを言う女」という意味であることをふまえた言葉遊び。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">priyam api tathyam āhaiṣā. asyāḥ khalu</p></div><div class="divider"></div><div class="col-r"><p>うれしいことを言っただけでなく、本当のことも言っている。実にこの娘は――</p></div></div></div>
+<div class="row verse" id="v1.18"><div class="verse-number">詩節 1.18<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">adharaḥ kisalayarāgaḥ komalaviṭapānukāriṇau bāhū</span><span class="pada">kusumam iva lobhanīyaṃ yauvanam aṅgeṣu saṃnaddham</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">唇は若葉の紅色、両腕はやわらかな枝のよう。花のように心をそそる若さが、体のすみずみまで満ちている。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>直前の「蔓草」のたとえを受けて、シャクンタラーの体を若葉・枝・花をつけた蔓草として描いている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā saüntale, iaṃ saaṃvaravahū sahaārassa tae kidaṇāmaheassa vaṇadosiṇo ṇomāliā.</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, iyaṃ svayaṃvaravadhūḥ sahakārasya tvayā kṛtanāmadheyasya vanajyotsnasya navamālikā.</p></div><div class="divider"></div><div class="col-r"><p>ねえシャクンタラー、このジャスミンは、あなたが「ヴァナジョートスナ<span class="sd-in">（森の月光）</span>」と名づけたマンゴーの木の、自分で選んだ花嫁よ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「スヴァヤンヴァラ」は、娘が自分で夫を選ぶ婚礼の形式。この底本（ベンガル系の伝本）では「森の月光」はマンゴーの木の名だが、ほかの伝本ではジャスミンの名になっている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(upagamyāvalokya ca)</span> halā, ramaṇīe kkhu kāle imassa pādavamihuṇassa vadiaro saṃvutto. iaṃ ṇavakusumajovvaṇā, aaṃ vi baddhaphaladāe uvabhoakkhamo sahaāro. <span class="sd-in">(paśyantī tiṣṭhati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>halā, ramaṇīye khalu kāle 'sya pādapamithunasya vyatikaraḥ saṃvṛttaḥ. iyaṃ navakusumayauvanā, ayam api baddhaphalatayopabhogakṣamaḥ sahakāraḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（近づいて見て）</span>ねえ、ほんとうにちょうどいい時に、この木の夫婦は結ばれたのね。こちらは咲いたばかりの花で若さの盛り、あちらのマンゴーも実をつけて、楽しむのにちょうどいい頃。<span class="sd-in">（じっと見つめて立っている）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā aṇasūe, jāṇāsi kiṃṇimittaṃ saüntalā vaṇadosiṇaṃ adimettaṃ pekkhadi tti?</p><p class="chaya"><span class="lang-label">chāyā</span>halānasūye, jānāsi kiṃnimittaṃ śakuntalā vanajyotsnam atimātraṃ prekṣata iti?</p></div><div class="divider"></div><div class="col-r"><p>ねえアナスーヤー、どうしてシャクンタラーが「森の月光」をあんなにじっと見ているか、わかる？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">ṇa kkhu vibhāvemi.</p><p class="chaya"><span class="lang-label">chāyā</span>na khalu vibhāvayāmi.</p></div><div class="divider"></div><div class="col-r"><p>わからないわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">jadhā vaṇadosiṇā aṇusadiseṇa pādaveṇa saṃgadā ṇomāliā, avi ṇāma evaṃ ahaṃ pi attaṇo aṇurūvaṃ varaṃ lahemi tti.</p><p class="chaya"><span class="lang-label">chāyā</span>yathā vanajyotsnenānusadṛśena pādapena saṃgatā navamālikā, api nāmaivam aham apy ātmano 'nurūpaṃ varaṃ labheyeti.</p></div><div class="divider"></div><div class="col-r"><p>ジャスミンが「森の月光」という似合いの木と結ばれたように、私もあんなふうに、自分にふさわしい夫に出会えたらいいのに――って思っているのよ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">eso ṇūṇaṃ de attaṇo cittagado maṇoradho. <span class="sd-in">(iti kalaśam āvarjayati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>eṣa nūnaṃ ta ātmanaś cittagato manorathaḥ.</p></div><div class="divider"></div><div class="col-r"><p>それはきっと、あなた自身の心の中の願いでしょう。<span class="sd-in">（と言って、水がめの水を注ぐ）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">api nāma kulapater iyam asavarṇakṣetrasaṃbhavā syāt? athavā</p></div><div class="divider"></div><div class="col-r"><p>もしかするとこの娘は、庵の主とは違う身分の母から生まれたのだろうか。いや――</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>カンヴァはバラモン（祭司の身分）である。王はクシャトリヤ（武人の身分）なので、バラモンの娘と結婚することは許されないとされた。王はそれを気にしている。</p></div></div>
+<div class="row verse" id="v1.19"><div class="verse-number">詩節 1.19<span class="meter">vaṃśastha（ヴァンシャスタ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">asaṃśayaṃ kṣatraparigrahakṣamā yad evam asyām abhilāṣi me manaḥ</span><span class="pada">satāṃ hi saṃdehapadeṣu vastuṣu pramāṇam antaḥkaraṇapravṛttayaḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">疑いなく、この娘はクシャトリヤの妻となれる身分だ。私の心がこれほどこの娘に惹かれているのだから。善き人にとって、疑わしい事柄では、自分の心の動きこそが判断のよりどころなのだ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>この詩の後半は、のちの時代にも格言としてよく引かれた。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">tathāpi tattvata enāṃ veditum icchāmi.</p></div><div class="divider"></div><div class="col-r"><p>それでも、この娘の本当の素性を知りたいものだ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(bhramarasaṃpātaṃ nāṭayati)</span> ammo, salilasekasaṃbhanto ṇomāliaṃ ujjhia vaaṇaṃ me mahuaro aṇuvaṭṭadi. <span class="sd-in">(bhramarabādhāṃ nirūpayati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>aho, salilasekasaṃbhrānto navamālikām ujjhitvā vadanaṃ me madhukaro 'nuvartate.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（蜂が飛んでくるしぐさをして）</span>あら、水をかけられてあわてた蜜蜂が、ジャスミンを離れて、私の顔につきまとってくるわ。<span class="sd-in">（蜂に困らされるしぐさをする）</span></p></div></div><div class="commentary"><div class="commentary-title">注</div><p>蜂の場面は第一幕でいちばん有名な場面。蜂を追い払うシャクンタラーのしぐさが、王が姿を現すきっかけになる。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(vilokya saspṛham)</span></p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（見つめて、うらやましそうに）</span></p></div></div></div>
+<div class="row verse" id="v1.20"><div class="verse-number">詩節 1.20<span class="meter">śikhariṇī（シカリニー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">calāpāṅgāṃ dṛṣṭiṃ spṛśasi bahuśo vepathumatīṃ</span><span class="pada">rahasyākhyāyīva svanasi mṛdu karṇāntikagataḥ</span><span class="pada">karau vyādhunvatyāḥ pibasi ratisarvasvam adharaṃ</span><span class="pada">vayaṃ tattvānveṣān madhukara hatās tvaṃ khalu kṛtī</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">目尻の揺れる、震えるまなざしに、おまえは何度も触れる。秘密を打ち明けるかのように、耳もとに寄って小さくうなる。手を振り払おうとする娘の、愛の喜びのすべてである唇を、おまえは吸う。蜜蜂よ、素性を確かめようとためらっている私は打ちのめされ、おまえこそが果報者だ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>蜂がしていること（まなざしに触れる、耳もとでささやく、唇を吸う）は、どれも恋人がすることである。王は蜂をうらやんでいる。</p><p>最後の行は、底本では vayaṃ devair maugdhyān と読むが、意味がとりにくいため、広く知られた読み tattvānveṣān（真実を探しているうちに）に従った。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā, parittāadha maṃ imiṇā kusumapāḍaccareṇa ahibhūamāṇaṃ.</p><p class="chaya"><span class="lang-label">chāyā</span>halā, paritrāyethāṃ mām anena kusumapāṭaccareṇābhibhūyamānām.</p></div><div class="divider"></div><div class="col-r"><p>ねえ、助けて。この花泥棒にいじめられているの。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">ubhe</span><span class="sp-jp">二人</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(vihasya)</span> ke vaaṃ parittāṇe? dussantaṃ akkanda. rāarakkhidāiṃ kkhu tavovaṇāiṃ honti.</p><p class="chaya"><span class="lang-label">chāyā</span>ke vayaṃ paritrāṇe? duṣyantam ākranda. rājarakṣitāni khalu tapovanāni bhavanti.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（笑って）</span>私たちに助ける力なんてないわ。ドゥシヤンタ王さまを呼びなさいよ。苦行林は王さまが守るものなんだから。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>冗談で口にした王の名前が、隠れて見ている本人への合図になる。おもしろい皮肉である。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">avasaraḥ khalv ayaṃ mamātmānaṃ darśayitum. <span class="sd-in">(upasṛtya)</span> na bhetavyaṃ na bhetavyam — <span class="sd-in">(ity ardhokte 'pavārya)</span> evaṃ rājāham iti pratijñātaṃ bhavati. bhavatu, atithisamucitam ācāram avalambiṣye.</p></div><div class="divider"></div><div class="col-r"><p>いよいよ、姿を現すよい機会だ。<span class="sd-in">（近づいて）</span>こわがることはない、こわがることは――<span class="sd-in">（と言いかけて、わきを向いて）</span>これでは「私が王だ」と名乗ってしまうことになる。よし、客人にふさわしいふるまいをしよう。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「アパヴァーリヤ（わきを向いて）」は、ほかの登場人物には聞こえないことにして言う台詞の印。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(satrāsam)</span> ṇa eso me purado aïdhaṭṭho viramadi. tā aṇṇado gamissaṃ. <span class="sd-in">(iti paṭāntareṇa sthitvā sadṛṣṭikṣepam)</span> haddhī, kadhaṃ ido vi maṃ aṇusaradi.</p><p class="chaya"><span class="lang-label">chāyā</span>na eṣa me purato 'tidhṛṣṭo viramati. tad anyato gamiṣyāmi. hā dhik, katham ito 'pi mām anusarati.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（おびえて）</span>このずうずうしい蜂ったら、私の前から離れてくれないの。あっちへ行こう。<span class="sd-in">（と少し離れて立ち、振り返って見て）</span>いやだ、こっちまで追いかけてくる。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(satvaram upetya)</span></p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（急いで近づいて）</span></p></div></div></div>
+<div class="row verse" id="v1.21"><div class="verse-number">詩節 1.21<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">kaḥ paurave vasumatīṃ śāsati śāsitari durvinītānām</span><span class="pada">ayam ācaraty avinayaṃ mugdhāsu tapasvikanyāsu</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">不心得者をこらしめるパウラヴァ<span class="sd-in">（プル族の王）</span>がこの大地を治めているというのに、あどけない苦行者の娘たちに無礼をはたらくのは、いったい誰だ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>王は自分の名を出さずに「プル族の王」と言い、なお身分を隠している。</p></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>sarvā rājānaṃ dṛṣṭvā kiṃcid iva saṃbhrāntāḥ.</p></div><div class="divider"></div><div class="col-r"><p>娘たちは皆、王を見て、少しうろたえる。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">ṇa kkhu kiṃci accāhidaṃ. iaṃ uṇa ṇo piasahī mahuareṇa āulīkiamāṇā kādarībhūdā. <span class="sd-in">(śakuntalāṃ darśayati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>na khalu kiṃcid atyāhitam. iyaṃ punar nau priyasakhī madhukareṇākulīkriyamāṇā kātarībhūtā.</p></div><div class="divider"></div><div class="col-r"><p>いいえ、たいしたことではございません。ただ、私たちの大事な友だちが、蜜蜂につきまとわれて、こわがってしまったのです。<span class="sd-in">（シャクンタラーを指し示す）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(śakuntalām upetya)</span> bhavati, api tapas te vardhate?</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（シャクンタラーに近づいて）</span>お嬢さん、苦行は順調に進んでいますか。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>苦行者に会ったときの決まった挨拶の言葉。</p></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>śakuntalā sasādhvasāvanatamukhy avacanā tiṣṭhati.</p></div><div class="divider"></div><div class="col-r"><p>シャクンタラーは、おずおずとうつむき、黙って立っている。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(rājānaṃ prati)</span> idāṇiṃ adidhivisesalāheṇa.</p><p class="chaya"><span class="lang-label">chāyā</span>idānīm atithiviśeṣalābhena.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（王に向かって）</span>ええ、今は、すばらしいお客さまをお迎えできましたので。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>客をもてなすことも功徳になるので、「苦行が進んでいる」と答えている。気のきいた返事である。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">sāadaṃ ayyassa.</p><p class="chaya"><span class="lang-label">chāyā</span>svāgatam āryasya.</p></div><div class="divider"></div><div class="col-r"><p>ようこそおいでくださいました。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā saüntale, gaccha tumaṃ uḍaādo phalamissaṃ agghaṃ uvāhara. idha pādodaaṃ atthi yyeva.</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, gaccha tvam uṭajāt phalamiśram arghyam upāhara. iha pādodakam asty eva.</p></div><div class="divider"></div><div class="col-r"><p>ねえシャクンタラー、小屋へ行って、果物を添えたお迎えの水<span class="sd-in">（アルギャ）</span>を持ってきて。足を洗う水はここにあるから。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>客を迎えるときは、まず足を洗う水と、敬意を表す水（アルギャ）を差し出すのが作法だった。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">bhavatu. sūnṛtayaiva kṛtam ātithyam.</p></div><div class="divider"></div><div class="col-r"><p>いや、けっこう。心のこもったお言葉だけで、もう十分おもてなしいただきました。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">teṇa hi imassiṃ dāva pādavacchāāsīdalāe sattavaṇṇavediāe ayyo uvavisia muhuttaaṃ parissamaṃ avaṇedu.</p><p class="chaya"><span class="lang-label">chāyā</span>tena hy asyāṃ tāvat pādapacchāyāśītalāyāṃ saptaparṇavedikāyām ārya upaviśya muhūrtakaṃ pariśramam apanayatu.</p></div><div class="divider"></div><div class="col-r"><p>それでしたら、木陰で涼しいこのサプタパルナの木の下の台にお掛けになって、しばらくお疲れをお休めください。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>サプタパルナ（七枚の葉という意味）は、葉が七枚ずつ輪になってつく木。その根もとに土を盛った台がある。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">nanu yūyam apy anena dharmakarmaṇā pariśrāntāḥ. tan muhūrtam upaviśata.</p></div><div class="divider"></div><div class="col-r"><p>あなたがたも、この勤めで疲れているでしょう。少しお座りなさい。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(janāntikam)</span> halā saüntale, uidaṃ ṇo adidhipayyuvāsaṇaṃ. tā idha uvavisamha. <span class="sd-in">(sarvā upaviśanti)</span></p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, ucitaṃ no 'tithiparyupāsanam. tad ihopaviśāmaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（そっと）</span>ねえシャクンタラー、お客さまのおそばにいるのが礼儀よ。ここに座りましょう。<span class="sd-in">（皆、座る）</span></p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「ジャナーンティカ」は、手で隠すしぐさをして、特定の相手にだけ聞こえることにして話す台詞の印。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(ātmagatam)</span> kiṃ ṇu kkhu imaṃ pekkhia tavovaṇavirohiṇo viārassa gamaṇīa mhi saṃvuttā?</p><p class="chaya"><span class="lang-label">chāyā</span>kiṃ nu khalv imaṃ prekṣya tapovanavirodhino vikārasya gamanīyāsmi saṃvṛttā?</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（独り言）</span>どうしたのかしら。この方を見てから、苦行林にふさわしくない心の乱れに、とらわれてしまった。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(sarvā vilokya)</span> aho samānavayorūparamaṇīyaṃ sauhārdaṃ bhavatīnām.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（皆を見て）</span>ああ、年も姿も似ていて、あなたがたの仲のよさはなんとも好ましい。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(janāntikam)</span> aṇasūe, ko ṇu kkhu eso caüragambhīrāidī mahuraṃ piaṃ ālavanto pahavantaṃ dakkhiṇṇaṃ via karedi?</p><p class="chaya"><span class="lang-label">chāyā</span>anasūye, ko nu khalv eṣa caturagambhīrākṛtir madhuraṃ priyam ālapan prabhavad dākṣiṇyam iva karoti?</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（そっと）</span>アナスーヤー、この方はどなたかしら。洗練されていて重々しいお姿で、やさしく心地よいお言葉で話しながら、身分の高い方らしい思いやりを見せてくださるわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(janāntikam eva)</span> sahi, mamāvi kodūhalaṃ atthi yyeva. tā pucchissaṃ dāva ṇaṃ. <span class="sd-in">(prakāśam)</span> ayyassa mahurālāvajaṇido vīsambho maṃ mantāvedi. kadamaṃ uṇa ayyo vaṇṇaṃ alaṅkaredi? kiṇṇimittaṃ vā suumāreṇa ayyeṇa tavovaṇāgamaṇaparissamassa attā pattīkado?</p><p class="chaya"><span class="lang-label">chāyā</span>sakhi, mamāpi kautūhalam asty eva. tat prakṣyāmi tāvad enam. āryasya madhurālāpajanito visrambho māṃ mantrayati. katamaṃ punar āryo varṇam alaṃkaroti? kiṃnimittaṃ vā sukumāreṇāryeṇa tapovanāgamanapariśramasyātmā pātrīkṛtaḥ?</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（同じくそっと）</span>ええ、私も気になっていたの。お尋ねしてみるわ。<span class="sd-in">（声に出して）</span>お言葉のやさしさに、つい気を許して、お尋ねいたします。あなたさまは、どの身分を飾っていらっしゃる方でしょうか。また、どうしてそのように繊細なお方が、苦行林まで来るという苦労をなさったのですか。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「プラカーシャム（声に出して）」は、舞台の全員に聞こえる台詞に戻ったことを示す。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(ātmagatam)</span> hiaa, mā uttamma. jaṃ tae cintidaṃ taṃ aṇasūā mantedi.</p><p class="chaya"><span class="lang-label">chāyā</span>hṛdaya, mottāmya. yat tvayā cintitaṃ tad anasūyā mantrayate.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（独り言）</span>心よ、そんなにやきもきしないで。あなたが思っていたことを、アナスーヤーが聞いてくれているわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(svagatam)</span> katham idānīm ātmānaṃ nivedaye? kathaṃ vātmāpahāraṃ karomi? bhavatu, evaṃ tāvad enāṃ vakṣye. <span class="sd-in">(prakāśam)</span> bhavati, vedavid asmi pauraveṇa rājñā dharmādhikāre niyuktaḥ. so 'ham āśramiṇām avighnakriyopalambhāya dharmāraṇyam idam āyātaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（独り言）</span>さて、どう名乗ったものか。といって、どうやって身分を隠せばよいか。よし、こう言っておこう。<span class="sd-in">（声に出して）</span>お嬢さん、私はヴェーダを学んだ者で、パウラヴァ王から宗教のことをつかさどる役に任じられています。庵の方々の祭式がさまたげなく行われているかを確かめるために、この聖なる森へやって来たのです。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>王は身分を隠して、王に仕える役人のふりをする。娘たちはこの嘘を半ば見抜いている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">saṇāhā dāṇiṃ dhammacāriṇo.</p><p class="chaya"><span class="lang-label">chāyā</span>sanāthā idānīṃ dharmacāriṇaḥ.</p></div><div class="divider"></div><div class="col-r"><p>これで、法を行う私たちも心強いことです。</p></div></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>śakuntalā śṛṅgāralajjāṃ nirūpayati.</p></div><div class="divider"></div><div class="col-r"><p>シャクンタラーは、恋心からくる恥じらいを見せる。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sakhyau</span><span class="sp-jp">二人の友</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(ubhayor ākāraṃ viditvā, janāntikam)</span> halā saüntale, jadi ajja tādo idha saṇṇihido bhave...</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, yady adya tāta iha saṃnihito bhavet...</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（二人の様子を見てとって、そっと）</span>ねえシャクンタラー、もし今日、父さまがここにいらしたら……</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(sabhrūbhedam)</span> tado kiṃ bhave?</p><p class="chaya"><span class="lang-label">chāyā</span>tataḥ kiṃ bhavet?</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（眉をひそめて）</span>そうしたら、どうだっていうの？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">ubhe</span><span class="sp-jp">二人</span></div><div class="cols"><div class="col-l"><p class="prakrit">tado imaṃ adidhiṃ jīvidasavvasseṇāvi kidatthaṃ kare.</p><p class="chaya"><span class="lang-label">chāyā</span>tata imam atithiṃ jīvitasarvasvenāpi kṛtārthaṃ kuryāt.</p></div><div class="divider"></div><div class="col-r"><p>そうしたら、命より大事なものを差し出してでも、このお客さまの望みをかなえてさしあげるでしょうに。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「命より大事なもの」とはシャクンタラー本人のこと。友だちは、王に嫁がせるだろうとからかっている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(saroṣam)</span> ayi, avedha. kiṃ pi hiae karia mantedha. ṇa kkhu suṇissaṃ. <span class="sd-in">(parāvṛtya tiṣṭhati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>ayi, apetam. kim api hṛdaye kṛtvā mantrayethe. na khalu śroṣyāmi.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（怒って）</span>もう、あっちへ行って。何か心にたくらんで言っているんでしょう。もう聞いてあげないから。<span class="sd-in">（背を向けて立っている）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">vayam api tāvad bhavatyau sakhīgataṃ pṛcchāmaḥ.</p></div><div class="divider"></div><div class="col-r"><p>私のほうからも、お二人に、お友だちのことをお尋ねしたい。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">ubhe</span><span class="sp-jp">二人</span></div><div class="cols"><div class="col-l"><p class="prakrit">ayya, aṇuggahe vi abbhatthaṇā.</p><p class="chaya"><span class="lang-label">chāyā</span>ārya, anugrahe 'py abhyarthanā.</p></div><div class="divider"></div><div class="col-r"><p>まあ、お尋ねくださるのはこちらへのご好意ですのに、お願いなさるなんて。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">bhagavān kāśyapaḥ śāśvate brahmaṇi vartate. iyaṃ ca vaḥ sakhī tadātmajeti katham etat?</p></div><div class="divider"></div><div class="col-r"><p>尊いカーシャパどのは、永遠のブラフマンに身をささげ、生涯独身を守っておられる。それなのに、あなたがたのお友だちがその方の娘だというのは、どういうことなのでしょう。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「永遠のブラフマンにとどまる」は、結婚せずに修行に一生をささげる誓い（ブラフマチャリヤ）を守っている、という意味。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">suṇādu ayyo. atthi kosio tti gottaṇāmaheo mahappahāvo rāesī.</p><p class="chaya"><span class="lang-label">chāyā</span>śṛṇotv āryaḥ. asti kauśika iti gotranāmadheyo mahāprabhāvo rājarṣiḥ.</p></div><div class="divider"></div><div class="col-r"><p>お聞きください。カウシカという氏の名をもつ、大きな力をそなえた王仙がおられます。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>カウシカは、のちの聖仙ヴィシュヴァーミトラのこと。もとは王であったが、きびしい苦行によって聖仙（リシ）の位を得た。「王仙（ラージャルシ）」は王の身分から出た聖仙をいう。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">prakāśas tatrabhavān.</p></div><div class="divider"></div><div class="col-r"><p>その方なら、名高いお方だ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">taṃ sahiaṇe pahavaṃ avagaccha. ujjhiasarīrasaṃrakkhaṇādīhiṃ uṇa tādakassavo se pidā.</p><p class="chaya"><span class="lang-label">chāyā</span>taṃ sakhījanasya prabhavam avagaccha. ujjhitaśarīrasaṃrakṣaṇādibhiḥ punas tātakāśyapo 'syāḥ pitā.</p></div><div class="divider"></div><div class="col-r"><p>その方が、私たちの友だちの生みの親だとお考えください。けれど、捨てられたこの子を拾って守り育てたので、カーシャパ父さまがこの子の父親なのです。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">ujjhitaśabdena janitaṃ me kutūhalam. tad ā mūlāc chrotum icchāmi.</p></div><div class="divider"></div><div class="col-r"><p>「捨てられた」という言葉に、好奇心をそそられました。はじめから聞かせてください。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">purā kila tassa kosiassa rāesiṇo ugge tavasi vaṭṭamāṇassa kiṃ pi jādasaṅkehiṃ devehiṃ meṇaā ṇāma accharā ṇiamavigghakāriṇī pahidā.</p><p class="chaya"><span class="lang-label">chāyā</span>purā kila tasya kauśikasya rājarṣer ugre tapasi vartamānasya kim api jātaśaṅkair devair menakā nāmāpsarā niyamavighnakāriṇī prahitā.</p></div><div class="divider"></div><div class="col-r"><p>昔、そのカウシカ王仙がきびしい苦行を続けておられたとき、神々は何かを恐れて、メーナカーという天女を、その修行をさまたげるために遣わしたそうです。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>苦行を積むと大きな力が得られるため、神々はその力が自分たちの地位をおびやかすことを恐れた。そこで天女（アプサラス）を送って修行を邪魔するのは、インドの説話によくある筋である。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">asty etad anyasamādhibhīrutvaṃ devānām. tatas tataḥ?</p></div><div class="divider"></div><div class="col-r"><p>他人の瞑想を恐れるのは、神々にはよくあることだ。それから、それから？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">tado vasantodaasamae tāe ummādaïttaaṃ rūvaṃ pekkhia... <span class="sd-in">(ity ardhokte lajjayā viramati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>tato vasantodayasamaye tasyā unmādayitṛ rūpaṃ prekṣya...</p></div><div class="divider"></div><div class="col-r"><p>それから、春が来たころ、その天女の、人の心を狂わせるような姿を見て……<span class="sd-in">（と言いかけて、恥ずかしそうに口をつぐむ）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">bhavatu. purastād avagamyata eva. sarvathāpsaraḥsaṃbhavaiṣā.</p></div><div class="divider"></div><div class="col-r"><p>いや、その先はわかります。つまりこの方は、天女から生まれたのですね。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">adha iṃ?</p><p class="chaya"><span class="lang-label">chāyā</span>atha kim?</p></div><div class="divider"></div><div class="col-r"><p>そのとおりです。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">yujyate.</p></div><div class="divider"></div><div class="col-r"><p>それならうなずける。</p></div></div></div>
+<div class="row verse" id="v1.22"><div class="verse-number">詩節 1.22<span class="meter">śloka（シュローカ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">mānuṣīṣu kathaṃ vā syād asya rūpasya saṃbhavaḥ</span><span class="pada">na prabhātaralaṃ jyotir udeti vasudhātalāt</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">人間の女から、どうしてこれほどの美しさが生まれようか。光にゆらめく輝き<span class="sd-in">（稲妻）</span>は、地面からは立ちのぼらないものだ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>シャクンタラーの母が天女だとわかったことで、彼女がバラモンの血筋ではなく、王と結婚できる身分だということもはっきりする。王が安心する理由はここにある。</p></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>śakuntalā adhomukhī tiṣṭhati.</p></div><div class="divider"></div><div class="col-r"><p>シャクンタラーは、うつむいて立っている。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(svagatam)</span> labdhāvakāśo me manorathaḥ. kiṃ tu sakhyā parihāsodāhṛtāṃ varaprārthanām asyāḥ śrutvāpi na śraddhatte me kātaraṃ manaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（独り言）</span>私の願いに道が開けた。だが、友だちが冗談めかして口にした、この娘が夫を望んでいるという話を聞いても、臆病な私の心は、まだ信じきれない。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(śakuntalāṃ sasmitaṃ vilokya nāyakābhimukhī)</span> puṇo via vattukāmo ayyo.</p><p class="chaya"><span class="lang-label">chāyā</span>punar iva vaktukāma āryaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（シャクンタラーを見てほほえみ、王のほうを向いて）</span>あなたさまは、まだ何かおっしゃりたいようですね。</p></div></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>śakuntalā sakhīm aṅgulyā tarjayati.</p></div><div class="divider"></div><div class="col-r"><p>シャクンタラーは、指で友だちをたしなめる。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">samyag upalakṣitaṃ bhavatyā. asti naḥ saccaritaśravaṇalobhād anyat praṣṭavyam.</p></div><div class="divider"></div><div class="col-r"><p>よく見抜きましたね。立派な方々のお話をもっと聞きたくて、ほかにもお尋ねしたいことがあるのです。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">teṇa hi viārideṇa alaṃ. aṇiantaṇāṇuyoggo tavassiaṇo.</p><p class="chaya"><span class="lang-label">chāyā</span>tena hi vicāritenālam. aniyantraṇānuyogyas tapasvijanaḥ.</p></div><div class="divider"></div><div class="col-r"><p>それでしたら、ためらうことはございません。苦行者には、遠慮なく何でもお尋ねになってよいのです。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">upapadyate. bhavati, sakhīṃ te jñātum icchāmi —</p></div><div class="divider"></div><div class="col-r"><p>それはありがたい。では、あなたのお友だちのことを知りたいのですが――</p></div></div></div>
+<div class="row verse" id="v1.23"><div class="verse-number">詩節 1.23<span class="meter">vasantatilakā（ヴァサンタティラカー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">vaikhānasaṃ kim anayā vratam ā pradānād vyāpārarodhi madanasya niṣevitavyam</span><span class="pada">atyantam ātmasadṛśekṣaṇavallabhābhir āho nivatsyati samaṃ hariṇāṅganābhiḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">この方は、嫁ぐときまでの間だけ、恋の神のはたらきをさまたげる苦行者の誓いを守るのだろうか。それとも、自分と同じような目をした、いとしい雌鹿たちと一緒に、一生ここで暮らすのだろうか。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「マダナ」は恋の神カーマの別名。「自分と似た目の雌鹿」は、大きく美しい目をした女性を鹿にたとえる、インドの詩の決まった表現をふまえている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">ayya, dhammacaraṇe vi eso parādhīṇo jaṇo. guruṇo uṇa se aṇurūvavarapaḍivādaṇe saṃkappo.</p><p class="chaya"><span class="lang-label">chāyā</span>ārya, dharmacaraṇe 'py eṣa parādhīno janaḥ. guroḥ punar asyā anurūpavarapratipādane saṃkalpaḥ.</p></div><div class="divider"></div><div class="col-r"><p>この子は、宗教の務めでさえ、自分の思いどおりにはできない身なのです。でも父さまは、ふさわしいお婿さんにこの子を嫁がせるおつもりです。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">na khalu durlabhaiṣā prārthanā. <span class="sd-in">(ātmagatam)</span></p></div><div class="divider"></div><div class="col-r"><p>その望みなら、かなわないものではありません。<span class="sd-in">（独り言）</span></p></div></div></div>
+<div class="row verse" id="v1.24"><div class="verse-number">詩節 1.24<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">bhava hṛdaya sābhilāṣaṃ saṃprati saṃdehanirṇayo jātaḥ</span><span class="pada">āśaṅkase yad agniṃ tad idaṃ sparśakṣamaṃ ratnam</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">心よ、望みを抱け。今こそ疑いは晴れた。おまえが火ではないかと恐れていたものは、手に触れてもよい宝石だったのだ。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「火」は手を出してはいけないもの（バラモンの娘）、「宝石」は手に入れてよいもの（王と結婚できる娘）のたとえ。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(saroṣam iva)</span> aṇasūe, gamissaṃ ahaṃ.</p><p class="chaya"><span class="lang-label">chāyā</span>anasūye, gamiṣyāmy aham.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（怒ったふりをして）</span>アナスーヤー、私、行くわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">kiṇṇimittaṃ?</p><p class="chaya"><span class="lang-label">chāyā</span>kiṃnimittam?</p></div><div class="divider"></div><div class="col-r"><p>どうして？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">imaṃ asambaddhappalāviṇiṃ piaṃvadaṃ ayyāe godamīe ṇivedaïssaṃ. <span class="sd-in">(ity uttiṣṭhati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>imām asaṃbaddhapralāpinīṃ priyaṃvadām āryāyai gautamyai nivedayiṣyāmi.</p></div><div class="divider"></div><div class="col-r"><p>このでたらめばかり言うプリヤンヴァダーのことを、ガウタミーさまに言いつけてやるの。<span class="sd-in">（と言って立ち上がる）</span></p></div></div><div class="commentary"><div class="commentary-title">注</div><p>ガウタミーは庵の年長の女性苦行者で、娘たちの母親がわりの人物。第四幕に登場する。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit">sahi, ṇa juttaṃ assamavāsiṇo jaṇassa akidasakkāraṃ adidhivisesaṃ ujjhia sacchandado gamaṇaṃ.</p><p class="chaya"><span class="lang-label">chāyā</span>sakhi, na yuktam āśramavāsino janasyākṛtasatkāram atithiviśeṣam ujjhitvā svacchandato gamanam.</p></div><div class="divider"></div><div class="col-r"><p>ねえ、庵に住む者が、大切なお客さまをおもてなしもせずに放っておいて、勝手に行ってしまうのはよくないわ。</p></div></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>śakuntalā na kiṃcid uktvā prasthitaiva.</p></div><div class="divider"></div><div class="col-r"><p>シャクンタラーは何も言わずに、行こうとする。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(apavārya)</span> katham, gacchati? <span class="sd-in">(grahītum icchan punar ātmānaṃ nigṛhya)</span> aho ceṣṭāpratirūpikā kāmino manovṛttiḥ. ahaṃ hi</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（わきを向いて）</span>なんと、行ってしまうのか。<span class="sd-in">（引きとめようとして、また思いとどまって）</span>ああ、恋する者の心の動きは、そのまま体の動きに表れるものだ。私は――</p></div></div></div>
+<div class="row verse" id="v1.25"><div class="verse-number">詩節 1.25<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">anuyāsyan munitanayāṃ sahasā vinayena vāritaprasaraḥ</span><span class="pada">sthānād anuccalann api gatveva punaḥ pratinivṛttaḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">聖仙の娘の後を追おうとしたが、ふと礼儀に歩みを止められた。その場から動いてもいないのに、まるで行って、また戻ってきたような気がする。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(śakuntalām upasṛtya)</span> halā caṇḍi, ṇa de juttaṃ gacchiduṃ.</p><p class="chaya"><span class="lang-label">chāyā</span>halā caṇḍi, na te yuktaṃ gantum.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（シャクンタラーに近寄って）</span>ねえ、怒りんぼさん、行ってはだめよ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(parivṛtya sabhrūbhedam)</span> kiṃ tti?</p><p class="chaya"><span class="lang-label">chāyā</span>kim iti?</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（振り返って、眉をひそめて）</span>どうして？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">rukkhaseaṇae due me dhāresi. tehi dāva attāṇaaṃ moehi, tado gamissasi. <span class="sd-in">(balād enāṃ nivārayati)</span></p><p class="chaya"><span class="lang-label">chāyā</span>vṛkṣasecanake dve me dhārayasi. tābhyāṃ tāvad ātmānaṃ mocaya, tato gamiṣyasi.</p></div><div class="divider"></div><div class="col-r"><p>あなたは私に、木の水やりを二回分借りているでしょう。まずそれを返してから行きなさい。<span class="sd-in">（無理に引きとめる）</span></p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">bhadre, vṛkṣasecanād eva pariśrāntām atrabhavatīṃ lakṣaye. tathā hy asyāḥ</p></div><div class="divider"></div><div class="col-r"><p>お嬢さん、こちらの方は、木に水をやっただけで、もうお疲れのようだ。なにしろ――</p></div></div></div>
+<div class="row verse" id="v1.26"><div class="verse-number">詩節 1.26<span class="meter">śārdūlavikrīḍita（シャールドゥーラヴィクリーディタ）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">srastāṃsāv atimātralohitakarau bāhū ghaṭotkṣepaṇād</span><span class="pada">adyāpi stanavepathuṃ janayati śvāsaḥ pramāṇādhikaḥ</span><span class="pada">baddhaṃ karṇaśirīṣarodhi vadane gharmāmbhasāṃ jālakaṃ</span><span class="pada">bandhe sraṃsini caikahastayamitāḥ paryākulā mūrdhajāḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">水がめを持ち上げたせいで、両腕は肩が下がり、手のひらはひどく赤くなっている。荒い息は、今もまだ胸を上下させている。顔には、耳に挿したシリーシャの花をとどめるほどに、汗の玉が網のように浮かんでいる。髪を結んだ紐がゆるんだので、乱れた髪を片手で押さえている。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>序幕の歌（1.4）に出てきたシリーシャの花が、ここでシャクンタラーの耳飾りとして再び登場する。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">tad aham enām anṛṇāṃ karomi tvayi. <span class="sd-in">(svāṅgulīyaṃ prayacchati)</span></p></div><div class="divider"></div><div class="col-r"><p>では、私がこの方の借りを返してさしあげよう。<span class="sd-in">（自分の指輪を差し出す）</span></p></div></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>ubhe nāmamudrākṣarāṇy anuvācya parasparaṃ mukham avalokayataḥ.</p></div><div class="divider"></div><div class="col-r"><p>友の二人は、指輪の印に刻まれた名前の文字を読んで、顔を見合わせる。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>この指輪こそ、題名の「しるし（アビジュニャーナ）」である。王の名が刻まれていることで、娘たちは客の正体に気づく。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">alam asmākam anyathāsaṃbhāvitena. rājñaḥ parigraho 'yam.</p></div><div class="divider"></div><div class="col-r"><p>私のことを思い違いなさらぬように。これは王から賜ったものなのです。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">teṇa hi ṇārahadi idaṃ raṇṇo aṅgulīaaṃ vioakāriaṃ. ayyassa tuva vaaṇeṇa ṇāma esā ariṇā eva mama. <span class="sd-in">(parivṛtyāpavārya)</span> halā saüntale, moidāsi aṇukampiṇā ayyeṇa, ahavā mahāṇubhāveṇa. kidaṇṇā dāṇiṃ hohisi.</p><p class="chaya"><span class="lang-label">chāyā</span>tena hi nārhatīdaṃ rājño 'ṅgulīyakaṃ viyogakāritam. āryasya tava vacanena nāmaiṣānṛṇaiva mama. halā śakuntale, mocitāsy anukampinā āryeṇa, athavā mahānubhāvena. kṛtajñedānīṃ bhaviṣyasi.</p></div><div class="divider"></div><div class="col-r"><p>それでしたら、王さまの指輪を、あなたさまの指から離させるわけにはまいりません。あなたさまのお言葉だけで、この子の借りは帳消しにします。<span class="sd-in">（振り返り、わきを向いて）</span>ねえシャクンタラー、あなたはこのおやさしい方に――いえ、偉大なお方に、自由にしていただいたのよ。これからは恩を忘れないようにね。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「偉大なお方（マハーヌバーヴァ）」と言い直したのは、相手が王だと気づいたことをほのめかしている。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(apavārya niḥśvasya)</span> ṇa idaṃ visumarissadi jadi attaṇo pahave.</p><p class="chaya"><span class="lang-label">chāyā</span>na idaṃ vismariṣyate yady ātmanaḥ prabhaveyam.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（わきを向いて、ため息をついて）</span>私が自分の思いどおりにできる身なら、このご恩は忘れないわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">priyaṃvadā</span><span class="sp-jp">プリヤンヴァダー</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā, kiṃ dāṇiṃ saṃpadaṃ ṇa gacchasi?</p><p class="chaya"><span class="lang-label">chāyā</span>halā, kim idānīṃ sāṃprataṃ na gacchasi?</p></div><div class="divider"></div><div class="col-r"><p>ねえ、どうして今になって行かないの？</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit">idāṇiṃ pi tae kiṃ kattavvaṃ? jadā roissadi me tadā gamissaṃ.</p><p class="chaya"><span class="lang-label">chāyā</span>idānīm api tava kiṃ kartavyam? yadā rociṣyate me tadā gamiṣyāmi.</p></div><div class="divider"></div><div class="col-r"><p>今だって、あなたには関係ないでしょう。行きたくなったら行くわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(śakuntalāṃ vilokayan svagatam)</span> kiṃ nu khalu yathā vayam asyām evam iyam apy asmān prati syāt? athavā labdhagādhā me prārthanā. kutaḥ?</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（シャクンタラーを見つめながら、独り言）</span>私がこの娘を思うのと同じように、この娘も私のことを思ってくれているだろうか。いや、私の望みには足がかりがある。なぜなら――</p></div></div></div>
+<div class="row verse" id="v1.27"><div class="verse-number">詩節 1.27<span class="meter">vasantatilakā（ヴァサンタティラカー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">vācaṃ na miśrayati yady api madvacobhiḥ</span><span class="pada">karṇaṃ dadāty avahitā mayi bhāṣamāṇe</span><span class="pada">kāmaṃ na tiṣṭhati madānanasaṃmukhīyaṃ</span><span class="pada">bhūyiṣṭham anyaviṣayā na tu dṛṣṭir asyāḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">私の言葉に、自分の言葉をまじえようとはしないけれど、私が話すときには、じっと耳を傾けている。たしかに、私の顔の正面に立とうとはしない。だが、そのまなざしは、ほとんどほかのものには向いていない。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">nepathye</span><span class="sp-jp">舞台裏で</span></div><div class="cols"><div class="col-l"><p class="skt">bhoḥ bhoḥ tapasvinaḥ, avahitās tapovane sattvarakṣāyai bhavantu bhavantaḥ. paryāplutaṃ strīkumāram. pratyāsannaḥ khalu mṛgayāvihārī pārthivaḥ.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（舞台裏で）</span>おおい、おおい、苦行者の方々、苦行林の生き物を守るために、用心してください。女や子どもたちがうろたえています。狩りを楽しむ王さまが、すぐ近くまで来ているのです。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>王を探してやって来た家来たちの騒ぎが、庵まで届いたのである。</p></div></div>
+<div class="row verse" id="v1.28"><div class="verse-number">詩節 1.28<span class="meter">puṣpitāgrā（プシュピターグラー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">turagakhurahatas tathā hi reṇur</span><span class="pada">viṭapaviṣaktajalārdravalkaleṣu</span><span class="pada">patati pariṇatāruṇaprakāśaḥ</span><span class="pada">śalabhasamūha ivāśramadrumeṣu</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">なにしろ、馬のひづめに蹴立てられた土ぼこりが、夕日のように赤く輝きながら、水にぬれた樹皮の衣を枝に掛けて干している庵の木々の上に、イナゴの群れのように降りかかってくる。</p></div></div></div>
+<div class="row"><div class="cols"><div class="col-l"><p class="skt">aho dhik, eṣa khalu nibhṛtacārī bhūtvā</p></div><div class="divider"></div><div class="col-r"><p>ああ、なんということだ。ふだんはおとなしく歩いていたこの象が――</p></div></div></div>
+<div class="row verse" id="v1.29"><div class="verse-number">詩節 1.29<span class="meter">mandākrāntā（マンダークラーンター）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">tīvrāghātapratihatataruskandhalagnaikadantaḥ</span><span class="pada">prauḍhāsaktavratativalayāsaṅgasaṃjātapāśaḥ</span><span class="pada">mūrto vighnas tapasa iva no bhinnasāraṅgayūtho</span><span class="pada">dharmāraṇyaṃ virujati gajaḥ syandanālokabhītaḥ</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">激しくぶつかって折れた木の幹に、片方の牙を突き刺したまま、太くからみついた蔓の輪にひっかかって足かせをはめられたようになり、鹿の群れを蹴散らして――戦車を見て怯えた象が、まるで私たちの苦行の邪魔が形をとって現れたかのように、この聖なる森を荒らしている。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>「苦行の邪魔が形をとって現れた」という表現には皮肉がある。本当に苦行（シャクンタラーの庵の暮らし）をかき乱すのは、象ではなく、王の恋だからである。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(svagatam)</span> aho dhik, pramādaḥ. madanveṣiṇaḥ sainikās tapovanam uparundhanti. tad aparāddhaṃ tapasvinām asmābhiḥ. bhavatu, gamiṣyāmi tāvat.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（独り言）</span>しまった、うかつだった。私を探している兵士たちが、苦行林を荒らしているのだ。苦行者の方々に、とんだ迷惑をかけてしまった。よし、ともかく行くとしよう。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">anasūyā</span><span class="sp-jp">アナスーヤー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(sasaṃbhramam)</span> ayya, imiṇā akkandideṇa payyāulamha. tā aṇujāṇīhi ṇo uḍaagamaṇāa.</p><p class="chaya"><span class="lang-label">chāyā</span>ārya, anenākranditena paryākulāḥ smaḥ. tad anujānīhi na uṭajagamanāya.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（あわてて）</span>あの、この騒ぎで、私たちは気が動転しています。小屋へ戻ることをお許しください。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(sasaṃbhramam)</span> gacchantu bhavatyaḥ. āśramabādhā yathā na bhaviṣyati tathā prayatiṣyāmahe.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（あわてて）</span>お行きなさい。庵に迷惑がかからないよう、私も力を尽くそう。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">sakhyau</span><span class="sp-jp">二人の友</span></div><div class="cols"><div class="col-l"><p class="prakrit">asaṃbhāvidasakkāraṃ bhūo vi dāva paccavekkhaṇāṇimittaṃ lajjamha ayyaṃ viṇṇaveduṃ. vididabhūyiṭṭho si ṇo saṃpadaṃ. jaṃ dāṇiṃ uvaāramajjhatthadāe avaraddhamha taṃ marisesi.</p><p class="chaya"><span class="lang-label">chāyā</span>asaṃbhāvitasatkāraṃ bhūyo 'pi tāvat pratyavekṣaṇānimittaṃ lajjāva āryaṃ vijñāpayitum. viditabhūyiṣṭho 'si naḥ sāṃpratam. yad idānīm upacāramadhyasthatayāparāddhāḥ smas tan marṣayasi.</p></div><div class="divider"></div><div class="col-r"><p>おもてなしもできませんでしたのに、またお越しくださいとお願いするのは気がひけます。けれど、もう私たちのことはよくご存じでいらっしゃいます。おもてなしが行き届かずに失礼いたしましたことを、お許しくださいませ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">mā maivam. darśanena bhavatīnāṃ puraskṛto 'smi.</p></div><div class="divider"></div><div class="col-r"><p>そんなことをおっしゃらないでください。あなたがたにお会いできたことで、私はもう十分にもてなしていただきました。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">ubhe</span><span class="sp-jp">二人</span></div><div class="cols"><div class="col-l"><p class="prakrit">halā saüntale, ehi sigghadaraṃ. āülā ayyā godamī bhavissadi.</p><p class="chaya"><span class="lang-label">chāyā</span>halā śakuntale, ehi śīghrataram. ākulāryā gautamī bhaviṣyati.</p></div><div class="divider"></div><div class="col-r"><p>ねえシャクンタラー、早く行きましょう。ガウタミーさまが心配なさっているわ。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">śakuntalā</span><span class="sp-jp">シャクンタラー</span></div><div class="cols"><div class="col-l"><p class="prakrit"><span class="sd-in">(savyājavilambitaṃ kṛtvātmagatam)</span> haddhī, ūrutthambheṇa viala mhi saṃvuttā.</p><p class="chaya"><span class="lang-label">chāyā</span>hā dhik, ūrustambhena viklavāsmi saṃvṛttā.</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（口実をつくってぐずぐずしながら、独り言）</span>困ったわ、腿がこわばって、うまく歩けなくなってしまった。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>もちろん本当の理由は、王のそばを離れたくないからである。</p></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt">svairaṃ svairaṃ gacchantu bhavatyaḥ. vayam āvegahetum āśramasyāpaneṣyāmaḥ.</p></div><div class="divider"></div><div class="col-r"><p>ゆっくり、ゆっくりお行きなさい。庵を騒がせている原因は、私たちが取りのぞきましょう。</p></div></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p>śakuntalā savyājavilambitaṃ kṛtvā parikramya sakhībhyāṃ saha niṣkrāntā.</p></div><div class="divider"></div><div class="col-r"><p>シャクンタラーは口実をつくってぐずぐずしながら、歩きまわり、友だちとともに退場する。</p></div></div></div>
+<div class="row"><div class="speaker"><span class="sp-skt">rājā</span><span class="sp-jp">王</span></div><div class="cols"><div class="col-l"><p class="skt"><span class="sd-in">(utthāya sakhedam)</span> mandautsukyo 'smi nagaraṃ prati. yāvad anuyātrikajanaṃ sametya nātidūre tapovanasya niveśayāmi. na khalu śaknomi śakuntalāvyāpārād ātmānaṃ nivartayitum. mama hi</p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（立ち上がって、悲しげに）</span>都へ帰る気持ちがすっかり失せてしまった。お供の者たちと合流して、苦行林からあまり遠くない所に陣を張らせよう。シャクンタラーのことから、自分の心を引き離すことができないのだ。なにしろ私は――</p></div></div></div>
+<div class="row verse" id="v1.30"><div class="verse-number">詩節 1.30<span class="meter">āryā（アーリヤー）</span></div><div class="cols"><div class="col-l"><div class="verse-skt"><span class="pada">gacchati puraḥ śarīraṃ dhāvati paścād asaṃvṛtaṃ cetaḥ</span><span class="pada">cihnāṃśukam iva ketoḥ prativātaṃ nīyamānasya</span></div></div><div class="divider"></div><div class="col-r"><p class="verse-ja">体は前へ進んでいくのに、抑えのきかない心は後ろへと駆けもどっていく。向かい風に逆らって運ばれていく旗竿の、しるしの布のように。</p></div></div><div class="commentary"><div class="commentary-title">注</div><p>旗竿は前へ進んでも、旗の布は風に吹かれて後ろへたなびく。体と心が逆の方向へ引かれる様子をたとえた、第一幕をしめくくる有名な詩。</p></div></div>
+<div class="row sd"><div class="cols"><div class="col-l"><p><span class="sd-in">(sacintaḥ skhalitāni padāni dattvā niṣkrāntaḥ)</span></p></div><div class="divider"></div><div class="col-r"><p><span class="sd-in">（思いに沈み、よろめく足どりで退場）</span></p></div></div></div>
+<div class="row endline"><div class="cols"><div class="col-l"><p>iti mahākavikālidāsaviracite śakuntalānāmani nāṭake prathamo 'ṅkaḥ.</p></div><div class="divider"></div><div class="col-r"><p>以上、大詩人カーリダーサ作『シャクンタラー』と名づけられた劇の、第一幕。</p></div></div></div>
+<a class="back-top" href="#top">↑ 目次へ</a></section>
+
+<div class="colophon">
+  サンスクリット・プラークリット原文：カーリダーサ（パブリックドメイン）<br>
+  日本語訳・チャーヤー・注・あらすじ：本対訳のための書き下ろし
+</div>
+</body>
+</html>

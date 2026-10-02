@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>シャクンタラー対訳</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --verse-num: #7E7265;
+  --note-bg: #EDE8DF;
+  --verse-bg: #EFEAE1;
+  --prakrit: #4F5B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --verse-num: #8A7F73;
+    --note-bg: #27251F;
+    --verse-bg: #24221F;
+    --prakrit: #A9B78C;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --verse-num: #8A7F73;
+  --note-bg: #27251F;
+  --verse-bg: #24221F;
+  --prakrit: #A9B78C;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', serif;
+  line-height: 1.9;
+  padding: 3rem 1.5rem 5rem;
+  max-width: 1000px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---------- 冒頭 ---------- */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-iast {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: 1.45rem;
+  color: var(--ink);
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.7rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.5rem;
+  line-height: 1.6;
+}
+
+.toc, .front-sec {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--rule-light);
+}
+.toc h2, .front-sec h2 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.9rem;
+}
+.front-sec h3 {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--ink);
+  margin: 1.2rem 0 0.4rem;
+}
+.front-sec p, .front-sec li {
+  font-size: 0.95rem;
+  color: var(--ink);
+  line-height: 1.95;
+}
+.front-sec p + p { margin-top: 0.6rem; }
+.front-sec ul { padding-left: 1.3rem; }
+.front-sec li + li { margin-top: 0.3rem; }
+.toc-list { list-style: none; }
+.toc-list a {
+  color: var(--accent);
+  text-decoration: none;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: baseline;
+  gap: 0.7rem;
+  padding: 0.4rem 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+.toc-list a:hover { color: var(--accent-soft); }
+.toc-num {
+  font-family: 'Cormorant Garamond', serif;
+  color: var(--verse-num);
+  min-width: 1.2rem;
+}
+.toc-skt { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.9rem; }
+.pending { color: var(--verse-num); font-size: 0.88rem; padding: 0.4rem 0; }
+
+.synopsis-entry { margin-bottom: 1rem; }
+.synopsis-head { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+
+table.cast {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.9rem;
+  margin-top: 0.4rem;
+}
+table.cast th, table.cast td {
+  text-align: left;
+  vertical-align: top;
+  padding: 0.45rem 0.6rem 0.45rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  line-height: 1.7;
+}
+table.cast th {
+  font-weight: 600;
+  color: var(--ink-soft);
+  font-size: 0.8rem;
+  letter-spacing: 0.08em;
+}
+table.cast td.iast { font-family: 'Noto Serif', serif; font-style: italic; white-space: nowrap; }
+table.cast td.name { white-space: nowrap; font-weight: 600; }
+.lang-tag {
+  display: inline-block;
+  font-size: 0.72rem;
+  padding: 0 0.35rem;
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  color: var(--ink-soft);
+  margin-left: 0.3rem;
+  font-weight: 400;
+}
+
+/* ---------- 幕 ---------- */
+.act-header {
+  text-align: center;
+  padding: 3rem 0 1.5rem;
+  border-bottom: 1px solid var(--rule);
+  margin-bottom: 0.5rem;
+}
+.act-header h2 {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: var(--accent);
+}
+.act-jp { font-size: 1.1rem; font-weight: 600; }
+.scene-head {
+  text-align: center;
+  margin: 2rem 0 0.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+.scene-skt { font-family: 'Noto Serif', serif; font-style: italic; color: var(--accent); }
+.scene-jp { font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.15em; }
+
+.row {
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule-light);
+}
+.row.verse {
+  background: var(--verse-bg);
+  padding: 1.1rem 1rem;
+  margin: 0.4rem -1rem;
+  border-bottom: none;
+  border-radius: 4px;
+}
+.speaker {
+  display: flex;
+  gap: 0.6rem;
+  align-items: baseline;
+  margin-bottom: 0.25rem;
+}
+.sp-skt {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  font-size: 0.85rem;
+  color: var(--accent);
+}
+.sp-jp { font-size: 0.8rem; font-weight: 600; color: var(--accent); }
+.verse-number {
+  font-size: 0.75rem;
+  color: var(--verse-num);
+  margin-bottom: 0.4rem;
+  letter-spacing: 0.08em;
+}
+.meter {
+  font-family: 'Noto Serif', serif;
+  font-style: italic;
+  margin-left: 0.8rem;
+  letter-spacing: 0;
+}
+.cols {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
+  gap: 0 1.6rem;
+  align-items: start;
+}
+.divider { background: var(--rule); width: 1px; align-self: stretch; }
+.col-l {
+  font-family: 'Noto Serif', serif;
+  font-size: 1rem;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+.col-r { font-size: 1rem; line-height: 1.95; }
+.col-l .prakrit, .verse-skt.prakrit { color: var(--prakrit); }
+.chaya, .verse-chaya {
+  font-size: 0.85rem;
+  color: var(--ink-soft);
+  margin-top: 0.35rem;
+  line-height: 1.7;
+}
+.lang-label {
+  display: inline-block;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  color: var(--verse-num);
+  margin-right: 0.5rem;
+  font-style: italic;
+}
+.verse-chaya .lang-label { display: block; margin-bottom: 0.1rem; }
+.pada { display: block; }
+.verse-skt { font-size: 1.05rem; line-height: 1.9; }
+.verse-skt .pada + .pada { margin-top: 0.15rem; }
+.verse-ja { font-size: 1.02rem; }
+.sd-in { font-style: italic; color: var(--ink-soft); }
+.col-r .sd-in { font-style: normal; }
+.row.sd .col-l, .row.sd .col-r { font-style: italic; color: var(--ink-soft); font-size: 0.92rem; }
+.row.sd .col-r { font-style: normal; }
+.row.endline { text-align: center; border-bottom: none; padding-top: 2rem; }
+.row.endline .col-l, .row.endline .col-r { color: var(--accent); }
+
+.commentary {
+  margin-top: 0.7rem;
+  padding: 0.55rem 1rem;
+  background: var(--note-bg);
+  border-left: 2px solid var(--accent);
+  font-size: 0.9rem;
+  line-height: 1.8;
+  color: var(--ink-soft);
+}
+.row.verse .commentary { background: var(--ground); }
+.commentary p + p { margin-top: 0.3rem; }
+.commentary-title {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.back-top {
+  display: block;
+  text-align: center;
+  padding: 1.5rem;
+  font-size: 0.8rem;
+  color: var(--verse-num);
+  text-decoration: none;
+}
+.back-top:hover { color: var(--accent); }
+.colophon {
+  margin-top: 3rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--rule);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--verse-num);
+  line-height: 1.8;
+}
+
+@media (max-width: 680px) {
+  body { padding: 2rem 1rem 3rem; }
+  .header h1 { font-size: 1.4rem; }
+  .cols { grid-template-columns: minmax(0, 1fr); gap: 0.5rem 0; }
+  .divider { display: none; }
+  .col-r { border-top: 1px dashed var(--rule-light); padding-top: 0.4rem; }
+  .row.verse { margin: 0.4rem 0; padding: 0.9rem 0.7rem; }
+  table.cast td.iast, table.cast td.name { white-space: normal; }
+  table.cast { font-size: 0.85rem; }
+}
+@media print {
+  .back-top, .toc { display: none; }
+  .row { page-break-inside: avoid; }
+}
+</style>
+</head>
+<body>
+<div id="top"></div>
+
+<div class="header">
+  <div class="header-iast">Abhijñānaśakuntalam</div>
+  <h1>シャクンタラー</h1>
+  <div class="header-sub">Kālidāsa · Sanskrit–Japanese</div>
+  <div class="header-jp">カーリダーサ作『アビジュニャーナ・シャクンタラム（しるしによって思い出されたシャクンタラー）』<br>サンスクリット・日本語対訳（ベンガル系伝本による）</div>
+</div>
+
+<nav class="toc">
+  <h2>目　次</h2>
+  <ul class="toc-list">
+    <li><a href="#about"><span class="toc-num">·</span><span>この対訳について</span></a></li>
+    <li><a href="#synopsis"><span class="toc-num">·</span><span>あらすじ</span></a></li>
+    <li><a href="#cast"><span class="toc-num">·</span><span>登場人物</span></a></li>
+    {{TOC}}
+  </ul>
+</nav>
+
+{{FRONT}}
+
+{{BODY}}
+
+<div class="colophon">
+  サンスクリット・プラークリット原文：カーリダーサ（パブリックドメイン）<br>
+  日本語訳・チャーヤー・注・あらすじ：本対訳のための書き下ろし
+</div>
+</body>
+</html>
