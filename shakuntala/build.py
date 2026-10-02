@@ -67,6 +67,7 @@ SPEAKERS = {
     'sarve': '一同',
     'haṃsapadikā': 'ハンサパディカー',
     'caturikā': 'チャトゥリカー',
+    'bhāguriḥ': 'バーグリ',
 }
 
 METERS = {
@@ -93,6 +94,8 @@ METERS = {
     'vaitālīya': 'ヴァイターリーヤ',
     'gīti': 'ギーティ',
     'upagīti': 'ウパギーティ',
+    'aparavaktra': 'アパラヴァクトラ',
+    'śālinī': 'シャーリニー',
 }
 
 
