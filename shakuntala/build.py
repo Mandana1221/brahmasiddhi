@@ -68,6 +68,8 @@ SPEAKERS = {
     'haṃsapadikā': 'ハンサパディカー',
     'caturikā': 'チャトゥリカー',
     'bhāguriḥ': 'バーグリ',
+    'ṛṣikumārakau': '二人の若い苦行者',
+    'śiṣyāḥ': '弟子たち',
 }
 
 METERS = {
