@@ -72,6 +72,8 @@ SPEAKERS = {
     'śiṣyāḥ': '弟子たち',
     'nākalāsikā': '天の踊り子',
     'cūtamañjarī': 'チュータマンジャリー',
+    'lipikārī': '絵師',
+    'yavanī': 'ヤヴァナの女',
 }
 
 METERS = {
