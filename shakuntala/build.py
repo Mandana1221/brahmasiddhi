@@ -70,6 +70,8 @@ SPEAKERS = {
     'bhāguriḥ': 'バーグリ',
     'ṛṣikumārakau': '二人の若い苦行者',
     'śiṣyāḥ': '弟子たち',
+    'nākalāsikā': '天の踊り子',
+    'cūtamañjarī': 'チュータマンジャリー',
 }
 
 METERS = {
@@ -98,6 +100,7 @@ METERS = {
     'upagīti': 'ウパギーティ',
     'aparavaktra': 'アパラヴァクトラ',
     'śālinī': 'シャーリニー',
+    'rucirā': 'ルチラー',
 }
 
 
