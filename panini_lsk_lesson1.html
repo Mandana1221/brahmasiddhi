@@ -1,0 +1,902 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — संज्ञाप्रकरणम्</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 1</div>
+  <div class="header-jp">第1課　文法の「道具」をそろえる ── 術語の章（サンジュニャー・プラカラナ）と、はじめての連声<br>
+  底本：ヴァラダラージャ『ラグ・シッダーンタ・カウムディー』（ジュヴァーラー・プラサード・ミシュラのヒンディー語注付き，ボンベイ：ケーマラージ，1915年）</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#intro"><span class="n">序</span>はじめに ── パーニニ文法とは何か</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>シヴァの14の音列と「プラティヤーハーラ」（底本 1–8）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>母音の長さ・高さ・鼻音（底本 9–13）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>発音の場所と努力 ── 「同類音」（底本 14–17）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>連続・子音結合・語（底本 18–20）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>はじめての連声：sudhī + upāsya（底本 21–23）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集・底本について</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="intro">
+<h2 class="chapter">はじめに ── パーニニ文法とは何か</h2>
+<p class="lead">紀元前4世紀ごろの文法家パーニニ（Pāṇini）は、サンスクリット語の仕組みを約4000の短い規則にまとめました。この規則集を『アシュターディヤーイー』（<span class="iast">Aṣṭādhyāyī</span>，「8章の書」）といい、一つひとつの規則を<b>スートラ</b>（<span class="iast">sūtra</span>，「糸」）と呼びます。</p>
+
+<p>スートラは<b>極端に短い</b>のが特徴です。暗記しやすくするため、言葉を一字でも削れるなら削る。そのため、そのままでは暗号のように見えます。そこで後世の学者たちが「注釈」をつけて読み方を示しました。</p>
+
+<p>この教科書の底本『ラグ・シッダーンタ・カウムディー』（<span class="iast">Laghusiddhāntakaumudī</span>，17世紀，ヴァラダラージャ作）は、パーニニの規則のうち初学者に必要な約1300を<b>「使う順番」に並べ直した</b>入門書です。インドの伝統的な学校では今も最初に学ぶ本です。著者は冒頭でこう述べています。</p>
+
+<div class="note">
+  <div class="dev" style="font-size:1.1rem">नत्वा सरस्वतीं देवीं शुद्धां गुण्यां करोम्यहम् ।<br>पाणिनीयप्रवेशाय लघुसिद्धान्तकौमुदीम् ॥</div>
+  <div class="iast">natvā sarasvatīṃ devīṃ śuddhāṃ guṇyāṃ karomy aham | pāṇinīyapraveśāya laghusiddhāntakaumudīm ||</div>
+  <div style="margin-top:0.4rem">清らかで徳高きサラスヴァティー女神に礼拝して、私は<b>パーニニ文法に入門するために</b>『ラグ・シッダーンタ・カウムディー』を著す。</div>
+</div>
+
+<h3>スートラ番号の読み方</h3>
+<p>各カードには2種類の番号がついています。</p>
+<div class="tbl-wrap"><table>
+<tr><th>表示</th><th>意味</th></tr>
+<tr><td>底本 21</td><td>この底本（ラグ・カウムディー）の中での通し番号</td></tr>
+<tr><td>A 6.1.77</td><td>『アシュターディヤーイー』での位置：<b>第6章・第1節・第77規則</b></td></tr>
+</table></div>
+
+<h3>スートラの6つの種類</h3>
+<p>底本の脚注に、伝統的な分類の詩が引かれています。今回は特に①と③をたくさん見ます。</p>
+<div class="note">
+  <div class="dev">संज्ञा च परिभाषा च विधिर्नियम एव च । अतिदेशोऽधिकारश्च षड्विधं सूत्रलक्षणम् ॥</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>種類</th><th>はたらき</th><th>たとえ</th></tr>
+  <tr><td>① <span class="iast">saṃjñā</span> 術語規則</td><td>専門用語を定義する</td><td>「この記号を〇〇と呼ぶ」</td></tr>
+  <tr><td>② <span class="iast">paribhāṣā</span> 解釈規則</td><td>他の規則の読み方を決める</td><td>「〜の場合、こう読むこと」</td></tr>
+  <tr><td>③ <span class="iast">vidhi</span> 操作規則</td><td>音や形を実際に変える</td><td>「i を y に変えよ」</td></tr>
+  <tr><td>④ <span class="iast">niyama</span> 制限規則</td><td>既にある規則の適用範囲をしぼる</td><td>「…のときだけ」</td></tr>
+  <tr><td>⑤ <span class="iast">atideśa</span> 準用規則</td><td>AをBと同じように扱わせる</td><td>「〜とみなす」</td></tr>
+  <tr><td>⑥ <span class="iast">adhikāra</span> 見出し規則</td><td>以下の規則すべてに効く見出し</td><td>「ここから先は〜について」</td></tr>
+  </table></div>
+</div>
+
+<p>この第1課は、文法の操作（③）を行う前に必要な<b>「道具」＝術語</b>（①）をそろえる章です。最後の第5章で、そろえた道具を使って実際に単語をつなげてみます。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　シヴァの14の音列と「プラティヤーハーラ」</h2>
+<p class="chapter-sub">底本 1–8 ／ パーニニ文法でいちばん有名な仕掛け</p>
+
+<div class="note">
+  <div class="note-title">伝説</div>
+  底本の脚注に引かれる詩によれば、舞踏の王シヴァが踊り終えたとき、聖者たちを救おうとして小太鼓（ダッカー）を<b>14回</b>打ち鳴らしました。その音がそのまま、以下の14のスートラになったといいます。そのため「マーヘーシュヴァラ・スートラ」（シヴァ神のスートラ）とも「シヴァ・スートラ」とも呼ばれます。
+  <div class="dev" style="margin-top:0.4rem">नृत्तावसाने नटराजराजो ननाद ढक्कां नवपञ्चवारान् ।</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1</span><span class="sutra-text">माहेश्वराणि सूत्राणि</span></div>
+  <div class="sutra-iast">māheśvarāṇi sūtrāṇi — 14の音列</div>
+
+  <div class="ms-grid">
+    <div class="ms"><div class="no">1</div><div class="d">अ इ उ <span class="it">ण्</span></div><div class="r">a i u <span class="it">ṇ</span></div></div>
+    <div class="ms"><div class="no">2</div><div class="d">ऋ ऌ <span class="it">क्</span></div><div class="r">ṛ ḷ <span class="it">k</span></div></div>
+    <div class="ms"><div class="no">3</div><div class="d">ए ओ <span class="it">ङ्</span></div><div class="r">e o <span class="it">ṅ</span></div></div>
+    <div class="ms"><div class="no">4</div><div class="d">ऐ औ <span class="it">च्</span></div><div class="r">ai au <span class="it">c</span></div></div>
+    <div class="ms"><div class="no">5</div><div class="d">ह य व र <span class="it">ट्</span></div><div class="r">ha ya va ra <span class="it">ṭ</span></div></div>
+    <div class="ms"><div class="no">6</div><div class="d">ल <span class="it">ण्</span></div><div class="r">la <span class="it">ṇ</span></div></div>
+    <div class="ms"><div class="no">7</div><div class="d">ञ म ङ ण न <span class="it">म्</span></div><div class="r">ña ma ṅa ṇa na <span class="it">m</span></div></div>
+    <div class="ms"><div class="no">8</div><div class="d">झ भ <span class="it">ञ्</span></div><div class="r">jha bha <span class="it">ñ</span></div></div>
+    <div class="ms"><div class="no">9</div><div class="d">घ ढ ध <span class="it">ष्</span></div><div class="r">gha ḍha dha <span class="it">ṣ</span></div></div>
+    <div class="ms"><div class="no">10</div><div class="d">ज ब ग ड द <span class="it">श्</span></div><div class="r">ja ba ga ḍa da <span class="it">ś</span></div></div>
+    <div class="ms"><div class="no">11</div><div class="d">ख फ छ ठ थ च ट त <span class="it">व्</span></div><div class="r">kha pha cha ṭha tha ca ṭa ta <span class="it">v</span></div></div>
+    <div class="ms"><div class="no">12</div><div class="d">क प <span class="it">य्</span></div><div class="r">ka pa <span class="it">y</span></div></div>
+    <div class="ms"><div class="no">13</div><div class="d">श ष स <span class="it">र्</span></div><div class="r">śa ṣa sa <span class="it">r</span></div></div>
+    <div class="ms"><div class="no">14</div><div class="d">ह <span class="it">ल्</span></div><div class="r">ha <span class="it">l</span></div></div>
+  </div>
+
+  <div class="row"><div class="k">底本の説明</div><div class="v"><span class="dev">इति माहेश्वराणि सूत्राण्यणादिसंज्ञार्थानि ।</span><br>「以上がシヴァ神由来のスートラであり、<span class="iast">aṇ</span> などの術語を作るためのものである。」</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">サンスクリットの音を、ある特別な順番で14グループに並べた表です。<b>赤字の子音は本物の音ではなく「しおり（目印）」</b>です。このしおりを使うと、音のグループを2文字で呼べるようになります（底本 8 で説明）。<br>並び順はアルファベット順ではなく、文法でよく一緒に扱われる音が隣り合うように工夫されています。</div></div>
+  <div class="point">右端の赤い子音＝「しおり」。音として数えない。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 2</span><span class="sutra-text">एषामन्त्या इतः ।</span></div>
+  <div class="sutra-iast">eṣām antyā itaḥ</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">eṣām</span>「これらの」＋ <span class="iast">antyāḥ</span>「最後のもの（複数）」＋ <span class="iast">itaḥ</span>「イット（複数）」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">これら（14の音列）の最後の音は「イット」である。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">14グループそれぞれの最後の文字（<span class="dev">ण् क् ङ् च् ट् ण् म् ञ् ष् श् व् य् र् ल्</span>）には「イット」（<span class="iast">it</span>）という名前がつきます。<b>イット＝目印専用の文字</b>のことで、最終的には消えてしまいます（底本 7）。</div></div>
+  <div class="point">「イット」はパーニニ文法全体で使われる超重要語。「消えるけれど、何かを知らせる目印」。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 3</span><span class="sutra-text">हकारादिष्वकार उच्चारणार्थः ।</span></div>
+  <div class="sutra-iast">hakārādiṣv akāra uccāraṇārthaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">ha などに付いている a は、発音のためのものである。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第5グループ以降の「ha, ya, va…」の <b>a は飾り</b>です。子音だけでは声に出して唱えられないので、a を添えて読んでいるだけ。本当に表に入っているのは子音 h, y, v… です。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 4</span><span class="sutra-text">लण्मध्ये त्वित्संज्ञकः ।</span></div>
+  <div class="sutra-iast">laṇmadhye tv itsaṃjñakaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">ただし laṇ の中の（a）はイットである。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">例外です。第6グループ「la ṇ」の a だけは、ただの飾りではなく<b>鼻にかかった a（ँ）で、これもイット</b>とされます。これにより「<span class="dev">र</span> から このa まで」＝ <b>r と l</b> の2音を「<span class="dev">रँ</span>（raṃ）」と呼べるようになります。くわしくは後の課で使います。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 5</span><span class="sutra-num">A 1.3.3</span><span class="sutra-text">हलन्त्यम् ।</span></div>
+  <div class="sutra-iast">hal antyam</div>
+  <div class="vrtti">उपदेशेऽन्त्यं हलित् स्यात् । उपदेश आद्योच्चारणम् ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">hal</span>「子音」＋ <span class="iast">antyam</span>「最後の」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">「教示（ウパデーシャ）」において、最後の子音はイットである。ウパデーシャとは、（文法家が）最初に唱えた形のことである。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">これがパーニニ自身の規則です。パーニニ（や、カーティヤーヤナ、パタンジャリ）が<b>最初に教えた形</b>（＝ウパデーシャ）の最後にある子音は、イット＝目印です。<br>14の音列も「最初に教えた形」なので、最後の子音 ṇ, k, ṅ… がイットになる、というわけです。</div></div>
+  <div class="row"><div class="k">ウパデーシャ<br>とは</div><div class="v">底本の脚注によると、動詞語根の表、スートラ、語群表、接尾辞、加音（<span class="iast">āgama</span>）、置換形（<span class="iast">ādeśa</span>）などが「ウパデーシャ」です。つまり<b>文法書に「材料」として載っている形</b>。実際の文章に出てくる単語ではありません。</div></div>
+  <div class="note">
+    <div class="note-title">大事な読み方：アヌヴリッティ（続き読み）</div>
+    <span class="dev">सूत्रेष्वदृष्टं पदं सूत्रान्तरादनुवर्तनीयं सर्वत्र ।</span><br>
+    「スートラに見えない語は、他のスートラから持ってくること。どこでもそうである。」<br><br>
+    この規則、よく見ると「ウパデーシャにおいて」も「イットである」も<b>書いてありません</b>。実は直前の規則 1.3.2 <span class="dev">उपदेशेऽजनुनासिक इत्</span>（ウパデーシャにおいて、鼻にかかった母音はイット）から、<b>「ウパデーシャにおいて」と「イット」を借りてきて</b>読むのです。<br>
+    同じ言葉を毎回くり返さないための工夫で、これを<b>アヌヴリッティ</b>（<span class="iast">anuvṛtti</span>）と言います。パーニニ文法を読むときの基本中の基本です。
+  </div>
+  <div class="point">スートラは前の規則から言葉を「借りて」読む。省略が多いのはこのため。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 6</span><span class="sutra-num">A 1.1.60</span><span class="sutra-text">अदर्शनं लोपः ।</span></div>
+  <div class="sutra-iast">adarśanaṃ lopaḥ</div>
+  <div class="vrtti">प्रसक्तस्यादर्शनं लोपसंज्ञं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（本来あるはずのものが）見えなくなることを「ローパ」（消去）という。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「ローパ」（<span class="iast">lopa</span>）＝<b>消えること</b>の定義です。注釈者は「あったものが、なくなること」と説明しています。はじめから無いものは「消えた」とは言いません。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 7</span><span class="sutra-num">A 1.3.9</span><span class="sutra-text">तस्य लोपः ।</span></div>
+  <div class="sutra-iast">tasya lopaḥ</div>
+  <div class="vrtti">तस्येतो लोपः स्यात् । णादयोऽणाद्यर्थाः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">それ（＝イット）は消える。ṇ などは aṇ などのためにある。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">イットは最後には<b>消えます</b>。ではなぜわざわざ書くのか？──答えは「<span class="iast">aṇ</span> などの略号を作るため」。次の規則で、その仕組みが明かされます。</div></div>
+  <div class="point">イットの一生：①最初に書かれる → ②目印として働く → ③消える。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 8</span><span class="sutra-num">A 1.1.71</span><span class="sutra-text">आदिरन्त्येन सहेता ।</span></div>
+  <div class="sutra-iast">ādir antyena sahetā</div>
+  <div class="vrtti">अन्त्येनेता सहित आदिर्मध्यगानां स्वस्य च संज्ञा स्यात् ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">ādiḥ</span>「最初のもの」＋ <span class="iast">antyena</span>「最後の」＋ <span class="iast">saha</span>「〜と一緒に」＋ <span class="iast">itā</span>「イットと」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">最初の音が、最後のイットと組み合わされると、その間にある音と自分自身をまとめて表す名前になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">これが<b>プラティヤーハーラ</b>（<span class="iast">pratyāhāra</span>，略号）です。<br>
+  「<b>始まりの音</b>」＋「<b>しおり（イット）</b>」の2つをつなげると、「始まりの音から、そのしおりまでの音ぜんぶ」という意味になります。<br><br>
+  例：<span class="dev">अ</span> ＋ <span class="dev it">च्</span> → <b><span class="dev">अच्</span>（ac）</b><br>
+  表の <span class="dev">अ</span> から 第4グループのしおり <span class="dev">च्</span> まで：<span class="dev">अ इ उ ऋ ऌ ए ओ ऐ औ</span> ＝ <b>すべての母音</b>。（途中のしおり ṇ, k, ṅ は音ではないので数えません。）<br><br>
+  例：<span class="dev">ह</span> ＋ <span class="dev it">ल्</span> → <b><span class="dev">हल्</span>（hal）</b> ＝ 第5グループの h から最後の l まで ＝ <b>すべての子音</b>。</div></div>
+  <div class="point">たった2文字で「全母音」「全子音」「有声音だけ」などのグループを呼べる。パーニニ文法が短く書ける秘密。</div>
+</div>
+
+<div class="calc" id="calc">
+  <div class="calc-title">🔧 プラティヤーハーラ計算機 ── 自分で作ってみよう</div>
+  <div class="presets" id="presets"></div>
+  <div class="calc-controls">
+    <label>始まりの音 <select id="start"></select></label>
+    <label>しおり（イット） <select id="marker"></select></label>
+  </div>
+  <div id="calc-out"></div>
+</div>
+
+<h3>よく使うプラティヤーハーラ</h3>
+<div class="tbl-wrap"><table>
+<tr><th>略号</th><th>中身</th><th>ひとことで</th></tr>
+<tr><td><span class="dev">अच्</span> ac</td><td class="dev">अ इ उ ऋ ऌ ए ओ ऐ औ</td><td>母音すべて</td></tr>
+<tr><td><span class="dev">हल्</span> hal</td><td class="dev">ह य व र ल ञ म ङ ण न झ भ घ ढ ध ज ब ग ड द ख फ छ ठ थ च ट त क प श ष स ह</td><td>子音すべて</td></tr>
+<tr><td><span class="dev">अल्</span> al</td><td>（母音＋子音）</td><td>音すべて</td></tr>
+<tr><td><span class="dev">इक्</span> ik</td><td class="dev">इ उ ऋ ऌ</td><td>i, u, ṛ, ḷ（第5章で使う！）</td></tr>
+<tr><td><span class="dev">यण्</span> yaṇ</td><td class="dev">य व र ल</td><td>半母音（第5章で使う！）</td></tr>
+<tr><td><span class="dev">एच्</span> ec</td><td class="dev">ए ओ ऐ औ</td><td>二重母音</td></tr>
+<tr><td><span class="dev">झल्</span> jhal</td><td class="dev">झ भ घ ढ ध ज ब ग ड द ख फ छ ठ थ च ट त क प श ष स ह</td><td>鼻音・半母音以外の子音</td></tr>
+<tr><td><span class="dev">जश्</span> jaś</td><td class="dev">ज ब ग ड द</td><td>有声・無気の閉鎖音</td></tr>
+<tr><td><span class="dev">खर्</span> khar</td><td class="dev">ख फ छ ठ थ च ट त क प श ष स</td><td>無声子音</td></tr>
+<tr><td><span class="dev">शल्</span> śal</td><td class="dev">श ष स ह</td><td>摩擦音（ウーシュマン）</td></tr>
+</table></div>
+<p style="font-size:0.92rem;color:var(--ink-soft)">※ しおり <span class="dev">ण्</span> は2回出てきます（第1・第6グループ）。<span class="dev">अण्</span> は普通は第1グループの ण् まで（a i u）ですが、底本 17 の規則の中でだけ第6グループの ण् まで読みます。<span class="dev">इण्</span>・<span class="dev">यण्</span> は第6グループの ण् です。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　母音の長さ・高さ・鼻音</h2>
+<p class="chapter-sub">底本 9–13 ／ 1つの母音は最大18通りに分かれる</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 9</span><span class="sutra-num">A 1.2.27</span><span class="sutra-text">ऊकालोऽज्झ्रस्वदीर्घप्लुतः ।</span></div>
+  <div class="sutra-iast">ūkālo 'j jhrasvadīrghaplutaḥ</div>
+  <div class="vrtti">उश्च ऊश्च ऊ३श्च वः । वां काल इव कालो यस्य सोऽच् क्रमाद् ह्रस्वदीर्घप्लुतसंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">ū-kālaḥ</span>「ū の時間をもつ」＋ <span class="iast">ac</span>「母音」＋ <span class="iast">hrasva-dīrgha-plutaḥ</span>「短・長・超長」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">u・ū・u３ の長さをもつ母音は、順に「短音」「長音」「超長音」と呼ばれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ここの「ū」は実は u・ū・u３（3つのu）をまとめた書き方です。母音の長さは3段階：<br>
+  ・<b>ह्रस्व hrasva（短）</b>＝1拍（マートラー）<br>
+  ・<b>दीर्घ dīrgha（長）</b>＝2拍<br>
+  ・<b>प्लुत pluta（超長）</b>＝3拍（数字 ३ をつけて書く）<br>
+  注釈者は<b>ニワトリの鳴き声</b>「ク・クー・クーー（ku kū ku３）」を例に出しています。超長音は、遠くの人を呼ぶときなどに使われます。</div></div>
+  <div class="row"><div class="k">さらに</div><div class="v"><span class="dev">स प्रत्येकमुदात्तादिभेदेन त्रिधा ।</span>「それぞれが、さらに高さ（ウダーッタ等）によって3通りに分かれる」──次の3規則へ。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 10</span><span class="sutra-num">A 1.2.29</span><span class="sutra-text">उच्चैरुदात्तः ।</span></div>
+  <div class="sutra-iast">uccair udāttaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">高く発音される（母音）は「ウダーッタ」（高音）である。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ヴェーダ語には日本語の「はし／はし」のような<b>高低アクセント</b>がありました。高い音がウダーッタ。注釈者は「口の中の発音場所の上の部分で出す音」と説明します。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 11</span><span class="sutra-num">A 1.2.30</span><span class="sutra-text">नीचैरनुदात्तः ।</span></div>
+  <div class="sutra-iast">nīcair anudāttaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">低く発音される（母音）は「アヌダーッタ」（低音）である。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 12</span><span class="sutra-num">A 1.2.31</span><span class="sutra-text">समाहारः स्वरितः ।</span></div>
+  <div class="sutra-iast">samāhāraḥ svaritaḥ</div>
+  <div class="vrtti">स नवविधोऽपि प्रत्येकमनुनासिकाननुनासिकत्वाभ्यां द्विधा ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（高と低の）組み合わさったものは「スヴァリタ」である。<br>その9種の母音は、それぞれさらに鼻音か非鼻音かで2通りに分かれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">高→低と<b>下がっていく音</b>がスヴァリタ。<br>
+  ここまでで「長さ3 × 高さ3 ＝ <b>9通り</b>」。さらに「鼻にかけるか、かけないか」で ×2 ＝ <b>18通り</b>になります。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 13</span><span class="sutra-num">A 1.1.8</span><span class="sutra-text">मुखनासिकावचनोऽनुनासिकः ।</span></div>
+  <div class="sutra-iast">mukhanāsikāvacano 'nunāsikaḥ</div>
+  <div class="vrtti">मुखसहितनासिकयोच्चार्यमाणो वर्णोऽनुनासिकसंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">口と鼻の両方で発音される音は「アヌナーシカ」（鼻音化音）である。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">息を口と鼻の両方から出す音。フランス語の鼻母音のような音です。記号 <span class="dev">ँ</span>（チャンドラビンドゥ）で表します。</div></div>
+  <div class="row"><div class="k">数えると</div><div class="v">
+    <div class="tbl-wrap"><table>
+    <tr><th>母音</th><th>種類の数</th><th>理由</th></tr>
+    <tr><td class="dev">अ इ उ ऋ</td><td>各 <b>18</b></td><td>短・長・超長 × 3つの高さ × 鼻音/非鼻音</td></tr>
+    <tr><td class="dev">ऌ</td><td><b>12</b></td><td>長い ḹ が存在しないので 2 × 3 × 2</td></tr>
+    <tr><td class="dev">ए ओ ऐ औ</td><td>各 <b>12</b></td><td>短い形が存在しないので 2 × 3 × 2</td></tr>
+    </table></div>
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">表：母音 a の18通り</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>高（ウダーッタ）</th><th>低（アヌダーッタ）</th><th>下降（スヴァリタ）</th></tr>
+  <tr><th>短 (1拍)</th><td>鼻／非鼻</td><td>鼻／非鼻</td><td>鼻／非鼻</td></tr>
+  <tr><th>長 (2拍)</th><td>鼻／非鼻</td><td>鼻／非鼻</td><td>鼻／非鼻</td></tr>
+  <tr><th>超長 (3拍)</th><td>鼻／非鼻</td><td>鼻／非鼻</td><td>鼻／非鼻</td></tr>
+  </table></div>
+  3 × 3 × 2 ＝ 18。これらすべてを「同じ a の仲間」として扱う方法が、次の章のテーマです。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　発音の場所と努力 ──「同類音」</h2>
+<p class="chapter-sub">底本 14–17 ／ どの音とどの音が「仲間」なのか</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 14</span><span class="sutra-num">A 1.1.9</span><span class="sutra-text">तुल्यास्यप्रयत्नं सवर्णम् ।</span></div>
+  <div class="sutra-iast">tulyāsyaprayatnaṃ savarṇam</div>
+  <div class="vrtti">ताल्वादिस्थानमाभ्यन्तरप्रयत्नश्चेत्येतद्द्वयं यस्य येन तुल्यं तन्मिथः सवर्णसंज्ञं स्यात् ॥ ऋॢवर्णयोर्मिथः सावर्ण्यं वाच्यम् ॥</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">tulya</span>「同じ」＋ <span class="iast">āsya</span>「口（の中の場所）」＋ <span class="iast">prayatnam</span>「努力」＋ <span class="iast">savarṇam</span>「同類音」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">口の中の発音場所と（内的な）発音努力が同じ音どうしは、互いに「サヴァルナ」（同類音）である。<br>【補則】ṛ と ḷ も互いに同類音とみなすべきである。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">2つの条件が<b>両方そろったら</b>「仲間」です。<br>
+  ①<b>場所</b>（どこで音を作るか：のど・上あご など）<br>
+  ②<b>口の中の努力</b>（舌が完全に触れるか、少し触れるか、開いているか）<br><br>
+  たとえば <span class="dev">इ</span> i と <span class="dev">च</span> c は、どちらも「上あご（口蓋）」で作る音ですが、i は口が開いていて、c は舌がぴったり触れる。<b>②が違うので仲間ではありません</b>。<br>
+  一方、短い <span class="dev">इ</span> と長い <span class="dev">ई</span> は①②ともに同じなので仲間です（長さや高さは関係なし）。</div></div>
+  <div class="row"><div class="k">補則</div><div class="v">本来 ṛ は「頭頂（反り舌）」、ḷ は「歯」の音なので場所が違います。でも文法上便利なので、<b>特別に仲間扱い</b>にします（注釈者いわく「目的があって」）。</div></div>
+  <div class="point">仲間（サヴァルナ）＝ 場所 ＋ 口の中の努力 が同じ。長さ・高さ・鼻音かどうかは問わない。</div>
+</div>
+
+<h3>底本 15　発音の場所（スターナ）</h3>
+<p>パーニニの規則そのものではなく、伝統的な音声学（シクシャー）からの説明です。<b>口のどこで音を作るか</b>の一覧。</p>
+<div class="tbl-wrap"><table>
+<tr><th>場所</th><th>原文</th><th>母音</th><th>閉鎖音（5段）</th><th>その他</th></tr>
+<tr><td><b>のど</b> <span class="iast">kaṇṭha</span></td><td class="dev">अकुहविसर्जनीयानां कण्ठः</td><td class="dev">अ आ</td><td class="dev">क ख ग घ ङ</td><td class="dev">ह, ः（ヴィサルガ）</td></tr>
+<tr><td><b>上あご</b> <span class="iast">tālu</span></td><td class="dev">इचुयशानां तालु</td><td class="dev">इ ई</td><td class="dev">च छ ज झ ञ</td><td class="dev">य श</td></tr>
+<tr><td><b>頭頂</b>（反り舌）<span class="iast">mūrdhan</span></td><td class="dev">ऋटुरषाणां मूर्धा</td><td class="dev">ऋ ॠ</td><td class="dev">ट ठ ड ढ ण</td><td class="dev">र ष</td></tr>
+<tr><td><b>歯</b> <span class="iast">danta</span></td><td class="dev">ऌतुलसानां दन्ताः</td><td class="dev">ऌ</td><td class="dev">त थ द ध न</td><td class="dev">ल स</td></tr>
+<tr><td><b>唇</b> <span class="iast">oṣṭha</span></td><td class="dev">उपूपध्मानीयानामोष्ठौ</td><td class="dev">उ ऊ</td><td class="dev">प फ ब भ म</td><td>ウパドマーニーヤ（p, ph の前の息）</td></tr>
+</table></div>
+<div class="tbl-wrap"><table>
+<tr><th>特別な場所</th><th>原文</th><th>対象</th></tr>
+<tr><td>（自分の場所）＋ 鼻</td><td class="dev">ञमङणनानां नासिका च</td><td>鼻音 <span class="dev">ञ म ङ ण न</td></tr>
+<tr><td>のど ＋ 上あご</td><td class="dev">एदैतोः कण्ठतालु</td><td class="dev">ए ऐ</td></tr>
+<tr><td>のど ＋ 唇</td><td class="dev">ओदौतोः कण्ठोष्ठम्</td><td class="dev">ओ औ</td></tr>
+<tr><td>歯 ＋ 唇</td><td class="dev">वकारस्य दन्तोष्ठम्</td><td class="dev">व</td></tr>
+<tr><td>舌の根もと</td><td class="dev">जिह्वामूलीयस्य जिह्वामूलम्</td><td>ジフヴァームーリーヤ（k, kh の前の息）</td></tr>
+<tr><td>鼻</td><td class="dev">नासिकाऽनुस्वारस्य</td><td>アヌスヴァーラ <span class="dev">ं</span></td></tr>
+</table></div>
+<p style="font-size:0.95rem">💡 覚え方：のど → 上あご → 頭頂 → 歯 → 唇 と、<b>口の奥から前へ</b>。デーヴァナーガリーの子音表（क → च → ट → त → प）もこの順番です。</p>
+
+<h3>底本 16　発音の努力（プラヤトナ）</h3>
+<p><span class="dev">यत्नो द्विधा । आभ्यन्तरो बाह्यश्च ।</span>「努力には2種類ある。口の内側のもの（内的）と、外側のもの（外的）である。」</p>
+
+<p><b>(a) 内的努力（アービヤンタラ）── 5種類</b>　※同類音の判定に使うのはこちら</p>
+<div class="tbl-wrap"><table>
+<tr><th>名前</th><th>舌の状態</th><th>対象の音</th></tr>
+<tr><td><span class="iast">spṛṣṭa</span> 接触</td><td>ぴったり触れる</td><td>閉鎖音（<span class="dev">क</span>〜<span class="dev">म</span> の25音＝「スパルシャ」）</td></tr>
+<tr><td><span class="iast">īṣatspṛṣṭa</span> 少し接触</td><td>少しだけ触れる</td><td>半母音 <span class="dev">य व र ल</span>（＝「アンタスタ」，<span class="dev">यण्</span>）</td></tr>
+<tr><td><span class="iast">īṣadvivṛta</span> 少し開放</td><td>少しすき間がある</td><td>摩擦音 <span class="dev">श ष स ह</span>（＝「ウーシュマン」，<span class="dev">शल्</span>）</td></tr>
+<tr><td><span class="iast">vivṛta</span> 開放</td><td>触れない</td><td>母音（＝「スヴァラ」，<span class="dev">अच्</span>）</td></tr>
+<tr><td><span class="iast">saṃvṛta</span> 閉じ気味</td><td>口をすぼめる</td><td>実際に発音される<b>短い a</b> だけ</td></tr>
+</table></div>
+<div class="note">
+  <div class="note-title">なぜ短い a は特別？</div>
+  <span class="dev">ह्रस्वस्यावर्णस्य प्रयोगे संवृतम् । प्रक्रियादशायां तु विवृतमेव ।</span><br>
+  「短い a は、実際の発音では閉じ気味（サンヴリタ）。しかし文法操作の段階では開放（ヴィヴリタ）とする。」<br><br>
+  実際の発音では短い a は「ア」と「ウ」の中間のような、あいまいな音（[ə]）です。でもこれを文法上も「閉じ気味」としてしまうと、長い <span class="dev">आ</span>（開放）と努力が違ってしまい、<b>a と ā が仲間にならなくなります</b>。それは困るので、文法の計算中は「開放」とみなすのです。
+</div>
+
+<p><b>(b) 外的努力（バーヒヤ）── 11種類</b></p>
+<p><span class="dev">विवारः संवारः श्वासो नादो घोषोऽघोषोऽल्पप्राणो महाप्राण उदात्तोऽनुदात्तः स्वरितश्च ।</span></p>
+<div class="tbl-wrap"><table>
+<tr><th>原文</th><th>対象</th><th>意味</th></tr>
+<tr><td class="dev">खरो विवाराः श्वासा अघोषाश्च ।</td><td><span class="dev">खर्</span>（無声子音）</td><td>声帯が開く・息だけ・<b>無声</b></td></tr>
+<tr><td class="dev">हशः संवारा नादा घोषाश्च ।</td><td><span class="dev">हश्</span>（有声子音）</td><td>声帯が閉じる・響く・<b>有声</b></td></tr>
+<tr><td class="dev">वर्गाणां प्रथमतृतीयपञ्चमा यणश्चाल्पप्राणाः ।</td><td>各段の1・3・5番目 ＋ <span class="dev">यण्</span></td><td>息が少ない（<b>無気音</b>）</td></tr>
+<tr><td class="dev">वर्गाणां द्वितीयचतुर्थौ शलश्च महाप्राणाः ।</td><td>各段の2・4番目 ＋ <span class="dev">शल्</span></td><td>息が多い（<b>有気音</b>）</td></tr>
+</table></div>
+<p>ここで早速、第1章のプラティヤーハーラ（<span class="dev">खर्</span>, <span class="dev">हश्</span>, <span class="dev">यण्</span>, <span class="dev">शल्</span>）が活躍していますね。外的努力は同類音の判定には使いませんが、後の課で「どの子音に変わるか」を決めるときに使います（第5章の底本 23 を参照）。</p>
+<p>また、同じ底本16で次の名前も定義されます：<span class="dev">कादयो मावसानाः स्पर्शाः</span>（k〜m は「スパルシャ」）、<span class="dev">यणोऽन्तःस्थाः</span>（yaṇ は「アンタスタ」）、<span class="dev">शल ऊष्माणः</span>（śal は「ウーシュマン」）、<span class="dev">अचः स्वराः</span>（ac は「スヴァラ」）。さらに、<span class="dev">अं</span> の点が<b>アヌスヴァーラ</b>、<span class="dev">अः</span> の2つの点が<b>ヴィサルガ</b>です。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 17</span><span class="sutra-num">A 1.1.69</span><span class="sutra-text">अणुदित् सवर्णस्य चाप्रत्ययः ।</span></div>
+  <div class="sutra-iast">aṇ-udit savarṇasya cāpratyayaḥ</div>
+  <div class="vrtti">प्रतीयते विधीयत इति प्रत्ययः । अविधीयमानोऽणुदिच्च सवर्णस्य संज्ञा स्यात् । अत्रैवाण् परेण णकारेण । कु चु टु तु पु एते उदितः ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">aṇ</span>「aṇ の音」＋ <span class="iast">udit</span>「u をイットとしてもつもの」＋ <span class="iast">savarṇasya</span>「同類音の」＋ <span class="iast">ca</span>「も」＋ <span class="iast">apratyayaḥ</span>「新たに付け加えるもの（プラティヤヤ）でない」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">aṇ の音、および u をイットとしてもつ音は、（新しく導入されるものでない限り）自分の同類音も表す。ここでの aṇ だけは、後ろ（第6グループ）の ṇ までとする。ku, cu, ṭu, tu, pu が「u をイットとしてもつもの」である。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  規則の中に <span class="dev">अ</span> と書いてあったら、それは<b>短い a だけでなく、18種類すべての a</b>（ā も a３ も含む）を意味する──という約束です。<br><br>
+  ・<span class="dev">इ</span>, <span class="dev">उ</span> も同じく18種類すべて<br>
+  ・<span class="dev">ऋ</span> は ṛ の18種類 ＋ ḷ の12種類 ＝ <b>30種類</b>（補則で ṛ と ḷ は仲間だから）。<span class="dev">ऌ</span> も同じく30種類<br>
+  ・<span class="dev">ए</span> などは各12種類<br>
+  ・<span class="dev">य व ल</span> は鼻音化したもの／しないものの2種類<br><br>
+  また <span class="dev">कु</span>（ku）と書けば、u がイットの印になって「<b>k の段ぜんぶ</b>」<span class="dev">क ख ग घ ङ</span> を意味します。<span class="dev">चु</span>＝c の段、<span class="dev">टु</span>＝ṭ の段、<span class="dev">तु</span>＝t の段、<span class="dev">पु</span>＝p の段。
+  </div></div>
+  <div class="row"><div class="k">例外</div><div class="v">「<span class="iast">apratyaya</span>」──接尾辞などとして<b>新しく付け加える</b>音の場合は、書いたその音だけを意味します。付け加えるものが18通りもあったら、どれを付ければいいか困ってしまうからです。</div></div>
+  <div class="point">規則に「इ」とあれば ī も含む。「इक्」とあれば ī, ū, ṝ も含む。この約束のおかげで、規則を短く書ける。</div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　連続・子音結合・語</h2>
+<p class="chapter-sub">底本 18–20 ／ 連声（サンディ）に入る前の最後の準備</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 18</span><span class="sutra-num">A 1.4.109</span><span class="sutra-text">परः संनिकर्षः संहिता ।</span></div>
+  <div class="sutra-iast">paraḥ saṃnikarṣaḥ saṃhitā</div>
+  <div class="vrtti">वर्णानामतिशयितः संनिधिः संहितासंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">音と音とが極めて近接していることを「サンヒター」という。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">2つの音が<b>間をあけずにくっついて発音される状態</b>がサンヒターです。単語と単語を区切らずに続けて読むとき、音どうしがぶつかって変化します。それが「連声（サンディ）」です。連声の規則は「サンヒターのときに」働きます。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 19</span><span class="sutra-num">A 1.1.7</span><span class="sutra-text">हलोऽनन्तराः संयोगः ।</span></div>
+  <div class="sutra-iast">halo 'nantarāḥ saṃyogaḥ</div>
+  <div class="vrtti">अज्भिरव्यवहिता हलः संयोगसंज्ञाः स्युः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">母音をはさまずに続く子音（の連なり）を「サンヨーガ」（子音結合）という。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">間に母音のない子音のかたまり。たとえば <span class="dev">धर्म</span> dharma の <b>rm</b>、<span class="dev">स्त्री</span> strī の <b>str</b>。デーヴァナーガリーでは合字（結合文字）で書かれる部分です。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 20</span><span class="sutra-num">A 1.4.14</span><span class="sutra-text">सुप्तिङन्तं पदम् ।</span></div>
+  <div class="sutra-iast">suptiṅantaṃ padam</div>
+  <div class="vrtti">सुबन्तं तिङन्तं च पदसंज्ञं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">sup で終わるもの、tiṅ で終わるものは「パダ」（語）である。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">パーニニ文法では、<b>語尾がついて初めて「語」（パダ）</b>になります。<br>
+  ・<span class="dev">सुप्</span>（sup）＝ 名詞の格語尾（例：<span class="dev">देव</span> deva ＋ s → <span class="dev">देवः</span> devaḥ「神が」）<br>
+  ・<span class="dev">तिङ्</span>（tiṅ）＝ 動詞の人称語尾（例：<span class="dev">भव</span> bhava ＋ ti → <span class="dev">भवति</span> bhavati「なる」）<br>
+  sup も tiṅ も実はプラティヤーハーラです（語尾の一覧表の最初と最後をつないだもの）。中身は名詞・動詞の課で学びます。</div></div>
+  <div class="point">語幹だけ（deva）はまだ「語」ではない。語尾がついた devaḥ が「語」。</div>
+</div>
+
+<p style="text-align:center;color:var(--muted)">॥ इति संज्ञाप्रकरणम् ॥　── 以上、術語の章 ──</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　はじめての連声：sudhī + upāsya</h2>
+<p class="chapter-sub">底本 21–23 ／ 母音連声（アチ・サンディ）の始まり</p>
+
+<p class="lead">いよいよ道具を使います。お題は <span class="dev">सुधी</span>（sudhī「賢者」）と <span class="dev">उपास्य</span>（upāsya「崇拝されるべき」）をつなげること。<b>i の後に母音が来ると y になる</b>──英語の "the apple" で「ジ」になるような、自然な現象を規則化したものです。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 21</span><span class="sutra-num">A 6.1.77</span><span class="sutra-text">इको यणचि ।</span></div>
+  <div class="sutra-iast">iko yaṇ aci</div>
+  <div class="vrtti">इकः स्थाने यण् स्यादचि संहितायां विषये ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">ikaḥ</span>「ik の（代わりに）」〔属格〕＋ <span class="iast">yaṇ</span>「yaṇ が」〔主格〕＋ <span class="iast">aci</span>「ac の前で」〔処格〕</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">サンヒターにおいて、ac（母音）が後に続くとき、ik の代わりに yaṇ が置かれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  これまでの道具をフル活用して読みます。<br>
+  ・<span class="dev">इक्</span> ＝ i, u, ṛ, ḷ（＋底本17により長い ī, ū, ṝ も）<br>
+  ・<span class="dev">यण्</span> ＝ y, v, r, l<br>
+  ・<span class="dev">अच्</span> ＝ 母音すべて<br>
+  ・「サンヒターにおいて」は、上位の見出し規則（6.1.72 <span class="dev">संहितायाम्</span>）から<b>アヌヴリッティで借りてくる</b><br><br>
+  つまり：<b>「i・u・ṛ・ḷ の後ろに母音が来たら、y・v・r・l に変わる」</b>。
+  </div></div>
+  <div class="row"><div class="k">格の読み方</div><div class="v">パーニニの規則では、名詞の<b>格</b>が役割を表します。これを覚えると、多くの規則が読めるようになります。<br>
+  ・属格（〜の）＝ <b>変わる前の音</b>（ikaḥ）<br>
+  ・主格（〜が）＝ <b>変わった後の音</b>（yaṇ）<br>
+  ・処格（〜において）＝ <b>条件</b>（aci：母音があるとき）</div></div>
+  <div class="row"><div class="k">問題発生</div><div class="v"><span class="iast">sudhī upāsya</span> には、母音の前にある ik が3つもあります：s<b>u</b>(→dh の前)、dh<b>ī</b>(→u の前)、<b>u</b>pāsya の u(→p の前)…。どれを変えるの？ → 次の規則へ。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 22</span><span class="sutra-num">A 1.1.66</span><span class="sutra-text">तस्मिन्निति निर्दिष्टे पूर्वस्य ।</span></div>
+  <div class="sutra-iast">tasminn iti nirdiṣṭe pūrvasya</div>
+  <div class="vrtti">सप्तमीनिर्देशेन विधीयमानं कार्यं वर्णान्तरेणाव्यवहितस्य पूर्वस्य बोध्यम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">処格（第7格）で条件が示されているとき、その操作は、（間に別の音をはさまず）<b>直前にあるもの</b>に対して行われると理解すべきである。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">これは「解釈規則（パリバーシャー）」です。<span class="iast">aci</span>（母音の前で）とあったら、<b>母音のすぐ前、くっついている音</b>だけが対象、という意味。<br>
+  ・su の u → 次は子音 dh。母音が直後にない → ×<br>
+  ・upāsya の u → 次は子音 p → ×<br>
+  ・sudhī の <b>ī</b> → すぐ次が upāsya の母音 u → <b>○ これだけ！</b></div></div>
+  <div class="row"><div class="k">次の問題</div><div class="v">ī を yaṇ（y, v, r, l）に変えるのはいいとして、<b>4つのうちどれ</b>にする？ → 次の規則へ。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 23</span><span class="sutra-num">A 1.1.50</span><span class="sutra-text">स्थानेऽन्तरतमः ।</span></div>
+  <div class="sutra-iast">sthāne 'ntaratamaḥ</div>
+  <div class="vrtti">प्रसङ्गे सति सदृशतम आदेशः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（置き換えの）候補が複数あるときは、<b>最もよく似たもの</b>が置き換え形となる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ī は「上あご」の音。yaṇ のうち「上あご」の音は <b>y</b> だけ（第3章の場所の表を見てください）。だから <b>ī → y</b>。<br>
+  同じように u（唇）→ <b>v</b>（歯＋唇）、ṛ（頭頂）→ <b>r</b>、ḷ（歯）→ <b>l</b> になります。<br>
+  第3章で学んだ「場所」の知識が、ここで答えを決めてくれるのです。</div></div>
+  <div class="point">「似ている度合い」は、まず発音の場所で測る。だから場所の表を覚える意味がある。</div>
+</div>
+
+<h3>まとめ：ステップごとの変化（プラクリヤー）</h3>
+<ol class="deriv">
+  <li><span class="form">सुधी + उपास्य</span> <span class="iast">sudhī + upāsya</span><span class="why">出発点。2つの語をサンヒター（続けて発音）に置く（底本 18）。</span></li>
+  <li><span class="form">ई → यण्?</span><span class="why">「इको यणचि」（底本 21）：母音の前の ik は yaṇ に。ī は ik の仲間（底本 17）。</span></li>
+  <li><span class="form">सुध<u>ी</u> + <u>उ</u>पास्य</span><span class="why">「तस्मिन्निति…」（底本 22）：対象は母音 u の<b>直前</b>の ī だけ。</span></li>
+  <li><span class="form">सुध्य् + उपास्य</span> <span class="iast">sudhy + upāsya</span><span class="why">「स्थानेऽन्तरतमः」（底本 23）：ī（上あご）にいちばん近い yaṇ は y（上あご）。</span></li>
+  <li><span class="form">सुध्युपास्य</span> <span class="iast">sudhyupāsya</span><span class="why">くっつけて書くとこうなる。底本はここで次のページへ続きます。</span></li>
+</ol>
+<div class="note">
+  <div class="note-title">次回予告</div>
+  実はラグ・カウムディーでは、この後さらに規則が働き、子音結合 dhy（底本 19 の「サンヨーガ」）の dh が重ねられたりして、最終的に <span class="dev">सुद्ध्युपास्यः</span>（<span class="iast">suddhyupāsyaḥ</span>）などの形が導かれます。第2課では、この続きと、<span class="iast">madhu + ari → madhvari</span>（u → v）、<span class="iast">dhātṛ + aṃśa → dhātraṃśa</span>（ṛ → r）などを扱います。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+
+<details class="q"><summary>Q1. 14の音列の最後の子音（ṇ, k, ṅ…）は何と呼ばれ、最後にどうなる？</summary><div>「イット」（it）と呼ばれ、目印として働いたあと消える（ローパ）。底本 2・5・7。</div></details>
+<details class="q"><summary>Q2. プラティヤーハーラ <span class="dev">एङ्</span>（eṅ）の中身は？</summary><div><span class="dev">ए ओ</span>（e, o）。第3グループの e から、そのしおり ṅ まで。</div></details>
+<details class="q"><summary>Q3. <span class="dev">यण्</span>（yaṇ）の ṇ は、第1グループと第6グループのどちらの ṇ？</summary><div>第6グループ（la ṇ）。y は第5グループにあるので、それより後ろの ṇ でないと意味をなさない。中身は y v r l。</div></details>
+<details class="q"><summary>Q4. i と c は場所が同じ（上あご）なのに、なぜ「同類音（サヴァルナ）」ではない？</summary><div>内的努力が違うから。i は開放（vivṛta）、c は接触（spṛṣṭa）。同類音には「場所」と「内的努力」の両方が同じ必要がある（底本 14）。</div></details>
+<details class="q"><summary>Q5. 規則の中で単に <span class="dev">उ</span> と書いてあると、何を表す？</summary><div>短い u だけでなく、ū・u３ や高さ・鼻音の違いも含めた18種類すべての u（底本 17）。ただし新しく付け加える音（プラティヤヤ）の場合は除く。</div></details>
+<details class="q"><summary>Q6. 「इको यणचि」で、変わる前の音・変わった後の音・条件は、それぞれ何格で示されている？</summary><div>変わる前＝属格（ikaḥ）、変わった後＝主格（yaṇ）、条件＝処格（aci）。</div></details>
+<details class="q"><summary>Q7. <span class="iast">madhu + ari</span> に「इको यणचि」を当てはめると？</summary><div>u（唇）の直後に母音 a。u にいちばん近い yaṇ は v（歯＋唇）。→ <span class="iast">madhv + ari</span> → <span class="dev">मध्वरि</span> madhvari（第2課でさらに続きます）。</div></details>
+</section>
+
+<!-- ============================================================ -->
+<section id="gloss">
+<h2 class="chapter">付録　用語集</h2>
+<dl class="gloss">
+  <dt>スートラ <span class="iast">sūtra</span></dt><dd>パーニニの短い規則。</dd>
+  <dt>ウパデーシャ <span class="iast">upadeśa</span></dt><dd>文法家が最初に教えた形（語根・接尾辞など、文法の「材料」）。</dd>
+  <dt>イット <span class="iast">it</span></dt><dd>目印として付けられ、最後には消える音。</dd>
+  <dt>ローパ <span class="iast">lopa</span></dt><dd>消えること、消去。</dd>
+  <dt>プラティヤーハーラ <span class="iast">pratyāhāra</span></dt><dd>「始まりの音＋イット」で音のグループを表す略号（ac, hal, ik, yaṇ…）。</dd>
+  <dt>アヌヴリッティ <span class="iast">anuvṛtti</span></dt><dd>前の規則の言葉を、後の規則に借りて読むこと。</dd>
+  <dt>フラスヴァ／ディールガ／プルタ</dt><dd>短音（1拍）／長音（2拍）／超長音（3拍）。</dd>
+  <dt>ウダーッタ／アヌダーッタ／スヴァリタ</dt><dd>高音／低音／下降音（ヴェーダのアクセント）。</dd>
+  <dt>アヌナーシカ <span class="iast">anunāsika</span></dt><dd>口と鼻の両方で出す音（鼻音化音）。</dd>
+  <dt>スターナ <span class="iast">sthāna</span></dt><dd>発音の場所（のど・上あご・頭頂・歯・唇）。</dd>
+  <dt>プラヤトナ <span class="iast">prayatna</span></dt><dd>発音の努力。内的（5種）と外的（11種）。</dd>
+  <dt>サヴァルナ <span class="iast">savarṇa</span></dt><dd>同類音。場所と内的努力が同じ音どうし。</dd>
+  <dt>サンヒター <span class="iast">saṃhitā</span></dt><dd>音と音とが間をあけずに続く状態。連声の条件。</dd>
+  <dt>サンヨーガ <span class="iast">saṃyoga</span></dt><dd>母音をはさまない子音の連なり（子音結合）。</dd>
+  <dt>パダ <span class="iast">pada</span></dt><dd>語。名詞語尾（sup）または動詞語尾（tiṅ）で終わるもの。</dd>
+  <dt>アーデーシャ <span class="iast">ādeśa</span></dt><dd>置き換え形（例：ī の代わりに来る y）。</dd>
+  <dt>プラクリヤー <span class="iast">prakriyā</span></dt><dd>規則を順に当てはめて語形を導く手順。</dd>
+</dl>
+
+<h3>底本とこの教科書について</h3>
+<p style="font-size:0.95rem">底本はヴァラダラージャ『ラグ・シッダーンタ・カウムディー』、ジュヴァーラー・プラサード・ミシュラによるヒンディー語注（भाषाटीका）付き（ケーマラージ・シュリークリシュナダース刊，1915年）の冒頭（pp. 1–11）のOCRテキストです。番号「底本 n」はこの版の通し番号に従っています（一般的なラグ・カウムディーの番号とは異なる場合があります）。</p>
+<p style="font-size:0.95rem">OCRには読み取りの誤りが多いため、サンスクリット本文は標準的な読みに直しました。主な訂正：<span class="dev">ऊकालोऽज्ज्वस्व…</span> → <span class="dev">ऊकालोऽज्झ्रस्व…</span>，<span class="dev">संहेता</span> → <span class="dev">सहेता</span>，<span class="dev">सुतिङन्तं</span> → <span class="dev">सुप्तिङन्तं</span>，プラティヤーハーラ表の文字（<span class="dev">ञ/ज, ब/व, ऌ/ल</span> など）。また「स्थानेऽन्तरतमः」の位置は OCR では 1.1.60 ですが、正しくは <b>1.1.50</b> です。日本語の解説は、ミシュラのヒンディー語注を参考にしつつ、初学者向けに書き下ろしたものです。</p>
+</section>
+
+<footer>
+  やさしいパーニニ文法 · 第1課　術語の章とはじめての連声<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 1–11.
+</footer>
+
+<script>
+(function () {
+  // Maheśvara sūtras: each group = sounds + final it-marker
+  var MS = [
+    [['अ','a'],['इ','i'],['उ','u'],['ण्','ṇ']],
+    [['ऋ','ṛ'],['ऌ','ḷ'],['क्','k']],
+    [['ए','e'],['ओ','o'],['ङ्','ṅ']],
+    [['ऐ','ai'],['औ','au'],['च्','c']],
+    [['ह','h'],['य','y'],['व','v'],['र','r'],['ट्','ṭ']],
+    [['ल','l'],['ण्','ṇ']],
+    [['ञ','ñ'],['म','m'],['ङ','ṅ'],['ण','ṇ'],['न','n'],['म्','m']],
+    [['झ','jh'],['भ','bh'],['ञ्','ñ']],
+    [['घ','gh'],['ढ','ḍh'],['ध','dh'],['ष्','ṣ']],
+    [['ज','j'],['ब','b'],['ग','g'],['ड','ḍ'],['द','d'],['श्','ś']],
+    [['ख','kh'],['फ','ph'],['छ','ch'],['ठ','ṭh'],['थ','th'],['च','c'],['ट','ṭ'],['त','t'],['व्','v']],
+    [['क','k'],['प','p'],['य्','y']],
+    [['श','ś'],['ष','ṣ'],['स','s'],['र्','r']],
+    [['ह','h'],['ल्','l']]
+  ];
+  var flat = [];
+  MS.forEach(function (g, gi) {
+    g.forEach(function (x, i) {
+      flat.push({ d: x[0], r: x[1], it: i === g.length - 1, g: gi + 1 });
+    });
+  });
+  var startSel = document.getElementById('start');
+  var markSel = document.getElementById('marker');
+  var out = document.getElementById('calc-out');
+  var seen = {};
+  flat.forEach(function (s, idx) {
+    if (s.it || seen[s.d]) return;
+    seen[s.d] = true;
+    var o = document.createElement('option');
+    o.value = idx; o.textContent = s.d + '  (' + s.r + ')';
+    startSel.appendChild(o);
+  });
+  flat.forEach(function (s, idx) {
+    if (!s.it) return;
+    var o = document.createElement('option');
+    o.value = idx; o.textContent = s.d + '  — 第' + s.g + 'グループ';
+    markSel.appendChild(o);
+  });
+  function isVowel(r) { return /^(a|i|u|ṛ|ḷ|e|o|ai|au)$/.test(r); }
+  function render() {
+    var a = +startSel.value, b = +markSel.value;
+    if (a > b) {
+      out.innerHTML = '<p class="calc-msg">しおりが始まりの音より前にあります。もっと後ろのしおりを選んでください。</p>';
+      return;
+    }
+    var st = flat[a], mk = flat[b];
+    var nameD = st.d + mk.d;
+    var nameR = (isVowel(st.r) ? st.r : st.r + 'a') + mk.r;
+    var sounds = flat.slice(a, b + 1).filter(function (s) { return !s.it; });
+    var html = '<div class="calc-name">略号 <b class="dev">' + nameD + '</b> <span class="iast">' + nameR +
+      '</span> ＝ ' + sounds.length + '音</div><div class="chips">';
+    sounds.forEach(function (s) {
+      html += '<span class="chip">' + s.d + '<small>' + s.r + '</small></span>';
+    });
+    out.innerHTML = html + '</div>';
+  }
+  function setBy(startD, markIdx) {
+    for (var i = 0; i < startSel.options.length; i++) {
+      if (flat[+startSel.options[i].value].d === startD) { startSel.selectedIndex = i; break; }
+    }
+    markSel.value = markIdx;
+    render();
+  }
+  function itIndex(g) {
+    for (var i = 0; i < flat.length; i++) if (flat[i].it && flat[i].g === g) return i;
+  }
+  var presets = [
+    ['अ', 4, 'अच्'], ['ह', 14, 'हल्'], ['अ', 14, 'अल्'], ['इ', 2, 'इक्'], ['य', 6, 'यण्'],
+    ['ए', 4, 'एच्'], ['झ', 14, 'झल्'], ['ज', 10, 'जश्'], ['ख', 13, 'खर्'], ['श', 14, 'शल्'], ['ह', 10, 'हश्']
+  ];
+  var pbox = document.getElementById('presets');
+  presets.forEach(function (p) {
+    var btn = document.createElement('button');
+    btn.type = 'button'; btn.textContent = p[2];
+    btn.addEventListener('click', function () { setBy(p[0], itIndex(p[1])); });
+    pbox.appendChild(btn);
+  });
+  startSel.addEventListener('change', render);
+  markSel.addEventListener('change', render);
+  setBy('अ', itIndex(4));
+})();
+</script>
+</body>
+</html>
