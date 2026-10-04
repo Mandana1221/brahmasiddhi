@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तिङन्ते भ्वादयः (३)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 23</div>
+  <div class="header-jp">第23課　動詞の変化（3）── 命令法 bhavatu、過去 abhavat、願望法 bhavet、祈願法 bhūyāt<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 137–142，底本 442–468</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>命令法 loṭ：bhavatu, bhava, bhavāni（底本 442–451）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>接頭辞と ṇ 化：prabhavāṇi（底本 452–456）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>過去 laṅ：abhavat（底本 457–459）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>願望法 vidhi-liṅ：bhavet（底本 460–465）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>祈願法 āśīr-liṅ：bhūyāt（底本 466–468）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　命令法 loṭ：bhavatu, bhava, bhavāni</h2>
+<p class="chapter-sub">底本 442–451 ／ 「なれ」「なりますように」</p>
+<div class="tbl-wrap"><table class="para"><caption>भू — लोट्（命令法）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>भवतु, भवतात्<small>bhavatu, bhavatāt</small></td><td>भवताम्<small>bhavatām</small></td><td>भवन्तु<small>bhavantu</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>भव, भवतात्<small>bhava, bhavatāt</small></td><td>भवतम्<small>bhavatam</small></td><td>भवत<small>bhavata</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>भवानि<small>bhavāni</small></td><td>भवाव<small>bhavāva</small></td><td>भवाम<small>bhavāma</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 442</span><span class="sutra-num">A 3.3.162</span><span class="sutra-text">लोट् च ।</span></div>
+  <div class="sutra-iast">loṭ ca</div>
+  <div class="vrtti">विध्याद्यर्थेषु धातोर्लोट् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（命令・指図など）vidhi などの意味で、語根の後に loṭ も置かれる。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 443</span><span class="sutra-num">A 3.3.173</span><span class="sutra-text">आशिषि लिङ्लोटौ ।</span></div>
+  <div class="sutra-iast">āśiṣi liṅloṭau</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">祝福・祈り（「〜でありますように」）の意味では、liṅ と loṭ が使われる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 444</span><span class="sutra-num">A 3.4.86</span><span class="sutra-text">एरुः ।</span></div>
+  <div class="sutra-iast">er uḥ</div>
+  <div class="vrtti">लोट इकारस्य उः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">loṭ（の語尾）の i は u になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">भव + ति → <b>भवतु</b>（彼がなりますように／なれ）、भव + अन्ति → <b>भवन्तु</b><br>
+  ※ 底本ではこの規則も「443」と番号が重複しているので、ここでは 444 としています。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 445</span><span class="sutra-num">A 7.1.35</span><span class="sutra-text">तुह्योस्तातङाशिष्यन्यतरस्याम् ।</span></div>
+  <div class="sutra-iast">tuhyos tātaṅ āśiṣy anyatarasyām</div>
+  <div class="vrtti">आशिषि तुह्योस्तातङ् वा । परत्वात् सर्वादेशः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">祈りの意味では、tu・hi は任意に tātaṅ（tāt）に置き換わる。（後にある規則なので、全体を置き換える。）</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>भवतात्</b>（どうか彼が／あなたがなりますように）<br>
+  注釈：tātaṅ は ṅ 付きなので、本来なら最後の1音だけを置き換えるはず（第3課 59）。でも「2音以上なら全体」の規則（第3課 58：1.1.55）の方が後にあるので勝つ（第5課 132）。では ṅ は何のため？ ── グナ・ヴリッディを止めるためです。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 446</span><span class="sutra-num">A 3.4.85</span><span class="sutra-text">लोटो लङ्वत् ।</span></div>
+  <div class="sutra-iast">loṭo laṅvat</div>
+  <div class="vrtti">लोटस्तामादयः सलोपश्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">loṭ は laṅ と同じように扱われる。（だから tām などの置き換えや、s の消去が起こる。）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 447</span><span class="sutra-num">A 3.4.101</span><span class="sutra-text">तस्थस्थमिपां तान्तन्तामः ।</span></div>
+  <div class="sutra-iast">tasthasthamipāṃ tāṃtaṃtāmaḥ</div>
+  <div class="vrtti">ङितश्चतुर्णां तामादयः क्रमात् स्युः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṅ の目印をもつラカーラ（laṅ, liṅ, luṅ, lṛṅ）の tas, thas, tha, mip は、順に tām, tam, ta, am になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">命令法（446 で laṅ と同じ扱い）：<b>भवताम्</b>（2人がなれ）、<b>भवतम्</b>、<b>भवत</b><br>
+  過去（第3章）でも同じ語尾：<b>अभवताम्</b>, <b>अभवतम्</b>, <b>अभवत</b>, <b>अभवम्</b></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 448</span><span class="sutra-num">A 3.4.87</span><span class="sutra-text">सेर्ह्यपिच्च ।</span></div>
+  <div class="sutra-iast">ser hy apic ca</div>
+  <div class="vrtti">लोटः सेर्हिः सोऽपिच्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">loṭ の si は hi になり、それは p の目印がないもの（apit）として扱われる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 449</span><span class="sutra-num">A 6.4.105</span><span class="sutra-text">अतो हेः ।</span></div>
+  <div class="sutra-iast">ato heḥ</div>
+  <div class="vrtti">अतः परस्य हेर्लुक् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">短い a の後の hi はルクで消える。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">भव + हि → <b>भव</b>（なれ！）── 2人称単数の命令は語幹そのまま。（a で終わらない語幹では hi が残る：<span class="dev">इहि</span>「行け」）</div></div>
+  <div class="point">「〜せよ！」（2人称単数命令）＝ 第1類動詞では語幹だけ：bhava, gaccha, paṭha。</div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 450</span><span class="sutra-num">A 3.4.89</span><span class="sutra-text">मेर्निः ।</span></div>
+  <div class="sutra-iast">mer niḥ</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">loṭ の mi は ni になる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 451</span><span class="sutra-num">A 3.4.92</span><span class="sutra-text">आडुत्तमस्य पिच्च ।</span></div>
+  <div class="sutra-iast">āḍ uttamasya pic ca</div>
+  <div class="vrtti">लोडुत्तमस्याट् स्यात् पिच्च । हिन्योरुत्वं न, इकारोच्चारणसामर्थ्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">loṭ の1人称の語尾には āṭ（ā）が付き、それは p の目印があるものとして扱われる。（hi・ni の i が u にならないのは、わざわざ i で書かれているから。）</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">भव + आ + नि → <b>भवानि</b>（私がなりますように／なろう）、<b>भवाव</b>, <b>भवाम</b>（s は 456 で消える）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　接頭辞と ṇ 化：prabhavāṇi</h2>
+<p class="chapter-sub">底本 452–456</p>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 452</span><span class="sutra-num">A 1.4.80</span><span class="sutra-text">ते प्राग्धातोः ।</span></div>
+  <div class="sutra-iast">te prāg dhātoḥ</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ガティ・ウパサルガ（接頭辞，第3課 47・第9課 222）は、語根の<b>前</b>に置く：<span class="ex">प्र + भवति → <b>प्रभवति</b></span>（生じる・力をもつ）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 453</span><span class="sutra-num">A 8.4.16</span><span class="sutra-text">आनि लोट् ।</span></div>
+  <div class="sutra-iast">āni loṭ</div>
+  <div class="vrtti">उपसर्गस्थान्निमित्तात्परस्य लोडादेशस्यानीत्यस्य नस्य णः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">接頭辞にある r・ṣ の後では、loṭ の āni の n は ṇ になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">प्र + भवानि → <b>प्रभवाणि</b>（私が力をもてますように）── 語が違っても ṇ化が届く特別な例</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 454</span><span class="tag-v">補則</span><span class="sutra-text">दुरः षत्वणत्वयोरुपसर्गत्वप्रतिषेधो वक्तव्यः ।</span></div>
+  <div class="sutra-iast">duraḥ ṣatvaṇatvayor upasargatvapratiṣedho vaktavyaḥ</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">dur（悪く）は、ṣ化・ṇ化については接頭辞とみなさない：<span class="ex"><b>दुर्भवानि</b></span>（ṇ にならない）、<span class="ex">दुःस्थितिः</span>（ṣ にならない）</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 455</span><span class="tag-v">補則</span><span class="sutra-text">अन्तःशब्दस्याङ्किविधिणत्वेषूपसर्गत्वं वाच्यम् ।</span></div>
+  <div class="sutra-iast">antaḥśabdasyāṅkividhiṇatveṣūpasargatvaṃ vācyam</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">逆に antar（中に）は、ṇ化などについては接頭辞とみなす：<span class="ex"><b>अन्तर्भवाणि</b></span>（私が中にありますように）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 456</span><span class="sutra-num">A 3.4.99</span><span class="sutra-text">नित्यं ङितः ।</span></div>
+  <div class="sutra-iast">nityaṃ ṅitaḥ</div>
+  <div class="vrtti">सकारान्तस्य ङिदुत्तमस्य नित्यं लोपः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṅ の目印をもつラカーラの、s で終わる1人称の語尾（vas, mas）の（s）は必ず消える。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">命令法（446 で ṅ 付き扱い）：<b>भवाव</b>, <b>भवाम</b>。過去：<b>अभवाव</b>, <b>अभवाम</b>（現在形の bhavāvaḥ, bhavāmaḥ と比べよう）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　過去 laṅ：abhavat</h2>
+<p class="chapter-sub">底本 457–459 ／ 「（今日より前に）なった」</p>
+<div class="tbl-wrap"><table class="para"><caption>भू — लङ्（過去）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>अभवत्<small>abhavat</small></td><td>अभवताम्<small>abhavatām</small></td><td>अभवन्<small>abhavan</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>अभवः<small>abhavaḥ</small></td><td>अभवतम्<small>abhavatam</small></td><td>अभवत<small>abhavata</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>अभवम्<small>abhavam</small></td><td>अभवाव<small>abhavāva</small></td><td>अभवाम<small>abhavāma</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 457</span><span class="sutra-num">A 3.2.111</span><span class="sutra-text">अनद्यतने लङ् ।</span></div>
+  <div class="sutra-iast">anadyatane laṅ</div>
+  <div class="vrtti">अनद्यतनभूतार्थवृत्तेर्धातोर्लङ् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">今日でない過去を表す語根の後には laṅ が置かれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">西洋の文法で「未完了過去」と呼ばれる、いちばん普通の過去形です。※ 底本では番号が「447」と誤植されています。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 458</span><span class="sutra-num">A 6.4.71</span><span class="sutra-text">लुङ्लङ्लृङ्क्ष्वडुदात्तः ।</span></div>
+  <div class="sutra-iast">luṅlaṅlṛṅkṣv aḍ udāttaḥ</div>
+  <div class="vrtti">एष्वङ्गस्याट् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">luṅ, laṅ, lṛṅ の前で、アンガには（高音の）aṭ（a）が付け加わる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">過去を表す <b>a-</b>（「オーグメント」）です。ṭ 付きなので語幹の<b>前</b>に付きます：<span class="ex">अ + भव</span>。ギリシア語の <i>e</i>-lūon などの e- と同じ起源です。</div></div>
+  <div class="point">過去形（laṅ, luṅ）と条件法（lṛṅ）の頭には a- が付く。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 459</span><span class="sutra-num">A 3.4.100</span><span class="sutra-text">इतश्च ।</span></div>
+  <div class="sutra-iast">itaś ca</div>
+  <div class="vrtti">ङितो लस्य परस्मैपदमिकारान्तं यत् तस्य लोपः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṅ の目印をもつラカーラの、i で終わるパラスマイパダの語尾（ti, anti, si, mi）の i は消える。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">अ + भव + ति → <b>अभवत्</b>（彼はなった）、अभव + अन्ति → अभवन्त् → <b>अभवन्</b>（t は第2課 26 で消える）、अभव + सि → <b>अभवः</b>、<b>अभवम्</b>（447）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　願望法 vidhi-liṅ：bhavet</h2>
+<p class="chapter-sub">底本 460–465 ／ 「なるべきだ」「なるだろう」「なってほしい」</p>
+<div class="tbl-wrap"><table class="para"><caption>भू — विधिलिङ्（願望法）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>भवेत्<small>bhavet</small></td><td>भवेताम्<small>bhavetām</small></td><td>भवेयुः<small>bhaveyuḥ</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>भवेः<small>bhaveḥ</small></td><td>भवेतम्<small>bhavetam</small></td><td>भवेत<small>bhaveta</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>भवेयम्<small>bhaveyam</small></td><td>भवेव<small>bhaveva</small></td><td>भवेम<small>bhavema</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 460</span><span class="sutra-num">A 3.3.161</span><span class="sutra-text">विधिनिमन्त्रणामन्त्रणाधीष्टसम्प्रश्नप्रार्थनेषु लिङ् ।</span></div>
+  <div class="sutra-iast">vidhinimantraṇāmantraṇādhīṣṭasampraśnaprārthaneṣu liṅ</div>
+  <div class="vrtti">एष्वर्थेषु धातोर्लिङ् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">指図（vidhi）・招待・許可・依頼・相談・願いの意味で、語根の後に liṅ が置かれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「〜すべきだ」「〜してください」「〜してもよい」「〜だろうか」のような、<b>柔らかい命令や可能性</b>を表します。法律書（ダルマ・シャーストラ）の「〜すべし」もこの形です。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 461</span><span class="sutra-num">A 3.4.103</span><span class="sutra-text">यासुट् परस्मैपदेषूदात्तो ङिच्च ।</span></div>
+  <div class="sutra-iast">yāsuṭ parasmaipadeṣūdātto ṅic ca</div>
+  <div class="vrtti">लिङः परस्मैपदानां यासुडागमो ङिच्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">liṅ のパラスマイパダの語尾には、（高音の）yāsuṭ（yās）が付け加わり、それは ṅ の目印があるものとして扱われる。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 462</span><span class="sutra-num">A 7.2.79</span><span class="sutra-text">लिङः सलोपोऽनन्त्यस्य ।</span></div>
+  <div class="sutra-iast">liṅaḥ salopo 'nantyasya</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">サールヴァダートゥカの liṅ では、末尾でない s は消える：yās + t → yā + t</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 463</span><span class="sutra-num">A 7.2.80</span><span class="sutra-text">अतो येयः ।</span></div>
+  <div class="sutra-iast">ato yeyaḥ</div>
+  <div class="vrtti">अतः परस्य सार्वधातुकावयवस्य यास् इत्यस्य इय् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">短い a の後では、サールヴァダートゥカの yā(s) は iy に置き換わる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 464</span><span class="sutra-num">A 6.1.66</span><span class="sutra-text">लोपो व्योर्वलि ।</span></div>
+  <div class="sutra-iast">lopo vyor vali</div>
+  <div class="vrtti">वलि परे वकारयकारयोर्लोपः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">val（y 以外の子音）の前で、v・y は消える。</div></div>
+  <div class="row"><div class="k">例</div><div class="v">
+  <ol class="deriv">
+    <li><span class="form">भव + यास् + त्</span><span class="why">yāsuṭ（461）、ti の i は消える（459）</span></li>
+    <li><span class="form">भव + इय् + त्</span><span class="why">a の後で yās → iy（463）</span></li>
+    <li><span class="form">भव + इ + त्</span><span class="why">t の前で y が消える（464）</span></li>
+    <li><span class="form">भवेत्</span><span class="why">a + i → e（グナ）── 「彼はなるべきだ」</span></li>
+  </ol></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 465</span><span class="sutra-num">A 3.4.108</span><span class="sutra-text">झेर्जुस् ।</span></div>
+  <div class="sutra-iast">jher jus</div>
+  <div class="vrtti">लिङो झेर्जुस् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">liṅ の jhi は jus（us）に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">भव + इय् + उस् → <b>भवेयुः</b>（彼らはなるべきだ）── 母音の前なので y は消えない。同様に <b>भवेयम्</b></div></div>
+  <div class="point">願望法の目印：-et, -etām, -eyuḥ（第1類動詞）。</div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　祈願法 āśīr-liṅ：bhūyāt</h2>
+<p class="chapter-sub">底本 466–468 ／ 「どうか〜でありますように」</p>
+<div class="tbl-wrap"><table class="para"><caption>भू — आशीर्लिङ्（祈願法）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>भूयात्<small>bhūyāt</small></td><td>भूयास्ताम्<small>bhūyāstām</small></td><td>भूयासुः<small>bhūyāsuḥ</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>भूयाः<small>bhūyāḥ</small></td><td>भूयास्तम्<small>bhūyāstam</small></td><td>भूयास्त<small>bhūyāsta</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>भूयासम्<small>bhūyāsam</small></td><td>भूयास्व<small>bhūyāsva</small></td><td>भूयास्म<small>bhūyāsma</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 466</span><span class="sutra-num">A 3.4.116</span><span class="sutra-text">लिङाशिषि ।</span></div>
+  <div class="sutra-iast">liṅ āśiṣi</div>
+  <div class="vrtti">आशिषि लिङस्तिङार्धधातुकसंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">祈りの意味の liṅ の tiṅ は、アールダダートゥカと呼ばれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">同じ liṅ でも、<b>祈り（祈願法）ではアールダダートゥカ</b>。だから śap（a）が入らず、462・463（サールヴァダートゥカ用）も働きません：<span class="ex">भू + यास् + त्</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 467</span><span class="sutra-num">A 3.4.104</span><span class="sutra-text">किदाशिषि ।</span></div>
+  <div class="sutra-iast">kid āśiṣi</div>
+  <div class="vrtti">आशिषि लिङो यासुट् कित् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">祈りの liṅ の yāsuṭ は、k の目印があるものとして扱われる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 468</span><span class="sutra-num">A 1.1.5</span><span class="sutra-text">क्ङिति च ।</span></div>
+  <div class="sutra-iast">kṅiti ca</div>
+  <div class="vrtti">गित्किन्ङिन्निमित्ते इग्लक्षणे गुणवृद्धी न स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">g・k・ṅ を目印にもつ接尾辞が原因となる場合、ik についてのグナ・ヴリッディは起こらない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  パーニニ文法で<b>最も重要な規則の1つ</b>。<b>k・ṅ の目印は「グナ禁止」の合図</b>です。<br>
+  yāsuṭ は k 付き（467）なので、bhū はグナにならない：<span class="ex">भू + यास् + त् → <b>भूयात्</b></span>（s は子音結合の頭なので消える，第16課 337）<br>
+  分詞の -ta（kta）も k 付きなので：<span class="ex">भूतः</span>（なった；*bhotaḥ にならない）、<span class="ex">कृतः</span>（なされた）
+  </div></div>
+  <div class="point">k・ṅ 付きの接尾辞の前ではグナしない（bhūyāt, bhūta, kṛta）。</div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「なれ！」（2人称単数命令）が <span class="dev">भव</span> だけなのはなぜ？</summary><div>si → hi（448）、短い a の後の hi はルクで消える（449）。</div></details>
+<details class="q"><summary>Q2. <span class="dev">भवतु</span> の u はどこから？</summary><div>loṭ の語尾の i → u（444）。</div></details>
+<details class="q"><summary>Q3. <span class="dev">अभवत्</span> の頭の a と、語尾の i が消えるのはなぜ？</summary><div>laṅ の前で aṭ（a）が付く（458）。ṅ 付きのラカーラのパラスマイパダの i は消える（459）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">भवेत्</span> の e はどこから？</summary><div>yāsuṭ（461）→ a の後で iy（463）→ y が t の前で消え（464）→ a + i → e。</div></details>
+<details class="q"><summary>Q5. 祈願法 <span class="dev">भूयात्</span> で bhū がグナにならないのはなぜ？</summary><div>祈願法の yāsuṭ は k 付き扱い（467）で、k・ṅ 付きの接尾辞の前ではグナが起こらない（468）。</div></details>
+<details class="q"><summary>Q6. <span class="dev">गम्</span>（行く；語幹 gaccha）の命令法2人称単数と過去3人称単数は？</summary><div><span class="dev">गच्छ</span>（449）、<span class="dev">अगच्छत्</span>（458, 459）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson22.html">← 第22課　完了と未来</a><span class="spacer"></span><a href="panini_lsk_lesson24.html">第24課　アオリストと条件法 →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第23課　動詞の変化（3）命令法・過去・願望法<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 137–142.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：एंरुः → एरुः、यांसुद् → यासुट्、किदोशिषि → किदाशिषि（3.4.108 → 3.4.104）、विङ्कृति च → क्ङिति च）。
+</footer>
+
+</body>
+</html>
