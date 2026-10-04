@@ -1,0 +1,648 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — हलन्तपुंलिङ्गम् (१)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 14</div>
+  <div class="header-jp">第14課　子音で終わる男性名詞（1）── h で終わる語、anaḍuh「雄牛」、div「天」、catur「4」<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 77–83，底本 276–296</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#intro"><span class="n">導入</span>子音語幹の名詞の考え方</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>h で終わる語：lih, duh, druh, snih（底本 276–280）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>viśvavāh：v が u になる「サンプラサーラナ」（底本 281–283）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>anaḍuh「雄牛」（底本 284–287）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>turāsāh・sudiv（底本 288–290）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>catur「4」・praśām（底本 291–296）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="intro">
+<h2 class="chapter">子音語幹の名詞の考え方</h2>
+<p class="lead">ここからは <b>子音で終わる名詞</b>（ハランタ）です。母音で終わる名詞より形の変化が大きく見えますが、仕組みはシンプルです。</p>
+<div class="note">
+  <div class="note-title">子音語幹の3つのポイント</div>
+  ① <b>母音で始まる語尾</b>の前（-au, -as, -ā, -e, -i など）では、語幹はそのまま：<span class="ex">लिह् + औ → लिहौ</span><br>
+  ② <b>子音で始まる語尾</b>（-bhyām, -bhis, -su）の前と<b>語末</b>では、語幹末の子音が変わる（第4課 82 jaś化など）：<span class="ex">लिह् → लिड्भ्याम्</span><br>
+  ③ 主格単数の <b>s は消える</b>（第8課 199）：<span class="ex">लिह् + स् → लिट्</span><br>
+  ②③ で語幹が「パダ」扱いになるのは、第7課 184 の規則によります。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　h で終わる語：lih, duh, druh, snih</h2>
+<p class="chapter-sub">底本 276–280 ／ h は語末で何になる？</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 276</span><span class="sutra-num">A 8.2.31</span><span class="sutra-text">हो ढः ।</span></div>
+  <div class="sutra-iast">ho ḍhaḥ</div>
+  <div class="vrtti">हस्य ढः स्याज्झलि पदान्ते च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jhal（閉鎖音・摩擦音）の前と語末で、h は ḍh になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v">
+  <ol class="deriv">
+    <li><span class="form">लिह् + स्</span><span class="why">lih（なめる者）の主格単数</span></li>
+    <li><span class="form">लिह्</span><span class="why">s が消える（第8課 199）</span></li>
+    <li><span class="form">लिढ्</span><span class="why">語末の h → ḍh（276）</span></li>
+    <li><span class="form">लिड् / लिट्</span><span class="why">jaś化（第4課 82）、休止の前で任意に無声化（第6課 165）</span></li>
+  </ol></div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>लिह्（男）なめる者</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>लिट्, लिड्<small>liṭ, liḍ</small></td><td>लिहौ<small>lihau</small></td><td>लिहः<small>lihaḥ</small></td></tr>
+<tr><th>2 対格</th><td>लिहम्<small>liham</small></td><td>लिहौ<small>lihau</small></td><td>लिहः<small>lihaḥ</small></td></tr>
+<tr><th>3 具格</th><td>लिहा<small>lihā</small></td><td>लिड्भ्याम्<small>liḍbhyām</small></td><td>लिड्भिः<small>liḍbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>लिहे<small>lihe</small></td><td>लिड्भ्याम्<small>liḍbhyām</small></td><td>लिड्भ्यः<small>liḍbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>लिहः<small>lihaḥ</small></td><td>लिड्भ्याम्<small>liḍbhyām</small></td><td>लिड्भ्यः<small>liḍbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>लिहः<small>lihaḥ</small></td><td>लिहोः<small>lihoḥ</small></td><td>लिहाम्<small>lihām</small></td></tr>
+<tr><th>7 処格</th><td>लिहि<small>lihi</small></td><td>लिहोः<small>lihoḥ</small></td><td>लिट्त्सु, लिट्सु<small>liṭtsu, liṭsu</small></td></tr>
+<tr><th>呼格</th><td>हे लिट्, हे लिड्<small>he liṭ, he liḍ</small></td><td>हे लिहौ<small>he lihau</small></td><td>हे लिहः<small>he lihaḥ</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 277</span><span class="sutra-num">A 8.2.32</span><span class="sutra-text">दादेर्धातोर्घः ।</span></div>
+  <div class="sutra-iast">dāder dhātor ghaḥ</div>
+  <div class="vrtti">झलि पदान्ते चोपदेशे दादेर्धातोर्हस्य घः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（語根表で）d で始まる動詞語根の h は、jhal の前と語末で gh になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">दुह्（乳をしぼる）→ दुघ्（h ではなく gh に）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 278</span><span class="sutra-num">A 8.2.37</span><span class="sutra-text">एकाचो बशो भष् झषन्तस्य स्ध्वोः ।</span></div>
+  <div class="sutra-iast">ekāco baśo bhaṣ jhaṣantasya sdhvoḥ</div>
+  <div class="vrtti">धात्ववयवस्यैकाचो झषन्तस्य बशो भष् से ध्वे पदान्ते च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">有気音（jhaṣ）で終わる1音節の語根の、（始めの）baś（b, g, ḍ, d）は、s・dhv の前と語末で bhaṣ（bh, gh, ḍh, dh：有気音）になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">語末の有気音が無気音になる（82）と、<b>「失われた息」が語の頭に移る</b>、というおもしろい現象です（言語学で「グラスマンの法則」と関係する現象）。<br>
+  <span class="ex">दुघ् → <b>धु</b>घ् → धुग् / <b>धुक्</b></span>（主格単数）、<span class="ex"><b>धुग्भ्याम्</b>, <b>धुक्षु</b></span><br>
+  母音の前では d のまま：<span class="ex"><b>दुहौ</b>, <b>दुहा</b></span></div></div>
+  <div class="point">語末で有気音が消えると、その「息」が語頭の子音に移る（duh → dhuk）。</div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>दुह्（男）乳をしぼる者</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>धुक्, धुग्<small>dhuk, dhug</small></td><td>दुहौ<small>duhau</small></td><td>दुहः<small>duhaḥ</small></td></tr>
+<tr><th>2 対格</th><td>दुहम्<small>duham</small></td><td>दुहौ<small>duhau</small></td><td>दुहः<small>duhaḥ</small></td></tr>
+<tr><th>3 具格</th><td>दुहा<small>duhā</small></td><td>धुग्भ्याम्<small>dhugbhyām</small></td><td>धुग्भिः<small>dhugbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>दुहे<small>duhe</small></td><td>धुग्भ्याम्<small>dhugbhyām</small></td><td>धुग्भ्यः<small>dhugbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>दुहः<small>duhaḥ</small></td><td>धुग्भ्याम्<small>dhugbhyām</small></td><td>धुग्भ्यः<small>dhugbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>दुहः<small>duhaḥ</small></td><td>दुहोः<small>duhoḥ</small></td><td>दुहाम्<small>duhām</small></td></tr>
+<tr><th>7 処格</th><td>दुहि<small>duhi</small></td><td>दुहोः<small>duhoḥ</small></td><td>धुक्षु<small>dhukṣu</small></td></tr>
+<tr><th>呼格</th><td>हे धुक्, हे धुग्<small>he dhuk, he dhug</small></td><td>हे दुहौ<small>he duhau</small></td><td>हे दुहः<small>he duhaḥ</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 279</span><span class="sutra-num">A 8.2.33</span><span class="sutra-text">वा द्रुहमुहष्णुहष्णिहाम् ।</span></div>
+  <div class="sutra-iast">vā druhamuhaṣṇuhaṣṇihām</div>
+  <div class="vrtti">एषां हस्य वा घो झलि पदान्ते च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">druh（敵対する）, muh（迷う）, snuh（吐く）, snih（愛する）の h は、jhal の前と語末で、任意に gh になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">द्रुह्（敵）：gh なら <b>ध्रुक् / ध्रुग्</b>、ḍh（276）なら <b>ध्रुट् / ध्रुड्</b>（278 で語頭も dh に）── 主格単数が4通り！<br>
+  処格複数：<b>ध्रुक्षु, ध्रुट्त्सु, ध्रुट्सु</b>。注釈：<span class="dev">एवं मुह् ।</span>（muh も同様）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 280</span><span class="sutra-num">A 6.1.64</span><span class="sutra-text">धात्वादेः षः सः ।</span></div>
+  <div class="sutra-iast">dhātvādeḥ ṣaḥ saḥ</div>
+  <div class="vrtti">धातोरादेः षस्य सः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">動詞語根の最初の ṣ は s になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">語根表では <span class="dev">ष्णुह्, ष्णिह्</span> のように ṣ で書かれていますが、実際の語では <b>s</b> です（ṣ が消えると、それに引かれていた ṇ も n に戻る）。<br>
+  <span class="ex">ष्णुह् → स्नुह् → <b>स्नुक् / स्नुग् / स्नुट् / स्नुड्</b></span>、<span class="ex">ष्णिह् → <b>स्निह्</b></span>（同様）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　viśvavāh：v が u になる「サンプラサーラナ」</h2>
+<p class="chapter-sub">底本 281–283 ／ 世界を担う者</p>
+
+<p>viśvavāh（世界を運ぶ者）の主格単数は、276 で <span class="ex"><b>विश्ववाट् / विश्ववाड्</b></span>、両数 <span class="ex"><b>विश्ववाहौ</b></span>。ところが対格複数は <span class="ex"><b>विश्वौहः</b></span> ── v が消えて au！ その仕組みは：</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 281</span><span class="sutra-num">A 1.1.45</span><span class="sutra-text">इग्यणः सम्प्रसारणम् ।</span></div>
+  <div class="sutra-iast">ig yaṇaḥ samprasāraṇam</div>
+  <div class="vrtti">यणः स्थाने प्रयुज्यमानो य इक् स सम्प्रसारणसंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">yaṇ（y, v, r, l）の代わりに用いられる ik（i, u, ṛ, ḷ）を「サンプラサーラナ」という。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第1課 21 <span class="dev">इको यणचि</span>（i → y）の<b>逆方向</b>：y → i、v → u、r → ṛ。これを<b>サンプラサーラナ</b>（「広げること」）と呼びます。動詞の変化でとてもよく出てきます（vac「言う」→ uktaḥ「言われた」など）。</div></div>
+  <div class="point">サンプラサーラナ ＝ 半母音が母音に戻ること（y→i, v→u, r→ṛ）。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 282</span><span class="sutra-num">A 6.4.132</span><span class="sutra-text">वाह ऊठ् ।</span></div>
+  <div class="sutra-iast">vāha ūṭh</div>
+  <div class="vrtti">भस्य वाहः सम्प्रसारणमूठ् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">バのとき、vāh（の v）はサンプラサーラナ ūṭh（ū）になる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 283</span><span class="sutra-num">A 6.1.108</span><span class="sutra-text">सम्प्रसारणाच्च ।</span></div>
+  <div class="sutra-iast">samprasāraṇāc ca</div>
+  <div class="vrtti">सम्प्रसारणादचि पूर्वरूपमेकादेशः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">サンプラサーラナの後に母音が来ると、前の音の形（プールヴァルーパ）になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v">
+  <ol class="deriv">
+    <li><span class="form">विश्ववाह् + अस्</span><span class="why">対格複数（バ）</span></li>
+    <li><span class="form">विश्व ऊ आह् + अस्</span><span class="why">v → ū（282）</span></li>
+    <li><span class="form">विश्व ऊह् + अस्</span><span class="why">ū + ā → ū（283：前の音の形）</span></li>
+    <li><span class="form">विश्वौहः</span><span class="why">a + ū → au（第2課 42 <span class="dev">एत्येधत्यूठ्सु</span>：ūṭh の前でヴリッディ！）</span></li>
+  </ol>
+  第2課で <span class="dev">प्रष्ठौहः</span> の例として出てきた「ūṭh」が、ここで種明かしされます。</div></div>
+</div>
+<div class="tbl-wrap"><table>
+<tr><th>格</th><th>viśvavāh</th></tr>
+<tr><td>主格</td><td class="dev">विश्ववाट्-ड्, विश्ववाहौ, विश्ववाहः</td></tr>
+<tr><td>対格</td><td class="dev">विश्ववाहम्, विश्ववाहौ, <b>विश्वौहः</b></td></tr>
+<tr><td>具格</td><td class="dev"><b>विश्वौहा</b>, विश्ववाड्भ्याम्, विश्ववाड्भिः</td></tr>
+<tr><td>属格</td><td class="dev"><b>विश्वौहः, विश्वौहोः, विश्वौहाम्</b></td></tr>
+<tr><td>処格</td><td class="dev"><b>विश्वौहि</b>, विश्वौहोः, विश्ववाट्सु</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　anaḍuh「雄牛」</h2>
+<p class="chapter-sub">底本 284–287 ／ 3つの語幹をもつ名詞</p>
+<div class="tbl-wrap"><table class="para"><caption>अनडुह्（男）雄牛</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>अनड्वान्<small>anaḍvān</small></td><td>अनड्वाहौ<small>anaḍvāhau</small></td><td>अनड्वाहः<small>anaḍvāhaḥ</small></td></tr>
+<tr><th>2 対格</th><td>अनड्वाहम्<small>anaḍvāham</small></td><td>अनड्वाहौ<small>anaḍvāhau</small></td><td>अनडुहः<small>anaḍuhaḥ</small></td></tr>
+<tr><th>3 具格</th><td>अनडुहा<small>anaḍuhā</small></td><td>अनडुद्भ्याम्<small>anaḍudbhyām</small></td><td>अनडुद्भिः<small>anaḍudbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>अनडुहे<small>anaḍuhe</small></td><td>अनडुद्भ्याम्<small>anaḍudbhyām</small></td><td>अनडुद्भ्यः<small>anaḍudbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>अनडुहः<small>anaḍuhaḥ</small></td><td>अनडुद्भ्याम्<small>anaḍudbhyām</small></td><td>अनडुद्भ्यः<small>anaḍudbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>अनडुहः<small>anaḍuhaḥ</small></td><td>अनडुहोः<small>anaḍuhoḥ</small></td><td>अनडुहाम्<small>anaḍuhām</small></td></tr>
+<tr><th>7 処格</th><td>अनडुहि<small>anaḍuhi</small></td><td>अनडुहोः<small>anaḍuhoḥ</small></td><td>अनडुत्सु<small>anaḍutsu</small></td></tr>
+<tr><th>呼格</th><td>हे अनड्वन्<small>he anaḍvan</small></td><td>हे अनड्वाहौ<small>he anaḍvāhau</small></td><td>हे अनड्वाहः<small>he anaḍvāhaḥ</small></td></tr>
+</table></div>
+<p>anaḍuh は、強語尾の前で <b>anaḍvāh</b>、子音の前で <b>anaḍud</b>、それ以外で <b>anaḍuh</b> と、3つの顔をもちます。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 284</span><span class="sutra-num">A 7.1.98</span><span class="sutra-text">चतुरनडुहोरामुदात्तः ।</span></div>
+  <div class="sutra-iast">caturanaḍuhor ām udāttaḥ</div>
+  <div class="vrtti">अनयोराम् स्यात्सर्वनामस्थाने परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">catur と anaḍuh には、強語尾の前で ām（ā）が付け加わる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ām は m 付きなので、<b>最後の母音の直後</b>に入ります（第13課 265）：<span class="ex">अनडु + आ + ह् → अनड्वाह्</span>（u → v）。<br><span class="ex"><b>अनड्वाहौ</b>, <b>अनड्वाहः</b>, <b>अनड्वाहम्</b></span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 285</span><span class="sutra-num">A 7.1.82</span><span class="sutra-text">सावनडुहः ।</span></div>
+  <div class="sutra-iast">sāv anaḍuhaḥ</div>
+  <div class="vrtti">अस्य नुम् स्यात् सौ परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">su（主格単数）の前で、anaḍuh には num（n）が付け加わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">अनड्वाह् → अनड्वान्ह् + स् → s が消え（第8課 199）、語末の子音結合の h が消える（第2課 26）→ <b>अनड्वान्</b><br>
+  ※ 第8課 200（語末の n が消える）は働かない。h を消した規則（8.2.23）が n を消す規則（8.2.7）より<b>後</b>にあり、前の規則からは見えない（第2課 39 アシッダ）ので、n は「語末」に見えないから。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 286</span><span class="sutra-num">A 7.1.99</span><span class="sutra-text">अम् सम्बुद्धौ ।</span></div>
+  <div class="sutra-iast">am sambuddhau</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">呼格単数では、ām ではなく <b>am</b>（短い a）が入る：<span class="ex"><b>हे अनड्वन्</b></span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 287</span><span class="sutra-num">A 8.2.72</span><span class="sutra-text">वसुस्रंसुध्वंस्वनडुहां दः ।</span></div>
+  <div class="sutra-iast">vasusraṃsudhvaṃsvanaḍuhāṃ daḥ</div>
+  <div class="vrtti">सान्तवस्वन्तस्य स्रंसादेश्च दः स्यात्पदान्ते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">s で終わる vasu 接尾辞の語、sraṃs（落ちる）, dhvaṃs（落ちる）, anaḍuh は、語末で d になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>अनडुद्भ्याम्</b>, <b>अनडुद्भिः</b>, <b>अनडुत्सु</b>（無声化，第4課 90）<br>
+  ※ vasu 語（vidvas など）は第18課で。語末でなければ対象外：<span class="ex">स्रस्तम्, ध्वस्तम्</span></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　turāsāh・sudiv</h2>
+<p class="chapter-sub">底本 288–290</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 288</span><span class="sutra-num">A 8.3.56</span><span class="sutra-text">सहेः साडः सः ।</span></div>
+  <div class="sutra-iast">saheḥ sāḍaḥ saḥ</div>
+  <div class="vrtti">साड्रूपस्य सहेः सस्य मूर्धन्यादेशः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">sāḍ の形になった sah（耐える・打ち勝つ）の s は、反り舌音（ṣ）になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">तुरासाह्（素早く打ち勝つ者＝インドラ）：語末で h → ḍ（276, 82）になると、s → ṣ：<br>
+  主格単数 <b>तुराषाट् / तुराषाड्</b>、<b>तुराषाड्भ्याम्</b>、<b>तुराषाट्सु</b><br>
+  母音の前は sāh のまま：<b>तुरासाहौ</b>, <b>तुरासाहा</b></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 289</span><span class="sutra-num">A 7.1.84</span><span class="sutra-text">दिव औत् ।</span></div>
+  <div class="sutra-iast">diva aut</div>
+  <div class="vrtti">दिविति प्रातिपदिकस्यौत्स्यात्सौ परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">su の前で、div（天）の（末尾の v）は au になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">सुदिव्（よい天をもつ）+ स् → सुदि + औ + स् → <b>सुद्यौः</b>（i → y）。母音の前は v のまま：<b>सुदिवौ</b>, <b>सुदिवः</b></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 290</span><span class="sutra-num">A 6.1.131</span><span class="sutra-text">दिव उत् ।</span></div>
+  <div class="sutra-iast">diva ut</div>
+  <div class="vrtti">दिवोऽन्तादेश उकारः स्यात् पदान्ते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">語末（パダ末）で、div の v は u になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">सुदिव् + भ्याम् → सुदिउ → <b>सुद्युभ्याम्</b>、<b>सुद्युभिः</b>、<b>सुद्युषु</b>。呼格 <b>हे सुद्यौः</b><br>
+  ※ 女性名詞 <span class="dev">दिव्</span>（天）も同様：<b>द्यौः</b>, दिवौ, दिवः, द्युभ्याम्…（第19課）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　catur「4」・praśām</h2>
+<p class="chapter-sub">底本 291–296</p>
+
+<p>catur（4）は常に複数。主格は 284 で ā が入って <span class="ex">चतु + आ + र् → <b>चत्वारः</b></span>。対格 <span class="ex"><b>चतुरः</b></span>、具格 <span class="ex"><b>चतुर्भिः</b></span>、与・奪格 <span class="ex"><b>चतुर्भ्यः</b></span>。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 291</span><span class="sutra-num">A 7.1.55</span><span class="sutra-text">षट्चतुर्भ्यश्च ।</span></div>
+  <div class="sutra-iast">ṣaṭcaturbhyaś ca</div>
+  <div class="vrtti">एभ्य आमो नुडागमः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṣaṭ と呼ばれる数詞と catur の後の ām にも、nuṭ（n）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">चतुर् + नाम्（続きは次）。ṣaṭ の例：<b>पञ्चानाम्</b>（第15課）, <b>षण्णाम्</b></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 292</span><span class="sutra-num">A 8.4.1</span><span class="sutra-text">रषाभ्यां नो णः समानपदे ।</span></div>
+  <div class="sutra-iast">raṣābhyāṃ no ṇaḥ samānapade</div>
+  <div class="vrtti">एकपदस्थाभ्यां रषाभ्यां परस्य नस्य णः स्यात् समानपदे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">同じ語の中で、r・ṣ の直後の n は ṇ になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">これが ṇ化の<b>基本規則</b>です。第6課 157 <span class="dev">अट्कुप्वाङ्नुम्व्यवायेऽपि</span>（間に母音などがあっても）は、実はこの規則の拡張でした。<br>
+  <span class="ex">चतुर्नाम् → <b>चतुर्णाम्</b></span></div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 293</span><span class="sutra-num">A 8.4.46</span><span class="sutra-text">अचो रहाभ्यां द्वे ।</span></div>
+  <div class="sutra-iast">aco rahābhyāṃ dve</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第3課 73 と同じ規則（再掲）：母音＋r の後の子音は重ねてもよい → <span class="ex"><b>चतुर्ण्णाम्</b> / <b>चतुर्णाम्</b></span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 294</span><span class="sutra-num">A 8.3.16</span><span class="sutra-text">रोः सुपि ।</span></div>
+  <div class="sutra-iast">roḥ supi</div>
+  <div class="vrtti">सप्तमीबहुवचने परे रोरेव विसर्गः, नान्यस्य रस्य ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">処格複数の su の前では、ル（s から来た r）だけがヴィサルガになり、他の r はならない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">catur の r は元からある r（ルではない）なので、su の前でも ḥ にならない：<span class="ex">चतुर् + सु → चतुर्षु</span>（s → ṣ，第6課 169）</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 295</span><span class="sutra-num">A 8.4.49</span><span class="sutra-text">शरोऽचि ।</span></div>
+  <div class="sutra-iast">śaro 'ci</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">母音の前の śar（ś ṣ s）は重ねない（293 の例外）→ <span class="ex"><b>चतुर्षु</b></span>（catur-ṣṣu にはならない）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 296</span><span class="sutra-num">A 8.2.64</span><span class="sutra-text">मो नो धातोः ।</span></div>
+  <div class="sutra-iast">mo no dhātoḥ</div>
+  <div class="vrtti">धातोर्मस्य नः पदान्ते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">語末で、動詞語根の m は n になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">प्रशाम्（静まった者）：<b>प्रशान्</b>（主格単数）、<b>प्रशान्भ्याम्</b>、<b>प्रशान्सु</b>。母音の前は m：<b>प्रशामौ</b>, <b>प्रशामः</b></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">मधुलिह्</span>（蜜をなめる者＝蜂）の主格単数は？</summary><div><span class="dev">मधुलिट् / मधुलिड्</span>（276, 82, 165）。</div></details>
+<details class="q"><summary>Q2. <span class="dev">दुह्</span> の主格単数が <span class="dev">धुक्</span> と、語頭まで変わるのはなぜ？</summary><div>h → gh（277）。語末で有気音が消えると、その息が語頭の d に移って dh になる（278）。</div></details>
+<details class="q"><summary>Q3. 「サンプラサーラナ」とは？</summary><div>半母音（y, v, r, l）の代わりに対応する母音（i, u, ṛ, ḷ）が置かれること（281）。</div></details>
+<details class="q"><summary>Q4. anaḍuh の主格単数と具格両数は？</summary><div><span class="dev">अनड्वान्</span>（284, 285）と <span class="dev">अनडुद्भ्याम्</span>（287）。</div></details>
+<details class="q"><summary>Q5. <span class="dev">चत्वारः</span> の ā はどこから？</summary><div>強語尾の前で catur に ām が入る（284）。m 付きなので最後の母音 u の後に入り、u → v。</div></details>
+<details class="q"><summary>Q6. <span class="dev">चतुर्षु</span> の r がヴィサルガにならないのはなぜ？</summary><div>su の前でヴィサルガになるのはル（s から来た r）だけ（294）。catur の r は元からの r。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson13.html">← 第13課　中性名詞</a><span class="spacer"></span><a href="panini_lsk_lesson15.html">第15課　代名詞 idam と n 語幹 →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第14課　子音で終わる男性名詞（1）<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 77–83.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：दादेर्धातोर्धः → दादेर्धातोर्घः、अनडुन् → अनड्वान्、दुह（द्रोही）→ द्रुह्；धात्वादेः षः सः の位置 6.1.45 → 6.1.64、सावनडुहः 7.1.99 → 7.1.82）。
+</footer>
+
+</body>
+</html>

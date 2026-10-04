@@ -1,0 +1,574 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — अव्ययप्रकरणम् · तिङन्तप्रकरणारम्भः</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 20</div>
+  <div class="header-jp">第20課　不変化詞（アヴィヤヤ）と動詞の入口 ── 「形が変わらない語」と「10のラ」<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 123–128，底本 399–406</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>アヴィヤヤとは（底本 399）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>よく使うアヴィヤヤ（svar など・ca など）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>アヴィヤヤになる語：kṛtvā, adhihari（底本 400–404）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>動詞の章へ：10のラカーラ（底本 405）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>能動・受動・非人称（底本 406）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　アヴィヤヤとは</h2>
+<p class="chapter-sub">底本 399 ／ 名詞の章の最後：形の変わらない語</p>
+
+<div class="note">
+  <div class="note-title">アヴィヤヤの定義（アタルヴァ・ヴェーダの句として引用される詩）</div>
+  <div class="dev" style="font-size:1.05rem">सदृशं त्रिषु लिङ्गेषु सर्वासु च विभक्तिषु ।<br>वचनेषु च सर्वेषु यन्न व्येति तदव्ययम् ॥</div>
+  「3つの性すべてで、すべての格で、すべての数で同じ形をとり、<b>変化しない</b>（<span class="iast">na vyeti</span>）もの、それがアヴィヤヤ（<span class="iast">a-vyaya</span>，変化しないもの）である。」
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 399</span><span class="sutra-num">A 1.1.37</span><span class="sutra-text">स्वरादिनिपातमव्ययम् ।</span></div>
+  <div class="sutra-iast">svarādinipātam avyayam</div>
+  <div class="vrtti">स्वरादयो निपाताश्चाव्ययसंज्ञाः स्युः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">svar などの語と、ニパータ（第3課 66, 67）は「アヴィヤヤ」と呼ばれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  アヴィヤヤは、大きく2つのグループからなります：<br>
+  ① <b>スヴァラーディ</b>（svar「天」から始まるリスト）：副詞のような語<br>
+  ② <b>ニパータ</b>（ca「そして」から始まるリスト ＋ pra などの接頭辞）：接続詞・間投詞・強調の語など<br>
+  どちらも「<b>形で判断するグループ</b>」（<span class="dev">आकृतिगण</span>）で、リストは閉じていません。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">注釈より：接尾辞で作られるアヴィヤヤ</div>
+  <span class="dev">तसिलादयः प्राक्पाशपः, शस्प्रभृतयः प्राक्समासान्तेभ्यः, अम्, आम्, कृत्वोऽर्थाः, तसिवती, नानाञौ — एतदन्तमप्यव्ययम् ।</span><br>
+  次のような接尾辞で終わる語もアヴィヤヤ（例は代表的なもの）：<br>
+  ・-tas / -tra / -dā など（tasil など）：<span class="ex">ततः</span>（そこから）, <span class="ex">तत्र</span>（そこで）, <span class="ex">यदा</span>（〜するとき）<br>
+  ・-śas：<span class="ex">बहुशः</span>（何度も）、-kṛtvas：<span class="ex">पञ्चकृत्वः</span>（5回）、-dhā：<span class="ex">द्विधा</span>（2通りに）<br>
+  ・-vat（〜のように）：<span class="ex">ब्राह्मणवत्</span>（バラモンのように）、-nā：<span class="ex">नाना</span>（様々に）
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　よく使うアヴィヤヤ</h2>
+<p class="chapter-sub">底本の一覧を中心に、頻出のものを抜粋</p>
+
+<h3>① スヴァラーディ（svar など）── 副詞のような語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>意味</th><th>語</th><th>意味</th></tr>
+<tr><td class="dev">स्वर्</td><td>天、来世</td><td class="dev">अन्तर्</td><td>中に、間に</td></tr>
+<tr><td class="dev">प्रातर्</td><td>朝に</td><td class="dev">पुनर्</td><td>再び</td></tr>
+<tr><td class="dev">उच्चैस्</td><td>高く、大声で</td><td class="dev">नीचैस्</td><td>低く</td></tr>
+<tr><td class="dev">शनैस्</td><td>ゆっくり</td><td class="dev">ऋते</td><td>〜なしに</td></tr>
+<tr><td class="dev">युगपत्</td><td>同時に</td><td class="dev">पृथक्</td><td>別々に</td></tr>
+<tr><td class="dev">ह्यस्</td><td>昨日</td><td class="dev">श्वस्</td><td>明日</td></tr>
+<tr><td class="dev">दिवा</td><td>昼に</td><td class="dev">नक्तम्</td><td>夜に</td></tr>
+<tr><td class="dev">सायम्</td><td>夕方に</td><td class="dev">चिरम्</td><td>長い間</td></tr>
+<tr><td class="dev">ईषत्, मनाक्</td><td>少し</td><td class="dev">तूष्णीम्</td><td>黙って</td></tr>
+<tr><td class="dev">बहिस्</td><td>外に</td><td class="dev">स्वयम्</td><td>自ら</td></tr>
+<tr><td class="dev">वृथा, मुधा</td><td>むだに</td><td class="dev">मिथ्या, मृषा</td><td>偽って</td></tr>
+<tr><td class="dev">सहसा</td><td>突然</td><td class="dev">विना</td><td>〜なしに</td></tr>
+<tr><td class="dev">नाना</td><td>様々に</td><td class="dev">स्वस्ति</td><td>幸あれ</td></tr>
+<tr><td class="dev">अलम्</td><td>十分に、〜するな</td><td class="dev">मिथस्</td><td>互いに</td></tr>
+<tr><td class="dev">प्रायस्</td><td>たいてい</td><td class="dev">मुहुस्</td><td>何度も</td></tr>
+<tr><td class="dev">साकम्, सार्धम्, सह</td><td>〜と共に</td><td class="dev">नमस्</td><td>礼拝</td></tr>
+<tr><td class="dev">धिक्</td><td>恥を知れ</td><td class="dev">अथ</td><td>さて、次に</td></tr>
+<tr><td class="dev">पुरा</td><td>昔</td><td class="dev">मा, माङ्</td><td>〜するな</td></tr>
+</table></div>
+
+<h3>② ニパータ（ca など）── 接続詞・強調・間投詞</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>意味</th><th>語</th><th>意味</th></tr>
+<tr><td class="dev">च</td><td>そして</td><td class="dev">वा</td><td>または</td></tr>
+<tr><td class="dev">एव</td><td>〜だけ、まさに</td><td class="dev">एवम्</td><td>このように</td></tr>
+<tr><td class="dev">नूनम्</td><td>きっと</td><td class="dev">शश्वत्</td><td>常に</td></tr>
+<tr><td class="dev">चेत्</td><td>もし</td><td class="dev">तत्र</td><td>そこで</td></tr>
+<tr><td class="dev">कच्चित्</td><td>〜だろうか（問い）</td><td class="dev">हन्त</td><td>ああ（喜び・悲しみ）</td></tr>
+<tr><td class="dev">हि</td><td>なぜなら</td><td class="dev">तु</td><td>しかし</td></tr>
+<tr><td class="dev">इति</td><td>〜と（引用）</td><td class="dev">इव</td><td>〜のように</td></tr>
+<tr><td class="dev">न</td><td>〜ない</td><td class="dev">अपि</td><td>〜も</td></tr>
+<tr><td class="dev">हे, भोः, अये</td><td>おお（呼びかけ）</td><td class="dev">अहो</td><td>ああ（驚き）</td></tr>
+</table></div>
+<p style="font-size:0.92rem;color:var(--ink-soft)">注釈：<span class="dev">चादिरप्याकृतिगणः ।</span>「ca などのグループも、形で判断するグループである」</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　アヴィヤヤになる語：kṛtvā, adhihari</h2>
+<p class="chapter-sub">底本 400–404</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 400</span><span class="sutra-num">A 1.1.39</span><span class="sutra-text">कृन्मेजन्तः ।</span></div>
+  <div class="sutra-iast">kṛn mejantaḥ</div>
+  <div class="vrtti">कृद्यो मान्त एजन्तश्च तदन्तमव्ययम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">m で終わる、または ec（e, o, ai, au）で終わるクリット（第16課 329）で終わる語はアヴィヤヤである。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>स्मारं स्मारम्</b>（何度も思い出して；-am）、<b>जीवसे</b>（生きるために；ヴェーダの不定詞 -se）、<b>पिबध्यै</b>（飲むために；-dhyai）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 401</span><span class="sutra-num">A 1.1.40</span><span class="sutra-text">क्त्वातोसुन्कसुनः ।</span></div>
+  <div class="sutra-iast">ktvātosunkasunaḥ</div>
+  <div class="vrtti">एतदन्तमव्ययं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ktvā, tosun, kasun で終わる語もアヴィヤヤである。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">いちばん大事なのは <b>ktvā（-tvā）</b>：「〜して（から）」という<b>絶対分詞（連続体）</b>です。<br>
+  <span class="ex"><b>कृत्वा</b></span>（して）、<span class="ex"><b>गत्वा</b></span>（行って）、<span class="ex"><b>नत्वा</b></span>（礼拝して）── 第1課の冒頭の詩 <span class="dev"><b>नत्वा</b> सरस्वतीं देवीम्</span> の natvā がこれです！<br>
+  tosun・kasun はヴェーダの形：<span class="ex">उदेतोः</span>（昇る前に）, <span class="ex">विसृपः</span></div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 402</span><span class="sutra-num">A 1.1.41</span><span class="sutra-text">अव्ययीभावश्च ।</span></div>
+  <div class="sutra-iast">avyayībhāvaś ca</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">アヴィヤイーバーヴァ（不変化複合語）もアヴィヤヤ：<span class="ex"><b>अधिहरि</b></span>（ハリにおいて）、<span class="ex">यथाशक्ति</span>（力に応じて）など。複合語の課で詳しく学びます。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 403</span><span class="sutra-num">A 2.4.82</span><span class="sutra-text">अव्ययादाप्सुपः ।</span></div>
+  <div class="sutra-iast">avyayād āpsupaḥ</div>
+  <div class="vrtti">अव्ययाद्विहितस्यापः सुपश्च लुक् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">アヴィヤヤの後に付けられた āp（女性語尾 ā）と sup（格語尾）は、ルクで消える。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  アヴィヤヤにも、パダ（語）になるために<b>いったん格語尾が付き、すぐ消える</b>、と考えます（第1課 20：sup で終わるものがパダ）。<br>
+  <span class="ex"><b>तत्र</b> शालायाम्</span>（その部屋で）── 女性名詞 śālā を修飾していても、tatra は女性形 *tatrā にも処格 *tatre にもならない。
+  </div></div>
+  <div class="point">アヴィヤヤ ＝ 格語尾・女性語尾が付いても、すぐに消える語。だから形が変わらない。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">底本 404：バーグリ先生の説</div>
+  <div class="dev">वष्टि भागुरिरल्लोपमवाप्योरुपसर्गयोः । आपं चैव हलन्तानां यथा वाचा निशा दिशा ॥</div>
+  「文法家バーグリは、接頭辞 ava・api の a が落ちること、および子音で終わる語に女性語尾 ā を付けることを認める」<br>
+  ・<span class="ex">अवगाहः → <b>वगाहः</b></span>（沐浴）、<span class="ex">अपिधानम् → <b>पिधानम्</b></span>（覆い）<br>
+  ・<span class="ex">वाच् → <b>वाचा</b></span>（言葉）、<span class="ex">निश् → <b>निशा</b></span>（夜）、<span class="ex">दिश् → <b>दिशा</b></span>（方角）<br>
+  「正しい形」がパーニニ以外の文法家の説によって広げられる例です。
+</div>
+<p style="text-align:center;color:var(--muted)">॥ इत्यव्ययप्रकरणम् ॥　── 以上、不変化詞の章。ここまでで「名詞」の部が完了 ──</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　動詞の章へ：10のラカーラ</h2>
+<p class="chapter-sub">底本 405 ／ <span class="dev">अथ भ्वादयः</span>「さて、bhū などの動詞」</p>
+
+<p class="lead">いよいよ動詞（<span class="iast">tiṅanta</span>：tiṅ 語尾で終わる語）の章です。パーニニは、動詞の時制や法を、<b>l で始まる10個の記号</b>で表します。これを<b>ラカーラ</b>（<span class="iast">lakāra</span>，「l の字」）と呼びます。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 405</span><span class="sutra-text">लट् । लिट् । लुट् । लृट् । लेट् । लोट् । लङ् । लिङ् । लुङ् । लृङ् ।</span></div>
+  <div class="sutra-iast">laṭ liṭ luṭ lṛṭ leṭ loṭ laṅ liṅ luṅ lṛṅ</div>
+  <div class="vrtti">एषु पञ्चमो लकारश्छन्दोमात्रगोचरः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（以上の10のラカーラがある。）このうち5番目（leṭ）はヴェーダでだけ使われる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  よく見ると、規則的な作りになっています：<br>
+  ・l の後の母音が <b>a, i, u, ṛ, e, o</b> と順番に並ぶ<br>
+  ・最後の目印が <b>ṭ</b>（6つ）か <b>ṅ</b>（4つ）<br>
+  ṭ 付き（ṭit）は「基本的な」時制、ṅ 付き（ṅit）は語頭に a- が付く過去形などで、目印によって後の規則のかかり方が変わります。
+  </div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<tr><th>記号</th><th>伝統的な意味（注釈）</th><th>西洋文法での名前</th><th>例（bhū「なる」）</th></tr>
+<tr><td class="dev">लट् laṭ</td><td>現在</td><td>現在</td><td class="dev">भवति</td></tr>
+<tr><td class="dev">लिट् liṭ</td><td>見ていない、今日でない過去</td><td>完了</td><td class="dev">बभूव</td></tr>
+<tr><td class="dev">लुट् luṭ</td><td>今日でない未来</td><td>複合未来</td><td class="dev">भविता</td></tr>
+<tr><td class="dev">लृट् lṛṭ</td><td>未来（一般）</td><td>単純未来</td><td class="dev">भविष्यति</td></tr>
+<tr><td class="dev">लेट् leṭ</td><td>（ヴェーダのみ）</td><td>接続法</td><td>—</td></tr>
+<tr><td class="dev">लोट् loṭ</td><td>命令・促し</td><td>命令法</td><td class="dev">भवतु</td></tr>
+<tr><td class="dev">लङ् laṅ</td><td>今日でない過去</td><td>過去（未完了過去）</td><td class="dev">अभवत्</td></tr>
+<tr><td class="dev">लिङ् liṅ</td><td>指図・勧め・願い</td><td>願望法・祈願法</td><td class="dev">भवेत्</td></tr>
+<tr><td class="dev">लुङ् luṅ</td><td>過去（一般）</td><td>アオリスト</td><td class="dev">अभूत्</td></tr>
+<tr><td class="dev">लृङ् lṛṅ</td><td>条件（実現しなかったこと）</td><td>条件法</td><td class="dev">अभविष्यत्</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">注釈より：「今日」と「今日でない」</div>
+  サンスクリット文法では、時間を<b>アディヤタナ</b>（今日：前の夜の真夜中から次の真夜中まで）と<b>アナディヤタナ</b>（今日でない）に分けます。<br>
+  ・「今日でない過去」には laṅ（abhavat）、見ていない昔のことには liṭ（babhūva）<br>
+  ・今日を含む一般的な過去には luṅ（abhūt）<br>
+  英語の「現在完了 / 過去」とは違う、独特の時間の区切り方です。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　能動・受動・非人称</h2>
+<p class="chapter-sub">底本 406 ／ ラカーラは何を表すか</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 406</span><span class="sutra-num">A 3.4.69</span><span class="sutra-text">लः कर्मणि च भावे चाकर्मकेभ्यः ।</span></div>
+  <div class="sutra-iast">laḥ karmaṇi ca bhāve cākarmakebhyaḥ</div>
+  <div class="vrtti">लकाराः सकर्मकेभ्यः कर्मणि कर्तरि च स्युरकर्मकेभ्यो भावे कर्तरि च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ラカーラは、目的語をとる動詞（他動詞）の後では「行為者」または「対象」を表し、目的語をとらない動詞（自動詞）の後では「行為者」または「行為そのもの」を表す。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  パーニニの考え方では、動詞の語尾（ラカーラ）は<b>「誰／何についての文か」</b>を表します。<br>
+  <div class="tbl-wrap"><table>
+  <tr><th>表すもの</th><th>名前</th><th>例</th><th>訳</th></tr>
+  <tr><td>行為者（カルトリ）</td><td>能動態</td><td class="ex">देवदत्तः ओदनं <b>पचति</b></td><td>デーヴァダッタが飯を炊く</td></tr>
+  <tr><td>対象（カルマン）</td><td>受動態</td><td class="ex">देवदत्तेन ओदनः <b>पच्यते</b></td><td>飯がデーヴァダッタによって炊かれる</td></tr>
+  <tr><td>行為そのもの（バーヴァ）</td><td>非人称（自動詞のみ）</td><td class="ex">देवदत्तेन <b>भूयते</b></td><td>デーヴァダッタによって「ある」ことがなされる</td></tr>
+  </table></div>
+  注釈の説明：「デーヴァダッタが米を炊く」── 炊く行為はデーヴァダッタに依存しているので彼が<b>行為者</b>、行為の結果を受けるのは米なので米が<b>対象</b>。どちらを主語にしても米は対象のままですが、動詞の形が変わります。
+  </div></div>
+  <div class="point">動詞の語尾は、その文が「行為者」「対象」「行為そのもの」のどれを中心にしているかを示す。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">次回予告</div>
+  底本はこの後、ラカーラが実際の人称語尾（tiṅ：ti, taḥ, anti…）に置き換わる仕組みと、最初の動詞 <span class="dev">भू</span>（なる）の現在形 <span class="dev">भवति</span> の作り方に進みます。続きのページをいただければ、第21課「動詞の変化（1）」として作ります。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. アヴィヤヤの形が変わらないのはなぜ？（パーニニ的な説明）</summary><div>格語尾や女性語尾がいったん付いても、アヴィヤヤの後ではルクで消えるから（403）。</div></details>
+<details class="q"><summary>Q2. <span class="dev">गत्वा</span>（行って）がアヴィヤヤなのはなぜ？</summary><div>ktvā（-tvā）で終わる語はアヴィヤヤ（401）。</div></details>
+<details class="q"><summary>Q3. 10のラカーラのうち、ヴェーダだけで使われるのは？</summary><div>5番目の leṭ（接続法）。</div></details>
+<details class="q"><summary>Q4. 「現在」と「命令」のラカーラは？</summary><div>現在 laṭ（bhavati）、命令 loṭ（bhavatu）。</div></details>
+<details class="q"><summary>Q5. laṅ と luṅ はどちらも過去。どう違う？</summary><div>laṅ は「今日でない過去」、luṅ は（今日を含む）一般的な過去。</div></details>
+<details class="q"><summary>Q6. 自動詞のラカーラが表せるものは？</summary><div>行為者（能動）と行為そのもの（非人称）。対象（受動）は表せない（目的語がないから）（406）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson19.html">← 第19課　子音で終わる女性・中性名詞</a><span class="spacer"></span></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第20課　不変化詞と動詞の入口<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 123–128.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：लट्（4番目）→ लृट्、लङ्（10番目）→ लृङ्、अव्ययादार्पसुर्पः → अव्ययादाप्सुपः）。
+</footer>
+
+</body>
+</html>
