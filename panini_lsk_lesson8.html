@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — अजन्तपुंलिङ्गम् (३)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 8</div>
+  <div class="header-jp">第8課　名詞の変化（3）── i・u で終わる男性名詞：hari, śambhu, sakhi, pati と数詞<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 49–54，底本 188–213（および śambhu の表）</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>hari「ハリ」：グナと「ギ」（底本 188–194）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>śambhu「シャンブ」：u も同じ</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>sakhi「友」：不規則な名詞を規則で作る（底本 195–204）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>pati「主・夫」（底本 205）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>数詞 kati, tri, dvi（底本 206–213）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　hari「ハリ」：グナと「ギ」</h2>
+<p class="chapter-sub">底本 188–194 ／ 短い i で終わる男性名詞の代表</p>
+
+<p class="lead">完成形はこの表です。rāma との違いに注目しながら、1つずつ作っていきましょう。</p>
+<div class="tbl-wrap"><table class="para"><caption>हरि（男）ハリ</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>हरिः<small>hariḥ</small></td><td>हरी<small>harī</small></td><td>हरयः<small>harayaḥ</small></td></tr>
+<tr><th>2 対格</th><td>हरिम्<small>harim</small></td><td>हरी<small>harī</small></td><td>हरीन्<small>harīn</small></td></tr>
+<tr><th>3 具格</th><td>हरिणा<small>hariṇā</small></td><td>हरिभ्याम्<small>haribhyām</small></td><td>हरिभिः<small>haribhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>हरये<small>haraye</small></td><td>हरिभ्याम्<small>haribhyām</small></td><td>हरिभ्यः<small>haribhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>हरेः<small>hareḥ</small></td><td>हरिभ्याम्<small>haribhyām</small></td><td>हरिभ्यः<small>haribhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>हरेः<small>hareḥ</small></td><td>हर्योः<small>haryoḥ</small></td><td>हरीणाम्<small>harīṇām</small></td></tr>
+<tr><th>7 処格</th><td>हरौ<small>harau</small></td><td>हर्योः<small>haryoḥ</small></td><td>हरिषु<small>hariṣu</small></td></tr>
+<tr><th>呼格</th><td>हे हरे<small>he hare</small></td><td>हे हरी<small>he harī</small></td><td>हे हरयः<small>he harayaḥ</small></td></tr>
+</table></div>
+
+<h3>主格・呼格・対格</h3>
+<p>主格単数 <span class="ex"><b>हरिः</b></span>（第5課と同じ）、両数 <span class="ex">हरि + औ → <b>हरी</b></span>（i + au → ī，第6課 底本 146 の長母音化。i + au はもう禁止されないので）。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 188</span><span class="sutra-num">A 7.3.109</span><span class="sutra-text">जसि च ।</span></div>
+  <div class="sutra-iast">jasi ca</div>
+  <div class="vrtti">ह्रस्वान्तस्याङ्गस्य गुणः स्याज्जसि परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jas（主格複数）の前では、短母音で終わるアンガはグナになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">हरि + अस् → हरे + अस्（i → e：グナ）→ हरय् + अस्（第2課 底本 29）→ <b>हरयः</b></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 189</span><span class="sutra-num">A 7.3.108</span><span class="sutra-text">ह्रस्वस्य गुणः ।</span></div>
+  <div class="sutra-iast">hrasvasya guṇaḥ</div>
+  <div class="vrtti">ह्रस्वस्य गुणः स्यात् सम्बुद्धौ ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">サンブッディ（呼格単数）の前では、短母音はグナになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">हरि + स् → हरे + स् → <b>हे हरे</b>（e で終わるので s は消える，第6課 底本 153）</div></div>
+</div>
+<p>対格：<span class="ex"><b>हरिम्</b></span>（第6課 154）、<span class="ex"><b>हरी</b></span>、<span class="ex"><b>हरीन्</b></span>（146, 156）── rāma と同じ作り方です。</p>
+
+<h3>具格以下：「ギ」という名前</h3>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 190</span><span class="sutra-num">A 1.4.7</span><span class="sutra-text">शेषो घ्यसखि ।</span></div>
+  <div class="sutra-iast">śeṣo ghy asakhi</div>
+  <div class="vrtti">अनदीसंज्ञौ ह्रस्वौ याविदुतौ तदन्तं सखिवर्जं घिसंज्ञं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">nadī（第9課）でない、短い i・u で終わる語は、sakhi を除いて「ギ」（ghi）と呼ばれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><b>ギ</b> ＝ hari, kavi, śambhu, guru のような、<b>短い i・u で終わる普通の男性名詞</b>のグループ名です。この名前が付いていると、次の3つの規則がかかります。</div></div>
+  <div class="point">ギ ＝ 短い i/u 語幹（sakhi と、単独の pati は除く）。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 191</span><span class="sutra-num">A 7.3.120</span><span class="sutra-text">आङो नाऽस्त्रियाम् ।</span></div>
+  <div class="sutra-iast">āṅo nā 'striyām</div>
+  <div class="vrtti">घेः परस्याङो ना स्यादस्त्रियाम् । आङिति टासंज्ञा ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">女性名詞以外では、ギの後の āṅ（＝ ṭā，具格単数）は nā になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">हरि + आ → हरि + ना → <b>हरिणा</b>（r の後の n → ṇ，第6課 157）── 「ハリによって」<br>
+  ※ 昔の文法家は ṭā を「āṅ」と呼んでいた、と注釈は説明します。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 192</span><span class="sutra-num">A 7.3.111</span><span class="sutra-text">घेर्ङिति ।</span></div>
+  <div class="sutra-iast">gher ṅiti</div>
+  <div class="vrtti">घिसंज्ञकस्य ङिति सुपि गुणः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṅ の目印付きの格語尾（ṅe, ṅasi, ṅas, ṅi）の前で、ギはグナになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">हरि + ए → हरे + ए → हरय् + ए → <b>हरये</b>（ハリのために）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 193</span><span class="sutra-num">A 6.1.110</span><span class="sutra-text">ङसिङसोश्च ।</span></div>
+  <div class="sutra-iast">ṅasiṅasoś ca</div>
+  <div class="vrtti">एङो ङसिङसोरति पूर्वरूपमेकादेशः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">e・o の後に ṅasi・ṅas の a が来ると、プールヴァルーパ（前の音の形）になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">हरि + अस् → हरे + अस्（192 グナ）→ हरे + स्（a が消える）→ <b>हरेः</b>（ハリから／ハリの）<br>
+  ※ 第3課 底本 56 と似ていますが、こちらは語末の e/o でなくても使えます。</div></div>
+</div>
+<p>両数 os の前：<span class="ex">हरि + ओस् → <b>हर्योः</b></span>（i → y，第1課 21）。属格複数：<span class="ex">हरि + नाम् → <b>हरीणाम्</b></span>（第6課 167, 168, 157）。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 194</span><span class="sutra-num">A 7.3.119</span><span class="sutra-text">अच्च घेः ।</span></div>
+  <div class="sutra-iast">ac ca gheḥ</div>
+  <div class="vrtti">इदुद्भ्यामुत्तरस्य ङेरौत्, घेरच्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">i・u の後の ṅi（処格単数）は au になり、さらにギ（の末尾）は a になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">処格単数は、192 のグナ（hare + i）ではなく、この規則で特別な形になります。語尾が au に、語幹末の i が a に変わり、a + au → au（ヴリッディ）。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">हरि + इ → हर + औ → <b>हरौ</b>（ハリにおいて）</div></div>
+</div>
+<p>処格複数：<span class="ex"><b>हरिषु</b></span>（i の後の s → ṣ，第6課 169）。注釈：<span class="dev">एवं कव्यादयः ।</span>「kavi（詩人）, ravi（太陽）, agni（火）なども同様」</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　śambhu「シャンブ」：u も同じ</h2>
+<p class="chapter-sub">底本の注釈より（<span class="dev">शम्भुर्हरिवत्</span>「śambhu は hari と同様」）</p>
+<p>短い u で終わる男性名詞も、すべて同じ規則（188–194）で変化します。i のグナは e、u のグナは o、と置き換えるだけです。</p>
+<div class="tbl-wrap"><table class="para"><caption>शम्भु（男）シャンブ〔シヴァ〕</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>शम्भुः<small>śambhuḥ</small></td><td>शम्भू<small>śambhū</small></td><td>शम्भवः<small>śambhavaḥ</small></td></tr>
+<tr><th>2 対格</th><td>शम्भुम्<small>śambhum</small></td><td>शम्भू<small>śambhū</small></td><td>शम्भून्<small>śambhūn</small></td></tr>
+<tr><th>3 具格</th><td>शम्भुना<small>śambhunā</small></td><td>शम्भुभ्याम्<small>śambhubhyām</small></td><td>शम्भुभिः<small>śambhubhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>शम्भवे<small>śambhave</small></td><td>शम्भुभ्याम्<small>śambhubhyām</small></td><td>शम्भुभ्यः<small>śambhubhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>शम्भोः<small>śambhoḥ</small></td><td>शम्भुभ्याम्<small>śambhubhyām</small></td><td>शम्भुभ्यः<small>śambhubhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>शम्भोः<small>śambhoḥ</small></td><td>शम्भ्वोः<small>śambhvoḥ</small></td><td>शम्भूनाम्<small>śambhūnām</small></td></tr>
+<tr><th>7 処格</th><td>शम्भौ<small>śambhau</small></td><td>शम्भ्वोः<small>śambhvoḥ</small></td><td>शम्भुषु<small>śambhuṣu</small></td></tr>
+<tr><th>呼格</th><td>हे शम्भो<small>he śambho</small></td><td>हे शम्भू<small>he śambhū</small></td><td>हे शम्भवः<small>he śambhavaḥ</small></td></tr>
+</table></div>
+<div class="tbl-wrap"><table>
+<tr><th>形</th><th>hari（i）</th><th>śambhu（u）</th><th>規則</th></tr>
+<tr><td>主格複数</td><td class="dev">हरयः</td><td class="dev">शम्भवः</td><td>188 グナ + 29</td></tr>
+<tr><td>具格単数</td><td class="dev">हरिणा</td><td class="dev">शम्भुना</td><td>191（ṇ化は r の後だけ）</td></tr>
+<tr><td>与格単数</td><td class="dev">हरये</td><td class="dev">शम्भवे</td><td>192 + 29</td></tr>
+<tr><td>奪・属格単数</td><td class="dev">हरेः</td><td class="dev">शम्भोः</td><td>192 + 193</td></tr>
+<tr><td>処格単数</td><td class="dev">हरौ</td><td class="dev">शम्भौ</td><td>194</td></tr>
+<tr><td>呼格単数</td><td class="dev">हे हरे</td><td class="dev">हे शम्भो</td><td>189 + 153</td></tr>
+</table></div>
+<p>注釈：<span class="dev">एवं भान्वादयः ।</span>「bhānu（太陽）なども同様」── guru（師）、viṣṇu、vāyu（風）など。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　sakhi「友」：不規則な名詞を規則で作る</h2>
+<p class="chapter-sub">底本 195–204 ／ 主格単数が sakhā になるわけ</p>
+
+<p class="lead">sakhi は i で終わるのに、hari とはかなり違う変化をします。いわゆる「不規則変化」ですが、パーニニはこれも規則で説明します。完成形はこちら。</p>
+<div class="tbl-wrap"><table class="para"><caption>सखि（男）友</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>सखा<small>sakhā</small></td><td>सखायौ<small>sakhāyau</small></td><td>सखायः<small>sakhāyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>सखायम्<small>sakhāyam</small></td><td>सखायौ<small>sakhāyau</small></td><td>सखीन्<small>sakhīn</small></td></tr>
+<tr><th>3 具格</th><td>सख्या<small>sakhyā</small></td><td>सखिभ्याम्<small>sakhibhyām</small></td><td>सखिभिः<small>sakhibhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>सख्ये<small>sakhye</small></td><td>सखिभ्याम्<small>sakhibhyām</small></td><td>सखिभ्यः<small>sakhibhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>सख्युः<small>sakhyuḥ</small></td><td>सखिभ्याम्<small>sakhibhyām</small></td><td>सखिभ्यः<small>sakhibhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>सख्युः<small>sakhyuḥ</small></td><td>सख्योः<small>sakhyoḥ</small></td><td>सखीनाम्<small>sakhīnām</small></td></tr>
+<tr><th>7 処格</th><td>सख्यौ<small>sakhyau</small></td><td>सख्योः<small>sakhyoḥ</small></td><td>सखिषु<small>sakhiṣu</small></td></tr>
+<tr><th>呼格</th><td>हे सखे<small>he sakhe</small></td><td>हे सखायौ<small>he sakhāyau</small></td><td>हे सखायः<small>he sakhāyaḥ</small></td></tr>
+</table></div>
+
+<h3>主格単数 sakhā ができるまで</h3>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 195</span><span class="sutra-num">A 7.1.93</span><span class="sutra-text">अनङ् सौ ।</span></div>
+  <div class="sutra-iast">anaṅ sau</div>
+  <div class="vrtti">सख्युरङ्गस्यानङादेशोऽसम्बुद्धौ सौ ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（呼格でない）su の前で、sakhi というアンガは anaṅ に置き換わる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">anaṅ の ṅ は目印。ṅ 付きなので<b>最後の音（i）だけ</b>が an に置き換わります（第3課 底本 59）：<span class="ex">सखि + स् → सख् + अन् + स्</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 196</span><span class="sutra-num">A 1.1.65</span><span class="sutra-text">अलोऽन्त्यात्पूर्व उपधा ।</span></div>
+  <div class="sutra-iast">alo 'ntyāt pūrva upadhā</div>
+  <div class="vrtti">अन्त्यादलः पूर्वो वर्ण उपधासंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">最後の音の<b>1つ前</b>の音を「ウパダー」という。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><b>ウパダー</b>（<span class="iast">upadhā</span>）は「最後から2番目の音」。<span class="iast">sakh-<b>a</b>-n</span> なら、最後の n の前の <b>a</b> がウパダーです。動詞の変化でもよく出てくる、とても大事な用語です。</div></div>
+  <div class="point">ウパダー ＝ 最後から2番目の音。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 197</span><span class="sutra-num">A 6.4.8</span><span class="sutra-text">सर्वनामस्थाने चासम्बुद्धौ ।</span></div>
+  <div class="sutra-iast">sarvanāmasthāne cāsambuddhau</div>
+  <div class="vrtti">नान्तस्योपधाया दीर्घोऽसम्बुद्धौ सर्वनामस्थाने ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（呼格単数以外の）強語尾の前で、n で終わる語のウパダーは長くなる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">सखन् + स् → <b>सखान्</b> + स्</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 198</span><span class="sutra-num">A 1.2.41</span><span class="sutra-text">अपृक्त एकाल् प्रत्ययः ।</span></div>
+  <div class="sutra-iast">apṛkta ekāl pratyayaḥ</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">1音だけの接尾辞を「アプリクタ」という。目印 u が消えた su の <b>s</b> がこれ。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 199</span><span class="sutra-num">A 6.1.68</span><span class="sutra-text">हल्ङ्याब्भ्यो दीर्घात्सुतिस्यपृक्तं हल् ।</span></div>
+  <div class="sutra-iast">halṅyābbhyo dīrghāt sutisy apṛktaṃ hal</div>
+  <div class="vrtti">हलन्तात्परं दीर्घौ यौ ङ्यापौ तदन्ताच्च परं सुतिसीत्येतदपृक्तं हल् लुप्यते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">子音で終わる語の後、および長い ī・ā（女性語尾 ṅī・āp）で終わる語の後では、su・ti・si の1音だけの子音は消える。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">子音で終わる語に s を付けても、<b>子音が2つ並ぶので s は落ちてしまう</b>、という規則です。<span class="ex">सखान् + स् → <b>सखान्</b></span><br>
+  ※ 女性名詞 gaurī, ramā の主格単数に ḥ が付かないのも、この規則（第11課）。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 200</span><span class="sutra-num">A 8.2.7</span><span class="sutra-text">न लोपः प्रातिपदिकान्तस्य ।</span></div>
+  <div class="sutra-iast">na lopaḥ prātipadikāntasya</div>
+  <div class="vrtti">प्रातिपदिकसंज्ञकं यत्पदं तदन्तस्य नस्य लोपः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">名詞語幹（プラーティパディカ）でもある語（パダ）の、末尾の n は消える。</div></div>
+  <div class="row"><div class="k">結果</div><div class="v ex">सखान् → <b>सखा</b>（友は）</div></div>
+  <div class="point">rājan → rājā（王は）、ātman → ātmā（自己は）も同じ仕組み。語末の n が消える。</div>
+</div>
+
+<h3>主格両数・複数、対格の sakhāyau など</h3>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 201</span><span class="sutra-num">A 7.1.92</span><span class="sutra-text">सख्युरसम्बुद्धौ ।</span></div>
+  <div class="sutra-iast">sakhyur asambuddhau</div>
+  <div class="vrtti">सख्युरङ्गात्परं सम्बुद्धिवर्जं सर्वनामस्थानं णिद्वत्स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">sakhi の後の強語尾（呼格単数を除く）は、ṇ の目印が付いているもの（ṇit）のように扱われる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 202</span><span class="sutra-num">A 7.2.115</span><span class="sutra-text">अचो ञ्णिति ।</span></div>
+  <div class="sutra-iast">aco ñṇiti</div>
+  <div class="vrtti">अजन्ताङ्गस्य वृद्धिर्ञिति णिति च प्रत्यये परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ñ または ṇ の目印付きの接尾辞の前では、母音で終わるアンガ（の末尾の母音）はヴリッディになる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">イット（目印）が「<b>ここでヴリッディにせよ</b>」という合図になっている例です。<br>
+  sakhi の強語尾は ṇ 付き扱い（201）なので、i → ai（ヴリッディ）→ āy（母音の前，第2課 29）：</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">सखि + औ → सखै + औ → <b>सखायौ</b>、सखि + अस् → <b>सखायः</b>、सखि + अम् → <b>सखायम्</b><br>
+  対格複数（強語尾ではない）は普通：<b>सखीन्</b></div></div>
+  <div class="point">目印 ñ・ṇ ＝ 「ヴリッディせよ」の合図。動詞の変化でもよく使われる。</div>
+</div>
+
+<h3>具格以下：sakhi はギではない</h3>
+<p>sakhi はギ（190）から除外されているので、191（nā）や 192（グナ）がかかりません。そのまま i → y（第1課 21）：<span class="ex"><b>सख्या</b></span>（友によって）、<span class="ex"><b>सख्ये</b></span>（友のために）。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 203</span><span class="sutra-num">A 6.1.112</span><span class="sutra-text">ख्यत्यात्परस्य ।</span></div>
+  <div class="sutra-iast">khyatyāt parasya</div>
+  <div class="vrtti">खितिशब्दाभ्यां खीतीशब्दाभ्यां कृतयणादेशाभ्यां परस्य ङसिङसोरत उः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（y に変わった）khi・ti・khī・tī の後では、ṅasi・ṅas の a は u になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">सखि + अस् → सख्य् + अस् → सख्य् + उस् → <b>सख्युः</b>（友から／友の）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 204</span><span class="sutra-num">A 7.3.118</span><span class="sutra-text">औत् ।</span></div>
+  <div class="sutra-iast">aut</div>
+  <div class="vrtti">इतः परस्य ङेरौत् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（ギでない）短い i の後の ṅi は au になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">सखि + औ → सख्य् + औ → <b>सख्यौ</b>（友において）── 194 と違って語幹は a にならない。<br>
+  呼格単数：<b>हे सखे</b>（189, 153）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　pati「主・夫」</h2>
+<p class="chapter-sub">底本 205 ／ 単独と複合語で変化が違う</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 205</span><span class="sutra-num">A 1.4.8</span><span class="sutra-text">पतिः समास एव ।</span></div>
+  <div class="sutra-iast">patiḥ samāsa eva</div>
+  <div class="vrtti">पतिशब्दः समास एव घिसंज्ञः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">pati は、複合語の中にあるときだけギと呼ばれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  単独の <b>pati はギではない</b>ので、sakhi と同じく 191・192 がかかりません（ただし強語尾は普通）：<br>
+  <span class="ex"><b>पत्या</b>, <b>पत्ये</b>, <b>पत्युः</b>（203：ti の後）, <b>पत्यौ</b>（204）</span><br>
+  複合語の中ではギなので hari と同じ：<span class="ex"><b>भूपतिना</b>, <b>भूपतये</b>, <b>भूपतेः</b>, <b>भूपतौ</b></span>（大地の主＝王）
+  </div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>पति（男）主・夫</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>पतिः<small>patiḥ</small></td><td>पती<small>patī</small></td><td>पतयः<small>patayaḥ</small></td></tr>
+<tr><th>2 対格</th><td>पतिम्<small>patim</small></td><td>पती<small>patī</small></td><td>पतीन्<small>patīn</small></td></tr>
+<tr><th>3 具格</th><td>पत्या<small>patyā</small></td><td>पतिभ्याम्<small>patibhyām</small></td><td>पतिभिः<small>patibhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>पत्ये<small>patye</small></td><td>पतिभ्याम्<small>patibhyām</small></td><td>पतिभ्यः<small>patibhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>पत्युः<small>patyuḥ</small></td><td>पतिभ्याम्<small>patibhyām</small></td><td>पतिभ्यः<small>patibhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>पत्युः<small>patyuḥ</small></td><td>पत्योः<small>patyoḥ</small></td><td>पतीनाम्<small>patīnām</small></td></tr>
+<tr><th>7 処格</th><td>पत्यौ<small>patyau</small></td><td>पत्योः<small>patyoḥ</small></td><td>पतिषु<small>patiṣu</small></td></tr>
+<tr><th>呼格</th><td>हे पते<small>he pate</small></td><td>हे पती<small>he patī</small></td><td>हे पतयः<small>he patayaḥ</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　数詞 kati, tri, dvi</h2>
+<p class="chapter-sub">底本 206–213 ／ 語尾が消えても効果は残る？</p>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 206</span><span class="sutra-num">A 1.1.23</span><span class="sutra-text">बहुगणवतुडति संख्या ।</span></div>
+  <div class="sutra-iast">bahugaṇavatuḍati saṃkhyā</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">bahu（多い）、gaṇa（群）、-vat で終わる語（tāvat など）、-ti（ḍati）で終わる語（kati など）は「サンキヤー」（数詞）と呼ばれる。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 207</span><span class="sutra-num">A 1.1.25</span><span class="sutra-text">डति च ।</span></div>
+  <div class="sutra-iast">ḍati ca</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ḍati で終わる数詞（kati「いくつ」など）は「シャット」（ṣaṭ）とも呼ばれる。（ṣaṭ は本来「6」の意味。pañcan, ṣaṣ などの数詞のグループ名）</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 208</span><span class="sutra-num">A 7.1.22</span><span class="sutra-text">षड्भ्यो लुक् ।</span></div>
+  <div class="sutra-iast">ṣaḍbhyo luk</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">シャットの後では、jas と śas（主格・対格の複数）は「ルク」で消える。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 209</span><span class="sutra-num">A 1.1.61</span><span class="sutra-text">प्रत्ययस्य लुक्श्लुलुपः ।</span></div>
+  <div class="sutra-iast">pratyayasya lukślulupaḥ</div>
+  <div class="vrtti">लुक्श्लुलुप्शब्दैः कृतं प्रत्ययादर्शनं क्रमात्तत्तत्संज्ञं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">luk・ślu・lup という語で指示された接尾辞の消去は、順にその名前（ルク・シュル・ルプ）で呼ばれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">接尾辞の消え方には、普通の「ローパ」（第1課 底本 6）のほかに、<b>ルク・シュル・ルプ</b>という特別な消え方が3つあります。名前によって、その後の扱いが変わります（211）。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 210</span><span class="sutra-num">A 1.1.62</span><span class="sutra-text">प्रत्ययलोपे प्रत्ययलक्षणम् ।</span></div>
+  <div class="sutra-iast">pratyayalope pratyayalakṣaṇam</div>
+  <div class="vrtti">प्रत्यये लुप्ते तदाश्रितं कार्यं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">接尾辞が消えても、その接尾辞があることによって起こる操作は行われる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  とても大事な原則です。<b>接尾辞が消えても、その「効果」は残る</b>。<br>
+  たとえば第1課で学んだ「sup で終わるものはパダ」（底本 20）── 語尾が消えた語も、パダとして扱われます。
+  </div></div>
+  <div class="point">接尾辞は消えても「幽霊」のように効果を残す。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 211</span><span class="sutra-num">A 1.1.63</span><span class="sutra-text">न लुमताङ्गस्य ।</span></div>
+  <div class="sutra-iast">na lumatāṅgasya</div>
+  <div class="vrtti">लुमता शब्देन लुप्ते तन्निमित्तमङ्गकार्यं न स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「lu」を含む語（luk・ślu・lup）で消された場合は、それを原因とするアンガの操作は行われない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  前の原則の例外です。ルク・シュル・ルプで消えた場合は、<b>アンガ（語幹）への効果だけは残らない</b>。<br>
+  <span class="ex">कति + जस्</span>：jas はルクで消える（208）。普通なら jas の前でグナ（188 → katayaḥ）になるはずですが、グナは「アンガの操作」なので起こらない → <span class="ex"><b>कति</b></span>（いくつが）
+  </div></div>
+  <div class="row"><div class="k">kati の変化</div><div class="v ex">主・対格 <b>कति</b>、具格 <b>कतिभिः</b>、与・奪格 <b>कतिभ्यः</b>、属格 <b>कतीनाम्</b>、処格 <b>कतिषु</b>（複数のみ）<br>
+  注釈：<span class="dev">युष्मदस्मत्षट्संज्ञकास्त्रिषु सरूपाः ।</span>「yuṣmad, asmad, シャットの数詞は、3つの性で同じ形」</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 212</span><span class="sutra-num">A 7.1.53</span><span class="sutra-text">त्रेस्त्रयः ।</span></div>
+  <div class="sutra-iast">tres trayaḥ</div>
+  <div class="vrtti">त्रिशब्दस्य त्रयादेशः स्यादामि ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ām（属格複数）の前で、tri（3）は traya に置き換わる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">tri は常に複数。hari と同じように変化しますが、属格だけ特別です：</div></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>格</th><th>tri（3，男性）</th><th>規則</th></tr>
+  <tr><td>主格</td><td class="dev">त्रयः</td><td>188 グナ</td></tr>
+  <tr><td>対格</td><td class="dev">त्रीन्</td><td>146, 156</td></tr>
+  <tr><td>具格</td><td class="dev">त्रिभिः</td><td></td></tr>
+  <tr><td>与・奪格</td><td class="dev">त्रिभ्यः</td><td></td></tr>
+  <tr><td>属格</td><td class="dev"><b>त्रयाणाम्</b></td><td>212 → 167, 168, 157</td></tr>
+  <tr><td>処格</td><td class="dev">त्रिषु</td><td>169</td></tr>
+  </table></div>
+  <div class="row"><div class="k">注釈より</div><div class="v">複合語の後半で意味の中心でなくても traya になる：<span class="ex"><b>प्रियत्रयाणाम्</b></span>（3人を愛する人々の）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 213</span><span class="sutra-num">A 7.2.102</span><span class="sutra-text">त्यदादीनामः ।</span></div>
+  <div class="sutra-iast">tyadādīnām aḥ</div>
+  <div class="vrtti">एषामकारोऽन्तादेशः स्याद्विभक्तौ । द्विपर्यन्तानामेवेष्टिः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">格語尾の前で、tyad などの語の末尾は a になる。（ただし代名詞リストの dvi までに限る，という伝統の見解。）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">tyad, tad, yad, etad, idam, adas, eka, dvi の8語は、格語尾の前で末尾が a になります（tad → ta, dvi → dva）。後で学ぶ <span class="dev">सः, तम्, ते</span>（彼）などの基礎になる規則です。</div></div>
+  <div class="row"><div class="k">dvi（2）</div><div class="v ex">常に両数：dvi → dva + औ → <b>द्वौ</b>（主・対格）、<b>द्वाभ्याम्</b>（具・与・奪格，第6課 160）、<b>द्वयोः</b>（属・処格，第6課 166）── rāma の両数とまったく同じ！</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">कवि</span>（詩人）の主格複数と処格単数は？</summary><div><span class="dev">कवयः</span>（188 グナ + 29）、<span class="dev">कवौ</span>（194）。</div></details>
+<details class="q"><summary>Q2. <span class="dev">गुरु</span>（師）の具格単数と奪格単数は？</summary><div><span class="dev">गुरुणा</span>（191 nā → r の後なので ṇ）、<span class="dev">गुरोः</span>（192 グナ + 193）。</div></details>
+<details class="q"><summary>Q3. 「ウパダー」とは？ <span class="iast">sakhan</span> のウパダーは？</summary><div>最後から2番目の音（196）。sakhan では n の前の a。</div></details>
+<details class="q"><summary>Q4. <span class="dev">सखायौ</span> の āy はどこから来た？</summary><div>強語尾が ṇ 付き扱いになり（201）、ṇ 付き接尾辞の前で i がヴリッディ ai になり（202）、母音の前で ai → āy（第2課 29）。</div></details>
+<details class="q"><summary>Q5. <span class="dev">पति</span> の具格単数が <span class="dev">पतिना</span> にならないのはなぜ？ <span class="dev">भूपति</span> では？</summary><div>単独の pati はギではない（205）ので、191（nā）がかからず <span class="dev">पत्या</span>。複合語 bhūpati はギなので <span class="dev">भूपतिना</span>。</div></details>
+<details class="q"><summary>Q6. 「プラティヤヤ・ラクシャナ」（底本 210）とはどんな原則？ kati で働かないのはなぜ？</summary><div>接尾辞が消えても、その効果は残るという原則。kati の jas はルクで消えたので、アンガへの効果（グナ）は残らない（211）。</div></details>
+<details class="q"><summary>Q7. <span class="dev">त्रि</span> の属格は？</summary><div><span class="dev">त्रयाणाम्</span>（212 で traya → 167 nuṭ → 168 長母音化 → 157 ṇ化）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson7.html">← 第7課　sarva・viśvapā</a><span class="spacer"></span><a href="panini_lsk_lesson9.html">第9課　ī・ū で終わる名詞 →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第8課　名詞の変化（3）i・u 語幹<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 49–54.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：रुयत्यात्परस्य → ख्यत्यात्परस्य、डति च の位置 1.1.26 → 1.1.25）。
+</footer>
+
+</body>
+</html>
