@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — हलन्तस्त्रीलिङ्गम् · हलन्तनपुंसकलिङ्गम्</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 19</div>
+  <div class="header-jp">第19課　子音で終わる女性名詞・中性名詞 ── vāc, gir, ap, idam・tad の女性形 / payas, ahan, 現在分詞の中性形<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 113–123，底本 389–398</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>子音で終わる女性名詞（底本 389–392）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>代名詞の女性形：iyam, sā, eṣā, asau（底本 391）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>子音で終わる中性名詞（底本 393–395）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>現在分詞の中性形：dadat, tudat, pacat（底本 396–398）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>s・ṣ で終わる中性名詞：payas, dhanuṣ</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<div class="note">
+  <div class="note-title">この課の考え方</div>
+  子音で終わる語は、<b>女性でも男性とほとんど同じ</b>変化をします（vāc は rtvij と同じ型、など）。中性も、主格・対格・呼格以外は男性と同じです。だから新しい規則は少なく、これまでの規則を確認する課になります。
+</div>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　子音で終わる女性名詞</h2>
+<p class="chapter-sub">底本 389–392</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 389</span><span class="sutra-num">A 8.2.34</span><span class="sutra-text">नहो धः ।</span></div>
+  <div class="sutra-iast">naho dhaḥ</div>
+  <div class="vrtti">नहो हस्य धः स्याज्झलि पदान्ते च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jhal の前と語末で、nah（結ぶ）の h は dh になる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 390</span><span class="sutra-num">A 6.3.116</span><span class="sutra-text">नहिवृतिवृषिव्यधिरुचिसहितनिषु क्वौ ।</span></div>
+  <div class="sutra-iast">nahivṛtivṛṣivyadhirucisahitaniṣu kvau</div>
+  <div class="vrtti">क्विबन्तेषु पूर्वपदस्य दीर्घः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">kvip の付いた nah, vṛt, vṛṣ, vyadh, ruc, sah, tan の前で、前半の語（の末尾）は長くなる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">उप + नह्（足に結ぶもの＝靴）→ <b>उपानह्</b>：<b>उपानत् / उपानद्</b>, उपानहौ, <b>उपानद्भ्याम्</b>, <b>उपानत्सु</b><br>
+  ※ 第14課の turāsāh（sah）も、この規則で turā- が長くなっています。</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>वाच्（女）言葉</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>वाक्, वाग्<small>vāk, vāg</small></td><td>वाचौ<small>vācau</small></td><td>वाचः<small>vācaḥ</small></td></tr>
+<tr><th>2 対格</th><td>वाचम्<small>vācam</small></td><td>वाचौ<small>vācau</small></td><td>वाचः<small>vācaḥ</small></td></tr>
+<tr><th>3 具格</th><td>वाचा<small>vācā</small></td><td>वाग्भ्याम्<small>vāgbhyām</small></td><td>वाग्भिः<small>vāgbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>वाचे<small>vāce</small></td><td>वाग्भ्याम्<small>vāgbhyām</small></td><td>वाग्भ्यः<small>vāgbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>वाचः<small>vācaḥ</small></td><td>वाग्भ्याम्<small>vāgbhyām</small></td><td>वाग्भ्यः<small>vāgbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>वाचः<small>vācaḥ</small></td><td>वाचोः<small>vācoḥ</small></td><td>वाचाम्<small>vācām</small></td></tr>
+<tr><th>7 処格</th><td>वाचि<small>vāci</small></td><td>वाचोः<small>vācoḥ</small></td><td>वाक्षु<small>vākṣu</small></td></tr>
+<tr><th>呼格</th><td>हे वाक्, हे वाग्<small>he vāk, he vāg</small></td><td>हे वाचौ<small>he vācau</small></td><td>हे वाचः<small>he vācaḥ</small></td></tr>
+</table></div>
+<p><span class="dev">वाच्</span>（言葉）は第16課 333（c → k）の型。<span class="dev">स्रज्</span>（花輪）, <span class="dev">दिश्</span>（方角）, <span class="dev">दृश्</span>（目）, <span class="dev">उष्णिह्</span>（ある韻律）は kvin の語（第16課 328, 331）なので語末が k の段：<span class="ex"><b>स्रक्, दिक्, दृक्, उष्णिक्</b></span>。<span class="dev">त्विष्</span>（光）は普通の ṣ：<span class="ex"><b>त्विट् / त्विड्</b></span>。</p>
+
+<div class="tbl-wrap"><table class="para"><caption>गिर्（女）声・言葉</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>गीः<small>gīḥ</small></td><td>गिरौ<small>girau</small></td><td>गिरः<small>giraḥ</small></td></tr>
+<tr><th>2 対格</th><td>गिरम्<small>giram</small></td><td>गिरौ<small>girau</small></td><td>गिरः<small>giraḥ</small></td></tr>
+<tr><th>3 具格</th><td>गिरा<small>girā</small></td><td>गीर्भ्याम्<small>gīrbhyām</small></td><td>गीर्भिः<small>gīrbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>गिरे<small>gire</small></td><td>गीर्भ्याम्<small>gīrbhyām</small></td><td>गीर्भ्यः<small>gīrbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>गिरः<small>giraḥ</small></td><td>गीर्भ्याम्<small>gīrbhyām</small></td><td>गीर्भ्यः<small>gīrbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>गिरः<small>giraḥ</small></td><td>गिरोः<small>giroḥ</small></td><td>गिराम्<small>girām</small></td></tr>
+<tr><th>7 処格</th><td>गिरि<small>giri</small></td><td>गिरोः<small>giroḥ</small></td><td>गीर्षु<small>gīrṣu</small></td></tr>
+<tr><th>呼格</th><td>हे गीः<small>he gīḥ</small></td><td>हे गिरौ<small>he girau</small></td><td>हे गिरः<small>he giraḥ</small></td></tr>
+</table></div>
+<p><span class="dev">गिर्</span>（声）：語末で r の前の i がのびる（第18課 380）→ <span class="ex"><b>गीः</b>, <b>गीर्भ्याम्</b>, <b>गीर्षु</b></span>。<span class="dev">पुर्</span>（町）も同様：<span class="ex"><b>पूः</b>, पुरौ, पुरः</span>。<span class="dev">सजुष्</span>（友）→ <span class="ex"><b>सजूः</b>, सजूर्भ्याम्</span>、<span class="dev">आशिष्</span>（祝福）→ <span class="ex"><b>आशीः</b></span>（ṣ はルの規則からはアシッダ，第18課）。<br>
+<span class="dev">दिव्</span>（天）：第14課 289, 290 → <span class="ex"><b>द्यौः</b>, दिवौ, दिवः, <b>द्युभ्याम्</b></span>。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 392</span><span class="sutra-num">A 7.4.48</span><span class="sutra-text">अपो भि ।</span></div>
+  <div class="sutra-iast">apo bhi</div>
+  <div class="vrtti">अपस्तकारो भादौ प्रत्यये ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">bh で始まる接尾辞の前で、ap（水）の末尾は t になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ap（水）は<b>常に複数</b>。強語尾で a がのびます（第10課 227 のリストに「ap」がありました）：</div></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>格</th><th>ap（水，複数のみ）</th><th>規則</th></tr>
+  <tr><td>主格</td><td class="dev">आपः</td><td>第10課 227</td></tr>
+  <tr><td>対格</td><td class="dev">अपः</td><td></td></tr>
+  <tr><td>具格</td><td class="dev">अद्भिः</td><td>392 で p → t → d（第4課 82）</td></tr>
+  <tr><td>与・奪格</td><td class="dev">अद्भ्यः</td><td>392</td></tr>
+  <tr><td>属格</td><td class="dev">अपाम्</td><td></td></tr>
+  <tr><td>処格</td><td class="dev">अप्सु</td><td>s は bh ではないので p のまま</td></tr>
+  </table></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　代名詞の女性形：iyam, sā, eṣā, asau</h2>
+<p class="chapter-sub">底本 391 ／ 第11課の sarvā と、第15・16・18課の男性形の組み合わせ</p>
+
+<p>代名詞の女性形は、男性形と同じく末尾が a になった後（第8課 213）、女性語尾 ā（ṭāp）が付き、<b>sarvā</b>（第11課 244）と同じ変化をします。</p>
+<div class="tbl-wrap"><table class="para"><caption>तद्（女）それ・彼女</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>सा<small>sā</small></td><td>ते<small>te</small></td><td>ताः<small>tāḥ</small></td></tr>
+<tr><th>2 対格</th><td>ताम्<small>tām</small></td><td>ते<small>te</small></td><td>ताः<small>tāḥ</small></td></tr>
+<tr><th>3 具格</th><td>तया<small>tayā</small></td><td>ताभ्याम्<small>tābhyām</small></td><td>ताभिः<small>tābhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>तस्यै<small>tasyai</small></td><td>ताभ्याम्<small>tābhyām</small></td><td>ताभ्यः<small>tābhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>तस्याः<small>tasyāḥ</small></td><td>ताभ्याम्<small>tābhyām</small></td><td>ताभ्यः<small>tābhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>तस्याः<small>tasyāḥ</small></td><td>तयोः<small>tayoḥ</small></td><td>तासाम्<small>tāsām</small></td></tr>
+<tr><th>7 処格</th><td>तस्याम्<small>tasyām</small></td><td>तयोः<small>tayoḥ</small></td><td>तासु<small>tāsu</small></td></tr>
+<tr><th>呼格</th><td>—<small>—</small></td><td>—<small>—</small></td><td>—<small>—</small></td></tr>
+</table></div>
+<p><span class="dev">सा</span>：tā + s → t → s（第16課 338）、s は消える（第8課 199）。同様に <span class="dev">स्या</span>（tyad）, <span class="dev">या</span>（yad）, <span class="dev">एषा</span>（etad）, <span class="dev">का</span>（kim）。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 391</span><span class="sutra-num">A 7.2.110</span><span class="sutra-text">यः सौ ।</span></div>
+  <div class="sutra-iast">yaḥ sau</div>
+  <div class="vrtti">इदमो दस्य यः स्यात्सौ परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">su の前で、idam の d は y になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">女性 इदम् + स् → इयम् → <b>इयम्</b>（これは〔女性〕）── 男性の ayam（第15課 299）に対応<br>
+  他の形：<b>इमे, इमाः</b>（第15課 301）、<b>अनया</b>（302 an + 第11課 242）、<b>आभ्याम्, आभिः</b>（303）、<b>अस्यै, अस्याः, अस्याम्</b>（第11課 244）、<b>आसाम्, आसु</b></div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>इदम्（女）これ</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>इयम्<small>iyam</small></td><td>इमे<small>ime</small></td><td>इमाः<small>imāḥ</small></td></tr>
+<tr><th>2 対格</th><td>इमाम्<small>imām</small></td><td>इमे<small>ime</small></td><td>इमाः<small>imāḥ</small></td></tr>
+<tr><th>3 具格</th><td>अनया<small>anayā</small></td><td>आभ्याम्<small>ābhyām</small></td><td>आभिः<small>ābhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>अस्यै<small>asyai</small></td><td>आभ्याम्<small>ābhyām</small></td><td>आभ्यः<small>ābhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>अस्याः<small>asyāḥ</small></td><td>आभ्याम्<small>ābhyām</small></td><td>आभ्यः<small>ābhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>अस्याः<small>asyāḥ</small></td><td>अनयोः<small>anayoḥ</small></td><td>आसाम्<small>āsām</small></td></tr>
+<tr><th>7 処格</th><td>अस्याम्<small>asyām</small></td><td>अनयोः<small>anayoḥ</small></td><td>आसु<small>āsu</small></td></tr>
+<tr><th>呼格</th><td>—<small>—</small></td><td>—<small>—</small></td><td>—<small>—</small></td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">adas の女性形</div>
+  <span class="ex"><b>असौ</b>（第18課 385）, <b>अमू</b>, <b>अमूः</b>; अमूम्, अमू, अमूः; <b>अमुया</b>, अमूभ्याम्, अमूभिः; <b>अमुष्यै</b>; अमुष्याः; अमुयोः, <b>अमूषाम्</b>; अमुष्याम्, अमूषु</span><br>
+  女性形 adā から、d の後の母音 ā → ū、a → u（第18課 386）。複数でも ī にはならない（387 は e のみ）。
+</div>
+<p style="text-align:center;color:var(--muted)">॥ इति हलन्ताः स्त्रीलिङ्गाः ॥　── 以上、子音で終わる女性名詞 ──</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　子音で終わる中性名詞</h2>
+<p class="chapter-sub">底本 393–395</p>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 393</span><span class="sutra-num">A 7.1.23</span><span class="sutra-text">स्वमोर्लुक् ।</span></div>
+  <div class="sutra-iast">svamor luk</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第13課 270 <span class="dev">स्वमोर्नपुंसकात्</span> の再確認：中性では su・am がルクで消える。子音で終わる中性名詞の主格・対格単数は、<b>語幹の語末形</b>そのもの：<span class="ex"><b>वाः</b>（水；vār），<b>धनुः</b>, <b>पयः</b>, <b>ब्रह्म</b>, <b>दण्डि</b></span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>主・対格 単数</th><th>両数</th><th>複数</th><th>ポイント</th></tr>
+<tr><td class="dev">स्वनडुह्（よい雄牛をもつ）</td><td class="dev">स्वनडुत्</td><td class="dev">स्वनडुही</td><td class="dev">स्वनड्वांहि</td><td>複数（強語尾 śi）で ām と num（第14課 284, 第13課 264）</td></tr>
+<tr><td class="dev">वार्（水）</td><td class="dev">वाः</td><td class="dev">वारी</td><td class="dev">वारि</td><td>語末の r → ḥ（第4課 111）</td></tr>
+<tr><td class="dev">चतुर्（4）</td><td colspan="3" class="dev">चत्वारि（複数のみ）</td><td>284</td></tr>
+<tr><td class="dev">किम्（何）</td><td class="dev">किम्</td><td class="dev">के</td><td class="dev">कानि</td><td>単数は kim のまま</td></tr>
+<tr><td class="dev">इदम्（これ）</td><td class="dev">इदम्</td><td class="dev">इमे</td><td class="dev">इमानि</td><td>アンヴァーデーシャ：<b>एनत्</b>, एने, एनानि（394）</td></tr>
+<tr><td class="dev">तद्（それ）</td><td class="dev">तत्</td><td class="dev">ते</td><td class="dev">तानि</td><td>yat, etat も同様</td></tr>
+<tr><td class="dev">ब्रह्मन्（ブラフマン）</td><td class="dev">ब्रह्म</td><td class="dev">ब्रह्मणी</td><td class="dev">ब्रह्माणि</td><td>他は男性と同じ</td></tr>
+<tr><td class="dev">दण्डिन्（杖をもつ）</td><td class="dev">दण्डि</td><td class="dev">दण्डिनी</td><td class="dev">दण्डीनि</td><td>-in は śi の前でのびる（第15課 311）</td></tr>
+<tr><td class="dev">सुपथिन्（よい道の）</td><td class="dev">सुपथि</td><td class="dev">सुपथी</td><td class="dev">सुपन्थानि</td><td>śi は強語尾なので panthān-（第15課 321, 322）</td></tr>
+<tr><td class="dev">ऊर्ज्（力強い）</td><td class="dev">ऊर्क्</td><td class="dev">ऊर्जी</td><td class="dev">ऊर्न्जि</td><td>注釈：<span class="dev">नरजानां संयोगः</span>（n は r と j の間に入る）</td></tr>
+</table></div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 394</span><span class="tag-v">補則</span><span class="sutra-text">अन्वादेशे नपुंसके एनद्वक्तव्यः ।</span></div>
+  <div class="sutra-iast">anvādeśe napuṃsake enad vaktavyaḥ</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">中性のアンヴァーデーシャ（第15課 307）では、idam・etad は enat になる：<span class="ex"><b>एनत्</b>, एने, एनानि; एनेन; एनयोः</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 395</span><span class="sutra-num">A 8.2.68</span><span class="sutra-text">अहन् ।</span></div>
+  <div class="sutra-iast">ahan</div>
+  <div class="vrtti">अहन्नित्यस्य रुः स्यात्पदान्ते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">語末で、ahan（日）の（n）はルになる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第5課 129 <span class="dev">रोऽसुपि</span> は「格語尾の前でない」ときの r でした（ahar-ahaḥ）。この規則は<b>格語尾の前</b>のルで、ルなので o になれます：<br>
+  <span class="ex">अहन् + भ्याम् → अहरु + भ्याम् → अह उ + भ्याम्（第5課 126）→ <b>अहोभ्याम्</b></span>、<span class="ex"><b>अहोभिः</b></span><br>
+  主格単数 <span class="ex"><b>अहः</b></span>、両数 <span class="ex"><b>अह्नी / अहनी</b></span>（第13課 274）、複数 <span class="ex"><b>अहानि</b></span>、具格 <span class="ex"><b>अह्ना</b></span>（第13課 273）</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>अहन्（中）日</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>अहः<small>ahaḥ</small></td><td>अह्नी, अहनी<small>ahnī, ahanī</small></td><td>अहानि<small>ahāni</small></td></tr>
+<tr><th>2 対格</th><td>अहः<small>ahaḥ</small></td><td>अह्नी, अहनी<small>ahnī, ahanī</small></td><td>अहानि<small>ahāni</small></td></tr>
+<tr><th>3 具格</th><td>अह्ना<small>ahnā</small></td><td>अहोभ्याम्<small>ahobhyām</small></td><td>अहोभिः<small>ahobhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>अह्ने<small>ahne</small></td><td>अहोभ्याम्<small>ahobhyām</small></td><td>अहोभ्यः<small>ahobhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>अह्नः<small>ahnaḥ</small></td><td>अहोभ्याम्<small>ahobhyām</small></td><td>अहोभ्यः<small>ahobhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>अह्नः<small>ahnaḥ</small></td><td>अह्नोः<small>ahnoḥ</small></td><td>अह्नाम्<small>ahnām</small></td></tr>
+<tr><th>7 処格</th><td>अह्नि, अहनि<small>ahni, ahani</small></td><td>अह्नोः<small>ahnoḥ</small></td><td>अहःसु, अहस्सु<small>ahaḥsu, ahassu</small></td></tr>
+<tr><th>呼格</th><td>हे अहः<small>he ahaḥ</small></td><td>हे अह्नी, हे अहनी<small>he ahnī, he ahanī</small></td><td>हे अहानि<small>he ahāni</small></td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">注釈より：gavāc の 109 の形</div>
+  go + añc（牛のもとへ行く者）の中性形は、①「行く」と「敬う」の2つの意味（第18課 363, 370）、②連声しない形・avaṅ の形・a が消える形（第3課 56, 57, 60）の組み合わせで、<b>全部で109通り</b>になる、と注釈は数え上げています：<br>
+  <span class="dev">गवाक्छब्दस्य रूपाणि क्लीबेऽर्चागतिभेदतः । असन्ध्यवङ्पूर्वरूपैर्नवाधिकशतं मतम् ॥</span><br>
+  （例：主格単数 <span class="ex">गवाक्, गोअक्, गोऽक्</span>、両数 <span class="ex">गोची</span>、複数 <span class="ex">गवाञ्चि, गोअञ्चि, गोऽञ्चि</span>…）パーニニ文法が「正しい形」をどれだけ細かく数えるかが分かる例です。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　現在分詞の中性形：dadat, tudat, pacat</h2>
+<p class="chapter-sub">底本 396–398 ／ 両数・複数で n が入るかどうか</p>
+
+<p>現在分詞（-at）の中性形は、両数 -atī / -antī、複数 -anti / -ati。どちらになるかが、動詞のグループ（類）によって決まります。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 396</span><span class="sutra-num">A 7.1.79</span><span class="sutra-text">वा नपुंसकस्य ।</span></div>
+  <div class="sutra-iast">vā napuṃsakasya</div>
+  <div class="vrtti">अभ्यस्तात्परो यः शता तदन्तस्य क्लीबस्य वा नुम् सर्वनामस्थाने ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">アビヤスタの後の śatṛ で終わる中性の語は、強語尾（śi）の前で、任意に num をとる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">ददत्（与えている）：<b>ददत्</b>, ददती, <b>ददन्ति / ददति</b>（男性では n なし：第18課 374）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 397</span><span class="sutra-num">A 7.1.80</span><span class="sutra-text">आच्छीनद्योर्नुम् ।</span></div>
+  <div class="sutra-iast">āc chīnadyor num</div>
+  <div class="vrtti">अवर्णान्तादङ्गात्परो यः शतुरवयवस्तदन्तस्य नुम् वा शीनद्योः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">a・ā で終わるアンガの後の śatṛ で終わる語は、śī（中性両数）と nadī（女性語尾 ī）の前で、任意に num をとる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">तुदत्（打っている；第6類）：両数 <b>तुदन्ती / तुदती</b>、複数 <b>तुदन्ति</b>（śi は強語尾なので必ず n，第15課 316）<br>
+  भात्（輝いている）：<b>भान्ती / भाती</b>, भान्ति<br>
+  女性形（nadī）でも同様：<span class="ex">तुदन्ती / तुदती</span>（打っている女性）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 398</span><span class="sutra-num">A 7.1.81</span><span class="sutra-text">शप्श्यनोर्नित्यम् ।</span></div>
+  <div class="sutra-iast">śapśyanor nityam</div>
+  <div class="vrtti">शप्श्यनोरात्परो यः शतुरवयवस्तदन्तस्य नित्यं नुम् शीनद्योः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（動詞語幹を作る）śap・śyan の a の後の śatṛ で終わる語は、śī と nadī の前で<b>必ず</b> num をとる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">पचत्（料理している；第1類 śap）：<b>पचन्ती</b>（両数）, पचन्ति（複数）── n なしの形は不可<br>
+  दीव्यत्（遊んでいる；第4類 śyan）：<b>दीव्यन्ती</b>, दीव्यन्ति</div></div>
+</div>
+<div class="note">
+  <div class="note-title">まとめ：現在分詞の中性両数（＝女性形の語幹）</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>動詞の類</th><th>例</th><th>中性両数</th><th>規則</th></tr>
+  <tr><td>第1類・第4類（śap, śyan）</td><td class="dev">पचत्, दीव्यत्</td><td class="dev">पचन्ती, दीव्यन्ती</td><td>398：必ず n</td></tr>
+  <tr><td>第6類など（a で終わる語幹）</td><td class="dev">तुदत्, भात्</td><td class="dev">तुदन्ती / तुदती</td><td>397：任意</td></tr>
+  <tr><td>第3類（重複語幹）</td><td class="dev">ददत्</td><td class="dev">ददती</td><td>n なし（396 は複数のみ）</td></tr>
+  </table></div>
+  動詞の「類」については、次の課以降（動詞の章）で学びます。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　s・ṣ で終わる中性名詞：payas, dhanuṣ</h2>
+<p class="chapter-sub">これまでの規則の総まとめ</p>
+<div class="tbl-wrap"><table class="para"><caption>पयस्（中）水・乳</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>पयः<small>payaḥ</small></td><td>पयसी<small>payasī</small></td><td>पयांसि<small>payāṃsi</small></td></tr>
+<tr><th>2 対格</th><td>पयः<small>payaḥ</small></td><td>पयसी<small>payasī</small></td><td>पयांसि<small>payāṃsi</small></td></tr>
+<tr><th>3 具格</th><td>पयसा<small>payasā</small></td><td>पयोभ्याम्<small>payobhyām</small></td><td>पयोभिः<small>payobhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>पयसे<small>payase</small></td><td>पयोभ्याम्<small>payobhyām</small></td><td>पयोभ्यः<small>payobhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>पयसः<small>payasaḥ</small></td><td>पयोभ्याम्<small>payobhyām</small></td><td>पयोभ्यः<small>payobhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>पयसः<small>payasaḥ</small></td><td>पयसोः<small>payasoḥ</small></td><td>पयसाम्<small>payasām</small></td></tr>
+<tr><th>7 処格</th><td>पयसि<small>payasi</small></td><td>पयसोः<small>payasoḥ</small></td><td>पयःसु, पयस्सु<small>payaḥsu, payassu</small></td></tr>
+<tr><th>呼格</th><td>हे पयः<small>he payaḥ</small></td><td>हे पयसी<small>he payasī</small></td><td>हे पयांसि<small>he payāṃsi</small></td></tr>
+</table></div>
+<ul style="margin:0 0 1rem 1.4rem">
+  <li>主・対格単数 <span class="ex"><b>पयः</b></span>：su が消え（393）、s → ru → ḥ（第5課 124）</li>
+  <li>複数 <span class="ex"><b>पयांसि</b></span>：śi の前で num（第13課 264）、s で終わる子音結合の前で a がのびる（第18課 371）、n → アヌスヴァーラ（第4課 95）</li>
+  <li>具格両数 <span class="ex"><b>पयोभ्याम्</b></span>：s → ru → u → o（第5課 124, 126）</li>
+</ul>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>主・対格</th><th>具格両数</th><th>処格複数</th></tr>
+<tr><td class="dev">धनुष्（弓）</td><td class="dev">धनुः, धनुषी, धनूंषि</td><td class="dev">धनुर्भ्याम्</td><td class="dev">धनुःषु / धनुष्षु</td></tr>
+<tr><td class="dev">पयस्（水・乳）</td><td class="dev">पयः, पयसी, पयांसि</td><td class="dev">पयोभ्याम्</td><td class="dev">पयःसु / पयस्सु</td></tr>
+<tr><td class="dev">सुपुंस्（よい男たちをもつ）</td><td class="dev">सुपुम्, सुपुंसी, सुपुमांसि</td><td class="dev">सुपुंभ्याम्</td><td class="dev">सुपुंसु</td></tr>
+<tr><td class="dev">अदस्（あれ）</td><td class="dev">अदः, अमू, अमूनि</td><td class="dev">अमूभ्याम्</td><td class="dev">अमीषु</td></tr>
+</table></div>
+<p>注釈：<span class="dev">चक्षुष्</span>（目）、<span class="dev">हविष्</span>（供物）は dhanuṣ と同じ。dhanuṣ の具格両数は、u の後なので o にならず r のまま（第5課 125, 126 は a の後だけ）。<br>
+adas の中性：注釈 <span class="dev">विभक्तिकार्यं प्राक्, पश्चादुत्वमत्वे</span>「格語尾の操作が先、u 化・m 化は後」（第18課 387）。</p>
+<p style="text-align:center;color:var(--muted)">॥ इति हलन्ता नपुंसकलिङ्गाः ॥　── 以上、子音で終わる中性名詞。名詞の章（षड्लिङ्गप्रकरणम्）完了！ ──</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">वाच्</span> の主格単数と処格複数は？</summary><div><span class="dev">वाक् / वाग्</span>、<span class="dev">वाक्षु</span>（c → k，第16課 333、s → ṣ）。</div></details>
+<details class="q"><summary>Q2. 「水」<span class="dev">अप्</span> の具格は？</summary><div><span class="dev">अद्भिः</span>（392：bh の前で p → t → d）。</div></details>
+<details class="q"><summary>Q3. 「これは（女性）」は？ 男性形との違いは？</summary><div><span class="dev">इयम्</span>（391：d → y）。男性は <span class="dev">अयम्</span>（第15課 299：id → ay）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">अहन्</span> の具格両数は？ なぜ o になる？</summary><div><span class="dev">अहोभ्याम्</span>。語末の n がルになり（395）、ルは a の後・有声子音の前で u になる（第5課 126）。</div></details>
+<details class="q"><summary>Q5. <span class="dev">पयस्</span> の主格複数は？</summary><div><span class="dev">पयांसि</span>（num → a がのびる → アヌスヴァーラ）。</div></details>
+<details class="q"><summary>Q6. <span class="dev">पचत्</span> の中性両数が必ず <span class="dev">पचन्ती</span> になるのはなぜ？</summary><div>śap（第1類の語幹を作る接尾辞）の a の後の現在分詞なので、śī の前で必ず num（398）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson18.html">← 第18課　añc・mahat・vidvas</a><span class="spacer"></span><a href="panini_lsk_lesson20.html">第20課　不変化詞と動詞の入口 →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第19課　子音で終わる女性名詞・中性名詞<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 113–123.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：स्वनडुहीहि → स्वनड्वांहि、आर् → वार्、अद्विः → अद्भिः、अही → अह्नी、आँच्छीनँधोर्नुप् → आच्छीनद्योर्नुम्）。
+</footer>
+
+</body>
+</html>

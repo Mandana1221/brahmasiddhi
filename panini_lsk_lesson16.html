@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — हलन्तपुंलिङ्गम् (३)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 16</div>
+  <div class="header-jp">第16課　子音で終わる男性名詞（3）── c・j で終わる語（ṛtvij, yuj, rāj）と、代名詞 tad・etad<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 91–96, 102，底本 328–338, 362</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>ṛtvij「祭官」：消える接尾辞 kvin（底本 328–331）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>yuj と c・j → k・g（底本 332–333）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>rāj「王」：j が ṭ になる語（底本 334–337）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>tyad・tad・etad：「彼」「それ」（底本 338）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>supād・agnimath（底本 362）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　ṛtvij「祭官」：消える接尾辞 kvin</h2>
+<p class="chapter-sub">底本 328–331 ／ 形には残らないが、名前を残す接尾辞</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 328</span><span class="sutra-num">A 3.2.59</span><span class="sutra-text">ऋत्विग्दधृक्स्रग्दिगुष्णिगञ्चुयुजिक्रुञ्चां च ।</span></div>
+  <div class="sutra-iast">ṛtvigdadhṛksragdiguṣṇigañcuyujikruñcāṃ ca</div>
+  <div class="vrtti">ऋत्विगादयः पञ्च क्विन्प्रत्ययान्ता निपात्यन्ते । अञ्चेः सुप्युपपदे, युजिक्रुञ्चोः केवलयोः । क्रुञ्चेर्नलोपाभावश्च निपात्यते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṛtvij（祭官）, dadhṛṣ（大胆な）, sraj（花輪）, diś（方角）, uṣṇih（ある韻律）は、接尾辞 kvin で作られた形として認められる。añc は前に名詞があるとき、yuj・kruñc は単独で kvin をとる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">動詞語根から「〜する者」を作る接尾辞 <b>kvin</b> の規則です。kvin の k・n・i はすべて目印で、残った v も次の 330 で消えてしまいます。<b>形には何も残らない接尾辞</b>です。<br>
+  では何のために付けるのか？ ── 「kvin が付いた語」という<b>名前（身分）</b>を残すためです（331 で使います）。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 329</span><span class="sutra-num">A 3.1.93</span><span class="sutra-text">कृदतिङ् ।</span></div>
+  <div class="sutra-iast">kṛd atiṅ</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">（3.1.91「動詞語根の後に」の見出しの下で教えられる）tiṅ 以外の接尾辞は「<b>クリット</b>」（kṛt）と呼ばれる。動詞から名詞や分詞を作る接尾辞の総称です。クリットで終わる語は名詞語幹になります（第5課 136）。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 330</span><span class="sutra-num">A 6.1.67</span><span class="sutra-text">वेरपृक्तस्य ।</span></div>
+  <div class="sutra-iast">ver apṛktasya</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">1音だけ（アプリクタ，第8課 198）の v は消える。kvin・kvip などの残りの v がこれで消えます（「全部消える接尾辞」）。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 331</span><span class="sutra-num">A 8.2.62</span><span class="sutra-text">क्विन्प्रत्ययस्य कुः ।</span></div>
+  <div class="sutra-iast">kvinpratyayasya kuḥ</div>
+  <div class="vrtti">क्विन्प्रत्ययो यस्मात्तस्य कवर्गोऽन्तादेशः पदान्ते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">kvin が付いた語の末尾は、語末で k の段の音になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">ऋत्विज् → 語末で j → g（同じ「有声・無気」）→ <b>ऋत्विक् / ऋत्विग्</b>（主格単数）、<b>ऋत्विग्भ्याम्</b>、<b>ऋत्विक्षु</b><br>
+  ※ 注釈：実際にはこの規則はアシッダなので、次の 333 <span class="dev">चोः कुः</span> で k の段になる、と説明されます。</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>ऋत्विज्（男）祭官</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>ऋत्विक्, ऋत्विग्<small>ṛtvik, ṛtvig</small></td><td>ऋत्विजौ<small>ṛtvijau</small></td><td>ऋत्विजः<small>ṛtvijaḥ</small></td></tr>
+<tr><th>2 対格</th><td>ऋत्विजम्<small>ṛtvijam</small></td><td>ऋत्विजौ<small>ṛtvijau</small></td><td>ऋत्विजः<small>ṛtvijaḥ</small></td></tr>
+<tr><th>3 具格</th><td>ऋत्विजा<small>ṛtvijā</small></td><td>ऋत्विग्भ्याम्<small>ṛtvigbhyām</small></td><td>ऋत्विग्भिः<small>ṛtvigbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>ऋत्विजे<small>ṛtvije</small></td><td>ऋत्विग्भ्याम्<small>ṛtvigbhyām</small></td><td>ऋत्विग्भ्यः<small>ṛtvigbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>ऋत्विजः<small>ṛtvijaḥ</small></td><td>ऋत्विग्भ्याम्<small>ṛtvigbhyām</small></td><td>ऋत्विग्भ्यः<small>ṛtvigbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>ऋत्विजः<small>ṛtvijaḥ</small></td><td>ऋत्विजोः<small>ṛtvijoḥ</small></td><td>ऋत्विजाम्<small>ṛtvijām</small></td></tr>
+<tr><th>7 処格</th><td>ऋत्विजि<small>ṛtviji</small></td><td>ऋत्विजोः<small>ṛtvijoḥ</small></td><td>ऋत्विक्षु<small>ṛtvikṣu</small></td></tr>
+<tr><th>呼格</th><td>हे ऋत्विक्, हे ऋत्विग्<small>he ṛtvik, he ṛtvig</small></td><td>हे ऋत्विजौ<small>he ṛtvijau</small></td><td>हे ऋत्विजः<small>he ṛtvijaḥ</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　yuj と c・j → k・g</h2>
+<p class="chapter-sub">底本 332–333</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 332</span><span class="sutra-num">A 7.1.71</span><span class="sutra-text">युजेरसमासे ।</span></div>
+  <div class="sutra-iast">yujer asamāse</div>
+  <div class="vrtti">युजेः सर्वनामस्थाने नुम् स्यादसमासे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">複合語でない yuj（結びつく者・仲間）は、強語尾の前で num（n）が付け加わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">युज् + स् → युन्ज् → j が消え（子音結合末，第2課 26）、n → ṅ（331）→ <b>युङ्</b><br>
+  <b>युञ्जौ</b>, <b>युञ्जः</b>, <b>युञ्जम्</b>（n → ñ，第4課 76）。強語尾以外は <b>युजः</b>, <b>युजा</b>, <b>युग्भ्याम्</b>, <b>युक्षु</b><br>
+  複合語なら num なし：<b>सुयुक्</b>, सुयुजौ（よく結びつく者）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 333</span><span class="sutra-num">A 8.2.30</span><span class="sutra-text">चोः कुः ।</span></div>
+  <div class="sutra-iast">coḥ kuḥ</div>
+  <div class="vrtti">चवर्गस्य कवर्गः स्याज्झलि पदान्ते च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jhal の前と語末で、c の段の音は k の段の音になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><b>語末の c・j は k・g になる</b>。とてもよく使う規則です：<span class="ex">वाच् → <b>वाक्</b></span>（言葉）、<span class="ex">पयोमुच् → <b>पयोमुक्</b></span>（雲）<br>
+  語源的には、c・j がもともと k・g から来た音だから、と考えられています。</div></div>
+  <div class="point">語末の c, j → k, g（ただし 334 の語は ṭ, ḍ）。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">khañj「足の不自由な人」と「原因がなくなれば結果もなくなる」</div>
+  khañj（語根 khaji）の主格単数：<span class="ex">खन्ज् + स् → खञ्ज्</span>（n → ñ，第4課 76）→ j が消える（第2課 26）→ <b>खन्</b>。<br>
+  ñ が n に戻るのはなぜ？ 注釈：<span class="dev">निमित्तापाये नैमित्तिकस्याप्यपायः ।</span>「原因がなくなれば、それによって生じた結果もなくなる」── ñ になった原因の j が消えたので、n に戻るのです。<br>
+  形：<span class="ex"><b>खन्</b>, खञ्जौ, खञ्जः; खन्भ्याम्, खन्सु</span>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　rāj「王」：j が ṭ になる語</h2>
+<p class="chapter-sub">底本 334–337</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 334</span><span class="sutra-num">A 8.2.36</span><span class="sutra-text">व्रश्चभ्रस्जसृजमृजयजराजभ्राजच्छशां षः ।</span></div>
+  <div class="sutra-iast">vraścabhrasjasṛjamṛjayajarājabhrājacchaśāṃ ṣaḥ</div>
+  <div class="vrtti">व्रश्चादीनां सप्तानां छशान्तयोश्च षोऽन्तादेशः स्याज्झलि पदान्ते च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">vraśc（切る）, bhrasj（炒る）, sṛj（創る）, mṛj（磨く）, yaj（祭る）, rāj（輝く）, bhrāj（輝く）の7語と、ch・ś で終わる語の末尾は、jhal の前と語末で ṣ になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">333 の例外：この語たちの末尾は k ではなく <b>ṣ → ḍ / ṭ</b>（第4課 82, 第6課 165）になります。<br>
+  <span class="ex">राज् → राष् → <b>राड् / राट्</b></span>（王は）、<span class="ex"><b>राड्भ्याम्</b>, <b>राट्सु / राट्त्सु</b></span><br>
+  ś で終わる語も同様：<span class="ex">विश् → <b>विट्</b></span>（第18課）</div></div>
+  <div class="row"><div class="k">同様の語</div><div class="v ex"><b>विभ्राट्</b>（輝く者）, <b>देवेट्</b>（神を祭る者；yaj）, <b>विश्वसृट्</b>（世界の創造者；sṛj）</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 335</span><span class="tag-v">補則</span><span class="sutra-text">परौ व्रजेः षः पदान्ते ।</span></div>
+  <div class="sutra-iast">parau vrajeḥ ṣaḥ padānte</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">pari + vraj（あちこち歩く）に kvip が付くと、a が長くなり、語末で ṣ になる：<span class="ex"><b>परिव्राट्</b></span>（遊行者・出家者），<span class="ex">परिव्राजौ</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 336</span><span class="sutra-num">A 6.3.128</span><span class="sutra-text">विश्वस्य वसुराटोः ।</span></div>
+  <div class="sutra-iast">viśvasya vasurāṭoḥ</div>
+  <div class="vrtti">विश्वशब्दस्य दीर्घोऽन्तादेशः स्याद्वसौ राट्शब्दे च परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">vasu・rāṭ の前で、viśva の末尾は長くなる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">rāj が rāṭ の形になったときだけ：<b>विश्वाराट्</b>（世界の王）、<b>विश्वाराड्भ्याम्</b>。母音の前は rāj のままなので短い：<b>विश्वराजौ</b>, <b>विश्वराजः</b></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 337</span><span class="sutra-num">A 8.2.29</span><span class="sutra-text">स्कोः संयोगाद्योरन्ते च ।</span></div>
+  <div class="sutra-iast">skoḥ saṃyogādyor ante ca</div>
+  <div class="vrtti">पदान्ते झलि च यः संयोगस्तदाद्योः स्कोर्लोपः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">語末と jhal の前で、子音結合の最初にある s・k は消える。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">भ्रस्ज्（炒る）→ kvip でサンプラサーラナ（r → ṛ）→ भृस्ज् → 語末で s が消え、j → ṣ（334）→ <b>भृट् / भृड्</b>（炒る人）<br>
+  母音の前では s が ś → j（第4課 76, 第2課 25）になって：<b>भृज्जौ</b>, <b>भृज्जः</b></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　tyad・tad・etad：「彼」「それ」</h2>
+<p class="chapter-sub">底本 338 ／ sa と ta の謎</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 338</span><span class="sutra-num">A 7.2.106</span><span class="sutra-text">तदोः सः सावनन्त्ययोः ।</span></div>
+  <div class="sutra-iast">tadoḥ saḥ sāv anantyayoḥ</div>
+  <div class="vrtti">त्यदादीनां तकारदकारयोरनन्त्ययोः सः स्यात्सौ परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">su の前で、tyad などの、末尾でない t・d は s になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「彼は」は <span class="dev">सः</span>、「彼を」は <span class="dev">तम्</span> ── s と t が入れ替わるのはなぜ？ パーニニの答え：<b>主格単数の前でだけ t → s</b>。</div></div>
+  <div class="row"><div class="k">例</div><div class="v">
+  <ol class="deriv">
+    <li><span class="form">तद् + स्</span><span class="why">「彼は」</span></li>
+    <li><span class="form">त अ + स्</span><span class="why">末尾 d → a（第8課 213）</span></li>
+    <li><span class="form">त + स्</span><span class="why">a + a → a（第15課 300）</span></li>
+    <li><span class="form">स + स् → सः</span><span class="why">t → s（338）。s → ḥ</span></li>
+  </ol>
+  他の格は t のまま sarva と同じ：<span class="ex"><b>तौ, ते, तम्, तेन, तस्मै, तस्य, तेषाम्, तस्मिन्</b></span><br>
+  ※ <span class="dev">सः</span> の ḥ は子音の前で消える（第5課 133：<span class="dev">स गच्छति</span>）</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>तद्（男）それ・彼</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>सः<small>saḥ</small></td><td>तौ<small>tau</small></td><td>ते<small>te</small></td></tr>
+<tr><th>2 対格</th><td>तम्<small>tam</small></td><td>तौ<small>tau</small></td><td>तान्<small>tān</small></td></tr>
+<tr><th>3 具格</th><td>तेन<small>tena</small></td><td>ताभ्याम्<small>tābhyām</small></td><td>तैः<small>taiḥ</small></td></tr>
+<tr><th>4 与格</th><td>तस्मै<small>tasmai</small></td><td>ताभ्याम्<small>tābhyām</small></td><td>तेभ्यः<small>tebhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>तस्मात्<small>tasmāt</small></td><td>ताभ्याम्<small>tābhyām</small></td><td>तेभ्यः<small>tebhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>तस्य<small>tasya</small></td><td>तयोः<small>tayoḥ</small></td><td>तेषाम्<small>teṣām</small></td></tr>
+<tr><th>7 処格</th><td>तस्मिन्<small>tasmin</small></td><td>तयोः<small>tayoḥ</small></td><td>तेषु<small>teṣu</small></td></tr>
+<tr><th>呼格</th><td>—<small>—</small></td><td>—<small>—</small></td><td>—<small>—</small></td></tr>
+</table></div>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>主格単数</th><th>他の格</th><th>注</th></tr>
+<tr><td class="dev">त्यद्（あれ）</td><td class="dev">स्यः</td><td class="dev">त्यौ, त्ये, त्यम्, त्यस्मै…</td><td>tad と同じ型</td></tr>
+<tr><td class="dev">यद्（〜するもの）</td><td class="dev">यः</td><td class="dev">यौ, ये, यम्, यस्मै…</td><td>t がないので sarva と同じ</td></tr>
+<tr><td class="dev">एतद्（これ）</td><td class="dev">एषः</td><td class="dev">एतौ, एते, एतम्, एतस्मै…</td><td>t → s → ṣ（第6課 169）。アンヴァーデーシャでは एनम्, एनेन…（第15課 307）</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　supād・agnimath</h2>
+<p class="chapter-sub">底本 362（底本では yuṣmad・asmad の後に出てきます）</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 362</span><span class="sutra-num">A 6.4.130</span><span class="sutra-text">पादः पत् ।</span></div>
+  <div class="sutra-iast">pādaḥ pat</div>
+  <div class="vrtti">पाच्छब्दान्तं यदङ्गं भं तदवयवस्य पाच्छब्दस्य पदादेशः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">pād（足）で終わるアンガがバのとき、その pād は pad に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">सुपाद्（美しい足をもつ者）：<b>सुपात् / सुपाद्</b>, सुपादौ, सुपादः, सुपादम्；バで短く：<b>सुपदः</b>（対複）, <b>सुपदा</b>, <b>सुपदे</b>；<b>सुपाद्भ्याम्</b>, <b>सुपात्सु</b><br>
+  ※ dvipād（二本足）→ dvipadaḥ なども同様。</div></div>
+</div>
+<div class="note">
+  <div class="note-title">agnimath「火をおこす者」── 規則どおりの子音語幹</div>
+  <span class="ex"><b>अग्निमत् / अग्निमद्</b>, अग्निमथौ, अग्निमथः; अग्निमथा; <b>अग्निमद्भ्याम्</b>; <b>अग्निमत्सु</b></span><br>
+  語末と子音の前で th → d（第4課 82）。母音の前ではそのまま。これが子音語幹の<b>いちばん基本の型</b>です。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">वाच्</span>（言葉）の主格単数と具格両数は？</summary><div><span class="dev">वाक् / वाग्</span>、<span class="dev">वाग्भ्याम्</span>（333：c → k の段）。</div></details>
+<details class="q"><summary>Q2. <span class="dev">राज्</span> の主格単数が *rāk にならないのはなぜ？</summary><div>rāj は 334 のリストにあるので、末尾が ṣ → ḍ/ṭ になる：<span class="dev">राट् / राड्</span>。</div></details>
+<details class="q"><summary>Q3. 「彼は」が <span class="dev">सः</span>、「彼を」が <span class="dev">तम्</span> なのはなぜ？</summary><div>su（主格単数）の前でだけ、tad の t が s になる（338）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">युज्</span> の主格両数は？ <span class="dev">सुयुज्</span> では？</summary><div><span class="dev">युञ्जौ</span>（332：複合語でないので num）、<span class="dev">सुयुजौ</span>（複合語なので num なし）。</div></details>
+<details class="q"><summary>Q5. kvin のように「形には何も残らない接尾辞」を付ける意味は？</summary><div>その語が「kvin で作られた語」という身分を得て、331 のような規則が適用できるようになる。また、クリットで終わるので名詞語幹（プラーティパディカ）にもなる。</div></details>
+<details class="q"><summary>Q6. <span class="dev">सुपाद्</span> の対格複数は？</summary><div><span class="dev">सुपदः</span>（362：バで pād → pad）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson15.html">← 第15課　idam と n 語幹</a><span class="spacer"></span><a href="panini_lsk_lesson17.html">第17課　yuṣmad・asmad →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第16課　子音で終わる男性名詞（3）<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 91–96, 102.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：अस्ज् → भ्रस्ज्、भूजौ → भृज्जौ、विश्वराट्（主単）→ विश्वाराट्、खङौ → खञ्जौ）。
+</footer>
+
+</body>
+</html>

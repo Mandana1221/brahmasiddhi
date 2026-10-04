@@ -1,0 +1,544 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — अजन्तस्त्रीलिङ्गम् (२)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 12</div>
+  <div class="header-jp">第12課　女性名詞（2）── strī, śrī, dhenu, svasṛ, mātṛ<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 69–71，底本 251–257</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>strī「女性」：特別な ī（底本 251–252）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>śrī「シュリー」：ナディーになったりならなかったり（底本 253–254）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>dhenu・bhrū・kroṣṭrī（底本 255–256）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>svasṛ「姉妹」・mātṛ「母」（底本 257）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　strī「女性」：特別な ī</h2>
+<p class="chapter-sub">底本 251–252 ／ 1音節なのにナディー</p>
+
+<p class="lead">strī は「女性」を表すいちばん基本的な語ですが、変化は少し特殊です。完成形はこちら。</p>
+<div class="tbl-wrap"><table class="para"><caption>स्त्री（女）女性</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>स्त्री<small>strī</small></td><td>स्त्रियौ<small>striyau</small></td><td>स्त्रियः<small>striyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>स्त्रियम्, स्त्रीम्<small>striyam, strīm</small></td><td>स्त्रियौ<small>striyau</small></td><td>स्त्रियः, स्त्रीः<small>striyaḥ, strīḥ</small></td></tr>
+<tr><th>3 具格</th><td>स्त्रिया<small>striyā</small></td><td>स्त्रीभ्याम्<small>strībhyām</small></td><td>स्त्रीभिः<small>strībhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>स्त्रियै<small>striyai</small></td><td>स्त्रीभ्याम्<small>strībhyām</small></td><td>स्त्रीभ्यः<small>strībhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>स्त्रियाः<small>striyāḥ</small></td><td>स्त्रीभ्याम्<small>strībhyām</small></td><td>स्त्रीभ्यः<small>strībhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>स्त्रियाः<small>striyāḥ</small></td><td>स्त्रियोः<small>striyoḥ</small></td><td>स्त्रीणाम्<small>strīṇām</small></td></tr>
+<tr><th>7 処格</th><td>स्त्रियाम्<small>striyām</small></td><td>स्त्रियोः<small>striyoḥ</small></td><td>स्त्रीषु<small>strīṣu</small></td></tr>
+<tr><th>呼格</th><td>हे स्त्रि<small>he stri</small></td><td>हे स्त्रियौ<small>he striyau</small></td><td>हे स्त्रियः<small>he striyaḥ</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 251</span><span class="sutra-num">A 6.4.79</span><span class="sutra-text">स्त्रियाः ।</span></div>
+  <div class="sutra-iast">striyāḥ</div>
+  <div class="vrtti">अस्येयङ् स्यादजादौ प्रत्यये परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">母音で始まる接尾辞の前で、strī（の ī）は iyaṅ（iy）になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">strī は動詞語根ではありませんが、第9課の nī と同じように <b>iy</b> になります：<span class="ex">स्त्री + औ → <b>स्त्रियौ</b></span>、<span class="ex"><b>स्त्रियः</b></span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 252</span><span class="sutra-num">A 6.4.80</span><span class="sutra-text">वाऽम्शसोः ।</span></div>
+  <div class="sutra-iast">vā 'mśasoḥ</div>
+  <div class="vrtti">अमि शसि च स्त्रिया इयङ् वा स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">am・śas（対格の単数・複数）の前では、strī の iyaṅ は任意である。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">対格単数 <b>स्त्रियम्</b>（iyaṅ）／ <b>स्त्रीम्</b>（第6課 154）<br>対格複数 <b>स्त्रियः</b> ／ <b>स्त्रीः</b>（第6課 146）</div></div>
+</div>
+
+<p>strī は常に女性名詞の ī なので<b>ナディー</b>（第9課 215）。だから：</p>
+<ul style="margin:0 0 1rem 1.4rem">
+  <li>主格単数 <span class="ex"><b>स्त्री</b></span>：女性接尾辞 ī の後なので s が消える（第8課 199）</li>
+  <li>与格 <span class="ex"><b>स्त्रियै</b></span>、奪・属格 <span class="ex"><b>स्त्रियाः</b></span>、処格 <span class="ex"><b>स्त्रियाम्</b></span>（第9課 217–219）</li>
+  <li>呼格 <span class="ex"><b>हे स्त्रि</b></span>（第9課 216）</li>
+  <li>属格複数 <span class="ex"><b>स्त्रीणाम्</b></span> ── 注釈：<span class="dev">परत्वान्नुट् ।</span>「（iyaṅ より）nuṭ の規則が後にあるので、nuṭ が勝つ」（第5課 132）</li>
+</ul>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　śrī「シュリー」：ナディーになったりならなかったり</h2>
+<p class="chapter-sub">底本 253–254</p>
+
+<p>śrī（繁栄・美・ラクシュミー女神）は1音節の語根由来の語なので、母音の前で <b>iy</b> になります（第9課 220）：<span class="ex"><b>श्रियौ</b>, <b>श्रियः</b></span></p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 253</span><span class="sutra-num">A 1.4.4</span><span class="sutra-text">नेयङुवङ्स्थानावस्त्री ।</span></div>
+  <div class="sutra-iast">neyaṅuvaṅsthānāv astrī</div>
+  <div class="vrtti">इयङुवङोः स्थितिर्ययोस्तावीदूतौ नदीसंज्ञौ न स्तः, न तु स्त्री ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">iyaṅ・uvaṅ を受ける ī・ū はナディーではない。ただし strī は除く。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">śrī も女性名詞の ī ですが、<b>iy になるタイプなのでナディーではない</b>。だから呼格は短くならず <span class="ex"><b>हे श्रीः</b></span>（第9課 216 が使えない）。<br>
+  ただし第11課 246 <span class="dev">ङिति ह्रस्वश्च</span> により、<b>ṅ 付き語尾の前では任意にナディー</b>：<br>
+  <span class="ex">与格 <b>श्रियै / श्रिये</b>、奪・属格 <b>श्रियाः / श्रियः</b>、処格 <b>श्रियाम् / श्रियि</b></span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 254</span><span class="sutra-num">A 1.4.5</span><span class="sutra-text">वाऽऽमि ।</span></div>
+  <div class="sutra-iast">vā "mi</div>
+  <div class="vrtti">इयङुवङ्स्थानौ स्त्र्याख्यौ यू आमि वा नदीसंज्ञौ स्तः, न तु स्त्री ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（そのような ī・ū は）ām（属格複数）の前では、任意にナディーである。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">属格複数 <b>श्रीणाम्</b>（ナディー：nuṭ が付く）／ <b>श्रियाम्</b>（ナディーでない）</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>श्री（女）シュリー・繁栄</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>श्रीः<small>śrīḥ</small></td><td>श्रियौ<small>śriyau</small></td><td>श्रियः<small>śriyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>श्रियम्<small>śriyam</small></td><td>श्रियौ<small>śriyau</small></td><td>श्रियः<small>śriyaḥ</small></td></tr>
+<tr><th>3 具格</th><td>श्रिया<small>śriyā</small></td><td>श्रीभ्याम्<small>śrībhyām</small></td><td>श्रीभिः<small>śrībhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>श्रियै, श्रिये<small>śriyai, śriye</small></td><td>श्रीभ्याम्<small>śrībhyām</small></td><td>श्रीभ्यः<small>śrībhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>श्रियाः, श्रियः<small>śriyāḥ, śriyaḥ</small></td><td>श्रीभ्याम्<small>śrībhyām</small></td><td>श्रीभ्यः<small>śrībhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>श्रियाः, श्रियः<small>śriyāḥ, śriyaḥ</small></td><td>श्रियोः<small>śriyoḥ</small></td><td>श्रीणाम्, श्रियाम्<small>śrīṇām, śriyām</small></td></tr>
+<tr><th>7 処格</th><td>श्रियाम्, श्रियि<small>śriyām, śriyi</small></td><td>श्रियोः<small>śriyoḥ</small></td><td>श्रीषु<small>śrīṣu</small></td></tr>
+<tr><th>呼格</th><td>हे श्रीः<small>he śrīḥ</small></td><td>हे श्रियौ<small>he śriyau</small></td><td>हे श्रियः<small>he śriyaḥ</small></td></tr>
+</table></div>
+<div class="note">
+  <div class="note-title">strī と śrī の違い</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>strī</th><th>śrī</th><th>理由</th></tr>
+  <tr><td>主格単数</td><td class="dev">स्त्री</td><td class="dev">श्रीः</td><td>strī の ī は女性接尾辞</td></tr>
+  <tr><td>与格単数</td><td class="dev">स्त्रियै</td><td class="dev">श्रियै / श्रिये</td><td>strī は常にナディー、śrī は任意（246, 253）</td></tr>
+  <tr><td>属格複数</td><td class="dev">स्त्रीणाम्</td><td class="dev">श्रीणाम् / श्रियाम्</td><td>254</td></tr>
+  <tr><td>呼格単数</td><td class="dev">हे स्त्रि</td><td class="dev">हे श्रीः</td><td>253</td></tr>
+  </table></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　dhenu・bhrū・kroṣṭrī</h2>
+<p class="chapter-sub">底本 255–256</p>
+
+<p>注釈：<span class="dev">धेनुर्मतिवत् ।</span>「dhenu（雌牛）は mati と同じ」── 短い u の女性名詞は、第11課の mati の u 版です。</p>
+<div class="tbl-wrap"><table class="para"><caption>धेनु（女）雌牛</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>धेनुः<small>dhenuḥ</small></td><td>धेनू<small>dhenū</small></td><td>धेनवः<small>dhenavaḥ</small></td></tr>
+<tr><th>2 対格</th><td>धेनुम्<small>dhenum</small></td><td>धेनू<small>dhenū</small></td><td>धेनूः<small>dhenūḥ</small></td></tr>
+<tr><th>3 具格</th><td>धेन्वा<small>dhenvā</small></td><td>धेनुभ्याम्<small>dhenubhyām</small></td><td>धेनुभिः<small>dhenubhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>धेन्वै, धेनवे<small>dhenvai, dhenave</small></td><td>धेनुभ्याम्<small>dhenubhyām</small></td><td>धेनुभ्यः<small>dhenubhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>धेन्वाः, धेनोः<small>dhenvāḥ, dhenoḥ</small></td><td>धेनुभ्याम्<small>dhenubhyām</small></td><td>धेनुभ्यः<small>dhenubhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>धेन्वाः, धेनोः<small>dhenvāḥ, dhenoḥ</small></td><td>धेन्वोः<small>dhenvoḥ</small></td><td>धेनूनाम्<small>dhenūnām</small></td></tr>
+<tr><th>7 処格</th><td>धेन्वाम्, धेनौ<small>dhenvām, dhenau</small></td><td>धेन्वोः<small>dhenvoḥ</small></td><td>धेनुषु<small>dhenuṣu</small></td></tr>
+<tr><th>呼格</th><td>हे धेनो<small>he dheno</small></td><td>हे धेनू<small>he dhenū</small></td><td>हे धेनवः<small>he dhenavaḥ</small></td></tr>
+</table></div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 255</span><span class="sutra-num">A 7.1.96</span><span class="sutra-text">स्त्रियां च ।</span></div>
+  <div class="sutra-iast">striyāṃ ca</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">女性（雌ジャッカル）を表す kroṣṭu は、（強語尾に限らず）kroṣṭṛ の形をとる（第10課 224 の拡張）。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 256</span><span class="sutra-num">A 4.1.5</span><span class="sutra-text">ऋन्नेभ्यो ङीप् ।</span></div>
+  <div class="sutra-iast">ṛnnebhyo ṅīp</div>
+  <div class="vrtti">ऋदन्तेभ्यो नान्तेभ्यश्च स्त्रियां ङीप् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṛ で終わる語、n で終わる語の後には、女性を表すとき ṅīp（ī）が付く。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">女性形を作る接尾辞の初登場です。<b>ṛ・n で終わる語に ī を付けると女性形</b>になります。<br>
+  <span class="ex">क्रोष्टृ + ई → <b>क्रोष्ट्री</b></span>（雌ジャッカル）── あとは gaurī と同じ変化。<br>
+  ほかの例：<span class="ex">कर्तृ → कर्त्री</span>（作る女性）、<span class="ex">दण्डिन् → दण्डिनी</span>（杖を持つ女性）</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">bhrū「眉」と svayambhū</div>
+  <span class="dev">भ्रू</span>（眉）は第9課 220 で uvaṅ（uv）をとる語。śrī の ū 版です：<span class="ex"><b>भ्रूः</b>, <b>भ्रुवौ</b>, <b>भ्रुवः</b>、与格 <b>भ्रुवै / भ्रुवे</b>、属格複数 <b>भ्रूणाम् / भ्रुवाम्</b>、呼格 <b>हे भ्रूः</b></span><br>
+  注釈：<span class="dev">स्वयम्भूः पुंवत् ।</span>「svayambhū（自生者＝ブラフマー）は男性の svabhū（第9課）と同じ」
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　svasṛ「姉妹」・mātṛ「母」</h2>
+<p class="chapter-sub">底本 257 ／ 女性接尾辞が付かない語</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 257</span><span class="sutra-num">A 4.1.10</span><span class="sutra-text">न षट्स्वस्रादिभ्यः ।</span></div>
+  <div class="sutra-iast">na ṣaṭsvasrādibhyaḥ</div>
+  <div class="vrtti">षट्संज्ञकेभ्यः स्वस्रादिभ्यश्च ङीप्टापौ न स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṣaṭ と呼ばれる数詞、および svasṛ などの語の後には、ṅīp・ṭāp（女性接尾辞）は付かない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">svasṛ（姉妹）は ṛ で終わるので、前の規則 256 なら svasrī になるはず。でも<b>もともと女性を表す語</b>なので、女性接尾辞は付けません。数詞 pañcan（5）なども同様（pañca のまま）。</div></div>
+  <div class="note">
+    <div class="note-title">svasṛ などの語（スヴァスラーディ）</div>
+    <span class="dev">स्वसा तिस्रश्चतस्रश्च ननान्दा दुहिता तथा । याता मातेति सप्तैते स्वस्रादय उदाहृताः ॥</span><br>
+    svasṛ（姉妹）、tisṛ（3）、catasṛ（4）、nanāndṛ（夫の姉妹）、duhitṛ（娘）、yātṛ（夫の兄弟の妻）、mātṛ（母）の7語。
+  </div>
+</div>
+
+<div class="tbl-wrap"><table class="para"><caption>स्वसृ（女）姉妹</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>स्वसा<small>svasā</small></td><td>स्वसारौ<small>svasārau</small></td><td>स्वसारः<small>svasāraḥ</small></td></tr>
+<tr><th>2 対格</th><td>स्वसारम्<small>svasāram</small></td><td>स्वसारौ<small>svasārau</small></td><td>स्वसॄः<small>svasṝḥ</small></td></tr>
+<tr><th>3 具格</th><td>स्वस्रा<small>svasrā</small></td><td>स्वसृभ्याम्<small>svasṛbhyām</small></td><td>स्वसृभिः<small>svasṛbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>स्वस्रे<small>svasre</small></td><td>स्वसृभ्याम्<small>svasṛbhyām</small></td><td>स्वसृभ्यः<small>svasṛbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>स्वसुः<small>svasuḥ</small></td><td>स्वसृभ्याम्<small>svasṛbhyām</small></td><td>स्वसृभ्यः<small>svasṛbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>स्वसुः<small>svasuḥ</small></td><td>स्वस्रोः<small>svasroḥ</small></td><td>स्वसॄणाम्<small>svasṝṇām</small></td></tr>
+<tr><th>7 処格</th><td>स्वसरि<small>svasari</small></td><td>स्वस्रोः<small>svasroḥ</small></td><td>स्वसृषु<small>svasṛṣu</small></td></tr>
+<tr><th>呼格</th><td>हे स्वसः<small>he svasaḥ</small></td><td>हे स्वसारौ<small>he svasārau</small></td><td>हे स्वसारः<small>he svasāraḥ</small></td></tr>
+</table></div>
+<p>svasṛ は第10課 227 のリストにあるので、強語尾の前でのびます（<span class="ex"><b>स्वसारौ</b></span>）。対格複数は女性なので n が付かず <span class="ex"><b>स्वसॄः</b></span>。</p>
+
+<div class="note">
+  <div class="note-title">mātṛ「母」と、その他の語</div>
+  注釈：<span class="dev">मातृ शब्दके रूप पितृवत् परन्तु … शस् परे रहते मातॄः होता है ।</span><br>
+  mātṛ は pitṛ（第10課）と同じ変化（<b>माता, मातरौ, मातरः</b>）。ただし対格複数は <span class="ex"><b>मातॄः</b></span>（pitṛ は पितॄन्）。<br><br>
+  ・<span class="dev">द्यो</span>（天）：go（第10課）と同じ ── <span class="ex">द्यौः, द्यावौ, द्यावः, द्याम्…</span><br>
+  ・<span class="dev">रै</span>（富）：男性と同じ（第10課）<br>
+  ・<span class="dev">नौ</span>（舟）：glau（第10課）と同じ ── <span class="ex">नौः, नावौ, नावः…</span>
+</div>
+<p style="text-align:center;color:var(--muted)">॥ इत्यजन्ताः स्त्रीलिङ्गाः ॥　── 以上、母音で終わる女性名詞 ──</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. strī の対格単数の2つの形は？</summary><div><span class="dev">स्त्रियम्</span> と <span class="dev">स्त्रीम्</span>（252：am・śas の前では iyaṅ が任意）。</div></details>
+<details class="q"><summary>Q2. śrī の呼格単数が <span class="dev">हे श्रि</span> にならないのはなぜ？</summary><div>iyaṅ を受ける ī はナディーではない（253）ので、呼格で短くする規則（第9課 216）が使えない → <span class="dev">हे श्रीः</span>。</div></details>
+<details class="q"><summary>Q3. <span class="dev">धेनु</span> の与格単数の2つの形は？</summary><div><span class="dev">धेन्वै</span>（ナディー扱い）と <span class="dev">धेनवे</span>（ギ扱い）── mati と同じ（第11課 246）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">कर्तृ</span>（作る人）の女性形は？</summary><div><span class="dev">कर्त्री</span>（256：ṛ で終わる語に ṅīp）。</div></details>
+<details class="q"><summary>Q5. svasṛ に女性接尾辞 ī が付かないのはなぜ？</summary><div>svasṛ などの7語（svasrādi）には ṅīp・ṭāp が付かない（257）。</div></details>
+<details class="q"><summary>Q6. <span class="dev">मातृ</span> と <span class="dev">पितृ</span> の対格複数は？</summary><div><span class="dev">मातॄः</span>（女性なので n なし）と <span class="dev">पितॄन्</span>（男性：第6課 156）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson11.html">← 第11課　女性名詞の入口</a><span class="spacer"></span><a href="panini_lsk_lesson13.html">第13課　中性名詞 →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第12課　女性名詞（2）<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 69–71.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：स्त्रीः（主格）→ स्त्री、भू → भ्रू、स्वस्रुः（対複）→ स्वसॄः、ऋग्वेभ्यो → ऋन्नेभ्यो）。
+</footer>
+
+</body>
+</html>

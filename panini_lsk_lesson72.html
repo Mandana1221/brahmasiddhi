@@ -1,0 +1,483 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तद्धितप्रकरणम् (११) विकारार्थाः ठगधिकारश्च</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 72</div>
+  <div class="header-jp">第72課　タッディタ（11）「〜でできた」と「〜で遊ぶ・〜で渡る」── āśma, aśmamaya, gomaya, payasya, ākṣika, dādhika, hāstika<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 389–392，底本 1196–1208</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>「〜でできた」「〜の一部」（底本 1196–1198）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>-maya と yat（底本 1199–1202）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>ṭhak の見出しと「〜で…する」（底本 1203–1208）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　「〜でできた」「〜の一部」</h2>
+<p class="chapter-sub">底本 1196–1198</p>
+
+<p>シャイシカの節が終わり，「プラーグディーヴィヤティーヤ」（4.4.2 の前まで）の最後の部分 ── 材料・部分の意味 ── に入ります。英語の <i>wooden</i>, <i>golden</i> の -en にあたります。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1196</span><span class="sutra-num">A 4.3.134</span><span class="sutra-text">तस्य विकारः ।</span></div>
+  <div class="sutra-iast">tasya vikāraḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">属格の語に，「その変形（それでできたもの）」の意味で aṇ などが付く。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">vikāra（変形）とは，牛乳 → ヨーグルト，粘土 → 壺 のように，材料が形を変えたもの。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1197</span><span class="tag-v">ヴァールッティカ</span><span class="sutra-text">अश्मनो विकारे टिलोपो वक्तव्यः ।</span></div>
+  <div class="sutra-iast">aśmano vikāre ṭilopo vaktavyaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">aśman（石）は，「変形」の意味の接尾辞の前で ṭi（-an）が落ちる，と言うべきである。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>आश्मः</b>（石でできたもの）／ 比較：<b>भास्मनः</b>（灰でできた：-an は第64課 1099 で残る）／ <b>मार्त्तिकः</b>（土でできた）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">aṇ の前では -an は残るのが原則（1099）。aśman だけはそれを打ち消して落とします。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1198</span><span class="sutra-num">A 4.3.135</span><span class="sutra-text">अवयवे च प्राण्योषधिवृक्षेभ्यः ।</span></div>
+  <div class="sutra-iast">avayave ca prāṇyoṣadhivṛkṣebhyaḥ</div>
+  <div class="vrtti">चाद्विकारे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">動物・草（一年草）・樹木を表す語には，「その部分」の意味でも（ca により「変形」の意味でも）aṇ などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>मायूरः</b>（孔雀の［羽などの］部分・孔雀からできたもの）／ <b>मौर्वम्</b>（ムールヴァー草の茎・灰）／ <b>पैप्पलम्</b>（ピッパラ樹の部分・ピッパラでできたもの）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">注釈：oṣadhi とは「実が熟すと枯れる植物」（麦など）のこと。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　-maya と yat</h2>
+<p class="chapter-sub">底本 1199–1202</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1199</span><span class="sutra-num">A 4.3.143</span><span class="sutra-text">मयड्वैतयोर्भाषायामभक्ष्याच्छादनयोः ।</span></div>
+  <div class="sutra-iast">mayaḍ vaitayor bhāṣāyām abhakṣyācchādanayoḥ</div>
+  <div class="vrtti">प्रकृतिमात्रान्मयड्वा स्याद्विकारावयवयोः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">日常語（ヴェーダ以外）では，どの語にも「変形」「部分」の意味で任意に mayaṭ（-maya）が付く。ただし食べ物・衣服の場合を除く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>अश्ममयम्</b> または <b>आश्मनम्</b>（石でできた）／ 除外（食べ物）：<b>मौद्गः सूपः</b>（緑豆のスープ）／（衣服）：<b>कार्पासम्</b>（木綿の布）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">-maya は「〜でできた，〜に満ちた」として非常によく使われます：<span class="dev">आनन्दमय</span>（歓喜からなる），<span class="dev">मृण्मय</span>（土製の）。ṭ が目印で女性形は -mayī。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1200</span><span class="sutra-num">A 4.3.144</span><span class="sutra-text">नित्यं वृद्धशरादिभ्यः ।</span></div>
+  <div class="sutra-iast">nityaṃ vṛddhaśarādibhyaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">ヴリッダの語と śara などの語には，mayaṭ が必ず付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>आम्रमयम्</b>（マンゴーの［部分・でできた］：āmra はヴリッダ），<b>शरमयम्</b>（葦でできた）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">śarādi：śara, darbha, mṛd, kuṭī, tṛṇa, soma, balvaja。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1201</span><span class="sutra-num">A 4.3.145</span><span class="sutra-text">गोश्च पुरीषे ।</span></div>
+  <div class="sutra-iast">goś ca purīṣe</div>
+  <div class="row"><div class="k">訳</div><div class="v">go（牛）には「糞」の意味で mayaṭ が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>गोमयम्</b>（牛糞）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">牛糞は燃料・清めに使われる大切なもので，専用の規則まであります。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1202</span><span class="sutra-num">A 4.3.160</span><span class="sutra-text">गोपयसोर्यत् ।</span></div>
+  <div class="sutra-iast">gopayasor yat</div>
+  <div class="row"><div class="k">訳</div><div class="v">go と payas（乳）には「変形」の意味で yat が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>गव्यम्</b>（牛からできたもの：乳・ギーなど），<b>पयस्यम्</b>（乳からできたもの：凝乳など）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「パンチャガヴィヤ」（牛からの五つの産物）の gavya です。これでプラーグディーヴィヤティーヤの節が終わります。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　ṭhak の見出しと「〜で…する」</h2>
+<p class="chapter-sub">底本 1203–1208</p>
+
+<p>ここからは -ika（ṭhak）を作る節です。<span class="dev">धार्मिक</span>（宗教的な），<span class="dev">सामाजिक</span>（社会的な）など，現代インドの言語でも使われる語がたくさん出てきます。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1203</span><span class="sutra-num">A 4.4.1</span><span class="sutra-text">प्राग्वहतेष्ठक् ।</span></div>
+  <div class="sutra-iast">prāg vahateṣ ṭhak</div>
+  <div class="vrtti">तद्वहतीत्यतः प्राक् ठगधिक्रियते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「tad vahati」（4.4.76）の前まで，ṭhak が見出しとして続く。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ṭh = ik（第64課 1102），k の目印でヴリッディ（第62課 1074）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1204</span><span class="sutra-num">A 4.4.2</span><span class="sutra-text">तेन दीव्यति खनति जयति जितम् ।</span></div>
+  <div class="sutra-iast">tena dīvyati khanati jayati jitam</div>
+  <div class="vrtti">अक्षैर्दीव्यति खनति जयति जितं वा आक्षिकः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">具格の語に，「それで遊ぶ（賭ける）」「それで掘る」「それで勝つ」「それで勝ち取られた」の意味で ṭhak が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">अक्षैर्दीव्यति</span> → <b>आक्षिकः</b>（さいころで賭けをする者）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「prāg dīvyataḥ（dīvyati の前まで）」── 第62課以来の aṇ の範囲は，この sūtra の dīvyati を境に名付けられていたのです。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1205</span><span class="sutra-num">A 4.4.3</span><span class="sutra-text">संस्कृतम् ।</span></div>
+  <div class="sutra-iast">saṃskṛtam</div>
+  <div class="row"><div class="k">訳</div><div class="v">具格の語に，「それで味付け（調理）された」の意味で ṭhak が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">दध्ना संस्कृतम्</span> → <b>दाधिकम्</b>（ヨーグルトで調えた［料理］）／ <b>मारिचिकम्</b>（胡椒で味付けした）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1206</span><span class="sutra-num">A 4.4.5</span><span class="sutra-text">तरति ।</span></div>
+  <div class="sutra-iast">tarati</div>
+  <div class="row"><div class="k">訳</div><div class="v">具格の語に，「それで渡る」の意味で ṭhak が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">उडुपेन तरति</span> → <b>औडुपिकः</b>（いかだで渡る者）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1207</span><span class="sutra-num">A 4.4.8</span><span class="sutra-text">चरति ।</span></div>
+  <div class="sutra-iast">carati</div>
+  <div class="row"><div class="k">訳</div><div class="v">具格の語に，「それで行く」「それで食べる」の意味で ṭhak が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">हस्तिना चरति</span> → <b>हास्तिकः</b>（象で行く者：hastin の -in は 980 で落ちる）／ <span class="dev">दध्ना भक्षयति</span> → <b>दाधिकः</b>（ヨーグルトをかけて食べる者）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1208</span><span class="sutra-num">A 4.4.22</span><span class="sutra-text">संसृष्टे ।</span></div>
+  <div class="sutra-iast">saṃsṛṣṭe</div>
+  <div class="row"><div class="k">訳</div><div class="v">具格の語に，「それと混ぜられた」の意味で ṭhak が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">दध्ना संसृष्टम्</span> → <b>दाधिकम्</b>（ヨーグルトを混ぜた）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">dādhika が 1205・1207・1208 で三回出てきました。形は同じでも，どの意味で作ったかが違います。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「石でできた」を二通りに。</summary><div><span class="dev">अश्ममयम्</span>（1199）／<span class="dev">आश्मनम्</span>（または 1197 の <span class="dev">आश्मः</span>）。</div></details>
+<details class="q"><summary>Q2. 「木綿の布」が kārpāsamaya にならないのは？</summary><div>衣服には mayaṭ が付かない（1199）。</div></details>
+<details class="q"><summary>Q3. 「牛糞」は？</summary><div><span class="dev">गोमयम्</span>（1201）。</div></details>
+<details class="q"><summary>Q4. 「さいころで賭けをする者」は？</summary><div><span class="dev">आक्षिकः</span>（1204）。</div></details>
+<details class="q"><summary>Q5. 「いかだで渡る者」は？</summary><div><span class="dev">औडुपिकः</span>（1206）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson71.html">← 第71課　タッディタ（10）</a><span class="spacer"></span><a href="panini_lsk_lesson73.html">第73課　タッディタ（12）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第72課　タッディタ（11）「〜でできた」と「〜で遊ぶ・〜で渡る」<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 389–392.<br>
+  訂正例：तस्यै विकारैः → तस्य विकारः、अवयवे प्राण्योषधि… → अवयवे च प्राण्योषधि…、मैयद्वैतयोर्भाषायाँमभक्ष्याच्छादनँयोः → मयड्वैतयोर्भाषायामभक्ष्याच्छादनयोः、नित्यें वृद्धशरादिभ्यः → नित्यं वृद्धशरादिभ्यः、पुरीषे → गोश्च पुरीषे、गोर्पयसोर्यत् → गोपयसोर्यत्、तेनें दीव्यति → तेन दीव्यति、मौङ्गः → मौद्गः。<br>
+  ページ画像（2026年10月にいただいたPDF）で確かめました：p. 390 の 1198–1202 は教科書どおりです。上の訂正例のうち अवयवे च・गोश्च पुरीषे・मौद्गः は，底本では正しく印刷されており，OCRの読み誤りでした。なお 1199 の例を底本は男性形 अश्ममयः・कार्पासः で示していますが，本書は標準のテキスト（कार्पासमाच्छादनम्）に合わせて中性形にしています。
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तद्धितप्रकरणम् (८) शैषिकाः (२) युष्मदस्मदौ कालवाचिनश्च</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 69</div>
+  <div class="header-jp">第69課　タッディタ（8）「あなたの」「わたしの」と時の形容詞 ── madīya, tāvaka, māmaka, madhyama, māsika, sāyantana, cirantana<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 382–385，底本 1164–1172</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>「あなたの」「わたしの」（底本 1164–1167）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>中ほど・時の形容詞（底本 1168–1172）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　「あなたの」「わたしの」</h2>
+<p class="chapter-sub">底本 1164–1167</p>
+
+<p>サンスクリットには「わたしの」「あなたの」という所有形容詞がいくつもあります：<span class="dev">मदीय, मामक, मामकीन</span>／<span class="dev">त्वदीय, तावक, तावकीन</span>。それらがすべてここで作られます。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1164</span><span class="sutra-num">A 4.3.1</span><span class="sutra-text">युष्मदस्मदोरन्यतरस्यां खञ् च ।</span></div>
+  <div class="sutra-iast">yuṣmadasmador anyatarasyāṃ khañ ca</div>
+  <div class="vrtti">चाच्छः । पक्षेऽण् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">yuṣmad（あなた）・asmad（わたし）には任意に khañ が付く。ca により cha も付く。どちらでもなければ aṇ。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">cha：<b>युष्मदीयः</b>（あなたがた［二人・複数］の），<b>अस्मदीयः</b>（わたしたちの）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">yuṣmad・asmad はヴリッダ（第68課 1160）なので本来 cha だけのはず。そこに khañ と aṇ も許したのがこの規則です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1165</span><span class="sutra-num">A 4.3.2</span><span class="sutra-text">तस्मिन्नणि च युष्माकास्माकौ ।</span></div>
+  <div class="sutra-iast">tasminn aṇi ca yuṣmākāsmākau</div>
+  <div class="vrtti">युष्मदस्मदोरेतावादेशौ स्तः खञि अणि च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">khañ と aṇ の前では，yuṣmad・asmad は yuṣmāka・asmāka に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">khañ：<b>यौष्माकीणः</b>，<b>आस्माकीनः</b>／ aṇ：<b>यौष्माकः</b>，<b>आस्माकः</b></div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">yauṣmākīṇa の ṇ は ṣ の後の ṇatva（第14課 292）。属格複数 <span class="dev">युष्माकम्, अस्माकम्</span> と同じ形の語幹です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1166</span><span class="sutra-num">A 4.3.3</span><span class="sutra-text">तवकममकावेकवचने ।</span></div>
+  <div class="sutra-iast">tavakamamakāv ekavacane</div>
+  <div class="vrtti">एकार्थवाचिनोर्युष्मदस्मदोस्तवकममकौ स्तः खञि अणि च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">単数（一人）を指すとき，khañ・aṇ の前で yuṣmad・asmad は tavaka・mamaka に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">khañ：<b>तावकीनः</b>（あなたの），<b>मामकीनः</b>（わたしの）／ aṇ：<b>तावकः</b>，<b>मामकः</b></div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">『バガヴァッド・ギーター』冒頭の <span class="dev">मामकाः पाण्डवाश्चैव</span>（わが方の者たちとパーンドゥの子らは）の māmaka がこれです。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1167</span><span class="sutra-num">A 7.2.98</span><span class="sutra-text">प्रत्ययोत्तरपदयोश्च ।</span></div>
+  <div class="sutra-iast">pratyayottarapadayoś ca</div>
+  <div class="vrtti">मपर्यन्तयोरेकार्थवाचिनोस्त्वमौ स्तः प्रत्यये उत्तरपदे च परतः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">接尾辞または後分が続くとき，単数を指す yuṣmad・asmad の m までの部分が，それぞれ tva・ma に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">cha の前：(yuṣm)ad → tv-ad → <b>त्वदीयः</b>（あなたの），<b>मदीयः</b>（わたしの）／ 後分の前：<b>त्वत्पुत्रः</b>（あなたの息子），<b>मत्पुत्रः</b>（わたしの息子）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「m まで」＝ yuṣm-，asm- の部分。残りの -ad はそのままなので tvad-, mad- になります。</div></div>
+</div>
+<div class="tbl-wrap"><table>
+  <tr><th></th><th>cha (-īya)</th><th>khañ (-īna)</th><th>aṇ (-a)</th></tr>
+  <tr><td>あなた（単）</td><td class="dev">त्वदीय</td><td class="dev">तावकीन</td><td class="dev">तावक</td></tr>
+  <tr><td>わたし（単）</td><td class="dev">मदीय</td><td class="dev">मामकीन</td><td class="dev">मामक</td></tr>
+  <tr><td>あなたがた</td><td class="dev">युष्मदीय</td><td class="dev">यौष्माकीण</td><td class="dev">यौष्माक</td></tr>
+  <tr><td>わたしたち</td><td class="dev">अस्मदीय</td><td class="dev">आस्माकीन</td><td class="dev">आस्माक</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　中ほど・時の形容詞</h2>
+<p class="chapter-sub">底本 1168–1172</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1168</span><span class="sutra-num">A 4.3.8</span><span class="sutra-text">मध्यान्मः ।</span></div>
+  <div class="sutra-iast">madhyān maḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">madhya（中）には ma が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>मध्यमः</b>（中ほどの）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">文法用語「中称（madhyama puruṣa）＝二人称」，仏教の「中道（madhyamā pratipad）」もこの語です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1169</span><span class="sutra-num">A 4.3.11</span><span class="sutra-text">कालाट्ठञ् ।</span></div>
+  <div class="sutra-iast">kālāṭ ṭhañ</div>
+  <div class="vrtti">कालवाचिभ्यष्ठञ् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">時を表す語には ṭhañ（-ika）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>कालिकम्</b>（時の），<b>मासिकम्</b>（月の，月ごとの），<b>सांवत्सरिकम्</b>（年の）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ṭh = ik（第64課 1102），ñ の目印でヴリッディ。現代語の māsik（月刊の）もこれです。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1170</span><span class="tag-v">ヴァールッティカ</span><span class="sutra-text">अव्ययानां भमात्रे टिलोपः ।</span></div>
+  <div class="sutra-iast">avyayānāṃ bhamātre ṭilopaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">不変化詞は，bha（第7課 185）であれば常に ṭi が落ちる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">sāyaṃprātar + ika → -ar が落ちて <b>सायंप्रातिकः</b>（朝夕の）／ punaḥpunar + ika → <b>पौनःपुनिकः</b>（たびたびの）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1171</span><span class="sutra-num">A 4.3.17</span><span class="sutra-text">प्रावृष एण्यः ।</span></div>
+  <div class="sutra-iast">prāvṛṣa eṇyaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">prāvṛṣ（雨季）には eṇya が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>प्रावृषेण्यः</b>（雨季の）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1172</span><span class="sutra-num">A 4.3.23</span><span class="sutra-text" style="font-size:1.05rem">सायंचिरंप्राह्णेप्रगेऽव्ययेभ्यष्ट्युट्युलौ तुट् च ।</span></div>
+  <div class="sutra-iast" style="overflow-wrap:anywhere">sāyaṃciraṃprāhṇeprage 'vyayebhyaṣ ṭyuṭyulau tuṭ ca</div>
+  <div class="vrtti">सायमित्यादिभ्यश्चतुर्भ्योऽव्ययेभ्यश्च कालवाचिभ्यष्ट्युट्युलौ स्तस्तयोस्तुट् च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">sāyam（夕方），ciram（久しく），prāhṇe（午前に），prage（早朝に）の四語と，時を表す不変化詞には ṭyu・ṭyul が付き，その前に tuṭ（t）が入る。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">yu → ana（第49課 837），t が入って -tana：<b>सायन्तनम्</b>（夕方の），<b>चिरन्तनम्</b>（昔からの），<b>प्राह्णेतनम्</b>（午前の），<b>प्रगेतनम्</b>（早朝の），<b>दोषातनम्</b>（夜の）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">prāhṇe・prage が -e のままなのは「e で終わる形を既成形として認める」（<span class="dev">प्राह्णेप्रगयोरेदन्तत्वं निपात्यते</span>）ため。「〜時の」の -tana は今も <span class="dev">अद्यतन</span>（今日の，最新の）などで使われます。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「わたしの」を三通りに。</summary><div><span class="dev">मदीयः, मामकीनः, मामकः</span>（1164–1167）。</div></details>
+<details class="q"><summary>Q2. <span class="dev">त्वत्पुत्रः</span> の tvat- はどこから？</summary><div>後分の前で yuṣm- が tva に置き換わる（1167）。</div></details>
+<details class="q"><summary>Q3. 「月ごとの」は？</summary><div><span class="dev">मासिकम्</span>（1169 の ṭhañ）。</div></details>
+<details class="q"><summary>Q4. 「夕方の」は？</summary><div><span class="dev">सायन्तनम्</span>（1172）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson68.html">← 第68課　タッディタ（7）</a><span class="spacer"></span><a href="panini_lsk_lesson70.html">第70課　タッディタ（9）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第69課　タッディタ（8）「あなたの」「わたしの」と時の形容詞<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 382–385.<br>
+  訂正例：युष्मर्दस्मदोरन्यतरस्यां खंञ् च → युष्मदस्मदोरन्यतरस्यां खञ् च、तस्मिन्नणि युष्माकास्मोकौ → तस्मिन्नणि च युष्माकास्माकौ、तवक्रममकावेकवँचने → तवकममकावेकवचने、प्रत्ययोत्तरपदैयोचे → प्रत्ययोत्तरपदयोश्च、1169（底本は sūtra 本文が欠落）→ कालाट्ठञ् を補う、प्रावृर्ष एण्येः → प्रावृष एण्यः、सायंचिरंप्राद्धेप्रगेऽव्यये…तुर्द र्च → सायंचिरंप्राह्णेप्रगेऽव्ययेभ्यष्ट्युट्युलौ तुट् च。<br>
+  ページ画像（2026年10月にいただいたPDF）で確かめました：p. 384 の 1169 は「कालाट्ठञ् । ४ । ३ । ११」と印刷されており，教科書どおりです（取り直したOCRの「कालेभ्यो भवादिषु」は読み誤りでした）。</footer>
+
+</body>
+</html>

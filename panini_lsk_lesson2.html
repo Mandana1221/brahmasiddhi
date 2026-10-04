@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — अच्सन्धिः (१)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 2</div>
+  <div class="header-jp">第2課　母音連声（1）── 子音の重複、e・o の置き換え、グナとヴリッディ<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 12–17，底本 24–46</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第1課のおさらいと、この課で学ぶこと</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>sudhī + upāsya の完成（底本 24–28）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>e・o・ai・au が母音の前で変わる（底本 29–32）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>グナ ── a + i = e（底本 33–39）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>ヴリッディ ── a + e = ai（底本 40–46）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第1課のおさらいと、この課で学ぶこと</h2>
+<p>第1課では、文法の道具（術語）をそろえ、最後に <span class="dev">सुधी + उपास्य</span> の ī を y に変えるところまで進みました。</p>
+<div class="note">
+  <div class="note-title">第1課で学んだ大事な道具</div>
+  ・<b>プラティヤーハーラ</b>：<span class="dev">अच्</span>＝母音、<span class="dev">हल्</span>＝子音、<span class="dev">इक्</span>＝i u ṛ ḷ、<span class="dev">यण्</span>＝y v r l、<span class="dev">झल्</span>, <span class="dev">जश्</span>, <span class="dev">खर्</span> など<br>
+  ・<b>格の読み方</b>：属格＝変わる前の音、主格＝変わった後の音、処格＝条件（直後に来るもの）<br>
+  ・<b>スターネーンタラタマ</b>：候補が複数あれば、発音の場所がいちばん近いものを選ぶ<br>
+  ・<b>アヌヴリッティ</b>：前の規則の言葉を借りて読む
+</div>
+<p>この課では、新しく次の3つの考え方が登場します。</p>
+<div class="tbl-wrap"><table>
+<tr><th>考え方</th><th>意味</th><th>初登場</th></tr>
+<tr><td><b>ヴァールッティカ</b> <span class="iast">vārttika</span></td><td>カーティヤーヤナ（パーニニより後の文法家）による<b>補足規則</b>。カードに <span class="tag-v">補則</span> と表示します。</td><td>底本 28</td></tr>
+<tr><td><b>エーカーデーシャ</b> <span class="iast">ekādeśa</span></td><td>前の音と後ろの音、<b>2つまとめて1つの音</b>に置き換えること（a + i → e）。</td><td>底本 35</td></tr>
+<tr><td><b>アシッダ</b> <span class="iast">asiddha</span></td><td>ある規則の結果が、別の規則からは<b>「起きていないもの」として見えない</b>こと。</td><td>底本 39</td></tr>
+</table></div>
+<p>また、<b>「ヴァー」（<span class="dev">वा</span>，〜してもよい）</b>という言葉がよく出てきます。規則を当てはめても当てはめなくてもよい、つまり<b>正しい形が2つ以上ある</b>という意味です。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　sudhī + upāsya の完成</h2>
+<p class="chapter-sub">底本 24–28 ／ 子音が重なる、子音が変わる、消えそうになって救われる</p>
+
+<p class="lead">第1課の最後は <span class="dev">सुध्य् + उपास्य</span>（sudhy + upāsya）でした。実はここから、もう少し変化が続きます。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 24</span><span class="sutra-num">A 8.4.47</span><span class="sutra-text">अनचि च ।</span></div>
+  <div class="sutra-iast">anaci ca</div>
+  <div class="vrtti">अचः परस्य यरो द्वे वा स्तो न त्वचि ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">an-aci</span>「母音でないものの前で」＋ <span class="iast">ca</span>「また」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">母音の後にある yar（の子音）は、2つに重ねてもよい。ただし、その後に母音が来る場合は除く。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">यर्</span>（yar）＝ <b>h 以外のすべての子音</b>です（第1課の計算機で確かめてみてください）。<br>
+  母音のすぐ後ろの子音は、<b>重ねて2つにしてもよい</b>。ただし、その子音のすぐ後ろが母音なら重ねない。<br><br>
+  <span class="iast">s<b>u</b>dhy upāsya</span> で考えると：<br>
+  ・u の後ろの <b>dh</b> → その後ろは y（母音ではない）→ <b>重ねてよい</b> → dhdh<br>
+  ・y → その後ろは u（母音）→ 重ねない
+  </div></div>
+  <div class="row"><div class="k">結果</div><div class="v"><span class="ex">सुध्ध्य् + उपास्य</span>（sudhdhy upāsya）</div></div>
+  <div class="point">「वा」＝してもしなくてもよい。重ねない形も正しい。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 25</span><span class="sutra-num">A 8.4.53</span><span class="sutra-text">झलां जश् झशि ।</span></div>
+  <div class="sutra-iast">jhalāṃ jaś jhaśi</div>
+  <div class="vrtti">स्पष्टम् । इति पूर्वधकारस्य दकारः ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">jhalām</span>「jhal の（代わりに）」〔属格〕＋ <span class="iast">jaś</span>「jaś が」〔主格〕＋ <span class="iast">jhaśi</span>「jhaś の前で」〔処格〕</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">jhaś の前で、jhal は jaś に置き換わる。（注釈：「意味は明らか」。これにより前の dh が d になる。）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  格の読み方の練習にぴったりの規則です。<br>
+  ・<span class="dev">झल्</span> jhal ＝ 鼻音と半母音以外の子音（変わる前）<br>
+  ・<span class="dev">जश्</span> jaś ＝ <span class="dev">ज ब ग ड द</span>（変わった後：有声・無気の閉鎖音）<br>
+  ・<span class="dev">झश्</span> jhaś ＝ 有声の閉鎖音 <span class="dev">झ भ घ ढ ध ज ब ग ड द</span>（条件）<br><br>
+  dhdh の<b>前の dh</b> は、後ろに dh（jhaś の一員）があるので jaś に変わります。jaś の5つのうち、dh と場所が同じ（歯）なのは <b>d</b>（第1課の「スターネーンタラタマ」）。
+  </div></div>
+  <div class="row"><div class="k">結果</div><div class="v"><span class="ex">सुद्ध्य् + उपास्य</span>（suddhy upāsya）</div></div>
+  <div class="point">「有気音＋有気音」は言いにくいので、前のほうが息を抜いた音になる。日本語話者にも納得できる変化。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 26</span><span class="sutra-num">A 8.2.23</span><span class="sutra-text">संयोगान्तस्य लोपः ।</span></div>
+  <div class="sutra-iast">saṃyogāntasya lopaḥ</div>
+  <div class="vrtti">संयोगान्तं यत् पदं तदन्तस्य लोपः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">子音結合で終わる語（パダ）は、その末尾が消える。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">語の最後に子音のかたまり（サンヨーガ，第1課 底本 19）があると、末尾が消えます。<br>
+  <span class="iast">suddhy</span> は ddhy という子音結合で終わっています。すると……消えるのはどこまで？ 結合全体（ddhy）？ → 次の規則へ。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 27</span><span class="sutra-num">A 1.1.52</span><span class="sutra-text">अलोऽन्त्यस्य ।</span></div>
+  <div class="sutra-iast">alo 'ntyasya</div>
+  <div class="vrtti">षष्ठीनिर्दिष्टोऽन्त्यस्याल आदेशः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">属格（第6格）で示されたものに対する置き換えは、その<b>最後の一音</b>に対して行われる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">解釈規則です。「〇〇の（属格）代わりに△△」と書いてあっても、〇〇全部ではなく<b>〇〇の最後の1音だけ</b>が置き換わる、という約束。<br>
+  前の規則の「消去」も置き換えの一種なので、消えるのは最後の <b>y だけ</b>……のはずです。すると suddh upāsya になってしまう！ → 次の補則へ。</div></div>
+  <div class="point">「属格で示されたもの」は、ふつう最後の一音だけが変わる。</div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 28</span><span class="tag-v">補則</span><span class="sutra-text">यणः प्रतिषेधो वाच्यः ।</span></div>
+  <div class="sutra-iast">yaṇaḥ pratiṣedho vācyaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">yaṇ（が消えること）は禁止すべきである。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">カーティヤーヤナの補足です。消えそうな音が <span class="dev">यण्</span>（y v r l）なら<b>消さない</b>。だから y は救われて、<span class="ex"><b>सुद्ध्युपास्यः</b></span>（suddhyupāsyaḥ）が完成します。</div></div>
+</div>
+
+<h3>まとめ：sudhī + upāsya の全ステップ</h3>
+<ol class="deriv">
+  <li><span class="form">सुधी + उपास्य</span><span class="why">出発点（「崇拝されるべき賢者」）</span></li>
+  <li><span class="form">सुध्य् + उपास्य</span><span class="why">ī → y（第1課 底本 21–23：इको यणचि ほか）</span></li>
+  <li><span class="form">सुध्ध्य् + उपास्य</span><span class="why">dh を重ねる（底本 24：अनचि च，任意）</span></li>
+  <li><span class="form">सुद्ध्य् + उपास्य</span><span class="why">前の dh → d（底本 25：झलां जश् झशि）</span></li>
+  <li><span class="form">सुद्ध्युपास्यः</span><span class="why">末尾の y は消えそうになるが、yaṇ なので消えない（底本 26–28）</span></li>
+</ol>
+<p>手順3で重ねなかった場合は <span class="ex"><b>सुध्युपास्यः</b></span>（sudhyupāsyaḥ）。<b>どちらも正しい形</b>です。</p>
+
+<h3>同じ仕組みの例</h3>
+<div class="tbl-wrap"><table>
+<tr><th>もと</th><th>変化</th><th>結果</th></tr>
+<tr><td class="dev">मधु + अरिः</td><td>u → v（21, 23）→ dh を重ねて d に（24, 25）</td><td class="dev"><b>मद्ध्वरिः</b> / <b>मध्वरिः</b><br><small>「マドゥ（悪魔）の敵」＝ヴィシュヌ</small></td></tr>
+<tr><td class="dev">धातृ + अंशः</td><td>ṛ → r（21, 23）</td><td class="dev"><b>धात्रंशः</b>（重ねると धात्त्रंशः も）</td></tr>
+<tr><td class="dev">ऌ + आकृतिः</td><td>ḷ → l（21, 23）</td><td class="dev"><b>लाकृतिः</b></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　e・o・ai・au が母音の前で変わる</h2>
+<p class="chapter-sub">底本 29–32 ／ 二重母音を「ほどく」</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 29</span><span class="sutra-num">A 6.1.78</span><span class="sutra-text">एचोऽयवायावः ।</span></div>
+  <div class="sutra-iast">eco 'yavāyāvaḥ</div>
+  <div class="vrtti">एचः क्रमादय् अव् आय् आव् एते स्युरचि ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">ecaḥ</span>「ec の（代わりに）」＋ <span class="iast">ay-av-āy-āvaḥ</span>「ay, av, āy, āv が」。条件の「母音の前で」は底本 21 <span class="dev">इको यणचि</span> から借りる（アヌヴリッティ）。</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">母音の前で、ec（e o ai au）は順に ay, av, āy, āv になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  二重母音を、母音の前で<b>「母音＋半母音」にほどく</b>規則です。<br>
+  <div class="tbl-wrap"><table>
+  <tr><th>前</th><th class="dev">ए e</th><th class="dev">ओ o</th><th class="dev">ऐ ai</th><th class="dev">औ au</th></tr>
+  <tr><th>後</th><td class="dev">अय् ay</td><td class="dev">अव् av</td><td class="dev">आय् āy</td><td class="dev">आव् āv</td></tr>
+  </table></div>
+  e はもともと「a + i」、o は「a + u」が合わさった音なので、ほどくと a + y、a + v になる、と考えると覚えやすいです。
+  </div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">
+  हरे + ए → हर् + <b>अय्</b> + ए → <b>हरये</b>（ハリのために）<br>
+  विष्णो + ए → विष्ण् + <b>अव्</b> + ए → <b>विष्णवे</b>（ヴィシュヌのために）<br>
+  नै + अकः → न् + <b>आय्</b> + अकः → <b>नायकः</b>（導く者）<br>
+  पौ + अकः → प् + <b>आव्</b> + अकः → <b>पावकः</b>（浄める者＝火）</div></div>
+  <div class="row"><div class="k">問題</div><div class="v">でも、e が av になったり、o が āy になったりしないのはなぜ？ → 次の規則へ。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 30</span><span class="sutra-num">A 1.3.10</span><span class="sutra-text">यथासंख्यमनुदेशः समानाम् ।</span></div>
+  <div class="sutra-iast">yathāsaṃkhyam anudeśaḥ samānām</div>
+  <div class="vrtti">समसम्बन्धी विधिर्यथासंख्यं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">数が同じものどうしの対応は、順番どおりに行われる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">変わる前が4つ（e o ai au）、変わった後も4つ（ay av āy āv）。<b>数が同じなら、1番目は1番目に、2番目は2番目に</b>対応する、という解釈規則です。</div></div>
+  <div class="point">数が同じリストどうしは「順番どおり」に対応させる。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 31</span><span class="sutra-num">A 6.1.79</span><span class="sutra-text">वान्तो यि प्रत्यये ।</span></div>
+  <div class="sutra-iast">vānto yi pratyaye</div>
+  <div class="vrtti">यकारादौ प्रत्यये परे ओदौतोरव् आव् एतौ स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">y で始まる接尾辞の前でも、o と au は av と āv になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">底本 29 は「母音の前」でしたが、この規則は<b>y で始まる接尾辞の前</b>でも、v で終わる置き換え（av, āv）を起こします。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">गो + यम् → ग् + <b>अव्</b> + यम् → <b>गव्यम्</b>（牛から得られるもの）<br>नौ + यम् → न् + <b>आव्</b> + यम् → <b>नाव्यम्</b>（舟で渡れる）</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 32</span><span class="tag-v">補則</span><span class="sutra-text">अध्वपरिमाणे च ।</span></div>
+  <div class="sutra-iast">adhvaparimāṇe ca</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">道のりの長さを表すときは、gu + yūti でも o → av。<span class="ex">गो + यूतिः → <b>गव्यूतिः</b></span>（約2クローシャの距離。もとは「牛の声が届く距離」）。yūti は接尾辞ではないので、特別に補足されています。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　グナ ── a + i = e</h2>
+<p class="chapter-sub">底本 33–39 ／ 2つの母音が溶け合って1つになる</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 33</span><span class="sutra-num">A 1.1.2</span><span class="sutra-text">अदेङ् गुणः ।</span></div>
+  <div class="sutra-iast">adeṅ guṇaḥ</div>
+  <div class="vrtti">अत् एङ् च गुणसंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">短い a と eṅ（e, o）を「グナ」という。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><b>グナ</b>（<span class="iast">guṇa</span>）＝ <span class="dev">अ ए ओ</span> の3つの母音の呼び名です。サンスクリット文法でいちばんよく出てくる言葉の一つ。<br>
+  <span class="dev">अत्</span> の t は「短い a だけ」という意味の印です（次の規則）。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 34</span><span class="sutra-num">A 1.1.70</span><span class="sutra-text">तपरस्तत्कालस्य ।</span></div>
+  <div class="sutra-iast">taparas tatkālasya</div>
+  <div class="vrtti">तः परो यस्मात् स च तात्परश्चोच्चार्यमाणसमकालस्यैव संज्ञा स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">後ろに t が付いた母音（および t の後ろの母音）は、発音されたのと同じ長さのものだけを表す。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第1課 底本 17 で、規則中の <span class="dev">अ</span> は「18種類すべての a」を表すと学びました。でも <b><span class="dev">अत्</span>（a + t）と書くと、短い a だけ</b>に限定されます（高さと鼻音の違いで6種類）。<br>
+  <span class="dev">इत्</span>（短い i）、<span class="dev">उत्</span>（短い u）、<span class="dev">आत्</span>（長い ā）なども同じです。</div></div>
+  <div class="point">t は「長さを固定する」印。अत् ＝ 短い a だけ。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 35</span><span class="sutra-num">A 6.1.87</span><span class="sutra-text">आद्गुणः ।</span></div>
+  <div class="sutra-iast">ād guṇaḥ</div>
+  <div class="vrtti">अवर्णादचि परे पूर्वपरयोरेको गुण आदेशः स्यात् ।</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">āt</span>「a から（後ろに）」〔奪格〕＋ <span class="iast">guṇaḥ</span>「グナが」</div></div>
+  <div class="row"><div class="k">訳</div><div class="v">a・ā の後に母音が来ると、前と後ろの2音をまとめて、1つのグナに置き換える。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <b>エーカーデーシャ</b>（2つの音 → 1つの音）の代表例です。a/ā ＋ i/ī は <b>e</b>、a/ā ＋ u/ū は <b>o</b> になります。<br>
+  グナは a, e, o の3つ。どれを選ぶかは、やはり<b>場所の近さ</b>で決めます：<br>
+  ・a（のど）＋ i（上あご）→ のど＋上あご ＝ <b>e</b>（第1課の場所の表：ए は「のど＋上あご」）<br>
+  ・a（のど）＋ u（唇）→ のど＋唇 ＝ <b>o</b>
+  </div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">उप + इन्द्रः → <b>उपेन्द्रः</b>（インドラの弟＝ヴィシュヌ）<br>गङ्गा + उदकम् → <b>गङ्गोदकम्</b>（ガンジスの水）</div></div>
+  <div class="point">a + i = e、a + u = o。サンスクリットで一番よく見る連声。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 36</span><span class="sutra-num">A 1.3.2</span><span class="sutra-text">उपदेशेऽजनुनासिक इत् ।</span></div>
+  <div class="sutra-iast">upadeśe 'j anunāsika it</div>
+  <div class="vrtti">उपदेशेऽनुनासिकोऽजित्संज्ञः स्यात् । प्रतिज्ञानुनासिक्याः पाणिनीयाः । लण्सूत्रस्थावर्णेन सहोच्चार्यमाणो रेफो रलयोः संज्ञा ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ウパデーシャにおいて、鼻音化した母音はイットである。パーニニ派では、どれが鼻音化母音かは（先生の）宣言によって知られる。laṇ の a と組み合わせた r は、r と l を表す。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第1課 底本 5（<span class="dev">हलन्त्यम्</span>）が「アヌヴリッティで借りてきた」元の規則がこれです。<br>
+  ・文法の材料（ウパデーシャ）にある<b>鼻にかかった母音は、目印（イット）</b>。<br>
+  ・ただし写本には鼻音の印がなかったので、どれがそうかは<b>伝統（先生の教え）</b>で知る。<br>
+  ・第1課 底本 4 の laṇ の a がこれで、<span class="dev">र</span> と組み合わせた <b><span class="dev">रँ</span>（raṃ）＝ r と l</b> という略号ができます。次の規則で使います。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 37</span><span class="sutra-num">A 1.1.51</span><span class="sutra-text">उरण् रपरः ।</span></div>
+  <div class="sutra-iast">ur aṇ raparaḥ</div>
+  <div class="vrtti">ऋ इति त्रिंशतः संज्ञेत्युक्तम् । तत्स्थाने योऽण् स रपरः सन्नेव प्रवर्तते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṛ（30種）の代わりに来る aṇ（a, i, u）は、必ず後ろに raṃ（r か l）を伴って現れる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  a + ṛ にグナ規則（底本 35）を当てはめると、グナの a, e, o のうち……どれも ṛ に似ていません。そこでこの規則：<b>ṛ の代わりに a/i/u が来るときは、後ろに r を付けて ar / ir / ur にする</b>。ḷ の場合は l を付けて al。
+  </div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">कृष्ण + ऋद्धिः → कृष्ण् + <b>अर्</b> + द्धिः → <b>कृष्णर्द्धिः</b>（クリシュナの繁栄）<br>तव + ऌकारः → तव् + <b>अल्</b> + कारः → <b>तवल्कारः</b>（あなたの ḷ の字）</div></div>
+  <div class="point">a + ṛ = ar。「グナ」の ṛ 版は ar。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 38</span><span class="sutra-num">A 8.3.19</span><span class="sutra-text">लोपः शाकल्यस्य ।</span></div>
+  <div class="sutra-iast">lopaḥ śākalyasya</div>
+  <div class="vrtti">अवर्णपूर्वयोः पदान्तयोर्यवयोर्लोपो वाऽशि परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">a・ā の後にある語末の y・v は、aś（母音と有声子音）の前で、消えてもよい。シャーカリヤ（という文法家）の説による。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">底本 29 で e → ay となった後、<b>語末の y はさらに消えてもよい</b>。「〜の説による」という書き方は、パーニニがよく使う「任意（してもしなくてもよい）」の表し方です。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">हरे + इह → हरय् + इह（29）→ <b>हर इह</b>（y が消える）<br>विष्णो + इह → विष्णव् + इह（29）→ <b>विष्ण इह</b>（v が消える）</div></div>
+  <div class="row"><div class="k">問題</div><div class="v"><span class="iast">hara iha</span> は、a + i なので、底本 35 のグナで <span class="iast">hareha</span> になってしまうのでは？ → 次の規則が答えです。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 39</span><span class="sutra-num">A 8.2.1</span><span class="sutra-text">पूर्वत्रासिद्धम् ।</span></div>
+  <div class="sutra-iast">pūrvatrāsiddham</div>
+  <div class="vrtti">सपादसप्ताध्यायीं प्रति त्रिपाद्यसिद्धा, त्रिपाद्यामपि पूर्वं प्रति परं शास्त्रमसिद्धम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">前のもの（規則）に対して、（後のものは）成立していない（とみなされる）。<br>
+  （注）「7章と1/4」に対して「最後の3節」は成立していない。最後の3節の中でも、前の規則に対して後の規則は成立していない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  パーニニ文法で<b>最も有名で、最も大切な規則の一つ</b>です。<br>
+  『アシュターディヤーイー』は8章 × 4節 ＝ 32節。そのうち<b>最後の3節（8.2〜8.4）</b>を「<b>トリパーディー</b>」（3節）と呼びます。この規則（8.2.1）は、トリパーディーの入り口に立つ見出しのような規則です。
+  </div></div>
+  <div class="note">
+    <div class="note-title">図：アシッダの「見えない壁」</div>
+    <div style="display:flex;gap:2px;margin:0.6rem 0;font-size:0.85rem;text-align:center;flex-wrap:wrap">
+      <div style="flex:29;min-width:180px;background:var(--point-bg);padding:0.4rem;border-radius:3px">1.1 〜 8.1（29節）<br><b>サパーダ・サプターディヤーイー</b>「7章と1/4」</div>
+      <div style="flex:3;min-width:90px;background:var(--accent);color:var(--ground);padding:0.4rem;border-radius:3px">8.2〜8.4<br><b>トリパーディー</b></div>
+    </div>
+    ・左側（6.1.87 <span class="dev">आद्गुणः</span> など）の規則からは、右側（8.3.19 <span class="dev">लोपः शाकल्यस्य</span> など）が起こした変化は<b>「見えない」</b>。<br>
+    ・トリパーディーの中でも、番号が前の規則から、後ろの規則の変化は見えない。<br>
+    ・つまり、トリパーディーの規則は<b>最後に、番号順に</b>かかる、と考えると分かりやすいです。
+  </div>
+  <div class="row"><div class="k">例に当てはめると</div><div class="v">
+  <span class="iast">hara(y) iha</span>：y を消したのは 8.3.19（トリパーディー）。グナの規則 6.1.87 から見ると、<b>y はまだそこにある</b>ように見えます。a と i の間に y があるので、グナは起こりません。<br>
+  だから正しい形は <span class="ex"><b>हर इह</b></span>（「ハリよ、ここに」）。y を消さなければ <span class="ex"><b>हरयिह</b></span>。同じく <span class="ex"><b>विष्ण इह</b> / <b>विष्णविह</b></span>。
+  </div></div>
+  <div class="point">トリパーディー（8.2〜8.4）の変化は、それより前の規則からは見えない。だから「a + i なのに e にならない」ことがある。</div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　ヴリッディ ── a + e = ai</h2>
+<p class="chapter-sub">底本 40–46 ／ グナより「一段強い」母音</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 40</span><span class="sutra-num">A 1.1.1</span><span class="sutra-text">वृद्धिरादैच् ।</span></div>
+  <div class="sutra-iast">vṛddhir ādaic</div>
+  <div class="vrtti">आदैच्च वृद्धिसंज्ञः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ā と aic（ai, au）を「ヴリッディ」という。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <b>ヴリッディ</b>（<span class="iast">vṛddhi</span>，「増大」）＝ <span class="dev">आ ऐ औ</span>。<br>
+  実はこれが<b>『アシュターディヤーイー』の第1規則（1.1.1）</b>です。最初の言葉が「ヴリッディ（繁栄）」なのは縁起が良いから、と伝統的に説明されます。<br>
+  グナとヴリッディを並べると、母音の「強さ」の段階が見えてきます：
+  <div class="tbl-wrap"><table>
+  <tr><th>基本</th><td class="dev">इ ई</td><td class="dev">उ ऊ</td><td class="dev">ऋ ॠ</td><td class="dev">(अ)</td></tr>
+  <tr><th>グナ（1段強）</th><td class="dev">ए</td><td class="dev">ओ</td><td class="dev">अर्</td><td class="dev">अ</td></tr>
+  <tr><th>ヴリッディ（2段強）</th><td class="dev">ऐ</td><td class="dev">औ</td><td class="dev">आर्</td><td class="dev">आ</td></tr>
+  </table></div>
+  </div></div>
+  <div class="point">グナ ＝ a e o ／ ヴリッディ ＝ ā ai au。この2語は必ず覚える。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 41</span><span class="sutra-num">A 6.1.88</span><span class="sutra-text">वृद्धिरेचि ।</span></div>
+  <div class="sutra-iast">vṛddhir eci</div>
+  <div class="vrtti">आदेचि परे वृद्धिरेकादेशः स्यात् । गुणापवादः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">a・ā の後に ec（e o ai au）が来ると、2音まとめて1つのヴリッディになる。グナの例外規則である。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  a + e は「a の後に母音」なので、底本 35 のグナ規則も当てはまりそうです。でも、もしグナを優先したら、この規則が使われる場面がなくなってしまいます。<br>
+  そこで、<b>より狭い場面のための規則（例外規則＝アパヴァーダ）は、一般規則に勝つ</b>、という原則が働きます。
+  </div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">कृष्ण + एकत्वम् → <b>कृष्णैकत्वम्</b>（クリシュナとの一体性）<br>गङ्गा + ओघः → <b>गङ्गौघः</b>（ガンジスの流れ）<br>देव + ऐश्वर्यम् → <b>देवैश्वर्यम्</b>（神の主権）<br>कृष्ण + औत्कण्ठ्यम् → <b>कृष्णौत्कण्ठ्यम्</b>（クリシュナへの憧れ）</div></div>
+  <div class="point">アパヴァーダ（例外規則）は一般規則に勝つ。a + i/u はグナ、a + e/o/ai/au はヴリッディ。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 42</span><span class="sutra-num">A 6.1.89</span><span class="sutra-text">एत्येधत्यूठ्सु ।</span></div>
+  <div class="sutra-iast">etyedhatyūṭhsu</div>
+  <div class="vrtti">अवर्णादेजाद्योरेत्येधत्योरूठि च परे वृद्धिरेकादेशः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">a・ā の後に、e で始まる eti（行く）・edhati（栄える）、および ūṭh が来ると、ヴリッディになる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  第3課で学ぶ <span class="dev">एङि पररूपम्</span>（底本 50）は、「接頭辞 + e で始まる動詞」なら<b>後ろの音に合わせる（pra + ejate → prejate）</b>という規則です。この規則はそれをさらに打ち消して、eti と edhati の場合だけ<b>ヴリッディに戻す</b>ためのものです。
+  </div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">उप + एति → <b>उपैति</b>（近づく）<br>उप + एधते → <b>उपैधते</b>（栄える）<br>प्रष्ठ + ऊहः → <b>प्रष्ठौहः</b>（ūh は vah「運ぶ」から作られた形）</div></div>
+  <div class="row"><div class="k">「e で始まる」<br>のはなぜ？</div><div class="v">同じ動詞でも i で始まる形のときは、ふつうのグナになります：<span class="ex">उप + इतः → <b>उपेतः</b></span>、<span class="ex">मा भवान् प्र + इदिधत् → <b>प्रेदिधत्</b></span>。</div></div>
+</div>
+
+<h3>ヴリッディになる特別な言葉（ヴァールッティカ）</h3>
+<p>以下の4つは、カーティヤーヤナが補った「この単語ならヴリッディ」というリストです。本来ならグナになるところ（a + ū、a + ṛ）がヴリッディになります。</p>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 43</span><span class="tag-v">補則</span><span class="sutra-text">अक्षादूहिन्यामुपसंख्यानम् ।</span></div>
+  <div class="sutra-iast">akṣād ūhinyām upasaṃkhyānam</div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="ex">अक्ष + ऊहिनी → <b>अक्षौहिणी</b></span>（大軍団）。※ n が ṇ になるのは別の規則（後の課）。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 44</span><span class="tag-v">補則</span><span class="sutra-text">प्रादूहोढोढ्येषैष्येषु ।</span></div>
+  <div class="sutra-iast">prād ūhoḍhoḍhyeṣaiṣyeṣu</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">pra の後に ūha, ūḍha, ūḍhi, eṣa, eṣya が来るとヴリッディ：<br><span class="ex"><b>प्रौहः</b>, <b>प्रौढः</b>（成熟した）, <b>प्रौढिः</b>, <b>प्रैषः</b>（命令）, <b>प्रैष्यः</b>（使者）</span></div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 45</span><span class="tag-v">補則</span><span class="sutra-text">ऋते च तृतीयासमासे ।</span></div>
+  <div class="sutra-iast">ṛte ca tṛtīyāsamāse</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「〜によって」の関係の複合語（具格複合語）で、後半が ṛta のときヴリッディ：<span class="ex">सुखेन ऋतः → सुख + ऋतः → <b>सुखार्तः</b></span>（幸福に満ちた）。<br>
+  具格複合語でなければふつうのグナ：<span class="ex">परम + ऋतः → <b>परमर्तः</b></span>。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 46</span><span class="tag-v">補則</span><span class="sutra-text">प्रवत्सतरकम्बलवसनार्णदशानामृणे ।</span></div>
+  <div class="sutra-iast">pravatsatarakambalavasanārṇadaśānām ṛṇe</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">pra, vatsatara, kambala, vasana, ṛṇa, daśa の後に ṛṇa（借金）が来るとヴリッディ：<br><span class="ex"><b>प्रार्णम्</b>, <b>वत्सतरार्णम्</b>（子牛の借り）, <b>कम्बलार्णम्</b>（毛布の借り）, <b>वसनार्णम्</b>（衣の借り）, <b>ऋणार्णम्</b>（借金のための借金）, <b>दशार्णम्</b></span></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">सुधी + उपास्य</span> から作られる2つの正しい形は？</summary><div>सुद्ध्युपास्यः（dh を重ねた形）と सुध्युपास्यः（重ねない形）。</div></details>
+<details class="q"><summary>Q2. 「グナ」と「ヴリッディ」に当たる母音はそれぞれ何？</summary><div>グナ ＝ a, e, o（底本 33）。ヴリッディ ＝ ā, ai, au（底本 40）。</div></details>
+<details class="q"><summary>Q3. <span class="dev">महा + ईशः</span> はどうなる？</summary><div>ā + ī → グナ（底本 35）で e：<span class="dev">महेशः</span>（大いなる主＝シヴァ）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">तव + एव</span> はどうなる？ グナにならないのはなぜ？</summary><div><span class="dev">तवैव</span>（あなたのものだけ）。a + e なので、例外規則（アパヴァーダ）のヴリッディ（底本 41）がグナに勝つ。</div></details>
+<details class="q"><summary>Q5. <span class="dev">ने + अनम्</span> はどうなる？</summary><div>e → ay（底本 29）：न् + अय् + अनम् → <span class="dev">नयनम्</span>（目）。</div></details>
+<details class="q"><summary>Q6. <span class="dev">महा + ऋषिः</span> はどうなる？</summary><div>ā + ṛ → グナ a に r が付く（底本 35, 37）：<span class="dev">महर्षिः</span>（大聖仙）。</div></details>
+<details class="q"><summary>Q7. <span class="dev">हरे + इह</span> の y を消した形が、さらにグナで <span class="iast">hareha</span> にならないのはなぜ？</summary><div>y を消す規則（8.3.19）はトリパーディーにあり、グナの規則（6.1.87）からは「起きていない」と見なされる（底本 39 पूर्वत्रासिद्धम्）。グナ規則から見ると a と i の間に y があるので、グナにならない。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson1.html">← 第1課　術語の章</a><span class="spacer"></span><a href="panini_lsk_lesson3.html">第3課　母音連声（2）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第2課　母音連声（1）<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 12–17.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：कृष्णद्धिः → कृष्णर्द्धिः、मद्धरिः → मद्ध्वरिः、प्रदिधत् → प्रेदिधत्）。
+</footer>
+
+</body>
+</html>

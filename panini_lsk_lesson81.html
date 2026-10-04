@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — स्त्रीप्रत्ययप्रकरणम् (१)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 81</div>
+  <div class="header-jp">第81課　女性接尾辞（1）-ā と -ī ── ajā, gaṅgā, bhavantī, nadī, devī, aindrī, straiṇī, gārgī, gaurī, nartakī, kumārī, trilokī, rohiṇī<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 422–426，底本 1342–1352</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>女性形の基本：ṭāp（-ā）（4.1.3，底本 1342）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>ṅīp（-ī）：bhavantī, nadī, devī（底本 1343–1345）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>家系の女性形と ṅīṣ：gārgī, gaurī, nartakī（底本 1346–1349）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>kumārī, trilokī, rohiṇī（底本 1350–1352）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　女性形の基本：ṭāp（-ā）</h2>
+<p class="chapter-sub">4.1.3，底本 1342</p>
+
+<p>『ラグ・シッダーンタ・カウムディー』最後の章です。形容詞や名詞の<b>女性形</b>をどう作るかを扱います。大きく分けて二種類：<b>-ā</b>（kāntā）と <b>-ī</b>（devī）。どちらになるかを決めるのがこの章の規則です。</p>
+<div class="note">
+  <div class="note-title">女性接尾辞の三つの -ī</div>
+  <p>ṅīp・ṅīṣ・ṅīn はどれも形は -ī で，違いはアクセントなどだけです。この教科書では「-ī が付く」と考えて読んでかまいません。-ā を作るのは ṭāp・cāp・ḍāp です。</p>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">番号なし</span><span class="sutra-num">A 4.1.3</span><span class="sutra-text">स्त्रियाम् ।</span></div>
+  <div class="sutra-iast">striyām</div>
+  <div class="vrtti">अधिकारोऽयं समर्थानामिति यावत् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「女性において」── 「samarthānām…」（4.1.82，タッディタの始まり：第62課 1068）の前まで続く見出し。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1342</span><span class="sutra-num">A 4.1.4</span><span class="sutra-text">अजाद्यतष्टाप् ।</span></div>
+  <div class="sutra-iast">ajādyataṣ ṭāp</div>
+  <div class="vrtti">अजादीनामकारान्तस्य च वाच्यं यत् स्त्रीत्वं तत्र द्योत्ये टाप् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ajā などの語と a で終わる語は，女性であることを示すとき ṭāp（-ā）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">ajādi：<b>अजा</b>（雌山羊），<b>एडका</b>（雌羊），<b>अश्वा</b>（雌馬），<b>चटका</b>（雌スズメ），<b>मूषिका</b>（雌ネズミ），<b>बाला</b>（少女），<b>वत्सा</b>（雌子牛）／ 一般の a 語幹：<b>गङ्गा</b>，<b>सर्वा</b>（すべての［女性］）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ajādi の語はみな a で終わるのに，なぜ別に挙げるのか？ ── 動物の種類（jāti）を表す語は本来 -ī（後の規則）になるはずなので，「これらは -ā だ」と例外を明示しているのです。おなじみの -ā で終わる女性名詞・形容詞（<span class="dev">रमा, कान्ता</span>）の -ā もこの ṭāp です。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　ṅīp（-ī）：bhavantī, nadī, devī</h2>
+<p class="chapter-sub">底本 1343–1345</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1343</span><span class="sutra-num">A 4.1.6</span><span class="sutra-text">उगितश्च ।</span></div>
+  <div class="sutra-iast">ugitaś ca</div>
+  <div class="vrtti">उगिदन्तात्प्रातिपदिकात्स्त्रियां ङीप् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">uk（u・ṛ・ḷ）を目印にもつ語は，女性で ṅīp（-ī）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">bhavat（śatṛ：ṛ が目印）→ <b>भवन्ती</b>（ある［女］）／ <b>पचन्ती</b>（料理している［女］）／ 同様に <span class="dev">श्रीमती, धनवती</span>（matup の u が目印）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">現在分詞 -at（śatṛ），-mat/-vat（matup）などの女性形は -ī。n が入るかどうかは別の規則によります（第15課 316 など）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1344</span><span class="sutra-num">A 4.1.15</span><span class="sutra-text" style="overflow-wrap:anywhere">टिड्ढाणञ्द्वयसज्दघ्नञ्मात्रच्तयप्ठक्ठञ्कञ्क्वरपः ।</span></div>
+  <div class="sutra-iast" style="overflow-wrap:anywhere">ṭiḍḍhāṇañdvayasajdaghnañmātractayapṭhakṭhañkañkvarapaḥ</div>
+  <div class="vrtti">अनुपसर्जनं यट्टिदादि तदन्तं यददन्तं प्रातिपदिकं ततः स्त्रियां ङीप् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（複合語の従属要素でない）ṭ を目印にもつもの，ḍha・aṇ・añ・dvayasac・daghnac・mātrac・tayap・ṭhak・ṭhañ・kañ・kvarap で終わる a 語幹には，女性で ṅīp（-ī）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">ṭit：<b>कुरुचरी</b>（クル国を行く女：第49課 845 <span class="dev">चरेष्टः</span>），<b>नदी</b>，<b>देवी</b>／ ḍha：<b>सौपर्णेयी</b>／ aṇ：<b>ऐन्द्री</b>（インドラへの［讃歌］）／ añ：<b>औत्सी</b>／ <b>ऊरुद्वयसी, ऊरुदघ्नी, ऊरुमात्री</b>／ <b>पञ्चतयी</b>／ ṭhak：<b>आक्षिकी</b>／ ṭhañ：<b>प्रास्थिकी, लावणिकी</b>／ kañ：<b>यादृशी</b>／ kvarap：<b>इत्वरी</b>（さまよう女）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">タッディタの章で学んだ接尾辞の多くは，女性形がこの規則で -ī になります。ṭi の目印をもつ語（nada, deva は ṭit の接尾辞で作られたとみなす）も同様。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1345</span><span class="tag-v">ヴァールッティカ</span><span class="sutra-text">नञ्स्नञीकक्ख्युंस्तरुणतलुनानामुपसंख्यानम् ।</span></div>
+  <div class="sutra-iast" style="overflow-wrap:anywhere">nañsnañīkakkhyuṃstaruṇatalunānām upasaṃkhyānam</div>
+  <div class="row"><div class="k">訳</div><div class="v">nañ・snañ・īkak・khyun で終わる語と，taruṇa・taluna（若い）も（1344 に）追加で数える。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>स्त्रैणी</b>（女の），<b>पौंस्नी</b>（男の）／ <b>शाक्तीकी</b>（槍を持つ女）／ <b>आढ्यंकरणी</b>（貧者を富ませる女：khyun）／ <b>तरुणी</b>，<b>तलुनी</b>（若い女）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　家系の女性形と ṅīṣ：gārgī, gaurī, nartakī</h2>
+<p class="chapter-sub">底本 1346–1349</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1346</span><span class="sutra-num">A 4.1.16</span><span class="sutra-text">यञश्च ।</span></div>
+  <div class="sutra-iast">yañaś ca</div>
+  <div class="vrtti">यञन्तात् स्त्रियां ङीप्स्यात् । अकारलोपे कृते —</div>
+  <div class="row"><div class="k">訳</div><div class="v">yañ で終わる語にも女性で ṅīp が付く。（語末の a が落ちた後で —）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1347</span><span class="sutra-num">A 6.4.150</span><span class="sutra-text">हलस्तद्धितस्य ।</span></div>
+  <div class="sutra-iast">halas taddhitasya</div>
+  <div class="vrtti">हलः परस्य तद्धितयकारस्योपधाभूतस्य लोप ईति परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ī の前で，子音の後にあるタッディタの y（語末から二番目）は落ちる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">gārgya + ī → gārgy-ī → y が落ちて <b>गार्गी</b>（ガルガ家の女性）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ウパニシャッドに登場する女性哲学者ガールギーの名です（第63課 1082 の gārgya の女性形）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1348</span><span class="sutra-num">A 4.1.17</span><span class="sutra-text">प्राचां ष्फ तद्धितः ।</span></div>
+  <div class="sutra-iast">prācāṃ ṣpha taddhitaḥ</div>
+  <div class="vrtti">यञन्तात् ष्फो वा स्यात् स च तद्धितः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">東方の文法家の説では，yañ で終わる語に任意に ṣpha が付き，それはタッディタとみなされる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ph = āyan（第63課 1087）なので gārgya + āyana。ṣ の目印があるので，次の 1349 で ṅīṣ が付きます。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1349</span><span class="sutra-num">A 4.1.41</span><span class="sutra-text">षिद्गौरादिभ्यश्च ।</span></div>
+  <div class="sutra-iast">ṣidgaurādibhyaś ca</div>
+  <div class="vrtti">ङीष् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṣ を目印にもつ接尾辞で終わる語と，gaura などの語には，ṅīṣ（-ī）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>गार्ग्यायणी</b>（1348）／ <b>नर्तकी</b>（踊り子：ṣvun で作った nartaka）／ gaurādi：<b>गौरी</b>（パールヴァティー），<b>अनडुही</b>／<b>अनड्वाही</b>（雌牛）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">nartaka は「職人」の意味の ṣvun（3.1.145）で作られ，ṣ は第52課 892 <span class="dev">षः प्रत्ययस्य</span> で消えています。目に見えない ṣ が女性形を -ī にするわけです。第60課 1043 の <span class="dev">जलजाक्षी</span>，第65課 1126 の <span class="dev">मातामही</span> もこの規則です。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　kumārī, trilokī, rohiṇī</h2>
+<p class="chapter-sub">底本 1350–1352</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1350</span><span class="sutra-num">A 4.1.20</span><span class="sutra-text">वयसि प्रथमे ।</span></div>
+  <div class="sutra-iast">vayasi prathame</div>
+  <div class="vrtti">प्रथमवयोवाचिनोऽदन्तात् ङीप् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">人生の最初の時期（若さ）を表す a 語幹には，ṅīp が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>कुमारी</b>（未婚の娘）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">a 語幹なのに 1342 の -ā にならない例外です。<span class="dev">किशोरी</span>（少女）も同様。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1351</span><span class="sutra-num">A 4.1.21</span><span class="sutra-text">द्विगोः ।</span></div>
+  <div class="sutra-iast">dvigoḥ</div>
+  <div class="vrtti">अदन्ताद् द्विगोर्ङीप् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">a で終わるドヴィグには ṅīp が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>त्रिलोकी</b>（三界）／ 除外（ajādi に含まれるので -ā）：<b>त्रिफला</b>（三種の果実），<b>त्र्यनीका</b>（三部隊）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第58課 1006 では集合のドヴィグは中性（pañcagavam）でしたが，a で終わる語の一部は女性 -ī になります（<span class="dev">पञ्चवटी</span>：五本の樹）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1352</span><span class="sutra-num">A 4.1.39</span><span class="sutra-text">वर्णादनुदात्तात्तोपधात्तो नः ।</span></div>
+  <div class="sutra-iast">varṇād anudāttāt topadhāt to naḥ</div>
+  <div class="vrtti">वर्णवाची योऽनुदात्तान्तस्तोपधस्तदन्तादनुपसर्जनात्प्रातिपदिकाद्वा ङीप् तकारस्य नकारादेशश्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">色を表し，語末が低アクセントで，語末から二番目が t である語には，任意に ṅīp が付き，その t は n に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">eta（まだらの）→ <b>एनी</b>／<b>एता</b>（まだらの雌鹿）／ rohita（赤い）→ <b>रोहिणी</b>／<b>रोहिता</b></div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">rohiṇī の ṇ は r の後の ṇatva（第6課 157 <span class="dev">अट्कुप्वाङ्नुम्व्यवायेऽपि</span>）。ローヒニーは星宿の名，クリシュナの兄バララーマの母の名でもあります。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「雌山羊」はなぜ ajī でなく <span class="dev">अजा</span>？</summary><div>ajādi に含まれるので ṭāp（1342）。</div></details>
+<details class="q"><summary>Q2. 「ある（女）」<span class="dev">भवन्ती</span> の -ī は？</summary><div>śatṛ の ṛ が目印（ugit）なので ṅīp（1343）。</div></details>
+<details class="q"><summary>Q3. 「ガルガ家の女性」は？ y はどうなった？</summary><div><span class="dev">गार्गी</span>。ī の前でタッディタの y が落ちる（1347）。</div></details>
+<details class="q"><summary>Q4. 「踊り子」<span class="dev">नर्तकी</span> の -ī の理由は？</summary><div>ṣvun の ṣ の目印（ṣit）なので ṅīṣ（1349）。</div></details>
+<details class="q"><summary>Q5. 「未婚の娘」は？</summary><div><span class="dev">कुमारी</span>（1350）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson80.html">← 第80課　タッディタ（19）</a><span class="spacer"></span><a href="panini_lsk_lesson82.html">第82課　女性接尾辞（2）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第81課　女性接尾辞（1）-ā と -ī<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 422–426.<br>
+  訂正例：टिड्ढाणञ्…तयप्ठञ्ठक्ञं-कञ्क्वरपः → …तयप्ठक्ठञ्कञ्क्वरपः、प्राचां ष्फस्तद्धितः → प्राचां ष्फ तद्धितः、द्विगोर्डीप् → द्विगोर्ङीप्。「स्त्रियाम्」（A 4.1.3）は底本で番号が付いていません。
+</footer>
+
+</body>
+</html>

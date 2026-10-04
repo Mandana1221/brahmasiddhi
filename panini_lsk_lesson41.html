@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तिङन्ते तनादयः</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 41</div>
+  <div class="header-jp">第41課　第8類動詞 ── -u- を入れる動詞：tan「広げる」，san「与える」，kṛ「する」，man「考える」<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 259–263，底本 720–730</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>tan「広げる」：tanoti, atata（底本 720–721）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>san「与える」：sāyāt, asāta（底本 722–723）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>kṣaṇ・kṣiṇ・tṛṇ</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>kṛ「する」：karoti, kurvanti, kuryāt（底本 724–727）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>saṃskaroti と upaskaroti（底本 728–730）</a></li>
+    <li><a href="#ch6"><span class="n">第6章</span>van・man（アートマネーパダ）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　tan「広げる」</h2>
+<p class="chapter-sub">底本 720–721 ／ <span class="dev">तनु विस्तारे</span>（両方の語尾）</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 720</span><span class="sutra-num">A 3.1.79</span><span class="sutra-text">तनादिकृञ्भ्य उः ।</span></div>
+  <div class="sutra-iast">tanādikṛñbhya uḥ</div>
+  <div class="vrtti">शपोऽपवादः ।</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第32課 609 と同じスートラ（底本の再掲）。第8類は <b>-u-</b>（単数で -o-）を入れる類：<span class="ex"><b>तनोति / तनुते</b></span>（広げる）。第5類の -nu- とよく似ています。</div></div>
+</div>
+<p>完了 <span class="ex">ततान / तेने</span>（第25課 495）、<span class="ex">तनिता, तनिष्यति</span>、命令 <span class="ex">तनोतु / तनुताम्</span>、過去 <span class="ex">अतनोत् / अतनुत</span>、願望 <span class="ex">तनुयात् / तन्वीत</span>、祈願 <span class="ex">तन्यात् / तनिषीष्ट</span>。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 721</span><span class="sutra-num">A 2.4.79</span><span class="sutra-text">तनादिभ्यस्तथासोः ।</span></div>
+  <div class="sutra-iast">tanādibhyas tathāsoḥ</div>
+  <div class="vrtti">तनादेः सिचो वा लुक् स्यात्तथासोः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">tan などの語根の後では、ta・thās（アオリストのアートマネーパダ3単・2単）の前で sic が任意に消える。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>अतत / अतनिष्ट</b>（彼は広げた）、<b>अतथाः / अतनिष्ठाः</b>（あなたは広げた）── atata の n は第31課 597 で脱落</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">注釈：thās と並んでいるので、ta も<b>単数の</b> ta（Ā 3単）だけを指す。パラスマイパダ2複の <span class="dev">अतनिष्ट</span>（あなたたちは広げた）では sic は消えない。</div></div>
+</div>
+<p>パラスマイパダのアオリストは <span class="ex">अतानीत् / अतनीत्</span>（第25課 492 で任意のヴリッディ）、条件法 <span class="ex">अतनिष्यत्</span>。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　san「与える」</h2>
+<p class="chapter-sub">底本 722–723 ／ <span class="dev">षणु दाने</span></p>
+
+<p><span class="ex">सनोति / सनुते</span>（与える）。祈願 <span class="dev">सन् + यात्</span> は？</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 722</span><span class="sutra-num">A 6.4.43</span><span class="sutra-text">ये विभाषा ।</span></div>
+  <div class="sutra-iast">ye vibhāṣā</div>
+  <div class="vrtti">जनसनखनामात्त्वं वा यादौ क्ङिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jan, san, khan は、y で始まる k・ṅ 付きの接辞の前で、任意に（末尾が）ā になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>सायात् / सन्यात्</b>（与えますように）、<span class="dev">खायते / खन्यते</span>（掘られる）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 723</span><span class="sutra-num">A 6.4.42</span><span class="sutra-text">जनसनखनां सञ्झलोः ।</span></div>
+  <div class="sutra-iast">janasanakhanāṃ sañjhaloḥ</div>
+  <div class="vrtti">एषामाकारोऽन्तादेशः स्यात्सनि झलादौ क्ङिति च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jan, san, khan の末尾は、san（願望動詞）および jhal で始まる k・ṅ 付きの接辞の前で、ā になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">アオリスト Ā <b>असात / असनिष्ट</b>（721 で sic 消失）、<b>असाथाः / असनिष्ठाः</b>／過去分詞 <span class="dev">जात</span>（生まれた）, <span class="dev">खात</span>（掘られた）</div></div>
+</div>
+<p>パラスマイパダのアオリスト <span class="ex">असानीत् / असनीत्</span>、祈願 Ā <span class="ex">सनिषीष्ट</span>。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　kṣaṇ・kṣiṇ・tṛṇ</h2>
+
+<p>kṣaṇ「傷つける」：<span class="ex">क्षणोति / क्षणुते</span>、アオリスト <span class="ex">अक्षणीत्</span>（ṇ で終わるのでヴリッディなし：第25課 501）／ Ā <span class="ex">अक्षत / अक्षणिष्ट</span>（721）。</p>
+<p>kṣiṇ「傷つける」：<span class="ex">क्षिणोति / क्षेणोति</span>。グナが任意なのは、学者たちが立てた「<span class="dev">उप्रत्यये लघूपधस्य गुणो वा</span>」（u 接辞の前のウパダーのグナは任意）という説明のため、と注釈は述べます。<span class="ex">क्षेणिता</span>、アオリスト <span class="ex">अक्षेणीत् / अक्षित, अक्षेणिष्ट</span>。</p>
+<p>tṛṇ「食べる」：<span class="ex">तृणोति / तर्णोति, तृणुते / तर्णुते</span>（同じ理由）。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　kṛ「する」</h2>
+<p class="chapter-sub">底本 724–727 ／ <span class="dev">डुकृञ् करणे</span>（両方の語尾）</p>
+
+<p>いよいよ最重要動詞のひとつ kṛ「する・作る」です。<span class="dev">कृ + उ + ति</span> → 2つのグナで <span class="ex"><b>करोति</b></span>。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 724</span><span class="sutra-num">A 6.4.110</span><span class="sutra-text">अत उत्सार्वधातुके ।</span></div>
+  <div class="sutra-iast">ata ut sārvadhātuke</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第32課 610 の再掲。k・ṅ 付き語尾の前で kar-u の a → u：<span class="ex"><b>कुरुतः, कुरुते</b></span>。</div></div>
+</div>
+<p>3人称複数 <span class="dev">कुरु + अन्ति</span> → u → v → <span class="dev">कुर्व् + अन्ति</span>。ここで第35課 652（r の後のウパダー ik は子音の前で長く）が働きそうですが……</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 725</span><span class="sutra-num">A 8.2.79</span><span class="sutra-text">न भकुर्छुराम् ।</span></div>
+  <div class="sutra-iast">na bhakurchurām</div>
+  <div class="vrtti">भस्य कुर्छुरोश्चोपधाया न दीर्घः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">bha と呼ばれる語幹（第7課 185）、kur（kṛ の語幹）、chur（切る）のウパダーは長くならない。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>कुर्वन्ति / कुर्वते</b>（*kūrvanti にならない）、<span class="dev">कुर्यात्</span></div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 726</span><span class="sutra-num">A 6.4.108</span><span class="sutra-text">नित्यं करोतेः ।</span></div>
+  <div class="sutra-iast">nityaṃ karoteḥ</div>
+  <div class="vrtti">करोतेः प्रत्ययोकारस्य नित्यं लोपो म्वोः परयोः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">kṛ の接辞 u は、m・v の前で必ず脱落する。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>कुर्वः, कुर्मः / कुर्वहे, कुर्महे</b>（*kuruvaḥ にならない）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第27課 538（任意）の<b>必須版</b>。注釈：スートラで「mvoḥ」と m を先に書くのは、v を先にすると第23課 464 で v が消えて読みにくくなるから、とのこと。</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>कृ — लट्（現在・パラスマイパダ）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>करोति<small>karoti</small></td><td>कुरुतः<small>kurutaḥ</small></td><td>कुर्वन्ति<small>kurvanti</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>करोषि<small>karoṣi</small></td><td>कुरुथः<small>kuruthaḥ</small></td><td>कुरुथ<small>kurutha</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>करोमि<small>karomi</small></td><td>कुर्वः<small>kurvaḥ</small></td><td>कुर्मः<small>kurmaḥ</small></td></tr>
+</table></div>
+<div class="tbl-wrap"><table class="para"><caption>कृ — लट्（現在・アートマネーパダ）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>कुरुते<small>kurute</small></td><td>कुर्वाते<small>kurvāte</small></td><td>कुर्वते<small>kurvate</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>कुरुषे<small>kuruṣe</small></td><td>कुर्वाथे<small>kurvāthe</small></td><td>कुरुध्वे<small>kurudhve</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>कुर्वे<small>kurve</small></td><td>कुर्वहे<small>kurvahe</small></td><td>कुर्महे<small>kurmahe</small></td></tr>
+</table></div>
+<p>願望 <span class="dev">कुरु + यात्</span> では：</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 727</span><span class="sutra-num">A 6.4.109</span><span class="sutra-text">ये च ।</span></div>
+  <div class="sutra-iast">ye ca</div>
+  <div class="vrtti">कृञ उलोपो यादौ प्रत्यये परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">y で始まる接辞の前でも、kṛ の u は脱落する。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>कुर्यात्</b>（するべし）／ Ā <b>कुर्वीत</b></div></div>
+</div>
+<div class="tbl-wrap"><table>
+<tr><th>ラカーラ</th><th>パラスマイパダ</th><th>アートマネーパダ</th></tr>
+<tr><td>完了</td><td class="dev">चकार, चक्रतुः, चक्रुः；2単 चकर्थ</td><td class="dev">चक्रे</td></tr>
+<tr><td>複合未来</td><td class="dev">कर्ता</td><td class="dev">कर्ता</td></tr>
+<tr><td>単純未来</td><td class="dev">करिष्यति</td><td class="dev">करिष्यते</td></tr>
+<tr><td>命令</td><td class="dev">करोतु, कुरु, करवाणि</td><td class="dev">कुरुताम्, कुरुष्व, करवै</td></tr>
+<tr><td>過去</td><td class="dev">अकरोत्, अकुरुताम्, अकुर्वन्</td><td class="dev">अकुरुत</td></tr>
+<tr><td>願望</td><td class="dev">कुर्यात्</td><td class="dev">कुर्वीत</td></tr>
+<tr><td>祈願</td><td class="dev">क्रियात्</td><td class="dev">कृषीष्ट</td></tr>
+<tr><td>アオリスト</td><td class="dev">अकार्षीत्</td><td class="dev">अकृत</td></tr>
+<tr><td>条件法</td><td class="dev">अकरिष्यत्</td><td class="dev">अकरिष्यत</td></tr>
+</table></div>
+<p>命令 <span class="ex">कुरु</span>（せよ）は第27課 539 で hi が消えた形。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　saṃskaroti と upaskaroti</h2>
+<p class="chapter-sub">底本 728–730</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 728</span><span class="sutra-num">A 6.1.137</span><span class="sutra-text">सम्परिभ्यां करोतौ भूषणे ।</span></div>
+  <div class="sutra-iast">samparibhyāṃ karotau bhūṣaṇe</div>
+  <div class="row"><div class="k">訳</div><div class="v">sam・pari の後の「飾る」意味の kṛ には、suṭ（s）が前に付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>संस्करोति</b>（飾る・整える）、<b>परिष्करोति</b></div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 729</span><span class="sutra-num">A 6.1.138</span><span class="sutra-text">समवाये च ।</span></div>
+  <div class="sutra-iast">samavāye ca</div>
+  <div class="vrtti">सम्परिपूर्वस्य करोतेः सुट् स्याद्भूषणे सङ्घाते चार्थे । सम्पूर्वस्य क्वचिदभूषणेऽपि सुट्, संस्कृतं भक्षा इति ज्ञापकात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「集まる」意味でも suṭ が付く。sam の後では「飾る」以外の意味でも suṭ が付くことがある。パーニニ自身が「saṃskṛtaṃ bhakṣāḥ」（A 4.4.3）と書いていることがその証拠（ジュニャーパカ）である。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>संस्कुर्वन्ति</b>（集まる）、<b>संस्कृत</b>（整えられた＝サンスクリット！）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「サンスクリット」という言語名そのものが、この規則で説明される形です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 730</span><span class="sutra-num">A 6.1.139</span><span class="sutra-text">उपात्प्रतियत्नवैकृतवाक्याध्याहारेषु च ।</span></div>
+  <div class="sutra-iast">upāt pratiyatnavaikṛtavākyādhyāhāreṣu ca</div>
+  <div class="vrtti">उपात्कृञः सुट् स्यादेष्वर्थेषु चात्प्रागुक्तयोरर्थयोः । प्रतियत्नो गुणाधानम् । विकृतमेव वैकृतं विकारः । वाक्याध्याहार आकाङ्क्षितैकदेशपूरणम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">upa の後の kṛ には、「性質を付け加える」「変化させる」「文の欠けた部分を補う」意味、および（ca によって）前述の2つの意味で、suṭ が付く。</div></div>
+</div>
+<div class="tbl-wrap"><table>
+<tr><th>意味</th><th>例文</th><th>訳</th></tr>
+<tr><td>飾る</td><td class="dev">उपस्कृता कन्या</td><td>飾られた娘</td></tr>
+<tr><td>集まる</td><td class="dev">उपस्कृता ब्राह्मणाः</td><td>集まったバラモンたち</td></tr>
+<tr><td>性質を加える</td><td class="dev">एधो दकस्योपस्कुरुते</td><td>薪が水に性質を与える（温める）</td></tr>
+<tr><td>変化</td><td class="dev">उपस्कृतं भुङ्क्ते</td><td>調理されたものを食べる</td></tr>
+<tr><td>補う</td><td class="dev">उपस्कृतं ब्रूते</td><td>言葉を補って話す</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch6">
+<h2 class="chapter">第6章　van・man（アートマネーパダ）</h2>
+<p>van「求める」：<span class="ex">वनुते, ववने</span>。man「理解する」（<span class="dev">मनु अवबोधने</span>）：</p>
+<div class="tbl-wrap"><table>
+<tr><th>形</th><th>語形</th></tr>
+<tr><td>現在・命令・過去</td><td class="dev">मनुते, मनुताम्, अमनुत</td></tr>
+<tr><td>完了</td><td class="dev">मेने</td></tr>
+<tr><td>未来</td><td class="dev">मनिता, मनिष्यते</td></tr>
+<tr><td>願望・祈願</td><td class="dev">मन्वीत, मनिषीष्ट</td></tr>
+<tr><td>アオリスト</td><td class="dev">अमत, अमनिष्ट（721）</td></tr>
+<tr><td>条件法</td><td class="dev">अमनिष्यत</td></tr>
+</table></div>
+<p>※ 第4類の man「考える」は <span class="ex">मन्यते</span>（よく使うのはこちら）。底本はここで第8類を終えます（<span class="dev">इति तनादयः</span>）。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">अतत</span>（彼は広げた）の作り方は？</summary><div>ta の前で sic が消え（721）、n も脱落（597）。</div></details>
+<details class="q"><summary>Q2. 「与えますように」を2通りで。</summary><div><span class="dev">सायात् / सन्यात्</span>（722）。</div></details>
+<details class="q"><summary>Q3. 「私たちはする」は？</summary><div><span class="dev">कुर्मः</span>（724 で u、726 で接辞 u 脱落）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">कुर्वन्ति</span> の u が長くならないのは？</summary><div>kur のウパダーは長くしない（725）。</div></details>
+<details class="q"><summary>Q5. 「するべし」は？</summary><div><span class="dev">कुर्यात्</span>（727）。</div></details>
+<details class="q"><summary>Q6. 「サンスクリット」の s はどこから？</summary><div>sam の後の kṛ に付く suṭ（728・729）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson40.html">← 第40課　第7類動詞</a><span class="spacer"></span><a href="panini_lsk_lesson42.html">第42課　第9類動詞 →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第41課　第8類動詞<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 259–263.<br>
+  訂正例：विभाषा जनसनखनम्（722）→ ये विभाषा（OCRはヴリッティの語をスートラ名にしていました）、न भकुर्कुराम् → न भकुर्छुराम्、अमस्त → अमत、संस्कृत संस्कृत → संस्कुरुते、तिनुयात् → तनुयात्。720・724 は第32課 609・610 の再掲です。
+</footer>
+
+</body>
+</html>

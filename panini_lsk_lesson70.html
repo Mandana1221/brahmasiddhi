@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तद्धितप्रकरणम् (९) शैषिकाः (३) जातार्थाः भवार्थाश्च</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 70</div>
+  <div class="header-jp">第70課　タッディタ（9）「〜で生まれた」「〜にある」── sraughna, kauśeya, dantya, kaṇṭhya, ādhyātmika, aihalaukika, kavargīya<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 385–387，底本 1173–1183</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>「そこで生まれた」「よく現れる」（底本 1173–1177）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>「そこにある」：dantya, ādhyātmika（底本 1178–1183）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　「そこで生まれた」「よく現れる」</h2>
+<p class="chapter-sub">底本 1173–1177</p>
+
+<p>前の二課で学んだ gha（-iya），kha（-īna），ḍhak（-eya），cha（-īya）などの接尾辞を，ここからは具体的な意味と結びつけます（第68課 1152 の注）。注釈の例によく出る <span class="dev">स्रुघ्न</span>（スルグナ）は，ガンジス川上流の古い町の名前です。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1173</span><span class="sutra-num">A 4.3.25</span><span class="sutra-text">तत्र जातः ।</span></div>
+  <div class="sutra-iast">tatra jātaḥ</div>
+  <div class="vrtti">सप्तमीसमर्थाज्जात इत्यर्थेऽणादयो घादयश्च स्युः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">処格の語に，「そこで生まれた」の意味で aṇ など・gha などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">स्रुघ्ने जातः</span> → <b>स्रौघ्नः</b>（スルグナ生まれの）／ <b>औत्सः</b>（泉で生まれた）／ <b>राष्ट्रियः</b>（国で生まれた：第68課 1151 の gha）／ <b>अवारपारीणः</b>（両岸で生まれた：kha）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1174</span><span class="sutra-num">A 4.3.26</span><span class="sutra-text">प्रावृषष्ठप् ।</span></div>
+  <div class="sutra-iast">prāvṛṣaṣ ṭhap</div>
+  <div class="row"><div class="k">訳</div><div class="v">prāvṛṣ（雨季）には，「そこで生まれた」の意味で ṭhap（-ika）が付く（第69課 1171 の eṇya の例外）。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>प्रावृषिकः</b>（雨季に生まれた）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ṭhap は p が目印でヴリッディしません（prā- はもともと長い）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1175</span><span class="sutra-num">A 4.3.39</span><span class="sutra-text">प्रायभवः ।</span></div>
+  <div class="sutra-iast">prāyabhavaḥ</div>
+  <div class="vrtti">तत्रेत्येव ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">処格の語に，「そこにたいていいる（よく現れる）」の意味で aṇ などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">स्रुघ्ने प्रायेण भवति</span> → <b>स्रौघ्नः</b></div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1176</span><span class="sutra-num">A 4.3.41</span><span class="sutra-text">सम्भूते ।</span></div>
+  <div class="sutra-iast">sambhūte</div>
+  <div class="row"><div class="k">訳</div><div class="v">処格の語に，「そこで生じうる」の意味で aṇ などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">स्रुघ्ने सम्भवति</span> → <b>स्रौघ्नः</b></div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">同じ sraughna でも「生まれた」「よくいる」「生じうる」と意味が違います。文脈で区別します。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1177</span><span class="sutra-num">A 4.3.42</span><span class="sutra-text">कोशाड्ढञ् ।</span></div>
+  <div class="sutra-iast">kośāḍ ḍhañ</div>
+  <div class="row"><div class="k">訳</div><div class="v">kośa（繭）には，「そこで生じた」の意味で ḍhañ（-eya）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>कौशेयं वस्त्रम्</b>（絹の衣）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">kauśeya は「絹」の一般的な語になりました。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　「そこにある」：dantya, ādhyātmika</h2>
+<p class="chapter-sub">底本 1178–1183</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1178</span><span class="sutra-num">A 4.3.53</span><span class="sutra-text">तत्र भवः ।</span></div>
+  <div class="sutra-iast">tatra bhavaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">処格の語に，「そこにある（いる）」の意味で aṇ などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>स्रौघ्नः</b>（スルグナにいる），<b>औत्सः</b>，<b>राष्ट्रियः</b></div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1179</span><span class="sutra-num">A 4.3.54</span><span class="sutra-text">दिगादिभ्यो यत् ।</span></div>
+  <div class="sutra-iast">digādibhyo yat</div>
+  <div class="row"><div class="k">訳</div><div class="v">diś（方角）などの語には（「そこにある」の意味で）yat（-ya）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>दिश्यम्</b>（方角にある），<b>वर्ग्यम्</b>（グループにある）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1180</span><span class="sutra-num">A 4.3.55</span><span class="sutra-text">शरीरावयवाच्च ।</span></div>
+  <div class="sutra-iast">śarīrāvayavāc ca</div>
+  <div class="row"><div class="k">訳</div><div class="v">体の部分を表す語にも yat が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>दन्त्यम्</b>（歯にある＝歯音），<b>कण्ठ्यम्</b>（喉にある＝喉音）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">音声学の用語 dantya（歯音），kaṇṭhya（喉音），tālavya（口蓋音），oṣṭhya（唇音）はみなこの規則で作られます。<br>ヴァールッティカ（バーシュヤ）：<span class="dev">अध्यात्मादेष्ठञिष्यते</span> ── adhyātma などには ṭhañ：<b>आध्यात्मिकम्</b>（自己にある，精神的な）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1181</span><span class="sutra-num">A 7.3.20</span><span class="sutra-text">अनुशतिकादीनां च ।</span></div>
+  <div class="sutra-iast">anuśatikādīnāṃ ca</div>
+  <div class="vrtti">एषामुभयपदवृद्धिर्ञिति णिति किति च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">anuśatika などの語では，ñ・ṇ・k を目印とするタッディタの前で，<b>前後両方の語</b>の最初の母音がヴリッディになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>आधिदैविकम्</b>（神々に関わる），<b>आधिभौतिकम्</b>（物質的な），<b>ऐहलौकिकम्</b>（この世の），<b>पारलौकिकम्</b>（あの世の）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">aihalaukika では iha → aiha，loka → lauka の両方が変化。「三種の苦」<span class="dev">आध्यात्मिक・आधिभौतिक・आधिदैविक</span> はインド哲学の基本用語です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1182</span><span class="sutra-num">A 4.3.62</span><span class="sutra-text">जिह्वामूलाङ्गुलेश्छः ।</span></div>
+  <div class="sutra-iast">jihvāmūlāṅguleś chaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">jihvāmūla（舌根）と aṅguli（指）には cha（-īya）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>जिह्वामूलीयम्</b>（舌根音），<b>अङ्गुलीयम्</b>（指にあるもの＝指輪）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1183</span><span class="sutra-num">A 4.3.63</span><span class="sutra-text">वर्गान्ताच्च ।</span></div>
+  <div class="sutra-iast">vargāntāc ca</div>
+  <div class="row"><div class="k">訳</div><div class="v">varga で終わる語にも cha が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>कवर्गीयम्</b>（k 列の音）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">この教科書でも使ってきた「ka-varga（k, kh, g, gh, ṅ）」の形容詞です。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「絹の衣」は？</summary><div><span class="dev">कौशेयं वस्त्रम्</span>（1177）。</div></details>
+<details class="q"><summary>Q2. 「歯音」「喉音」は？</summary><div><span class="dev">दन्त्यम्, कण्ठ्यम्</span>（1180）。</div></details>
+<details class="q"><summary>Q3. <span class="dev">ऐहलौकिकम्</span> で二か所ヴリッディするのは？</summary><div>anuśatikādi の語なので前後両方の語がヴリッディ（1181）。</div></details>
+<details class="q"><summary>Q4. 「指輪」を表す語は？</summary><div><span class="dev">अङ्गुलीयम्</span>（1182）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson69.html">← 第69課　タッディタ（8）</a><span class="spacer"></span><a href="panini_lsk_lesson71.html">第71課　タッディタ（10）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第70課　タッディタ（9）「〜で生まれた」「〜にある」<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 385–387.<br>
+  訂正例：तंत्र जातेः । ४।३।१५ → तत्र जातः । ४।३।२५、प्राँवृषष्ठऐ → प्रावृषष्ठप्、प्रायर्भवः → प्रायभवः、कोशाईं → कोशाड्ढञ्、तंत्र भवैः → तत्र भवः、（११८९）दिगौदिभ्यो → 1179 दिगादिभ्यो、शरीरावयवांचं → शरीरावयवाच्च、अध्यात्मादेष्ठत्रिष्यते → अध्यात्मादेष्ठञिष्यते、जिह्वामूलाँङ्गुलेश्छंः → जिह्वामूलाङ्गुलेश्छः、वर्गान्तौर्च → वर्गान्ताच्च。底本の「सुन्न／बुन्न」は स्रुघ्न（町の名）の OCR の乱れです。<br>
+  ページ画像（2026年10月にいただいたPDF）で確かめました：p. 386 の 1177–1181 は教科書どおりです。上の訂正例のうち कोशाड्ढञ्・तत्र भवः・शरीरावयवाच्च・अध्यात्मादेष्ठञिष्यते は，底本では正しく印刷されており，OCRの読み誤りでした。1179 を「(११८९)」とするのは底本の誤植です。
+</footer>
+
+</body>
+</html>

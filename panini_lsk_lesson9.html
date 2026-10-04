@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — अजन्तपुंलिङ्गम् (४)</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 9</div>
+  <div class="header-jp">第9課　名詞の変化（4）── 長い ī・ū で終わる男性名詞：y になるか、iy になるか<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 54–61，底本 214–223, 232–234</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#intro"><span class="n">導入</span>長い ī・ū の名詞は「4つのタイプ」</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>papī「太陽」：普通の ī（底本 214）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>bahuśreyasī：「ナディー」の ī（底本 215–219）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>pradhī・nī：動詞語根の ī（底本 220–223）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>ū で終わる名詞：khalapū, svabhū ほか（底本 232–234）</a></li>
+    <li><a href="#summary"><span class="n">まとめ</span>タイプ別の比較表</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="intro">
+<h2 class="chapter">長い ī・ū の名詞は「4つのタイプ」</h2>
+<p class="lead">短い i・u の名詞（第8課）は、ほとんど hari 型で済みました。しかし長い ī・ū で終わる<b>男性</b>名詞は、語の成り立ちによって変化が分かれます。この課のポイントは、母音の前で ī・ū が</p>
+<div class="tbl-wrap"><table>
+<tr><th>変わり方</th><th>例</th><th>名前</th></tr>
+<tr><td>① <b>y・v</b> になる（ヤン）</td><td class="ex">प्रधी + औ → प्रध्यौ</td><td>yaṇ（第1課 底本 21）</td></tr>
+<tr><td>② <b>iy・uv</b> になる（イヤン・ウヴァン）</td><td class="ex">नी + औ → नियौ</td><td>iyaṅ・uvaṅ（底本 220）</td></tr>
+</table></div>
+<p>のどちらになるか、という点です。さらに、もともと<b>女性名詞</b>だった語（ナディー）は特別な語尾をとります。</p>
+<div class="tbl-wrap"><table>
+<tr><th>タイプ</th><th>代表例</th><th>特徴</th></tr>
+<tr><td>A 普通の ī</td><td class="dev">पपी</td><td>母音の前で y。属格複数に n が付かない</td></tr>
+<tr><td>B ナディー</td><td class="dev">बहुश्रेयसी</td><td>女性名詞由来。-yai, -yāḥ, -yām の語尾</td></tr>
+<tr><td>C 動詞語根（複音節）</td><td class="dev">प्रधी, खलपू</td><td>母音の前で y・v</td></tr>
+<tr><td>D 動詞語根（単音節・子音結合の後）</td><td class="dev">नी, सुश्री, सुधी, स्वभू</td><td>母音の前で iy・uv</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　papī「太陽」：普通の ī</h2>
+<p class="chapter-sub">底本 214 ／ <span class="dev">पाति लोकमिति पपीः सूर्यः</span>「世界を守るので papī＝太陽」</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 214</span><span class="sutra-num">A 6.1.105</span><span class="sutra-text">दीर्घाज्जसि च ।</span></div>
+  <div class="sutra-iast">dīrghāj jasi ca</div>
+  <div class="vrtti">दीर्घाज्जसि इचि च परे न पूर्वसवर्णदीर्घः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">長母音の後では、jas や ic の前で、主格・対格の長母音化は起こらない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">第7課 底本 182 と同じ規則（底本では2回出てきます）。ī + au に長母音化（第6課 146）がかからないので、普通の連声で ī → y：<br>
+  <span class="ex">पपी + औ → <b>पप्यौ</b></span>、<span class="ex">पपी + अस् → <b>पप्यः</b></span></div></div>
+</div>
+<p>そのほかの形：</p>
+<ul style="margin:0 0 1rem 1.4rem">
+  <li>対格単数 <span class="ex"><b>पपीम्</b></span>（第6課 154）、対格複数 <span class="ex"><b>पपीन्</b></span>（146, 156）</li>
+  <li>属格複数 <span class="ex"><b>पप्याम्</b></span> ── 注釈：<span class="dev">दीर्घत्वान्नुडभावः ।</span>「長母音なので nuṭ が付かない」（第6課 167 は<b>短</b>母音・ナディー・ā の後だけ）</li>
+  <li>処格単数 <span class="ex">पपी + इ → <b>पपी</b></span>（ī + i = ī，第3課 55）</li>
+</ul>
+<div class="tbl-wrap"><table class="para"><caption>पपी（男）太陽</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>पपीः<small>papīḥ</small></td><td>पप्यौ<small>papyau</small></td><td>पप्यः<small>papyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>पपीम्<small>papīm</small></td><td>पप्यौ<small>papyau</small></td><td>पपीन्<small>papīn</small></td></tr>
+<tr><th>3 具格</th><td>पप्या<small>papyā</small></td><td>पपीभ्याम्<small>papībhyām</small></td><td>पपीभिः<small>papībhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>पप्ये<small>papye</small></td><td>पपीभ्याम्<small>papībhyām</small></td><td>पपीभ्यः<small>papībhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>पप्यः<small>papyaḥ</small></td><td>पपीभ्याम्<small>papībhyām</small></td><td>पपीभ्यः<small>papībhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>पप्यः<small>papyaḥ</small></td><td>पप्योः<small>papyoḥ</small></td><td>पप्याम्<small>papyām</small></td></tr>
+<tr><th>7 処格</th><td>पपी<small>papī</small></td><td>पप्योः<small>papyoḥ</small></td><td>पपीषु<small>papīṣu</small></td></tr>
+<tr><th>呼格</th><td>हे पपीः<small>he papīḥ</small></td><td>हे पप्यौ<small>he papyau</small></td><td>हे पप्यः<small>he papyaḥ</small></td></tr>
+</table></div>
+<p>注釈：<span class="dev">वातप्रमी</span>（vātapramī：ある種のカモシカ）も同様。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　bahuśreyasī：「ナディー」の ī</h2>
+<p class="chapter-sub">底本 215–219 ／ 女性名詞の性質を引き継ぐ</p>
+
+<p><span class="dev">बहुश्रेयसी</span> は「<span class="dev">बह्व्यः श्रेयस्यो यस्य सः</span>（多くのすぐれた女性〔妻〕をもつ人）」という意味の複合語（バフヴリーヒ）。後半の <span class="dev">श्रेयसी</span>（すぐれた女性）はもともと<b>女性名詞</b>です。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 215</span><span class="sutra-num">A 1.4.3</span><span class="sutra-text">यू स्त्र्याख्यौ नदी ।</span></div>
+  <div class="sutra-iast">yū stryākhyau nadī</div>
+  <div class="vrtti">ईदूदन्तौ नित्यस्त्रीलिङ्गौ नदीसंज्ञौ स्तः । प्रथमलिङ्गग्रहणं च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">常に女性名詞である、ī・ū で終わる語は「ナディー」と呼ばれる。（その語が）最初に（どの性だったか）も考慮する。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <b>ナディー</b>（<span class="iast">nadī</span>，「川」）＝ <b>女性名詞の長い ī・ū 語幹</b>のグループ名。代表例が nadī（川）なのでこう呼びます。<br>
+  bahuśreyasī は男性名詞として使われていますが、「<b>もともと女性名詞だった</b>」（プラタマリンガ）ので、ナディーとして扱われます。
+  </div></div>
+  <div class="row"><div class="k">主格単数</div><div class="v ex">बहुश्रेयसी + स् → <b>बहुश्रेयसी</b>（女性語尾 ī の後の s は消える，第8課 底本 199）</div></div>
+  <div class="point">ナディー ＝ 女性名詞の ī・ū 語幹（もと女性名詞も含む）。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 216</span><span class="sutra-num">A 7.3.107</span><span class="sutra-text">अम्बार्थनद्योर्ह्रस्वः ।</span></div>
+  <div class="sutra-iast">ambārthanadyor hrasvaḥ</div>
+  <div class="vrtti">अम्बार्थानां नद्यन्तानां च ह्रस्वः स्यात्सम्बुद्धौ ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「母」を意味する語とナディーは、呼格単数で短母音になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>हे बहुश्रेयसि</b>（短母音になり s は消える，第6課 153）。「母」の例：<b>हे अम्ब</b>（お母さん！，第11課）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 217</span><span class="sutra-num">A 7.3.112</span><span class="sutra-text">आण्नद्याः ।</span></div>
+  <div class="sutra-iast">āṇ nadyāḥ</div>
+  <div class="vrtti">नद्यन्तात्परेषां ङितामाडागमः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ナディーの後の ṅ 付き語尾（ṅe, ṅasi, ṅas, ṅi）には、āṭ（ā）が付け加わる。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 218</span><span class="sutra-num">A 6.1.90</span><span class="sutra-text">आटश्च ।</span></div>
+  <div class="sutra-iast">āṭaś ca</div>
+  <div class="vrtti">आटोऽचि परे वृद्धिरेकादेशः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">āṭ の後に母音が来ると、2音まとめてヴリッディになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v">
+  <ol class="deriv">
+    <li><span class="form">बहुश्रेयसी + आ + ए</span><span class="why">ṅe の前に āṭ（217）</span></li>
+    <li><span class="form">बहुश्रेयसी + ऐ</span><span class="why">ā + e → ai（218：ヴリッディ）</span></li>
+    <li><span class="form">बहुश्रेयस्यै</span><span class="why">ī → y（第1課 21）── 与格単数</span></li>
+  </ol>
+  同様に ṅasi・ṅas：ā + as → ās → <span class="ex"><b>बहुश्रेयस्याः</b></span>（奪格・属格単数）</div></div>
+  <div class="point">ナディーの目印の語尾：-yai, -yāḥ, -yām（女性名詞 nadyai, nadyāḥ, nadyām と同じ）。</div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 219</span><span class="sutra-num">A 7.3.116</span><span class="sutra-text">ङेराम्नद्याम्नीभ्यः ।</span></div>
+  <div class="sutra-iast">ṅer ām nadyāmnībhyaḥ</div>
+  <div class="vrtti">नद्यन्तादाबन्तान्नीशब्दाच्च परस्य ङेराम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ナディー、āp（女性語尾 ā）で終わる語、および nī の後では、ṅi（処格単数）は ām になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">बहुश्रेयसी + आ + आम् → <b>बहुश्रेयस्याम्</b>（217, 218 も働く）<br>
+  属格複数はナディーなので nuṭ が付く（第6課 167）：<b>बहुश्रेयसीनाम्</b></div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>बहुश्रेयसी（男）多くの良き妻をもつ人</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>बहुश्रेयसी<small>bahuśreyasī</small></td><td>बहुश्रेयस्यौ<small>bahuśreyasyau</small></td><td>बहुश्रेयस्यः<small>bahuśreyasyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>बहुश्रेयसीम्<small>bahuśreyasīm</small></td><td>बहुश्रेयस्यौ<small>bahuśreyasyau</small></td><td>बहुश्रेयसीन्<small>bahuśreyasīn</small></td></tr>
+<tr><th>3 具格</th><td>बहुश्रेयस्या<small>bahuśreyasyā</small></td><td>बहुश्रेयसीभ्याम्<small>bahuśreyasībhyām</small></td><td>बहुश्रेयसीभिः<small>bahuśreyasībhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>बहुश्रेयस्यै<small>bahuśreyasyai</small></td><td>बहुश्रेयसीभ्याम्<small>bahuśreyasībhyām</small></td><td>बहुश्रेयसीभ्यः<small>bahuśreyasībhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>बहुश्रेयस्याः<small>bahuśreyasyāḥ</small></td><td>बहुश्रेयसीभ्याम्<small>bahuśreyasībhyām</small></td><td>बहुश्रेयसीभ्यः<small>bahuśreyasībhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>बहुश्रेयस्याः<small>bahuśreyasyāḥ</small></td><td>बहुश्रेयस्योः<small>bahuśreyasyoḥ</small></td><td>बहुश्रेयसीनाम्<small>bahuśreyasīnām</small></td></tr>
+<tr><th>7 処格</th><td>बहुश्रेयस्याम्<small>bahuśreyasyām</small></td><td>बहुश्रेयस्योः<small>bahuśreyasyoḥ</small></td><td>बहुश्रेयसीषु<small>bahuśreyasīṣu</small></td></tr>
+<tr><th>呼格</th><td>हे बहुश्रेयसि<small>he bahuśreyasi</small></td><td>हे बहुश्रेयस्यौ<small>he bahuśreyasyau</small></td><td>हे बहुश्रेयस्यः<small>he bahuśreyasyaḥ</small></td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">注釈より：atilakṣmī の場合</div>
+  <span class="dev">अड्यन्तत्वान्न सुलोपः । अतिलक्ष्मीः ।</span><br>
+  atilakṣmī（ラクシュミーをしのぐ人）もナディーですが、lakṣmī の ī は<b>女性語尾 ṅī ではない</b>ので、主格単数の s は消えません（第8課 199 の条件に当てはまらない）→ <b>अतिलक्ष्मीः</b>。残りは bahuśreyasī と同じ。<b>श्री</b>（シュリー）、<b>धी</b>（知恵）を後半にもつ語も同様です。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　pradhī・nī：動詞語根の ī</h2>
+<p class="chapter-sub">底本 220–223 ／ y になる（ヤン）か、iy になる（イヤン）か</p>
+
+<p><span class="dev">प्रधी</span>（すぐれた知性の人）の <span class="dev">धी</span> は、動詞語根 dhyai（考える）から来た語です。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 220</span><span class="sutra-num">A 6.4.77</span><span class="sutra-text">अचि श्नुधातुभ्रुवां य्वोरियङुवङौ ।</span></div>
+  <div class="sutra-iast">aci śnudhātubhruvāṃ yvor iyaṅuvaṅau</div>
+  <div class="vrtti">श्नुप्रत्ययान्तस्येवर्णोवर्णान्तस्य धातोर्भ्रू इत्यस्य चाङ्गस्येयङुवङौ स्तोऽजादौ प्रत्यये परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">母音で始まる接尾辞の前で、接尾辞 śnu で終わるアンガ、i・u で終わる動詞語根、および bhrū（眉）の i・u は、iy・uv になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <b>動詞語根の ī・ū は、母音の前で iy・uv になる</b>（イヤン・ウヴァン）。普通の連声の y・v（第1課 21）ではありません。<br>
+  iyaṅ・uvaṅ は ṅ 付きなので<b>最後の1音だけ</b>を置き換えます（第3課 59）：<span class="ex">नी + औ → न् + इय् + औ → <b>नियौ</b></span>
+  </div></div>
+  <div class="row"><div class="k">問題</div><div class="v">pradhī + au も語根 dhī なので pradhiyau？ 実際の形は <b>pradhyau</b>。→ 次の規則へ。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 221</span><span class="sutra-num">A 6.4.82</span><span class="sutra-text">एरनेकाचोऽसंयोगपूर्वस्य ।</span></div>
+  <div class="sutra-iast">er anekāco 'saṃyogapūrvasya</div>
+  <div class="vrtti">धात्ववयवसंयोगपूर्वो न भवति य इवर्णस्तदन्तो यो धातुस्तदन्तस्यानेकाचोऽङ्गस्य यणजादौ प्रत्यये ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（語根の中で）子音結合の後にない i・ī で終わる動詞語根で終わり、2音節以上のアンガは、母音で始まる接尾辞の前で、（その i・ī が）yaṇ（y）になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">3つの条件がそろえば、iy ではなく <b>y</b>：<br>
+  ① 語根の i・ī で終わる　② アンガが<b>2音節以上</b>（pra-dhī）　③ ī の前が<b>子音結合でない</b>（dh 1つ）<br>
+  <span class="ex">प्रधी + औ → <b>प्रध्यौ</b></span>、<span class="ex">प्रधी + अम् → <b>प्रध्यम्</b></span>、処格 <span class="ex"><b>प्रध्यि</b></span></div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>प्रधी（男）すぐれた知性の人</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>प्रधीः<small>pradhīḥ</small></td><td>प्रध्यौ<small>pradhyau</small></td><td>प्रध्यः<small>pradhyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>प्रध्यम्<small>pradhyam</small></td><td>प्रध्यौ<small>pradhyau</small></td><td>प्रध्यः<small>pradhyaḥ</small></td></tr>
+<tr><th>3 具格</th><td>प्रध्या<small>pradhyā</small></td><td>प्रधीभ्याम्<small>pradhībhyām</small></td><td>प्रधीभिः<small>pradhībhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>प्रध्ये<small>pradhye</small></td><td>प्रधीभ्याम्<small>pradhībhyām</small></td><td>प्रधीभ्यः<small>pradhībhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>प्रध्यः<small>pradhyaḥ</small></td><td>प्रधीभ्याम्<small>pradhībhyām</small></td><td>प्रधीभ्यः<small>pradhībhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>प्रध्यः<small>pradhyaḥ</small></td><td>प्रध्योः<small>pradhyoḥ</small></td><td>प्रध्याम्<small>pradhyām</small></td></tr>
+<tr><th>7 処格</th><td>प्रध्यि<small>pradhyi</small></td><td>प्रध्योः<small>pradhyoḥ</small></td><td>प्रधीषु<small>pradhīṣu</small></td></tr>
+<tr><th>呼格</th><td>हे प्रधीः<small>he pradhīḥ</small></td><td>हे प्रध्यौ<small>he pradhyau</small></td><td>हे प्रध्यः<small>he pradhyaḥ</small></td></tr>
+</table></div>
+
+<h3>条件を満たさない例</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>どの条件が欠けている？</th><th>結果（主格両数）</th></tr>
+<tr><td class="dev">नी（導く者）</td><td>② 1音節（<span class="dev">अनेकाचः किम्?</span>）</td><td class="ex"><b>नियौ</b>（220 iyaṅ）</td></tr>
+<tr><td class="dev">सुश्री（美しい人）</td><td>③ ī の前が子音結合 śr（<span class="dev">असंयोगपूर्वस्य किम्?</span>）</td><td class="ex"><b>सुश्रियौ</b></td></tr>
+<tr><td class="dev">यवक्री（大麦を買う人）</td><td>③ ī の前が kr</td><td class="ex"><b>यवक्रियौ</b></td></tr>
+<tr><td class="dev">ग्रामणी（村長）</td><td>すべて満たす</td><td class="ex"><b>ग्रामण्यौ</b>（pradhī と同じ。ただし処格単数は nī なので 219 で <b>ग्रामण्याम्</b>）</td></tr>
+</table></div>
+<div class="tbl-wrap"><table class="para"><caption>नी（男）導く者</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>नीः<small>nīḥ</small></td><td>नियौ<small>niyau</small></td><td>नियः<small>niyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>नियम्<small>niyam</small></td><td>नियौ<small>niyau</small></td><td>नियः<small>niyaḥ</small></td></tr>
+<tr><th>3 具格</th><td>निया<small>niyā</small></td><td>नीभ्याम्<small>nībhyām</small></td><td>नीभिः<small>nībhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>निये<small>niye</small></td><td>नीभ्याम्<small>nībhyām</small></td><td>नीभ्यः<small>nībhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>नियः<small>niyaḥ</small></td><td>नीभ्याम्<small>nībhyām</small></td><td>नीभ्यः<small>nībhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>नियः<small>niyaḥ</small></td><td>नियोः<small>niyoḥ</small></td><td>नियाम्<small>niyām</small></td></tr>
+<tr><th>7 処格</th><td>नियाम्<small>niyām</small></td><td>नियोः<small>niyoḥ</small></td><td>नीषु<small>nīṣu</small></td></tr>
+<tr><th>呼格</th><td>हे नीः<small>he nīḥ</small></td><td>हे नियौ<small>he niyau</small></td><td>हे नियः<small>he niyaḥ</small></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 222</span><span class="sutra-num">A 1.4.60</span><span class="sutra-text">गतिश्च ।</span></div>
+  <div class="sutra-iast">gatiś ca</div>
+  <div class="vrtti">प्रादयः क्रियायोगे गतिसंज्ञाः स्युः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">pra などは、動作と結びつくとき「ガティ」とも呼ばれる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">接頭辞（第3課 47 のウパサルガ）には「<b>ガティ</b>」という別名もある、という規則です。これが関係するのは次の補足：<br>
+  <span class="dev">गतिकारकेतरपूर्वपदस्य यण् नेष्यते ।</span>「前半がガティでも格関係の語でもない場合は、yaṇ（221）は認められない」（パタンジャリの見解）<br>
+  <span class="ex">शुद्धधी</span>（清らかな知性の人）の前半 śuddha は、ガティでも格関係でもない → 221 不可 → iyaṅ：<span class="ex"><b>शुद्धधियौ</b></span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 223</span><span class="sutra-num">A 6.4.85</span><span class="sutra-text">न भूसुधियोः ।</span></div>
+  <div class="sutra-iast">na bhūsudhiyoḥ</div>
+  <div class="vrtti">एतयोरचि सुपि यण्न स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">bhū と sudhī は、母音で始まる格語尾の前で yaṇ にならない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">sudhī の su はガティなので、本来なら 221 で y になるはず。でもこの規則で禁止 → iyaṅ：<span class="ex"><b>सुधियौ</b>, <b>सुधियः</b></span></div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>सुधी（男）賢者</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>सुधीः<small>sudhīḥ</small></td><td>सुधियौ<small>sudhiyau</small></td><td>सुधियः<small>sudhiyaḥ</small></td></tr>
+<tr><th>2 対格</th><td>सुधियम्<small>sudhiyam</small></td><td>सुधियौ<small>sudhiyau</small></td><td>सुधियः<small>sudhiyaḥ</small></td></tr>
+<tr><th>3 具格</th><td>सुधिया<small>sudhiyā</small></td><td>सुधीभ्याम्<small>sudhībhyām</small></td><td>सुधीभिः<small>sudhībhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>सुधिये<small>sudhiye</small></td><td>सुधीभ्याम्<small>sudhībhyām</small></td><td>सुधीभ्यः<small>sudhībhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>सुधियः<small>sudhiyaḥ</small></td><td>सुधीभ्याम्<small>sudhībhyām</small></td><td>सुधीभ्यः<small>sudhībhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>सुधियः<small>sudhiyaḥ</small></td><td>सुधियोः<small>sudhiyoḥ</small></td><td>सुधियाम्<small>sudhiyām</small></td></tr>
+<tr><th>7 処格</th><td>सुधियि<small>sudhiyi</small></td><td>सुधियोः<small>sudhiyoḥ</small></td><td>सुधीषु<small>sudhīṣu</small></td></tr>
+<tr><th>呼格</th><td>हे सुधीः<small>he sudhīḥ</small></td><td>हे सुधियौ<small>he sudhiyau</small></td><td>हे सुधियः<small>he sudhiyaḥ</small></td></tr>
+</table></div>
+<div class="note">
+  <div class="note-title">sukhī・sutī：動詞から作った名詞</div>
+  <span class="dev">सुखमिच्छतीति सुखीः</span>（幸せを望む人）、<span class="dev">सुतमिच्छतीति सुतीः</span>（息子を望む人）── 名詞から作った「動詞語根」に由来するので 221 で y になります：<span class="ex"><b>सुख्यौ</b>, <b>सुख्यः</b></span>。さらに khī・tī の後なので、奪格・属格単数は第8課 203 で <span class="ex"><b>सुख्युः</b>, <b>सुत्युः</b></span>（sakhi と同じ！）。
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　ū で終わる名詞：khalapū, svabhū ほか</h2>
+<p class="chapter-sub">底本 232–234（底本では kroṣṭu の後に出てきます）</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 232</span><span class="sutra-num">A 6.4.83</span><span class="sutra-text">ओः सुपि ।</span></div>
+  <div class="sutra-iast">oḥ supi</div>
+  <div class="vrtti">धात्ववयवसंयोगपूर्वो न भवति य उवर्णस्तदन्तो यो धातुस्तदन्तस्यानेकाचोऽङ्गस्य यण् स्यादचि सुपि ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">221 の u・ū 版：子音結合の後にない u・ū で終わる語根で終わり、2音節以上のアンガは、母音で始まる格語尾の前で yaṇ（v）になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">खलपू</span>（脱穀場を清める人；語根 pū「清める」）→ <b>खलप्वौ</b>, <b>खलप्वः</b>。<span class="dev">सुलू</span>（よく刈る人）も同様。</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>खलपू（男）脱穀場を清める人</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>खलपूः<small>khalapūḥ</small></td><td>खलप्वौ<small>khalapvau</small></td><td>खलप्वः<small>khalapvaḥ</small></td></tr>
+<tr><th>2 対格</th><td>खलप्वम्<small>khalapvam</small></td><td>खलप्वौ<small>khalapvau</small></td><td>खलप्वः<small>khalapvaḥ</small></td></tr>
+<tr><th>3 具格</th><td>खलप्वा<small>khalapvā</small></td><td>खलपूभ्याम्<small>khalapūbhyām</small></td><td>खलपूभिः<small>khalapūbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>खलप्वे<small>khalapve</small></td><td>खलपूभ्याम्<small>khalapūbhyām</small></td><td>खलपूभ्यः<small>khalapūbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>खलप्वः<small>khalapvaḥ</small></td><td>खलपूभ्याम्<small>khalapūbhyām</small></td><td>खलपूभ्यः<small>khalapūbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>खलप्वः<small>khalapvaḥ</small></td><td>खलप्वोः<small>khalapvoḥ</small></td><td>खलप्वाम्<small>khalapvām</small></td></tr>
+<tr><th>7 処格</th><td>खलप्वि<small>khalapvi</small></td><td>खलप्वोः<small>khalapvoḥ</small></td><td>खलपूषु<small>khalapūṣu</small></td></tr>
+<tr><th>呼格</th><td>हे खलपूः<small>he khalapūḥ</small></td><td>हे खलप्वौ<small>he khalapvau</small></td><td>हे खलप्वः<small>he khalapvaḥ</small></td></tr>
+</table></div>
+
+<p><span class="dev">स्वभू</span>（自ら生じた者＝ヴィシュヌ）は、bhū なので底本 223 で yaṇ が禁止され、uvaṅ（220）：<span class="ex"><b>स्वभुवौ</b>, <b>स्वभुवः</b></span></p>
+<div class="tbl-wrap"><table class="para"><caption>स्वभू（男）自ら生じた者</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>स्वभूः<small>svabhūḥ</small></td><td>स्वभुवौ<small>svabhuvau</small></td><td>स्वभुवः<small>svabhuvaḥ</small></td></tr>
+<tr><th>2 対格</th><td>स्वभुवम्<small>svabhuvam</small></td><td>स्वभुवौ<small>svabhuvau</small></td><td>स्वभुवः<small>svabhuvaḥ</small></td></tr>
+<tr><th>3 具格</th><td>स्वभुवा<small>svabhuvā</small></td><td>स्वभूभ्याम्<small>svabhūbhyām</small></td><td>स्वभूभिः<small>svabhūbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>स्वभुवे<small>svabhuve</small></td><td>स्वभूभ्याम्<small>svabhūbhyām</small></td><td>स्वभूभ्यः<small>svabhūbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>स्वभुवः<small>svabhuvaḥ</small></td><td>स्वभूभ्याम्<small>svabhūbhyām</small></td><td>स्वभूभ्यः<small>svabhūbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>स्वभुवः<small>svabhuvaḥ</small></td><td>स्वभुवोः<small>svabhuvoḥ</small></td><td>स्वभुवाम्<small>svabhuvām</small></td></tr>
+<tr><th>7 処格</th><td>स्वभुवि<small>svabhuvi</small></td><td>स्वभुवोः<small>svabhuvoḥ</small></td><td>स्वभूषु<small>svabhūṣu</small></td></tr>
+<tr><th>呼格</th><td>हे स्वभूः<small>he svabhūḥ</small></td><td>हे स्वभुवौ<small>he svabhuvau</small></td><td>हे स्वभुवः<small>he svabhuvaḥ</small></td></tr>
+</table></div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 233</span><span class="sutra-num">A 6.4.84</span><span class="sutra-text">वर्षाभ्वश्च ।</span></div>
+  <div class="sutra-iast">varṣābhvaś ca</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">varṣābhū（雨季に生まれるもの＝カエル）は、bhū でも yaṇ になる（223 の例外）：<span class="ex"><b>वर्षाभ्वौ</b>, <b>वर्षाभ्वः</b></span>。残りは khalapū と同じ。</div></div>
+</div>
+
+<div class="sutra mini">
+  <div class="sutra-head"><span class="sutra-num">底本 234</span><span class="tag-v">補則</span><span class="sutra-text">दृन्करपुनःपूर्वस्य भुवो यण् वक्तव्यः ।</span></div>
+  <div class="sutra-iast">dṛnkarapunaḥpūrvasya bhuvo yaṇ vaktavyaḥ</div>
+  <div class="row"><div class="k">やさしく</div><div class="v">前半が dṛn, kara, punar の bhū も yaṇ になる：<span class="ex"><b>दृन्भ्वौ</b>（蛇）、<b>करभ्वौ</b>（爪）、<b>पुनर्भ्वौ</b>（再婚した女性）</span></div></div>
+</div>
+
+<h3>動詞語根でない ū：hūhū と aticamū</h3>
+<p><span class="dev">हूहू</span>（ガンダルヴァの名）は動詞語根ではないので、普通の連声で ū → v（第1課 21）。papī（第1章）の ū 版です。</p>
+<div class="tbl-wrap"><table class="para"><caption>हूहू（男）フーフー〔ガンダルヴァの名〕</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>हूहूः<small>hūhūḥ</small></td><td>हूह्वौ<small>hūhvau</small></td><td>हूह्वः<small>hūhvaḥ</small></td></tr>
+<tr><th>2 対格</th><td>हूहूम्<small>hūhūm</small></td><td>हूह्वौ<small>hūhvau</small></td><td>हूहून्<small>hūhūn</small></td></tr>
+<tr><th>3 具格</th><td>हूह्वा<small>hūhvā</small></td><td>हूहूभ्याम्<small>hūhūbhyām</small></td><td>हूहूभिः<small>hūhūbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>हूह्वे<small>hūhve</small></td><td>हूहूभ्याम्<small>hūhūbhyām</small></td><td>हूहूभ्यः<small>hūhūbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>हूह्वः<small>hūhvaḥ</small></td><td>हूहूभ्याम्<small>hūhūbhyām</small></td><td>हूहूभ्यः<small>hūhūbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>हूह्वः<small>hūhvaḥ</small></td><td>हूह्वोः<small>hūhvoḥ</small></td><td>हूह्वाम्<small>hūhvām</small></td></tr>
+<tr><th>7 処格</th><td>हूह्वि<small>hūhvi</small></td><td>हूह्वोः<small>hūhvoḥ</small></td><td>हूहूषु<small>hūhūṣu</small></td></tr>
+<tr><th>呼格</th><td>हे हूहूः<small>he hūhūḥ</small></td><td>हे हूह्वौ<small>he hūhvau</small></td><td>हे हूह्वः<small>he hūhvaḥ</small></td></tr>
+</table></div>
+<p><span class="dev">अतिचमू</span>（軍勢をしのぐ者）は、後半 camū（軍勢）がもと女性名詞なのでナディー（215）。注釈：<span class="dev">अतिचमूशब्दे तु नदीकार्यं विशेषः ।</span>「ナディーとしての操作が特徴」── bahuśreyasī の ū 版です。</p>
+<div class="tbl-wrap"><table class="para"><caption>अतिचमू（男）軍勢にまさる者</caption>
+<tr><th>格</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>1 主格</th><td>अतिचमूः<small>aticamūḥ</small></td><td>अतिचम्वौ<small>aticamvau</small></td><td>अतिचम्वः<small>aticamvaḥ</small></td></tr>
+<tr><th>2 対格</th><td>अतिचमूम्<small>aticamūm</small></td><td>अतिचम्वौ<small>aticamvau</small></td><td>अतिचमून्<small>aticamūn</small></td></tr>
+<tr><th>3 具格</th><td>अतिचम्वा<small>aticamvā</small></td><td>अतिचमूभ्याम्<small>aticamūbhyām</small></td><td>अतिचमूभिः<small>aticamūbhiḥ</small></td></tr>
+<tr><th>4 与格</th><td>अतिचम्वै<small>aticamvai</small></td><td>अतिचमूभ्याम्<small>aticamūbhyām</small></td><td>अतिचमूभ्यः<small>aticamūbhyaḥ</small></td></tr>
+<tr><th>5 奪格</th><td>अतिचम्वाः<small>aticamvāḥ</small></td><td>अतिचमूभ्याम्<small>aticamūbhyām</small></td><td>अतिचमूभ्यः<small>aticamūbhyaḥ</small></td></tr>
+<tr><th>6 属格</th><td>अतिचम्वाः<small>aticamvāḥ</small></td><td>अतिचम्वोः<small>aticamvoḥ</small></td><td>अतिचमूनाम्<small>aticamūnām</small></td></tr>
+<tr><th>7 処格</th><td>अतिचम्वाम्<small>aticamvām</small></td><td>अतिचम्वोः<small>aticamvoḥ</small></td><td>अतिचमूषु<small>aticamūṣu</small></td></tr>
+<tr><th>呼格</th><td>हे अतिचमु<small>he aticamu</small></td><td>हे अतिचम्वौ<small>he aticamvau</small></td><td>हे अतिचम्वः<small>he aticamvaḥ</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="summary">
+<h2 class="chapter">まとめ　タイプ別の比較表</h2>
+<div class="tbl-wrap"><table>
+<tr><th></th><th>A 普通<br><span class="dev">पपी</span></th><th>B ナディー<br><span class="dev">बहुश्रेयसी</span></th><th>C 語根・y<br><span class="dev">प्रधी</span></th><th>D 語根・iy<br><span class="dev">सुधी</span></th></tr>
+<tr><th>主格単数</th><td class="dev">पपीः</td><td class="dev">बहुश्रेयसी</td><td class="dev">प्रधीः</td><td class="dev">सुधीः</td></tr>
+<tr><th>主格両数</th><td class="dev">पप्यौ</td><td class="dev">बहुश्रेयस्यौ</td><td class="dev">प्रध्यौ</td><td class="dev">सुधियौ</td></tr>
+<tr><th>対格単数</th><td class="dev">पपीम्</td><td class="dev">बहुश्रेयसीम्</td><td class="dev">प्रध्यम्</td><td class="dev">सुधियम्</td></tr>
+<tr><th>与格単数</th><td class="dev">पप्ये</td><td class="dev">बहुश्रेयस्यै</td><td class="dev">प्रध्ये</td><td class="dev">सुधिये</td></tr>
+<tr><th>属格複数</th><td class="dev">पप्याम्</td><td class="dev">बहुश्रेयसीनाम्</td><td class="dev">प्रध्याम्</td><td class="dev">सुधियाम्</td></tr>
+<tr><th>処格単数</th><td class="dev">पपी</td><td class="dev">बहुश्रेयस्याम्</td><td class="dev">प्रध्यि</td><td class="dev">सुधियि</td></tr>
+<tr><th>呼格単数</th><td class="dev">हे पपीः</td><td class="dev">हे बहुश्रेयसि</td><td class="dev">हे प्रधीः</td><td class="dev">हे सुधीः</td></tr>
+<tr><th>主な規則</th><td>214</td><td>215–219</td><td>220, 221</td><td>220, 223</td></tr>
+<tr><th>ū の仲間</th><td class="dev">हूहू</td><td class="dev">अतिचमू</td><td class="dev">खलपू, वर्षाभू</td><td class="dev">स्वभू</td></tr>
+</table></div>
+<div class="point">見分け方：①もと女性名詞？ → ナディー。②動詞語根？ → 2音節以上で子音結合の後でなければ y/v、それ以外は iy/uv（bhū・sudhī は常に iy/uv）。③どれでもない → 普通の連声で y/v。</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「ナディー」とは？</summary><div>常に女性名詞である ī・ū 語幹の名詞（もと女性名詞だった語も含む）（底本 215）。</div></details>
+<details class="q"><summary>Q2. bahuśreyasī の与格単数 <span class="dev">बहुश्रेयस्यै</span> の ai はどこから？</summary><div>ṅe の前に āṭ（ā）が付き（217）、ā + e がヴリッディで ai に（218）。</div></details>
+<details class="q"><summary>Q3. <span class="dev">नी</span> の主格両数が <span class="dev">न्यौ</span> ではなく <span class="dev">नियौ</span> なのはなぜ？</summary><div>nī は1音節なので 221（yaṇ）の条件「2音節以上」を満たさない。そこで 220 の iyaṅ が働く。</div></details>
+<details class="q"><summary>Q4. <span class="dev">सुधी</span> は2音節で子音結合の後でもないのに、なぜ <span class="dev">सुधियौ</span>？</summary><div>底本 223 <span class="dev">न भूसुधियोः</span> で、sudhī と bhū は yaṇ が特別に禁止されているから。</div></details>
+<details class="q"><summary>Q5. <span class="dev">पपी</span> の属格複数に n が入らないのはなぜ？</summary><div>nuṭ（第6課 167）は短母音・ナディー・ā で終わる語の後だけ。papī は長母音でナディーでもない。</div></details>
+<details class="q"><summary>Q6. <span class="dev">ग्रामणी</span> の処格単数は？</summary><div><span class="dev">ग्रामण्याम्</span>。nī で終わる語なので、ṅi が ām になる（219）。</div></details>
+<details class="q"><summary>Q7. <span class="dev">खलपू</span> と <span class="dev">स्वभू</span>、主格両数の違いは？ なぜ？</summary><div>खलप्वौ（232：yaṇ）と स्वभुवौ（223 で bhū は yaṇ 禁止 → 220 uvaṅ）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson8.html">← 第8課　i・u で終わる名詞</a><span class="spacer"></span><a href="panini_lsk_lesson10.html">第10課　ṛ・o・ai・au で終わる名詞 →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第9課　名詞の変化（4）ī・ū 語幹<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 54–61.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：यू हयारुयौ नदी → यू स्त्र्याख्यौ नदी、डेराम्ब्राम्रीभ्यः → ङेराम्नद्याम्नीभ्यः、हूहूौ → हूह्वौ）。
+</footer>
+
+</body>
+</html>

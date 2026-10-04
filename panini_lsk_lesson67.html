@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तद्धितप्रकरणम् (६) चातुरर्थिकाः</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 67</div>
+  <div class="header-jp">第67課　タッディタ（6）土地の名前：四つの意味 ── audumbara, kauśāmbī, vaidiśa, pañcālāḥ, kumudvat, naḍvala<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 377–379，底本 1138–1149</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>土地の名前を作る四つの意味（底本 1138–1141）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>接尾辞が消える：pañcālāḥ, aṅgāḥ（底本 1142–1144）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>「〜の多い所」：-mat, -vat, -vala（底本 1145–1149）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　土地の名前を作る四つの意味</h2>
+<p class="chapter-sub">底本 1138–1141</p>
+
+<p>次の四つの意味で付く接尾辞を，まとめて「チャートゥラルティカ」（<span class="dev">चातुरर्थिक</span>＝四つの意味のもの）と呼びます。どれも結果は<b>土地・町の名前</b>です。</p>
+<div class="tbl-wrap"><table>
+  <tr><th>底本</th><th>意味</th><th>例</th></tr>
+  <tr><td>1138</td><td>それがそこにある</td><td><span class="dev">औदुम्बरः</span>（イチジクの木のある土地）</td></tr>
+  <tr><td>1139</td><td>それが作った</td><td><span class="dev">कौशाम्बी</span>（クシャーンバ王が建てた町）</td></tr>
+  <tr><td>1140</td><td>その住む所</td><td><span class="dev">शैबः</span>（シビ族の住む国）</td></tr>
+  <tr><td>1141</td><td>その近く</td><td><span class="dev">वैदिशम्</span>（ヴィディシャーに近い町）</td></tr>
+</table></div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1138</span><span class="sutra-num">A 4.2.67</span><span class="sutra-text">तदस्मिन्नस्तीति देशे तन्नाम्नि ।</span></div>
+  <div class="sutra-iast">tad asminn astīti deśe tannāmni</div>
+  <div class="row"><div class="k">訳</div><div class="v">主格の語に，「それがここにある」の意味で aṇ などが付く。できた語がその名の土地を指す場合。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">उदुम्बराः सन्त्यस्मिन् देशे</span> → <b>औदुम्बरो देशः</b>（ウドゥンバラの木のある土地）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1139</span><span class="sutra-num">A 4.2.68</span><span class="sutra-text">तेन निर्वृत्तम् ।</span></div>
+  <div class="sutra-iast">tena nirvṛttam</div>
+  <div class="row"><div class="k">訳</div><div class="v">具格の語に，「それによって作られた」の意味で aṇ などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">कुशाम्बेन निर्वृत्ता नगरी</span> → kauśāmba + ṅīp → <b>कौशाम्बी</b>（クシャーンバ王が建てた町）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">コーシャーンビーは仏典にも出る古代の大都市です（第59課 1021 の niṣkauśāmbi もこの町）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1140</span><span class="sutra-num">A 4.2.69</span><span class="sutra-text">तस्य निवासः ।</span></div>
+  <div class="sutra-iast">tasya nivāsaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">属格の語に，「その住む所」の意味で aṇ などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">शिबीनां निवासो देशः</span> → <b>शैबः</b>（シビ族の住む国）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1141</span><span class="sutra-num">A 4.2.70</span><span class="sutra-text">अदूरभवश्च ।</span></div>
+  <div class="sutra-iast">adūrabhavaś ca</div>
+  <div class="row"><div class="k">訳</div><div class="v">属格の語に，「その近くにある」の意味でも aṇ などが付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">विदिशाया अदूरभवं नगरम्</span> → <b>वैदिशम्</b>（ヴィディシャー川に近い町）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　接尾辞が消える：pañcālāḥ, aṅgāḥ</h2>
+<p class="chapter-sub">底本 1142–1144</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1142</span><span class="sutra-num">A 4.2.81</span><span class="sutra-text">जनपदे लुप् ।</span></div>
+  <div class="sutra-iast">janapade lup</div>
+  <div class="vrtti">जनपदे वाच्ये चातुरर्थिकस्य लुप् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">国（地方）を指すとき，四つの意味の接尾辞はルプ（消去）される。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">पञ्चालानां निवासो जनपदः</span> → pañcāla + a → 接尾辞が消える → ?（次の 1143）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1143</span><span class="sutra-num">A 1.2.51</span><span class="sutra-text">लुपि युक्तवद्व्यक्तिवचने ।</span></div>
+  <div class="sutra-iast">lupi yuktavad vyaktivacane</div>
+  <div class="vrtti">लुपि सति प्रकृतिवल्लिङ्गवचने स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ルプで消えたとき，その語の性と数は元の語（語基）と同じになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>पञ्चालाः</b>（パンチャーラ国：男性複数），<b>कुरवः</b>（クル国），<b>अङ्गाः</b>（アンガ国），<b>वङ्गाः</b>（ベンガル），<b>कलिङ्गाः</b>（カリンガ国）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">国名なのに<b>複数形</b>なのはこのため ── 「パンチャーラ族の人々（複数）」の性・数がそのまま国名に残っているのです。叙事詩を読むときに戸惑うポイントなので覚えておきましょう。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1144</span><span class="sutra-num">A 4.2.82</span><span class="sutra-text">वरणादिभ्यश्च ।</span></div>
+  <div class="sutra-iast">varaṇādibhyaś ca</div>
+  <div class="vrtti">अजनपदार्थ आरम्भः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">varaṇa などの語でも（四つの意味の接尾辞が）ルプされる。国でない場合のための規則。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">वरणानामदूरभवं नगरम्</span> → <b>वरणाः</b>（ヴァラナ樹の近くの町：複数形）</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　「〜の多い所」：-mat, -vat, -vala</h2>
+<p class="chapter-sub">底本 1145–1149</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1145</span><span class="sutra-num">A 4.2.87</span><span class="sutra-text">कुमुदनडवेतसेभ्यो ड्मतुप् ।</span></div>
+  <div class="sutra-iast">kumudanaḍavetasebhyo ḍmatup</div>
+  <div class="row"><div class="k">訳</div><div class="v">kumuda（スイレン），naḍa（葦），vetasa（籐）には ḍmatup（-mat）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">ḍ が目印なので語末の -a（ṭi）が落ちる：kumud + mat, naḍ + mat, vetas + mat</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1146</span><span class="sutra-num">A 8.2.10</span><span class="sutra-text">झयः ।</span></div>
+  <div class="sutra-iast">jhayaḥ</div>
+  <div class="vrtti">झयन्तान्मतोर्मस्य वः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jhay（鼻音・半母音以外の子音）で終わる語の後で，matup の m は v になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">kumud + vat → <b>कुमुद्वान्</b>（スイレンの多い［所］）／ naḍ + vat → <b>नड्वान्</b>（葦の多い所）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1147</span><span class="sutra-num">A 8.2.9</span><span class="sutra-text">मादुपधायाश्च मतोर्वोऽयवादिभ्यः ।</span></div>
+  <div class="sutra-iast">mādupadhāyāś ca matur vo 'yavādibhyaḥ</div>
+  <div class="vrtti">मवर्णावर्णान्तान्मवर्णावर्णोपधाच्च यवादिवर्जितात्परस्य मतोर्मस्य वः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">m・a（ā）で終わる語，または末尾から二番目の音が m・a（ā）である語の後で（yava などを除く），matup の m は v になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">vetas（s の前が a）+ vat → <b>वेतस्वान्</b>（籐の生える所）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「-mat か -vat か」の使い分けの規則です。<span class="dev">भगवत्</span>（bhaga の a の後）・<span class="dev">धीमत्</span>（dhī の後）・<span class="dev">लक्ष्मीवत्</span>（m がウパダー）と比べてみましょう。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1148</span><span class="sutra-num">A 4.2.88</span><span class="sutra-text">नडशादाड्ड्वलच् ।</span></div>
+  <div class="sutra-iast">naḍaśādāḍ ḍvalac</div>
+  <div class="row"><div class="k">訳</div><div class="v">naḍa（葦）と śāda（若草）には ḍvalac（-vala）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>नड्वलः</b>（葦の茂る所），<b>शाद्वलः</b>（若草の茂る所＝草原）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1149</span><span class="sutra-num">A 4.2.89</span><span class="sutra-text">शिखाया वलच् ।</span></div>
+  <div class="sutra-iast">śikhāyā valac</div>
+  <div class="row"><div class="k">訳</div><div class="v">śikhā（冠毛）には valac（-vala）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>शिखावलः</b>（冠毛のあるもの＝孔雀）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">ḍ の目印がないので śikhā の ā は落ちません（1148 の ḍvalac と比べてみましょう）。これで「四つの意味」の節が終わります。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「四つの意味」とは？</summary><div>そこにある（1138），それが作った（1139），その住む所（1140），その近く（1141）。</div></details>
+<details class="q"><summary>Q2. 国名 <span class="dev">अङ्गाः</span> が複数形なのは？</summary><div>接尾辞がルプで消え（1142），元の語（アンガ族の人々）の性・数が残るから（1143）。</div></details>
+<details class="q"><summary>Q3. 「スイレンの多い所」は？</summary><div><span class="dev">कुमुद्वान्</span>（1145・1146）。</div></details>
+<details class="q"><summary>Q4. 「草原」を表す語は？</summary><div><span class="dev">शाद्वलः</span>（1148）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson66.html">← 第66課　タッディタ（5）</a><span class="spacer"></span><a href="panini_lsk_lesson68.html">第68課　タッディタ（7）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第67課　タッディタ（6）土地の名前：四つの意味<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 377–379.<br>
+  訂正例：तेंदस्मिन्नस्तीति' देशे तन्नाम्निँ → तदस्मिन्नस्तीति देशे तन्नाम्नि、तस्य निवासेः → तस्य निवासः、अदूरर्भवश्च → अदूरभवश्च、जनपदे → जनपदे लुप्、कुसुदनडवेतसेभ्यो → कुमुदनडवेतसेभ्यो、झर्यः । ८।३।१० → झयः । ८।२।१०、माँदुपधायाँश्च मैतोवों → मादुपधायाश्च मतोर्वो、नंडशादाडू इलच् → नडशादाड्ड्वलच्、शिखायाँ वर्लच् → शिखाया वलच्。1146 のヴリッティ末尾の वः は底本にも印刷されています（以前のOCRで欠落していただけでした）。<br>
+  ページ画像（2026年10月にいただいたPDF）で確かめました：p. 377–378 の 1139–1148 は教科書どおりです。上の訂正例のうち जनपदे लुप्・कुमुद… と見出しの記号の乱れは，底本では正しく印刷されており，OCRの読み誤りでした。1146 の番号「८।३।१०」は底本の誤植です（正しくは 8.2.10）。
+</footer>
+
+</body>
+</html>
