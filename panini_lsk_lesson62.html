@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तद्धितप्रकरणम् (१) अपत्याधिकारः</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 62</div>
+  <div class="header-jp">第62課　タッディタ（1）「〜の子」を作る接尾辞 ── daitya, āditya, bāhya, gavya, straiṇa, aupagava<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 362–365，底本 1068–1081</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>タッディタとは・三つの見出し語（底本 1068–1070）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>aṇ 以外の接尾辞：daitya, daiva, bāhya, gavya（底本 1071–1077）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>「その子」：tasyāpatyam（底本 1078–1081）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　タッディタとは・三つの見出し語</h2>
+<p class="chapter-sub">底本 1068–1070</p>
+
+<p>動詞から名詞を作る接尾辞がクリト（第44課〜）でした。<b>名詞から名詞</b>を作る接尾辞がタッディタ（<span class="dev">तद्धित</span>）です。英語の <i>king → kingdom</i>, <i>child → childhood</i> の -dom, -hood にあたります。サンスクリットでは「〜の子孫」「〜に属する」「〜でできた」など，非常に多くの意味をこれで表します。</p>
+<div class="note">
+  <div class="note-title">タッディタの基本の流れ</div>
+  <p>① 名詞（属格などの形）＋ 意味 →  ② 接尾辞を付ける →  ③ ñ・ṇ・k が目印なら最初の母音をヴリッディ（1070, 1074）→  ④ 語末の a/i などを落とす（第13課 260 <span class="dev">यस्येति च</span>）→  ⑤ 格語尾を付ける。</p>
+  <p>例：<span class="dev">शिवस्य अयम्</span>（シヴァのもの）→ शिव + अ(ṇ) → शैव + अ → <b>शैवः</b>（シヴァ派の人）</p>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1068</span><span class="sutra-num">A 4.1.82</span><span class="sutra-text">समर्थानां प्रथमाद्वा ।</span></div>
+  <div class="sutra-iast">samarthānāṃ prathamād vā</div>
+  <div class="vrtti">इदं पदत्रयमधिक्रियते प्राग्दिश इति यावत् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「意味のつながった語のうち」「最初の語の後に」「任意に」── この三語が「prāg diśo…」（5.3.1）の前まで見出しとして続く。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">たとえば「tasyāpatyam（その子）」（1078）なら，<span class="dev">उपगोः अपत्यम्</span> のうち<b>最初の語</b> upagu に接尾辞を付けます。<b>任意</b>なので，<span class="dev">उपगोरपत्यम्</span>（ウパグの子）と文で言ってもかまいません。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1069</span><span class="sutra-num">A 4.1.84</span><span class="sutra-text">अश्वपत्यादिभ्यश्च ।</span></div>
+  <div class="sutra-iast">aśvapatyādibhyaś ca</div>
+  <div class="vrtti">एभ्योऽण् स्यात् प्राग्दीव्यतीयेष्वर्थेषु ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">aśvapati などの語にも，「prāg dīvyataḥ」（4.4.2 の前まで）の諸々の意味で aṇ（-a）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">अश्वपति + अ → <b>आश्वपतम्</b>（アシュヴァパティ王の子孫などに関わるもの）／ गणपति + अ → <b>गाणपतम्</b>（ガネーシャに関わるもの）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">本来 -pati の語には別の接尾辞（1071 の ṇya）が付くはずですが，このグループには一般形の aṇ が付く，という規則です。aṇ は <span class="dev">प्राग्दीव्यतोऽण्</span>（4.1.83）が定める「タッディタの基本形」です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1070</span><span class="sutra-num">A 7.2.117</span><span class="sutra-text">तद्धितेष्वचामादेः ।</span></div>
+  <div class="sutra-iast">taddhiteṣv acām ādeḥ</div>
+  <div class="vrtti">ञिति णिति च तद्धिते परेऽचामादेरचो वृद्धिः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ñ・ṇ を目印とするタッディタの前で，最初の母音がヴリッディになる（第58課 1000 の再掲）。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>आ</b>श्वपत, <b>गा</b>णपत ／ 語末の i は 260 で落ちる</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">この先，例の後ろの（1070・260）という注記は，このヴリッディと語末脱落のことです。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　aṇ 以外の接尾辞</h2>
+<p class="chapter-sub">底本 1071–1077</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1071</span><span class="sutra-num">A 4.1.85</span><span class="sutra-text">दित्यदित्यादित्यपत्युत्तरपदाण्ण्यः ।</span></div>
+  <div class="sutra-iast">dityadityādityapatyuttarapadāṇ ṇyaḥ</div>
+  <div class="vrtti">दित्यादिभ्यः पत्युत्तरपदाच्च प्राग्दीव्यतीयेष्वर्थेषु ण्यः स्यात् अणोऽपवादः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">diti, aditi, āditya と，pati を後分にもつ語には，aṇ の代わりに ṇya（-ya）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">दिति + य → <b>दैत्यः</b>（ディティの子＝魔族）／ अदिति + य → <b>आदित्यः</b>（アディティの子＝太陽神）／ प्रजापति + य → <b>प्राजापत्यः</b>（プラジャーパティの子）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">āditya ＋ ya → ādityya では y が二つ並びます。そこで<br><span class="dev">हलो यमां यमि लोपः</span>（A 8.4.64：子音の後で，半母音・鼻音が同じ種類の前にあると落ちる）により一つ落ちて，やはり <b>आदित्यः</b>（アーディティヤの子）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1072</span><span class="tag-v">ヴァールッティカ</span><span class="sutra-text">देवाद्यञञौ ।</span></div>
+  <div class="sutra-iast">devād yañañau</div>
+  <div class="row"><div class="k">訳</div><div class="v">deva には yañ（-ya）または añ（-a）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>दैव्यम्</b>／<b>दैवम्</b>（神の，神に由来する）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1073</span><span class="tag-v">ヴァールッティカ</span><span class="sutra-text">बहिषष्टिलोपो यञ् च ।　ईकक् च ।</span></div>
+  <div class="sutra-iast">bahiṣaṣ ṭilopo yañ ca ‖ īkak ca</div>
+  <div class="row"><div class="k">訳</div><div class="v">bahis（外に）は ṭi（最後の母音以下 -is：第3課 51）が落ち，yañ が付く。また īkak（-īka）も付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">bah + ya → <b>बाह्यः</b>（外の）／ bah + īka → <b>बाहीकः</b>（外の者）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1074</span><span class="sutra-num">A 7.2.118</span><span class="sutra-text">किति च ।</span></div>
+  <div class="sutra-iast">kiti ca</div>
+  <div class="vrtti">किति तद्धितेऽचामादेरचो वृद्धिः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">k を目印とするタッディタの前でも，最初の母音がヴリッディになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">bah + īka(k) → <b>बा</b>हीकः</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">これで「ñ・ṇ・k の目印 → ヴリッディ」が揃いました。後で出る ṭhak, ḍhak, phak などもすべて同じです。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1075</span><span class="tag-v">ヴァールッティカ</span><span class="sutra-text">गोरजादिप्रसङ्गे यत् ।</span></div>
+  <div class="sutra-iast">gor ajādiprasaṅge yat</div>
+  <div class="row"><div class="k">訳</div><div class="v">go に母音で始まる接尾辞が付くはずの場合，代わりに yat（-ya）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">go + ya → gav-ya → <b>गव्यम्</b>（牛から得られるもの：乳など）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">yat は t が目印でヴリッディを起こさないので gāvya にはなりません。o → av は第2課 31 <span class="dev">वान्तो यि प्रत्यये</span>（y で始まる接尾辞の前）によります。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1076</span><span class="sutra-num">A 4.1.86</span><span class="sutra-text">उत्सादिभ्योऽञ् ।</span></div>
+  <div class="sutra-iast">utsādibhyo 'ñ</div>
+  <div class="row"><div class="k">訳</div><div class="v">utsa などの語には añ（-a）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>औत्सः</b>（ウツァの子孫）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">aṇ と añ は形が同じ（-a）ですが，アクセントや，後で出る複数形の作り方（第63課 1083）が違います。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1077</span><span class="sutra-num">A 4.1.87</span><span class="sutra-text">स्त्रीपुंसाभ्यां नञ्स्नञौ भवनात् ।</span></div>
+  <div class="sutra-iast">strīpuṃsābhyāṃ nañsnañau bhavanāt</div>
+  <div class="vrtti">'धान्यानां भवने०' इत्यतः प्रागर्थेषु स्त्रीपुंसाभ्यां क्रमान्नञ्स्नञौ स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「dhānyānāṃ bhavane…」（5.2.1）の前までの意味で，strī には nañ（-na），puṃs には snañ（-sna）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">स्त्री + न → <b>स्त्रैणः</b>（女の／女に溺れる者）／ पुंस् + स्न → <b>पौंस्नः</b>（男の）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">straiṇa の ṇ は，r の後で n が ṇ になる規則（第14課 292 の ṇatva）。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　「その子」：tasyāpatyam</h2>
+<p class="chapter-sub">底本 1078–1081</p>
+
+<p>インドの人名・家名の多くは「〜の子孫」の形です：<span class="dev">पाण्डव</span>（パーンドゥの子），<span class="dev">राघव</span>（ラグの子孫），<span class="dev">वासुदेव</span>（ヴァスデーヴァの子）。そのしくみがここから始まります。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1078</span><span class="sutra-num">A 4.1.92</span><span class="sutra-text">तस्यापत्यम् ।</span></div>
+  <div class="sutra-iast">tasyāpatyam</div>
+  <div class="vrtti">षष्ठ्यन्तात्कृतसन्धेः समर्थादपत्येऽर्थे उक्ता वक्ष्यमाणाश्च प्रत्यया वा स्युः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「その子（子孫）」の意味で，属格の（連声を済ませた）語に，すでに述べた接尾辞・これから述べる接尾辞が任意に付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>आश्वपतः</b>（アシュヴァパティの子），<b>दैत्यः</b>，<b>औत्सः</b>，<b>स्त्रैणः</b>（女の子），<b>पौंस्नः</b>（男の子）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">1069〜1077 は接尾辞の「形」だけを決めていました。それをどの「意味」で使うかがこの 1078 です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1079</span><span class="sutra-num">A 6.4.146</span><span class="sutra-text">ओर्गुणः ।</span></div>
+  <div class="sutra-iast">or guṇaḥ</div>
+  <div class="vrtti">उवर्णान्तस्य भस्य गुणस्तद्धिते ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">u・ū で終わる bha 語幹（第7課 185）は，タッディタの前で語末がグナになる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">उपगोरपत्यम्</span> → upagu + a → au-pagu（1070）→ aupago（1079）→ aupagav-a → <b>औपगवः</b>（ウパグの子）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">u → o → av。「パーンダヴァ」（pāṇḍu → pāṇḍava），「ラーガヴァ」（raghu → rāghava），「マーナヴァ」（manu → mānava ＝ 人間）も同じです。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1080</span><span class="sutra-num">A 4.1.162</span><span class="sutra-text">अपत्यं पौत्रप्रभृति गोत्रम् ।</span></div>
+  <div class="sutra-iast">apatyaṃ pautraprabhṛti gotram</div>
+  <div class="vrtti">अपत्यत्वेन विवक्षितं पौत्रादि गोत्रसंज्ञं स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">孫以降の子孫を（ある祖先の）子孫として言うとき，それを「ゴートラ」と呼ぶ。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">子＝anantarāpatya（直系の子），孫以降＝gotra（家系の者）。インドで今も使う「ゴートラ（氏族）」の語源です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1081</span><span class="sutra-num">A 4.1.93</span><span class="sutra-text">एको गोत्रे ।</span></div>
+  <div class="sutra-iast">eko gotre</div>
+  <div class="vrtti">गोत्रे एक एवापत्यप्रत्ययः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ゴートラの意味では，「子」の接尾辞は一つだけ付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">उपगोर्गोत्रापत्यम्</span> → <b>औपगवः</b>（ウパグの孫・ひ孫…）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">もしこの規則がなければ，孫は「子の子」として aupagavi，ひ孫はさらに…と接尾辞が重なってしまいます。何代目でも祖先の名前に接尾辞一つ，と決めたのです。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. タッディタとクリトの違いは？</summary><div>クリトは動詞（語根）に，タッディタは名詞に付く接尾辞。</div></details>
+<details class="q"><summary>Q2. 「ディティの子」は？</summary><div><span class="dev">दैत्यः</span>（1071 の ṇya，ヴリッディは 1070）。</div></details>
+<details class="q"><summary>Q3. 「外の」<span class="dev">बाह्य</span> はどう作る？</summary><div>bahis の -is（ṭi）が落ちて yañ が付き，ヴリッディ（1073・1070）。</div></details>
+<details class="q"><summary>Q4. 「牛から得られるもの」は？ なぜヴリッディしない？</summary><div><span class="dev">गव्यम्</span>（1075）。yat は ñ・ṇ・k の目印をもたないから。</div></details>
+<details class="q"><summary>Q5. <span class="dev">औपगवः</span> の -av- はどこから？</summary><div>u がグナで o になり（1079），母音の前で av。</div></details>
+<details class="q"><summary>Q6. 「ゴートラ」とは？</summary><div>孫以降の子孫（1080）。その意味では接尾辞は一つだけ（1081）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson61.html">← 第61課　複合語（6）</a><span class="spacer"></span><a href="panini_lsk_lesson63.html">第63課　タッディタ（2）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第62課　タッディタ（1）「〜の子」を作る接尾辞<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 362–365.<br>
+  訂正例：स्त्रीपुंसाभ्यां नञ्स्नौ → नञ्स्नञौ、देवाद्यञौ → देवाद्यञञौ、अणोपवादः → अणोऽपवादः、गोत्रसञ्ज्ञं → गोत्रसंज्ञं。aṇ の基本規則 प्राग्दीव्यतोऽण्（A 4.1.83）は底本に番号付きでは出ていませんが，1069 の注釈が前提にしています。
+</footer>
+
+</body>
+</html>
