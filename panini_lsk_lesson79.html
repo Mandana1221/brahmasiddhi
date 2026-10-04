@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तद्धितप्रकरणम् (१८) प्रकारवचनम् अतिशायनिकाश्च</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 79</div>
+  <div class="header-jp">第79課　タッディタ（18）「このように」と比較級・最上級 ── tathā, ittham, katham, laghutama, laghīyas, śreṣṭha, jyāyas, bhūyas, vidvatkalpa<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 413–417，底本 1303–1320</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>「そのように」「このように」「どのように」（底本 1303–1306）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>最上級と比較級（底本 1307–1311）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>不規則な比較：śreṣṭha, jyeṣṭha, bhūyiṣṭha（底本 1312–1318）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>「ほぼ〜」：-kalpa, bahu-（底本 1319–1320）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　「そのように」「このように」「どのように」</h2>
+<p class="chapter-sub">底本 1303–1306</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1303</span><span class="sutra-num">A 5.3.23</span><span class="sutra-text">प्रकारवचने थाल् ।</span></div>
+  <div class="sutra-iast">prakāravacane thāl</div>
+  <div class="vrtti">प्रकारवृत्तिभ्यः किमादिभ्यस्थाल् स्यात्स्वार्थे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「やり方」を表す kim などに thāl（-thā）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">तेन प्रकारेण</span> → <b>तथा</b>（そのように），<b>यथा</b>（〜のように），<b>सर्वथा</b>（あらゆる仕方で，まったく），<b>अन्यथा</b>（別のように，さもなければ）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1304</span><span class="sutra-num">A 5.3.24</span><span class="sutra-text">इदमस्थमुः ।</span></div>
+  <div class="sutra-iast">idamas thamuḥ</div>
+  <div class="vrtti">थालोऽपवादः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">idam には（thāl の代わりに）thamu（-tham）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">it（第78課 1300）+ tham → <b>इत्थम्</b>（このように）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1305</span><span class="tag-v">ヴァールッティカ</span><span class="sutra-text">एतदोऽपि वाच्यः ।</span></div>
+  <div class="sutra-iast">etado 'pi vācyaḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">etad にも thamu が付く，と言うべきである。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">एतेन प्रकारेण</span> → <b>इत्थम्</b></div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1306</span><span class="sutra-num">A 5.3.25</span><span class="sutra-text">किमश्च ।</span></div>
+  <div class="sutra-iast">kimaś ca</div>
+  <div class="row"><div class="k">訳</div><div class="v">kim にも thamu が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">ka + tham → <b>कथम्</b>（どのように）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">katham（どうして）は疑問文で最も多く使う語の一つです。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　最上級と比較級</h2>
+<p class="chapter-sub">底本 1307–1311</p>
+
+<p>サンスクリットの比較には二系列あります：<b>-tara / -tama</b>（どの語にも付く）と <b>-īyas / -iṣṭha</b>（主に短い性質形容詞）。英語の <i>-er / -est</i> と同じ語源です。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1307</span><span class="sutra-num">A 5.3.55</span><span class="sutra-text">अतिशायने तमबिष्ठनौ ।</span></div>
+  <div class="sutra-iast">atiśāyane tamabiṣṭhanau</div>
+  <div class="vrtti">अतिशयविशिष्टार्थवृत्तेः स्वार्थे एतौ स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（多くのうちで）「最も〜」の意味では，tamap（-tama）・iṣṭhan（-iṣṭha）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">अयमेषामतिशयेनाढ्यः</span> → <b>आढ्यतमः</b>（この中で最も裕福な）／ <b>लघुतमः</b>／<b>लघिष्ठः</b>（最も軽い：-iṣṭha の前で ṭi が落ちる，第75課 1244）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1308</span><span class="sutra-num">A 5.3.56</span><span class="sutra-text">तिङश्च ।</span></div>
+  <div class="sutra-iast">tiṅaś ca</div>
+  <div class="vrtti">तिङन्तादतिशये द्योत्ये तमप् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">定動詞にも，「最も（よく）〜する」の意味で tamap が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>पचतितमाम्</b>（最もよく料理する：-ām は 1310）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1309</span><span class="sutra-num">A 1.1.22</span><span class="sutra-text">तरप्तमपौ घः ।</span></div>
+  <div class="sutra-iast">taraptamapau ghaḥ</div>
+  <div class="vrtti">एतौ घसंज्ञौ स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">tarap・tamap を「gha」と呼ぶ。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1310</span><span class="sutra-num">A 5.4.11</span><span class="sutra-text">किमेत्तिङव्ययघादाम्वद्रव्यप्रकर्षे ।</span></div>
+  <div class="sutra-iast" style="overflow-wrap:anywhere">kimettiṅavyayaghād āmv adravyaprakarṣe</div>
+  <div class="vrtti">किम एदन्तात्तिङोऽव्ययाच्च यो घस्तदन्तादामुः स्यान्न तु द्रव्यप्रकर्षे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">kim・e で終わる語・定動詞・不変化詞の後の gha（-tara/-tama）には，さらに āmu（-ām）が付く。ただし「もの」の程度を言うときは除く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>किंतमाम्</b>（いかにもどれほど），<b>प्राह्णेतमाम्</b>（ずっと朝早く），<b>पचतितमाम्</b>，<b>उच्चैस्तमाम्</b>（最も大声で）／ もの：<b>उच्चैस्तमस्तरुः</b>（最も高い木）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">-tamām は副詞になります。「最も大声で（話す）」は動作の程度なので -ām，「最も高い木」は木（もの）の程度なので -ām なし。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1311</span><span class="sutra-num">A 5.3.57</span><span class="sutra-text">द्विवचनविभज्योपपदे तरबीयसुनौ ।</span></div>
+  <div class="sutra-iast">dvivacanavibhajyopapade tarabīyasunau</div>
+  <div class="vrtti">द्वयोरेकस्यातिशये विभक्तव्ये चोपपदे सुप्तिङन्तादेतौ स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">二つのうちの一つの優位を言うとき，または比べる相手（の集団）が示されているとき，tarap（-tara）・īyasun（-īyas）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">अयमनयोरतिशयेन लघुः</span> → <b>लघुतरः</b>／<b>लघीयान्</b>（二つのうちでより軽い）／ <span class="dev">उदीच्याः प्राच्येभ्यः</span> <b>पटुतराः</b>／<b>पटीयांसः</b>（北の人々は東の人々より利口だ）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「二つのうち」なら比較級，「多くのうち」なら最上級 ── 英語と同じ考え方です。</div></div>
+</div>
+<div class="tbl-wrap"><table>
+  <tr><th></th><th>比較級</th><th>最上級</th></tr>
+  <tr><td>laghu（軽い）</td><td class="dev">लघुतर／लघीयस्</td><td class="dev">लघुतम／लघिष्ठ</td></tr>
+  <tr><td>paṭu（利口な）</td><td class="dev">पटुतर／पटीयस्</td><td class="dev">पटुतम／पटिष्ठ</td></tr>
+  <tr><td>pṛthu（広い）</td><td class="dev">प्रथीयस्</td><td class="dev">प्रथिष्ठ</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　不規則な比較：śreṣṭha, jyeṣṭha, bhūyiṣṭha</h2>
+<p class="chapter-sub">底本 1312–1318</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1312</span><span class="sutra-num">A 5.3.60</span><span class="sutra-text">प्रशस्यस्य श्रः ।</span></div>
+  <div class="sutra-iast">praśasyasya śraḥ</div>
+  <div class="vrtti">अस्य श्रादेशः स्यादजाद्योः परतः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">（母音で始まる）iṣṭha・īyas の前で，praśasya（ほめられるべき，よい）は śra に置き換わる。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1313</span><span class="sutra-num">A 6.4.163</span><span class="sutra-text">प्रकृत्यैकाच् ।</span></div>
+  <div class="sutra-iast">prakṛtyaikāc</div>
+  <div class="vrtti">इष्ठादावेकाच् प्रकृत्या स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">iṣṭha などの前で，一音節の語はそのまま残る（ṭi が落ちない）。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">śra + iṣṭha → a + i = e（第2課 35）→ <b>श्रेष्ठः</b>（最もよい）／ <b>श्रेयान्</b>（よりよい）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">śreyas は「より良いこと＝至福」の意味でも重要な語です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1314</span><span class="sutra-num">A 5.3.61</span><span class="sutra-text">ज्य च ।</span></div>
+  <div class="sutra-iast">jya ca</div>
+  <div class="vrtti">प्रशस्यस्य ज्यादेशः स्यादिष्ठेयसोः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">iṣṭha・īyas の前で，praśasya は jya にも置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">jya + iṣṭha → <b>ज्येष्ठः</b>（最もすぐれた，最年長の）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1315</span><span class="sutra-num">A 6.4.160</span><span class="sutra-text">ज्यादादीयसः ।</span></div>
+  <div class="sutra-iast">jyād ād īyasaḥ</div>
+  <div class="vrtti">आदेः परस्य ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">jya の後の īyas の最初の ī は ā に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">jya + āyas → <b>ज्यायान्</b>（よりすぐれた，年上の）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">jyeṣṭha（長兄），jyāyas（年上）は親族関係でよく使われます。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1316</span><span class="sutra-num">A 6.4.158</span><span class="sutra-text">बहोर्लोपो भू च बहोः ।</span></div>
+  <div class="sutra-iast">bahor lopo bhū ca bahoḥ</div>
+  <div class="vrtti">बहोः परयोरिमेयसोर्लोपः स्याद्बहोश्च भूरादेशः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">bahu の後の iman・īyas の（最初の母音の）脱落が起こり，bahu は bhū に置き換わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">bahu + iman → bhū-man → <b>भूमा</b>（多さ）／ bahu + īyas → <b>भूयान्</b>（より多い）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1317</span><span class="sutra-num">A 6.4.159</span><span class="sutra-text">इष्ठस्य यिट् च ।</span></div>
+  <div class="sutra-iast">iṣṭhasya yiṭ ca</div>
+  <div class="vrtti">बहोः परस्य इष्ठस्य लोपः स्याद्यिडागमश्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">bahu の後の iṣṭha も（最初の母音が）落ち，yiṭ（yi）が加わる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">bhū + yi-ṣṭha → <b>भूयिष्ठः</b>（最も多い）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">bhūyas（より多く，再び），bhūyiṣṭha（大部分）── 英語の <i>much / more / most</i> のような不規則変化です。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1318</span><span class="sutra-num">A 5.3.65</span><span class="sutra-text">विन्मतोर्लुक् ।</span></div>
+  <div class="sutra-iast">vinmator luk</div>
+  <div class="vrtti">विनो मतुपश्च लुक् स्यादिष्ठेयसोः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">iṣṭha・īyas の前で，vin・matup はルク（消去）される。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">अतिशयेन स्रग्वी</span> → sraj + iṣṭha → <b>स्रजिष्ठः</b>／<b>स्रजीयान्</b>（最も・より多く花輪をかけた）／ <span class="dev">त्वग्वान्</span> → <b>त्वचिष्ठः</b>／<b>त्वचीयान्</b></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　「ほぼ〜」：-kalpa, bahu-</h2>
+<p class="chapter-sub">底本 1319–1320</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1319</span><span class="sutra-num">A 5.3.67</span><span class="sutra-text">ईषदसमाप्तौ कल्पब्देश्यदेशीयरः ।</span></div>
+  <div class="sutra-iast">īṣadasamāptau kalpabdeśyadeśīyaraḥ</div>
+  <div class="row"><div class="k">訳</div><div class="v">「少しだけ足りない（ほぼ〜）」の意味で，kalpap（-kalpa）・deśya・deśīyar（-deśīya）が付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><span class="dev">ईषदूनो विद्वान्</span> → <b>विद्वत्कल्पः</b>／<b>विद्वद्देश्यः</b>／<b>विद्वद्देशीयः</b>（ほぼ学者）／ 動詞にも：<b>पचतिकल्पम्</b>（ほぼ料理している）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">日本語の「〜まがい」「準〜」にあたります：<span class="dev">मृतकल्प</span>（死んだも同然の）。</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 1320</span><span class="sutra-num">A 5.3.68</span><span class="sutra-text">विभाषा सुपो बहुच् पुरस्तात्तु ।</span></div>
+  <div class="sutra-iast">vibhāṣā supo bahuc purastāt tu</div>
+  <div class="vrtti">ईषदसमाप्तिविशिष्टेऽर्थे सुबन्ताद्बहुज्वा स्यात्स च प्रागेव न तु परतः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">同じ意味で，名詞には任意に bahuc（bahu-）が付く。ただしそれは後ではなく<b>前</b>に付く。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>बहुपटुः</b>（ほぼ利口な）＝ <b>पटुकल्पः</b>／ 動詞には不可：<span class="dev">पचतिकल्पम्</span> のみ</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">「接尾辞」なのに前に付く珍しい例です。bahu- が「多い」ではなく「ほぼ」の意味になるので注意。</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「このように」「どのように」は？</summary><div><span class="dev">इत्थम्</span>（1304），<span class="dev">कथम्</span>（1306）。</div></details>
+<details class="q"><summary>Q2. 二つのうちでより軽いものは？</summary><div><span class="dev">लघुतरः</span>／<span class="dev">लघीयान्</span>（1311）。</div></details>
+<details class="q"><summary>Q3. 「最もよい」の二つの形は？</summary><div><span class="dev">श्रेष्ठः</span>（1312・1313），<span class="dev">ज्येष्ठः</span>（1314）。</div></details>
+<details class="q"><summary>Q4. 「最も多い」は？</summary><div><span class="dev">भूयिष्ठः</span>（1316・1317）。</div></details>
+<details class="q"><summary>Q5. 「最も大声で（話す）」と「最も高い木」の違いは？</summary><div><span class="dev">उच्चैस्तमाम्</span>（動作：-ām が付く）と <span class="dev">उच्चैस्तमस्तरुः</span>（もの：-ām なし）（1310）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson78.html">← 第78課　タッディタ（17）</a><span class="spacer"></span><a href="panini_lsk_lesson80.html">第80課　タッディタ（19）→</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第79課　タッディタ（18）「このように」と比較級・最上級<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 413–417.<br>
+  訂正例：अतिशयने तमबिष्ठनौ → अतिशायने तमबिष्ठनौ、किमेत्तिङव्ययादाम्वद्रव्यप्रकर्षे → किमेत्तिङव्ययघादाम्वद्रव्यप्रकर्षे、ज्यादेशश्च → ज्य च、बहोलोंपो → बहोर्लोपो、विन्मतोलुक् → विन्मतोर्लुक्、कल्पब्देश्यदेशीयः → कल्पब्देश्यदेशीयरः。
+</footer>
+
+</body>
+</html>
