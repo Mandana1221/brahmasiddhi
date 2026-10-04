@@ -1,0 +1,671 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしいパーニニ文法</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.15rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', serif; }
+.ex b { color: var(--accent); }
+
+.sutra-text, .sutra-iast { overflow-wrap: anywhere; }
+
+/* declension paradigm tables */
+.para { margin: 1rem 0 1.4rem; }
+.para caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; }
+.para th { white-space: nowrap; }
+.para td { font-family: 'Noto Serif Devanagari', serif; font-size: 1.02rem; }
+.para td small { display: block; font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--muted); font-size: 0.85rem; line-height: 1.2; }
+.para td.hl { background: var(--point-bg); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">लघुसिद्धान्तकौमुदी — तिङन्ते भ्वादयः (८) आत्मनेपदम्</div>
+  <h1>やさしいパーニニ文法</h1>
+  <div class="header-sub">An Easy Introduction to the Pāṇinian Sūtras · Lesson 28</div>
+  <div class="header-jp">第28課　動詞の変化（8）── アートマネーパダ：edh「栄える」の10ラカーラ<br>
+  底本：『ラグ・シッダーンタ・カウムディー』ミシュラ注（1915年）pp. 168–173，底本 544–560</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch0"><span class="n">はじめに</span>アートマネーパダの語尾</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>現在 edhate：ṭi → e（底本 544–546）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>完了 edhāñcakre（底本 547–550）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>2つの未来 edhitā, edhiṣyate（底本 551–552）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>命令 edhatām と過去 aidhata（底本 553–555）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>願望 edheta と祈願 edhiṣīṣṭa（底本 556–559）</a></li>
+    <li><a href="#ch6"><span class="n">第6章</span>アオリスト aidhiṣṭa と条件法（底本 560）</a></li>
+    <li><a href="#summary"><span class="n">まとめ</span>bhū と edh の対照表</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch0">
+<h2 class="chapter">はじめに　アートマネーパダの語尾</h2>
+<p>第21課で学んだように、動詞の語尾は18個（第21課 408）。後半の9個がアートマネーパダ（第21課 410）です。edh「栄える・増す」は語根表で<b>アヌダーッタ（低いアクセント）の目印</b>をもつので、アートマネーパダだけを取ります（第21課 411）。</p>
+<div class="tbl-wrap"><table>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称</th><td class="dev">त</td><td class="dev">आताम्</td><td class="dev">झ</td></tr>
+<tr><th>2人称</th><td class="dev">थास्</td><td class="dev">आथाम्</td><td class="dev">ध्वम्</td></tr>
+<tr><th>1人称</th><td class="dev">इट्</td><td class="dev">वहि</td><td class="dev">महिङ्</td></tr>
+</table></div>
+<p>これらは<b>過去系（laṅ など）ではほぼそのまま</b>使われ、<b>現在系（laṭ など、ṭ の付くラカーラ）では形が変わります</b>。この課でその変化を順に見ていきます。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　現在 edhate</h2>
+<p class="chapter-sub">底本 544–546 ／ <span class="dev">एध वृद्धौ</span></p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 544</span><span class="sutra-num">A 3.4.79</span><span class="sutra-text">टित आत्मनेपदानां टेरे ।</span></div>
+  <div class="sutra-iast">ṭita ātmanepadānāṃ ṭer e</div>
+  <div class="vrtti">टितो लस्यात्मनेपदानां टेरेत्वम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṭ を目印にもつラカーラ（laṭ, liṭ, luṭ, lṛṭ, leṭ, loṭ）の代わりのアートマネーパダ語尾は、ṭi が e になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  「ṭi」とは<b>最後の母音から後ろ全部</b>（第3課 51）。それを e に取り替えます：<br>
+  <span class="dev">त → ते</span>、<span class="dev">आताम् → आते</span>、<span class="dev">झ → (अन्त) → अन्ते</span>、<span class="dev">ध्वम् → ध्वे</span>、<span class="dev">वहि → वहे</span>、<span class="dev">महि → महे</span>、<span class="dev">इ → ए</span><br>
+  <span class="dev">एध् + अ + ते → <b>एधते</b></span>（増す）
+  </div></div>
+  <div class="point">現在形のアートマネーパダは「-e で終わる」と覚えましょう：edhate, edhante, edhe…</div>
+</div>
+
+<p>両数 <span class="dev">एध + आताम्</span> はどうなるでしょう？</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 545</span><span class="sutra-num">A 7.2.81</span><span class="sutra-text">आतो ङितः ।</span></div>
+  <div class="sutra-iast">āto ṅitaḥ</div>
+  <div class="vrtti">अतः परस्य ङितामाकारस्य इय् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">a の後の、ṅ 付き（扱い）の語尾の ā は iy になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  āte, āthe は p なしなので ṅ 扱い（第27課 536）。その ā が iy に：<br>
+  <span class="dev">एध + इय् + ते</span> → a + i = e（第2課 35 <span class="dev">आद्गुणः</span>）→ <span class="dev">एधेय्ते</span> → v・y は子音の前で落ちる（第23課 464）→ <span class="ex"><b>एधेते</b></span>（2つが増す）<br>
+  同様に <span class="ex"><b>एधेथे</b></span>（あなたたち2人は増す）
+  </div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 546</span><span class="sutra-num">A 3.4.80</span><span class="sutra-text">थासः से ।</span></div>
+  <div class="sutra-iast">thāsaḥ se</div>
+  <div class="vrtti">टितो लस्य थासः से स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṭ 付きラカーラの thās（2人称単数）は se になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>एधसे</b>（あなたは増す）</div></div>
+</div>
+<p>1人称：<span class="dev">एध + इ → एध + ए</span>（544）→ a + e は後ろの音（第15課 300 <span class="dev">अतो गुणे</span>）→ <span class="ex"><b>एधे</b></span>。両数・複数は a が長くなり（第21課 423）<span class="ex"><b>एधावहे, एधामहे</b></span>。</p>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लट्（現在）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>एधते<small>edhate</small></td><td>एधेते<small>edhete</small></td><td>एधन्ते<small>edhante</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>एधसे<small>edhase</small></td><td>एधेथे<small>edhethe</small></td><td>एधध्वे<small>edhadhve</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>एधे<small>edhe</small></td><td>एधावहे<small>edhāvahe</small></td><td>एधामहे<small>edhāmahe</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　完了 edhāñcakre</h2>
+<p class="chapter-sub">底本 547–550</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 547</span><span class="sutra-num">A 3.1.36</span><span class="sutra-text">इजादेश्च गुरुमतोऽनृच्छः ।</span></div>
+  <div class="sutra-iast">ijādeś ca gurumato 'nṛcchaḥ</div>
+  <div class="vrtti">इजादिर्यो धातुर्गुरुमानृच्छत्यन्यस्तत आम् स्याल्लिटि ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">ṛcch 以外で、ic（a 以外の母音）で始まり、重い音節（第25課 484–485）をもつ語根には、liṭ の前で ām が付く。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  edh は e で始まり（e は長母音 → 重い）、条件にぴったり。gopāya と同じく<b>複合完了</b>になります：<span class="dev">एधाम् + कृ</span>（第25課 505–508）<br>
+  同じ仲間：<span class="dev">ईक्ष्</span>（見る）→ <span class="ex">ईक्षाञ्चक्रे</span>、<span class="dev">ऊह्</span>（推論する）→ <span class="ex">ऊहाञ्चक्रे</span>
+  </div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 548</span><span class="sutra-num">A 1.3.63</span><span class="sutra-text">आम्प्रत्ययवत्कृञोऽनुप्रयोगस्य ।</span></div>
+  <div class="sutra-iast">āmpratyayavat kṛño 'nuprayogasya</div>
+  <div class="vrtti">आम्प्रत्ययो यस्मादित्यतद्गुणसंविज्ञानो बहुव्रीहिः । आम्प्रकृत्या तुल्यमनुप्रयुज्यमानात्कृञोऽप्यात्मनेपदम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">後から付け加えられる kṛ も、ām が付いた元の語根と同じように（アートマネーパダなら）アートマネーパダの語尾を取る。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  kṛ は本来どちらの語尾も取れますが、ここでは<b>元の語根に合わせる</b>：edh がアートマネーパダだから kṛ もアートマネーパダ → <span class="dev">एधाम् + चकृ + त</span>。<br>
+  ※ 注釈は「āmpratyaya」という複合語が「ām の付いた語（全体）」でなく「ām が付けられる元の語根」を指す（<b>アタッドグナ・サンヴィジュニャーナ型</b>のバフヴリーヒ）と説明します。「長い耳の人を連れて来い」（耳も一緒に来る＝タッドグナ）と「マトゥラーを見た人を連れて来い」（マトゥラーは一緒に来ない＝アタッドグナ）の例えが面白いところです。
+  </div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 549</span><span class="sutra-num">A 3.4.81</span><span class="sutra-text">लिटस्तझयोरेशिरेच् ।</span></div>
+  <div class="sutra-iast">liṭas tajhayor eśirec</div>
+  <div class="vrtti">लिडादेशयोस्तझयोरेशिरेचौ स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">liṭ の代わりの ta と jha は、それぞれ eś（-e）と irec（-ire）になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">चकृ + ए → <b>चक्रे</b>、चकृ + इरे → <b>चक्रिरे</b> → <b>एधाञ्चक्रे</b>（彼は栄えた）、<b>एधाञ्चक्रिरे</b>（彼らは栄えた）</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">完了アートマネーパダの語尾一覧：<span class="dev">ए, आते, इरे / से, आथे, ध्वे / ए, वहे, महे</span>。kṛ は 515 の8語根なので iṭ なし：<span class="ex">चकृषे, चकृवहे</span>。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 550</span><span class="sutra-num">A 8.3.78</span><span class="sutra-text">इणः षीध्वंलुङ्लिटां धोऽङ्गात् ।</span></div>
+  <div class="sutra-iast">iṇaḥ ṣīdhvaṃluṅliṭāṃ dho 'ṅgāt</div>
+  <div class="vrtti">इण्णन्तादङ्गात्परेषां षीध्वंलुङ्लिटां धस्य ढः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">iṇ（a 以外の母音・h・半母音）で終わるアンガの後の、ṣīdhvam（祈願法）・luṅ・liṭ の dh は ḍh になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">चकृ + ध्वे → <b>चकृढ्वे</b> → <b>एधाञ्चकृढ्वे</b>（あなたたちは栄えた）</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लिट्（完了）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>एधाञ्चक्रे<small>edhāñcakre</small></td><td>एधाञ्चक्राते<small>edhāñcakrāte</small></td><td>एधाञ्चक्रिरे<small>edhāñcakrire</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>एधाञ्चकृषे<small>edhāñcakṛṣe</small></td><td>एधाञ्चक्राथे<small>edhāñcakrāthe</small></td><td>एधाञ्चकृढ्वे<small>edhāñcakṛḍhve</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>एधाञ्चक्रे<small>edhāñcakre</small></td><td>एधाञ्चकृवहे<small>edhāñcakṛvahe</small></td><td>एधाञ्चकृमहे<small>edhāñcakṛmahe</small></td></tr>
+</table></div>
+<p>bhū・as を後に付けた形もあります：<span class="ex">एधाम्बभूव, एधामास</span>（こちらはパラスマイパダ語尾）。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　2つの未来</h2>
+<p class="chapter-sub">底本 551–552</p>
+
+<p>複合未来は <span class="dev">एध् + इ + तास् + आ → <b>एधिता</b></span>（3人称はパラスマイパダと同じ形：edhitā, edhitārau, edhitāraḥ）。2人称単数は 546 で <span class="ex">एधितासे</span>。複数 <span class="dev">एधितास् + ध्वे</span> は？</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 551</span><span class="sutra-num">A 8.2.25</span><span class="sutra-text">धि च ।</span></div>
+  <div class="sutra-iast">dhi ca</div>
+  <div class="vrtti">धादौ प्रत्यये परे सस्य लोपः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">dh で始まる接辞の前で s が脱落する。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">एधितास् + ध्वे → <b>एधिताध्वे</b>（あなたたちは栄えるだろう）</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 552</span><span class="sutra-num">A 7.4.52</span><span class="sutra-text">ह एति ।</span></div>
+  <div class="sutra-iast">ha eti</div>
+  <div class="vrtti">तासस्त्योः सस्य हः स्यादेति परे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">tās と as（ある）の s は、e の前で h になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">एधितास् + ए → <b>एधिताहे</b>（私は栄えるだろう）</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लुट्（複合未来）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>एधिता<small>edhitā</small></td><td>एधितारौ<small>edhitārau</small></td><td>एधितारः<small>edhitāraḥ</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>एधितासे<small>edhitāse</small></td><td>एधितासाथे<small>edhitāsāthe</small></td><td>एधिताध्वे<small>edhitādhve</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>एधिताहे<small>edhitāhe</small></td><td>एधितास्वहे<small>edhitāsvahe</small></td><td>एधितास्महे<small>edhitāsmahe</small></td></tr>
+</table></div>
+<p>単純未来は普通どおり（545 で -ete, -ethe）：</p>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लृट्（単純未来）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>एधिष्यते<small>edhiṣyate</small></td><td>एधिष्येते<small>edhiṣyete</small></td><td>एधिष्यन्ते<small>edhiṣyante</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>एधिष्यसे<small>edhiṣyase</small></td><td>एधिष्येथे<small>edhiṣyethe</small></td><td>एधिष्यध्वे<small>edhiṣyadhve</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>एधिष्ये<small>edhiṣye</small></td><td>एधिष्यावहे<small>edhiṣyāvahe</small></td><td>एधिष्यामहे<small>edhiṣyāmahe</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　命令 edhatām と過去 aidhata</h2>
+<p class="chapter-sub">底本 553–555</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 553</span><span class="sutra-num">A 3.4.90</span><span class="sutra-text">आमेतः ।</span></div>
+  <div class="sutra-iast">ām etaḥ</div>
+  <div class="vrtti">लोट एकारस्याम् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">loṭ の（544 でできた）e は ām になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">एधते → <b>एधताम्</b>（栄えよ）、<b>एधेताम्</b>、<b>एधन्ताम्</b></div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 554</span><span class="sutra-num">A 3.4.91</span><span class="sutra-text">सवाभ्यां वामौ ।</span></div>
+  <div class="sutra-iast">savābhyāṃ vāmau</div>
+  <div class="vrtti">सवाभ्यां परस्य लोडेतः क्रमाद्वामौ स्तः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">loṭ で s・v の後の e は、それぞれ va・am になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">एधसे → <b>एधस्व</b>（栄えよ！）、एधध्वे → <b>एधध्वम्</b>（あなたたちは栄えよ）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 555</span><span class="sutra-num">A 3.4.93</span><span class="sutra-text">एत ऐ ।</span></div>
+  <div class="sutra-iast">eta ai</div>
+  <div class="vrtti">लोडुत्तमस्य एत ऐ स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">loṭ の1人称の e は ai になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">एध + आ(āṭ) + ए → <b>एधै</b>（私は栄えよう）、<b>एधावहै, एधामहै</b></div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लोट्（命令）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>एधताम्<small>edhatām</small></td><td>एधेताम्<small>edhetām</small></td><td>एधन्ताम्<small>edhantām</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>एधस्व<small>edhasva</small></td><td>एधेथाम्<small>edhethām</small></td><td>एधध्वम्<small>edhadhvam</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>एधै<small>edhai</small></td><td>एधावहै<small>edhāvahai</small></td><td>एधामहै<small>edhāmahai</small></td></tr>
+</table></div>
+
+<p>過去（laṅ）は ṭ が付かないラカーラなので、語尾はほぼ元のまま。語頭が母音なので a でなく <b>āṭ</b> が付き（第24課 479）、ā + e → ai：</p>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लङ्（過去）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>ऐधत<small>aidhata</small></td><td>ऐधेताम्<small>aidhetām</small></td><td>ऐधन्त<small>aidhanta</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>ऐधथाः<small>aidhathāḥ</small></td><td>ऐधेथाम्<small>aidhethām</small></td><td>ऐधध्वम्<small>aidhadhvam</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>ऐधे<small>aidhe</small></td><td>ऐधावहि<small>aidhāvahi</small></td><td>ऐधामहि<small>aidhāmahi</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　願望 edheta と祈願 edhiṣīṣṭa</h2>
+<p class="chapter-sub">底本 556–559</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 556</span><span class="sutra-num">A 3.4.102</span><span class="sutra-text">लिङः सीयुट् ।</span></div>
+  <div class="sutra-iast">liṅaḥ sīyuṭ</div>
+  <div class="vrtti">सलोपः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">liṅ（のアートマネーパダ語尾）には sīyuṭ（sīy）が前に付く。（願望法では）s は脱落する。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  パラスマイパダの yāsuṭ（-yā-）に対応するのが <b>sīy</b>。願望法では s が落ち（第23課 462）、y も子音の前で落ちる（464）：<br>
+  <span class="dev">एध + ई + त → <b>एधेत</b></span>（栄えるべし）、<span class="ex">एधेयाताम्</span>
+  </div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 557</span><span class="sutra-num">A 3.4.105</span><span class="sutra-text">झस्य रन् ।</span></div>
+  <div class="sutra-iast">jhasya ran</div>
+  <div class="vrtti">लिङो झस्य रन् स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">liṅ の jha は ran になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex"><b>एधेरन्</b>（彼らは栄えるべし）</div></div>
+</div>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 558</span><span class="sutra-num">A 3.4.106</span><span class="sutra-text">इटोऽत् ।</span></div>
+  <div class="sutra-iast">iṭo 't</div>
+  <div class="vrtti">लिङादेशस्य इटोऽत्स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">liṅ の iṭ（1人称単数語尾 i）は a になる。</div></div>
+  <div class="row"><div class="k">例</div><div class="v ex">एध + ईय् + अ → <b>एधेय</b>（私は栄えるべし）</div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>एध् — विधिलिङ्（願望）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>एधेत<small>edheta</small></td><td>एधेयाताम्<small>edheyātām</small></td><td>एधेरन्<small>edheran</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>एधेथाः<small>edhethāḥ</small></td><td>एधेयाथाम्<small>edheyāthām</small></td><td>एधेध्वम्<small>edhedhvam</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>एधेय<small>edheya</small></td><td>एधेवहि<small>edhevahi</small></td><td>एधेमहि<small>edhemahi</small></td></tr>
+</table></div>
+
+<p>祈願法はアールダダートゥカなので、s が落ちません（462 は sārvadhātuka の規則）。</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 559</span><span class="sutra-num">A 3.4.107</span><span class="sutra-text">सुट् तिथोः ।</span></div>
+  <div class="sutra-iast">suṭ tithoḥ</div>
+  <div class="vrtti">लिङस्तथोः सुट् । यलोपः । आर्धधातुकत्वात्सलोपो न ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">liṅ の t・th の前に suṭ（s）が付く。y は脱落。アールダダートゥカなので s は脱落しない。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">एध् + इ(इट्) + सीय् + स्(सुट्) + त</span> → y が落ちる → s → ṣ（第6課 169）→ t → ṭ（第4課 78）<br>
+  → <span class="ex"><b>एधिषीष्ट</b></span>（栄えますように）、<span class="ex">एधिषीष्ठाः</span>（あなたが栄えますように）
+  </div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>एध् — आशीर्लिङ्（祈願）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>एधिषीष्ट<small>edhiṣīṣṭa</small></td><td>एधिषीयास्ताम्<small>edhiṣīyāstām</small></td><td>एधिषीरन्<small>edhiṣīran</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>एधिषीष्ठाः<small>edhiṣīṣṭhāḥ</small></td><td>एधिषीयास्थाम्<small>edhiṣīyāsthām</small></td><td>एधिषीध्वम्<small>edhiṣīdhvam</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>एधिषीय<small>edhiṣīya</small></td><td>एधिषीवहि<small>edhiṣīvahi</small></td><td>एधिषीमहि<small>edhiṣīmahi</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch6">
+<h2 class="chapter">第6章　アオリスト aidhiṣṭa と条件法</h2>
+<p class="chapter-sub">底本 560</p>
+
+<p>アオリストは <span class="dev">ऐ(āṭ) + एध् + इ(इट्) + स्(सिच्) + त → <b>ऐधिष्ट</b></span>（栄えた）。3人称複数 <span class="dev">ऐधिस् + झ</span> は？</p>
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">底本 560</span><span class="sutra-num">A 7.1.5</span><span class="sutra-text">आत्मनेपदेष्वनतः ।</span></div>
+  <div class="sutra-iast">ātmanepadeṣv anataḥ</div>
+  <div class="vrtti">अनकारात्परस्यात्मनेपदेषु झस्य अदित्यादेशः स्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">a 以外の音の後の、アートマネーパダの jha は at になる。</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  a の後なら jha → anta（edhante）。でも sic の s の後では <b>ata</b>：<span class="ex"><b>ऐधिषत</b></span>（彼らは栄えた）<br>
+  ※ 第2類以降の動詞（語幹が子音で終わる）でもよく出ます：<span class="dev">आसते</span>（彼らは座る）
+  </div></div>
+</div>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लुङ्（アオリスト）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>ऐधिष्ट<small>aidhiṣṭa</small></td><td>ऐधिषाताम्<small>aidhiṣātām</small></td><td>ऐधिषत<small>aidhiṣata</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>ऐधिष्ठाः<small>aidhiṣṭhāḥ</small></td><td>ऐधिषाथाम्<small>aidhiṣāthām</small></td><td>ऐधिध्वम्<small>aidhidhvam</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>ऐधिषि<small>aidhiṣi</small></td><td>ऐधिष्वहि<small>aidhiṣvahi</small></td><td>ऐधिष्महि<small>aidhiṣmahi</small></td></tr>
+</table></div>
+<p>2人称複数 <span class="dev">ऐधिध्वम्</span>：s は 551 で落ちます。dh の前が iṭ（i）でも、アンガ（edh）自体は dh で終わり iṇ ではないので、550 の ḍh にはなりません（iṭ をはさんだ場合は第29課 573 を参照）。</p>
+<div class="tbl-wrap"><table class="para"><caption>एध् — लृङ्（条件法）</caption>
+<tr><th>人称</th><th>単数</th><th>両数</th><th>複数</th></tr>
+<tr><th>3人称（प्रथम）</th><td>ऐधिष्यत<small>aidhiṣyata</small></td><td>ऐधिष्येताम्<small>aidhiṣyetām</small></td><td>ऐधिष्यन्त<small>aidhiṣyanta</small></td></tr>
+<tr><th>2人称（मध्यम）</th><td>ऐधिष्यथाः<small>aidhiṣyathāḥ</small></td><td>ऐधिष्येथाम्<small>aidhiṣyethām</small></td><td>ऐधिष्यध्वम्<small>aidhiṣyadhvam</small></td></tr>
+<tr><th>1人称（उत्तम）</th><td>ऐधिष्ये<small>aidhiṣye</small></td><td>ऐधिष्यावहि<small>aidhiṣyāvahi</small></td><td>ऐधिष्यामहि<small>aidhiṣyāmahi</small></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="summary">
+<h2 class="chapter">まとめ　bhū と edh の対照表</h2>
+<p class="chapter-sub">3人称単数</p>
+<div class="tbl-wrap"><table>
+<tr><th>ラカーラ</th><th>bhū（パラスマイ）</th><th>edh（アートマネ）</th><th>アートマネーパダの特徴</th></tr>
+<tr><td>現在 laṭ</td><td class="dev">भवति</td><td class="dev">एधते</td><td>ṭi → e（544）</td></tr>
+<tr><td>完了 liṭ</td><td class="dev">बभूव</td><td class="dev">एधाञ्चक्रे</td><td>ta → e（549）</td></tr>
+<tr><td>複合未来 luṭ</td><td class="dev">भविता</td><td class="dev">एधिता</td><td>3人称は同形、1単 -tāhe（552）</td></tr>
+<tr><td>単純未来 lṛṭ</td><td class="dev">भविष्यति</td><td class="dev">एधिष्यते</td><td>-e</td></tr>
+<tr><td>命令 loṭ</td><td class="dev">भवतु</td><td class="dev">एधताम्</td><td>e → ām（553）, sva（554）, ai（555）</td></tr>
+<tr><td>過去 laṅ</td><td class="dev">अभवत्</td><td class="dev">ऐधत</td><td>語尾ほぼそのまま</td></tr>
+<tr><td>願望 vidhiliṅ</td><td class="dev">भवेत्</td><td class="dev">एधेत</td><td>sīy（556）, ran（557）, a（558）</td></tr>
+<tr><td>祈願 āśīrliṅ</td><td class="dev">भूयात्</td><td class="dev">एधिषीष्ट</td><td>sīy + suṭ（559）</td></tr>
+<tr><td>アオリスト luṅ</td><td class="dev">अभूत्</td><td class="dev">ऐधिष्ट</td><td>3複 -ata（560）</td></tr>
+<tr><td>条件法 lṛṅ</td><td class="dev">अभविष्यत्</td><td class="dev">ऐधिष्यत</td><td></td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">एधेते</span> の e はどこから？</summary><div>āte の ā が a の後で iy になり（545）、a + i = e、y は子音の前で脱落（464）。</div></details>
+<details class="q"><summary>Q2. 「あなたは栄える」と「栄えよ！」は？</summary><div><span class="dev">एधसे</span>（546）／ <span class="dev">एधस्व</span>（554）。</div></details>
+<details class="q"><summary>Q3. edh の完了がなぜ複合完了になる？</summary><div>e（ic）で始まり重い音節をもつ語根だから ām が付く（547）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">एधाञ्चक्रे</span> の kṛ がアートマネーパダなのはなぜ？</summary><div>元の語根 edh に合わせる（548）。</div></details>
+<details class="q"><summary>Q5. <span class="dev">एधिताहे</span> の h は？</summary><div>tās の s が e の前で h になる（552）。</div></details>
+<details class="q"><summary>Q6. <span class="dev">एधेरन्</span> と <span class="dev">ऐधिषत</span> の3人称複数語尾の由来は？</summary><div>願望法の jha → ran（557）／ a 以外の後の jha → at（560）。</div></details>
+<details class="q"><summary>Q7. 願望 <span class="dev">एधेत</span> と祈願 <span class="dev">एधिषीष्ट</span>、s の違いは？</summary><div>願望法はサールヴァダートゥカなので sīy の s が落ちる（462）。祈願法はアールダダートゥカなので落ちず、さらに suṭ と iṭ が付く（559）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="panini_lsk_lesson27.html">← 第27課　śru と gam</a><span class="spacer"></span><a href="panini_lsk_lesson29.html">第29課　kam, ay, dyut, vṛt ほか →</a></nav>
+
+<footer>
+  やさしいパーニニ文法 · 第28課　アートマネーパダ：edh<br>
+  Based on the Laghusiddhāntakaumudī with Jvālāprasāda Miśra's Bhāṣāṭīkā (Bombay: Khemarāja, 1915), pp. 168–173.<br>
+  OCRの誤りは標準的な読みに訂正しています（例：टित् आत्मनेपदानां 'टेरे' → टित आत्मनेपदानां टेरे、ईजादेश्च गुरुमतोऽनुच्छः → इजादेश्च गुरुमतोऽनृच्छः、एधाश्वक्रे → एधाञ्चक्रे、एधाश्वक्रुद्धे → एधाञ्चकृढ्वे、लोट् उत्तम एधे → एधै、विधिलिङ् एधध्वम् → एधेध्वम्、एधिषीयं → एधिषीय、ऐधिद्वैम् → ऐधिध्वम्、ऐधिष्यैवाहि → ऐधिष्यावहि）。底本は 549 を「3.4.8.8」と誤植していますが A 3.4.81 です。
+</footer>
+
+</body>
+</html>
