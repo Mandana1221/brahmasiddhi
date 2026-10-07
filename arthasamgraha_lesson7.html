@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — द्वितीयो विधिविभागः (५)</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 7</div>
+  <div class="header-jp">第7課　vidhi（5）── sthāna・samākhyā と、従属物（aṅga）の2種<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 24–29（§32–§39），Notes pp. 147–173</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第6課のおさらいと、この課で学ぶこと</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§32–§33 sthāna（位置）── 読誦の位置の一致</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§33 後半 Bhāskara と Āpadeva の対立</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§34–§35 実行の位置の一致／sthāna は samākhyā より強い</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§36 samākhyā（名称）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>§37–§39 従属物の2種 ── 直接に役立つもの・間接に役立つもの</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>6つの根拠の総まとめ</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第6課のおさらいと、この課で学ぶこと</h2>
+<div class="note">
+  <div class="note-title">第6課で学んだこと</div>
+  ・prakaraṇa ＝ 両方からの期待（主の「どのように？」と従属物の「何のために？」）。<br>
+  ・変型では転用で「どのように？」が静まるので、prakaraṇa は働かない。<b>新しい従属物は sthāna によって</b>変型に結びつく。
+</div>
+<p>この課では、6つの根拠の残り二つ <b>sthāna</b>（位置）と <b>samākhyā</b>（名称）を学び、適用の vidhi の説明を終えます。最後に、こうして適用される<b>従属物（aṅga）そのもの</b>を分類します。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§32–§33 sthāna ── 読誦の位置の一致</h2>
+<p class="chapter-sub"><span class="dev">स्थानम् · पाठसादेश्येन विनियोगः</span> ／ 底本 pp. 24–25，Notes pp. 147–151</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§32</span><span class="sutra-num">p. 24</span><span class="sutra-text">देशसामान्यं स्थानम् । तद्द्विविधं पाठसादेश्यमनुष्ठानसादेश्यं चेति । स्थानं क्रमश्चेत्यनर्थान्तरम् । पाठसादेश्यमपि द्विविधं यथासंख्यपाठः संनिधिपाठश्चेति ।</span></div>
+  <div class="sutra-iast">deśasāmānyaṃ sthānam | tad dvividhaṃ pāṭhasādeśyam anuṣṭhānasādeśyaṃ ceti | sthānaṃ kramaś cety anarthāntaram | pāṭhasādeśyam api dvividhaṃ yathāsaṃkhyapāṭhaḥ saṃnidhipāṭhaś ceti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>場所が共通であること</b>が sthāna である。それは二種類ある。<b>読誦（テキスト）の位置の一致</b>と、<b>実行の位置の一致</b>である。sthāna と krama（順序）とは別のものではない。読誦の位置の一致も二種類ある。<b>番号順の読誦</b>と、<b>近接した読誦</b>である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Position [is] commonness of place. That [is] of two kinds viz. commonness of place in the text and commonness of place in the performance. Position and order are not different things. Commonness of place in the text also [is] of two kinds viz. text according to number and text in proximity.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">सादेश्यम्</span> ＝ <span class="dev">समानः देशः येषां ते सदेशाः, तेषां भावः</span>「同じ場所にあること」＝ <span class="dev">देशसामान्यम्</span> ＝ <span class="dev">एकदेशविहितत्वम्</span>。<span class="dev">अनर्थान्तरम्</span>「別の物（arthāntara）ではない」＝ 同義。</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<tr><th colspan="3" class="c"><span class="dev">स्थानम्</span>（位置）</th></tr>
+<tr><th colspan="2" class="c"><span class="dev">पाठसादेश्यम्</span> 読誦の位置の一致</th><th rowspan="2" class="c"><span class="dev">अनुष्ठानसादेश्यम्</span><br>実行の位置の一致（§34）</th></tr>
+<tr><th class="c"><span class="dev">यथासंख्यपाठः</span><br>番号順（§33 前半）</th><th class="c"><span class="dev">संनिधिपाठः</span><br>近接（§33 後半）</th></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　「sthāna と krama は同じ」── 無用な一文？</div>
+  <p>この情報は不要に見える。理由は Āpadeva の文にある。Āpadeva は sthāna の二分類を Kumārila『Tantravārttika』の詩節で裏づけ、その詩節に <span class="dev">क्रम</span> の語があるので「sthāna と krama は同じ」と断ったのです。</p>
+  <div class="cite"><span class="dev">तत्र क्रमो द्विधैवेष्टो देशसामान्यलक्षणः । पाठानुष्ठानसादेश्यात् विनियोगस्य कारणम् ॥</span><span class="src">Kumārila, Tantravārttika（Āpadeva が引用）</span></div>
+  <p>Bhāskara は詩節を引かずに、最後の一文だけを写した ──「<b>盲目的な</b>借用だ」と G&amp;K は手厳しく評しています。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§33-a</span><span class="sutra-num">p. 25</span><span class="sutra-text">तत्र ‘ऐन्द्राग्नमेकादशकपालं निर्वपेत्’ ‘वैश्वानरं द्वादशकपालं निर्वपेत्’ इत्येवं क्रमविहितेषु ‘इन्द्राग्नी रोचना दिवः’ इत्यादीनां याज्यानुवाक्यामन्त्राणां यथासंख्यं प्रथमस्य प्रथमं द्वितीयस्य द्वितीयमित्येवंरूपो विनियोगो यथासंख्यपाठात् । प्रथमपठितमन्त्रस्य हि कैमर्थ्याकाङ्क्षायां प्रथमतो विहितं कर्मैव प्रथममुपतिष्ठते समानदेशत्वात् । एवं द्वितीयमन्त्रस्यापि ।</span></div>
+  <div class="sutra-iast">tatra ‘aindrāgnam ekādaśakapālaṃ nirvapet’ ‘vaiśvānaraṃ dvādaśakapālaṃ nirvapet’ ity evaṃ kramavihiteṣu ‘indrāgnī rocanā divaḥ’ ityādīnāṃ yājyānuvākyāmantrāṇāṃ yathāsaṃkhyaṃ prathamasya prathamaṃ dvitīyasya dvitīyam ity evaṃrūpo viniyogo yathāsaṃkhyapāṭhāt | prathamapaṭhitamantrasya hi kaimarthyākāṅkṣāyāṃ prathamato vihitaṃ karmaiva prathamam upatiṣṭhate samānadeśatvāt | evaṃ dvitīyamantrasyāpi |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そのうち、「Indra と Agni に11の皿の（祭餅を）供えるべし」「Vaiśvānara に12の皿の（祭餅を）供えるべし」と順に命じられた（祭）に対して、「Indra と Agni は天の輝き」などの、献供詩・招請詩の祭詞が、<b>番号どおりに</b>、第1の（祭詞）は第1の（祭）に、第2は第2に、という形で適用されるのは、番号順の読誦による。第1に読まれた祭詞が「何のために？」と期待するとき、第1に命じられた祭式が<b>真っ先に</b>思い浮かぶ。（どちらも第1という）同じ位置にあるからである。第2の祭詞も同様である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There, when [rites] are enjoined in a [certain] order, ‘[One] should offer [a cake] on eleven potsherds to Indra and Agni,’ ‘[One] should offer [a cake] on twelve potsherds to Vaiśvānara,’ the application of the presenting and invoking verses such as ‘Indra and Agni, the illuminators of heaven’ according to the number — the first to the first, the second to the second — [is] from text according to number. For, when the expectancy as to the purpose of the mantra read first arises, the rite enjoined first alone comes forward first, owing to [their] common place. Similarly with the second mantra also.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">याज्या</span>（<span class="dev">इज्यते अनया</span>）＝ 献供のときに Hotṛ が唱える<b>献供詩</b>。<span class="dev">अनुवाक्या</span>（<span class="dev">अनूच्यते अनया</span>）＝ 神を招いて供物を受けるよう促す<b>招請詩</b>（Śiśupālavadha 9.20 参照）。<br>
+  <span class="dev">कैमर्थ्याकाङ्क्षा</span> ＝ <span class="dev">कः अर्थः यस्य स किमर्थः, तस्य भावः कैमर्थ्यम्</span>「何のためか」への期待。<br>
+  G&amp;K の細かい指摘：<span class="dev">क्रमविहितेषु</span> には「祭（yāga/iṣṭi）」を補う必要がある。Āpadeva は <span class="dev">क्रमविहितेष्टिषु</span> と書いていて、Bhāskara は「ṭi」の音節を不要に落とした。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　なぜ liṅga ではなく番号順なのか／もう一つの例</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>Maitrāyaṇī Saṃhitā の順序</th><th>主（祭）</th><th>従属（祭詞）</th></tr>
+  <tr><td>1</td><td class="dev">ऐन्द्राग्नम्</td><td class="dev">इन्द्राग्नी रोचना दिवः …</td></tr>
+  <tr><td>2</td><td class="dev">वैश्वानरम्</td><td class="dev">वैश्वानरो अजीजनत् …</td></tr>
+  </table></div>
+  <p><b>疑問</b>：祭詞に「Indra と Agni」「Vaiśvānara」とあるのだから、liṅga による適用ではないのか？<br>
+  <b>答え</b>：liṅga だと、Indra・Agni や Vaiśvānara に捧げる<b>あらゆる</b>祭にこの祭詞を使うことになる。しかしヴェーダはこの祭詞を<b>この二つの祭だけ</b>に限りたい。だから番号順の読誦による適用と見るべきだ。</p>
+  <p><b>より良い例</b>（Jaiminīyanyāyamālāvistara 3.3.12）：新月・満月祭の Adhvaryu 篇に、①Āgneya ②Upāṃśuyāja ③Agnīṣomīya の三祭が順に述べられ、Yajamāna 篇に三つの祭詞が同じ順で並ぶ。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>順</th><th>祭</th><th>祭詞</th><th>決め手</th></tr>
+  <tr><td>1</td><td>Āgneya</td><td><span class="dev">अग्नेरहं देवयज्ययान्नादो भूयासम्</span>「Agni への祭によって私は食物を食べる者となれ」</td><td>liṅga（Agni の語）</td></tr>
+  <tr><td>2</td><td>Upāṃśuyāja</td><td><span class="dev">दब्धिरस्यदब्धो भूयासममुं दभेयम्</span>「汝は致命の武器。私は傷つかず、かの敵を傷つけたい」</td><td><b>番号順</b>（神の名がない）</td></tr>
+  <tr><td>3</td><td>Agnīṣomīya</td><td><span class="dev">अग्नीषोमयोरहं देवयज्यया वृत्रहा भूयासम्</span>「Agni と Soma への祭によって私は Vṛtra 殺しとなれ」</td><td>liṅga</td></tr>
+  </table></div>
+  <p>Rāmeśvara：「二つの文を結びつけて prakaraṇa ができるように、二つの prakaraṇa を結びつけて krama（＝sthāna）という<b>別の根拠</b>ができる。krama を prakaraṇa に含めることはできない。二つの prakaraṇa は二つの文のように一文をなさないから。」</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§33-b</span><span class="sutra-num">pp. 25–26</span><span class="sutra-text">वैकृताङ्गानां प्राकृताङ्गानुवादेन विहितानां संदंशपतितानां विकृत्यर्थत्वं संनिधिपाठात्, यथा आमनहोमानाम् । तेषां हि कैमर्थ्याकाङ्क्षायां फलं विकृत्यपूर्वमेव भाव्यत्वेन संबध्यते, उपस्थितत्वात् । स्वतन्त्रफलकत्वे विकृतिसंनिधिपाठानर्थक्यापत्तेः ।</span></div>
+  <div class="sutra-iast">vaikṛtāṅgānāṃ prākṛtāṅgānuvādena vihitānāṃ saṃdaṃśapatitānāṃ vikṛtyarthatvaṃ saṃnidhipāṭhāt, yathā āmanahomānām | teṣāṃ hi kaimarthyākāṅkṣāyāṃ phalaṃ vikṛtyapūrvam eva bhāvyatvena saṃbadhyate, upasthitatvāt | svatantraphalakatve vikṛtisaṃnidhipāṭhānarthakyāpatteḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">原型の従属物を再言して命じられたり、はさみ込みの中にあったりする<b>変型の（新しい）従属物</b>が変型のためにあるのは、<b>近接した読誦</b>による。たとえば āmana 献供の場合。というのも、それらが「何のために？」と期待するとき、果報として、<b>変型の apūrva</b> が生じさせるべきものとして結びつく。（すぐ近くに）現れているからである。（もしそれらが）独立の果報をもつなら、変型の近くに読まれていることが<b>無意味</b>になってしまうからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">The new subsidiaries of a modification, which are enjoined by an allusion to the subsidiaries of the arche-type [and] which fall within a pair of tongs, are intended for the modification on account of text in proximity, as the āmana-oblations. For, when the expectancy of their purpose arises, the not-existent-before of the modification alone is connected [with them] as the thing to be accomplished, because it is present [near]. If [they] had an independent fruit, their being read in the proximity of the modification would become purposeless.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">वैश्वदेवीं सांग्रहणीं निर्वपेद् ग्रामकामः</span>「村を望む者は Viśve devāḥ への Sāṃgrahaṇī 祭を行うべし」── 新月・満月祭の<b>変型</b>。Sāṃgrahaṇī ＝「（村人の心を）取りまとめる祭」。そのすぐ近くに <span class="dev">आमनमस्यामनस्य देवा इति तिस्र आहुतीर्जुहोति</span>「『āmana…』と唱えて三つの献供をする」── これが <b>āmana 献供</b>（<span class="dev">आमनम्</span>「心を取りまとめること」）。<br>
+  āmana 献供には果報が書かれていないので「何のために？」と期待する。しかし Sāṃgrahaṇī（変型）は転用で満足しているので期待しない → prakaraṇa は働かず、<b>近接（sthāna）</b>で結びつく。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　二つの原則 ── 「果報あるものの近くの果報なきもの」と「Viśvajit の原則」</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>原則</th><th>内容</th><th>例</th></tr>
+  <tr><td><span class="dev">फलवत्संनिधावफलं तदङ्गम्</span></td><td>果報が述べられていない行為が、果報のある行為の<b>近く</b>に述べられていれば、その従属物となる</td><td>前祭 → 新月・満月祭／āmana 献供 → Sāṃgrahaṇī</td></tr>
+  <tr><td><span class="dev">विश्वजिन्न्यायः</span></td><td>果報が述べられていない祭には、天界を果報として想定する（<span class="dev">विश्वजिता यजेत</span> に果報がないので、最高の楽しみである天界を想定する）</td><td>Viśvajit 祭</td></tr>
+  </table></div>
+  <p>Viśvajit の原則が使えるのは、①果報がなく、かつ ②果報のある行為の<b>近くにない</b>ときだけ。āmana 献供は②を満たさないので、Viśvajit の原則は使えません。</p>
+  <div class="cite"><span class="dev">फलवत्कर्मासंनिधौ पठितस्य एव अश्रूयमाणफलस्य विश्वजिन्न्यायेन स्वतन्त्रफलं कल्प्यते । अफलस्य फलवत्संनिधौ पाठस्तु तदङ्गत्वायैव ।</span><span class="src">Rāmeśvara</span></div>
+  <p>JS 4.4.7 の前主張は「新月・満月祭の6つの祭や Rājasūya の多くの祭がみな主であるように、āmana 献供も Sāṃgrahaṇī と同格の主だ」。定説は「それらの祭はみな果報（天界・主権）と結びついているが、āmana 献供には果報の結びつきがない」（Jaiminīyanyāyamālāvistara p. 257）。<br>
+  G&amp;K の注意：厳密には āmana 献供が apūrva を直接生むのではなく、変型を<b>助ける</b>だけ。だから「<span class="dev">आमनहोमैः विकृत्युपकारं भावयेत्</span>」と言うべき。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§33 後半 Bhāskara と Āpadeva の対立</h2>
+<p class="chapter-sub">Notes pp. 154–158 ／ 「再言して命じられた」「はさみ込みの中の」という修飾語の意味</p>
+
+<p class="lead">§33-b の「原型の従属物を<b>再言して命じられた</b>」「<b>はさみ込みの中にある</b>」という二つの修飾語は、近接による適用を説明するだけなら不要です。G&amp;K は、ここに Bhāskara が Āpadeva に<b>反対している</b>しるしを読み取ります。</p>
+
+<div class="tbl-wrap"><table>
+<tr><th></th><th>Āpadeva『Mīmāṃsānyāyaprakāśa』</th><th>Bhāskara（G&amp;K の解釈）</th></tr>
+<tr><td>原則「新しい従属物は sthāna で変型に結びつく」の例外</td><td><b>2つある</b> → それらは prakaraṇa による</td><td><b>例外なし</b> → すべて近接（sthāna）による</td></tr>
+<tr><td>例外①：原型の従属物を再言して命じられたもの</td><td><span class="dev">सोमापौष्णं चैत्रमालभेत पशुकामः</span> の近くの <span class="dev">औदुम्बरो यूपो भवति</span>（原型では khadira の祭柱を、Udumbara 木で）→ prakaraṇa</td><td>近接による</td></tr>
+<tr><td>例外②：はさみ込みの中のもの</td><td>āmana 献供（前祭と後祭の<b>あいだ</b>に行うと定められる）→ prakaraṇa</td><td>近接による</td></tr>
+<tr><td>文面</td><td><span class="dev">प्राकृताङ्गा<b>न</b>नुवादेन विहितानि संदंशा<b>प</b>तितानि</span>（再言<b>されず</b>、はさみ込みに<b>ない</b>もの）</td><td><span class="dev">प्राकृताङ्गानुवादेन विहितानां संदंशपतितानाम्</span>（否定辞を落とした）</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Paranjpe の改変への反論</div>
+  <p>印刷本（Thibaut 1882、Kashi Sanskrit Series 1915、Nirṇayasāgara 版）はすべて Bhāskara の読み。故 S. M. Paranjpe は意味がわからず、誤植と考えて Āpadeva に合わせて否定辞を入れた（底本脚注の異読）。G&amp;K はこれを退け、5つの理由を挙げます。</p>
+  <ol class="deriv">
+    <li><span class="form">अपि · एव</span><span class="why">§27 で Bhāskara は「新しい従属物<b>でさえ</b>（api）、sthāna に<b>よってだけ</b>（eva）」と言っている → 例外を認めていない。</span></li>
+    <li><span class="form">क्रियाया एव</span><span class="why">§30 で「prakaraṇa は<b>行為だけ</b>を適用させる」と言った。Udumbara 木製であることは性質であって行為ではない。</span></li>
+    <li><span class="form">प्रकृतिवद् विकृतिः</span><span class="why">変型には「どのように？」の期待がない、と明言している。例外を認めると転用を制限することになる。</span></li>
+    <li><span class="form">आमनहोमाः</span><span class="why">決定的な試金石。Bhāskara は「āmana 献供は近接による」と明言。Āpadeva の読みを採ると、同じ文で「prakaraṇa による」とも認めることになり、自己矛盾。</span></li>
+    <li><span class="form">संदंश？</span><span class="why">そもそも āmana 献供は厳密には「はさみ込み」ではない。saṃdaṃśa は「従属物の<b>従属物</b>のあいだ」に置かれること（歩み寄りのように）。</span></li>
+  </ol>
+  <p>Pārthasārathimiśra（Śāstradīpikā）と Someśvara（Nyāyasudhā）も Bhāskara 側。Āpadeva は Tantraratna を典拠にしています。<span class="dev">संदंशपतितानाम्</span> の後に <span class="dev">वा</span>「あるいは」を補うと Bhāskara の意味がはっきりする、と G&amp;K。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th colspan="3" class="c">変型の新しい従属物（すべて sthāna ＝ 近接による：Bhāskara）</th></tr>
+  <tr><th>①原型の従属物を再言して命じられた</th><th>②原型の従属物のはさみ込みにある</th><th>③それ以外</th></tr>
+  <tr><td>Udumbara 木製の祭柱</td><td>āmana 献供</td><td>upahoma など</td></tr>
+  <tr><td colspan="2" class="c">Āpadeva：prakaraṇa</td><td>Āpadeva：sthāna</td></tr>
+  </table></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§34–§35 実行の位置の一致／sthāna は samākhyā より強い</h2>
+<p class="chapter-sub"><span class="dev">अनुष्ठानसादेश्येन विनियोगः · स्थानं समाख्यातः प्रबलम्</span> ／ 底本 p. 26，Notes pp. 158–163</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§34</span><span class="sutra-num">p. 26</span><span class="sutra-text">पशुधर्माणामग्नीषोमीयार्थत्वमनुष्ठानसादेश्यात् । औपवसथ्येऽह्नि अग्नीषोमीयः पशुरनुष्ठीयते । तस्मिन्नेव दिने ते धर्माः पठ्यन्ते । अतस्तेषां कैमर्थ्याकाङ्क्षायामनुष्ठेयत्वेनोपस्थितं पश्वपूर्वमेव भाव्यत्वेन संबध्यते ।</span></div>
+  <div class="sutra-iast">paśudharmāṇām agnīṣomīyārthatvam anuṣṭhānasādeśyāt | aupavasathye ’hni agnīṣomīyaḥ paśur anuṣṭhīyate | tasminn eva dine te dharmāḥ paṭhyante | atas teṣāṃ kaimarthyākāṅkṣāyām anuṣṭheyatvenopasthitaṃ paśvapūrvam eva bhāvyatvena saṃbadhyate |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">獣（供犠）の儀礼が <b>Agnīṣomīya 獣</b>のためにあるのは、<b>実行の位置の一致</b>による。Agnīṣomīya 獣は Aupavasathya の日に（供犠が）行われる。その同じ日（の行事の中）に、それらの儀礼が読まれている。それゆえ、それらが「何のために？」と期待するとき、（その日に）実行されるべきものとして現れている<b>獣の apūrva</b> が、生じさせるべきものとして結びつく。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">The rites relating to an animal are intended for the Agnīṣomīya [animal] on account of commonness of place in the performance. The Agnīṣomīya animal is sacrificed on the Aupavasathya day. On that very day those rites are read. Hence, when the expectancy of their purpose arises, the not-existent-before of the animal, which is present as to be performed, is connected [with them] as the thing to be accomplished.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Soma 祭の3日間と3頭の獣</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>日</th><th>名の由来</th><th>獣</th><th>獣の儀礼</th></tr>
+  <tr><td class="dev">औपवसथ्यम्</td><td>祭主が断食などの誓戒を守る日（<span class="dev">उपवासः</span>）</td><td><b>Agnīṣomīya</b>（<span class="dev">स एष द्विदैवत्यः पशुरौपवसथ्येऽहन्यालब्धव्यः</span>）</td><td><b>実行の位置の一致</b>で直接に</td></tr>
+  <tr><td class="dev">सौत्यम्</td><td>Soma を搾る（<span class="dev">सुत्या</span>）日</td><td>Savanīya</td><td rowspan="2">転用（atideśa）で</td></tr>
+  <tr><td class="dev">अवभृथः</td><td>最後の浄めの沐浴の日</td><td>Anubandhya</td></tr>
+  </table></div>
+  <p>獣の儀礼：<span class="dev">उपाकरणम्</span>（2つの詩句で獣に触れる）、<span class="dev">पर्यग्निकरणम्</span>（燃えるダルバ草で獣の周りを右回りに3回回す）、<span class="dev">यूपनियोजनम्</span>（獣を祭柱につなぐ）。<br>
+  前主張：3頭も儀礼もみな Jyotiṣṭoma の章にあるので、儀礼は3頭すべてのもの。<br>
+  定説：儀礼は Aupavasathya の日の行事の中に述べられ、その日に供犠されるのは Agnīṣomīya 獣だけ。<br>
+  注意：<b>読誦</b>の位置は一致していない（Agnīṣomīya 獣は Soma 購入の近くで述べられる）。一致しているのは<b>実行</b>の位置（日）です。</p>
+  <div class="cite"><span class="dev">… सौत्यनामकादह्नः प्राचीने औपवसथ्यनाम्नि अह्नि धिष्ण्यनिर्माणादूर्ध्वमेते धर्मा आम्नाताः । अग्नीषोमीयस्यापि तदेव स्थानम् । … ततः संनिधिना ते धर्मा अग्नीषोमीये संबध्यन्ते, सवनीयानुबन्ध्ययोस्तु चोदकाद् अतिदिश्यन्ते ।</span><span class="src">Jaiminīyanyāyamālāvistara pp. 183–184</span></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§35</span><span class="sutra-num">p. 26</span><span class="sutra-text">तच्च स्थानं समाख्यातः प्रबलम् । अत एव शुन्धनमन्त्रः सांनाय्यपात्राङ्गं पाठसादेश्यात्, न तु पौरोडाशिकमिति समाख्यया पुरोडाशपात्राङ्गम् ।</span></div>
+  <div class="sutra-iast">tac ca sthānaṃ samākhyātaḥ prabalam | ata eva śundhanamantraḥ sāṃnāyyapātrāṅgaṃ pāṭhasādeśyāt, na tu pauroḍāśikam iti samākhyayā puroḍāśapātrāṅgam |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そしてその sthāna は samākhyā より強い。まさにそれゆえ、<b>浄めの祭詞</b>は、読誦の位置の一致によって <b>sāṃnāyya（乳・凝乳）の器</b>の従属物となるのであり、「Pauroḍāśika（祭餅の章）」という名称によって祭餅の器の従属物になるのではない。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And that position is stronger than name. Hence, indeed, the formula of purification is subsidiary to the vessels of sāṃnāyya on account of commonness of place in the text, but not subsidiary to the vessels of the sacrificial cake on account of the name ‘Pauroḍāśika.’</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Pauroḍāśika 章の配置</div>
+  <p>新月・満月祭の文献に、祭官たちが「<b>Pauroḍāśika</b>（祭餅に関する）章」と呼ぶ章があります。そこには<b>二組の器</b>が出てきます。<br>
+  ・sāṃnāyya の器（<span class="dev">सांनाय्यं दधिपयसी</span>）：kumbhī、śākhāpavitra、abhidhānī、搾乳器など<br>
+  ・祭餅の器：臼（ulūkhala）、杵（musala）、黒羚羊の皮、石臼（dṛṣad-upala）、juhū など<br>
+  そして浄めの祭詞 <span class="dev">शुन्धध्वं दैव्याय कर्मणे</span>「（器たちよ）神々の祭事のために清くなれ」があります。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>新月の前日（kṛṣṇa caturdaśī）</th><th></th><th></th><th>新月の日（amāvāsyā）</th><th></th><th></th></tr>
+  <tr><td>①子牛を離す</td><td>②薪と草の準備</td><td>③<b>搾乳</b>（夜）</td><td>④米の取り分け</td><td>⑤米搗き</td><td>⑥祭餅の献供</td></tr>
+  <tr><td></td><td colspan="2" class="c">↑ <b>浄めの祭詞</b>はここ（②と④の祭詞の間）<br>sāṃnāyya の器</td><td></td><td colspan="2" class="c">臼・杵・juhū（祭餅の器）</td></tr>
+  </table></div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>前主張：samākhyā</th><th>定説：sthāna（近接＋番号順）</th></tr>
+  <tr><td>結論</td><td>章の名が「祭餅の」なので、祭詞は両方の器（特に祭餅の器）のもの</td><td>祭詞は sāṃnāyya の器のすぐ近くにあるので、<b>sāṃnāyya の器だけ</b>のもの</td></tr>
+  <tr><td>段階</td><td>samākhyā → sthāna（想定）→ prakaraṇa → vākya → liṅga → śruti → 適用</td><td>sthāna → prakaraṇa → vākya → liṅga → śruti → 適用</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">‘पौरोडाशिकम्’ इति समाख्यायां प्रकृतिः पुरोडाशमात्रमभिधत्ते, तद्धितप्रत्ययश्च काण्डम् । न चैतावता कृत्स्नपुरोडाशपात्राणां मन्त्रसंनिधिः प्रत्यक्षो भवति । किन्तु अर्थापत्त्या कल्प्यते … तस्मात् क्रमेण समाख्यां बाधित्वा ‘सांनाय्यपात्रशोधनशेषो मन्त्रः’ इत्ययं चरमः पक्षोऽभ्युपेयः ।</span><span class="src">Jaiminīyanyāyamālāvistara p. 146</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§36 samākhyā ── 名称</h2>
+<p class="chapter-sub"><span class="dev">समाख्या</span> ／ 底本 p. 27，Notes pp. 163–165</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§36</span><span class="sutra-num">p. 27</span><span class="sutra-text">समाख्या यौगिकः शब्दः । सा च द्विविधा वैदिकी लौकिकी च । तत्र होतुश्चमसभक्षणाङ्गत्वम्, होतृचमस इति वैदिक्या समाख्यया । अध्वर्योस्तत्तत्पदार्थाङ्गत्वम्, लौकिक्या आध्वर्यवमिति समाख्यया । इति संक्षेपः । तदेवं निरूपितानि संक्षेपतः श्रुत्यादीनि षट् प्रमाणानि ।</span></div>
+  <div class="sutra-iast">samākhyā yaugikaḥ śabdaḥ | sā ca dvividhā vaidikī laukikī ca | tatra hotuś camasabhakṣaṇāṅgatvam, hotṛcamasa iti vaidikyā samākhyayā | adhvaryos tattatpadārthāṅgatvam, laukikyā ādhvaryavam iti samākhyayā | iti saṃkṣepaḥ | tad evaṃ nirūpitāni saṃkṣepataḥ śrutyādīni ṣaṭ pramāṇāni |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>語源どおりの意味の語</b>が samākhyā である。それは二種類、ヴェーダのものと世俗のものである。そのうち、Hotṛ 祭官が<b>杯（camasa）から飲むこと</b>に従属するのは、「Hotṛ の杯」というヴェーダの名称による。Adhvaryu 祭官がそれぞれの事項に従属するのは、「Ādhvaryava（Adhvaryu のもの）」という世俗の名称による。以上が概略である。このようにして、śruti などの6つの根拠が簡潔に説明された。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Name [is] a word understood in its etymological sense. And that [is] of two kinds, Vedic and worldly. There, the Hotṛ becomes subsidiary to the drinking from the cup on account of the Vedic name ‘Hotṛ’s cup’. The Adhvaryu becomes subsidiary to the various things on account of the worldly name ‘Ādhvaryava’. This [is] in brief. Thus the six means of proof, direct statement and others, have been briefly explained.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　二つの名称の例</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th><span class="dev">वैदिकी समाख्या</span> ヴェーダの名称</th><th><span class="dev">लौकिकी समाख्या</span> 世俗の名称</th></tr>
+  <tr><td>例</td><td>ヴェーダの文 <span class="dev">प्रैतु होतुश्चमसः प्र ब्रह्मणः प्रोद्गातॄणाम्</span> の「<span class="dev">होतुश्चमसः</span>」（Hotṛ の杯）</td><td>祭官たちの用語 <span class="dev">हौत्रम्</span>（Ṛgveda）・<span class="dev">आध्वर्यवम्</span>（Yajurveda）・<span class="dev">औद्गात्रम्</span>（Sāmaveda）</td></tr>
+  <tr><td>適用</td><td>Hotṛ は杯から（Soma を）飲むことに従属する（飲むことは<b>行為</b>なので主、行為者の Hotṛ は従属）</td><td>Yajurveda の行為（乳搾り・米の取り分けなど）は Adhvaryu が行う ── Adhvaryu はそれらに従属</td></tr>
+  <tr><td>違い</td><td>語がヴェーダの中に実際にある</td><td>ヴェーダにはなく、祭官が便宜上作った語</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">भक्षणस्य क्रियात्मकत्वेन प्राधान्यात् तत्कर्तुः होतुः भवति तदङ्गत्वम् ।</span><span class="src">Rāmeśvara</span></div>
+  <p><span class="dev">चमसः</span>：√cam「すする」から（<span class="dev">चम्यते पीयते सोमः अत्र स्थितः</span>）。マラーティー語の camacā（スプーン）も同じ語根。</p>
+  <p><b>G&amp;K の批評</b>：①ヴェーダにあるのは <span class="dev">होतुश्चमसः</span> であって <span class="dev">होतृचमसः</span> ではない。言い換えとしては正しいが、ヴェーダの名称の例としては不正確（不注意か写本の崩れ）。②杯の Soma について「食べる（bhakṣaṇa）」は不適切で「飲む（pāna）」が正しいが、ヴェーダの慣用では √bhakṣ を使うので、それに従ったのだろう。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　§37–§39 従属物の2種</h2>
+<p class="chapter-sub"><span class="dev">द्विविधान्यङ्गानि · संनिपत्योपकारकाणि · आरादुपकारकाणि</span> ／ 底本 pp. 27–29，Notes pp. 165–173</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§37</span><span class="sutra-num">pp. 27–28</span><span class="sutra-text">एतत्सहकृतेन विनियोगविधिना ‘समिदादिभिरुपकृत्य दर्शपूर्णमासाभ्यां यजेत’ इत्येवंरूपेण यानि विनियोज्यन्ते तान्यङ्गानि द्विविधानि, सिद्धरूपाणि क्रियारूपाणि चेति । तत्र सिद्धानि जातिद्रव्यसंख्यादीनि । तानि च दृष्टार्थान्येव । क्रियारूपाणि च द्विविधानि गुणकर्माणि प्रधानकर्माणि चेति । एतान्येव संनिपत्योपकारकाणि आरादुपकारकाणीति चोच्यन्ते ।</span></div>
+  <div class="sutra-iast">etatsahakṛtena viniyogavidhinā ‘samidādibhir upakṛtya darśapūrṇamāsābhyāṃ yajeta’ ity evaṃrūpeṇa yāni viniyojyante tāny aṅgāni dvividhāni, siddharūpāṇi kriyārūpāṇi ceti | tatra siddhāni jātidravyasaṃkhyādīni | tāni ca dṛṣṭārthāny eva | kriyārūpāṇi ca dvividhāni guṇakarmāṇi pradhānakarmāṇi ceti | etāny eva saṃnipatyopakārakāṇi ārādupakārakāṇīti cocyante |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">これら（6つの根拠）に助けられた適用の vidhi によって、「samidh などの（前祭）に助けられて、新月・満月祭で祭祀すべし」という形で適用されるものが従属物であり、それは二種類ある。<b>既成の形のもの</b>と<b>行為の形のもの</b>である。そのうち既成のものとは、類（jāti）・実体・数などである。そしてそれらは<b>目に見える目的</b>をもつものばかりである。行為の形のものも二種類ある。<b>副次的な行為</b>と<b>主要な行為</b>である。まさにこれらが、「<b>接して助けるもの</b>（saṃnipatyopakāraka）」「<b>離れて助けるもの</b>（ārādupakāraka）」とも呼ばれる。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Those which are applied by the injunction of application, assisted by these, in this form viz. ‘[One] should sacrifice with the new and full moon sacrifices, having been helped by the fuel-sticks and others,’ [are] subsidiaries [and they are] of two kinds, of accomplished form and of the form of action. There, accomplished [subsidiaries are] genus, substance, number and others. And they have a visible purpose only. Those of the form of action [are] also of two kinds viz. secondary actions and primary actions. These very [actions] are called indirectly-helping and directly-helping.</div></div>
+</div>
+
+<h3>図解：従属物（aṅga）の分類</h3>
+<svg class="dia" viewBox="0 0 640 290" role="img" aria-label="従属物の分類図">
+  <rect x="250" y="10" width="140" height="40" rx="8" class="bx-hl"/><text x="320" y="36" text-anchor="middle" class="dv">अङ्गानि</text>
+  <path d="M290,50 L130,80" class="ln"/><path d="M350,50 L470,80" class="ln"/>
+  <rect x="30" y="80" width="200" height="66" rx="6" class="bx"/><text x="130" y="102" text-anchor="middle" class="dv">सिद्धरूपाणि</text><text x="130" y="120" text-anchor="middle" class="sm">既成の形（作る必要がない）</text><text x="130" y="137" text-anchor="middle" class="sm">類・実体・数・性質・祭詞</text>
+  <rect x="370" y="80" width="200" height="66" rx="6" class="bx"/><text x="470" y="102" text-anchor="middle" class="dv">क्रियारूपाणि</text><text x="470" y="120" text-anchor="middle" class="sm">行為の形（行為者が作る）</text>
+  <path d="M130,146 L130,180" class="ln"/><text x="130" y="200" text-anchor="middle">すべて<tspan font-weight="600">目に見える目的</tspan></text>
+  <path d="M420,146 L360,180" class="ln"/><path d="M520,146 L560,180" class="ln"/>
+  <rect x="260" y="180" width="200" height="96" rx="6" class="bx-hl"/><text x="360" y="200" text-anchor="middle" class="dv">संनिपत्योपकारकाणि</text><text x="360" y="218" text-anchor="middle" class="sm">＝ 副次的行為（guṇakarman）</text><text x="360" y="236" text-anchor="middle" class="sm">実体などを通じて助ける</text><text x="360" y="254" text-anchor="middle" class="sm">米搗き・注水・獣と祭餅の献供</text><text x="360" y="270" text-anchor="middle" class="sm">別名 āśrayikarman</text>
+  <rect x="475" y="180" width="160" height="96" rx="6" class="bx-hl"/><text x="555" y="200" text-anchor="middle" class="dv">आरादुपकारकाणि</text><text x="555" y="218" text-anchor="middle" class="sm">＝ 主要な行為</text><text x="555" y="236" text-anchor="middle" class="sm">（pradhānakarman）</text><text x="555" y="254" text-anchor="middle" class="sm">直接に apūrva を助ける</text><text x="555" y="270" text-anchor="middle" class="sm">前祭・後祭</text>
+</svg>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　既成の従属物と行為の従属物</div>
+  <p><span class="dev">सिद्धरूप</span>：<span class="dev">सिद्धं रूपं येषाम्</span>「出来上がった形をもつもの」。私たちが作らなくても存在するもの（<span class="dev">कर्तृप्रयत्नासाध्य</span>）。<br>
+  ・<span class="dev">पशुना यजेत</span> の獣性・男性（類）、単数（数）<br>
+  ・<span class="dev">व्रीहिभिर्यजेत</span> の米（実体）<br>
+  ・「赤い牛」の赤さ（性質）、<span class="dev">इमामगृभ्णन्…</span> の祭詞（永遠に存在する）<br>
+  これらは祭祀を成り立たせるという<b>目に見える</b>目的をもつ（獣も米も、実際に火に投じられる供物になるのが見える）。<span class="dev">एव</span>「ばかり」は、行為の従属物の中には目に見えない目的のものもあることとの対比。</p>
+  <p><span class="dev">संनिपत्य उपकुर्वन्ति</span>「（実体などに）<b>接して</b>から助ける」、<span class="dev">आरात् उपकुर्वन्ति</span>「<b>近くから</b>（直接に、実体などと関わらずに）助ける」（<span class="dev">आराद् दूरसमीपयोः</span>「ārāt は遠・近の両方の意味」Amarakośa）。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§38</span><span class="sutra-num">p. 28</span><span class="sutra-text">कर्माङ्गद्रव्याद्युद्देशेन विधीयमानं कर्म संनिपत्योपकारकम् । यथावघातप्रोक्षणादि । तच्च दृष्टार्थम्, अदृष्टार्थम्, दृष्टादृष्टार्थं चेति । तत्र दृष्टार्थमवघातादि, अदृष्टार्थं प्रोक्षणादि, दृष्टादृष्टार्थं पशुपुरोडाशादि । तद्धि द्रव्यत्यागांशेनैव अदृष्टं देवतोद्देशेन च देवतास्मरणं दृष्टं करोति ।</span></div>
+  <div class="sutra-iast">karmāṅgadravyādyuddeśena vidhīyamānaṃ karma saṃnipatyopakārakam | yathāvaghātaprokṣaṇādi | tac ca dṛṣṭārtham, adṛṣṭārtham, dṛṣṭādṛṣṭārthaṃ ceti | tatra dṛṣṭārtham avaghātādi, adṛṣṭārthaṃ prokṣaṇādi, dṛṣṭādṛṣṭārthaṃ paśupuroḍāśādi | tad dhi dravyatyāgāṃśenaiva adṛṣṭaṃ devatoddeśena ca devatāsmaraṇaṃ dṛṣṭaṃ karoti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">祭式の従属物である実体などを<b>目当てとして</b>命じられる行為が、接して助けるものである。たとえば米搗き・注水など。そしてそれは、目に見える目的のもの、目に見えない目的のもの、両方のもの、の三種類である。そのうち目に見える目的のものは米搗きなど、目に見えない目的のものは注水など、両方のものは獣や祭餅（の献供）などである。というのも、それは<b>供物を手放す部分</b>によって目に見えないもの（apūrva）を生み、<b>神格を目当てとする部分</b>によって神格の想起という目に見えるものを生むからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">An action enjoined with reference to a substance and others which are subsidiary to a rite [is] indirectly-helping, as thrashing, sprinkling and others. And that [is] of a seen purpose, of an unseen purpose, and of a seen-and-unseen purpose. There, thrashing and others [are] of a seen purpose, sprinkling and others of an unseen purpose, the [offering of] an animal and a cake and others of a seen-and-unseen purpose. For, that produces the unseen by the very element of the relinquishing of the substance, and the seen [viz.] the remembrance of the deity by the address to the deity.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　献供の三つの部分</div>
+  <p>獣や祭餅を神に捧げるときは「<span class="dev">इन्द्राय स्वाहा । इन्द्रायेदं न मम ।</span>」（Indra に svāhā。これは Indra のもの、私のものではない）と唱えます。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>部分</th><th>内容</th><th>目的</th><th>種類</th></tr>
+  <tr><td><span class="dev">मन्त्रपाठः</span>（＝<span class="dev">देवतोद्देशः</span>）</td><td>神を招く詩句・「Indra に」と言う</td><td>神格の想起（<span class="dev">देवतास्मरणम्</span>）</td><td class="yes">目に見える</td></tr>
+  <tr><td><span class="dev">द्रव्यप्रक्षेपः</span></td><td>供物を実際に火に投げ入れる（身体の行為）</td><td>供物の浄化（<span class="dev">द्रव्यसंस्कारः</span>）</td><td>―</td></tr>
+  <tr><td><span class="dev">द्रव्यत्यागः</span></td><td>「私のものではない」と所有を放棄し、神に捧げる（心の行為）</td><td>apūrva の生成</td><td class="no-x">目に見えない</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">मन्त्रेण देवसंस्कारः प्रक्षेपाद् द्रव्यसंस्कृतिः । त्यागादपूर्वमुत्पन्नं प्रधानापूर्वगं च तत् ॥</span><span class="ja">「祭詞によって神格が整えられ、投入によって供物が整えられる。放棄から apūrva が生じ、それは主祭の apūrva へと向かう。」</span></div>
+  <p>Bhāskara は投入（prakṣepa）に触れていません。<br>
+  Āpadeva による別の分類：<b>これから使う物のための</b>行為（<span class="dev">उपयोक्ष्यमाणार्थ</span>：米搗き・注水）と、<b>使い終わった物のための</b>行為（<span class="dev">उपयुक्तार्थ</span>：入門後にかゆいところを掻くのに使った黒羚羊の角を、祭の後に穴へ投げ捨てる <span class="dev">चात्वाले कृष्णविषाणां प्रास्यति</span>）。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§39</span><span class="sutra-num">pp. 28–29</span><span class="sutra-text">द्रव्याद्यनुद्दिश्य केवलं विधीयमानं कर्म आरादुपकारकम् । यथा प्रयाजादि । आरादुपकारकं च परमापूर्वोत्पत्तावेवोपयुज्यते । संनिपत्योपकारकं तु द्रव्यदेवतासंस्कारद्वारा यागस्वरूपेऽप्युपयुज्यते । इदमेव चाश्रयिकर्मेत्युच्यते । तदेवं निरूपितः संक्षेपतो विनियोगविधिः ।</span></div>
+  <div class="sutra-iast">dravyādy anuddiśya kevalaṃ vidhīyamānaṃ karma ārādupakārakam | yathā prayājādi | ārādupakārakaṃ ca paramāpūrvotpattāv evopayujyate | saṃnipatyopakārakaṃ tu dravyadevatāsaṃskāradvārā yāgasvarūpe ’py upayujyate | idam eva cāśrayikarmety ucyate | tad evaṃ nirūpitaḥ saṃkṣepato viniyogavidhiḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">実体などを目当てとせず、<b>それだけで</b>命じられる行為が、離れて助けるものである。たとえば前祭など。そして離れて助けるものは、<b>最高の apūrva</b>（paramāpūrva）の生成<b>にだけ</b>役立つ。一方、接して助けるものは、供物と神格を整えることを通じて、<b>祭祀の本体</b>にも役立つ。そしてまさにこれ（接して助けるもの）が「<b>拠り所をもつ行為</b>（āśrayikarman）」と呼ばれる。以上、適用の vidhi が簡潔に説明された。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">An action enjoined independently without reference to substance and others [is] directly-helping, as the fore-sacrifices and others. And the directly-helping [subsidiary] is useful only in the production of the highest not-existent-before. But the indirectly-helping [subsidiary] is useful in the form of the sacrifice also through the consecration of the substance and the deity. And this itself is called dependent action. Thus the injunction of application has been briefly explained.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">प्रयाजाः</span>：<span class="dev">प्रधानयागात् पूर्वम् इज्यते यैः</span>「主祭の前に行う祭」。<span class="dev">अनुयाजाः</span>：<span class="dev">प्रधानयागादनु पश्चाद्</span>「後に行う祭」。<br>
+  祭祀の本体（<span class="dev">यागस्वरूपम्</span>）＝ 供物と神格（第3課 §13「祭祀には二つの形がある」）。<span class="dev">संस्कारः</span> ＝ <span class="dev">कार्यान्तरयोग्यताकरणम्</span>「別の用途に適したものにすること」（Śrībhāṣya）。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　apūrva の4段階（新月・満月祭）</div>
+  <svg class="dia" viewBox="0 0 640 260" role="img" aria-label="apūrva の階層図">
+    <rect x="200" y="10" width="240" height="40" rx="8" class="bx-hl"/><text x="320" y="30" text-anchor="middle">新月・満月祭全体</text><text x="320" y="45" text-anchor="middle" class="sm">फलापूर्वम् / परमापूर्वम्（天界をもたらす）</text>
+    <path d="M280,50 L160,80" class="ln"/><path d="M360,50 L480,80" class="ln"/>
+    <rect x="70" y="80" width="180" height="40" rx="6" class="bx"/><text x="160" y="100" text-anchor="middle">新月祭</text><text x="160" y="115" text-anchor="middle" class="sm">समुदायापूर्वम्</text>
+    <rect x="390" y="80" width="180" height="40" rx="6" class="bx"/><text x="480" y="100" text-anchor="middle">満月祭</text><text x="480" y="115" text-anchor="middle" class="sm">समुदायापूर्वम्</text>
+    <path d="M120,120 L60,150" class="ln"/><path d="M160,120 L160,150" class="ln"/><path d="M200,120 L260,150" class="ln"/>
+    <path d="M440,120 L380,150" class="ln"/><path d="M480,120 L480,150" class="ln"/><path d="M520,120 L580,150" class="ln"/>
+    <rect x="15" y="150" width="90" height="40" rx="5" class="bx"/><text x="60" y="168" text-anchor="middle" class="sm">Āgneya</text><text x="60" y="183" text-anchor="middle" class="sm">उत्पत्त्यपूर्वम्</text>
+    <rect x="115" y="150" width="90" height="40" rx="5" class="bx"/><text x="160" y="168" text-anchor="middle" class="sm">Upāṃśu</text><text x="160" y="183" text-anchor="middle" class="sm">उत्पत्त्यपूर्वम्</text>
+    <rect x="215" y="150" width="90" height="40" rx="5" class="bx"/><text x="260" y="168" text-anchor="middle" class="sm">Aindrāgna</text><text x="260" y="183" text-anchor="middle" class="sm">उत्पत्त्यपूर्वम्</text>
+    <rect x="335" y="150" width="90" height="40" rx="5" class="bx"/><text x="380" y="168" text-anchor="middle" class="sm">Āgneya</text><text x="380" y="183" text-anchor="middle" class="sm">उत्पत्त्यपूर्वम्</text>
+    <rect x="435" y="150" width="90" height="40" rx="5" class="bx"/><text x="480" y="168" text-anchor="middle" class="sm">Upāṃśu</text><text x="480" y="183" text-anchor="middle" class="sm">उत्पत्त्यपूर्वम्</text>
+    <rect x="535" y="150" width="95" height="40" rx="5" class="bx"/><text x="582" y="168" text-anchor="middle" class="sm">Agnīṣomīya</text><text x="582" y="183" text-anchor="middle" class="sm">उत्पत्त्यपूर्वम्</text>
+    <path d="M60,190 L60,215" class="ln-d"/>
+    <rect x="15" y="215" width="200" height="38" rx="5" class="bx"/><text x="115" y="232" text-anchor="middle" class="sm">米搗き・注水など</text><text x="115" y="247" text-anchor="middle" class="sm">अङ्गापूर्वम्</text>
+  </svg>
+  <div class="tbl-wrap"><table>
+  <tr><th>apūrva</th><th>何が生むか</th></tr>
+  <tr><td><span class="dev">फलापूर्वम्</span>（＝<span class="dev">परमापूर्वम्</span>）</td><td>祭全体。天界を直接もたらす</td></tr>
+  <tr><td><span class="dev">समुदायापूर्वम्</span></td><td>新月祭・満月祭それぞれの三祭の<b>まとまり</b>（日が違うので、まとめて一つの果報 apūrva を生めない）</td></tr>
+  <tr><td><span class="dev">उत्पत्त्यपूर्वम्</span></td><td>個々の祭（Āgneya など。時間がずれるので一つにまとまらない）</td></tr>
+  <tr><td><span class="dev">अङ्गापूर्वम्</span></td><td>従属物（米搗き・注水など）</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">यथा अङ्गारजन्यमौष्ण्यं शान्तेष्वपि अङ्गारेषु जले अनुवर्तते, तथा यागजन्यमपूर्वं नष्टेऽपि यागे कर्तरि आत्मनि अनुवर्तताम् ।</span><span class="ja">「炭火が生んだ熱が、炭が消えた後も水に残るように、祭祀が生んだ apūrva も、祭祀が終わった後も行為者の自己にとどまる。」</span><span class="src">Jaiminīyanyāyamālāvistara p. 65</span></div>
+  <p>接して助けるもの（米搗きなど）は、自分の aṅgāpūrva を生むだけでなく、供物・神格を整えて祭祀の本体を作り、その utpattyapūrva にも役立つ ── これが §39 の「<span class="dev">यागस्वरूपे<b>ऽपि</b></span>（本体に<b>も</b>）」の意味です。離れて助けるもの（前祭）は、供物・神格と関係しないので、最高の apūrva にだけ役立つ（<span class="dev">परमापूर्वोत्पत्तावेव</span> の「だけ」）。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　「āśrayikarman」の文の位置と、「直接・間接」の二つの見方</div>
+  <p>・<span class="dev">इदमेव चाश्रयिकर्मेत्युच्यते</span> は、印刷本ではすべて §39 の末尾にあるが、本来は §38 の終わり（接して助けるものの説明）に来るべき。Āpadeva ではそこにある。Rāmeśvara も「<span class="dev">संनिपत्योपकारकमेव च, न तु आरादुपकारकम्</span>」と注しています。<br>
+  ・<span class="dev">आश्रयि</span>：<span class="dev">द्रव्यदेवतादिरूपः आश्रयः अस्य अस्ति</span>「供物・神格という<b>拠り所</b>をもつ」行為。Pārthasārathimiśra（Nyāyaratnamālā p. 121）は、この名を「両方の目的をもつもの」（獣・祭餅の献供）だけに限るが、G&amp;K は3種すべてに当てはまると考えます。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>見方</th><th>saṃnipatya-upakāraka</th><th>ārād-upakāraka</th></tr>
+  <tr><td>① 実体と<b>関わるか</b>を基準に</td><td>実体を介して助ける → 「<b>間接</b>に助ける」</td><td>実体を介さず apūrva を生む → 「<b>直接</b>に助ける」</td></tr>
+  <tr><td>② 祭祀の<b>本体</b>（供物・神格）を基準に</td><td>本体に直接関わる → 「<b>直接</b>に助ける」</td><td>本体と関わらない → 「<b>間接</b>に助ける」</td></tr>
+  </table></div>
+  <p>ārāt が「遠く」とも「近く」とも取れるので、どちらの見方も成り立つ。Mīmāṃsāparibhāṣā は前者を <span class="dev">सामवायिकानि</span> とも呼び、後者を「<span class="dev">आत्मसमवेतापूर्वजनकानि</span>（自己に宿る apūrva を生むもの）」と定義しています。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　6つの根拠の総まとめ</h2>
+<div class="tbl-wrap"><table>
+<tr><th>根拠</th><th>定義</th><th>代表例</th><th>次の根拠に勝つ例</th></tr>
+<tr><td class="dev">श्रुतिः</td><td><span class="dev">निरपेक्षो रवः</span></td><td><span class="dev">व्रीहिभिर्यजेत</span>（具格）</td><td>Indra の詩節 → Gārhapatya 礼拝（§19）</td></tr>
+<tr><td class="dev">लिङ्गम्</td><td><span class="dev">शब्दसामर्थ्यम्</span></td><td>「barhis を刈る」→ kuśa</td><td>「syonaṃ te sadanam」を半分ずつ（§21）</td></tr>
+<tr><td class="dev">वाक्यम्</td><td><span class="dev">समभिव्याहारः</span></td><td>parṇa 木の juhū</td><td>「Indra と Agni よ」→ 新月祭だけ（§24）</td></tr>
+<tr><td class="dev">प्रकरणम्</td><td><span class="dev">उभयाकाङ्क्षा</span></td><td>前祭 → 新月・満月祭</td><td>さいころ遊び → Rājasūya 全体（§31）</td></tr>
+<tr><td class="dev">स्थानम्</td><td><span class="dev">देशसामान्यम्</span></td><td>番号順の祭詞／āmana 献供／Agnīṣomīya 獣</td><td>浄めの祭詞 → sāṃnāyya の器（§35）</td></tr>
+<tr><td class="dev">समाख्या</td><td><span class="dev">यौगिकः शब्दः</span></td><td>「Hotṛ の杯」「Ādhvaryava」</td><td>―</td></tr>
+</table></div>
+<ol class="deriv">
+  <li><span class="form">पाठसादेश्यम् · अनुष्ठानसादेश्यम्</span><span class="why">sthāna は読誦の位置（番号順・近接）か、実行の位置（同じ日）の一致。</span></li>
+  <li><span class="form">फलवत्संनिधावफलं तदङ्गम्</span><span class="why">果報のない行為は、近くの果報のある行為に従属する。</span></li>
+  <li><span class="form">सिद्धरूप · क्रियारूप</span><span class="why">従属物は既成のもの（目に見える目的）と行為のもの。</span></li>
+  <li><span class="form">संनिपत्य · आरात्</span><span class="why">行為の従属物は、実体などに接して助ける（本体と apūrva の両方に役立つ）ものと、離れて助ける（最高の apūrva にだけ役立つ）もの。</span></li>
+</ol>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">सादेश्यम्</td><td class="iast">sādeśya</td><td>同じ場所にあること</td></tr>
+<tr><td class="dev">यथासंख्यम्</td><td class="iast">yathāsaṃkhyam</td><td>番号どおりに</td></tr>
+<tr><td class="dev">याज्या · अनुवाक्या</td><td class="iast">yājyā · anuvākyā</td><td>献供詩 ・ 招請詩</td></tr>
+<tr><td class="dev">कैमर्थ्यम्</td><td class="iast">kaimarthya</td><td>何のためにあるか</td></tr>
+<tr><td class="dev">वैकृताङ्गम्</td><td class="iast">vaikṛtāṅga</td><td>変型（独自）の従属物</td></tr>
+<tr><td class="dev">सांनाय्यम्</td><td class="iast">sāṃnāyya</td><td>（献供用の）凝乳と乳</td></tr>
+<tr><td class="dev">संनिपत्योपकारक</td><td class="iast">saṃnipatyopakāraka</td><td>（実体などに）接して助ける</td></tr>
+<tr><td class="dev">आरादुपकारक</td><td class="iast">ārādupakāraka</td><td>離れて（直接）助ける</td></tr>
+<tr><td class="dev">संस्कारः</td><td class="iast">saṃskāra</td><td>（用途に適するように）整えること</td></tr>
+<tr><td class="dev">परमापूर्वम्</td><td class="iast">paramāpūrva</td><td>最高の apūrva（果報をもたらす）</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. sthāna の下位区分をすべて挙げよ。</summary><div>読誦の位置の一致（番号順の読誦・近接した読誦）と、実行の位置の一致。</div></details>
+<details class="q"><summary>Q2. Indra・Agni の祭詞を liṅga ではなく番号順の読誦で適用するのはなぜ？</summary><div>liṅga だと Indra・Agni へのあらゆる祭に使えてしまうが、ヴェーダはこの特定の祭に限りたいから。</div></details>
+<details class="q"><summary>Q3. āmana 献供はどの根拠で Sāṃgrahaṇī に従属する？ Viśvajit の原則が使えないのはなぜ？</summary><div>近接した読誦（sthāna）。果報のある Sāṃgrahaṇī の近くにあるので、独立の果報（天界）を想定すると、近くに読まれていることが無意味になるから。</div></details>
+<details class="q"><summary>Q4. Bhāskara と Āpadeva の意見の違いは？</summary><div>Āpadeva は「変型の新しい従属物は sthāna による」の原則に例外が2つ（原型の従属物を再言して命じられたもの、はさみ込みのもの）あり、それらは prakaraṇa によるとする。Bhāskara は例外を認めず、すべて近接による（G&amp;K の解釈）。</div></details>
+<details class="q"><summary>Q5. 獣の儀礼が Agnīṣomīya 獣のためにあるのは、どの根拠による？</summary><div>実行の位置の一致（同じ Aupavasathya の日に行われる）。他の2頭には転用で及ぶ。</div></details>
+<details class="q"><summary>Q6. 浄めの祭詞が祭餅の器ではなく sāṃnāyya の器のものとされるのは？</summary><div>sthāna（読誦の位置の一致）が samākhyā（「Pauroḍāśika」という章の名）より強いから。</div></details>
+<details class="q"><summary>Q7. 獣・祭餅の献供が「目に見える目的と見えない目的の両方」をもつのはなぜ？</summary><div>神格を目当てとする部分（祭詞）は神格の想起という見える目的を、供物を手放す部分は apūrva という見えない目的を生むから。</div></details>
+<details class="q"><summary>Q8. 接して助けるものと離れて助けるものの違いは？</summary><div>前者は実体などを目当てに命じられ（米搗き・注水）、供物と神格を整えて祭祀の本体にも役立つ。後者は実体などと関係なく命じられ（前祭）、最高の apūrva にだけ役立つ。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson6.html">← 第6課　prakaraṇa</a><span class="spacer"></span><a href="arthasamgraha_lesson8.html">第8課　実行の vidhi と順序（1）→</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第7課　vidhi（5）<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 24–29 (§32–§39), Notes pp. 147–173.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：एकादर्शकपालं → एकादशकपालं、इद्राग्नी → इन्द्राग्नी、सभिदादिभि → समिदादिभि）。底本の節番号の重複（§31 が二度）は §32 に訂正。
+</footer>
+
+</body>
+</html>
