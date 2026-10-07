@@ -1,7 +1,7 @@
 <title>Tarkasaṃgraha 入門</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Shippori+Mincho:wght@500;700&family=Noto+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Noto+Serif:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
 <style>
 /* Layout: 一本の読み物カラム（約44rem）＋広い画面では左に目次。各節は「原文→翻字→和訳→語釈→解説→図表→補説」の順に積む。 */
 :root{
@@ -20,8 +20,8 @@
   --rose-wash:#f8eaee;
   --font-deva:"Tiro Devanagari Sanskrit","Noto Serif Devanagari","Sanskrit Text",serif;
   --font-iast:"Gentium Book Plus","Gentium Plus","Times New Roman",serif;
-  --font-head:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
-  --font-body:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+  --font-head:"Noto Serif","Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --font-body:"Noto Sans","Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
@@ -59,14 +59,25 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--ochre);outline-offs
 .cover .basis{font-size:.9rem;color:var(--ink-soft);border-left:3px solid var(--ochre);padding-left:12px}
 
 /* ---- 目次 ---- */
-nav.toc{font-size:.88rem}
-@media (min-width:1000px){nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding-top:48px}}
-nav.toc h2{font-size:.78rem;letter-spacing:.12em;color:var(--ink-soft);font-family:var(--font-body);font-weight:500;margin-bottom:8px}
-nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
-nav.toc a{display:grid;grid-template-columns:3.2rem 1fr;gap:6px;text-decoration:none;color:var(--ink);padding:4px 6px;border-radius:4px}
+nav.toc{font-size:.9rem;align-self:start}
+@media (min-width:1000px){nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);max-height:calc(100vh - 48px);overflow:auto;margin-top:48px}}
+.toc-panel{background:var(--sheet);border:1px solid var(--rule);border-radius:6px;padding:16px 0 10px;display:grid;gap:4px}
+.toc-panel > h2{font-family:var(--font-body);font-size:.72rem;font-weight:700;letter-spacing:.16em;color:var(--ink-soft);padding:0 16px 6px}
+.toc-front{padding:0 8px}
+.toc-ch{margin:8px 0 0;padding:10px 16px 6px;border-top:1px solid var(--rule);display:grid;gap:0}
+.toc-ch .k{font-size:.7rem;letter-spacing:.14em;color:var(--ink-soft)}
+.toc-ch .deva{font-size:1.05rem;color:var(--indigo);line-height:1.6}
+nav.toc ol{list-style:none;margin:0;padding:0 8px;display:grid;gap:1px}
+nav.toc a{display:grid;grid-template-columns:3.6rem minmax(0,1fr);align-items:center;gap:10px;text-decoration:none;color:var(--ink);padding:6px 8px;border-radius:4px;border-left:3px solid transparent;line-height:1.45}
 nav.toc a:hover{background:var(--indigo-wash)}
-nav.toc .n{font-family:var(--font-deva);color:var(--ochre)}
-nav.toc .grp{font-size:.75rem;color:var(--ink-soft);padding:12px 6px 2px;letter-spacing:.06em}
+nav.toc a.on{background:var(--indigo-wash);border-left-color:var(--indigo)}
+nav.toc .n{display:grid;justify-items:center;line-height:1.15}
+nav.toc .n .dv{font-family:var(--font-deva);color:var(--ochre);font-size:1rem;white-space:nowrap}
+nav.toc .n .ar{font-size:.66rem;color:var(--ink-soft);font-variant-numeric:tabular-nums}
+nav.toc .t{display:grid;min-width:0}
+nav.toc .t .ja{font-weight:500}
+nav.toc .t .ia{font-family:var(--font-iast);font-style:italic;color:var(--ink-soft);font-size:.86rem}
+nav.toc .front a{grid-template-columns:1fr;padding-left:11px}
 
 /* ---- 凡例 ---- */
 .legend{margin-block:28px;display:grid;gap:12px}
@@ -183,18 +194,20 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--rule);font-si
 <div class="wrap">
 
 <nav class="toc" aria-label="目次">
-  <h2>目次（見本）</h2>
-  <ol>
-    <li><a href="#hanrei"><span class="n">—</span><span>凡例と本書の構成</span></a></li>
-    <li class="grp">第1章 प्रत्यक्षपरिच्छेदः</li>
-    <li><a href="#s1"><span class="n">१</span><span>maṅgala（序の偈）</span></a></li>
-    <li><a href="#s2"><span class="n">२</span><span>七つの padārtha</span></a></li>
-    <li><a href="#s3a"><span class="n">३ क</span><span>九つの dravya</span></a></li>
-    <li><a href="#s3b"><span class="n">३ ख</span><span>二十四の guṇa</span></a></li>
-    <li><a href="#s3c"><span class="n">३ ग</span><span>五つの karma</span></a></li>
-    <li><a href="#s3d"><span class="n">३ घ–च</span><span>sāmānya・viśeṣa・samavāya</span></a></li>
-    <li><a href="#s3g"><span class="n">३ छ</span><span>四つの abhāva</span></a></li>
-  </ol>
+  <div class="toc-panel">
+    <h2>目次 ・ 見本</h2>
+    <ol class="front"><li><a href="#hanrei"><span class="t"><span class="ja">凡例と本書の構成</span></span></a></li></ol>
+    <div class="toc-ch"><span class="k">第 1 章</span><span class="deva">प्रत्यक्षपरिच्छेदः</span></div>
+    <ol>
+      <li><a href="#s1"><span class="n"><span class="dv">१</span><span class="ar">§1</span></span><span class="t"><span class="ja">序の偈</span><span class="ia">maṅgala</span></span></a></li>
+      <li><a href="#s2"><span class="n"><span class="dv">२</span><span class="ar">§2</span></span><span class="t"><span class="ja">七つの範疇</span><span class="ia">sapta padārthāḥ</span></span></a></li>
+      <li><a href="#s3a"><span class="n"><span class="dv">३ क</span><span class="ar">§3a</span></span><span class="t"><span class="ja">九つの実体</span><span class="ia">dravya</span></span></a></li>
+      <li><a href="#s3b"><span class="n"><span class="dv">३ ख</span><span class="ar">§3b</span></span><span class="t"><span class="ja">二十四の性質</span><span class="ia">guṇa</span></span></a></li>
+      <li><a href="#s3c"><span class="n"><span class="dv">३ ग</span><span class="ar">§3c</span></span><span class="t"><span class="ja">五つの運動</span><span class="ia">karma</span></span></a></li>
+      <li><a href="#s3d"><span class="n"><span class="dv">३ घ–च</span><span class="ar">§3d–f</span></span><span class="t"><span class="ja">普遍・特殊・内属</span><span class="ia">sāmānya · viśeṣa · samavāya</span></span></a></li>
+      <li><a href="#s3g"><span class="n"><span class="dv">३ छ</span><span class="ar">§3g</span></span><span class="t"><span class="ja">四つの非存在</span><span class="ia">abhāva</span></span></a></li>
+    </ol>
+  </div>
 </nav>
 
 <main>
@@ -890,3 +903,14 @@ footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--rule);font-si
 
 </main>
 </div>
+
+<script>
+(function(){
+  try{
+    var links=[].slice.call(document.querySelectorAll('nav.toc a'));
+    var map={};links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){links.forEach(function(a){a.classList.remove('on')});var a=map[e.target.id];if(a)a.classList.add('on');}});},{rootMargin:'-20% 0px -70% 0px'});
+    Object.keys(map).forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+  }catch(e){}
+})();
+</script>
