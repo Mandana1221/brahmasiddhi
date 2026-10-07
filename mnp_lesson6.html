@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい祭式解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+.en { font-family: 'Cormorant Garamond', serif; font-size: 1.08em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Cormorant Garamond', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — लिङ्गम्, वाक्यम्</div>
+  <h1>やさしい祭式解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 6</div>
+  <div class="header-jp">第6課　第二の根拠「語の意味能力」と第三の根拠「文的結合」<br>
+  本文：Edgerton §§90–115（校訂本文 pp. 211–215 ／ KSS版 pp. 38–48）<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#intro"><span class="n">序</span>六つの根拠の強弱のしくみ</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>語の意味能力（liṅga）とその二種（§§90–92）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>Pūṣan の祭詞 ── 弱い根拠も強い根拠に支えられれば勝つ（§§93–101）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>本来の意味だけ／語の意味能力の強さ（§§102–104）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>文的結合（vākya）と、独立規定の行き先（§§105–113）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>文的結合は文脈より強い（§§114–115）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+<h2 class="chapter">六つの根拠の強弱のしくみ</h2>
+<p class="lead">第5課で「直接言明は、他の根拠より先に働くので最強」と学びました（§88）。この課ではその理屈が<b>連鎖</b>になっていることが分かります。弱い根拠は、自分より強い根拠を一段ずつ<b>想定（<span class="dev">कल्पना</span>）</b>しなければ充当できないのです（Edgerton 脚注30）。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 720 210" role="img" aria-label="六つの根拠が順に一つ上の根拠を想定して直接言明に至る連鎖">
+  <defs><marker id="s6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead-acc"/></marker></defs>
+  <g font-size="13" text-anchor="middle">
+  <rect x="10" y="60" width="100" height="60" rx="8" class="box"/><text x="60" y="86">名称</text><text x="60" y="106" class="t-dev" font-size="12">समाख्या</text>
+  <rect x="128" y="60" width="100" height="60" rx="8" class="box"/><text x="178" y="86">位置</text><text x="178" y="106" class="t-dev" font-size="12">स्थान</text>
+  <rect x="246" y="60" width="100" height="60" rx="8" class="box"/><text x="296" y="86">文脈</text><text x="296" y="106" class="t-dev" font-size="12">प्रकरण</text>
+  <rect x="364" y="60" width="100" height="60" rx="8" class="box-blue"/><text x="414" y="86">文的結合</text><text x="414" y="106" class="t-dev" font-size="12">वाक्य</text>
+  <rect x="482" y="60" width="100" height="60" rx="8" class="box-blue"/><text x="532" y="86">語の意味能力</text><text x="532" y="106" class="t-dev" font-size="12">लिङ्ग</text>
+  <rect x="600" y="60" width="110" height="60" rx="8" class="box-acc"/><text x="655" y="86">直接言明</text><text x="655" y="106" class="t-dev" font-size="12">श्रुति</text>
+  </g>
+  <path d="M110,90 L126,90" class="line-acc" marker-end="url(#s6)"/>
+  <path d="M228,90 L244,90" class="line-acc" marker-end="url(#s6)"/>
+  <path d="M346,90 L362,90" class="line-acc" marker-end="url(#s6)"/>
+  <path d="M464,90 L480,90" class="line-acc" marker-end="url(#s6)"/>
+  <path d="M582,90 L598,90" class="line-acc" marker-end="url(#s6)"/>
+  <text x="360" y="40" text-anchor="middle" font-size="12" class="t-acc">→ は「想定する」：弱い根拠は右の根拠を順に想定してはじめて充当できる</text>
+  <text x="360" y="150" text-anchor="middle" font-size="12" class="t-mute">右へ行くほど想定の段数が少なく、先に充当を終える ＝ 強い</text>
+  <text x="360" y="175" text-anchor="middle" font-size="12" class="t-mute">例：文的結合は「語の意味能力 → 直接言明」の二段を想定する（§103）</text>
+  <text x="360" y="195" text-anchor="middle" font-size="12" class="t-mute">　　文脈は「文的結合 → 語の意味能力 → 直接言明」の三段（§§95, 114）</text>
+</svg>
+<figcaption><b>図1　六つの根拠の強弱の原理。</b>この課の主役は青の二つ。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　語の意味能力とその二種</h2>
+<p class="chapter-sub">§§90–92</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§90</span><span class="sutra-num">KSS p.38</span><span class="sutra-title">語の意味能力の定義</span></div>
+  <div class="mula"><mark>सामर्थ्यं लिङ्गम्</mark> । यदाहुः: सामर्थ्यं सर्वभावानां लिङ्गमित्यभिधीयते । इति । तेनाङ्गत्वम्; यथा बर्हिर्देवसदनं दामीत्यस्य लवनाङ्गत्वम् । स हि लवनं प्रकाशयितुं समर्थः ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">सामर्थ्य</span> <span class="iast">sāmarthya</span> 能力（意味を表す力）</span>
+    <span class="w"><span class="dev">बर्हिस्</span> <span class="iast">barhis</span> 祭草</span>
+    <span class="w"><span class="dev">लवन</span> <span class="iast">lavana</span> 刈ること</span>
+    <span class="w"><span class="dev">प्रकाशयति</span> <span class="iast">prakāśayati</span> 照らし出す（思い起こさせる）</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v"><b>語の意味能力とは能力のことである</b>。こう言われている──「あらゆるものの能力が『しるし（liṅga）』と呼ばれる。」それによって補助であることが示される。たとえば「<b>神々の座である祭草を私は刈る</b>」という祭詞は、刈ることの補助である。それは刈ることを照らし出す能力があるからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Word-meaning (liñga) is capacity (power, or meaning, of words).<span class="jp">脚注66：Edgerton は <span class="iast">liṅga</span> を “word-meaning” と訳し、Keith の “indirect implication” という訳を誤りとする。<span class="iast">liṅga</span> の文字どおりの意味は「しるし」。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§91–92</span><span class="sutra-num">KSS pp.38–39</span><span class="sutra-title">二種の語の意味能力</span></div>
+  <div class="mula"><small style="color:var(--muted)">§91</small> तच्च लिङ्गं द्विविधम्, सामान्यसंबन्धबोधकप्रमाणान्तरानपेक्षं तदपेक्षं च । तत्र यदन्तरेण यन्न संभवत्येव, तस्य तदङ्गत्वं तदनपेक्षं केवललिङ्गादेव । यथार्थज्ञानस्य कर्मानुष्ठानाङ्गत्वम् । न ह्यर्थज्ञानमन्तरेणानुष्ठानं संभवति ।<br>
+  <small style="color:var(--muted)">§92</small> यदन्तरेण यत्संभवति, तस्य तदर्थत्वं तदपेक्षम्, यथोक्तस्य मन्त्रस्य लवनाङ्गत्वम् । लवनं हि मन्त्रं विनाप्युपायान्तरेण स्मृत्वा कर्तुं शक्यम् । अतो न मन्त्रो लवनस्वरूपार्थः संभवति, किं त्वपूर्वसाधनीभूतलवनप्रकाशनार्थः । तत्त्वं च न सामर्थ्यमात्रादवगम्यते, लवनप्रकाशनमात्रे सामर्थ्यात् । अतोऽवश्यं प्रकरणादि सामान्यसंबन्धबोधकं स्वीकार्यम् । दर्शपूर्णमासप्रकरणे हि मन्त्रस्य पाठादेवमवगम्यते: अनेन मन्त्रेण दर्शपूर्णमासापूर्वसंबन्धि किंचित्प्रकाश्यत इति; अन्यथा प्रकरणपाठवैयर्थ्यप्रसङ्गात् । किं तदपूर्वसंबन्धि प्रकाश्यमित्यपेक्षायां सामर्थ्याद्बर्हिर्लवनमित्यवगम्यते । तद्धि बर्हिःसंस्कारद्वारापूर्वसंबन्धीति मन्त्रस्य सामर्थ्यात्तदर्थत्वे सति नानर्थक्यं प्रसज्यते । तस्माद्बर्हिर्देवसदनं दामीत्यस्य प्रकरणाद्दर्शपूर्णमाससंबन्धितयावगतस्य सामर्थ्याल्लवनाङ्गत्वमिति सिद्धम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この語の意味能力は二種である。一般的な関係を知らせる他の根拠を<b>必要としないもの</b>と、<b>必要とするもの</b>である。<br>
+  そのうち、AなしにはBがまったく起こりえない場合、AがBの補助であることは、それ（他の根拠）を必要とせず、語の意味能力だけで分かる。たとえば<b>（Veda の）意味の理解は、祭式の実行の補助</b>である。意味を理解せずに実行することはできないからである。<br>
+  AなしでもBが起こりうる場合、AがBのためであることは、それ（他の根拠）を必要とする。たとえば先の祭詞が刈ることの補助であること。刈ることは、祭詞がなくても他の手段で思い出して行えるからである。だから祭詞は刈ることそのもののためではなく、<b>不可見の力の手段となる刈ること</b>を照らし出すためにある。そしてそのことは能力だけからは分からない。能力は刈ること一般を照らし出すだけだからである。だから一般的な関係を知らせる文脈などを必ず認めねばならない。新月祭・満月祭の文脈で祭詞が唱えられることから、「この祭詞は新月祭・満月祭の不可見の力に関わる何かを照らし出す」と分かる。そうでなければ文脈で唱えられることが無意味になるからである。「その何かとは？」という期待に対して、能力から「祭草を刈ること」と分かる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… that which requires another mode-of-evidence to make clear the general connexion, and that which does not.<span class="jp">脚注62：Mīmāṃsā によれば、祭詞の唯一の役目は、行うべき行為を思い起こさせることである（§§203, 239 以下）。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-1　語の意味能力の二種（§§91–92）</caption>
+<tr><th></th><th>他の根拠を必要としない</th><th>他の根拠を必要とする</th></tr>
+<tr><td>条件</td><td>AなしにはBがまったく起こりえない</td><td>AなしでもBは起こりうる</td></tr>
+<tr><td>例</td><td>意味の理解 → 祭式の実行</td><td>「祭草を私は刈る」の祭詞 → 刈ること</td></tr>
+<tr><td>働き</td><td>能力だけで補助関係が決まる</td><td>まず文脈などで「どの祭式の不可見の力か」が決まり、次に能力で「何を照らすか」が決まる</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　Pūṣan の祭詞</h2>
+<p class="chapter-sub">§§93–101 ／ 弱い根拠も、強い根拠に支えられれば勝つ</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§93–94</span><span class="sutra-num">KSS p.39</span><span class="sutra-title">問題：Pūṣan への後唱の祭詞はどの祭式のものか</span></div>
+  <div class="mula"><small style="color:var(--muted)">§93</small> पूषानुमन्त्रणमन्त्राणां तु यागानुमन्त्रणसमाख्यया यागसामान्यसंबन्धेऽवगते सामर्थ्यात्पूषयागसंबन्धोऽवगम्यते ।<br>
+  <small style="color:var(--muted)">§94</small> ननु तेषां यावत्समाख्यया पूषयागेन सामान्यसंबन्धोऽवगम्यते, तावत्प्रकरणाद्दर्शपूर्णमासाभ्यामेव सामान्यसंबन्धोऽवगतः, समाख्यातस्तस्य बलीयस्त्वात् । अत एव पौरोडाशिकमिति समाख्याते ब्राह्मण आम्नातानामपि प्रयाजानां प्रकरणात्साम्नाय्योपांशुयाजाङ्गत्वमपित्युक्तम् । किं च यागानुमन्त्रणसमाख्ययापि न पूषयागेन सामान्यसम्बन्धोऽवगम्यते, किं तु यागमात्रेण, प्रकरणेन तु दर्शपूर्णमासाभ्यामेव विशेषसम्बन्धोऽवगम्यते । अतः प्रकरणाज्झटिति तत्सम्बन्धस्यैवावगतत्वात्तदर्थत्वमेव तेषां युक्तम्; पूषेतिशब्दस्य पुष्णातीति व्युत्पत्त्या कथंचिदग्न्याद्यभिधायित्वात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">Pūṣan への<b>後唱（anumantraṇa）</b>の祭詞は、「祭式の後唱」という<b>名称</b>によって祭式一般との関係が分かり、次に語の意味能力によって Pūṣan 祭との関係が分かる。<br>
+  【反論】しかし名称によって Pūṣan 祭との一般的関係が分かる前に、<b>文脈</b>によって新月祭・満月祭との一般的関係が分かってしまう。文脈は名称より強いからである。だからこそ、「餅の（章）」という名称の Brāhmaṇa に記された前供犠も、文脈によって（餅以外の）Sāṃnāyya や Upāṃśuyāja の補助でもあるとされる。また「祭式の後唱」という名称は Pūṣan 祭ではなく祭式一般との関係を示すにすぎず、文脈は新月祭・満月祭との特定の関係を示す。だからそれらのためとするのが正しい。Pūṣan という語は「繁栄させる（puṣṇāti）」という語源から、なんとか Agni などを指すと解せるだろう。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… first their general connexion with the sacrifice is understood by their name (samākhyā) of “recitation-after-the-sacrifice,” and then … by word-meaning their connexion with the Pūṣan-sacrifice is understood.<span class="jp">脚注63：実際に Pūṣan に呼びかけるのは最初の祭詞だけ（注釈）。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§95–97</span><span class="sutra-num">KSS pp.40–42</span><span class="sutra-title">答え：名称は語の意味能力に支えられる</span></div>
+  <div class="mula"><small style="color:var(--muted)">§95</small> मैवम् । पूषानुमन्त्रणमन्त्रे हि श्रूयमाण एवमवगम्यते: पूषाभिधानसमर्थत्वादयं मन्त्रस्तत्प्रकाशनार्थ इति, लवनमन्त्र इव लवनप्रकाशनार्थः । न तत्र प्रकरणाद्यपेक्षा, येन तेषामुपजीव्यत्वेन प्राबल्यं स्यात् । प्रकरणात्तु दर्शपूर्णमासार्थत्वे तस्य वाक्यलिङ्गश्रुतिकल्पनेन विनियोजकत्वाल्लिङ्गस्योपजीव्यत्वेन प्राबल्यम् । अतो लिङ्गात्पूषप्रकाशनार्थत्वेऽवगते तन्मात्रप्रकाशनमनर्थकमित्यपूर्वसाधनपूषप्रकाशनार्थत्वं वक्तव्यम् । किं तदपूर्वमित्यपेक्षायां यागानुमन्त्रणसमाख्यानुगृहीताल्लिङ्गात्पूषयागापूर्वसम्बन्धिदेवताप्रकाशनार्थोऽयमित्यवगम्यते । अतो यद्यपि समाख्यातः प्रकरणं बलीयस्तथापि तस्य लिङ्गेन बाधितत्वात्समाख्याया दुर्बलाया अपि प्रबललिङ्गाश्रितत्वेन प्राबल्यात्सैव सामान्यसम्बन्धे प्रमाणं सम्भवति, <mark>दुर्बलस्यापि प्रबलाश्रितस्य प्राबल्यात्</mark> ।<br>
+  <small style="color:var(--muted)">§96</small> अत एव श्रुत्यपेक्षया दुर्बलाया अपि स्मृतेराचमनरूपप्रबलपदार्थाश्रितत्वेन प्राबल्यात्पदार्थधर्मगुणभूतश्रौतक्रमत्यागेन वेदकरणानन्तरं क्षुत आचमनमेव कार्यमित्युक्तम् । यथाहुः:<br>
+  <small style="color:var(--muted)">§97</small> अत्यन्तबलवन्तोऽपि पौरजानपदा जनाः<br>दुर्बलैरपि बाध्यन्ते पुरुषैः पार्थिवाश्रितैः । इति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">そうではない。Pūṣan への後唱の祭詞を聞くと、こう分かる──「Pūṣan を指す能力があるので、この祭詞は彼を照らし出すためのものだ。刈ることの祭詞が刈ることを照らすように。」そこでは文脈などを必要としないので、文脈が<b>依拠されるもの</b>として優位に立つことはない。むしろ文脈が新月祭・満月祭のためとするには、文的結合・語の意味能力・直接言明を想定して充当するしかないので、語の意味能力の方が依拠されるものとして優位である。<br>
+  だから語の意味能力によって Pūṣan を照らすためと分かれば、単に照らすだけでは無意味なので、不可見の力の手段としての Pūṣan を照らすためと言わねばならない。「その不可見の力とは？」という期待に対して、「祭式の後唱」という名称に支えられた語の意味能力から、Pūṣan 祭の不可見の力に関わる神格を照らすためと分かる。だから、文脈は名称より強いが、それは語の意味能力に打ち消され、<b>弱い名称も強い語の意味能力に依っているので優位</b>となる。<b>弱いものでも強いものに依っていれば優位に立つ</b>からである。<br>
+  だからこそ、伝承（smṛti）は天啓（śruti）より弱いが、口をすすぐことという<b>重要な行為</b>に依っているので優位となり、祭草束（veda）を作った直後にくしゃみをしたら、行為の性質にすぎない天啓の順序を捨てて、口をすすぐべきだとされる。こう言われている──「非常に強い町や田舎の人々も、王に仕える弱い者たちに打ち負かされる。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… because even a weak individual prevails if supported by a stronger one.<span class="jp">脚注65：くしゃみやあくびの後は口をすすぐ、という伝承規定。順序は行為（<span class="iast">padārtha</span>）に宿る性質（<span class="iast">dharma</span>）にすぎないので、行為である口すすぎの方が重要。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 230" role="img" aria-label="Pūṣanの祭詞についての、文脈と名称・語の意味能力の争い">
+  <rect x="270" y="10" width="180" height="48" rx="8" class="box-acc"/>
+  <text x="360" y="32" text-anchor="middle" font-size="13">Pūṣan への後唱の祭詞</text>
+  <text x="360" y="50" text-anchor="middle" class="t-dev" font-size="11">पूष्णोऽहं देवयज्यया…</text>
+  <rect x="20" y="100" width="260" height="110" rx="8" class="box"/>
+  <text x="150" y="124" text-anchor="middle" font-size="13" class="t-mute">✕ 文脈（新月祭・満月祭）</text>
+  <text x="150" y="148" text-anchor="middle" font-size="11">名称より強いはずだが…</text>
+  <text x="150" y="168" text-anchor="middle" font-size="11">三段の想定が必要</text>
+  <text x="150" y="188" text-anchor="middle" font-size="11">「Pūṣan＝Agni」は語源頼み（弱い）</text>
+  <rect x="440" y="100" width="260" height="110" rx="8" class="box-green"/>
+  <text x="570" y="124" text-anchor="middle" font-size="13" class="t-acc">○ 名称 ＋ 語の意味能力</text>
+  <text x="570" y="148" text-anchor="middle" font-size="11">名称：「祭式の後唱」→ 祭式一般</text>
+  <text x="570" y="168" text-anchor="middle" font-size="11">語の意味能力：Pūṣan → Pūṣan 祭</text>
+  <text x="570" y="188" text-anchor="middle" font-size="11">弱い名称が強い liṅga に支えられる</text>
+  <path d="M320,58 L170,98" class="line-dash"/>
+  <path d="M400,58 L560,98" class="line-acc"/>
+  <text x="360" y="150" text-anchor="middle" font-size="22" class="t-acc">&lt;</text>
+</svg>
+<figcaption><b>図2　Pūṣan の祭詞（§§93–100）。</b>王に仕える者の比喩（§97）：弱い者でも、強い者の後ろ盾があれば勝つ。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§98–101</span><span class="sutra-num">KSS pp.42–43</span><span class="sutra-title">慣用的意味は語源的意味より強い</span></div>
+  <div class="mula"><small style="color:var(--muted)">§98</small> यत्तु पूषेतिशब्दः कथंचिदग्न्याद्यभिधायीति, तन्न; तस्यादन्तको हि स इत्यादिवाक्यशेषेण वैदिकप्रसिद्ध्या चार्थविशेषे रूढत्वात्; <mark>रूढेश्चावयवार्थालोचनसव्यपेक्षाद्योगाद्बलीयस्त्वात्</mark> । अत एव वर्षासु रथकारोऽग्नीनादधीतेत्यत्र रथकारशब्देन सौधन्वनापरपर्यायो वर्णविशेष उच्यते, रूढेः प्राबल्यात्, न तु रथं करोतीति व्युत्पत्त्या द्विजातीयः, योगस्य दौर्बल्यादित्युक्तं षष्ठे ।<br>
+  <small style="color:var(--muted)">§99</small> तस्माद्युक्तं समाख्यया सामान्यसम्बन्धेऽवगते सामर्थ्यात्पूषयागसम्बन्धः पूषानुमन्त्रणमन्त्राणामिति । यथाहुः:<br>
+  <small style="color:var(--muted)">§100</small> यागानुमन्त्रणानीति समाख्या क्रतुयोजिका<br>तस्माच्छक्त्यनुरोधेन प्राप्तिस्तद्देवते क्रतौ । इति ।<br>
+  <small style="color:var(--muted)">§101</small> तत्सिद्धं <mark>प्रमाणान्तरसिद्धसामान्यसम्बन्धस्य पदार्थस्य विनियोजकं लिङ्गमिति</mark> ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">रूढि</span> <span class="iast">rūḍhi</span> 慣用的意味</span>
+    <span class="w"><span class="dev">योग</span> <span class="iast">yoga</span> 語源的意味（部分の意味の組み合わせ）</span>
+    <span class="w"><span class="dev">रथकार</span> <span class="iast">rathakāra</span> 車大工（文字どおりは「車を作る者」）</span>
+    <span class="w"><span class="dev">वाक्यशेष</span> <span class="iast">vākyaśeṣa</span> 文の残りの部分（補足文）</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">「Pūṣan という語はなんとか Agni などを指す」というのも誤りである。「彼には歯がないのだから」などの補足文と、Veda での一般的用法とによって、特定の意味（神 Pūṣan）に<b>慣用的に定まっている</b>からであり、<b>慣用的意味は、部分の意味の考察を要する語源的意味より強い</b>からである。だからこそ「雨季に車大工は聖火を設置すべし」の「車大工」は、慣用が優勢なので Saudhanvana と同義の特定の身分を指し、「車を作る」という語源によって再生族（アーリヤ）を指すのではない、と第6巻で説かれている。<br>
+  それゆえ、名称によって一般的関係が分かったあと、能力によって Pūṣan への後唱の祭詞が Pūṣan 祭と関係することは正しい。こう言われている──「『祭式の後唱』という名称は祭式に結びつける。それから能力に従って、その神格の祭式に定まる。」<br>
+  こうして、<b>他の根拠によって一般的関係が確立したものを、語の意味能力が（特定的に）充当する</b>ことが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… because conventional meaning is stronger than etymological meaning which depends on consideration of the meaning of the parts (of the word).</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表2-1　慣用的意味と語源的意味（§98）</caption>
+<tr><th>語</th><th>慣用的意味 <span class="dev">रूढि</span>（強い）</th><th>語源的意味 <span class="dev">योग</span>（弱い）</th></tr>
+<tr><td class="dev">पूषन्</td><td>神 Pūṣan</td><td>「繁栄させる者」→ Agni など</td></tr>
+<tr><td class="dev">रथकार</td><td>特定の身分（Saudhanvana）</td><td>「車を作る者」→ 再生族の職人</td></tr>
+<tr><td class="dev">जुहू</td><td>特定の柄杓</td><td>「それで献供するもの」→ あらゆる柄杓（Edgerton 脚注71）</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　本来の意味だけ／語の意味能力の強さ</h2>
+<p class="chapter-sub">§§102–104</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§102</span><span class="sutra-num">KSS p.43</span><span class="sutra-title">語の意味能力は本来の意味でだけ充当する</span></div>
+  <div class="mula">तत्र मन्त्रविनियोजकं लिङ्गं <mark>मुख्य एवार्थे विनियोजकम्, न गौणे</mark>; मुख्यार्थस्य प्रथममुपस्थितत्वेन तत्रैव विनियोगबुद्धौ पर्यवसन्नायां पुनर्गौणेऽर्थे विनियोगकल्पनायां गौरवप्रसङ्गात् । अत एव बर्हिर्देवसदनं दामीति मन्त्रः सामर्थ्यात्कुशलवनाङ्गम्, तेषां मुख्यत्वात्, नोलपराजिलवनाङ्गमित्युक्तम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">祭詞を充当する語の意味能力は、<b>本来の意味でだけ充当し、二次的な意味では充当しない</b>。本来の意味が先に思い浮かび、充当しようという心はそこで終わるので、その後で二次的意味での充当を想定するのは煩雑だからである。だからこそ「神々の座である祭草を私は刈る」の祭詞は、能力によって<b>クシャ草</b>を刈ることの補助であり（それが本来の意味だから）、ウラパ草の束を刈ることの補助ではない、と説かれている。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Now in applying formulas, word-meaning applies them only in the primary sense (of the applicatory word), not in a secondary sense.<span class="jp">脚注67：ウラパ草の束は聖火を運ぶ松明に使う。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§103–104</span><span class="sutra-num">KSS pp.43–44</span><span class="sutra-title">語の意味能力は文的結合などより強い</span></div>
+  <div class="mula"><small style="color:var(--muted)">§103</small> <mark>तदिदं लिङ्गं वाक्यादिभ्यो बलवत्</mark> । तेषां हि न साक्षाद्विनियोजकत्वं किं तु लिङ्गं श्रुतिं च कल्पयित्वा; न चासमर्थस्य श्रुतिं कल्पयित्वा विनियोगकल्पना सम्भवतीति सामर्थ्यस्यापि कल्प्यत्वेनोपजीव्यत्वात् । अतस्तैर्यावत्सामर्थ्यं कल्पयित्वा श्रुतिः कल्प्यते, तावदेव क्ल्प्तेन सामर्थ्येन श्रुतिं कल्पयित्वा विनियोगः क्रियत इति तस्य प्राबल्यम् ।<br>
+  <small style="color:var(--muted)">§104</small> अत एव स्योनं ते सदनं कृणोमि घृतस्य धारया सुशेवं कल्पयामीत्यस्य सदनाङ्गत्वं लिङ्गात्, न तु वाक्यात्सादनाङ्गत्वम्, तस्य दौर्बल्यादिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この語の意味能力は文的結合などより強い。それらは直接充当するのではなく、語の意味能力と直接言明を想定して充当する。意味のない語の直接言明を想定して充当することはできないので、能力も想定されねばならないからである。だからそれらが能力を想定して直接言明を想定する間に、既にある能力が直接言明を想定して充当を済ませてしまう。<br>
+  だからこそ、「あなたに心地よい座を作る、ギーの流れで快いものにする」という祭詞は、語の意味能力によって<b>座を作ること</b>の補助であり、文的結合によって（餅を）<b>置くこと</b>の補助となるのではない。文的結合は弱いからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For they do not make application directly, but by implying word-meaning and direct-statement …<span class="jp">脚注68：この祭詞の後半「その不死なるものの上に座れ…」は「置くこと」に関わる。前半と後半は一つの文だが、語の意味能力によって別々の行為に分けられる。</span></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　文的結合と、独立規定の行き先</h2>
+<p class="chapter-sub">§§105–113</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§105–106</span><span class="sutra-num">KSS p.44</span><span class="sutra-title">文的結合の定義：Parṇa 木の柄杓</span></div>
+  <div class="mula"><small style="color:var(--muted)">§105</small> <mark>समभिव्याहारो वाक्यम्</mark> । समभिव्याहारो नाम साध्यत्वादिवाचकद्वितीयाद्यभावे वस्तुतः शेषशेषिणोः सहोच्चारणम् । यथा, यस्य पर्णमयी जुहूर्भवति न स पापं श्लोकं शृणोतीति । अत्र हि न द्वितीयादिविभक्तिः श्रूयते, केवलं पर्णताजुह्वोः समभिव्याहारमात्रम् । तस्मादेव च पर्णताया जुह्वङ्गत्वम् ।<br>
+  <small style="color:var(--muted)">§106</small> न चानर्थक्यम्, जुहूशब्देनापूर्वलक्षणात् । तदयं वाक्यार्थः: पर्णतयावत्तहविर्धारणद्वारा यदपूर्वसाधनं तद्भावयेदिति । एवं च पर्णतया यदि जुहूः क्रियते तदैव तत्साध्यमपूर्वं भवति, नान्यथेति गम्यते, इति न पर्णताया वैयर्थ्यम् । अवत्तहविर्धारणद्वारेति चावश्यं वक्तव्यम्, अन्यथा स्रुवादिष्वपि पर्णतापत्तेः ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">समभिव्याहार</span> <span class="iast">samabhivyāhāra</span> 並べて言うこと</span>
+    <span class="w"><span class="dev">शेष / शेषिन्</span> <span class="iast">śeṣa / śeṣin</span> 従／主</span>
+    <span class="w"><span class="dev">जुहू</span> <span class="iast">juhū</span> 献供用の柄杓</span>
+    <span class="w"><span class="dev">पर्णमयी</span> <span class="iast">parṇamayī</span> Parṇa 木（Butea）製の</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v"><b>文的結合とは、並べて言うことである</b>。並べて言うこととは、目的などを表す対格などの格語尾はないが、実際には従と主の関係にある二つのものを<b>一緒に述べる</b>ことである。たとえば「<b>Parṇa 木の柄杓をもつ者は、悪い噂を聞かない</b>」。ここには対格などの格語尾は聞かれず、Parṇa 木製であることと柄杓が並べて言われているだけである。そしてまさにそのことから、Parṇa 木製であることが柄杓の補助である。<br>
+  無意味でもない。「柄杓」の語で不可見の力が転義的に表されるからである。文意は「Parṇa 木製であることによって、切り分けた供物を保持することを通じて、不可見の力を生じさせるべし」。こうして、柄杓が Parṇa 木製で作られたときだけ、それによる不可見の力が生じると分かる。「切り分けた供物の保持を通じて」は必ず言わねばならない。さもないと、小さな匙（sruva）なども Parṇa 木製でなければならなくなるからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Syntactical-connexion (vākya) means connected-utterance. … the enunciation together of two things which are really principal and subsidiary to each other, altho there are no case-forms …<span class="jp">脚注70：<span class="iast">parṇamayī</span> の女性語尾 -ī は、私たちから見れば <span class="iast">juhū</span> との一致を示す直接言明に見えるが、Mīmāṃsā はそう認めない。どんな女性名詞も修飾しうるし、名詞として独立にも使えるからである。</span></div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">直接言明と文的結合のちがい</div>
+  「米<b>で</b>祭る」（§70）では、格語尾 -bhiḥ が関係を直接示します（直接言明）。「Parṇa 木の柄杓」では、二語が<b>並んでいるだけ</b>で、関係を示す格語尾はありません（文的結合）。並んでいるという事実から関係を推し量るので、直接言明より一段弱いのです。
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§107–108</span><span class="sutra-num">KSS p.45</span><span class="sutra-title">独立規定（anārabhyādhīta）はどこへ行くか①：Parṇa 木製</span></div>
+  <div class="mula"><small style="color:var(--muted)">§107</small> सा चेयं पर्णतानारभ्याधीता न सर्वक्रतुषु गच्छति, विकृतिषु चोदकेनापि प्राप्तिसंभवेन द्विरुक्तत्वापत्तेः; किं तु प्रकृतिषु । तदुक्तम्: प्रकृतौ वाद्विरुक्तत्वात् । इति ।<br>
+  <small style="color:var(--muted)">§108</small> अत्र विकृतिर्यतोऽङ्गानि गृह्णाति सा प्रकृतिरिति न प्रकृतिशब्देन विवक्षितम्, गृहमेधीये पर्णताया अप्राप्तिप्रसङ्गात्; न हि गृहमेधीयात्काचन विकृतिरङ्गानि गृह्णाति मानाभावात्; किं तु चोदकाद्यत्राङ्गाप्राप्तिस्तत्कर्म प्रकृतिशब्देन विवक्षितम्; यथा दर्शपूर्णमासौ । तत्र हि न चोदकादङ्गप्राप्तिः, प्रकरणपठितैरेवाङ्गैर्नैराकाङ्क्ष्यात् । गृहमेधीयादिष्वपि न चोदकादङ्गप्राप्तिः, क्ल्प्तोपकारैरेवाज्यभागादिभिर्नैराकाङ्क्ष्यात् । अतो यत्र चोदकाप्रवृत्तिस्तत्रानारभ्याधीतानां संनिवेशः ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">अनारभ्याधीत</span> <span class="iast">anārabhyādhīta</span> 特定の祭式の文脈なしに学ばれた（独立規定）</span>
+    <span class="w"><span class="dev">प्रकृति / विकृति</span> <span class="iast">prakṛti / vikṛti</span> 原型／変型</span>
+    <span class="w"><span class="dev">चोदक</span> <span class="iast">codaka</span> 準用の規則（原型の規定を変型に移す）</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">この Parṇa 木製は、特定の祭式の文脈なしに学ばれた規定（<b>独立規定</b>）であるが、<b>すべての祭式</b>には行かない。変型では準用の規則によっても得られるので、二度言うことになるからである。そうではなく<b>原型</b>に行く。こう説かれている──「原型にのみ。二重言及を避けるため。」<br>
+  ここで「原型」とは、「変型がそこから補助を取ってくるもの」の意味ではない。そうなると Gṛhamedhīya 祭に Parṇa 木製が行かなくなる。Gṛhamedhīya から補助を取る変型はないからである。そうではなく、「<b>準用の規則によって補助を得ることがない祭式</b>」の意味である。たとえば新月祭・満月祭。そこでは文脈で唱えられた補助で期待が満たされているので、準用によって補助を得ない。Gṛhamedhīya などでも、効能の確立したバター分などで期待が満たされているので、準用によって補助を得ない。だから準用の規則が働かないところに独立規定は入るのである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the word archetype means a rite which does not get its subsidiaries by the rule of transfer.<span class="jp"><span class="iast">anārabhyādhīta</span>＝“detacht-rule”、<span class="iast">codaka</span>＝“rule of transfer”、<span class="iast">prakṛti / vikṛti</span>＝“archetype / modification”。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§109–113</span><span class="sutra-num">KSS pp.46–47</span><span class="sutra-title">独立規定の行き先②：十七の薪の詩節と「限定適用」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§109</small> साप्तदश्यं त्वनारभ्याधीतमपि न प्रकृतौ गच्छति, प्रकृतेः पाञ्चदश्यावरोधात्; किं तु विकृतिषु गच्छति । तत्रापि न सर्वासु गच्छति, चोदकप्राप्तपाञ्चदश्यबाधप्रसङ्गात्; किं तु प्रत्यक्षश्रुतसाप्तदश्यासु मित्रविन्दादिषु गच्छति । यथाहुः:<br>
+  <small style="color:var(--muted)">§110</small> एवं च प्रकृतावेतत्पाञ्चदश्यं प्रतिष्ठितम्<br>विकृतौ च न यत्रास्ति साप्तदश्यपुनःश्रुतिः । इति ।<br>
+  <small style="color:var(--muted)">§111</small> न च वाक्यवैयर्थ्यम्; अनारभ्याधीतस्यैव साप्तदश्यस्य मित्रविन्दादिप्रकरणस्थेन वाक्येनोपसंहारात् । <mark>उपसंहारो नाम सामान्यप्राप्तस्य विशेषे नियमनम्</mark> । यथाहुः:<br>
+  <small style="color:var(--muted)">§112</small> सामान्यविधिरस्पष्टः संह्रियेत विशेषतः । इति ।<br>
+  <small style="color:var(--muted)">§113</small> तत्रानारभ्यविधिः सामान्यविधिः; मित्रविन्दादिप्रकरणस्थस्तु विशेषविधिरित्यास्तां तावत्: प्रकृतमनुसरामः । तत्सिद्धं वाक्यादङ्गत्वम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">しかし「<b>十七であること</b>」（薪の詩節を十七唱えること）は、独立規定であっても原型には行かない。原型は「十五であること」で塞がれているからである。そうではなく変型に行く。それもすべての変型ではない。準用で得られる「十五」を打ち消してしまうからである。そうではなく、<b>十七が直接聞かれる</b> Mitravindā（友を得る祭）などに行く。こう言われている──「こうしてこの十五は原型に確立し、十七が再び言われていない変型にも確立する。」<br>
+  （Mitravindā などの文脈にある十七の）文は無意味ではない。独立規定にすぎない十七を、Mitravindā などの文脈にあるその文が<b>限定適用</b>するからである。<b>限定適用とは、一般的に得られるものを特定の場合に制限すること</b>である。こう言われている──「不明確な一般規定は、特定のものへと限定される。」独立規定が一般規定、Mitravindā などの文脈にあるのが特定規定である。これはここまでにしよう。本題に戻る。こうして、文的結合による補助関係が確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Restricted-application is the limitation to specific cases of a general rule.<span class="jp">脚注72：新月祭・満月祭では薪の詩節を十五唱える（TS 2.5.8.2）。随意の祭（iṣṭi）はその変型で、独立規定が十七を定める。Edgerton は、Mitravindā 祭について ŚŚS・KŚS がむしろ十五を規定している、という不思議な事実を指摘している。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表4-1　独立規定はどこに行くか（§§107–113）</caption>
+<tr><th>独立規定</th><th>原型（新月祭・満月祭など）</th><th>変型一般</th><th>直接言及のある変型</th></tr>
+<tr><td>Parṇa 木の柄杓</td><td>○ 行く</td><td>（準用で自動的に得る）</td><td>—</td></tr>
+<tr><td>十七の薪の詩節</td><td>✕（十五で塞がれている）</td><td>✕（準用の十五を打ち消すことになる）</td><td>○ Mitravindā など</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　文的結合は文脈より強い</h2>
+<p class="chapter-sub">§§114–115</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§114–115</span><span class="sutra-num">KSS p.47</span><span class="sutra-title">文的結合の優位</span></div>
+  <div class="mula"><small style="color:var(--muted)">§114</small> <mark>तदिदं वाक्यं प्रकरणाद्बलीयः</mark> । प्रकरणं हि न साक्षाद्विनियोजकम्; तद्ध्याकाङ्क्षारूपम् । न चाकाङ्क्षा स्वयं प्रमाणं किं तु साकाङ्क्षां वाक्यं दृष्ट्वा भवत्येतादृशी मतिः: नूनमिदं वाक्यं केनचिद्वाक्येनैकवाक्यभूतमिति । ततश्चाकाङ्क्षारूपं प्रकरणं वाक्यस्य वाक्यान्तरैकवाक्यत्वे प्रमाणम् । एवं च यावत्प्रकरणं वाक्यं कल्पयित्वा विनियोजकं भवति, तावद्वाक्यं लिङ्गश्रुती कल्पयित्वा विनियोजकं भवतीति प्रकरणाद्वाक्यं बलीयः ।<br>
+  <small style="color:var(--muted)">§115</small> अत एवेन्द्राग्नी इदं हविरजुषेतामवीवृधेतां महो ज्यायोऽक्रातामित्यत्रेन्द्राग्नीपदस्य लिङ्गाद्दर्शाङ्गत्वे सिद्ध इदं हविरित्यादेरपि तदेकवाक्यत्वाद्दर्शाङ्गत्वम्, न तु प्रकरणाद्दर्शपूर्णमासाङ्गत्वम्, प्रकरणाद्वाक्यस्य बलीयस्त्वादिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この文的結合は文脈より強い。文脈は直接充当するものではない。それは<b>期待</b>を本質とするからである。期待そのものが根拠なのではない。期待をもつ文を見て、「きっとこの文は、何か別の文と<b>一つの文</b>になっているのだ」という考えが生じる。だから期待を本質とする文脈は、文が別の文と一つの文になることの根拠である。こうして、文脈が文的結合を想定して充当する間に、文的結合は語の意味能力と直接言明を想定して充当を済ませてしまう。だから文的結合は文脈より強い。<br>
+  だからこそ「Indra と Agni よ、あなたがたはこの供物を受け入れ、成長させ、大いなる輝きを作った」では、「Indra と Agni」の語が語の意味能力によって<b>新月祭</b>の補助と確定すると、「この供物を」以下も一つの文であることから新月祭の補助となり、文脈によって新月祭・満月祭（両方）の補助となるのではない。文的結合は文脈より強いからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For context is not directly applicatory, since it consists in a requirement (need of complement, ākāṅkṣā) felt. … “Surely this statement must be coördinated in the form of one unitary statement with some (other) statement.”</div></div>
+</div>
+<div class="point">文脈＝期待。期待から「一つの文になっているはず」と推し量るので、文的結合より一段弱い。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 語の意味能力（liṅga）の定義は？ Edgerton の訳語は？</summary><div>能力（sāmarthya）。Edgerton は “word-meaning”。（§90）</div></details>
+<details class="q"><summary>Q2. 「祭草を私は刈る」の祭詞が新月祭・満月祭の刈ることの補助と分かるまでの二段階は？</summary><div>まず文脈で新月祭・満月祭の不可見の力に関わると分かり、次に能力で「祭草を刈ること」を照らすと分かる。（§92）</div></details>
+<details class="q"><summary>Q3. Pūṣan の祭詞で、名称が文脈に勝つのはなぜ？</summary><div>弱い名称が、より強い語の意味能力に支えられているから。弱いものも強いものに依れば優位に立つ。（§95）</div></details>
+<details class="q"><summary>Q4. 慣用的意味と語源的意味、どちらが強い？ 例は？</summary><div>慣用的意味。「車大工」は特定の身分を指し、「車を作る再生族」ではない。（§98）</div></details>
+<details class="q"><summary>Q5. 文的結合の定義は？ 例は？</summary><div>並べて言うこと（格語尾なしに、主と従を一緒に述べること）。「Parṇa 木の柄杓をもつ者は悪い噂を聞かない」。（§105）</div></details>
+<details class="q"><summary>Q6. 独立規定「Parṇa 木製」が原型にしか行かない理由は？</summary><div>変型には準用の規則で自動的に移るので、変型にも行くとすると二重に言うことになるから。（§107）</div></details>
+<details class="q"><summary>Q7. 限定適用（upasaṃhāra）とは？</summary><div>一般的に得られるものを特定の場合に制限すること。例：十七の薪の詩節を Mitravindā などに限る。（§111）</div></details>
+<details class="q"><summary>Q8. 文脈が文的結合より弱い理由は？</summary><div>文脈は期待であり、期待から「一つの文のはず」と文的結合を想定してはじめて充当できるから。（§114）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第6課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">लिङ्ग / सामर्थ्य</td><td class="iast">liṅga / sāmarthya</td><td>語の意味能力／能力</td><td class="en">word-meaning / capacity</td></tr>
+<tr><td class="dev">अनुमन्त्रण</td><td class="iast">anumantraṇa</td><td>後唱</td><td class="en">after-recitation</td></tr>
+<tr><td class="dev">उपजीव्य</td><td class="iast">upajīvya</td><td>依拠されるもの</td><td class="en">that on which it depends</td></tr>
+<tr><td class="dev">रूढि / योग</td><td class="iast">rūḍhi / yoga</td><td>慣用的意味／語源的意味</td><td class="en">conventional / etymological meaning</td></tr>
+<tr><td class="dev">मुख्य / गौण</td><td class="iast">mukhya / gauṇa</td><td>本来の／二次的な（意味）</td><td class="en">primary / secondary</td></tr>
+<tr><td class="dev">वाक्य / समभिव्याहार</td><td class="iast">vākya / samabhivyāhāra</td><td>文的結合／並べて言うこと</td><td class="en">syntactical-connexion / connected-utterance</td></tr>
+<tr><td class="dev">अनारभ्याधीत</td><td class="iast">anārabhyādhīta</td><td>独立規定</td><td class="en">detacht-rule</td></tr>
+<tr><td class="dev">प्रकृति / विकृति</td><td class="iast">prakṛti / vikṛti</td><td>原型／変型</td><td class="en">archetype / modification</td></tr>
+<tr><td class="dev">चोदक</td><td class="iast">codaka</td><td>準用の規則</td><td class="en">rule of transfer</td></tr>
+<tr><td class="dev">उपसंहार</td><td class="iast">upasaṃhāra</td><td>限定適用</td><td class="en">restricted-application</td></tr>
+<tr><td class="dev">आकाङ्क्षा</td><td class="iast">ākāṅkṣā</td><td>期待</td><td class="en">requirement</td></tr>
+<tr><td class="dev">एकवाक्यता</td><td class="iast">ekavākyatā</td><td>一つの文であること</td><td class="en">syntactic-coördination / syntactic unity</td></tr>
+</table></div>
+<h3>底本について（第6課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文（Text, pp. 211–215）を採り、KSS版（1949年）と照合しました。OCR の崩れ（<span class="dev">अपीत्युक्तम्</span>、<span class="dev">नोलपराजि</span>、<span class="dev">कृणोमि</span>、<span class="dev">सम्बन्धेऽवगते</span> など）は直しました。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson5.html">← 第5課　命令文の四種と直接言明</a><span class="spacer"></span><a href="mnp_lesson7.html">第7課　文脈 →</a></nav>
+
+<footer>
+  やさしい祭式解釈学 · 第6課　語の意味能力と文的結合<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§90–115, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>
