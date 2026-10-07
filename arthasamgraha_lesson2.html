@@ -1,0 +1,883 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — प्रथम उपोद्घातविभागः (२)</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 2</div>
+  <div class="header-jp">第2課　導入の章（2）── 「yajeta」の分析と二つの bhāvanā<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 3–7（§4–§9），Notes pp. 81–96</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第1課のおさらいと、この課で学ぶこと</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§4 「yajeta」を分解する</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§5 bhāvanā の定義と二種類</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§6 言語的 bhāvanā（śābdī bhāvanā）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§7 言語的 bhāvanā の三要素</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>§8–§9 実際的 bhāvanā（ārthī bhāvanā）とその三要素</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>「yajeta svargakāmaḥ」の全体の意味</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第1課のおさらいと、この課で学ぶこと</h2>
+<div class="note">
+  <div class="note-title">第1課で学んだこと</div>
+  ・Mīmāṃsā は、ヴェーダ学習の後に行う <b>dharma の探究</b>（<span class="dev">अथातो धर्मजिज्ञासा</span>）。<br>
+  ・dharma ＝ <span class="dev">वेदप्रतिपाद्यः प्रयोजनवदर्थः</span>「ヴェーダが説き、目的をもつ、望ましいもの」＝ 祭祀（yāga）など。<br>
+  ・ヴェーダは全体として dharma を趣旨とする。
+</div>
+<p>第1課では「祭祀こそ dharma であり、それはヴェーダが説く」と学びました。では、ヴェーダの文は<b>どのようにして</b>祭祀を命じているのでしょうか。この課では、例文 <span class="dev">यजेत स्वर्गकामः</span>「天界を望む者は祭祀すべし」を、動詞の<b>語尾</b>まで分解して考えます。</p>
+<p>ここで登場するのが、Mīmāṃsā 独特の考え方 <b>bhāvanā</b>（<span class="dev">भावना</span>）です。語根 √bhū「なる」の使役形 bhāvayati「ならせる・生じさせる」から作られた名詞で、「<b>ある物を生じさせようとする働き</b>」を意味します。</p>
+<div class="tbl-wrap"><table>
+<tr><th>この課の新しい言葉</th><th>意味</th></tr>
+<tr><td><span class="dev">भावना</span> <span class="iast">bhāvanā</span></td><td>ある物を生じさせようとする働き（英訳 creative energy）</td></tr>
+<tr><td><span class="dev">शाब्दी भावना</span> <span class="iast">śābdī bhāvanā</span></td><td>言語的 bhāvanā：人を行為へ<b>駆り立てる</b>働き（命じる側）</td></tr>
+<tr><td><span class="dev">आर्थी भावना</span> <span class="iast">ārthī bhāvanā</span></td><td>実際的 bhāvanā：目的のために行為しようとする<b>心の動き</b>（命じられる側）</td></tr>
+<tr><td><span class="dev">साध्यम् · साधनम् · इतिकर्तव्यता</span></td><td>bhāvanā の三要素：「何を」「何によって」「どのように」</td></tr>
+<tr><td><span class="dev">आकाङ्क्षा</span> <span class="iast">ākāṅkṣā</span></td><td>期待・要求（文の意味が完結するまで、聞き手が「何を？」と待ち望むこと）</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§4 「yajeta」を分解する</h2>
+<p class="chapter-sub"><span class="dev">धर्मस्वरूपम्</span> ／ 底本 pp. 3–4，Notes pp. 81–82</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§4-a</span><span class="sutra-num">p. 3</span><span class="sutra-text">स च यागादिः ‘यजेत स्वर्गकामः’ इत्यादिवाक्येन स्वर्गमुद्दिश्य पुरुषं प्रति विधीयते ।</span></div>
+  <div class="sutra-iast">sa ca yāgādiḥ ‘yajeta svargakāmaḥ’ ityādivākyena svargam uddiśya puruṣaṃ prati vidhīyate |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">saḥ ca yāga-ādiḥ</span>「そしてその祭祀などは」＋ <span class="iast">yajeta svargakāmaḥ</span>「天界を望む者は祭祀すべし」＋ <span class="iast">iti-ādi-vākyena</span>「といった文によって」＋ <span class="iast">svargam uddiśya</span>「天界を目当てとして」＋ <span class="iast">puruṣaṃ prati</span>「人に対して」＋ <span class="iast">vidhīyate</span>「命じられる」〔vi-√dhā 受動〕</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">そして、その祭祀などの（dharma）は、「天界を望む者は祭祀すべし」といった文によって、天界を目当てとして、人に対して命じられる。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And that [dharma consisting of] sacrifice and the like is enjoined by the sentence such as, ‘One desirous of heaven should sacrifice,’ for a man with a view to [his attaining] heaven.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  命令の三つの柱が出そろっています。<br>
+  ・<b>何が</b>命じられるか ── 祭祀（<span class="dev">यागः</span>）<br>
+  ・<b>何のために</b> ── 天界（<span class="dev">स्वर्गम् उद्दिश्य</span>）<br>
+  ・<b>誰に</b> ── 天界を望む人（<span class="dev">पुरुषं प्रति</span>）<br>
+  <span class="dev">उद्दिश्य</span>「〜を目当てにして」（ud-√diś の絶対分詞）は Mīmāṃsā の重要語で、目的や主題を示します。
+  </div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§4-b</span><span class="sutra-num">pp. 3–4</span><span class="sutra-text">तथा हि । ‘यजेत’ इत्यत्रास्त्यंशद्वयं यजिधातुः प्रत्ययश्च । प्रत्ययेऽप्यस्त्यंशद्वयम् आख्यातत्वं लिङ्त्वं च ।</span></div>
+  <div class="sutra-iast">tathā hi | ‘yajeta’ ity atrāsty aṃśadvayaṃ yajidhātuḥ pratyayaś ca | pratyaye ’py asty aṃśadvayam ākhyātatvaṃ liṅtvaṃ ca |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">すなわち、「yajeta」という語には二つの部分がある。語根 yaj と接尾辞である。接尾辞にもまた二つの部分がある。「動詞であること（ākhyātatva）」と「liṅ（願望法）であること（liṅtva）」である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">In [the word] yajeta there are two constituent elements [viz.] the root yaj and the suffix. In the suffix also there are two constituent elements [viz.] verbality and optativeness.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">तथा हि</span>「すなわち・というのは」は、前の主張の<b>説明を始める</b>合図。G&amp;K によれば、この説明は §9 の終わりまで続きます。<br>
+  <span class="dev">यजिधातुः</span>：語根を引用するとき、<span class="iast">yaj</span> に <span class="iast">-i</span> を付けて <span class="iast">yaji</span> と言います（<span class="dev">इक्श्तिपौ धातुनिर्देशे</span>）。<br>
+  <span class="dev">लिङ्त्वम्</span>：底本の OCR は लित्वं。liṅ + tva「liṅ であること」。
+  </div></div>
+</div>
+
+<h3>図解：yajeta の分解</h3>
+<svg class="dia" viewBox="0 0 640 300" role="img" aria-label="yajeta の分解図">
+  <rect x="250" y="10" width="140" height="46" rx="8" class="bx-hl"/><text x="320" y="40" text-anchor="middle" class="dv">यजेत</text>
+  <path d="M300,56 L150,100" class="ln"/><path d="M340,56 L470,100" class="ln"/>
+  <rect x="70" y="100" width="160" height="46" rx="6" class="bx"/><text x="150" y="122" text-anchor="middle" class="dv">यज्‌ (धातुः)</text><text x="150" y="140" text-anchor="middle" class="sm">語根</text>
+  <rect x="390" y="100" width="160" height="46" rx="6" class="bx"/><text x="470" y="122" text-anchor="middle" class="dv">त (प्रत्ययः)</text><text x="470" y="140" text-anchor="middle" class="sm">接尾辞</text>
+  <path d="M150,146 L150,200" class="ln"/>
+  <path d="M440,146 L370,200" class="ln"/><path d="M500,146 L560,200" class="ln"/>
+  <rect x="70" y="200" width="160" height="46" rx="6" class="bx"/><text x="150" y="222" text-anchor="middle" class="dv">यागः</text><text x="150" y="240" text-anchor="middle" class="sm">祭祀（個別の行為）</text>
+  <rect x="290" y="200" width="160" height="46" rx="6" class="bx"/><text x="370" y="222" text-anchor="middle" class="dv">आख्यातत्वम्</text><text x="370" y="240" text-anchor="middle" class="sm">動詞であること</text>
+  <rect x="480" y="200" width="150" height="46" rx="6" class="bx"/><text x="555" y="222" text-anchor="middle" class="dv">लिङ्त्वम्</text><text x="555" y="240" text-anchor="middle" class="sm">願望法であること</text>
+  <text x="370" y="275" text-anchor="middle">↓ 表すもの：<tspan class="dv" style="font-size:15px">आर्थी भावना</tspan></text>
+  <text x="555" y="295" text-anchor="middle">↓ <tspan class="dv" style="font-size:15px">शाब्दी भावना</tspan></text>
+</svg>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§4-c</span><span class="sutra-num">p. 4</span><span class="sutra-text">तत्राख्यातत्वं दशलकारसाधारणं लिङ्त्वं पुनर्लिङ्मात्रे । उभाभ्यामप्यंशाभ्यां भावनैवोच्यते ।</span></div>
+  <div class="sutra-iast">tatrākhyātatvaṃ daśalakārasādhāraṇaṃ liṅtvaṃ punar liṅmātre | ubhābhyām apy aṃśābhyāṃ bhāvanaivocyate |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そのうち「動詞であること」は十のラカーラ（時制・法）すべてに共通するが、「liṅ であること」は liṅ だけにある。そして、この二つの部分のどちらによっても、<b>bhāvanā</b> こそが表される。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There, verbality [is] common to [all] the ten moods and tenses (lakāraḥ), but optativeness [is exclusive] to only the optative mood. Even by both the constituent elements creative energy is expressed.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  接尾辞の二つの部分は、どちらも bhāvanā を表します。ただし種類が違います（§5 以下）。<br>
+  ・ākhyātatva（すべての動詞に共通）→ <b>実際的 bhāvanā</b>（ārthī）<br>
+  ・liṅtva（願望法だけ）→ <b>言語的 bhāvanā</b>（śābdī）
+  </div></div>
+  <div class="point">一語の動詞 yajeta の中に「何をするか（語根）」「するという働き（ākhyāta）」「せよという命令（liṅ）」の三つが入っている。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　ākhyāta と「十のラカーラ」</div>
+  <p><span class="dev">आख्यातम्</span> は「動詞」を表す古い文法用語で、Yāska が語を四種類（<span class="dev">नाम</span> 名詞・<span class="dev">आख्यातम्</span> 動詞・<span class="dev">उपसर्गः</span> 接頭辞・<span class="dev">निपातः</span> 不変化辞）に分けたときに使っています。「述べられること」の意で、<span class="dev">देवदत्तः पचति</span> では Devadatta について「料理する」と述べられるので、動詞を ākhyāta と呼ぶのです。</p>
+  <p><b>ākhyātatva＝動詞の一般的な意味</b>：<span class="dev">पचति</span> ＝ <span class="dev">पाकं करोति</span>「料理を<b>する</b>」。「料理（pāka）」が個別の意味、「する（karoti）」が一般的な意味です。<span class="dev">गच्छति</span> ＝ <span class="dev">गमनं करोति</span> も同じ。この「何かをする」という一般的な行為の観念を、接尾辞の ākhyāta の部分が表します。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>ラカーラ</th><th>名前</th><th>種類</th><th>「行く」で言いかえ</th></tr>
+  <tr><td class="dev">लट्</td><td>現在</td><td rowspan="6">時制（6）</td><td><span class="dev">गच्छति</span> ＝ <span class="dev">गमनं करोति</span></td></tr>
+  <tr><td class="dev">लिट्</td><td>完了</td><td><span class="dev">जगाम</span> ＝ <span class="dev">गमनं चकार</span></td></tr>
+  <tr><td class="dev">लुट्</td><td>複合未来（第一未来）</td><td class="dev">गन्ता</td></tr>
+  <tr><td class="dev">लृट्</td><td>単純未来（第二未来）</td><td class="dev">गमिष्यति</td></tr>
+  <tr><td class="dev">लङ्</td><td>過去（未完了）</td><td class="dev">अगच्छत्</td></tr>
+  <tr><td class="dev">लुङ्</td><td>アオリスト</td><td class="dev">अगमत्</td></tr>
+  <tr><td class="dev">लेट्</td><td>接続法（ヴェーダのみ）</td><td rowspan="4">法（4）</td><td>―</td></tr>
+  <tr><td class="dev">लोट्</td><td>命令法</td><td><span class="dev">गच्छ</span> ＝ <span class="dev">गमनं कुरु</span></td></tr>
+  <tr><td class="dev">लिङ्</td><td>願望法（vidhiliṅ）・祈願法（āśīrliṅ）</td><td class="dev">गच्छेत्</td></tr>
+  <tr><td class="dev">लृङ्</td><td>条件法</td><td class="dev">अगमिष्यत्</td></tr>
+  </table></div>
+  <p>「する」という一般的な意味はどのラカーラにもあるので <span class="dev">दशलकारसाधारणम्</span>「十のラカーラに共通」。一方、命令の力（injunctive force）は願望法だけのものです。（底本の OCR では लृट्・लृङ् が लुट्・लङ् と崩れています。）</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§5 bhāvanā の定義と二種類</h2>
+<p class="chapter-sub"><span class="dev">भावनालक्षणम्</span> ／ 底本 p. 4，Notes pp. 82–85</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§5</span><span class="sutra-num">p. 4</span><span class="sutra-text">भावना नाम भवितुर्भवनानुकूलो भावयितुर्व्यापारविशेषः । सा द्विधा । शाब्दी भावना आर्थी भावना चेति ।</span></div>
+  <div class="sutra-iast">bhāvanā nāma bhavitur bhavanānukūlo bhāvayitur vyāpāraviśeṣaḥ | sā dvidhā | śābdī bhāvanā ārthī bhāvanā ceti |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">bhāvanā nāma</span>「bhāvanā とは」＋ <span class="iast">bhavituḥ</span>「生じるもの（bhavitṛ）の」＋ <span class="iast">bhavana-anukūlaḥ</span>「生起に役立つ」＋ <span class="iast">bhāvayituḥ</span>「生じさせる者（bhāvayitṛ）の」＋ <span class="iast">vyāpāra-viśeṣaḥ</span>「特定の働き」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">bhāvanā とは、<b>生じさせる者</b>（bhāvayitṛ）がもつ、<b>生じるべきもの</b>（bhavitṛ）の生起に役立つ、特定の働きである。それは二種類ある。言語的 bhāvanā と実際的 bhāvanā である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Creative energy means a particular activity of a productive agent (bhāvayitā), which is conducive or favourable to the coming-into-being of that which is to come into being. That is two-fold viz. verbal creative energy and actual creative energy.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  √bhū から作られた三つの語を並べると分かりやすくなります。
+  <div class="tbl-wrap"><table>
+  <tr><th>語</th><th>作り</th><th>意味</th></tr>
+  <tr><td class="dev">भविता (भवितृ)</td><td>√bhū ＋ 行為者 -tṛ</td><td>生じる（ことになる）もの ＝ 結果</td></tr>
+  <tr><td class="dev">भवनम्</td><td>√bhū ＋ -ana</td><td>生じること ＝ 生起</td></tr>
+  <tr><td class="dev">भावयिता (भावयितृ)</td><td>使役 bhāvi- ＋ -tṛ</td><td>生じさせる者 ＝ 主体</td></tr>
+  <tr><td class="dev">भावना</td><td>使役 bhāvi- ＋ -anā</td><td>生じさせる働き</td></tr>
+  </table></div>
+  <span class="dev">अनुकूल</span>「〜に沿った・役立つ」は、注釈文献では「〜を生み出す（<span class="dev">जनक</span>）」とほぼ同じ意味で使われます。
+  </div></div>
+  <div class="point">bhāvanā ＝「主体が、ある結果を生じさせようとする働き」。命令する側と、命令を受けて行動する側の二つがある。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　二つの bhāvanā ── 牛を連れてくる話</div>
+  <p>G&amp;K はたとえ話で説明します。Yajñadatta が息子の Devadatta に「<span class="dev">देवदत्त, गामानय</span>（Devadatta、牛を連れて来い）」と命じ、Devadatta は牛を連れてきます。この出来事を<b>二つの立場</b>から見ると、二つの bhāvanā が見えてきます。</p>
+  <svg class="dia" viewBox="0 0 640 250" role="img" aria-label="二つの bhāvanā の図">
+    <defs><marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+    <rect x="10" y="20" width="170" height="70" rx="8" class="bx-hl"/><text x="95" y="48" text-anchor="middle">父 Yajñadatta</text><text x="95" y="72" text-anchor="middle" class="sm">（ヴェーダでは「文」そのもの）</text>
+    <rect x="235" y="20" width="170" height="70" rx="8" class="bx"/><text x="320" y="48" text-anchor="middle">息子 Devadatta の</text><text x="320" y="70" text-anchor="middle">やる気（pravṛtti）</text>
+    <rect x="460" y="20" width="170" height="70" rx="8" class="bx"/><text x="545" y="48" text-anchor="middle">牛が</text><text x="545" y="70" text-anchor="middle">連れて来られること</text>
+    <path d="M180,55 L231,55" class="ln" marker-end="url(#a2)"/>
+    <path d="M405,55 L456,55" class="ln" marker-end="url(#a2)"/>
+    <rect x="10" y="120" width="395" height="50" rx="6" class="bx"/><text x="207" y="142" text-anchor="middle" class="dv">शाब्दी भावना</text><text x="207" y="162" text-anchor="middle" class="sm">父の「させよう」という意図（abhiprāya）＝ 駆り立て（pravartanā）</text>
+    <rect x="235" y="185" width="395" height="50" rx="6" class="bx"/><text x="432" y="207" text-anchor="middle" class="dv">आर्थी भावना</text><text x="432" y="227" text-anchor="middle" class="sm">息子の「連れて来よう」という心の動き ＝ 取りかかり（pravṛtti）</text>
+  </svg>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>生じさせる者（bhāvayitṛ）</th><th>生じるもの（bhavitṛ）</th><th>働き（bhāvanā）</th></tr>
+  <tr><td><b>言語的</b> bhāvanā<br>（日常）</td><td>父 Yajñadatta</td><td>息子のやる気</td><td>父の意図（言葉で伝えられることが多い）</td></tr>
+  <tr><td><b>実際的</b> bhāvanā<br>（日常）</td><td>息子 Devadatta</td><td>牛を連れて来ること</td><td>立ち上がり、牛のところへ行き、綱を解き…という一連の行為に向かう心の動き</td></tr>
+  <tr><td><b>言語的</b> bhāvanā<br>（ヴェーダ）</td><td>文 <span class="dev">यजेत स्वर्गकामः</span></td><td>天界を望む人のやる気</td><td>文の「意図」。作者がいない（apauruṣeya）ので、願望法の語そのものに宿る</td></tr>
+  <tr><td><b>実際的</b> bhāvanā<br>（ヴェーダ）</td><td>天界を望む人</td><td>天界の獲得</td><td>祭祀に取りかかろうとする心の動き（<span class="dev">यागविषया प्रवृत्तिः</span>）</td></tr>
+  </table></div>
+  <p>言語的 bhāvanā は<b>他者</b>を駆り立てようとする意図、実際的 bhāvanā は<b>自分自身</b>を行為へ向かわせる意図。どちらも心の働きで、前者が原因、後者がその結果です。</p>
+  <h4>名前の由来 ── 本当はどちらも「śābdī」で「ārthī」？</h4>
+  <p>・<b>śābdī</b>（<span class="dev">शब्द</span>「語」に由来）：ヴェーダでは駆り立てる意図が<b>語そのもの</b>に宿るから。日常でも意図はふつう言葉で伝えられるから。<br>
+  ・<b>ārthī</b>（<span class="dev">अर्थ</span>「目的」に由来）：<span class="dev">अर्थः प्रयोजनं स्वर्गप्राप्तिः, तत्सम्बन्धिनी भावना</span>「目的＝天界の獲得に関わる bhāvanā」だから。</p>
+  <p>しかし文字どおりに取れば、実際的 bhāvanā も ākhyāta という<b>語</b>で表されるので「śābdī」と言えるし、言語的 bhāvanā にも「やる気を起こさせる」という<b>目的</b>があるので「ārthī」とも言えます。それでも、それぞれの<b>際立った特徴</b>（語に宿ること／天界という究極の目的）によって名前が付けられている、と G&amp;K は説明します。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§6 言語的 bhāvanā</h2>
+<p class="chapter-sub"><span class="dev">शब्दभावनालक्षणम्</span> ／ 底本 pp. 4–5，Notes pp. 85–87</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§6-a</span><span class="sutra-num">p. 4</span><span class="sutra-text">तत्र पुरुषप्रवृत्त्यनुकूलो भावयितुर्व्यापारविशेषः शाब्दी भावना । सा च लिङंशेनोच्यते ।</span></div>
+  <div class="sutra-iast">tatra puruṣapravṛttyanukūlo bhāvayitur vyāpāraviśeṣaḥ śābdī bhāvanā | sā ca liṅaṃśenocyate |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そのうち、<b>人の行為への取りかかり</b>（pravṛtti）に役立つ、生じさせる者の特定の働きが、言語的 bhāvanā である。そしてそれは、（接尾辞の）liṅ の部分によって表される。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There verbal creative energy [represents] a particular activity of a productive agent, which is conducive to a man’s exertion. And it is expressed by the optative element [of the suffix].</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">§5 の一般的な定義の「生じるべきもの」を、「人の取りかかり（<span class="dev">पुरुषप्रवृत्तिः</span>）」に置き換えたのが言語的 bhāvanā の定義です。<br>
+  G&amp;K の注意：bhāvanā の定義に出てくる <span class="dev">व्यापारः</span>「働き」や <span class="dev">प्रवृत्तिः</span>「取りかかり」は<b>心の働き</b>を指します。身体の動作は <span class="dev">क्रिया</span>（§8 で対比されます）。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§6-b</span><span class="sutra-num">pp. 4–5</span><span class="sutra-text">लिङ्श्रवणेऽयं मां प्रवर्तयति मत्प्रवृत्त्यनुकूलव्यापारवानयमिति नियमेन प्रतीतेः । यद्यस्माच्छब्दान्नियमतः प्रतीयते तत् तस्य वाच्यम् । यथा गामानय इत्यस्मिन् वाक्ये गोशब्दस्य गोत्वम् ।</span></div>
+  <div class="sutra-iast">liṅśravaṇe ’yaṃ māṃ pravartayati matpravṛttyanukūlavyāpāravān ayam iti niyamena pratīteḥ | yad yasmāc chabdān niyamataḥ pratīyate tat tasya vācyam | yathā gām ānaya ity asmin vākye gośabdasya gotvam |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">なぜなら、liṅ（願望法）を聞くと、「この人は私を駆り立てている。この人は、私の取りかかりに役立つ働きをもっている」と<b>必ず</b>理解されるからである。ある語から必ず理解されるもの、それがその語の<b>表示対象</b>（vācya）である。たとえば「牛を連れて来い」という文で、「牛」という語の表示対象が<b>牛性</b>（gotva）であるように。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">For, on hearing an optative [form] one invariably understands, ‘This [person] impels me [to action], this [person] possesses an activity which is favourable to my exertion.’ What is invariably understood from a certain word is what is expressed by that [word]. As in this sentence viz. ‘Bring a cow’, the word cow [expresses] cowness.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">उपासीत</span>「崇拝すべし」、<span class="dev">स्नायात्</span>「沐浴すべし」、<span class="dev">यजेत</span>「祭祀すべし」── 願望法を聞くと、私たちは<b>いつでも</b>「誰かが自分に何かをさせようとしている」と感じます。<br>
+  <b>原則</b>：<span class="dev">यद्यस्माच्छब्दान्नियमतः प्रतीयते तत् तस्य वाच्यम्</span>「ある語から常に理解されるものは、その語が表すもの」。だから「駆り立て」は liṅ の<b>表示対象</b>だ、という論証です。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　語は何を表すのか ── 五つの学派</div>
+  <p>「牛」という語が第一義（abhidhā）で表すのは、<b>個体</b>（vyakti）か、<b>普遍</b>（jāti）か、属性（upādhi）か。古代インドには五つの立場がありました。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>立場</th><th>担い手</th><th>語が表すもの</th></tr>
+  <tr><td class="dev">केवलव्यक्तिवादिनः</td><td>新ニヤーヤ派</td><td>個体だけ</td></tr>
+  <tr><td class="dev">जातिविशिष्टव्यक्तिवादिनः</td><td>古ニヤーヤ派（Annambhaṭṭa も従う）</td><td>普遍によって限定された個体</td></tr>
+  <tr><td class="dev">अपोहवादिनः</td><td>仏教徒（Saugata）</td><td>他の排除（apoha）</td></tr>
+  <tr><td class="dev">जातिवादिनः</td><td><b>Mīmāṃsā 派</b></td><td><b>普遍（jāti）</b></td></tr>
+  <tr><td class="dev">जात्यादिवादिनः</td><td>文法学派（Mammaṭa らの詩論家も従う）</td><td>普遍・属性・個体など</td></tr>
+  </table></div>
+  <p>Mīmāṃsā によれば、<span class="dev">गामानय</span> の第一義は「<b>牛性</b>を連れて来い」。しかし牛性は個体から切り離せないので、牛性をもつ<b>個体の牛</b>が連れて来られるのです。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§6-c</span><span class="sutra-num">p. 5</span><span class="sutra-text">स च व्यापारविशेषो लौकिकवाक्ये पुरुषनिष्ठोऽभिप्रायविशेषः । वैदिकवाक्ये तु पुरुषाभावाल्लिङादिशब्दनिष्ठ एव । अत एव शाब्दी भावनेति व्यवह्रियते ।</span></div>
+  <div class="sutra-iast">sa ca vyāpāraviśeṣo laukikavākye puruṣaniṣṭho ’bhiprāyaviśeṣaḥ | vaidikavākye tu puruṣābhāvāl liṅādiśabdaniṣṭha eva | ata eva śābdī bhāvaneti vyavahriyate |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そしてその特定の働きは、日常の文では、<b>人に宿る</b>特定の意図である。しかしヴェーダの文では、（それを語った）人がいないので、liṅ などの<b>語そのものに宿る</b>。まさにそれゆえに「言語的（śābdī）bhāvanā」と呼ばれる。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And that particular activity, in [the case of] a worldly sentence, [takes the form of] the particular intention, residing in the man. But in a Vedic sentence, owing to the absence of a man, [it] resides just in the word such as an optative [form]. Hence, indeed, [it] is spoken of as verbal creative energy.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">-निष्ठ</span>「〜に宿る・〜にある」は哲学文献の頻出語。<span class="dev">लिङादि</span> の「など」は、命令法（loṭ）や義務分詞（tavya）なども命令を表すから。<br>
+  ヴェーダには作者がいない（<span class="dev">अपौरुषेय</span>）── これが Mīmāṃsā の大前提です。</div></div>
+  <div class="point">ヴェーダでは「命じる人」がいないので、命令の力は<b>言葉そのもの</b>にある。だから「言語的」bhāvanā。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　ヴェーダは誰も作っていない（apauruṣeyatva）</div>
+  <p>Mīmāṃsā 派と Vedānta 派は、ヴェーダは人間はもちろん<b>神さえも作っていない</b>、始まりのない昔から永遠に存在する、と考えます。だから最高・無謬の権威をもち、<b>自ら権威をもつ</b>（svataḥ-prāmāṇya）。スムリティなど人間の著作の権威も、ヴェーダから来ています。これに対しニヤーヤ派は、ヴェーダは<b>神の作</b>であり、だから権威がある、とします。Jaimini はこの問題を JS 1.1.27–32 で論じています。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>反論</th><th>答え</th></tr>
+  <tr><td>「Kāṭhaka」「Kauthuma」「Taittirīyaka」のように、ヴェーダの各派は<b>人名で呼ばれる</b>。これは「Vyāsa が説いた Bhārata（vaiyāsika）」と同じく、<span class="dev">तेन प्रोक्तम्</span>「その人が説いた」の意味の接尾辞だから、作者がいるはずだ。</td><td>その名は、その人が<b>学習の伝統を始めた</b>ことによるもの（<span class="dev">अध्ययनसंप्रदायप्रवर्तकत्वेन</span>）。</td></tr>
+  <tr><td>「ヴェーダの文は人の作である。文だから。Kālidāsa の文のように」という推論。</td><td>Kālidāsa の作品なら各章の終わりに作者が知られている。ヴェーダに作者がいるなら知られているはずだが、知られていない。よってこの推論は反対の論拠に打ち負かされる。</td></tr>
+  </table></div>
+  <span class="src" style="font-size:0.8rem;color:var(--muted)">Jaiminīyanyāyamālāvistara p. 21 の要約</span>
+  <div class="cite"><span class="dev">वेदस्याध्ययनं सर्वं गुर्वध्ययनपूर्वकम् । वेदाध्ययनसामान्यादधुनाध्ययनं यथा ॥</span><span class="ja">「ヴェーダの学習はすべて、師の学習を前提とする。ヴェーダの学習であるから、今日の学習と同じように。」（＝学習の伝統は無始である）</span><span class="src">Āpadeva『Mīmāṃsānyāyaprakāśa』が引く詩節</span></div>
+  <p>同書はさらに、「世界は無始であり（<span class="dev">यः कल्पः स कल्पपूर्वः</span>「どの劫も前の劫をもつ」）、全知の神が前の劫のヴェーダを思い出して今の劫に教えるだけだ」と、神による作成説も退けています。Bhāskara 自身は §10 で「ヴェーダ＝<span class="dev">अपौरुषेयं वाक्यम्</span>」と定義するだけです。（参照：Śābarabhāṣya 1.1.27–32、Sarvadarśanasaṃgraha pp. 270–277、Sāyaṇa『Ṛgvedabhāṣya』序論）</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§7 言語的 bhāvanā の三要素</h2>
+<p class="chapter-sub"><span class="dev">शब्दभावनाया अंशत्रयम्</span> ／ 底本 pp. 5–6，Notes pp. 87–93</p>
+
+<p class="lead">どんな「させよう」という働きにも、三つの問いが自然に生じます。「<b>何を</b>生じさせるのか」「<b>何によって</b>」「<b>どのように</b>」。これに答えるのが三つの要素（<span class="dev">अंशत्रयम्</span>）です。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§7-a</span><span class="sutra-num">p. 5</span><span class="sutra-text">सा च भावनांशत्रयमपेक्षते साध्यं साधनमितिकर्तव्यतां च, किं भावयेत् केन भावयेत् कथं भावयेदिति ।</span></div>
+  <div class="sutra-iast">sā ca bhāvanāṃśatrayam apekṣate sādhyaṃ sādhanam itikartavyatāṃ ca, kiṃ bhāvayet kena bhāvayet kathaṃ bhāvayed iti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そしてその bhāvanā は、三つの要素を必要とする。<b>達成されるべきもの</b>（sādhya）、<b>手段</b>（sādhana）、<b>やり方</b>（itikartavyatā）である。すなわち「何を生じさせるべきか」「何によって生じさせるべきか」「どのように生じさせるべきか」（という三つの問いへの答え）である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And that creative energy requires three elements [viz.] that which is to be accomplished, the means and the mode (iti-kartavyatā) [...] namely what should [one] effect, by which instrument should [one] effect [it and] how should [one] effect [it]?</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">इतिकर्तव्यता</span> の語源（G&amp;K）：<br>
+  ① <span class="dev">इति अनेन प्रकारेण कर्तव्यम्</span>「このように（iti）なされるべきもの」＋ -tā「〜であること」<br>
+  ② <span class="dev">कर्तव्यस्य इति (प्रकारः)</span>「なされるべきことの<b>仕方</b>」。iti は「やり方」を表す。<br>
+  <b>手段とやり方の違い</b>：<span class="dev">ओदनकामः तण्डुलान् पचेत्</span>「粥を望む者は米を炊くべし」で、<br>
+  ・何を？ → <span class="dev">ओदनं भावयेत्</span>「粥を」<br>
+  ・何によって？ → <span class="dev">पाकेन</span>「炊くことによって」<br>
+  ・どのように？ → <span class="dev">इन्धनफूत्काराद्युपकृतेन पाकेन</span>「薪をくべ、息を吹きかけるなどして助けられた炊き方で」<br>
+  やり方は、手段を<b>実際に有効にする細部</b>です。
+  </div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§7-b</span><span class="sutra-num">p. 5</span><span class="sutra-text">तत्र साध्याकाङ्क्षायां वक्ष्यमाणांशत्रयोपेता आर्थी भावना साध्यत्वेनान्वेति, एकप्रत्ययगम्यत्वेन समानाभिधानश्रुतेः ।</span></div>
+  <div class="sutra-iast">tatra sādhyākāṅkṣāyāṃ vakṣyamāṇāṃśatrayopetā ārthī bhāvanā sādhyatvenānveti, ekapratyayagamyatvena samānābhidhānaśruteḥ |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">sādhya-ākāṅkṣāyām</span>「達成対象への期待に対して」＋ <span class="iast">vakṣyamāṇa-aṃśa-traya-upetā</span>「後で述べる三要素を備えた」＋ <span class="iast">ārthī bhāvanā</span> ＋ <span class="iast">sādhya-tvena anveti</span>「達成対象として結びつく」＋ <span class="iast">eka-pratyaya-gamya-tvena</span>「同じ一つの接尾辞から理解されることによって」＋ <span class="iast">samāna-abhidhāna-śruteḥ</span>「共通の表示語があるから」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">そのうち「何を？」という期待に対しては、後で述べる三要素を備えた<b>実際的 bhāvanā</b> が、達成されるべきものとして結びつく。（二つの bhāvanā は）<b>同じ一つの接尾辞</b>から理解されるので、両者を表す共通の語（śruti）があるからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There, as for the expectancy of the end, actual creative energy, endowed with the three elements to be mentioned later, is construed as the end; because there is a common statement (samānaśrutiḥ) which expresses [both], since [the ārthī bhāvanā] is understood from one [and the same] suffix.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">अन्वेति</span>（anu-√i「後について行く」）は、文の意味の中で<b>結びつく</b>ことを表す Mīmāṃsā の重要語。名詞 <span class="dev">अन्वयः</span>「（統語的）結びつき」。<br>
+  言語的 bhāvanā（ヴェーダの「させよう」）が生じさせたいのは、人の<b>やる気</b>＝実際的 bhāvanā です。二つは同じ接尾辞 -ta の中に同居しているので、<b>いちばん近い</b>実際的 bhāvanā が「何を？」の答えに選ばれます。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　なぜ「祭祀」ではなく「実際的 bhāvanā」が答えなのか</div>
+  <p><span class="dev">समानाभिधानश्रुतिः</span>「共通の表示語」とは、二つの bhāvanā をともに表す接尾辞 -ta のこと（śruti ＝ ヴェーダの文言、その構成要素）。</p>
+  <div class="cite"><span class="dev">आर्थी भावना शाब्द्या भावनायाः साध्यं कस्मात् भवति । समानाभिधानश्रुतेः । समानाभिधानश्रुतिश्च कस्मात् । शाब्दी भावना आर्थी भावना च एकप्रत्ययगम्ये स्तः इत्यतः ।</span></div>
+  <p><b>反論</b>：語 yajeta 全体で見れば、祭祀（語根）・実際的 bhāvanā（ākhyāta）・言語的 bhāvanā（liṅ）は三つとも<b>同じ一語</b>から理解される。それなら祭祀も「共通の表示語」をもつ。なぜ祭祀が答えにならないのか？<br>
+  <b>答え</b>：だから「<span class="dev">एकप्रत्ययगम्यत्वेन</span>（同じ<b>接尾辞</b>から理解されることによって）」と言ったのだ。祭祀は同じ<b>語</b>にあるだけだが、実際的 bhāvanā は同じ<b>接尾辞</b>にある。より狭い範囲で同居している方が近い。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>候補</th><th>どこから理解されるか</th><th>言語的 bhāvanā との近さ</th><th>判定</th></tr>
+  <tr><td>祭祀（yāga）</td><td>語根 yaj</td><td>同じ<b>語</b></td><td class="no-x">✗ 遠い</td></tr>
+  <tr><td>実際的 bhāvanā</td><td>接尾辞の ākhyāta</td><td>同じ<b>接尾辞</b></td><td class="yes">✓ 最も近く、ふさわしい</td></tr>
+  <tr><td>数・時・人称</td><td>接尾辞（-ta：単数・現在・3人称）</td><td>同じ接尾辞</td><td class="no-x">✗ ふさわしくない（次の文）</td></tr>
+  </table></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§7-c</span><span class="sutra-num">pp. 5–6</span><span class="sutra-text">संख्यादीनामेकप्रत्ययगम्यत्वेऽप्ययोग्यत्वान्न साध्यत्वेनान्वयः ।</span></div>
+  <div class="sutra-iast">saṃkhyādīnām ekapratyayagamyatve ’py ayogyatvān na sādhyatvenānvayaḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">数など（数・時・人称）は、同じ一つの接尾辞から理解されはするが、<b>ふさわしくない</b>（ayogya）ので、達成されるべきものとして結びつくことはない。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Though number and others are understood from one [and the same] suffix, they are not construed as the end, because they are not fit.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">接尾辞 -ta は「単数」「3人称」なども表します。でも「数を生じさせよ」「人称を生じさせよ」（<span class="dev">संख्यां भावयेत्</span>, <span class="dev">पुरुषं भावयेत्</span>）では意味が通りません。<br>
+  <b>yogyatā</b>（意味上のふさわしさ）は、ākāṅkṣā（期待）・saṃnidhi（近接）とならぶ、文の意味が成り立つ条件の一つです。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§7-d</span><span class="sutra-num">p. 6</span><span class="sutra-text">साधनाकाङ्क्षायां लिङादिज्ञानं करणत्वेनान्वेति । तस्य च करणत्वं न भावनोत्पादकत्वेन, तत्पूर्वमपि तस्याः शब्दे सत्त्वात् । किंतु भावनाज्ञापकत्वेन शब्दभावनाभाव्यनिर्वर्तकत्वेन वा ।</span></div>
+  <div class="sutra-iast">sādhanākāṅkṣāyāṃ liṅādijñānaṃ karaṇatvenānveti | tasya ca karaṇatvaṃ na bhāvanotpādakatvena, tatpūrvam api tasyāḥ śabde sattvāt | kiṃtu bhāvanājñāpakatvena śabdabhāvanābhāvyanirvartakatvena vā |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">「何によって？」という期待に対しては、（聞き手の）<b>liṅ などについての知識</b>が手段として結びつく。そしてそれが手段であるのは、bhāvanā を<b>生み出す</b>からではない。その（知識の）前から、bhāvanā は語の中に存在しているからである。そうではなく、bhāvanā を<b>知らせる</b>から、あるいは、言語的 bhāvanā によって生じさせられるべきもの（＝実際的 bhāvanā）を<b>実現させる</b>からである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">As for the expectancy of the means, [the hearer’s] knowledge of the optative and others is construed as the instrument. And its instrumentality [arises] not from its being the producer of the verbal creative energy, because it is present in the word even before it; but from its making the verbal creative energy known, or from its bringing into existence [the ārthī bhāvanā] which is to be produced by the verbal creative energy.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　「生み出す手段」と「知らせる手段」</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>手段の種類</th><th>例</th><th>説明</th></tr>
+  <tr><td><span class="dev">कारकम्</span>（<span class="dev">उत्पादकम्</span>）<br>生み出す手段</td><td>感覚器官と対象の接触 → 壺の知覚</td><td>壺の知識は前にはなかった。接触がそれを<b>生み出す</b>。</td></tr>
+  <tr><td><span class="dev">ज्ञापकम्</span><br>知らせる手段</td><td>山の煙 → 火</td><td>煙は火を生み出さない。火があることを<b>知らせる</b>だけ。</td></tr>
+  </table></div>
+  <p>liṅ の知識は、言語的 bhāvanā を<b>生み出してはいない</b>（それは無始の昔から語 yajeta の中にある）。だから、言語的 bhāvanā に対しては<b>知らせる手段</b>。liṅ の意味を知る人だけが、「自分は駆り立てられている」と感じます。</p>
+  <p>しかし実際的 bhāvanā（やる気）に対しては、liṅ の知識がそれを<b>生み出す</b>（kāraka）。そして実際的 bhāvanā は言語的 bhāvanā の目標なので、liṅ の知識は言語的 bhāvanā の手段とも呼ばれる ── ちょうど、斧は「切ること」を生み出すので、切る人の手段と呼ばれるように。</p>
+  <div class="cite"><span class="dev">यथा कुठारः पुरुषसाध्यछेदनव्यापारं निर्वर्तयन् पुरुषस्य करणमित्युच्यते, एवं लिङादिज्ञानमपि शब्दभावनाभाव्यार्थभावनां निर्वर्तयत् शब्दभावनाकरणमित्युच्यते ।</span><span class="src">Sāravivecanī（Āpadeva への注）</span></div>
+  <p>なお、liṅ の知識は言語的 bhāvanā そのものは生まなくても、「言語的 bhāvanā についての<b>知識</b>」は生む。その意味では、煙が「火の知識」を生むのと同じく kāraka とも言える、と G&amp;K は付け加えます。</p>
+  <p><b>「など」（ādi）</b>の意味：ヴェーダの命令は願望法だけではなく、<span class="dev">दध्ना जुहोति</span>「凝乳で献供する」、<span class="dev">व्रीहीनवहन्ति</span>、<span class="dev">आहवनीये जुहोति</span> のように<b>現在形</b>（laṭ）でも表されます。その場合は laṭ の知識が手段になります。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§7-e</span><span class="sutra-num">p. 6</span><span class="sutra-text">इतिकर्तव्यताकाङ्क्षायामर्थवादज्ञाप्यप्राशस्त्यमितिकर्तव्यतात्वेनान्वेति ।</span></div>
+  <div class="sutra-iast">itikartavyatākāṅkṣāyām arthavādajñāpyaprāśastyam itikartavyatātvenānveti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">「どのように？」という期待に対しては、<b>釈義文（arthavāda）によって知らされる（祭式の）すばらしさ</b>が、やり方として結びつく。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">As for the expectancy of the mode the glorification [of the rites] made known by the explanatory passages (arthavādaḥ) is construed as the mode.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">命令の意味を知るだけでは、なかなかやる気にならない人もいます。そこで、祭式の<b>すばらしさ</b>（<span class="dev">प्राशस्त्यम्</span>）を語る文が後押しします。それが <span class="dev">अर्थवादः</span>（第6部で詳しく学びます）。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　arthavāda の例</div>
+  <p><span class="dev">अर्थवादः</span>（<span class="dev">अर्थस्य वादः</span>）は本来「事柄を述べること」。ヴェーダの中で、行為を命じず、祭式をほめたり、けなしたりする部分を指します。ここでは<b>ほめる</b>文です。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>命令（vidhi）</th><th>釈義（arthavāda）</th><th>伝わるすばらしさ</th></tr>
+  <tr><td><span class="dev">ज्योतिष्टोमेन स्वर्गकामो यजेत</span><br>天界を望む者は Jyotiṣṭoma で祭祀すべし</td><td><span class="dev">यस्मिन्नोष्णं न शीतं नार्तिः</span><br>（天界は）暑さも寒さも苦しみもないところ</td><td>果報（天界）のすばらしさ</td></tr>
+  <tr><td><span class="dev">वायव्यं श्वेतमालभेत भूतिकामः</span><br>繁栄を望む者は Vāyu に白い（獣）を供犠すべし</td><td><span class="dev">वायुर्वै क्षेपिष्ठा देवता, वायुमेव स्वेन भागधेयेनोपधावति, स एवैनं भूतिं गमयति</span><br>Vāyu は最も速い神。自分の分け前で Vāyu に近づけば、Vāyu が彼を繁栄に導く</td><td>神格のすばらしさ（速く果報をくれる）</td></tr>
+  </table></div>
+</div>
+
+<h3>図解：言語的 bhāvanā の三要素（G&amp;K の図より）</h3>
+<div class="tbl-wrap"><table>
+<tr><th colspan="3" class="c"><span class="dev">शाब्दी भावना</span>（ヴェーダの「させよう」）</th></tr>
+<tr><th class="c">達成対象 <span class="dev">साध्यम्</span><br><small>किं भावयेत् 何を？</small></th><th class="c">手段 <span class="dev">साधनम्</span><br><small>केन भावयेत् 何によって？</small></th><th class="c">やり方 <span class="dev">इतिकर्तव्यता</span><br><small>कथं भावयेत् どのように？</small></th></tr>
+<tr><td class="c"><span class="dev">अंशत्रयवतीम् आर्थीं भावनां</span><br>三要素を備えた実際的 bhāvanā を</td><td class="c"><span class="dev">लिङादिज्ञानेन</span><br>liṅ などの知識によって</td><td class="c"><span class="dev">कर्मप्राशस्त्यविशिष्टेन लिङादिज्ञानेन</span><br>祭式のすばらしさ（の知識）を伴った liṅ の知識によって</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　§8–§9 実際的 bhāvanā とその三要素</h2>
+<p class="chapter-sub"><span class="dev">अर्थभावनालक्षणम् · अर्थभावनाया अंशत्रयम्</span> ／ 底本 pp. 6–7，Notes pp. 93–96</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§8</span><span class="sutra-num">p. 6</span><span class="sutra-text">प्रयोजनेच्छाजनितक्रियाविषयव्यापार आर्थी भावना । सा चाख्यातत्वांशेनोच्यते, आख्यातसामान्यस्य व्यापारवाचित्वात् ।</span></div>
+  <div class="sutra-iast">prayojanecchājanitakriyāviṣayavyāpāra ārthī bhāvanā | sā cākhyātatvāṃśenocyate, ākhyātasāmānyasya vyāpāravācitvāt |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">prayojana-icchā-janita-kriyā-viṣaya-vyāpāraḥ</span>：<br>
+  <span class="dev">प्रयोजनं स्वर्गः, तस्य इच्छा, तया जनिता या क्रिया यागरूपा, सा विषयः यस्य, ईदृशः व्यापारः मानसी प्रवृत्तिः</span>（G&amp;K の分析）<br>
+  「目的（天界）への欲求によって生じた行為（祭祀）を対象とする、（心の）働き」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">目的への欲求によって引き起こされた<b>行為</b>（kriyā）を対象とする（心の）<b>働き</b>（vyāpāra）が、実際的 bhāvanā である。そしてそれは、（接尾辞の）「動詞であること」の部分によって表される。動詞一般は「働き」を表すからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Actual creative energy [is] the activity [of a person], referring to [some particular] action and engendered by the desire for [some] object. And it is expressed by the element of verbality, for a verb in general expresses activity.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">長い複合語は<b>後ろから</b>読みます：働き ← 行為を対象とする ← 欲求によって生じた ← 目的への。<br>
+  <span class="dev">आख्यातसामान्यम्</span>「動詞一般」は §4 の ākhyātatva と同じ。どの動詞にも「する（karoti）」という一般的な働きが含まれていました。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　「janita（生じた）」はどこにかかるか</div>
+  <div class="cite"><span class="dev">प्रयोजनस्य स्वर्गादिरूपफलस्य या इच्छा रागविशेषः तेन च रागविशेषेण जनितो यो यागादिक्रियाविषयः पुरुषस्य व्यापारविशेषः सा आर्थी भावना ।</span><span class="src">Rāmeśvara</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>解釈</th><th>「欲求によって生じた」のは</th><th>G&amp;K の評価</th></tr>
+  <tr><td>Rāmeśvara</td><td>心の<b>働き</b>（vyāpāra）</td><td>―</td></tr>
+  <tr><td>G&amp;K</td><td>身体の<b>行為</b>（kriyā ＝祭祀）</td><td>こちらがよい。天界の直接の原因は心の動きではなく祭祀だから。</td></tr>
+  </table></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§9</span><span class="sutra-num">pp. 6–7</span><span class="sutra-text">साप्यंशत्रयमपेक्षते साध्यं साधनमितिकर्तव्यतां च, किं भावयेत् केन भावयेत् कथं भावयेदिति । तत्र साध्याकाङ्क्षायां स्वर्गादिफलं साध्यत्वेनान्वेति । साधनाकाङ्क्षायां यागादिः करणत्वेनान्वेति । इतिकर्तव्यताकाङ्क्षायां प्रयाजाद्यङ्गजातमितिकर्तव्यतात्वेनान्वेति ।</span></div>
+  <div class="sutra-iast">sāpy aṃśatrayam apekṣate sādhyaṃ sādhanam itikartavyatāṃ ca, kiṃ bhāvayet kena bhāvayet kathaṃ bhāvayed iti | tatra sādhyākāṅkṣāyāṃ svargādiphalaṃ sādhyatvenānveti | sādhanākāṅkṣāyāṃ yāgādiḥ karaṇatvenānveti | itikartavyatākāṅkṣāyāṃ prayājādyaṅgajātam itikartavyatātvenānveti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">それ（実際的 bhāvanā）もまた、三つの要素を必要とする。達成されるべきもの、手段、やり方である。すなわち「何を」「何によって」「どのように」生じさせるべきか。そのうち、「何を？」には<b>天界などの果報</b>が達成対象として結びつく。「何によって？」には<b>祭祀など</b>が手段として結びつく。「どのように？」には<b>前祭（prayāja）などの補助祭式の一群</b>が、やり方として結びつく。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">It also requires three elements [...]. There, as regards the expectancy of the end, the fruit consisting of heaven and others is construed as the end. As regards the expectancy of the means, sacrifice and others are construed as the instrument. As regards the expectancy of the mode, the group of subsidiary rites such as the fore-sacrifices (prayājaḥ) is construed as the mode.</div></div>
+</div>
+
+<h3>図解：実際的 bhāvanā の三要素（G&amp;K の図より）</h3>
+<div class="tbl-wrap"><table>
+<tr><th colspan="3" class="c"><span class="dev">आर्थी भावना</span>（天界を望む人の「しよう」）</th></tr>
+<tr><th class="c">達成対象 <span class="dev">साध्यम्</span><br><small>किं भावयेत्</small></th><th class="c">手段 <span class="dev">साधनम्</span><br><small>केन भावयेत्</small></th><th class="c">やり方 <span class="dev">इतिकर्तव्यता</span><br><small>कथं भावयेत्</small></th></tr>
+<tr><td class="c"><span class="dev">स्वर्गादि फलं भावयेत्</span><br>天界などの果報を</td><td class="c"><span class="dev">यागादिना भावयेत्</span><br>祭祀などによって</td><td class="c"><span class="dev">प्रयाजाद्यङ्गजातोपकृतेन यागादिना भावयेत्</span><br>前祭などの補助祭式に助けられた祭祀によって</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　なぜ「祭祀」ではなく「天界」が達成対象なのか</div>
+  <p>「何を生じさせるべきか」には「天界を」と「祭祀を」の二つの答えが考えられます。Pāṇini の規則 <span class="dev">कर्तुरीप्सिततमं कर्म</span>（A 1.4.49）「行為者が<b>最も望むもの</b>が目的語（karman）」によれば、楽しみに満ちた天界の方が、手間のかかる祭祀より望まれるので、天界が目的語になります。</p>
+  <div class="cite"><span class="dev">दुःसाध्यात्मकस्य यागस्य ईप्सिततमस्वरूपकर्मत्वायोगात्, स्वर्गस्य तु आनन्दात्मत्वेन ईप्सिततमतया कर्मत्वेन अन्वययोग्यत्वात् ।</span><span class="src">Mīmāṃsāparibhāṣā</span></div>
+  <p>なお「天界を生じさせる」といっても、天界を<b>作り出す</b>わけではありません。天界は無始の昔からある。祭祀によって天界を<b>自分のものにする</b>、という意味です。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　apūrva ── 祭祀と天界のあいだ</div>
+  <p><b>難問</b>：今日祭祀をしても、天界に行くのは死後です。手段は結果の<b>直前</b>になければならない（<span class="dev">फलायोगव्यवच्छिन्नं करणम्</span>）のに、どうして祭祀が天界の手段と言えるのか。</p>
+  <p><b>答え</b>：祭祀は、それまでなかった力 ── <span class="dev">अपूर्वम्</span>（apūrva「以前になかったもの」）── を生む。apūrva は行為者に死ぬまでとどまり、死後に天界へ導く。本当の手段は apūrva だが、それを生むので祭祀が手段と呼ばれる。</p>
+  <div class="flow">
+    <div class="box"><span class="dev">यागः</span>祭祀<br><small>今日</small></div><div class="arr">→</div>
+    <div class="box hl"><span class="dev">अपूर्वम्</span>見えない力<br><small>死ぬまで行為者にとどまる</small></div><div class="arr">→</div>
+    <div class="box"><span class="dev">स्वर्गः</span>天界<br><small>死後</small></div>
+  </div>
+  <p>名前は違っても、同じ考えは他の学派にもあります。</p>
+  <div class="cite"><span class="dev">यागादिजन्यः स्वर्गादिजनकः कश्चन गुणविशेषः । तं गुणविशेषम् अपूर्वम् इति मीमांसका वदन्ति । प्रारब्धकर्म इति वेदान्तिनः । धर्माधर्मौ इति नैयायिकाः । अदृष्टम् इति वैशेषिकाः । पुण्यपापे इति पौराणिकाः ।</span><span class="src">Nyāyakośa p. 60</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>学派</th><th>Mīmāṃsā</th><th>Vedānta</th><th>Nyāya</th><th>Vaiśeṣika</th><th>Purāṇa</th></tr>
+  <tr><td>呼び名</td><td class="dev">अपूर्वम्</td><td class="dev">प्रारब्धकर्म</td><td class="dev">धर्माधर्मौ</td><td class="dev">अदृष्टम्</td><td class="dev">पुण्यपापे</td></tr>
+  </table></div>
+  <p>祭祀もまた二重の手段です。Devadatta が祭祀を始めるのを見れば、彼にやる気（実際的 bhāvanā）があると<b>知られる</b>（jñāpaka）。そして祭祀は apūrva を通じて天界を<b>生み出す</b>（kāraka）。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　prayāja と anuyāja ── 新月・満月祭の順序</div>
+  <p><span class="dev">दर्शपूर्णमासाभ्यां यजेत स्वर्गकामः</span>「天界を望む者は新月祭・満月祭で祭祀すべし」。これが<b>主祭</b>（aṅgin）で、Agni・Viṣṇu・Agnīṣomau・Indra Vaimṛdha が主な神格です。その前後に<b>補助祭</b>（aṅga）があります。</p>
+  <div class="flow">
+    <div class="box"><span class="dev">प्रयाजाः</span>前祭 ×5<br><small>ギーを献供</small></div><div class="arr">→</div>
+    <div class="box hl"><span class="dev">प्रधानयागाः</span>主献供<br><small>Agni などへ祭餅（puroḍāśa）</small></div><div class="arr">→</div>
+    <div class="box"><span class="dev">स्विष्टकृत्</span><br><small>Agni Sviṣṭakṛt へ</small></div><div class="arr">→</div>
+    <div class="box"><span class="dev">अनुयाजाः</span>後祭 ×3<br><small>斑点ギー（pṛṣadājya）</small></div>
+  </div>
+  <p>五つの前祭：<span class="dev">समिधो यजति, तनूनपातं यजति, इडो यजति, बर्हिर्यजति, स्वाहाकारं यजति</span>。後祭：<span class="dev">पृषदाज्येनानुयाजान् यजति</span>。<br>
+  （底本 G&amp;K は Sviṣṭakṛt を「Viśve devāḥ への献供」と説明していますが、ふつうは Agni Sviṣṭakṛt への献供とされます。）<br>
+  祭祀は、火の設置（agnyanvādhāna）・米搗き（avaghāta）・前祭・後祭など多くの細部からなり、それらをまとめて <span class="dev">अङ्गजातम्</span>「補助祭式の一群」と呼びます。</p>
+  <div class="cite"><span class="dev">तथा च “यजेत स्वर्गकामः” इत्यत्र अग्न्यन्वाधानावघातप्रयाजादिभिरुपकारं संपाद्य यागेन स्वर्गं भावयेत् स्वर्गं कुर्यात् इति वाक्यार्थः ।</span><span class="src">Rāmeśvara</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　「yajeta svargakāmaḥ」の全体の意味</h2>
+<p>二つの bhāvanā をつなげると、この短い文の意味は次のようになります（G&amp;K のまとめ）。</p>
+<svg class="dia" viewBox="0 0 640 330" role="img" aria-label="二つの bhāvanā の連鎖図">
+  <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+  <rect x="10" y="10" width="620" height="140" rx="10" class="ln-d"/>
+  <text x="24" y="32" class="sm">言語的 bhāvanā（ヴェーダの「させよう」：liṅ の部分）</text>
+  <rect x="25" y="50" width="185" height="80" rx="6" class="bx"/><text x="117" y="72" text-anchor="middle" class="sm">手段</text><text x="117" y="96" text-anchor="middle">liṅ の知識</text><text x="117" y="118" text-anchor="middle" class="sm">＋ arthavāda のほめ言葉</text>
+  <rect x="227" y="50" width="185" height="80" rx="6" class="bx-hl"/><text x="319" y="72" text-anchor="middle" class="sm">はたらき</text><text x="319" y="100" text-anchor="middle" class="dv">शाब्दी भावना</text>
+  <rect x="430" y="50" width="185" height="80" rx="6" class="bx"/><text x="522" y="72" text-anchor="middle" class="sm">達成対象</text><text x="522" y="100" text-anchor="middle">人のやる気</text><text x="522" y="118" text-anchor="middle" class="sm">＝ 下の実際的 bhāvanā</text>
+  <path d="M210,90 L223,90" class="ln" marker-end="url(#a3)"/><path d="M412,90 L426,90" class="ln" marker-end="url(#a3)"/>
+  <path d="M522,130 L522,175" class="ln" marker-end="url(#a3)"/>
+  <rect x="10" y="180" width="620" height="140" rx="10" class="ln-d"/>
+  <text x="24" y="202" class="sm">実際的 bhāvanā（人の「しよう」：ākhyāta の部分）</text>
+  <rect x="25" y="220" width="185" height="80" rx="6" class="bx"/><text x="117" y="242" text-anchor="middle" class="sm">手段</text><text x="117" y="266" text-anchor="middle">祭祀（yāga）</text><text x="117" y="288" text-anchor="middle" class="sm">＋ prayāja など補助祭式</text>
+  <rect x="227" y="220" width="185" height="80" rx="6" class="bx-hl"/><text x="319" y="242" text-anchor="middle" class="sm">はたらき</text><text x="319" y="270" text-anchor="middle" class="dv">आर्थी भावना</text>
+  <rect x="430" y="220" width="185" height="80" rx="6" class="bx"/><text x="522" y="242" text-anchor="middle" class="sm">達成対象</text><text x="522" y="270" text-anchor="middle">天界（svarga）</text>
+  <path d="M210,260 L223,260" class="ln" marker-end="url(#a3)"/><path d="M412,260 L426,260" class="ln" marker-end="url(#a3)"/>
+</svg>
+<p>「liṅ の知識により、祭式のすばらしさに助けられて、ヴェーダの意図（言語的 bhāvanā）は、『補助祭式に助けられた祭祀によって天界を得よう』という人の心の動き（実際的 bhāvanā）を生む。」── 重々しい分析ですが、要するに「<b>ヴェーダは、祭祀によって天界を得よ、と人に促している</b>」ということです。</p>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　文の中心は何か ── 三学派の違い</div>
+  <p>文の意味を理解するとき（<span class="dev">शाब्दबोधः</span>）、何を<b>中心</b>（主要な限定対象，mukhya-viśeṣya）とみなすか。学派ごとに異なります。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>学派</th><th>呼び名</th><th>文の中心</th><th>「Devadatta が料理する」の理解（概略）</th></tr>
+  <tr><td>Mīmāṃsā</td><td class="dev">प्रत्ययार्थविशेष्यकशाब्दबोधवादिनः</td><td><b>接尾辞</b>の意味（bhāvanā）</td><td>Devadatta を主体とする、料理を対象とする bhāvanā</td></tr>
+  <tr><td>Nyāya</td><td class="dev">कर्तृमुख्यविशेष्यकशाब्दबोधवादिनः</td><td><b>行為者</b>（主格の語）</td><td>料理という行為を担う Devadatta</td></tr>
+  <tr><td>文法学派</td><td class="dev">धात्वर्थमुख्यविशेष्यकशाब्दबोधवादिनः</td><td><b>語根</b>の意味（行為）</td><td>Devadatta を行為者とする料理という行為</td></tr>
+  </table></div>
+</div>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">आख्यातम् / आख्यातत्वम्</td><td class="iast">ākhyāta / ākhyātatva</td><td>動詞 ／ 動詞であること（「する」という一般的な意味）</td></tr>
+<tr><td class="dev">लिङ्</td><td class="iast">liṅ</td><td>願望法（命令の力をもつ）</td></tr>
+<tr><td class="dev">भावयितृ · भवितृ</td><td class="iast">bhāvayitṛ · bhavitṛ</td><td>生じさせる者 ・ 生じるもの</td></tr>
+<tr><td class="dev">प्रवर्तना · प्रवृत्तिः</td><td class="iast">pravartanā · pravṛtti</td><td>駆り立て ・ 取りかかり（やる気）</td></tr>
+<tr><td class="dev">अन्वयः / अन्वेति</td><td class="iast">anvaya / anveti</td><td>（意味上の）結びつき ／ 結びつく</td></tr>
+<tr><td class="dev">आकाङ्क्षा · योग्यता</td><td class="iast">ākāṅkṣā · yogyatā</td><td>期待 ・ 意味上のふさわしさ</td></tr>
+<tr><td class="dev">कारक · ज्ञापक</td><td class="iast">kāraka · jñāpaka</td><td>生み出す（手段） ・ 知らせる（手段）</td></tr>
+<tr><td class="dev">अर्थवादः</td><td class="iast">arthavāda</td><td>釈義文（祭式をほめる・けなす文）</td></tr>
+<tr><td class="dev">अङ्गम् · अङ्गी</td><td class="iast">aṅga · aṅgin</td><td>補助（従属）祭式 ・ 主祭</td></tr>
+<tr><td class="dev">अपूर्वम्</td><td class="iast">apūrva</td><td>祭祀が生む、以前になかった見えない力</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. <span class="dev">यजेत</span> を Bhāskara はどう分解する？</summary><div>語根 yaj ＋ 接尾辞。接尾辞はさらに ākhyātatva（動詞であること）と liṅtva（願望法であること）に分かれる。</div></details>
+<details class="q"><summary>Q2. ākhyātatva と liṅtva は、それぞれどの bhāvanā を表す？</summary><div>ākhyātatva → 実際的（ārthī）bhāvanā。liṅtva → 言語的（śābdī）bhāvanā。</div></details>
+<details class="q"><summary>Q3. ヴェーダの文で、言語的 bhāvanā はどこに宿る？ それはなぜ？</summary><div>liṅ などの語そのものに宿る。ヴェーダには作者がいない（apauruṣeya）ので、意図をもつ人がいないから。</div></details>
+<details class="q"><summary>Q4. 言語的 bhāvanā の「何を？」の答えが祭祀ではなく実際的 bhāvanā なのはなぜ？</summary><div>実際的 bhāvanā は言語的 bhāvanā と同じ<b>接尾辞</b>から理解される（ekapratyayagamya）ので最も近いから。祭祀は同じ<b>語</b>にあるだけ。数・人称なども同じ接尾辞にあるが、意味上ふさわしくない（ayogya）。</div></details>
+<details class="q"><summary>Q5. liṅ の知識は、言語的 bhāvanā に対してどんな手段？</summary><div>知らせる手段（jñāpaka）。言語的 bhāvanā はもともと語にあるので、それを生み出すわけではない。ただし実際的 bhāvanā（やる気）は生み出す（kāraka／nirvartaka）。</div></details>
+<details class="q"><summary>Q6. 実際的 bhāvanā の三要素は？</summary><div>何を ＝ 天界などの果報、何によって ＝ 祭祀など、どのように ＝ 前祭（prayāja）などの補助祭式の一群。</div></details>
+<details class="q"><summary>Q7. 死後に得られる天界の手段として祭祀を説明するために、Mīmāṃsā が考えた概念は？</summary><div><span class="dev">अपूर्वम्</span>（apūrva）。祭祀が生む見えない力で、死ぬまで行為者にとどまり、天界へ導く。</div></details>
+<details class="q"><summary>Q8. 「どのように？」の答えとして言語的 bhāvanā に結びつくものは？</summary><div>arthavāda（釈義文）によって知らされる祭式のすばらしさ（prāśastya）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson1.html">← 第1課　導入の章（1）</a><span class="spacer"></span><a href="arthasamgraha_lesson3.html">第3課　ヴェーダと vidhi →</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第2課　導入の章（2）<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 3–7 (§4–§9), Notes pp. 81–96.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：लित्वं → लिङ्त्वं、लिङनात्रे → लिङ्मात्रे、लिङशेन → लिङंशेन）。
+</footer>
+
+</body>
+</html>
