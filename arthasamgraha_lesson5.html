@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — द्वितीयो विधिविभागः (३)</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 5</div>
+  <div class="header-jp">第5課　vidhi（3）── liṅga（語の力）と vākya（同一文）<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 16–19（§20–§24），Notes pp. 125–135</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第4課のおさらいと、この課で学ぶこと</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§20 liṅga ── 語の力</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§21 liṅga は vākya より強い</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§22 vākya ── 一緒に言われること</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§22 後半・§23 原型・変型・独立の vidhi</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>§24 vākya は prakaraṇa より強い</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>強さの比べ方</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第4課のおさらいと、この課で学ぶこと</h2>
+<div class="note">
+  <div class="note-title">第4課で学んだこと</div>
+  ・適用を決める6つの根拠：<b>śruti</b> ＞ liṅga ＞ vākya ＞ prakaraṇa ＞ sthāna ＞ samākhyā。<br>
+  ・後のものほど弱いのは、適用にたどり着くまでの<b>手順が多い</b>から（JS 3.3.14 <span class="dev">अर्थविप्रकर्षात्</span>）。<br>
+  ・liṅga による適用は「意味 → 力の確認 → śruti の想定 → 適用」の手順をふむ。
+</div>
+<p>この課では、2番目の <b>liṅga</b> と3番目の <b>vākya</b> を学びます。そして、それぞれ「次の根拠より強い」ことを例で確かめます。途中で、祭式の<b>原型</b>（prakṛti）と<b>変型</b>（vikṛti）という重要な区別も登場します。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§20 liṅga ── 語の力</h2>
+<p class="chapter-sub"><span class="dev">लिङ्गम्</span> ／ 底本 pp. 16–17，Notes pp. 125–127</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§20-a</span><span class="sutra-num">p. 16</span><span class="sutra-text">शब्दसामर्थ्यं लिङ्गम् । यथाहुः ‘सामर्थ्यं सर्वशब्दानां लिङ्गमित्यभिधीयते’ इति । सामर्थ्यं रूढिरेव ।</span></div>
+  <div class="sutra-iast">śabdasāmarthyaṃ liṅgam | yathāhuḥ ‘sāmarthyaṃ sarvaśabdānāṃ liṅgam ity abhidhīyate’ iti | sāmarthyaṃ rūḍhir eva |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>語の力</b>（śabda-sāmarthya）が liṅga である。（先人が）言うように、「すべての語の力が liṅga と呼ばれる」。そして力とは、<b>慣用（rūḍhi）</b>にほかならない。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Mark [is] the power of words [to denote something]. As [they] say, ‘The power of all words is said to be the mark.’ The power [is] convention itself.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">लिङ्गम्</span> の語源：<span class="dev">लिङ्ग्यते ज्ञायते विनियोगः अनेन</span>「それによって適用が<b>知られる</b>もの」（ふつうの意味は「しるし」）。<br>
+  引用は Kumārila『Tantravārttika』から。<br>
+  <b>「語の」</b>が必要な理由：単に「力が liṅga」だと、種が芽を出す力なども入ってしまう（Rāmeśvara）。<br>
+  <b>力 ＝ 慣用</b>：第1課で学んだ語の3つの力（abhidhā・lakṣaṇā・vyañjanā）のうち、Mīmāṃsā は liṅga を <b>abhidhā（慣用的な第一義）</b>だけに限るのです。
+  </div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§20-b</span><span class="sutra-num">pp. 16–17</span><span class="sutra-text">तेन समाख्यातोऽस्या भेदः । यौगिकशब्दसमाख्यातो रूढ्यात्मकलिङ्गशब्दस्य भिन्नत्वात् ।</span></div>
+  <div class="sutra-iast">tena samākhyāto ’syā bhedaḥ | yaugikaśabdasamākhyāto rūḍhyātmakaliṅgaśabdasya bhinnatvāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">それゆえ、これ（慣用＝liṅga）は名称（samākhyā）とは区別される。<b>語源的な語</b>である名称と、<b>慣用的な語</b>である liṅga とは異なるからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Hence, this [convention] is distinguished from name. Because a word containing mark, consisting of the conventional meaning (rūḍhi), is different from name which consists of a word understood in its etymological or literal sense (yaugika).</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">यौगिकशब्दसमाख्या</span> ＝ <span class="dev">यौगिकशब्दरूपा समाख्या</span>（中間の語を省いた複合語 madhyamapadalopin）。<span class="dev">अस्याः</span> ＝ 慣用（＝liṅga）の。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　語の3種類 ── 語源的・慣用的・語源慣用的</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>種類</th><th>意味の出し方</th><th>例</th><th>6根拠との関係</th></tr>
+  <tr><td><span class="dev">यौगिक</span> 語源的</td><td>部分（語根＋接尾辞）の力で意味を出す（<span class="dev">अवयवशक्त्या</span>）</td><td><span class="dev">पाचकः</span>（料理する人）、<span class="dev">हारकः</span>、<span class="dev">लावकः</span>（刈る人）</td><td><b>samākhyā</b>（名称）</td></tr>
+  <tr><td><span class="dev">रूढ</span> 慣用的</td><td>語全体の力で、語源と無関係に意味を出す（<span class="dev">समुदायशक्त्या</span>）</td><td><span class="dev">गौः</span>（牛）、<span class="dev">अश्वः</span>、<span class="dev">पुरुषः</span>、<span class="dev">हस्ती</span></td><td><b>liṅga</b></td></tr>
+  <tr><td><span class="dev">योगरूढ</span> 語源慣用的</td><td>語源どおりだが、その一部だけに限られる</td><td><span class="dev">पङ्कजम्</span>「泥から生まれたもの」＝蓮だけ（蛙は含まない）、<span class="dev">गिरिजा</span>＝Pārvatī だけ（石は含まない）</td><td>―</td></tr>
+  </table></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§20-c</span><span class="sutra-num">p. 17</span><span class="sutra-text">तेन ‘बर्हिर्देवसदनं दामि’ इति मन्त्रस्य कुशलवनाङ्गत्वं न तूलपादिलवनाङ्गत्वम् । तस्य ‘बर्हिर्दामि’ इति लिङ्गात् तल्लवनं प्रकाशयितुं समर्थत्वात् । एवमन्यत्रापि लिङ्गाद्विनियोगो द्रष्टव्यः ।</span></div>
+  <div class="sutra-iast">tena ‘barhir devasadanaṃ dāmi’ iti mantrasya kuśalavanāṅgatvaṃ na tūlapādilavanāṅgatvam | tasya ‘barhir dāmi’ iti liṅgāt tallavanaṃ prakāśayituṃ samarthatvāt | evam anyatrāpi liṅgād viniyogo draṣṭavyaḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">それゆえ、「神々の座である barhis（聖草）を私は刈る」という祭詞は、<b>kuśa 草</b>を刈ることに従属するのであって、ulapa などの草を刈ることには従属しない。その祭詞は、「barhis を刈る」という liṅga によって、その（kuśa の）刈り取りを示す力をもつからである。同様に、他の箇所でも liṅga による適用を見るべきである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Consequently the formula, ‘[I] cut grass, the seat of the gods’, becomes subservient to the cutting of the Kuśa-grass, but not to the cutting of the Ulapa and other kinds of grass. For, that [formula] is able to make known the cutting of that [grass] from the mark contained in ‘[I] cut the barhis.’ Similarly, in other places also, application from mark should be seen.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">बर्हिस्</span> は慣用的（第一義）には kuśa 草を指します。kuśa に似た ulapa 草なども、二次的には barhis と呼べる。でも liṅga（慣用の力）は<b>第一義</b>だけを相手にするので、祭詞は kuśa を刈るときだけに使います。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　liṅga による適用の4段階（実例）</div>
+  <ol class="deriv">
+    <li><span class="form">स्वाभिधेयप्रतिपादनम्</span><span class="why">祭詞「barhis を刈る」の意味を知る。</span></li>
+    <li><span class="form">सामर्थ्यनिरूपणम्</span><span class="why">dāmi「刈る」の力から「刈ること」に使うとわかる。barhis の第一義から「kuśa 草」とわかる。</span></li>
+    <li><span class="form">श्रुतिकल्पना</span><span class="why">そう述べる śruti はないので、「<span class="dev">अनेन मन्त्रेण कुशलवनं कर्तव्यम्</span>」という śruti を想定する。</span></li>
+    <li><span class="form">विनियोगः</span><span class="why">想定された śruti から「この祭詞は kuśa の刈り取りに従属する」。</span></li>
+  </ol>
+  <div class="cite"><span class="dev">… लवितव्यं च बर्हिर्द्विविधम् । मुख्यं गौणं च । मुख्यं कुशकाशादिदशविधदर्भरूपम् । गौणं तु तत्सदृशं तृणान्तरम् । … ब्रूमः । मुख्यस्य शीघ्रप्रतीतत्वेन मुख्ये मन्त्रं विनियुज्य चरितार्थं लिङ्गं विलम्बप्रतीततया गौणप्रतीक्षां न करोति ।</span><span class="ja">「刈るべき barhis には主・従の二つがある。主は kuśa・kāśa など十種のダルバ草、従はそれに似た他の草。…（定説：）主（第一義）の方が<b>速く</b>理解されるので、liṅga は祭詞を主に適用して目的を果たし、遅れて理解される従を待たない。」</span><span class="src">Jaiminīyanyāyamālāvistara p. 122</span></div>
+  <p>もう一つの例：<span class="dev">अग्नये जुष्टं निर्वपामि</span>「Agni に好ましいものを（器から）取り分ける」── nirvapāmi の力から、この祭詞は「取り分け（nirvāpa）」に従属します。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§21 liṅga は vākya より強い</h2>
+<p class="chapter-sub"><span class="dev">लिङ्गं वाक्यादिभ्यो बलवत्</span> ／ 底本 p. 17，Notes pp. 127–129</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§21</span><span class="sutra-num">p. 17</span><span class="sutra-text">तदिदं लिङ्गं वाक्यादिभ्यो बलवत् । अत एव ‘स्योनं ते सदनं कृणोमि’ इति मन्त्रस्य पुरोडाशसदनकरणाङ्गत्वं ‘सदनं कृणोमि’ इति लिङ्गात् न तु वाक्यात् ।</span></div>
+  <div class="sutra-iast">tad idaṃ liṅgaṃ vākyādibhyo balavat | ata eva ‘syonaṃ te sadanaṃ kṛṇomi’ iti mantrasya puroḍāśasadanakaraṇāṅgatvaṃ ‘sadanaṃ kṛṇomi’ iti liṅgāt na tu vākyāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">この liṅga は vākya などより強い。まさにそれゆえ、「心地よい座をあなたのために私は作る」という祭詞は、「座を作る」という liṅga によって、<b>祭餅の座を作ること</b>に従属するのであり、vākya によって（全体が両方の行為に従属するの）ではない。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">This mark here is stronger than sentence and other [means of proof]. For this reason alone the formula, ‘A pleasant (syona) seat [I] prepare for thee,’ is subservient to the making of a seat for the sacrificial cake from the mark contained in ‘A seat [I] prepare,’ but not from the sentence.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　祭詞の全体と二つの行為</div>
+  <div class="cite"><span class="dev">स्योनं ते सदनं कृणोमि घृतस्य धारया सुशेवं कल्पयामि । तस्मिन् सीदामृते प्रतितिष्ठ व्रीहीणां मेध सुमनस्यमानः ॥</span><span class="ja">「（祭餅よ、）あなたのために心地よい座を作り、ギーの流れで居心地よく整えよう。（米の精髄よ、）心を落ち着けて、その不滅の（よき）座に座り、しっかりと立て。」</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>前半 <span class="dev">स्योनं ते सदनं कृणोमि …</span></th><th>後半 <span class="dev">तस्मिन् सीद … प्रतितिष्ठ …</span></th></tr>
+  <tr><td>語の力（liṅga）が示す行為</td><td>座を作ること（<span class="dev">सदनकरणम्</span>）</td><td>祭餅を置くこと（<span class="dev">पुरोडाशस्थापनम्</span> / <span class="dev">सादनम्</span>）</td></tr>
+  </table></div>
+  <p><b>vākya による読み</b>：後半の <span class="dev">तस्मिन्</span>「その（座に）」は前半を受けるので、全体で<b>一つの文</b>になる。すると「全体を座作りに、または置くことに、または両方に使う」ことになり、座作りに関係ない後半を唱えたり、置くことに関係ない前半を唱えたりすることになってしまう。<br>
+  <b>liṅga による読み</b>：前半は座作り、後半は置くことに、と分けて使う。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>vākya による適用</th><th>liṅga による適用</th></tr>
+  <tr><td>手順</td><td>① vākya → ② liṅga（を想定）→ ③ śruti（を想定）→ 適用</td><td>① liṅga → ② śruti（を想定）→ 適用</td></tr>
+  <tr><td>結果</td><td class="no-x">遠い → 負け</td><td class="yes">近い → 勝ち</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">ततश्च लिङ्गकल्पनव्यवधानेन वाक्यं श्रुतिं प्रति विप्रकृष्यते । प्रत्यक्षं तु लिङ्गद्वयं तां श्रुतिं प्रति न विप्रकृष्यते । तथा सति लिङ्गेन वाक्यस्य बाधात् मन्त्रस्य अर्थद्वयं सदनकरणपुरोडाशस्थापनयोर्व्यवस्थितम् ।</span><span class="src">Rāmeśvara</span></div>
+  <p>語釈：<span class="dev">स्योनम्</span> 心地よい、<span class="dev">सुशेवम्</span> 居心地のよい、<span class="dev">मेधः</span> 精髄。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§22 vākya ── 一緒に言われること</h2>
+<p class="chapter-sub"><span class="dev">वाक्यम्</span> ／ 底本 pp. 17–18，Notes pp. 129–131</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§22-a</span><span class="sutra-num">pp. 17–18</span><span class="sutra-text">समभिव्याहारो वाक्यम् । समभिव्याहारश्च साध्यत्वादिवाचकद्वितीयाद्यभावेऽपि वस्तुतः शेषशेषिवाचकपदयोः सहोच्चारणम् । यथा ‘यस्य पर्णमयी जुहूर्भवति न स पापं श्लोकं शृणोति’ । अत्र पर्णताजुह्वोः समभिव्याहारादेव पर्णताया जुह्वङ्गत्वम् ।</span></div>
+  <div class="sutra-iast">samabhivyāhāro vākyam | samabhivyāhāraś ca sādhyatvādivācakadvitīyādyabhāve ’pi vastutaḥ śeṣaśeṣivācakapadayoḥ sahoccāraṇam | yathā ‘yasya parṇamayī juhūr bhavati na sa pāpaṃ ślokaṃ śṛṇoti’ | atra parṇatājuhvoḥ samabhivyāhārād eva parṇatāyā juhvaṅgatvam |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>一緒に言われること</b>（samabhivyāhāra）が vākya である。そして一緒に言われることとは、達成対象などを表す対格などの（格語尾）がなくても、実際に<b>従属物と主</b>を表す二つの語が一緒に発音されることである。たとえば「parṇa 木製の juhū 匙をもつ者は、悪い評判を聞かない」。ここでは、parṇa 木製であることと juhū 匙が一緒に言われていることだけによって、parṇa 木製であることが juhū 匙に従属する。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Sentence [is] connected utterance. And connected utterance is the pronouncing together of two words expressing subsidiary and principal [things], which are really so, even in the absence of case-forms such as the accusative denoting the thing to be accomplished etc. For example, ‘Whose ladle is made of parṇa-wood, he hears no evil report.’ Here from the very connected utterance of being-made-of-parṇa-wood and ladle, the being-made-of-parṇa-wood becomes subservient to the ladle.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">सम्-अभि-वि-आ-√हृ</span>「一緒に言う」。<span class="iast">sam</span> と <span class="iast">saha</span> が要点で、今日「parṇamayī」、明日「juhūḥ」と言っても文にはなりません。これは文の成立条件 <b>āsatti / saṃnidhi</b>（近接）に当たります。<br>
+  <span class="dev">वाक्यं स्यात् योग्यताकाङ्क्षासत्तियुक्तः पदोच्चयः</span>（Viśvanātha『Sāhityadarpaṇa』2.1）<br>
+  <span class="dev">पर्ण</span> ＝ <span class="dev">पलाश</span>（Butea 樹，<span class="dev">पलाशः किंशुकः पर्णो यज्ञियो रक्तपुष्पकः</span>）。<span class="dev">जुहूः</span>（<span class="dev">हूयते अनया</span>「それで献供される」）＝ 献供の匙。<span class="dev">श्लोकः</span> ＝ 評判（√ślok「称える」）。<span class="dev">पापं श्लोकम्</span> ＝ 悪評。つまり「名声を得る」。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　「対格などがなくても」の意味と、定義への批評</div>
+  <p>ふつうの文 <span class="dev">कुम्भकारः मृत्तिकया घटं करोति</span>「陶工は粘土で壺を作る」には、対格（作られるもの）・具格（材料）がそろっています。しかし Mīmāṃsā の vākya は、<span class="dev">पर्णमयी जुहूः</span> のように対格などがなくても成り立つ。<span class="dev">अपि</span>「〜でも」は、対格などが<b>あっても</b>成り立つことを含意します（§21 の <span class="dev">स्योनं ते सदनं कृणोमि</span> には対格がある）。</p>
+  <p><b>G&amp;K の批評</b>：この定義は <span class="dev">पर्णमयी जुहूः</span> の例だけを見て作られていて不十分。<br>
+  ・<span class="dev">वस्तुतः</span>「実際に」は余計。<br>
+  ・「二つの語」の双数は、§21 の例（多くの語が一緒に言われる）には合わないので、意味をもたないと見るべき（<span class="dev">द्वित्वमविवक्षितम्</span>）。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§22-b</span><span class="sutra-num">p. 18</span><span class="sutra-text">न चानर्थक्यम्, अन्यथापि जुह्वाः सिद्धत्वादिति वाच्यम् । जुहूशब्देन तत्साध्यापूर्वलक्षणात् । तथा च वाक्यार्थः — पर्णतयावत्तहविर्धारणद्वारा जुह्वपूर्वं भावयेदिति । एवं च पर्णतया यदि जुहूः क्रियते तदैव तत्साध्यमपूर्वं भवति नान्यथेति गम्यत इति न पर्णताया वैयर्थ्यम् ।</span></div>
+  <div class="sutra-iast">na cānarthakyam, anyathāpi juhvāḥ siddhatvād iti vācyam | juhūśabdena tatsādhyāpūrvalakṣaṇāt | tathā ca vākyārthaḥ — parṇatayāvattahavirdhāraṇadvārā juhvapūrvaṃ bhāvayed iti | evaṃ ca parṇatayā yadi juhūḥ kriyate tadaiva tatsādhyam apūrvaṃ bhavati nānyatheti gamyata iti na parṇatāyā vaiyarthyam |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">「（parṇa 木製を命じても）無意味である。他の木でも juhū 匙は作れるから」と言ってはならない。juhū という語は、それ（parṇa 木製の juhū）によって達成される <b>apūrva</b> を転義によって指しているからである。そして文の意味は、「parṇa 木製であることにより、切り分けた供物を保持することを通じて、juhū の apūrva を生じさせるべし」となる。このように、juhū が parṇa 木で作られたときにだけ、それによって達成される apūrva が生じ、そうでなければ生じない、と理解されるので、parṇa 木製であることは無駄ではない。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And it should not be urged: ‘[There is] purposelessness, for even otherwise can the ladle be made.’ For, the word ladle indicates the not-existent-before to be accomplished by that. And so the meaning of the sentence [is]: [One] should bring into existence the not-existent-before [arising] from the ladle by means of being-made-of-parṇa-wood through the holding of the cut (avatta) oblation. And it is understood that if the ladle is made of parṇa-wood, then only, the not-existent-before arises, not otherwise; hence [there is] no futility of being-made-of-parṇa-wood.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">目に見える目的がないので、見えない目的（apūrva）を想定する ── 第4課の「米への注水」と同じ論法です。<span class="dev">अवत्त</span> ＝ ava-√do「切り分ける」の過去分詞。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§22-c</span><span class="sutra-num">p. 18</span><span class="sutra-text">अवत्तहविर्धारणद्वारेति चावश्यं वक्तव्यम् । अन्यथा स्रुवादिष्वपि पर्णतापत्तेः ।</span></div>
+  <div class="sutra-iast">avattahavirdhāraṇadvāreti cāvaśyaṃ vaktavyam | anyathā sruvādiṣv api parṇatāpatteḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そして「切り分けた供物を保持することを通じて」と必ず言わなければならない。さもなければ、sruva などの（他の匙）にも parṇa 木製であることが及んでしまうからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And ‘through the holding of the cut oblation’ — this must necessarily be said. Otherwise, the being-made-of-parṇa-wood would accrue in the case of sruva and others also.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">juhū を語源（<span class="dev">हूयते अनया</span>「それで献供される」）で取ると、献供に使う他の匙（sruva・sruc・upabhṛt・dhruvā）も含まれてしまう。でも切り分けた供物を<b>保持する</b>のは juhū だけ。sruva は切り分ける<b>のに</b>使う（<span class="dev">स्रुवेणावद्यति</span>）。だからこの限定で juhū だけに絞れます。</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<tr><th>匙</th><th>材木</th><th>役割</th></tr>
+<tr><td class="dev">जुहूः</td><td>palāśa（parṇa）</td><td>切り分けた供物を<b>保持</b>して献じる</td></tr>
+<tr><td class="dev">स्रुवः</td><td>khadira</td><td>供物を<b>切り分ける</b>（<span class="dev">स्रवति घृतादिकमस्मात्</span>）</td></tr>
+<tr><td class="dev">उपभृत्</td><td>aśvattha</td><td>juhū を下から支える</td></tr>
+<tr><td class="dev">ध्रुवा</td><td>vikaṅkata</td><td>ギーを入れておく</td></tr>
+</table></div>
+<div class="cite"><span class="dev">वैकङ्कती ध्रुवा प्रोक्ता आश्वत्थी चोपभृन्मता । जुहूः पलाशकाष्ठस्य खादिरस्य स्रुवो मतः ॥</span></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§22 後半・§23 原型・変型・独立の vidhi</h2>
+<p class="chapter-sub"><span class="dev">प्रकृतिविकृत्यनारभ्यविधिलक्षणम्</span> ／ 底本 pp. 18–19，Notes pp. 131–133</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§22-d</span><span class="sutra-num">pp. 18–19</span><span class="sutra-text">सेयं पर्णता अनारभ्याधीतापि सर्वप्रकृतिष्वेवान्वेति न विकृतिषु । तत्र चोदकेनापि तत्प्राप्तिसंभवात् पौनरुक्त्यापत्तेः ।</span></div>
+  <div class="sutra-iast">seyaṃ parṇatā anārabhyādhītāpi sarvaprakṛtiṣv evānveti na vikṛtiṣu | tatra codakenāpi tatprāptisaṃbhavāt paunaruktyāpatteḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">この parṇa 木製であることは、（特定の祭式に関係なく）<b>独立して</b>述べられているが、すべての<b>原型</b>（prakṛti）の祭式にだけ結びつき、<b>変型</b>（vikṛti）には（直接は）結びつかない。そこ（変型）では<b>転用の規則</b>（codaka）によってもそれが得られ得るので、（直接結びつけると）重複になってしまうからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">This being-made-of-parṇa-wood, though prescribed without reference to any particular sacrifice (anārabhyādhīta), is construed with all arche-types (prakṛtiḥ) only, [but] not with the modifications. For, since there is a possibility of its obtaining there even by means of extended application (codaka), repetition would accrue.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§23</span><span class="sutra-num">p. 19</span><span class="sutra-text">यत्र समग्राङ्गोपदेशः सा प्रकृतिः । यथा दर्शपूर्णमासादिः । तत्प्रकरणे सर्वाङ्गपाठात् । यत्र न सर्वाङ्गोपदेशः सा विकृतिः । यथा सौर्यादिः । तत्र कतिपयाङ्गानामतिदेशेन प्राप्तत्वात् । अनारभ्यविधिः सामान्यविधिः ।</span></div>
+  <div class="sutra-iast">yatra samagrāṅgopadeśaḥ sā prakṛtiḥ | yathā darśapūrṇamāsādiḥ | tatprakaraṇe sarvāṅgapāṭhāt | yatra na sarvāṅgopadeśaḥ sā vikṛtiḥ | yathā sauryādiḥ | tatra katipayāṅgānām atideśena prāptatvāt | anārabhyavidhiḥ sāmānyavidhiḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>すべての従属物</b>が教示されている（祭式）が原型である。たとえば新月・満月祭など。その文脈ですべての従属物が読誦されているからである。すべての従属物が教示されていない（祭式）が変型である。たとえば Sūrya への祭（saurya）など。そこではいくつかの従属物が<b>転用</b>（atideśa）によって得られるからである。独立の vidhi とは、<b>一般的な</b> vidhi である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Where there is mention of all subsidiaries, that [is] the arche-type, as the new moon and full moon sacrifices and others. For, in their context all subsidiaries are mentioned. Where all subsidiaries are not specified, that [is] the modification, as the oblation to the sun (saurya). There some subsidiaries become available by means of extended application. An injunction without reference to any particular sacrifice [is] a general injunction.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">§22 で使った用語を、後から定義しています（G&amp;K はこれも非体系的だと見るでしょう）。<br>
+  <span class="dev">उपदेशः</span>：<span class="dev">यत्र अपेक्षितस्य अर्थजातस्य प्रतिपादको ग्रन्थसन्दर्भः पठ्यते स उपदेशः</span>「必要な事柄の全体を説く文の一群が読まれていること」（Jaiminīyanyāyamālāvistara）。</div></div>
+</div>
+
+<h3>図解：原型と変型、転用（atideśa）</h3>
+<svg class="dia" viewBox="0 0 640 230" role="img" aria-label="原型から変型への転用">
+  <defs><marker id="a5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+  <rect x="20" y="20" width="250" height="190" rx="10" class="bx-hl"/>
+  <text x="145" y="45" text-anchor="middle" class="dv">प्रकृतिः</text><text x="145" y="64" text-anchor="middle" class="sm">原型：新月・満月祭など</text>
+  <rect x="40" y="80" width="210" height="28" rx="4" class="bx"/><text x="145" y="99" text-anchor="middle" class="sm">前祭・後祭・米搗き・注水 …</text>
+  <rect x="40" y="114" width="210" height="28" rx="4" class="bx"/><text x="145" y="133" text-anchor="middle" class="sm">parṇa 木の juhū（独立の vidhi から）</text>
+  <rect x="40" y="148" width="210" height="28" rx="4" class="bx"/><text x="145" y="167" text-anchor="middle" class="sm">… すべての従属物が教示されている</text>
+  <rect x="370" y="20" width="250" height="190" rx="10" class="bx"/>
+  <text x="495" y="45" text-anchor="middle" class="dv">विकृतिः</text><text x="495" y="64" text-anchor="middle" class="sm">変型：Saurya など</text>
+  <rect x="390" y="80" width="210" height="28" rx="4" class="bx-hl"/><text x="495" y="99" text-anchor="middle" class="sm">独自の点だけが教示される</text>
+  <rect x="390" y="114" width="210" height="62" rx="4" class="ln-d"/><text x="495" y="140" text-anchor="middle" class="sm">残りは原型から</text><text x="495" y="158" text-anchor="middle" class="sm">転用されてくる</text>
+  <path d="M250,145 L386,145" class="ln" marker-end="url(#a5)"/>
+  <text x="318" y="135" text-anchor="middle" class="dv" style="font-size:14px">चोदकः</text><text x="318" y="170" text-anchor="middle" class="sm">अतिदेशः</text>
+</svg>
+<p>だから parṇa の規則は<b>原型にだけ</b>直接結びつけばよい。変型には転用で自動的に届く。変型にも直接結びつけると、同じことを二度命じることになる（<span class="dev">पौनरुक्त्यम्</span>）。</p>
+<div class="cite"><span class="dev">पर्णवाक्यात् पर्णताया यावत्क्रतुप्रवेशे जुहूर्द्वारम् । सा च जुहूः प्रकृतावेव विहिता विकृतिषु सर्वत्र अतिदिश्यते ।</span><span class="src">Jaiminīyanyāyamālāvistara p. 201</span></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　4つの用語</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>用語</th><th>意味</th><th>例</th></tr>
+  <tr><td><span class="dev">आरभ्याधीत</span></td><td>ある祭式の話を<b>始めて</b>、その中で述べられた規則。引用では「<span class="dev">दर्शपूर्णमासप्रकरणे श्रूयते</span>」などと前置きする</td><td>―</td></tr>
+  <tr><td><span class="dev">अनारभ्याधीत</span></td><td>特定の祭式に関係なく述べられた規則（＝一般的な vidhi）。引用では「<span class="dev">अनारभ्य श्रूयते</span>」と前置きする</td><td>日常の例：<span class="dev">नानृतं वदेत्</span>（嘘を言うな）、<span class="dev">न हिंस्यात् सर्वा भूतानि</span>、<span class="dev">न परधनं कामयेत्</span></td></tr>
+  <tr><td><span class="dev">प्रकृतिः</span></td><td>原型（模範となる祭式）</td><td>新月・満月祭、Agnihotra、Jyotiṣṭoma</td></tr>
+  <tr><td><span class="dev">विकृतिः</span></td><td>変型（原型との違いだけが述べられる）。<span class="dev">प्रकृतिवद् विकृतिः कर्तव्या</span>「変型は原型のように行うべし」</td><td>Saurya（<span class="dev">सौर्यं चरुं निर्वपेत्</span>）、Vāyavya、Śyena、Aindrāgna</td></tr>
+  </table></div>
+  <p>Kapardisvāmin（Āpastamba 注）によれば、祭式は3つのグループに分かれます。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>原型だけ</th><td>Agnihotra・新月満月祭・Jyotiṣṭoma</td></tr>
+  <tr><th>変型でもあり原型でもある</th><td>Vaiśvadeva、Agnīṣomīya 獣祭、Āmikṣā、Dvādaśāha など</td></tr>
+  <tr><th>変型だけ</th><td>Kuṇḍapāyinām ayana の Agnihotra、Saurya、Vāyavya 獣祭、Udbhid、Pauṇḍarīka など</td></tr>
+  </table></div>
+  <h4><span class="dev">चोदकः</span> と <span class="dev">अतिदेशः</span></h4>
+  <p>codaka「指示する文」の指示内容が「変型は原型のように行え」。この一般規則を <b>atideśa</b>（転用）とも呼びます。</p>
+  <div class="cite"><span class="dev">अन्यत्रैव प्रणीतायाः कृत्स्नाया धर्मसंहतेः । अन्यत्र कार्यतः प्राप्तिरतिदेशः स उच्यते ॥</span><span class="ja">「別の場所で定められた規定の全体が、必要に応じて他の場所に及ぶこと、それが atideśa と呼ばれる。」</span></div>
+  <div class="cite"><span class="dev">अतिदेशो नाम ये परत्र विहिता धर्मास्तमतीत्य अन्यत्र तेषां देशः । यथा, देवदत्तस्य भोजनविधिं कृत्वा ‘शालिसूपमांसापूपैर्देवदत्तो भोजयितव्य’ इति तमेव विधिं यज्ञदत्तेऽतिदिशति ‘देवदत्तवद् यज्ञदत्तो भोजयितव्य’ इति ।</span><span class="ja">「atideśa とは、ある所で定められた規定を、そこを越えて他所に指示すること。たとえば『Devadatta には米・豆汁・肉・菓子を食べさせよ』と定めた後、『Yajñadatta には Devadatta のように食べさせよ』と、同じ規定を Yajñadatta に及ぼすように。」</span><span class="src">Śābarabhāṣya ad JS 7.1.12</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　§24 vākya は prakaraṇa より強い</h2>
+<p class="chapter-sub"><span class="dev">वाक्यं प्रकरणादिभ्यो बलवत्</span> ／ 底本 p. 19，Notes pp. 133–135</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§24</span><span class="sutra-num">p. 19</span><span class="sutra-text">तदिदं वाक्यं प्रकरणादिभ्यो बलवत् । अत एव ‘इन्द्राग्नी इदं हविः’ इत्यादेरेकवाक्यत्वाद्दर्शाङ्गत्वं न तु प्रकरणाद्दर्शपूर्णमासाङ्गत्वम् ।</span></div>
+  <div class="sutra-iast">tad idaṃ vākyaṃ prakaraṇādibhyo balavat | ata eva ‘indrāgnī idaṃ haviḥ’ ityāder ekavākyatvād darśāṅgatvaṃ na tu prakaraṇād darśapūrṇamāsāṅgatvam |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">この vākya は prakaraṇa などより強い。まさにそれゆえ、「Indra と Agni よ、この供物を…」などの（祭詞）は、<b>一つの文</b>をなすことによって<b>新月祭</b>に従属するのであり、prakaraṇa（文脈）によって新月祭・満月祭の両方に従属するのではない。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">This sentence here [is] stronger than context and others. Hence, indeed, the formula, ‘[O] Indra and Agni, this offering [you have accepted],’ is subsidiary to the new moon sacrifice on account of its forming one sentence, but not subsidiary to [both] new moon and full moon sacrifices on account of context.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　sūktavāka の祭詞</div>
+  <p>新月・満月祭の章に <b>sūktavāka</b> という節（anuvāka）があり、<span class="dev">सूक्तवाकेन प्रस्तरं प्रहरति</span>「sūktavāka で一握りのダルバ草（prastara）を火に投じる」とき唱えます（火が <span class="dev">त्वं सूक्तवागसि</span> と呼びかけられるので sūktavāka）。その中に次の祭詞があります。</p>
+  <div class="cite"><span class="dev">अग्नीषोमाविदं हविरजुषेताम्, अवीवृधेताम्, महो ज्यायोऽक्राताम् । इन्द्राग्नी इदं हविरजुषेताम्, अवीवृधेताम्, महो ज्यायोऽक्राताम् ।</span><span class="ja">「Agni と Soma よ、（あなたがた二柱は）この供物を受け入れ、栄えさせ、大いなる卓越を示した。Indra と Agni よ、この供物を受け入れ、栄えさせ、大いなる卓越を示した。」</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>祭</th><th>名の由来</th><th>神格（liṅga により JS 3.3.15–18 で決定）</th></tr>
+  <tr><td><span class="dev">दर्शः</span> 新月祭（<span class="dev">अमावास्या</span>）</td><td>太陽と月が一緒にいるのが「見える」日（<span class="dev">एकत्रस्थितचन्द्रार्कदर्शनात्</span>）。amā「一緒に」＋ vas「住む」</td><td><b>Indra と Agni</b></td></tr>
+  <tr><td><span class="dev">पूर्णमासः</span> 満月祭</td><td>月（māsa）が満ちる日（<span class="dev">पूर्णो मासो यस्मिन्</span>）</td><td><b>Agni と Soma</b></td></tr>
+  </table></div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>前主張：prakaraṇa による</th><th>定説：vākya による</th></tr>
+  <tr><td>主張</td><td>新月・満月祭の文脈にあるので、<b>全体を両方の祭</b>で使う。新月祭では「Agni と Soma」を落とし、満月祭では「Indra と Agni」を落とす。</td><td>二つの文はそれぞれ<b>完結した一文</b>。第1文は満月祭に、第2文は新月祭に。</td></tr>
+  <tr><td>手順</td><td>① prakaraṇa → ②「Agni と Soma」を落とした残りが「Indra と Agni」と一文をなすと<b>想定</b>（vākya）→ ③ liṅga を想定 → ④ śruti を想定 → 適用</td><td>① vākya（実際に聞かれる）→ ② liṅga → ③ śruti → 適用</td></tr>
+  <tr><td>判定</td><td class="no-x">遠い → 負け</td><td class="yes">近い → 勝ち</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">… प्रकरणेन प्रथमं तदन्वयरूपं वाक्यं कल्पनीयम् । तेन च वाक्येन इन्द्रादिप्रकाशनसामर्थ्यरूपं लिङ्गं कल्प्यते । तच्च लिङ्गम् ‘अनेन मन्त्रभागेन इन्द्राग्निविषयक्रिया अनुष्ठेया’ इति विनियोजिकां तृतीयाश्रुतिं कल्पयति । ततः प्रकरणविनियोगयोर्मध्ये त्रिभिर्व्यवधानं भवति । … तस्माद् वाक्येन प्रकरणस्य बाधितत्वात् तच्छेषस्तत्रैव व्यवतिष्ठते ।</span><span class="src">Jaiminīyanyāyamālāvistara ad JS 3.3.14</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　強さの比べ方</h2>
+<p>根拠どうしが衝突したら、<b>適用までに想定しなければならない段階の数</b>を数えます。少ない方が勝ちです。</p>
+<div class="tbl-wrap"><table>
+<tr><th>出発点</th><th class="c">想定 vākya</th><th class="c">想定 liṅga</th><th class="c">想定 śruti</th><th>適用までの距離</th></tr>
+<tr><td><b>śruti</b></td><td class="c">―</td><td class="c">―</td><td class="c">―</td><td>0（直接）</td></tr>
+<tr><td><b>liṅga</b></td><td class="c">―</td><td class="c">―</td><td class="c">✓</td><td>1</td></tr>
+<tr><td><b>vākya</b></td><td class="c">―</td><td class="c">✓</td><td class="c">✓</td><td>2</td></tr>
+<tr><td><b>prakaraṇa</b></td><td class="c">✓</td><td class="c">✓</td><td class="c">✓</td><td>3</td></tr>
+</table></div>
+<ol class="deriv">
+  <li><span class="form">शब्दसामर्थ्यं लिङ्गम्</span><span class="why">liṅga ＝ 語の慣用的な力（rūḍhi）。語源的な名称（samākhyā）とは違う。第一義だけに働く。</span></li>
+  <li><span class="form">लिङ्गं वाक्याद् बलवत्</span><span class="why">「syonaṃ te sadanam」：前半は座作り、後半は祭餅を置くこと。</span></li>
+  <li><span class="form">समभिव्याहारो वाक्यम्</span><span class="why">vākya ＝ 従属物と主を表す語が一緒に言われること。parṇa 木の juhū。</span></li>
+  <li><span class="form">प्रकृति · विकृति · अतिदेश</span><span class="why">原型にはすべての従属物、変型は転用で補う。独立の規則は原型にだけ直接結びつく。</span></li>
+  <li><span class="form">वाक्यं प्रकरणाद् बलवत्</span><span class="why">「Indra と Agni よ…」は一文として新月祭だけに。</span></li>
+</ol>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">सामर्थ्यम् · रूढिः</td><td class="iast">sāmarthya · rūḍhi</td><td>（語の）力 ・ 慣用</td></tr>
+<tr><td class="dev">यौगिक · रूढ · योगरूढ</td><td class="iast">yaugika · rūḍha · yogarūḍha</td><td>語源的 ・ 慣用的 ・ 語源慣用的</td></tr>
+<tr><td class="dev">मुख्य · गौण</td><td class="iast">mukhya · gauṇa</td><td>第一義の ・ 二次的な</td></tr>
+<tr><td class="dev">समभिव्याहारः</td><td class="iast">samabhivyāhāra</td><td>一緒に言われること</td></tr>
+<tr><td class="dev">शेषः · शेषी</td><td class="iast">śeṣa · śeṣin</td><td>従属物 ・ 主</td></tr>
+<tr><td class="dev">एकवाक्यता</td><td class="iast">ekavākyatā</td><td>一つの文をなすこと</td></tr>
+<tr><td class="dev">प्रकृतिः · विकृतिः</td><td class="iast">prakṛti · vikṛti</td><td>原型 ・ 変型</td></tr>
+<tr><td class="dev">अतिदेशः · चोदकः</td><td class="iast">atideśa · codaka</td><td>転用 ・ 転用を指示する規則</td></tr>
+<tr><td class="dev">अनारभ्याधीत</td><td class="iast">anārabhyādhīta</td><td>特定の祭式に関係なく述べられた</td></tr>
+<tr><td class="dev">पौनरुक्त्यम्</td><td class="iast">paunaruktya</td><td>重複</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. liṅga の定義は？ そこでの「力」とは何？</summary><div><span class="dev">शब्दसामर्थ्यं लिङ्गम्</span>。力 ＝ 慣用（rūḍhi）、すなわち abhidhā による第一義。</div></details>
+<details class="q"><summary>Q2. liṅga と samākhyā の違いは？</summary><div>liṅga は慣用的な語（rūḍha）、samākhyā は語源的な語（yaugika）。</div></details>
+<details class="q"><summary>Q3. 「barhis を刈る」の祭詞が ulapa 草には使われないのはなぜ？</summary><div>liṅga は第一義（kuśa 草）に速く働いて目的を果たし、遅れて理解される二次的な意味（似た草）を待たないから。</div></details>
+<details class="q"><summary>Q4. 「syonaṃ te sadanaṃ kṛṇomi…」で、vākya に従うと何が困る？</summary><div>全体が一文なので、座作りと祭餅を置くことの両方に全体を使うことになり、関係のない半分まで唱えることになる。liṅga に従って前半・後半を分けて使う。</div></details>
+<details class="q"><summary>Q5. parṇa 木の juhū の規定が無意味でないのはなぜ？</summary><div>juhū の語が、parṇa 木の juhū によって生じる apūrva を指しているから。parṇa 木の juhū を使ったときだけ apūrva が生じる。</div></details>
+<details class="q"><summary>Q6. 「切り分けた供物の保持を通じて」という限定がなぜ必要？</summary><div>ないと、語源上 juhū に含まれ得る sruva などの他の匙まで parṇa 木製でなければならなくなるから。</div></details>
+<details class="q"><summary>Q7. 原型と変型の違いは？ parṇa の規則が原型にだけ結びつくのはなぜ？</summary><div>原型ではすべての従属物が教示され、変型ではそうでなく転用で補われる。変型には転用で届くので、直接結びつけると重複になるから。</div></details>
+<details class="q"><summary>Q8. 「Indra と Agni よ…」の祭詞が新月祭だけに使われる理由は？</summary><div>それ自体で一つの文（vākya）をなし、Indra と Agni は新月祭の神格だから。vākya は prakaraṇa より適用までの段階が一つ少なく、強い。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson4.html">← 第4課　śruti</a><span class="spacer"></span><a href="arthasamgraha_lesson6.html">第6課　prakaraṇa →</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第5課　vidhi（3）<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 16–19 (§20–§24), Notes pp. 125–135.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：बर्हिदेवसदनं → बर्हिर्देवसदनं、पोनरुक्त्या → पौनरुक्त्या、समग्राङ्को → समग्राङ्गो）。
+</footer>
+
+</body>
+</html>
