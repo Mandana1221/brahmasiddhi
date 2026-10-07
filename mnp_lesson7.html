@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい祭式解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+.en { font-family: 'Cormorant Garamond', serif; font-size: 1.08em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Cormorant Garamond', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — प्रकरणम्</div>
+  <h1>やさしい祭式解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 7</div>
+  <div class="header-jp">第7課　第四の根拠「文脈」── 相互の期待、原型と変型、「はさみ」<br>
+  本文：Edgerton §§116–168（校訂本文 pp. 215–227 ／ KSS版 pp. 48–72）<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#intro"><span class="n">序</span>この課の地図</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>文脈＝相互の期待（§§116–121）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>文脈は行為だけを充当する（§§122–128）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>大文脈は原型でだけ働く（§§129–134）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>変型の中の文脈：Udumbara の柱と斑のバター（§§135–151）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>中間文脈と「はさみ」（§§152–158）</a></li>
+    <li><a href="#ch6"><span class="n">第6章</span>文脈は位置より強い：Rājasūya とさいころ遊び（§§159–168）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+<h2 class="chapter">この課の地図</h2>
+<p class="lead">「文脈（<span class="dev">प्रकरण</span> <span class="iast">prakaraṇa</span>）」は六つの根拠の第四で、本書で<b>最も長く</b>論じられる根拠です（§§116–168）。中心となる考えはただ一つ、<b>文脈とは「相互の期待」である</b>ということです。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 720 210" role="img" aria-label="相互の期待としての文脈。前供犠は何のためかを求め、新月祭・満月祭はどうやってを求める">
+  <defs><marker id="p7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" class="arrowhead-acc"/></marker></defs>
+  <rect x="20" y="50" width="250" height="100" rx="10" class="box-blue"/>
+  <text x="145" y="78" text-anchor="middle" font-size="14" class="t-acc">補助：前供犠（prayāja）</text>
+  <text x="145" y="100" text-anchor="middle" class="t-dev" font-size="14">समिधो यजति</text>
+  <text x="145" y="124" text-anchor="middle" font-size="12">「これで<tspan class="t-acc">何を</tspan>生じさせるのか？」</text>
+  <text x="145" y="142" text-anchor="middle" font-size="11" class="t-mute">目的（助けるべき相手）への期待</text>
+  <rect x="450" y="50" width="250" height="100" rx="10" class="box-green"/>
+  <text x="575" y="78" text-anchor="middle" font-size="14" class="t-acc">主：新月祭・満月祭</text>
+  <text x="575" y="100" text-anchor="middle" class="t-dev" font-size="13">दर्शपूर्णमासाभ्यां स्वर्गं भावयेत्</text>
+  <text x="575" y="124" text-anchor="middle" font-size="12">「<tspan class="t-acc">どうやって</tspan>生じさせるのか？」</text>
+  <text x="575" y="142" text-anchor="middle" font-size="11" class="t-mute">執行細目（助ける者）への期待</text>
+  <path d="M272,90 L448,90" class="line-acc" marker-start="url(#p7)" marker-end="url(#p7)"/>
+  <text x="360" y="80" text-anchor="middle" font-size="13" class="t-acc">相互の期待</text>
+  <text x="360" y="112" text-anchor="middle" class="t-dev" font-size="13">उभयाकाङ्क्षा</text>
+  <text x="360" y="185" text-anchor="middle" font-size="12" class="t-mute">片方だけの期待（<tspan class="t-dev">अन्यतराकाङ्क्षा</tspan>）は第五の根拠「位置」── 文脈より弱い（§159）</text>
+</svg>
+<figcaption><b>図1　文脈＝相互の期待（§116）。</b>補助の側は「何のため？」を、主の側は「どうやって？」を求めていて、両者がかみ合うと補助関係が成立する。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　文脈＝相互の期待</h2>
+<p class="chapter-sub">§§116–121</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§116</span><span class="sutra-num">KSS p.48</span><span class="sutra-title">文脈の定義</span></div>
+  <div class="mula"><mark>उभयाकाङ्क्षा प्रकरणम्</mark>; यथा प्रयाजादिषु । समिधो यजतीत्यत्र हीष्टविशेषस्यानिर्देशात्समिद्यागेन भावयेत्किमित्यस्त्युपकार्याकाङ्क्षा । दर्शपूर्णमासवाक्येऽपि दर्शपूर्णमासाभ्यां स्वर्गं भावयेत्कथमित्यस्त्युपकारकाकाङ्क्षा । अत उभयाकाङ्क्षया प्रयाजादीनां दर्शपूर्णमासाङ्गत्वं सिध्यति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v"><b>相互の期待が文脈である</b>。たとえば前供犠など。「薪に供える」では特定の望ましいものが述べられていないので、「薪への供犠で<b>何を</b>生じさせるのか」と、助けるべき相手への期待がある。新月祭・満月祭の文にも「新月祭・満月祭で天界を生じさせるべし。<b>どうやって</b>」と、助けてくれるものへの期待がある。だから相互の期待によって、前供犠などが新月祭・満月祭の補助であることが成立する。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Context (prakaraṇa) is interdependence (or mutual requirement, mutual need for complement, ubhaya-ākāṅkṣā) …<span class="jp">脚注74：「薪に供える」は（通常五つの）前供犠の最初のもの。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§117–119</span><span class="sutra-num">KSS pp.48–49</span><span class="sutra-title">反論：前供犠にも独自の結果を想定できる</span></div>
+  <div class="mula"><small style="color:var(--muted)">§117</small> ननु यदि प्रयाजादिवाक्य इष्टविशेषो न श्रूयते, तर्हि विश्वजिन्न्यायेन स्वर्गः फलं कल्प्यताम् । विश्वजिदधिकरणे हि विश्वजिता यजेतेत्यत्र फलस्याश्रवणात्, फलमन्तरेण च विधिश्रुतेरनुपपत्तेरवश्यं फले कल्पयितव्ये, सर्वाभिलषितत्वेन स्वर्गः फलमित्युक्तम् । तदुक्तम्: स स्वर्गः स्यात्सर्वान्प्रत्यविशिष्टत्वादिति ।<br>
+  <small style="color:var(--muted)">§118</small> रात्रिसत्त्रन्यायेन वार्थवादिकं फलं कल्प्यताम् । रात्रिसत्त्राधिकरणे हि, प्रतितिष्ठन्ति ह वै य एता रात्रीरुपयन्तीत्यत्र विध्युद्देशे, फलाश्रवणात्फलमन्तरेण च विधिश्रुतेरनुपपत्तेरवश्यं फले कल्पयितव्ये, आर्थवादिकं प्रतिष्ठाख्यं फलमित्युक्तम्; विश्वजिदधिकरणन्यायेनानुपस्थितस्वर्गकल्पने तस्य प्रकृतसम्बन्धकल्पने गौरवादर्थवादोपस्थितस्यैव प्रकृतफलत्वकल्पने लाघवात् । तदुक्तम्: फलमात्रेयो निर्देशादश्रुतौ ह्यनुमानं स्यादिति ।<br>
+  <small style="color:var(--muted)">§119</small> तस्माद्विश्वजिन्न्यायेन रात्रिसत्त्रन्यायेन वा स्वतन्त्रफलार्थत्वे सम्भवति किमिति दर्शपूर्णमासाङ्गत्वं स्वीक्रियत इति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">【反論】前供犠の文に特定の望ましいものが述べられていないなら、<b>Viśvajit の原則</b>によって天界を結果と想定すればよい。Viśvajit の節では、「Viśvajit で祭るべし」に結果が述べられていないが、結果なしに命令は成り立たないので必ず結果を想定せねばならず、<b>万人が望むものなので天界</b>が結果だと説かれている（「それは天界であろう。万人にとって区別がないから」）。<br>
+  あるいは<b>夜の Sattra の原則</b>によって、釈義に述べられた結果を想定すればよい。夜の Sattra の節では、命令に結果が述べられていないので、釈義「これらの夜を行う者は確立する」に述べられた「確立」が結果だとされる。どこにも述べられていない天界を想定するより、釈義に現れたものを結果とする方が簡潔だからである（「Ātreya いわく、述べられているので（釈義の）結果である。述べられていないときにのみ推定がある」）。<br>
+  それゆえ、独自の結果のためと考えられるのに、なぜ新月祭・満月祭の補助とするのか。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… let heaven be assumed as the fruit by the All-conquering rule. … Or else, let the fruit be assumed to be supplied in the explanatory-matter, by the Night-sessions rule.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§120–121</span><span class="sutra-num">KSS pp.49–50</span><span class="sutra-title">答え：相互の期待は片方の期待より強い</span></div>
+  <div class="mula"><small style="color:var(--muted)">§120</small> मैवम् । स्वतन्त्रफलार्थत्वेऽन्यतराकाङ्क्षया सम्बन्धः स्यात् । न ह्यत्र फलस्य साधनाकाङ्क्षास्ति । श्रूयमाणं हि फलं साधनमाकाङ्क्षति; न चात्र तच्छ्रूयते । एवं च फलस्याकाङ्क्षाभावात्केवलं किं भावयेदिति प्रयाजानां भाव्याकाङ्क्षयैव स्वतन्त्रफलार्थत्वं स्यात् । दर्शपूर्णमासार्थत्वे तूभयाकाङ्क्षा प्रमाणम्; प्रयाजानां भाव्याकाङ्क्षाया इतरत्र च कथम्भावाकाङ्क्षायाः सत्त्वात् । अन्यतराकाङ्क्षातश्चोभयाकाङ्क्षा बलीयसीति वक्ष्यते । ततश्च दर्शपूर्णमासार्थत्वमेव युक्तम्, न स्वतन्त्रफलार्थत्वमिति । तदुक्तम्: द्रव्यसंस्कारकर्मसु परार्थत्वात्फलश्रुतिरर्थवादः स्यादिति ।<br>
+  <small style="color:var(--muted)">§121</small> अत्र द्रव्ये फलश्रुतिर्यस्य पर्णमयी जुहूर्भवति न स पापं श्लोकं शृणोतीत्येवमाद्या । संस्कारे फलश्रुतिर्यदाङ्क्ते चक्षुरेव भ्रातृव्यस्य वृङ्क्त इत्येवमाद्या । कर्मणि फलश्रुतिर्वर्म वा एतद्यज्ञस्य क्रियते यत्प्रयाजानुयाजा इज्यन्त इत्याद्या । कर्मपदं चारादुपकारककर्मपरं द्रष्टव्यम्, संस्कारकर्मणः पृथक्संकीर्तनादित्यास्तां तावत् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">そうではない。独自の結果のためとするなら、<b>片方だけの期待</b>による結びつきになる。そこでは結果の側に手段への期待はない。手段を期待するのは述べられた結果だけで、ここでは述べられていないからである。だから前供犠の「何を生じさせるのか」という期待だけによることになる。新月祭・満月祭のためとすれば、前供犠の目的への期待と、新月祭・満月祭の「どうやって」への期待があるので、<b>相互の期待</b>が根拠となる。そして<b>相互の期待は片方の期待より強い</b>（§159）。こう説かれている──「物質・準備行為・行為については、他のためにあるので、結果の言明は釈義である。」<br>
+  物質についての結果の言明：「Parṇa 木の柄杓をもつ者は悪い噂を聞かない」。準備行為：「（自分の目に）塗るとき、敵の目を奪う」。行為：「前供犠と後供犠が捧げられるとき、それは祭式のための鎧となる」。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“In the case of material-substances, preparatory-acts, and (subsidiary) rites (actions), because they are subsidiary (to the main rite …), a direct-statement of their fruits shall be (regarded as mere) explanatory-statement.”<span class="jp">脚注78：そうした言明は補助物の「称賛」にすぎず、補助物には独自の結果はない。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-1　結果が述べられていない命令文の扱い（§§117–120）</caption>
+<tr><th>原則</th><th>例</th><th>想定される結果</th><th>前供犠への適用</th></tr>
+<tr><td>Viśvajit の原則</td><td class="dev">विश्वजिता यजेत</td><td>天界（万人が望むもの）</td><td>✕ 相互の期待（文脈）が優先</td></tr>
+<tr><td>夜の Sattra の原則</td><td class="dev">प्रतितिष्ठन्ति ह वै य एता रात्रीरुपयन्ति</td><td>釈義に述べられた「確立」</td><td>✕ 補助物の結果の言明は釈義</td></tr>
+<tr><td>文脈（相互の期待）</td><td class="dev">समिधो यजति</td><td>主（新月祭・満月祭）を助けること</td><td>○</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　文脈は行為だけを充当する</h2>
+<p class="chapter-sub">§§122–128 ／ 「どうやって」に答えられるのは行為だけ</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§122–123</span><span class="sutra-num">KSS p.50</span><span class="sutra-title">斧の比喩</span></div>
+  <div class="mula"><small style="color:var(--muted)">§122</small> तदिदं <mark>प्रकरणं क्रियाया एव विनियोजकम्, न द्रव्यगुणयोः</mark>; तयोस्तु क्रियायोगाद्विनियोजकम् । कुत इति चेत्: शृणु ।<br>
+  <small style="color:var(--muted)">§123</small> यजेत स्वर्गकाम इत्यत्राख्यातांशेनार्थी भावनाभिधीयते: भावयेदिति । सा चांशत्रयमपेक्षते: किं भावयेत्, केन भावयेत्, कथं भावयेदिति । तत्र भाव्याकाङ्क्षायां षष्ठाद्यन्यायेन स्वर्गो भाव्यतयान्वेति, स्वर्गं भावयेदिति । करणाकाङ्क्षायां समानपदोपात्तो यागो भावार्थाधिकरणन्यायेन करणतयान्वेति, यागेन स्वर्गं भावयेदिति । ततः कथमिति कथम्भावाकाङ्क्षायां यत्संनिधौ पठीतमश्रूयमाणफलकं च क्रियाजातं तदेवोपकार्याकाङ्क्षयेतिकर्तव्यतात्वेनान्वयमनुभवितुं योग्यम्, क्रियाया एव लोके कथम्भावाकाङ्क्षायामन्वयदर्शनात् । न हि कुठारेण छिन्द्यात्कथमित्याकाङ्क्षायां हस्त इति केवलमुच्चार्यमाणोऽपि हस्तोऽन्वयं प्राप्नोति । किं तर्हि हस्तेनोद्यम्य निपात्येत्युच्चार्यमाणे उद्यमननिपातने एव । हस्तोऽपि तद्द्वारेणैवान्वयं प्राप्नोतीति सर्वजनीनमेतत् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この文脈は<b>行為だけ</b>を充当し、物質や性質は充当しない。それらは行為と結びつくことを通じて充当される。なぜか。聞け。<br>
+  「天界を望む者は祭るべし」では、語尾の動詞部分が対象の生じさせる働き（「生じさせるべし」）を表す。それは三要素を求める。<b>何を</b>、<b>何によって</b>、<b>どのように</b>。目的の期待には（第6巻第1節の原則で）天界が、手段の期待には（生じさせる働きの意味の節の原則で）同じ語の祭式が結びつく。「どのように」の期待には、近くに述べられ、結果が述べられていない行為の一群だけが、助けるべき相手への期待をもって執行細目として結びつく資格がある。日常でも「どのように」の期待に結びつくのは行為だけだからである。「斧で切るべし。どのように」と問われて、ただ「手」と言っても答えにならない。「手で振り上げて振り下ろして」と言われて初めて、振り上げと振り下ろしが答えとなり、手もそれを通じて結びつく。これは誰もが知ることである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For if it be askt “In what manner (how) can one cut with an ax?”, the word ‘hand’ alone does not supply the answer … But rather it is only (the acts of) raising and lowering …</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§124–126</span><span class="sutra-num">KSS pp.51–52</span><span class="sutra-title">「どのように」＝手段の種類／「このように」＝行為の種類</span></div>
+  <div class="mula"><small style="color:var(--muted)">§124</small> किं च कथम्भावाकाङ्क्षा नाम करणगतप्रकाराकाङ्क्षा; थमोः प्रकारवाचित्वात् । सामान्यस्य भेदको विशेषः प्रकारः । सामान्यं च क्रियारूपमेवाख्यातेनोच्यते । यजेत स्वर्गकाम इत्यस्य ह्ययमर्थः: यागेन तथा कर्तव्यं यथा स्वर्गो भवतीति । क्रियासामान्यस्य च विशेषः क्रियैव भवति । न हि ब्राह्मणविशेषः परिव्राजकादिरब्राह्मणो भवति । एवं च करणगतक्रियाविशेषाकाङ्क्षापरनामधेयकथम्भावाकाङ्क्षायां क्रियैवान्वेतीति युक्तम् ।<br>
+  <small style="color:var(--muted)">§125</small> स च करणगतः क्रियाविशेषोऽन्वाधानादिब्राह्मणतर्पणान्तक्रियारूप एवेति युक्तं तस्य प्रकरणेन ग्रहणम् । तस्य च करणगतत्वं तदुपकारकत्वमेव, तेन विना यागेनापूर्वाजननात् । न ह्युद्यमननिपातनव्यतिरेकेण कुठारेण द्वैधीभावो जन्यते । तत्सिद्धं कथम्भावाकाङ्क्षायां क्रियैवान्वेतीति । अत एव द्रव्यदेवतयोर्यागसम्पादनद्वारान्वयः साम्प्रदायिकैरुक्तः । विकृतौ च कथम्भावाकाङ्क्षायामुपकारसम्पादनमतिदिश्यत इत्युक्तम् ।<br>
+  <small style="color:var(--muted)">§126</small> यदि च कथम्भावाकाङ्क्षायां सिद्धं वस्त्वन्वययोग्यं स्यात्, तदा सम्पादनपर्यन्तं धावनं ग्रन्थकृतामनर्थकं स्यात् । अतश्च क्रियाया एवेतिकर्तव्यतात्वम्, कथम्भावाकाङ्क्षागृहीतस्येतिकर्तव्यतात्वात्, इतिशब्दस्य च प्रकारवाचित्वात् । कर्तव्यस्येतिप्रकार इतिकर्तव्यता । प्रकारश्च सामान्यस्य भेदको विशेष इत्युक्तम् । कर्तव्यस्य च विशेषः कर्तव्य एव भवतीति न सिद्धस्य वस्तुन इतिकर्तव्यतात्वम्, किं तु क्रियाया एव । सिद्धस्य तु द्रव्यादेः केवलमङ्गत्वम् । तदपि श्रुत्यादिना न तु प्रकरणात् । यथाहुः:</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">「どのように（<span class="dev">कथम्</span>）」の期待とは、<b>手段に内在するやり方</b>への期待である。-tham は「やり方」を表すからである。やり方とは、類を分ける種である。そして（ここでの）類は動詞が表す行為である。だから行為の種も行為でなければならない（バラモンの一種である遊行者がバラモンでないことはないように）。<br>
+  その手段に内在する行為の種とは、最初の聖火の設置から最後のバラモンへの饗応までの行為である。それらは手段を助ける。それなしでは祭式は不可見の力を生まない。振り上げ・振り下ろしなしに斧が木を割らないように。だから伝統の学者たちは、物質と神格は祭式の成就を通じて結びつくと言う。<br>
+  もし物（出来上がったもの）が「どのように」に答えられるなら、儀軌の著者たちが行為の最後まで走り回る（＝細かく行為を規定する）のは無意味になるだろう。<b>執行細目（itikartavyatā）とは「このように為すべきこと」</b>であり、「このように（iti）」はやり方を表す。為すべきことの種は為すべきことなので、物は執行細目になれず、<b>補助（aṅga）になるだけ</b>である。それも直接言明などによってであり、文脈によってではない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And if a material-object were fit to be construed as fulfilling the requirement of manner-of-performance, then all the running-around on the part of the book-makers (ritual authorities) to the end of performances would be useless.<span class="jp">脚注82：「必要な物を用意するだけで、何もしなくてよいことになってしまう！」脚注83：<span class="iast">itikartavyatā</span> は文字どおり「このように為すべきこと」で、ふつうは <span class="iast">kathaṃbhāva</span> の同義語だが、ここでは「義務」の含みもある。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§127–128</span><span class="sutra-num">KSS p.52</span><span class="sutra-title">引用詩（再出）</span></div>
+  <div class="mula"><small style="color:var(--muted)">§127</small> नावान्तरक्रियायोगादृते वाक्योपकल्पितात् ।<br>गुणद्रव्ये कथम्भावैर्गृह्णन्ति प्रकृताः क्रियाः ॥ इति ।<br>
+  <small style="color:var(--muted)">§128</small> अत एव बर्हिर्देवसदनं दामीत्यादिमन्त्राणां लिङ्गादङ्गत्वम्, न तु प्रकरणादित्युक्तमर्थवादाधिकरणपूर्वपक्षसमाप्तौ राणके । क्वचिद्द्रव्यस्येतिकर्तव्यतात्वाभिधानमङ्गत्वाभिप्रायं द्रष्टव्यम्; बहुग्रन्थस्वरसादुक्तयुक्तेश्चेति । तत्सिद्धं प्रकरणं क्रियाया एव विनियोजकमिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「文によって想定された中間的な行為との結びつきによる以外には、文脈上の行為は、性質や物質を『どのように』として取り込むことはない。」（第2課 §22 で既出）<br>
+  だからこそ「神々の座である祭草を私は刈る」などの祭詞は、語の意味能力によって補助なのであって、文脈によってではない、と『Rāṇaka』の釈義の節の反論者の部の終わりに説かれている。物質が執行細目であると言われることが時にあるのは、補助であるという意味と解すべきである。こうして、<b>文脈は行為だけを充当する</b>ことが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">So it is establisht that context applies to actions alone.</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　大文脈は原型でだけ働く</h2>
+<p class="chapter-sub">§§129–134 ／ 原型と変型</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§129–130</span><span class="sutra-num">KSS p.53</span><span class="sutra-title">大文脈と中間文脈／原型と変型</span></div>
+  <div class="mula"><small style="color:var(--muted)">§129</small> तच्च प्रकरणं द्विविधम्: महाप्रकरणमवान्तरप्रकरणं चेति । तत्र <mark>फलभावनायाः प्रकरणं महाप्रकरणम्</mark> । तच्च प्रयाजादीनां ग्राहकम् । तच्च प्रकृतावेव । यत्र समग्राङ्गोपदेशः सा प्रकृतिः, यथा दर्शपूर्णमासादिः । तत्र चोभयाकाङ्क्षारूपं प्रकरणं सम्भवति, आकाङ्क्षानुपरमात् ।<br>
+  <small style="color:var(--muted)">§130</small> विकृतौ तु न प्रकरणं सम्भवति । यत्र न समग्राङ्गोपदेशः सा विकृतिः, यथा सौर्यादिः । तत्र च यान्यपूर्वाण्यङ्गानि पठ्यन्त उपहोमादीनि, तेषां न प्रकरणं विनियोजकम् । तत्र यद्यपि तेषां किं भावयेदित्यस्त्याकाङ्क्षा, तथापि प्रधानस्य न कथम्भावाकाङ्क्षास्ति, प्राकृतैरेवाङ्गैर्निराकाङ्क्षत्वात् । न च प्राकृतानामङ्गानामत्रापठितत्वेनाप्रत्यक्षत्वाद्वैकृतानां तु पठितत्वेन प्रत्यक्षत्वात्तैरेवाकाङ्क्षोपशम इति वाच्यम्; तेषां पठितत्वेऽप्यक्ल्प्तोपकारत्वेन झटित्याकाङ्क्षोपशमनेऽसामर्थ्यात्, प्राकृतानां तु क्ल्प्तोपकारत्वेन तच्छमने सामर्थ्यात् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この文脈は二種、<b>大文脈</b>と<b>中間文脈</b>である。そのうち、結果を目指す生じさせる働き（主の行為）の文脈が大文脈である。それが前供犠などを取り込む。そしてそれは<b>原型にだけ</b>ある。<b>すべての補助が教えられているのが原型</b>である。たとえば新月祭・満月祭など。そこでは期待が止まないので、相互の期待である文脈が成り立つ。<br>
+  しかし変型には文脈は成り立たない。<b>すべての補助が教えられてはいないのが変型</b>である。たとえば Sūrya 祭など。そこで述べられる新しい補助（副献供 upahoma など）は文脈が充当するのではない。それらには「何を生じさせるのか」の期待はあるが、主の行為には「どのように」の期待がない。原型の補助だけで期待が満たされているからである。原型の補助はここで唱えられていないので目に見えず、変型の補助は唱えられているので目に見えるから、後者で期待が満たされる、と言ってはならない。後者は唱えられていても、その効能がまだ確立していないので、すぐに期待を満たすことができない。原型の補助は効能が確立しているので満たすことができる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Archetypes are those (forms of rites) where there is definite prescription of all subsidiaries … A modification is a (form of rite) where there is no definite prescription of all subsidiaries …</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§131–134</span><span class="sutra-num">KSS pp.54–55</span><span class="sutra-title">類推（upamiti）による準用</span></div>
+  <div class="mula"><small style="color:var(--muted)">§131</small> न चात्र तेषामुपस्थापकाभावः, उपमितिलक्षणप्रमाणेन तेषामुपस्थितत्वात् । सौर्यवाक्ये हि दृष्ट औषधद्रव्यत्वेनैकदैवत्यत्वेन सादृश्येनाग्नेयवाक्यमुपमीयते, गवयदर्शनाद्गोरुपमानवत् । तस्मिंश्चोपमिते तेन तदर्थो ज्ञायते । सा त्र्यंशा भावना । तत्र सौर्यवाक्ये भावनाया भाव्यकरणयोः सत्त्वादितिकर्तव्यताकाङ्क्षायामुपकारपृष्ठभावेनाग्नेयेतिकर्तव्यतातिदिश्यते: सौर्ययागेन ब्रह्मवर्चसं भावयेदाग्नेयवदुपकृत्येति । तथा च तयैवाकाङ्क्षोपशमान्न विकृतेः प्रकरणमस्ति । अन्यतराकाङ्क्षारूपस्थानादेव चापूर्वाङ्गग्रहणम् ।<br>
+  <small style="color:var(--muted)">§132</small> न च प्राकृताङ्गग्रहणमेव विकृतौ प्रकरणात्किं न स्यादिति वाच्यम्; तेषामपि प्रकृत्युपकारकतयाकाङ्क्षोपशमात् ।<br>
+  <small style="color:var(--muted)">§133</small> ननु प्राकृतानामङ्गानामाकाङ्क्षाभावे तेषां विकृतौ सम्बन्धः केवलं स्थानात्स्यात्; अपूर्वाणां त्वाकाङ्क्षासत्त्वाद्विकृतेरप्याकाङ्क्षावत्त्वात्तेषां तत्सम्बन्धः प्रकरणात्स्यात्, प्रकरणं च स्थानाज्झटिति विनियोजकमित्यपूर्वाणामेव प्रथमं सम्बन्धः स्यात्, न प्राकृतानामिति ।<br>
+  <small style="color:var(--muted)">§134</small> अत्रोच्यते: सत्यं प्रकरणं झटिति विनियोजकम् । तथापि प्रमाणबलाबलात्प्रमेयबलाबलस्य ज्यायस्त्वादुक्तविधयोपस्थितानां प्राकृतानामेव सम्बन्धो युक्तः स्यात्क्ल्प्तोपकारत्वात्, न वैकृतानां कल्प्योपकारत्वात् । विकृतेश्चोपकारकपदार्थाकाङ्क्षा न पदार्थमात्राणामिति युक्तः प्रथमं प्राकृताङ्गसम्बन्धः । ततश्च न विकृतौ प्रकरणं विनियोजकम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">そこで（原型の補助を）呼び寄せるものがないわけではない。<b>類推</b>という根拠によって呼び寄せられるからである。Sūrya 祭の文を見ると、<b>植物性の物質</b>であること、<b>神格が一つ</b>であることの類似によって、Agni 祭（新月祭・満月祭の一部）の文が類推される。<b>水牛（gavaya）を見て牛を思い浮かべる</b>ように。類推されると、それによってその意味が知られる。Sūrya 祭の生じさせる働きのうち、目的（梵の輝き）と手段は Sūrya 祭の文にあるので、執行細目の期待に対して、効能に従って Agni 祭の執行細目が準用される──「Agni 祭のように助けて、Sūrya 祭によって梵の輝きを生じさせるべし」と。それで期待が満たされるので、変型には文脈はない。新しい補助は、片方の期待である「位置」によってだけ取り込まれる。<br>
+  【反論】原型の補助には期待がないので位置によってだけ結びつくが、新しい補助には期待があり、変型にも期待があるので文脈で結びつき、文脈は位置より速いので、新しい補助が先に結びつくはずだ。<br>
+  【答え】文脈が速いのは確かである。しかし<b>根拠の強弱より、根拠づけられるものの強弱の方が重要</b>である。効能が確立した原型の補助の方が、効能をこれから想定せねばならない変型の補助より先に結びつく。変型が求めているのは「助けとなるもの」であって、単なる「もの」ではない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the relative weight of the thing-to-be-evidenced counts for more than the relative weight of the mode-of-evidence.<span class="jp">脚注85–86：Sūrya 祭は「Sūrya にカル粥を捧げるべし」（MS 2.2.2, TS 2.3.2.3）、結果は「梵の輝き（brahmavarcasa）」。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 240" role="img" aria-label="原型のAgni祭から変型のSūrya祭へ、類推によって執行細目が準用される図">
+  <defs><marker id="p7b" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead-acc"/></marker></defs>
+  <rect x="20" y="30" width="270" height="180" rx="10" class="box-green"/>
+  <text x="155" y="56" text-anchor="middle" font-size="14" class="t-acc">原型：Agni 祭（新月祭・満月祭）</text>
+  <text x="155" y="80" text-anchor="middle" font-size="12">すべての補助が教えられている</text>
+  <text x="155" y="104" text-anchor="middle" font-size="12">植物性の物質（餅）・神格一つ（Agni）</text>
+  <text x="155" y="130" text-anchor="middle" font-size="12">補助：前供犠・後供犠 …</text>
+  <text x="155" y="150" text-anchor="middle" font-size="11" class="t-mute">（効能が確立 ＝ <tspan class="t-dev">क्ल्प्तोपकार</tspan>）</text>
+  <text x="155" y="190" text-anchor="middle" font-size="11" class="t-acc">大文脈が働く</text>
+  <rect x="430" y="30" width="270" height="180" rx="10" class="box"/>
+  <text x="565" y="56" text-anchor="middle" font-size="14" class="t-acc">変型：Sūrya 祭</text>
+  <text x="565" y="80" text-anchor="middle" font-size="12">目的（梵の輝き）・手段は文にある</text>
+  <text x="565" y="104" text-anchor="middle" font-size="12">植物性の物質（粥）・神格一つ（Sūrya）</text>
+  <text x="565" y="130" text-anchor="middle" font-size="12">新しい補助（副献供など）</text>
+  <text x="565" y="150" text-anchor="middle" font-size="11" class="t-mute">→ 位置（片方の期待）で取り込む</text>
+  <text x="565" y="190" text-anchor="middle" font-size="11" class="t-mute">大文脈は働かない</text>
+  <path d="M292,120 L428,120" class="line-acc" marker-end="url(#p7b)"/>
+  <text x="360" y="108" text-anchor="middle" font-size="12" class="t-acc">類推 → 準用</text>
+  <text x="360" y="140" text-anchor="middle" font-size="11" class="t-mute">（水牛を見て牛）</text>
+</svg>
+<figcaption><b>図2　原型と変型（§§129–134）。</b>変型の「どのように」は原型の執行細目の準用で満たされてしまうので、変型には大文脈が働かない。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　変型の中の文脈：Udumbara の柱と斑のバター</h2>
+<p class="chapter-sub">§§135–151 ／ 原型の補助への言及として命じられるもの</p>
+
+<p>変型には大文脈が働かない、というのが原則でした。ただし例外があります。<b>原型の補助に言及して、それに代わるもの</b>が命じられる場合です。ここは議論が細かいので、要旨を中心に読みましょう。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§135–137</span><span class="sutra-num">KSS pp.55–57</span><span class="sutra-title">Udumbara 木の柱は文脈で取り込まれる</span></div>
+  <div class="mula"><small style="color:var(--muted)">§135</small> यत्तु विकृतौ प्राकृताङ्गानुवादेन विधीयते, यथा, औदुम्बरो यूपो भवतीति यूपानुवादेनौदुम्बरत्वम्, तत्प्रकरणाद्गृह्यते । ननु न तत्प्रकरणाद्गृह्यतेऽक्रियात्वात्, क्रियाया एव प्रकरणग्राह्यत्वादिति चेत्, सत्यम् । तथापि तु तावद्विधीयमानस्यौदुम्बरत्वस्यास्त्येवाकाङ्क्षा, किं भावयेदिति । न च यूपानुवादेन तस्य विधीयमानत्वाद्यूपस्य चादृष्टरूपत्वात्तेनैवौदुम्बरत्वस्य नैराकाङ्क्ष्यम्, आहवनीयेनेऽवाधानस्येति वाच्यम्; यूपस्य केवलादृष्टरूपत्वाभावात् । तस्य हि तद्रूपत्वे खादिरत्वादिकं केवलादृष्टार्थं स्यात् । न च तत्सम्भवति । तथा सति खादिराभावे प्रतिनिधित्वेन कदरोपादानं न स्यात्, अदृष्टार्थस्य प्रतिनिध्यभावात्; न हि खादिरजन्यमदृष्टं कदरेण क्रियत इत्यत्र प्रमाणमस्ति । अत एव नादृष्टार्थानां प्रतिनिधिः । तदुक्तम्: न देवताग्निशब्दक्रियमन्यार्थत्वादिति । अन्यार्थत्वादित्यदृष्टार्थत्वात् । प्रतिनिधित्वेन चोपादानं कदरादेरुक्तं ग्रन्थेषु । तस्मान्न यूपस्य केवलादृष्टरूपत्वम्, अपि तु दृष्टादृष्टसंस्कारगणो यूप इति साम्प्रदायिकाः ।<br>
+  <small style="color:var(--muted)">§136</small> एवं चौदुम्बरत्वस्य न यूपमात्रेण नैराकाङ्क्ष्यम्, दृष्टसंस्कारस्य प्रकारान्तरेणापि सम्भवात् । अतश्चास्त्यौदुम्बरत्वस्याकाङ्क्षा । विकृतेरप्यस्ति कथम्भावाकाङ्क्षा । सा च तदा शाम्यति यदोपकारास्तत्पृष्ठभावेन च पदार्था अन्वीयन्ते; न तूपकारमात्रान्वयेन शाम्यति । अतश्च यथेन्द्रियभावनायाः करणाकाङ्क्षा दध्नः करणत्वेनान्वये जाते सिद्धस्य करणत्वानुपपत्त्या होमस्याश्रयत्वेनान्वयं यावदनुवर्तते, न तु दध्यन्वयमात्रेण निवर्तते, आश्रयत्वेन च गृह्यमाणो होमः करणाकाङ्क्षयैव गृह्यत इत्युच्यते, न त्वाश्रयाकाङ्क्षा नाम चतुर्थ्यस्ति; एवं विकृतेः कथम्भावाकाङ्क्षा नोपकारान्वयमात्रेण निवर्तते, उपकारपृष्ठभावेन यावत्पदार्थान्वयमनुवर्तते । अतश्चोपकारपृष्ठभावेन गृह्यमाणाः पदार्थाः कथम्भावाकाङ्क्षयैव गृह्यन्ते ।<br>
+  <small style="color:var(--muted)">§137</small> तत्र प्राकृताः पदार्थाः कथम्भावाकाङ्क्षया गृह्यमाणा अपि न प्रकरणग्राह्याः, प्रकृत्युपकारकतया तेषामाकाङ्क्षाभावात् । औदुम्बरत्वादयस्त्वन्यानुपकारकतया साकाङ्क्षाः पशुनियोजनयूपपृष्ठभावेन यावत्खादिरत्वमायाति तावद्विधीयन्ते; इति युक्तं तेषां प्रकरणाद्ग्रहणमुभयाकाङ्क्षासत्त्वात् । यदि हि यूपपृष्ठभावेन खादिरत्वं विहितं स्यात्ततो विकृतेराकाङ्क्षाभावादौदुम्बरत्वं न प्रकरणग्राह्यं स्यात् । न चैतदस्ति, चोदकस्य खादिरत्वाविषयत्वात् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">変型で原型の補助に言及して命じられるもの、たとえば「<b>柱は Udumbara 木製である</b>」で柱に言及して命じられる Udumbara 製であることは、文脈で取り込まれる。<br>
+  それは行為ではないので文脈で取り込めないのでは、と言うなら、確かにそうである。しかし命じられた Udumbara 製であることには「何を生じさせるのか」の期待がある。柱が不可見の効果だけのものなら期待は満たされるが、そうではない。もしそうなら Khadira 木製であることも不可見の効果だけのものとなり、Khadira がないときに Kadara 木を<b>代用</b>できなくなる。不可見の効果のためのものには代用がないからである（「神格・聖火・言葉・行為には（代用は）ない。他の目的のためだから」）。だから柱は<b>目に見える効果と見えない効果をもつ準備行為の一群</b>である（伝統説）。<br>
+  こうして Udumbara 製であることには期待があり、変型にも「どのように」の期待がある。その期待は、効能だけでなく、効能とともに来る物（柱など）が結びつくまで続く（第3課の、酪と基体の献供の場合と同じ）。原型の物は原型を助けて期待がないので文脈の対象ではないが、Udumbara 製であることは他を助けないので期待があり、<b>Khadira 製が来るまでの間</b>に命じられる。だから相互の期待があり、文脈で取り込まれる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Therefore the post is not by its nature exclusively invisible in effect, but rather the traditionalists say that the post belongs to the class of preparatory acts with visible and invisible effects.<span class="jp">脚注91（注釈）：伝統説とは Pārthasārathi Miśra などのこと。切って形を整えるのが目に見える準備行為、水を振りかけ油を塗るのが目に見えない準備行為。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§138–142</span><span class="sutra-num">KSS pp.58–60</span><span class="sutra-title">二種の「取り消し（bādha）」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§138</small> ननु यदि यावत्खादिरत्वमायाति तावदेवौदुम्बरत्वं विधीयते, तदा तेन खादिरत्वबाधोऽप्राप्तबाधः स्यात्, तार्तीयबाधवत् । तथा हि बाधो द्विविधः: अप्राप्तबाधः प्राप्तबाधश्चेति । तत्र तार्तीयो बाधोऽप्राप्तबाधः । तत्र हि यावद्दुर्बलेन विनियोगः कर्तुमारभ्यते, तावदेव प्रबलप्रमाणेन विनियोगः क्रियत इति तद्बोधितेनेतरबाधोऽप्राप्तबाधः, दुर्बलप्रमाणस्याप्रवृत्तत्वात् ।<br>
+  <small style="color:var(--muted)">§139</small> प्राकृतस्य त्वङ्गस्य विकृतौ चोदकप्राप्तस्य प्रत्याम्नानादर्थलोपात्प्रतिषेधाद्वा यो बाधः स प्राप्तबाधः: यथा प्राकृतानां कुशानां प्रतिकूलशराम्नानात्, यथा वावघातस्य कृष्णलेषु वैतुष्यरूपप्रयोजनलोपात्, यथा वा पित्र्येष्टौ होतृवरणस्य न होतारं वृणीत इति प्रतिषेधात् । औदुम्बरत्वेन च खादिरत्वबाधः प्राप्तबाध एव वक्तव्यः शरकुशन्यायेन । चोदकस्य च खादिरत्वाविषयत्वे प्राप्त्यभावात्तदनुपपत्तिः स्यादिति ।<br>
+  <small style="color:var(--muted)">§140</small> उच्यते: तार्तीयप्रमाणविनियुक्तेनेतरस्य बाधनं तावदप्राप्तबाधनम् । प्रकरणं च तार्तीयम् । तेन तद्विनियुक्तौदुम्बरत्वेनेतरस्य बाधनमप्राप्तबाध एव । न हि वैकृतेन प्राकृतबाधः प्राप्तबाध एवेति कुलधर्मः ।<br>
+  <small style="color:var(--muted)">§141</small> वस्तुतस्तु प्राप्तबाध एवायम् । न च खादिरत्वस्य चोदकाविषयत्वेन प्राप्त्यभावात्कथं तद्बाधः प्राप्तबाधः, तद्विषयत्वे वा तेनैव नैराकाङ्क्ष्यान्नौदुम्बरत्वे प्रकरणं विनियोजकं स्यादिति वाच्यम् । न हि प्राप्तबाधस्थले चोदकेन पदार्थाः प्राप्यन्ते; तथा सति शास्त्रप्राप्तत्वेन बाधो न स्यात् । किं तर्हि तानेव पदार्थान्वस्तुतः प्रापयति ये विकृतौ न बाध्यन्ते । ते च पदार्थाः प्रकृतिवच्छब्देन प्राप्यन्त इति भवति पुरुषस्य भ्रान्तिः: यथा प्रकृतौ कृतं तथा विकृतौ कर्तव्यमिति सर्वे पदार्थाः प्राकृताः कर्तव्या इति ।<br>
+  <small style="color:var(--muted)">§142</small> अतश्च भ्रान्तिप्राप्ताः खादिरत्वादयः शास्त्रप्रतिपन्नैरौदुम्बरत्वादिभिर्बाध्यन्त इति भवति तद्बाधः प्राप्तबाधः । न च भ्रान्तिप्रतिपन्नेन वैध्याकाङ्क्षा निवर्तयितुं शक्यते । तस्माद्युक्तमुक्तमुभयाकाङ्क्षारूपप्रकरणसम्भवाद्विकृतौ प्राकृताङ्गानुवादेन विधीयमानानामौदुम्बरत्वादीनां प्रकरणं विनियोजकमिति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">【反論】Khadira 製が来るまでの間に Udumbara 製が命じられるなら、それによる Khadira 製の取り消しは「<b>未確立のものの取り消し</b>」になってしまう。取り消しには二種ある。第3巻で論じられる取り消し（強い根拠が先に充当してしまい、弱い根拠は働く機会がない）は未確立のものの取り消し。原型の補助が準用で変型に来たのに、<b>反対の規定・意味の消失・禁止</b>によって取り消されるのが「<b>確立したものの取り消し</b>」である。Udumbara による Khadira の取り消しは、矢草とクシャ草の場合のように確立したものの取り消しのはずだ。<br>
+  【答え】第3巻の根拠で充当されたものによる取り消しは、未確立のものの取り消しである。文脈は第3巻の根拠なので、それは未確立のものの取り消しである。変型による原型の取り消しは必ず確立したものの取り消し、という家訓はない。<br>
+  しかし実のところは確立したものの取り消しである。確立したものの取り消しの場合、準用の規則が物を本当に確立させるのではない（そうなら聖典で確立したものなので取り消せない）。準用は、変型で取り消されないものだけを実際に確立させる。それが「原型のように」という言葉で確立させられるので、「原型でしたように変型でもすべてすべし」という<b>人の思い違い</b>が生じる。思い違いで確立した Khadira 製が、聖典で確立した Udumbara 製に取り消されるのである。思い違いで確立したものは命令の期待を満たせないので、相互の期待（文脈）は成り立つ。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">From which arises the human delusion to this effect, that “Just as it was done in the archetype, so it must be done in the modification;” that is, that all archetypal things must be done.</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表4-1　二種の取り消し（bādha，§§138–139）</caption>
+<tr><th></th><th>未確立のものの取り消し <span class="dev">अप्राप्तबाध</span></th><th>確立したものの取り消し <span class="dev">प्राप्तबाध</span></th></tr>
+<tr><td>扱う巻</td><td>第3巻（六つの根拠の強弱）</td><td>第10巻（準用の取り消し）</td></tr>
+<tr><td>しくみ</td><td>弱い根拠が働く前に強い根拠が充当</td><td>準用で来たものが後から取り消される</td></tr>
+<tr><td>原因</td><td>根拠の強弱</td><td>① 反対の規定 ② 意味の消失 ③ 禁止</td></tr>
+<tr><td>例</td><td>Indra の詩節（§89）</td><td>① クシャ草 → 矢草（呪詛の祭）<br>② 金の Kṛṣṇala 粒は籾殻がないので「搗く」が消える<br>③ 祖霊祭で「ホートリ祭官を選ぶな」</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§143–148</span><span class="sutra-num">KSS pp.61–64</span><span class="sutra-title">斑のバター（pṛṣadājya）は文脈で取り込まれない</span></div>
+  <div class="mula"><small style="color:var(--muted)">§143</small> एवं पृषदाज्येनानुयाजान्यजतीति प्राकृतानुयाजानुवादेन विधीयमानं पृषदाज्यमपि प्रकरणाद्विकृत्यङ्गमिति केचिदाचार्याः । अस्मत्तातचरणास्त्वेवमाहुः: पृषदाज्यं ह्यनुयाजानुवादेन विधीयते । तत्स्वरूपे चानर्थक्यप्राप्तौ तैर्न विकृत्यपूर्वं लक्षयितुं युक्तं विप्रकर्षात्, किं तु दीक्षणीयावाङ्नियमन्यायेन स्वापूर्वमेव लक्षयितुं युक्तं संनिकर्षात् । अत एवोत्पवनादीनां प्रोक्षणाद्यपूर्वप्रयुक्तत्वमुक्तं नवमे । अतश्च विधीयमानस्य पृषदाज्यस्य वाक्यप्रतिपन्नेनानुयाजापूर्वेणैव नैराकाङ्क्ष्यान्न प्रकरणाद्विकृत्यपूर्वार्थत्वमिति ।<br>
+  <small style="color:var(--muted)">§144</small> वयं त्वङ्गीकृत्यापि विकृत्यर्थत्वं ब्रूमः: भवतु वा विकृत्यर्थत्वं पृषदाज्यस्य । तथापि न प्रकरणं विनियोजकं भवति । यूपपृष्ठभावेन हि यावत्खादिरत्वमायाति, तावदौदुम्बरत्वविधानादुभयाकाङ्क्षासम्भवाद्युक्तः प्रकरणविनियोगः । एवं यावदनुयाजपृष्ठभावेनाज्यमायाति तावदेव यदि पृषदाज्यं विधीयते, तदोभयाकाङ्क्षासम्भवात्प्रकरणविनियोगो भवेत् । न त्वेतदस्ति । न हि पृषदाज्यं नाम द्रव्यान्तरं किंचिदस्ति यदाज्यस्थानापन्नं विधीयेत, औदुम्बरत्वमिव खादिरत्वस्थानापन्नम्; पृषच्छब्दस्य पृषन्मणिरित्यादौ चित्रतावाचित्वेन दृष्टत्वात्, पृषदाज्यशब्दस्य चित्राज्यवाचित्वात् । अत एव निगमेष्वाज्यपानित्येव वक्तव्यं न तु पृषदाज्यपानित्युक्तम् ।<br>
+  <small style="color:var(--muted)">§145</small> न च यावत्प्राकृतमाज्यमायाति तावदेव चित्राज्यविधानात्प्रकरणविनियोगः सम्भवतीति वाच्यम् । न हि पृषदाज्यशब्देन चित्रतागुणविशिष्टमाज्यं विधीयते; विशिष्टविधाने गौरवापत्तेः । किं तु प्राकृताज्यानुवादेन चित्रतागुणमात्रं विधीयते, लोहितोष्णीषा ऋत्विजः प्रचरन्तीतिवत् । तदुक्तं दशमचतुर्थचरणान्ते: न वा गुणशास्त्रत्वादिति । प्राकृतस्यैवाज्यस्य चित्रतागुणमात्रविधानमिति च शास्त्रदीपिका । एवं च विकृतेः प्राकृतेनाज्येन क्ल्प्तोपकारैश्चानुयाजैर्नैराकाङ्क्ष्ये पश्चाद्विधीयमानस्य चित्रतागुणस्योपहोमाद्यपूर्वाङ्गवन्न प्रकरणं विनियोजकं संभवति ।<br>
+  <small style="color:var(--muted)">§146</small> यदि हि प्राकृतस्य कस्यचिद्गुणस्य स्थाने चित्रता गुणो विधीयेत, तदा स गुणो यावदायाति तावद्विकृतेर्नैराकाङ्क्ष्याभावाच्चित्रतागुणस्य च तावदेव विधानादुभयाकाङ्क्षासंभवात्प्रकरणविनियोगो भवेत् । न च तादृशः प्राकृतो गुणोऽस्ति; आज्यस्यानुयाजानां च चित्रतागुणात्प्रागेव विधानात्, तस्य तत्स्थानापन्नत्वाभावात् ।<br>
+  <small style="color:var(--muted)">§147</small> न चाज्यपृष्ठभावेन यावत्प्राकृतं निर्गुणत्वमायाति, तावदेवास्य विधानात्प्रकरणसंभव इति वाच्यम्; निर्गुणत्वस्याविहितत्वेन पाणिकण्डूयनवदनङ्गत्वाद्विकृतेस्तदाकाङ्क्षाभावात् । तथा हि ज्योतिष्टोमे दक्षिणादानसमये विहितकृष्णविषाणत्यागस्य द्विरात्रादिषु चोदकप्राप्तस्य प्रथमेऽह्न्यननुष्ठानम्, उत्तरेऽह्नि दक्षिणादानपूर्वकालीनैः पदार्थैः कृष्णविषाणकण्डूयनस्य शास्त्रविहितत्वेनापेक्षितत्वात् । ज्योतिष्टोमे च दक्षिणादानोत्तरकालं पाणिकण्डूयनं दृष्टमपि द्विरात्रादिषु प्रथमेऽह्न्यनुष्ठीयमानैर्दक्षिणादानोत्तरकालीनैः पदार्थैर्नापेक्ष्यते, तस्य प्रकृतावर्थसिद्धत्वेनाशास्त्रीयत्वादिति ।<br>
+  <small style="color:var(--muted)">§148</small> एवं निर्गुणत्वस्याविहितत्वेन विकृतेस्तदपेक्षा नास्तीति । तस्मादुभयाकाङ्क्षाया असंभवात्पृषदाज्यस्य न प्रकरणविनियोगः संभवतीत्यलमतिविस्तरेण ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">「<b>斑のバターで後供犠を行う</b>」も同様に文脈で変型の補助だ、と言う先生たちもいる。しかし<b>私の父（Anantadeva）</b>はこう言う──斑のバターは後供犠に言及して命じられる。その（目に見える）姿にとっては無意味なので、不可見の力のためだが、遠い変型全体の不可見の力ではなく、近い<b>後供犠自身の不可見の力</b>を指すと考えるべきである（入門祭の言葉の制限と同じ）。だから文脈で変型全体のためになるのではない。<br>
+  私たちは、仮に変型全体のためだとしても、文脈は働かないと言う。Udumbara 製は Khadira 製に<b>取って代わる</b>ものとして命じられたが、斑のバターはバターに取って代わる別の物質ではない。「斑の宝石」のように「斑の」は<b>色が混じっていること</b>を表すだけで、「斑のバター」は「色の混じったバター」である。だから（神々を呼ぶ）祭詞では「バターを飲む者」と言うべきで、「斑のバターを飲む者」とは言わない。<br>
+  限定されたバターを命じるのは煩雑なので、原型のバターに言及して<b>色が混じっているという性質だけ</b>が命じられる（「祭官たちは赤いターバンで進む」と同じ）。変型の期待は原型のバターと効能の確立した後供犠で満たされているので、後から命じられる性質は文脈で取り込まれない。原型の「性質がないこと」に取って代わるのだ、とも言えない。性質のなさは命じられていないので補助ではなく（手でかくことのように）、変型がそれを期待することもないからである。長い議論はこれで十分。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But my revered father (Anantadeva) says as follows … We however, assuming for the sake of argument that it does serve the purpose of the (whole) modification, say as follows …<span class="jp">脚注102（注釈）：色の混じりは酪をバターに混ぜてつくる。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表4-2　変型で原型の補助に言及して命じられるもの（§§135–151）</caption>
+<tr><th>例</th><th>原型の何に取って代わるか</th><th>文脈で取り込まれるか</th></tr>
+<tr><td>Udumbara 木製の柱</td><td>Khadira 木製であること</td><td>○（相互の期待がある）</td></tr>
+<tr><td>斑のバター（の色）</td><td>何にも取って代わらない（性質のなさは命じられていない）</td><td>✕</td></tr>
+<tr><td>Āmana 献供（二つの言及規定の間）</td><td>—（「はさみ」の中にある）</td><td>○（§§150–151）</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§149–151</span><span class="sutra-num">KSS pp.64–65</span><span class="sutra-title">まとめと補足</span></div>
+  <div class="mula"><small style="color:var(--muted)">§149</small> तत्सिद्धं महाप्रकरणं प्रकृतावेव विनियोजकम् । विकृतौ तु यत्प्राकृतदृष्टार्थाङ्गानुवादेन विधीयते, तस्य विनियोजकम्, न तु केवलं विधीयमानस्यापूर्वाङ्गस्येति ।<br>
+  <small style="color:var(--muted)">§150</small> यत्तु विकृतावपि प्राकृतधर्मानुवादेन विधीयमानयोर्धर्मयोरन्तरालेऽपूर्वमप्यङ्गं केवलं पठ्यते, तदपि प्रकरणेन विनियुज्यते ।<br>
+  <small style="color:var(--muted)">§151</small> यद्यपि विकृतेः कथम्भावाकाङ्क्षा प्राकृतैरेवाङ्गैः शाम्यति, तथापि यत्र प्राकृताङ्गानुवादेन धर्मविधानं तत्र तद्विधानं यावद्भवति तावत्कथम्भावाकाङ्क्षा न निवर्तते । अतो विकृतेराकाङ्क्षावत्त्वादन्तराले विहितस्याप्यपूर्वाङ्गस्य भाव्याकाङ्क्षासत्त्वाद्युक्तं तस्य प्रकरणाद्विकृत्यर्थत्वम् । यथामनहोमेषु । ते हि प्राकृताङ्गानुवादेन विधीयमानयोर्धर्मयोरन्तराले विधीयन्त इत्युक्तं तन्त्ररत्नादावित्यास्तां तावत् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">こうして、大文脈は（原則として）原型でだけ充当することが確定した。変型では、原型で効能の見える補助に言及して命じられるものは充当するが、新しく命じられるだけの補助は充当しない。<br>
+  ただし変型でも、原型の性質に言及して命じられる二つの性質の<b>間に</b>新しい補助が述べられている場合は、それも文脈で充当される。原型の補助への言及による規定がある間は、「どのように」の期待が止まないからである。たとえば Āmana 献供。それは原型の補助に言及して命じられる二つの性質の間に命じられる、と『Tantraratna』などに説かれている。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">As in the case of the Āmanahomas. For they are enjoined between two elements enjoined in further allusion to archetypal subsidiaries.</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　中間文脈と「はさみ」</h2>
+<p class="chapter-sub">§§152–158</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§152–154</span><span class="sutra-num">KSS p.66</span><span class="sutra-title">中間文脈と「はさみ（saṃdaṃśa）」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§152</small> <mark>फलभावनाया अन्तराले यदङ्गभावनायाः प्रकरणं तदवान्तरप्रकरणम्</mark> । तच्चाभिक्रमणादीनां प्रयाजादिषु विनियोजकम् । तच्च संदंशेन ज्ञायते, तदभावेऽविशेषात्सर्वेषां फलभावनाकथम्भावेन ग्रहणात् ।<br>
+  <small style="color:var(--muted)">§153</small> <mark>संदंशो नामैकाङ्गानुवादेन विधीयमानयोरङ्गयोरन्तराले विहितत्वम्</mark>; यथाभिक्रमणम् । तद्धि समानयत उपभृत इत्यादिना प्रयाजानुवादेन किंचिदङ्गं विधाय विधीयते । पश्चादपि प्रयाजानुवादेन, यो वै प्रयाजानां मिथुनं वेदेत्यादिना किंचिदङ्गं विधीयते । अतः प्रयाजाङ्गमध्ये पठितमभिक्रमणं तदङ्गं भवति, तत्कथम्भावाकाङ्क्षाया अशान्तेः । यथाहुः:<br>
+  <small style="color:var(--muted)">§154</small> परप्रकरणस्थानामङ्गे श्रुत्यादिभिस्त्रिभिः ।<br>ज्ञाते पुनश्च तैरेव संदंशेन तदिष्यते । इति ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">अवान्तरप्रकरण</span> <span class="iast">avāntaraprakaraṇa</span> 中間文脈</span>
+    <span class="w"><span class="dev">संदंश</span> <span class="iast">saṃdaṃśa</span> はさみ（やっとこ）</span>
+    <span class="w"><span class="dev">अभिक्रमण</span> <span class="iast">abhikramaṇa</span> 歩み寄ること</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">結果を目指す生じさせる働き（主の行為）の内部にある、<b>補助の行為の生じさせる働きの文脈</b>が中間文脈である。それはたとえば「歩み寄ること」などを前供犠に充当する。それは<b>はさみ</b>によって知られる。それがなければ、区別がないので、すべてが主の行為の「どのように」として取り込まれてしまうからである。<br>
+  <b>はさみとは、一つの補助に言及して命じられる二つの補助の間に命じられていること</b>である。たとえば「歩み寄ること」。それは「（柄杓）upabhṛt から（バターを）取る」などで前供犠に言及して何かの補助を命じた後に命じられる。その後にも「前供犠の対を知る者は…」で前供犠に言及して何かの補助が命じられる。だから前供犠の補助の間に述べられた「歩み寄ること」は前供犠の補助である。前供犠の「どのように」の期待が止んでいないからである。こう言われている──「他の文脈にあるものの補助が、直接言明など三つによって知られ、さらにその後にも同じ三つによって知られるとき、それが『はさみ』とされる。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And it is known as ‘tongs,’ because without it they would all without exception be taken as indicating the manner of the (main) fruit-efficient-force.<span class="jp">脚注106：「はさみ」とは、補助（前供犠）の二つの補助で、「歩み寄ること」を両側からはさんで、前供犠への従属に持ち上げるもの。そうでなければ一般の文脈で主の行為に属すると理解されてしまう。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 220" role="img" aria-label="はさみの図。前供犠に言及する二つの規定の間にある歩み寄ることは、前供犠の補助になる">
+  <rect x="20" y="20" width="680" height="50" rx="8" class="box-green"/>
+  <text x="360" y="50" text-anchor="middle" font-size="14">主の行為：新月祭・満月祭（大文脈）</text>
+  <rect x="60" y="100" width="600" height="100" rx="8" class="box-blue"/>
+  <text x="360" y="122" text-anchor="middle" font-size="13" class="t-acc">補助：前供犠（中間文脈）</text>
+  <rect x="80" y="135" width="170" height="52" rx="6" class="box"/>
+  <text x="165" y="158" text-anchor="middle" font-size="12">前供犠への言及①</text>
+  <text x="165" y="176" text-anchor="middle" font-size="11" class="t-mute">upabhṛt から取る</text>
+  <rect x="275" y="135" width="170" height="52" rx="6" class="box-acc"/>
+  <text x="360" y="158" text-anchor="middle" font-size="13">歩み寄ること</text>
+  <text x="360" y="176" text-anchor="middle" class="t-dev" font-size="12">अभिक्रमणम्</text>
+  <rect x="470" y="135" width="170" height="52" rx="6" class="box"/>
+  <text x="555" y="158" text-anchor="middle" font-size="12">前供犠への言及②</text>
+  <text x="555" y="176" text-anchor="middle" font-size="11" class="t-mute">前供犠の対を知る者は</text>
+  <path d="M250,161 L273,161 M445,161 L468,161" class="line-acc"/>
+  <text x="360" y="92" text-anchor="middle" font-size="12" class="t-mute">両側からはさまれる → 前供犠の補助（主の行為の補助ではない）</text>
+</svg>
+<figcaption><b>図3　「はさみ」（saṃdaṃśa，§153）。</b>中間文脈は大文脈より強い（§158）。前供犠の不可見の力の方が、主の行為の不可見の力より「すぐに」思い浮かぶから。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§155–158</span><span class="sutra-num">KSS pp.67–68</span><span class="sutra-title">補助の行為にも「どのように」の期待はある</span></div>
+  <div class="mula"><small style="color:var(--muted)">§155</small> न चाङ्गभावनायाः कथम्भावाकाङ्क्षाभावात्कथं प्रयाजभावनाकथम्भावेनाभिक्रमणं गृह्यत इति वाच्यम्; भावनासाम्येन सर्वत्र कथम्भावाकाङ्क्षायाः सत्त्वात् । प्रयाजैरपूर्वं कृत्वा यागोपकारं भावयेदित्युक्ते यो नाम न जानाति प्रयाजैरपूर्वं कर्तुं तस्यास्त्येव कथम्भावाकाङ्क्षा: कथमेभिरपूर्वं कर्तव्यमिति । सा च संदंशपतितैर्वाचनिकैः स्मार्तैश्चाचमनादिभिः शाम्यति ।<br>
+  <small style="color:var(--muted)">§156</small> तदभावे च स्वरूपनिष्पादनेन दर्विहोमन्यायेन निवर्तते । दर्विहोमेषु हि स्वरूपनिष्पादनातिरिक्तस्तथाव्यापारो न श्रूयते, नाप्यतिदेशेन तत्प्राप्तिः; यागीयानां धर्माणां तावन्नातिदेशो यागत्वेन होमत्वेन वैलक्षण्यात्; नापि होमीयानाम्, कस्य होमस्य धर्मः कस्मिन्होमे प्रवर्तत इति विशेषनिर्णये प्रमाणाभावात् । अतो धर्मप्राप्त्यभावाद्दर्विहोमैरिष्टं भावयेत्कथमित्युत्पन्नाप्याकाङ्क्षा स्वरूपनिष्पादनेनैव शाम्यति ।<br>
+  <small style="color:var(--muted)">§157</small> एवं येष्वङ्गेषु संदंशाद्यभावस्तत्रोत्पन्नाप्याकाङ्क्षा तेनैव निवर्तते; न तु सर्वथा तदभावः । तस्माद्युक्तमुक्तमभिक्रमणं प्रयाजाङ्गमिति ।<br>
+  <small style="color:var(--muted)">§158</small> तच्चेदमवान्तरप्रकरणं महाप्रकरणाद्बलीयः; संदंशपतितानां धर्माणां कैमर्थ्याकाङ्क्षायां प्रधानापूर्वात्प्रयाजाद्यपूर्वस्य झटित्युपस्थितेरिति । प्रकृतमनुसरामः । तत्सिद्धमुभयविधस्य प्रकरणस्य विनियोजकत्वम् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">補助の行為の生じさせる働きには「どのように」の期待がない、と言ってはならない（Prabhākara 派の説，脚注107）。生じさせる働きはどれも同じで、常に執行細目を求めるからである。「前供犠で不可見の力を作り、祭式への助けを生じさせるべし」と言われれば、前供犠でどう不可見の力を作るかを知らない人には「どのように」の期待がある。それは、はさみの中にある補助や、言葉で述べられた補助や、口すすぎなどの伝承の規定で満たされる。<br>
+  それらがなければ、<b>柄杓の献供（darvihoma）の原則</b>によって、<b>その姿をそのまま実現すること</b>で満たされる。柄杓の献供では、姿の実現以外のやり方は述べられず、準用で得られることもない（祭式（yāga）と献供（homa）は性質が違い、どの献供の規定をどの献供に移すかの根拠もない）。だから期待は生じても、姿の実現だけで満たされる。<br>
+  この中間文脈は大文脈より強い。はさみの中の規定に「何のため」の期待が生じたとき、主の行為の不可見の力より、前供犠などの不可見の力の方がすぐに思い浮かぶからである。本題に戻る。こうして二種の文脈が充当することが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And if there are none of these found, then the requirement is satisfied by performance in the natural way (lit. “accomplishment of its own inherent nature”), as with the spoon-oblations.<span class="jp">脚注109（注釈）：yāga は「（神格を）指して手放す」という二つの行為、homa は「指して手放し、（火に）投じる」という三つの行為からなる。</span></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch6">
+<h2 class="chapter">第6章　文脈は位置より強い：Rājasūya とさいころ遊び</h2>
+<p class="chapter-sub">§§159–168</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§159–160</span><span class="sutra-num">KSS p.68</span><span class="sutra-title">文脈の優位と、さいころ遊びの例</span></div>
+  <div class="mula"><small style="color:var(--muted)">§159</small> <mark>तदिदं स्थानादिप्रमाणाद्बलवत्</mark> । यत्र हि स्थानादङ्गत्वम्, तत्रान्यतरस्य प्रकारान्तरेण निराकाङ्क्षत्वम् । न च साकाङ्क्षं निराकाङ्क्षेण सम्बद्धुं योग्यं विनाकाङ्क्षोत्थापनेन । अतश्चान्यतराकाङ्क्षया यावदुभयाकाङ्क्षारूपप्रकरणकल्पनद्वारा वाक्यादि कल्पयितुमारभ्यते, झटिति तावत्प्रकरणेन वाक्यादिकं कल्पयित्वा विनियोगः क्रियत इति स्थानात्प्रकरणस्य बलीयस्त्वम् ।<br>
+  <small style="color:var(--muted)">§160</small> अत एव विदेवनादयो धर्मा अभिषेचनीयसंनिधौ पठिता अपि नाभिषेचनीयस्याङ्गम्; तेषां तदङ्गत्वं भवत्स्थानाद्भवेत्, न तु प्रकरणात्, अभिषेचनीयस्याव्यक्तचोदनाचोदितत्वेन ज्योतिष्टोमविकारत्वात्प्राकृतैरेव धर्मैर्निराकाङ्क्षत्वात् । किं तु प्रकरणाद्राजसूयाङ्गम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この（文脈）は位置などの根拠より強い。位置によって補助となる場合、一方の期待は別の仕方で満たされている。期待をもつものと、もたないものとを、期待を起こさずに結びつけることはできない。だから片方の期待が、相互の期待（文脈）を想定することを通じて文的結合などを想定し始める間に、文脈はすぐに文的結合などを想定して充当を済ませてしまう。だから文脈は位置より強い。<br>
+  だからこそ、<b>さいころ遊び</b>などの規定は、<b>灌頂祭（Abhiṣecanīya）</b>の近くに述べられていても、その補助ではない。もしそうなら位置によってであって、文脈によってではない。灌頂祭は「明示されていない命令」で命じられるので Jyotiṣṭoma の変型であり、原型の規定で期待が満たされているからである。そうではなく、<b>文脈によって Rājasūya（王の即位祭）全体の補助</b>である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And that is why the rules about dice-playing etc., tho they are recited in a neighboring position to the sprinkling-rite …, are not subsidiary to that. … But rather, they are subsidiary to the (whole) royal-coronation by context.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§161–167</span><span class="sutra-num">KSS pp.69–72</span><span class="sutra-title">反論：Rājasūya の語は個々の祭式を指すにすぎない</span></div>
+  <div class="mula"><small style="color:var(--muted)">§161</small> ननु राजा राजसूयेन स्वाराज्यकामो यजेतेत्यत्र राजसूयशब्दस्तावन्नामधेयत्वादाख्यातपरतन्त्रो यत्राख्यातं तत्रैव प्रवर्तते । न च दर्शपूर्णमासाभ्यां स्वर्गकामो यजेतेत्यत्र यथा दर्शपूर्णमासपदं नामधेयमपि नाख्यातपरतन्त्रम् — तत्र हि यजेतेत्याख्यातमविशेषात्सर्वानेव प्रकृतानाग्नेयादीन्प्रयाजादींश्चाभिधातुं समर्थं दर्शपूर्णमासपदं त्वाग्नेयादीनेव वदति न सर्वान्, अतश्च न तदाख्यातपरतन्त्रम् — तथा राजसूयपदमपि किं न स्यादिति वाच्यम् । प्रसिद्धेन हि पदेनाप्रसिद्धं निर्णीयते । यथाहुः:<br>
+  <small style="color:var(--muted)">§162</small> पदमज्ञातसंदिग्धं प्रसिद्धैरपृथक्श्रुति ।<br>निर्णीयते निरूढं तु न स्वार्थादपनीयते । इति ।<br>
+  <small style="color:var(--muted)">§163</small> दर्शपूर्णमासपदं च कालनिमित्तम्, तद्योगश्चाग्नेयादिषूत्पत्तिवाक्यैरवगतः । अतस्तद्वाचित्वेन दर्शपूर्णमासपदं प्रसिद्धम् । न चाग्नेयादीनां बहुत्वाद्द्विवचनान्तत्वमस्यानुपपन्नमिति वाच्यम्; विद्वद्वाक्यद्वयसिद्धसमुदायद्वयाभिप्रायेण तदुपपत्तेः । एवं च दर्शपूर्णमासपदस्याग्नेयादिवाचित्वे निर्णीते यजेतेत्याख्यातमपि तानेव वदति । न हि तदुक्तौ स्वार्थत्यागो भवति ।<br>
+  <small style="color:var(--muted)">§164</small> राजसूयपदं त्वनिर्णीतार्थम्, अतस्तदाख्यातपरतन्त्रमेव । तच्चाविशेषात्सर्वेष्विष्टिपशुसोमेषु विद्यते; तत्परतन्त्रत्वाद्राजसूयपदमपि तानेव वदति ।<br>
+  <small style="color:var(--muted)">§165</small> न च राजसूयशब्दस्य राजा सूयते यत्रेति व्युत्पत्त्या सोमाभिषवनिमित्तत्वात्, तस्य च सोममभिषुणोतीति वाक्येन सोमयागेऽवगतत्वात्, तद्वाचित्वमेव नेष्टिपशुवाचित्वमिति वाच्यम् । न ह्यभिषेचनीयादिसोमयागेष्वभिषवः प्रत्यक्षेण वाक्येन चोदितोऽस्ति, तद्वाक्यस्य ज्योतिष्टोमे सत्त्वात् । अतिदेशात्तत्सम्बन्धोऽवगत इति चेन्न; अतिदेशस्य फलसम्बन्धोत्तरकालीनत्वेन राजसूयेन स्वाराज्यकामो यजेतेत्येतद्वाक्यार्थावगत्युत्तरकालीनत्वात्; अनेन हि वाक्येन फलसम्बन्धे बोधिते पश्चात्कथम्भावाकाङ्क्षायामतिदेशकल्पनात् । अतस्ततः प्रागेवैतद्वाक्यार्थो वर्णनीयः; तदा चाभिषवस्यानवगतत्वाद्राजसूयपदमप्रसिद्धार्थमेव । अत एव राजसूयपदमव्युत्पन्नमश्वकर्णशब्दवदित्युक्तं साम्प्रदायिकैः ।<br>
+  <small style="color:var(--muted)">§166</small> एवं चाप्रसिद्धार्थत्वेनाख्यातपरतन्त्रत्वाद्राजसूयपदेनेष्टिपशुसोमयागा उच्यन्ते । ते च तैस्तैः प्राकृतैर्धर्मैर्निराकाङ्क्षा इति न प्रकरणं विदेवनादीनां राजसूये विनियोजकम्, उभयाकाङ्क्षाया अभावात् । न च प्रातिस्विकरूपैर्नैराकाङ्क्ष्येऽपि न राजसूयत्वेन रूपेण नैराकाङ्क्ष्यमिति वाच्यम्; आकाङ्क्षाद्वये प्रमाणाभावात् ।<br>
+  <small style="color:var(--muted)">§167</small> किं च प्रातिस्विकरूपैर्या कथम्भावाकाङ्क्षा सापि फलसम्बन्धोत्तरकालम् । स च राजसूयत्वेन न तु प्रातिस्विकरूपैः । राजसूयत्वेन च फलसम्बन्ध उत्पन्नायाः कथम्भावाकाङ्क्षाया विदेवनादिभिः शान्तेरतिदेशकल्पनमेव न स्यात् । यदि हि सामान्यरूपेण प्रातिस्विकरूपेण च फलसम्बन्धविधायि वाक्यद्वयं भवेत्, तदा युज्येताप्याकाङ्क्षाद्वयानुसारेण विदेवनादीनामातिदेशिकानां चाङ्गानां सम्बन्धः । न तु तदस्ति । तस्मात्प्राकृतैर्धर्मैर्नैराकाङ्क्ष्यान्न विदेवनादीनां प्रकरणं विनियोजकमिति चेत् —</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">【反論】「天界の主権を望む王は Rājasūya で祭るべし」の Rājasūya の語は<b>名前</b>なので、動詞に従属し、動詞が及ぶところ（Rājasūya を構成するすべての Iṣṭi・動物祭・ソーマ祭）に及ぶ。「新月祭・満月祭」の語は名前でも動詞に従属しない（前供犠などには及ばず Āgneya などの主の行為だけを指す）が、それは<b>よく知られた語</b>だからである──「知られていない、疑わしい語は、ともに述べられたよく知られた語によって決定される。しかし定着した語は自分の意味から引き離されない。」「新月・満月」は時を指し、Āgneya などとの結びつきは発生文で知られている。<br>
+  Rājasūya の語は意味が定まっていないので、動詞に従属し、すべての Iṣṭi・動物祭・ソーマ祭を指す。「王（＝ソーマ）が搾られるところ」という語源からソーマ祭だけを指す、とも言えない。灌頂祭などで搾ることを直接命じる文はなく、準用で知られるのは結果との結びつきの後だからである。だから伝統の学者は、Rājasūya の語は「馬の耳」（木の名）のように語源で説明できない、と言う。<br>
+  こうして Rājasūya はその構成祭式の総体にすぎず、それぞれ原型の規定で期待が満たされているので、相互の期待はなく、文脈はさいころ遊びなどを Rājasūya に充当しない。総体としての期待が別にある、という根拠もない──と言うなら、</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the traditionalists declare that the word rājasūya is not capable of etymological explanation, like the word ‘horse’s ear’ (as name of a tree).</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§168</span><span class="sutra-num">KSS p.72</span><span class="sutra-title">答え：さいころ遊びは「はさみ」の中にある</span></div>
+  <div class="mula">सत्यम् । अत एव साम्प्रदायिकैर्विदेवनादीनां संदंशो दर्शितः । राजसूयत्वपुरस्कारेण ये धर्मा विधीयन्ते, राजसूयाय ह्येना उत्पुनातीत्येवमादयस्तन्मध्ये विदेवनादयः पठ्यन्ते । अतस्ते सर्वे राजसूयाङ्गम्, प्रयाजानुवादेन विधीयमानधर्ममध्ये पठितप्रयाजाङ्गाभिक्रमणवत् । तस्माद्युक्तमुक्तं विदेवनादीनां प्रकरणाद्राजसूयाङ्गत्वमिति । तत्सिद्धं प्रकरणस्य स्थानाद्बलीयस्त्वमिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">その通り。だからこそ伝統の学者たちは、さいころ遊びなどに<b>はさみ</b>があることを示した。「Rājasūya のためにこれら（の水）を浄める」など、Rājasūya であることを前面に出して命じられる規定の間に、さいころ遊びなどが述べられている。だからそれらはすべて Rājasūya の補助である。前供犠に言及して命じられる規定の間に述べられた「歩み寄ること」が前供犠の補助であるのと同じである。それゆえ、さいころ遊びなどが文脈によって Rājasūya の補助だと言ったのは正しい。こうして<b>文脈は位置より強い</b>ことが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And that is why the traditionalists show that the dice-playing etc. are enclosed in ‘tongs.’</div></div>
+</div>
+<div class="point">文脈（相互の期待）は位置（片方の期待）より強い。変型には原則として大文脈が働かないが、「はさみ」があれば中間文脈で補助関係が決まる。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 文脈の定義は？ 前供犠の例で説明せよ。</summary><div>相互の期待。前供犠は「何を生じさせるのか」を、新月祭・満月祭は「どうやって」を求め、両者がかみ合う。（§116）</div></details>
+<details class="q"><summary>Q2. Viśvajit の原則とは？</summary><div>結果の述べられていない命令には、万人が望む天界を結果として想定する原則。（§117）</div></details>
+<details class="q"><summary>Q3. 文脈が行為だけを充当する理由を、斧の比喩で説明せよ。</summary><div>「斧でどう切るか」に「手」と答えても答えにならず、「振り上げて振り下ろす」という行為が答えになる。「どのように」に答えられるのは行為だけ。（§123）</div></details>
+<details class="q"><summary>Q4. 原型と変型の定義は？</summary><div>原型：すべての補助が教えられている祭式（新月祭・満月祭）。変型：すべては教えられておらず、原型から準用される祭式（Sūrya 祭）。（§§129–130）</div></details>
+<details class="q"><summary>Q5. Sūrya 祭が Agni 祭から規定を準用するのは、どんな類似によるか？</summary><div>植物性の物質であること、神格が一つであること。水牛を見て牛を思い浮かべるような類推（upamiti）。（§131）</div></details>
+<details class="q"><summary>Q6. 二種の取り消しとは？</summary><div>未確立のものの取り消し（強い根拠が先に充当、第3巻）と、確立したものの取り消し（準用されたものが反対の規定・意味の消失・禁止で取り消される、第10巻）。（§§138–139）</div></details>
+<details class="q"><summary>Q7. 「はさみ」とは？</summary><div>一つの補助に言及して命じられる二つの補助の間に命じられていること。その間のものは、その補助の補助になる（例：歩み寄ること → 前供犠）。（§153）</div></details>
+<details class="q"><summary>Q8. さいころ遊びは何の補助か？ その根拠は？</summary><div>Rājasūya 全体の補助。Rājasūya に言及する規定の間（はさみ）に述べられているので、文脈による。（§§160, 168）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第7課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">प्रकरण</td><td class="iast">prakaraṇa</td><td>文脈</td><td class="en">context</td></tr>
+<tr><td class="dev">उभयाकाङ्क्षा / अन्यतराकाङ्क्षा</td><td class="iast">ubhayākāṅkṣā / anyatarākāṅkṣā</td><td>相互の期待／片方の期待</td><td class="en">mutual / one-sided requirement</td></tr>
+<tr><td class="dev">कथम्भाव</td><td class="iast">kathaṃbhāva</td><td>「どのように」</td><td class="en">how-coming-to-be, manner</td></tr>
+<tr><td class="dev">महाप्रकरण / अवान्तरप्रकरण</td><td class="iast">mahāprakaraṇa / avāntaraprakaraṇa</td><td>大文脈／中間文脈</td><td class="en">great-context / included-context</td></tr>
+<tr><td class="dev">उपमिति</td><td class="iast">upamiti</td><td>類推</td><td class="en">comparison, analogy</td></tr>
+<tr><td class="dev">अतिदेश</td><td class="iast">atideśa</td><td>準用</td><td class="en">transfer</td></tr>
+<tr><td class="dev">क्ल्प्तोपकार</td><td class="iast">kḷptopakāra</td><td>効能が確立した</td><td class="en">contribution establisht</td></tr>
+<tr><td class="dev">प्रतिनिधि</td><td class="iast">pratinidhi</td><td>代用</td><td class="en">substitute</td></tr>
+<tr><td class="dev">अप्राप्तबाध / प्राप्तबाध</td><td class="iast">aprāptabādha / prāptabādha</td><td>未確立／確立したものの取り消し</td><td class="en">annulment of the unestablisht / establisht</td></tr>
+<tr><td class="dev">संदंश</td><td class="iast">saṃdaṃśa</td><td>はさみ</td><td class="en">tongs</td></tr>
+<tr><td class="dev">दर्विहोम</td><td class="iast">darvihoma</td><td>柄杓の献供</td><td class="en">spoon-oblation</td></tr>
+<tr><td class="dev">अव्यक्तचोदना</td><td class="iast">avyaktacodanā</td><td>明示されていない命令</td><td class="en">non-manifest injunction</td></tr>
+</table></div>
+<h3>底本について（第7課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文（Text, pp. 215–227）を採り、KSS版（1949年）と照合しました。§§135–148 と §§161–167 は議論が細かいため、訳を「要旨」としています。OCR の崩れ（<span class="dev">गुण</span> を <span class="dev">गुन</span>、<span class="dev">आकाङ्क्षा</span> を <span class="dev">आकाण्क्षा</span>、<span class="dev">संदंश</span> を <span class="dev">संदन्श</span> とするなど）は直しました。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson6.html">← 第6課　語の意味能力と文的結合</a><span class="spacer"></span><a href="mnp_lesson8.html">第8課　位置・名称・補助の分類 →</a></nav>
+
+<footer>
+  やさしい祭式解釈学 · 第7課　文脈<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§116–168, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>
