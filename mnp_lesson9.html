@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい祭式解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+.en { font-family: 'Cormorant Garamond', serif; font-size: 1.08em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Cormorant Garamond', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — प्रयोगविधिः, क्रमः, अधिकारविधिः</div>
+  <h1>やさしい祭式解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 9</div>
+  <div class="header-jp">第9課　実行文と順序の六つの根拠、資格文 ── 本書前半の終わり<br>
+  本文：Edgerton §§196–238（校訂本文 pp. 233–243 ／ KSS版 pp. 89–109）<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>実行文：遅れずに行え（§§196–198）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>順序の六つの根拠（§§199–224）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>資格文：結果は誰のものか（§§225–238）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　実行文：遅れずに行え</h2>
+<p class="chapter-sub">§§196–198 ／ 命令文の第三の種類</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§196–197</span><span class="sutra-num">KSS p.89</span><span class="sutra-title">実行文の定義</span></div>
+  <div class="mula"><small style="color:var(--muted)">§196</small> <mark>प्रयोगप्राशुभावबोधको विधिः प्रयोगविधिः</mark> । स चाङ्गवाक्यैकवाक्यतामापन्नः प्रधानविधिरेव । स हि साङ्गं प्रधानमनुष्ठापयन्विलम्बे प्रमाणाभावादविलम्बापरपर्यायं प्रयोगप्राशुभावं विधत्ते । न च विलम्बवदविलम्बेऽपि प्रमाणाभाव इति वाच्यम् । विलम्बे ह्यङ्गप्रधानविध्येकवाक्यतावगततत्साहित्यानुपपत्तिः प्रसज्यते । न हि विलम्बेन क्रियमाणयोः पदार्थयोः सहकृतमिति साहित्यं व्यवहरन्ति । न चैवं साहित्यानुपपत्त्या समानकालत्वमेव स्यान्न त्वविलम्बः, अव्यवधानेन पूर्वोत्तरकाले क्रियमाणपदार्थयोरविलम्बेन कृतमिति व्यवहारादिति वाच्यम्; अनेकपदार्थानामेकस्मिन्कालेऽनुष्ठानानुपपत्तेः । न च तावत्कर्तृसंपादनेनानुष्ठानं किं न स्यादिति वाच्यम्; तस्यैतस्य यज्ञक्रतोश्चत्वार ऋत्विज इत्यादिना कर्तृनां नियतत्वात् ।<br>
+  <small style="color:var(--muted)">§197</small> तस्मादङ्गवाक्यैकवाक्यतामापन्नः प्रधानविधिरेकवाक्यतावगततत्साहित्यं विदधदुक्तविधयैककालानुष्ठानानुपपत्तेरविलम्बं विधत्त इति सिद्धं प्रयोगप्राशुभावबोधको विधिः प्रयोगविधिरिति ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">प्राशुभाव</span> <span class="iast">prāśubhāva</span> 速やかさ</span>
+    <span class="w"><span class="dev">अविलम्ब</span> <span class="iast">avilamba</span> 遅れないこと</span>
+    <span class="w"><span class="dev">साहित्य</span> <span class="iast">sāhitya</span> 一緒であること</span>
+    <span class="w"><span class="dev">एकवाक्यता</span> <span class="iast">ekavākyatā</span> 一つの文であること</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v"><b>実行の速やかさを知らせる命令文が実行文である</b>。それは、補助の文と一つの文になった<b>主の命令文そのもの</b>である。それは補助を伴う主の行為を行わせるが、遅れる根拠がないので、「遅れないこと」すなわち実行の速やかさを命じる。<br>
+  遅れないことにも根拠がない、と言ってはならない。遅れれば、主と補助の命令文が一つの文であることから分かる「<b>一緒であること</b>」が成り立たなくなる。遅れて行われた二つのことを「一緒にした」とは言わないからである。では一緒であるために同時に行うべきだ、と言ってはならない。多くのことを同時に行うことはできない。行う人を増やせばよい、とも言えない。「この祭式には四人の祭官がいる」などで祭官の数は決まっているからである。<br>
+  それゆえ、補助の文と一つになった主の命令文が、一緒であることを命じ、同時実行は不可能なので「遅れないこと」を命じる。<br>
+  そしてこの遅れないことは、<b>決まった順序</b>に従うときに成り立つ。さもないと「これの次にこれか、あれか」と実行が混乱するからである。だから実行文は、自分が命じる速やかさのために、決まった順序も（行為の限定要素として）命じる。順序とは、特定の並び方、あるいは前後関係である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">An injunction which suggests promptness in the performance is an injunction of performance (prayoga). And it is nothing but the main injunction entered into syntactic relation in the same sentence with the sentences enjoining subsidiaries.<span class="jp">脚注132：ここでの主の命令文は資格文のこと。だから通常、独立した実行文というものはない。脚注134（注釈）：行き当たりばったりに行えば、二度行うものや抜けるものが出て、実行が台無しになる。</span></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　順序の六つの根拠</h2>
+<p class="chapter-sub">§§199–224 ／ 補助関係の六つの根拠と並ぶ、もう一つの「六つ」</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§199–200</span><span class="sutra-num">KSS pp.90–91</span><span class="sutra-title">六つの根拠と、第一の「直接言明」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§199</small> तत्र च षट्प्रमाणानि: <mark>श्रुत्यर्थपठनस्थानमुख्यप्रवृत्त्याख्यानि</mark> । तत्र क्रमपरं वचनं श्रुतिः । तच्च द्विविधम्: केवलक्रमपरं तद्विशिष्टपदार्थपरं चेति । तत्र वेदं कृत्वा वेदिं करोतीति केवलक्रमपरं, वेदिकरणादेर्वचनान्तरेण विहितत्वात् । वषट्कर्तुः प्रथमभक्ष इति तु क्रमविशिष्टपदार्थपरं; एकप्रसरताभङ्गभयेन भक्षानुवादेन क्रममात्रस्य विधातुमशक्यत्वात् ।<br>
+  <small style="color:var(--muted)">§200</small> सेयं श्रुतिरितरप्रमाणापेक्षया बलवती; तेषां वचनकल्पनद्वारा क्रमप्रमाणत्वात् । अत एवाश्विनस्य पाठक्रमात्तृतीयस्थाने ग्रहणप्रसक्तावाश्विनो दशमो गृह्यत इति वचनाद्दशमस्थाने ग्रहणमित्युक्तम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">そこで（順序について）六つの根拠がある。<b>直接言明・意味・本文・位置・主・進行</b>である。<br>
+  そのうち、順序を表す言葉が直接言明である。それは二種、順序だけを表すものと、順序で限定されたものを表すものである。「祭草束を作ってから祭壇を作る」は順序だけを表す（祭壇を作ることなどは別の言葉で命じられているから）。「<b>最初の一口はヴァシャト唱者（ホートリ）のもの</b>」は順序で限定されたものを表す。（既に命じられた）飲むことに言及して順序だけを命じると、主題の一貫性が壊れてしまうからである。<br>
+  この直接言明は他の根拠より強い。他の根拠は直接言明を想定することで順序の根拠となるからである。だからこそ、Aśvin の杯は本文の順序では三番目に汲まれるはずだが、「<b>Aśvin のものは十番目に汲まれる</b>」という言葉によって十番目に汲まれる、と説かれている。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And in regard to this (order) there are six modes-of-evidence, direct-statement, sense, text, position, chief-matter, and procedure.<span class="jp">脚注136：「作ってから（kṛtvā）」の -tvā が直接言明。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§201</span><span class="sutra-num">KSS p.91</span><span class="sutra-title">第二の根拠：意味</span></div>
+  <div class="mula">यत्र तु प्रयोजनवशेन निर्णयः स आर्थः क्रमः: यथाग्निहोत्रहोमयवागूपाकयोः । अत्र हि यवाग्वा होमार्थत्वेन तत्पाकः प्रयोजनवशेन पूर्वमनुष्ठीयते । स चायं पाठक्रमाद्बलवान् । यथापाठं ह्यनुष्ठाने क्ल्प्तप्रयोजनबाधोऽदृष्टार्थत्वं च स्यात् । न हि होमानन्तरं क्रियमाणस्य किंचिद्दृष्टं प्रयोजनमस्ति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v"><b>目的によって</b>決まる順序が意味による順序である。たとえば Agnihotra の献供と粥を煮ること。粥は献供のためのものなので、目的によって煮ることが先に行われる。これは本文の順序より強い。本文どおりに行えば、確立した目的が打ち消され、見えない目的のものになってしまう。献供の後で煮ても、目に見える目的は何もないからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But order by sense (artha) is that in which the decision (as to order) is based on the purpose …</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§202–208</span><span class="sutra-num">KSS pp.92–95</span><span class="sutra-title">第三の根拠：本文 ── 祭詞の本文と Brāhmaṇa の本文</span></div>
+  <div class="mula"><small style="color:var(--muted)">§202</small> पदार्थबोधकवाक्यानां यः क्रमः स पाठक्रमः । तस्माच्च पदार्थानां क्रम आश्रीयते । येन हि क्रमेण वाक्यानि पठितानि तेनैव क्रमेणाधितान्यर्थप्रत्ययं जनयन्ति; यथार्थप्रत्ययं च पदार्थानामनुष्ठानात् ।<br>
+  <small style="color:var(--muted)">§203</small> स च पाठो द्विविधः: मन्त्रपाठो ब्राह्मणपाठश्चेति । तत्राग्नेयाग्नीषोमीययोस्तत्तद्याज्यानुवाक्याक्रमाद्यः क्रम आश्रीयते स मन्त्रपाठात् । स चायं मन्त्रपाठो ब्राह्मणपाठाद्बलवान्, अनुष्ठाने ब्राह्मणवाक्यापेक्षया मन्त्रवाक्यस्यान्तरङ्गत्वात् । ब्राह्मणवाक्यं हि प्रयोगाद्बहिरेवेदमेवं कर्तव्यमित्येवमवबोध्य कृतार्थमिति न पुनः प्रयोगकाले व्याप्रियते । मन्त्राः पुनरनन्यप्रयोजनाः प्रयोगसमवेतार्थस्मारका इति वक्ष्यामः । तेनानुष्ठानक्रमस्य स्मरणक्रमाधीनत्वात्तत्क्रमस्य च मन्त्रक्रमाधीनत्वादन्तरङ्गो मन्त्रपाठ इतरस्मादिति बलवान् । अत एवाग्नेयाग्नीषोमीययोर्ब्राह्मणपाठादादावग्नीषोमीयानुष्ठानं पश्चादाग्नेयानुष्ठानमित्येवं क्रमं बाधित्वा मन्त्रपाठादादावाग्नेयानुष्ठानं पश्चादग्नीषोमीयस्येत्येव क्रम इत्युक्तम् ।<br>
+  <small style="color:var(--muted)">§204</small> प्रयाजानां समिधो यजति, तनूनपातं यजतीत्येवं विधायकवाक्यक्रमाद्यः क्रमः स ब्राह्मणपाठक्रमः । अत्र च यद्यपि ब्राह्मणवाक्यान्यर्थं विधाय कृतार्थानि, तथापि प्रयाजानां स्मारकान्तरस्याभावात्तान्येव स्मारकत्वेन स्वीक्रियन्ते । तथा च येन क्रमेण तान्यधितानि तेनैव क्रमेणार्थस्मरणं जनयन्तीति युक्तं तेनैव क्रमेण तेषामनुष्ठानमिति । तत्सिद्धं प्रयाजानां ब्राह्मणपाठक्रमात्क्रम इति ।<br>
+  <small style="color:var(--muted)">§205</small> ननु प्रयाजेषु प्रयोगसमवेतार्थस्मारकत्वं विधायकत्वेन कृतार्थानां ब्राह्मणवाक्यानां किमिति स्वीक्रियते, प्रयोगसमवेतार्थस्मारकानां याज्यामन्त्राणामाग्नेयादिष्विवात्रापि सत्त्वात् । न च तेषां देवतास्मारकत्वात्कर्मस्मारकत्वेन ब्राह्मणवाक्यं स्वीक्रियत इति वाच्यम्; आग्नेयादिष्वपि कर्मस्मारकत्वेन तत्स्वीकारापत्तेः । न चेष्टापत्तिः । तथा सति ब्राह्मणपाठान्मन्त्रपाठस्य बलीयस्त्वं न स्यात् । तद्बलीयस्त्वे हि मन्त्राणां प्रयोगसमवेतार्थस्मारकत्वमितरस्य तदस्मारकत्वं हेतुः । यदि च कर्मस्मारकत्वं ब्राह्मणवाक्यस्य स्वीक्रियते, तदा प्रधानस्मारकत्वेन ब्राह्मणवाक्यस्यान्तरङ्गत्वादङ्गभूतदेवतास्मारकत्वेन च मन्त्राणां बहिरङ्गत्वान्मन्त्रपाठाद्ब्राह्मणपाठस्यैव बलीयस्त्वं स्यात् । तथा च मन्त्रतस्तु विरोधे स्यादिति पाञ्चमिकाधिकरणविरोधः । तत्र हि ब्राह्मणपाठान्मन्त्रपाठस्य बलीयस्त्वादादावाग्नेयानुष्ठानं पश्चादग्नीषोमीयस्येत्युक्तम् ।<br>
+  <small style="color:var(--muted)">§206</small> अथाग्नेयादिषु याज्यामन्त्रा एव देवताप्रकाशनद्वारा कर्मप्रकाशकास्त्यज्यमानद्रव्योद्देश्यत्वरूपत्वाद्देवतात्वस्येति चेत्तुल्यं प्रयाजेषु । तत्रापि हि याज्यामन्त्रा देवताप्रकाशकाः; प्रयाजेषु देवताया मान्त्रवर्णिकत्वात् । तथा च प्रयाजेषु याज्यामन्त्राणां देवताप्रकाशनद्वारा कर्मप्रकाशकत्वात्तत्क्रमो मन्त्रपाठादेव स्यान्न तु ब्राह्मणपाठक्रमात् ।<br>
+  <small style="color:var(--muted)">§207</small> न च मन्त्रपाठस्यान्यादृशत्वात्प्रयाजक्रमो ब्राह्मणपाठक्रमादेवेति वाच्यम् । अन्यादृशत्वे तस्यैव क्रमस्यानुष्ठानं स्यात्, मन्त्रक्रमस्य बलीयस्त्वात् । अभ्यासाधिकरणे च वार्तिककृता क्रमविनियुक्तैवम्लिङ्गकमन्त्रवर्णेत्यादिना प्रयाजेषु याज्यामन्त्राणां क्रमविनियोग उक्तः । नवमे तन्त्ररत्ने समिधः समिधोऽग्नआज्यस्य व्यन्त्वित्यादिभिः क्रमप्रकरणप्राप्तैर्मन्त्रैर्देवता गुणत्वेन समर्प्यन्त इत्युक्तम् । मन्त्राणामन्यादृशक्रमत्वे तदनुपपत्तिः स्यात् । तत्कथं प्रयाजेषु ब्राह्मणपाठक्रमात्क्रम इति चेत्, —<br>
+  <small style="color:var(--muted)">§208</small> उच्यते: सत्यमेतत् । तथापि यत्रार्थस्मारका मन्त्रा न सन्त्येव, यथा तूष्णीं विहितेषु कर्मसु, तेषां क्रमो ब्राह्मणपाठक्रमात्, तत्र तेषामेव प्रयोगसमवेतार्थस्मारकत्वात् । प्रयाजोदाहरणं तु कृत्वाचिन्तया, तत्र ब्राह्मणवाक्यानां प्रयोगसमवेतार्थस्मारकत्वाभावात् । यथाहुरर्थवादचरणे वार्तिककाराः: प्रयाजादिवाक्यान्यर्थं समर्प्य चरितार्थानि स्वरूपसंस्पर्शे सत्यपि प्रयोज्यतां न प्रतिपद्यन्त इति । तस्मात्समन्त्रककर्मणां मन्त्रपाठक्रमात्क्रमः; अमन्त्रककर्मणां क्रमस्तु ब्राह्मणपाठक्रमादेवेति दिक् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">行為を知らせる文の順序が本文の順序で、そこから行為の順序が推される。文はそれが唱えられた順に、読めば意味の理解を生じさせ、行為は理解の順に行われるからである。<br>
+  本文は二種、<b>祭詞の本文</b>と<b>Brāhmaṇa の本文</b>である。Agni の餅と Agni-Soma の餅の順序は、それぞれの祭詞・招請の詩節の順序から推される（祭詞の本文による）。<b>祭詞の本文の方が強い</b>。Brāhmaṇa の文は実行の外で「これはこうすべし」と知らせて役目を終え、実行時には働かない。祭詞は実行に関わることを思い起こさせる（§239）。実行の順序は想起の順序に、想起の順序は祭詞の順序に依るので、祭詞の本文の方が実行に<b>内的に近い</b>。だから、Brāhmaṇa の本文では Agni-Soma が先でも、祭詞の本文に従って Agni の餅が先に行われる（Jaimini 第5巻）。<br>
+  前供犠の順序（「薪に供える」「Tanūnapāt に供える」…）は Brāhmaṇa の本文による、と言われる。【反論】前供犠にも祭詞（「Agni よ、薪がバターを味わうように」など）があるのだから、祭詞の本文によるのでは？【答え】その通り。前供犠の例は<b>仮定の例示</b>にすぎない。祭詞のない（黙って行う）行為の順序は Brāhmaṇa の本文による。祭詞を伴う行為の順序は祭詞の本文による。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the formula-text is more intimately connected (with the performance) than the other, and therefore stronger (as evidence for it). … But the example of the fore-sacrifices was given as illustrating a hypothetical case.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§209–212</span><span class="sutra-num">KSS pp.96–97</span><span class="sutra-title">第四の根拠：位置 ── Sādyaskra 祭の三頭の動物</span></div>
+  <div class="mula"><small style="color:var(--muted)">§209</small> प्रकृतौ नानादेशस्थानां पदार्थानां विकृतौ वचनादेकस्मिन्देशेऽनुष्ठाने कर्तव्ये यस्य देशेऽनुष्ठीयन्ते तस्य प्रथममनुष्ठानमितरयोश्च पश्चात्, अयं यः क्रमः स स्थानक्रमः । स्थानं नामोपस्थितिः । यस्य हि देशेऽनुष्ठीयते तत्पूर्वतने पदार्थे कृते स एव प्रथममुपस्थितो भवतीति युक्तं तस्य प्रथममनुष्ठानम् । अत एव साद्यस्क्रेऽग्नीषोमीयसवनीयानुबन्ध्यानां सवनीयदेशे सहानुष्ठाने कर्तव्य आदौ सवनीयपशोरनुष्ठानम्, तस्मिन्देश आश्विनग्रहणानन्तरं सवनीयस्यैव प्रथममुपस्थितेः, इतरयोस्तु पश्चात् ।<br>
+  <small style="color:var(--muted)">§210</small> तथा हि, ज्योतिष्टोमे त्रयः पशुयागा अग्नीषोमीयः सवनीय आनुबन्ध्यश्चेति । ते च भिन्नदेशाः । अग्नीषोमीय औपवसथ्येऽह्नि, सवनीयः सुत्याकाले, आनुबन्ध्यस्त्वन्ते । साद्यस्क्रो नाम सोमयागविशेषः । स चाव्यक्तत्वाज्ज्योतिष्टोमविकारः । अतस्ते त्रयोऽपि पशुयागाः साद्यस्क्रे चोदकप्राप्ताः । तेषां च तत्र साहित्यं श्रुतम्, सह पशूनालभेतेति । तच्च साहित्यं सवनीयदेशे तस्य प्रधानप्रत्यासत्तेः स्थानातिक्रमसाम्याच्च ।<br>
+  <small style="color:var(--muted)">§211</small> सवनीयदेशे ह्यनुष्ठाने क्रियमाणेऽग्नीषोमीयानुबन्ध्ययोः स्वस्वस्थानातिक्रममात्रं भवति; अग्नीषोमीयदेशे ह्यनुष्ठाने क्रियमाणे सवनीयस्य स्वस्थानातिक्रममात्रम्, आनुबन्ध्यस्य तु स्वस्थानातिक्रमः सवनीयस्थानातिक्रमश्च स्यात् । एवमानुबन्ध्यदेशेऽग्नीषोमीयस्य द्रष्टव्यः ।<br>
+  <small style="color:var(--muted)">§212</small> तथा च सवनीयदेशे सर्वेषामनुष्ठाने कर्तव्ये सवनीयस्य प्रथममनुष्ठानम् । आश्विनग्रहणानन्तरं हि सवनीयदेशः, प्रकृतावाश्विनं ग्रहं गृहीत्वा त्रिवृता यूपं परिवीयाग्नेयं सवनीयं पशुमुपाकरोतीत्याश्विनग्रहणानन्तरं तस्य विहितत्वात् । तथा च साद्यस्क्रेऽप्याश्विनग्रहणे कृते सवनीय एवोपस्थितो भवतीति युक्तं तस्य स्थानात्प्रथममनुष्ठानमितरयोश्च पश्चादित्युक्तम् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">原型では別々の場所にあるものを、変型では言葉によって<b>一か所で</b>行わねばならないとき、<b>その場所の本来の持ち主</b>を最初に、他を後に行う。これが位置による順序である。位置とは「（心に）現れること」である。直前の行為が終われば、その場所の持ち主が最初に思い浮かぶからである。<br>
+  Jyotiṣṭoma には三つの動物祭がある。Agnīṣomīya（断食の日）、Savanīya（ソーマ搾りの時）、Ānubandhya（最後）。Sādyaskra（一日のソーマ祭）は Jyotiṣṭoma の変型で、三つの動物祭が準用されるが、「動物を一緒に供えよ」と命じられている。一緒に行う場所は Savanīya の場所である。主（ソーマ搾り）に近く、また移動の量が等しくなるからである（真ん中を選べば、両端の二頭はそれぞれ自分の場所から動くだけで済む）。そして原型では「Aśvin の杯を汲み、三重の紐で柱を巻いて、Agni への Savanīya の動物を引き寄せる」とあるので、Aśvin の杯の後には Savanīya が最初に思い浮かぶ。だから Savanīya が先、他の二つが後である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Position means presentation (appearance, coming-in).<span class="jp">脚注143a：二頭の動物を本来の場所から動かす以上、移動距離は等しい方がよい。真ん中（2番目）の場所を選べば、両側の移動が等しくなる。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 210" role="img" aria-label="Sādyaskra祭で三頭の動物をSavanīyaの場所にまとめる図">
+  <defs><marker id="a9" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead-acc"/></marker></defs>
+  <text x="20" y="30" font-size="12" class="t-mute">原型（Jyotiṣṭoma）</text>
+  <path d="M40,60 L690,60" class="line"/>
+  <rect x="60" y="40" width="140" height="40" rx="6" class="box"/><text x="130" y="65" text-anchor="middle" font-size="12">① Agnīṣomīya（断食日）</text>
+  <rect x="290" y="40" width="140" height="40" rx="6" class="box-acc"/><text x="360" y="65" text-anchor="middle" font-size="12">② Savanīya（搾り）</text>
+  <rect x="520" y="40" width="140" height="40" rx="6" class="box"/><text x="590" y="65" text-anchor="middle" font-size="12">③ Ānubandhya（最後）</text>
+  <path d="M130,82 C150,130 300,130 330,148" class="line-acc" marker-end="url(#a9)"/>
+  <path d="M590,82 C570,130 420,130 390,148" class="line-acc" marker-end="url(#a9)"/>
+  <path d="M360,82 L360,148" class="line-acc" marker-end="url(#a9)"/>
+  <text x="20" y="175" font-size="12" class="t-mute">変型（Sādyaskra）</text>
+  <rect x="230" y="150" width="260" height="44" rx="8" class="box-green"/>
+  <text x="360" y="170" text-anchor="middle" font-size="12">Savanīya の場所で「一緒に」</text>
+  <text x="360" y="187" text-anchor="middle" font-size="12" class="t-acc">順序：② → ① ・ ③</text>
+</svg>
+<figcaption><b>図1　位置による順序（§§209–212）。</b>Aśvin の杯の直後に「現れる」のは Savanīya なので、それが最初。①と③の移動距離は等しい。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§213–217</span><span class="sutra-num">KSS pp.97–98</span><span class="sutra-title">第五の根拠：主（mukhya）</span></div>
+  <div class="mula"><small style="color:var(--muted)">§213</small> प्रधानक्रमेण योऽङ्गानां क्रम आश्रीयते स मुख्यक्रमः । येन हि क्रमेण प्रधानानि क्रियन्ते तेनैव चेत्क्रमेण तेषामङ्गान्यनुष्ठीयन्ते, तदा सर्वेषामङ्गानां स्वैः प्रधानैस्तुल्यं व्यवधानं भवति; व्युत्क्रमेण त्वनुष्ठाने केषांचिदङ्गानां स्वैः प्रधानैरत्यन्तमव्यवधानमन्येषामत्यन्तं व्यवधानं स्यात् । तच्चायुक्तम्, प्रयोगविध्यवगतसाहित्यबाधापत्तेः । अतः प्रधानक्रमोऽप्यङ्गक्रमे हेतुः ।<br>
+  <small style="color:var(--muted)">§214</small> अत एव प्रयाजशेषेणादावाग्नेयहविषोऽभिघारणं पश्चादैन्द्रस्य दध्नः, आग्नेययागैन्द्रयागयोः पौर्वापर्यात् । अत्र हि द्वयोरभिघारणयोः स्वेन स्वेन प्रधानेन तुल्यमेकान्तरितव्यवधानं भवति; आग्नेयहविरभिघारणाग्नेययागयोरैन्द्रयागहविरभिघारणेन व्यवधानात्, ऐन्द्रयागहविरभिघारणैन्द्रयागयोश्चाग्नेययागेन व्यवधानात् ।<br>
+  <small style="color:var(--muted)">§215</small> अतश्चादावाग्नेयहविरभिघारणं तत ऐन्द्रस्य हविषस्तत आग्नेययागस्ततश्चैन्द्रो याग इत्येवंक्रमो मुख्यक्रमात्सिद्धो भवति । यदि त्वादावैन्द्रहविषोऽभिघारणं तत आग्नेयस्य क्रियते, तदा याज्यानुवाक्याक्रमवशादादावाग्नेयस्यानुष्ठानादाग्नेययागतदङ्गहविरभिघारणयोरत्यन्तमव्यवधानमैन्द्रयागतदङ्गहविरभिघारणयोरत्यन्तं व्यवधानं स्यात् । तच्च न युक्तम् । अतो युक्तः प्रयाजशेषेणाभिघारणस्य मुख्यक्रमात्क्रम इति ।<br>
+  <small style="color:var(--muted)">§216</small> स चासौ मुख्यक्रमः पाठक्रमाद्दुर्बलः । मुख्यक्रमो हि प्रमाणान्तरसापेक्षप्रधानक्रमप्रतिपत्तिसापेक्षतया विलम्बितप्रतिपत्तिकः, पाठक्रमस्तु निरपेक्षस्वाध्यायपाठक्रममात्रसापेक्षतया न तथेति बलवान् ।<br>
+  <small style="color:var(--muted)">§217</small> अत एवाग्नेयोपांशुयाजाग्नीषोमीयाणां क्रमेणानुष्ठीयमानानामप्युपांशुयाजाज्यनिर्वापो मुख्यक्रमान्न पूर्वमनुष्ठीयते, तस्य दुर्बलत्वात्, पाठक्रमात्तु पश्चादनुष्ठीयते, तस्य प्रबलत्वादिति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v"><b>主の行為の順序から推される補助の順序</b>が主による順序である。主の行為と同じ順序で補助を行えば、すべての補助と自分の主との<b>間隔が等しく</b>なる。逆の順序では、ある補助は主に近すぎ、ある補助は遠すぎて、実行文が示す「一緒であること」が損なわれる。<br>
+  だからこそ、前供犠の残りのバターで、まず Agni の供物に、次に Indra の酪に振りかける。Agni への祭が Indra への祭より先だからである。こうすれば二つの振りかけは、それぞれ自分の主から<b>一つおき</b>の等しい間隔になる。<br>
+  この主による順序は<b>本文の順序より弱い</b>。主の順序の確定が他の根拠に依存するので理解が遅れるが、本文の順序は独立した Veda の読誦順だけに依るからである。だからこそ、Agni の餅・Upāṃśu 祭・Agni-Soma の餅がこの順で行われても、Upāṃśu 祭のバターを分けることは、主による順序に従って先に行うのではなく、本文の順序に従って後に行う。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For if the subsidiaries are performed in the very same order as the order of the principal actions, then all the subsidiaries are equidistant from the principal actions from which they respectively depend.</div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 200" role="img" aria-label="主による順序で補助と主の間隔が等しくなることを示す図">
+  <text x="20" y="28" font-size="13" class="t-acc">○ 主による順序（§§214–215）</text>
+  <g font-size="12" text-anchor="middle">
+  <rect x="40" y="40" width="130" height="36" rx="6" class="box-green"/><text x="105" y="63">Agni 供物に振りかけ</text>
+  <rect x="190" y="40" width="130" height="36" rx="6" class="box-blue"/><text x="255" y="63">Indra 酪に振りかけ</text>
+  <rect x="340" y="40" width="130" height="36" rx="6" class="box-green"/><text x="405" y="63">Agni への祭</text>
+  <rect x="490" y="40" width="130" height="36" rx="6" class="box-blue"/><text x="555" y="63">Indra への祭</text>
+  </g>
+  <path d="M105,80 C105,100 405,100 405,80" class="line-dash"/>
+  <path d="M255,80 C255,108 555,108 555,80" class="line-dash"/>
+  <text x="330" y="125" text-anchor="middle" font-size="11" class="t-mute">どちらも間に一つだけはさむ（等間隔）</text>
+  <text x="20" y="160" font-size="13" class="t-mute">✕ 逆順だと</text>
+  <text x="130" y="160" font-size="12" class="t-mute">Indra 振りかけ → Agni 振りかけ → Agni 祭 → Indra 祭：Agni は近すぎ、Indra は遠すぎ</text>
+</svg>
+<figcaption><b>図2　主による順序（mukhyakrama）。</b>補助の順序を主の順序にそろえると、どの補助も自分の主から等しい距離になる。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§218–224</span><span class="sutra-num">KSS pp.99–102</span><span class="sutra-title">第六の根拠：進行 ── 十七頭の Prajāpati の動物</span></div>
+  <div class="mula"><small style="color:var(--muted)">§218</small> स चायं मुख्यक्रमः प्रवृत्तिक्रमाद्बलवान् । प्रवृत्तिक्रमे ह्याश्रीयमाणे बहूनामङ्गानां प्रधानविप्रकर्षो भवति, अस्मिंस्त्वाश्रीयमाणे संनिकर्षः । तद्यथा: दर्शपूर्णमासयोरादावाग्नेयानुष्ठानं ततः साम्नाय्यस्य । तद्धर्माश्च केचित्पूर्वमनुष्ठीयन्ते । तत्र यदि प्रवृत्तिक्रममाश्रित्य तद्धर्माः सर्वे पूर्वमनुष्ठीयरन्स्तत आग्नेयधर्मास्तत आग्नेयानुष्ठानं ततः साम्नाय्यानुष्ठानं तदा तद्धर्माणां स्वप्रधानेन सह द्वाभ्यामाग्नेयधर्मतदनुष्ठानाभ्यां विप्रकर्षः स्यात् । यदा तु साम्नाय्यधर्माणां केषांचित्पूर्वमनुष्ठानेऽप्यन्ये सर्वे मुख्यक्रममाश्रित्याग्नेयधर्मानुष्ठानानन्तरमनुष्ठीयन्ते, तदा सर्वेषामाग्नेयधर्मसाम्नाय्यधर्माणामेकैकेन विजातीयेन व्यवधानं भवति, आग्नेयधर्माणां स्वप्रधानेन सह साम्नाय्यधर्मैर्व्यवधानात्साम्नाय्यधर्माणां च स्वप्रधानेन सहाग्नेयानुष्ठानेन व्यवधानादिति न विप्रकर्षः । तस्मान्मुख्यक्रमः प्रवृत्तिक्रमाद्बलवान् ।<br>
+  <small style="color:var(--muted)">§219</small> सहप्रयुज्यमानेषु प्रधानेषु संनिपातिनामङ्गानामावृत्त्यानुष्ठाने कर्तव्ये द्वितीयादिपदार्थानां प्रथमानुष्ठितपदार्थक्रमाद्यः क्रमः स प्रवृत्तिक्रमः । यथा प्राजापत्याङ्गेषु । प्राजापत्या हि वैश्वदेवीं कृत्वा प्राजापत्यैश्चरन्तीतिवाक्येन तृतीयानिर्देशात्सेतिकर्तव्यताका एककालत्वेन विहिताः । अतस्तेषां तदङ्गानां चोपाकरणनियोजनप्रभृतीनां साहित्यं सम्पादनीयम् ।<br>
+  <small style="color:var(--muted)">§220</small> तत्र प्राजापत्यानां सम्प्रतिपन्नदेवताकत्वेनैकस्मिन्कालेऽनुष्ठानादुपपद्यते साहित्यम् । तदङ्गानां चैकस्मिन्कालेऽनुष्ठानमशक्यम् । न ह्यनेकेषां पशूनामुपाकरणमेकस्मिन्काले कर्तुं शक्यम् । अतस्तेषां साहित्यमव्यवधानेनानुष्ठानात्सम्पाद्यम्, एकस्योपाकरणं कृत्वापरस्योपाकरणमिति ।<br>
+  <small style="color:var(--muted)">§221</small> अतः प्राजापत्येष्वेकं पदार्थं सर्वत्रानुष्ठाय द्वितीयः पदार्थोऽनुष्ठेयः । तत्र प्रथमपदार्थानुष्ठानं कस्माच्चित्पशोरारभ्य कर्तव्यम् । द्वितीयस्तु पदार्थो येन क्रमेण प्रथमोऽनुष्ठितः, तेनैव क्रमेणानुष्ठेयः, प्रयोगविध्यवगतस्य मिथोऽङ्गसाहित्यस्योपपत्तये ।<br>
+  <small style="color:var(--muted)">§222</small> प्रयोगविधिना हि दैक्षे तदङ्गानामुपाकरणनियोजनादीनां मिथः साहित्यमानन्तर्यापरपर्यायं विहितम् । तच्च साहित्यं सवनीयपशौ चोदकेन प्राप्तम्, तस्य प्राणिद्रव्यकत्वेन दैक्षविकृतित्वात् । सवनीयाच्चैकादशिनेषु प्राप्तं सुत्याकालत्वसामान्यात्; तेभ्यश्च प्राजापत्येषु प्राप्तं गणत्वसामान्यात् । प्राजापत्येषु च प्रतिपशु यागभेदाच्चोदका भिद्यन्ते । अतश्चोदकात्तत्तत्पश्वङ्गभूतानामुपाकरणनियोजनादीनां साहित्यमानन्तर्यापरपर्यायं प्राप्तम् । अत एकस्य पशोरुपाकरणानन्तरमेव नियोजनं चोदकबलात्कर्तव्यत्वेन प्राप्तम् । तत्तु न क्रियते, प्रत्यक्षवचनावगतसर्वपश्वङ्गसाहित्यानुपपत्तेः ।<br>
+  <small style="color:var(--muted)">§223</small> अत एकस्मिन्पशावुपाकरणे कृते तदनन्तरमेव कर्तव्यत्वेन प्राप्तमपि नियोजनं न क्रियते । प्रत्यक्षवचनबलात्तु पश्वन्तरेषु षोडशसूपाकरणमेव क्रियते । कृते तु तेषूपाकरणे प्रथमपशोर्नियोजनस्य तदीयोपाकरणेन व्यवधाने प्रमाणाभावात्प्रथमपशावेव नियोजनं कार्यम् । अतश्च येन क्रमेणोपाकरणं कृतं तेनैव क्रमेण नियोजनं कार्यम् । एवं च तत्तत्पशूपाकरणानां स्वस्वनियोजनैस्तुल्यं षोडशक्षणैर्व्यवधानं भवति । अन्यथा केषांचिदत्यन्तव्यवधानं केषांचिच्चाव्यवधानं स्यात् । तच्च न युक्तम् । तस्माद्येन क्रमेण प्रथमपदार्थोऽनुष्ठितस्तेनैव द्वितीयोऽनुष्ठेयः । तत्सिद्धं प्रथमानुष्ठितपदार्थक्रमाद्यो द्वितीयपदार्थक्रमः स प्रवृत्तिक्रम इति ।<br>
+  <small style="color:var(--muted)">§224</small> तदेवं निरूपितः संक्षेपतः षड्विधक्रमनिरूपणेन प्रयोगविधिव्यापारः ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">主による順序は<b>進行による順序より強い</b>。進行の順序に従うと多くの補助が主から遠く離れるが、主の順序では近くなる（新月祭の Sāṃnāyya の例）。<br>
+  一緒に行われる複数の主の行為の、接して助ける補助を一つずつ繰り返し行わねばならないとき、<b>二番目以降の行為の順序を、最初に行った行為の順序から決める</b>。これが進行による順序である。たとえば Vājapeya で「Vaiśvadevī を行った後、Prajāpati の（動物たち）で進む」は、<b>十七頭</b>の Prajāpati の動物を同時に供えることを示す。その補助（神への引き渡し・柱につなぐことなど）も一緒に行わねばならないが、十七頭を同時に引き渡すことはできない。だから<b>一つの行為を全頭に行ってから次の行為</b>に移る。最初の行為はどの動物から始めてもよいが、二番目の行為は最初の行為と<b>同じ順で</b>行う。<br>
+  準用の規則によれば、一頭を引き渡したらすぐその一頭をつなぐことになるが、直接の言葉が示す「全頭の補助が一緒であること」に反するので、残り十六頭の引き渡しを先に行う。その後は、最初の動物のつなぎを後回しにする理由がないので、最初の動物からつなぐ。こうして各動物の引き渡しとつなぎの間隔は<b>どれも十六の時点</b>で等しくなる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And thus between the presentation and the tying-up of each beast there falls an equal interval, of sixteen moments.<span class="jp">脚注149：「供えること」は十七頭の網膜を一度に火に投じることで、これが主の行為。殺すこと・分けることなどはすべて補助。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表2-1　順序の六つの根拠（§§199–224；強い順）</caption>
+<tr><th>根拠</th><th>Edgerton</th><th>決め方</th><th>例</th></tr>
+<tr><td>1 直接言明 <span class="dev">श्रुति</span></td><td class="en">direct-statement</td><td>順序を表す言葉</td><td>Aśvin の杯は十番目</td></tr>
+<tr><td>2 意味 <span class="dev">अर्थ</span></td><td class="en">sense</td><td>目的から</td><td>粥を煮る → 献供</td></tr>
+<tr><td>3 本文 <span class="dev">पाठ</span></td><td class="en">text</td><td>文の唱えられる順（祭詞＞Brāhmaṇa）</td><td>Agni の餅 → Agni-Soma の餅</td></tr>
+<tr><td>4 位置 <span class="dev">स्थान</span></td><td class="en">position</td><td>その場所に最初に現れるもの</td><td>Sādyaskra の Savanīya</td></tr>
+<tr><td>5 主 <span class="dev">मुख्य</span></td><td class="en">chief-matter</td><td>主の順序にそろえる</td><td>Agni → Indra への振りかけ</td></tr>
+<tr><td>6 進行 <span class="dev">प्रवृत्ति</span></td><td class="en">procedure</td><td>最初の行為の順序を繰り返す</td><td>十七頭の引き渡しとつなぎ</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　資格文：結果は誰のものか</h2>
+<p class="chapter-sub">§§225–238 ／ 命令文の第四の種類</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§225–226</span><span class="sutra-num">KSS pp.102–103</span><span class="sutra-title">資格文の定義</span></div>
+  <div class="mula"><small style="color:var(--muted)">§225</small> <mark>फलस्वाम्यबोधको विधिरधिकारविधिः</mark> । फलस्वाम्यं च कर्मजन्यफलभोक्तृत्वम् । स च यजेत स्वर्गकाम इत्येवम्रूपः । अनेन हि स्वर्गमुद्दिश्य यागं विदधता स्वर्गकामस्य यागजन्यफलभोक्तृत्वं प्रतिपाद्यते । यस्याहिताग्नेरग्निर्गृहान्दहेत्सोऽग्नये क्षामवतेष्टाकपालं पुरोडाशं निर्वपेदित्यादिभिस्तु गृहदाहादौ निमित्ते कर्म विदधद्भिर्निमित्तवतः कर्मजन्यपापक्षयरूपफलस्वाम्यं प्रतिपाद्यते ।<br>
+  <small style="color:var(--muted)">§226</small> तच्च फलस्वाम्यं तस्यैव योऽधिकारिविशेषणविशिष्टः । अधिकारिविशेषणं च तदेव यत्पुरुषविशेषणत्वेन श्रुतम् । अत एव राजा राजसूयेन स्वाराज्यकामो यजेतेत्यनेन स्वाराज्यमुद्दिश्य राजसूयं विदधतापि न स्वाराज्यकाममात्रस्य तत्फलभोक्तृत्वं प्रतिपाद्यते, किं तु राज्ञः सतस्तत्कामस्य ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">फलस्वाम्य</span> <span class="iast">phalasvāmya</span> 結果の所有</span>
+    <span class="w"><span class="dev">अधिकारिन्</span> <span class="iast">adhikārin</span> 資格者</span>
+    <span class="w"><span class="dev">निमित्त</span> <span class="iast">nimitta</span> 機会（きっかけ）</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v"><b>結果の所有を知らせる命令文が資格文である</b>。結果の所有とは、行為から生じる結果を<b>享受する者であること</b>である。それは「天界を望む者は祭るべし」のような形をとる。天界を目指して祭式を命じることで、天界を望む者が祭式の結果を享受する者だと示す。また「聖火を設置した者の家を火が焼いたら、焼き尽くす Agni に八皿の餅を分けるべし」のように、家の火事などの<b>機会</b>に行為を命じる文は、その機会にある者が、行為から生じる<b>不幸の除去</b>という結果の所有者だと示す。<br>
+  その結果の所有は、資格者の特徴をもつ者だけのものである。資格者の特徴とは、人の特徴として述べられているものである。だから「天界の主権を望む<b>王</b>は Rājasūya で祭るべし」は、主権を望むだけの者ではなく、<b>王であって</b>それを望む者に結果を与える。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">An injunction which indicates the ownership of the fruit is an injunction of qualification. The ownership of the fruit means the right to enjoy the fruit to be produced by a (sacrificial) action.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§227–231</span><span class="sutra-num">KSS pp.103–104</span><span class="sutra-title">述べられていない資格：知識・聖火・能力</span></div>
+  <div class="mula"><small style="color:var(--muted)">§227</small> किंचित्तु पुरुषविशेषणत्वेनाश्रुतमप्यधिकारिविशेषणं भवति; यथाध्ययनविधिसिद्धा विद्या, अग्निसाध्येषु च कर्मस्वाधानसिद्धाग्निमत्ता, सामर्थ्यं च । एतेषां पुरुषविशेषणत्वेनाश्रवणेऽप्यधिकारिविशेषणत्वमस्त्येव; उत्तरक्रतुविधिनां ज्ञानाक्षेपशक्तेरभावेनाध्ययनविधिसिद्धज्ञानवन्तं प्रत्येव प्रवृत्तेः, अग्निसाध्यकर्मणां चाग्न्यपेक्षत्वेन तद्विधिनामाधानसिद्धाग्निमन्तं प्रत्येव प्रवृत्तेः ।<br>
+  <small style="color:var(--muted)">§228</small> अत एव च शूद्रस्य न यागादावधिकारः; तस्याध्ययनविधिसिद्धज्ञानाभावात्, आधानसिद्धाग्न्यभावाच्च, अध्ययनस्योपनीताधिकारत्वादुपनयनस्य चाष्टवर्षं ब्राह्मणमुपनयीतेत्यादिना त्रैवर्णिकाधिकारत्वात्; आधानस्यापि वसन्ते ब्राह्मणोऽग्नीनादधीतेत्यादिना त्रैवर्णिकाधिकारत्वात् ।<br>
+  <small style="color:var(--muted)">§229</small> यद्यपि च वर्षासु रथकारोऽग्नीनादधीतेत्यनेनरथकारस्य सौधन्वनापरपर्यायस्याधानं विहितम्, योगाद्रूढेर्बलीयस्त्वात्, तथापि नास्योत्तरकर्मस्वधिकारः, अध्ययनविधिसिद्धज्ञानाभावात् । न च तदभाव आधानेऽपि कथमधिकारस्तदनुष्ठानस्य तत्साध्यत्वादितिवाच्यम्; तस्याध्ययनविधिसिद्धज्ञानाभावेऽपि वर्षासु रथकारोऽग्नीनादधीतेत्यनेनैव विधिनाधानमात्रौपयिकज्ञानाक्षेपणात्; अन्यथैतस्यैव विधेरनुपपत्तेः ।अतश्च रथकारस्याधानमात्रेऽधिकारेऽपि नोत्तरकर्मस्वधिकारो विद्याभावात् ।<br>
+  <small style="color:var(--muted)">§230</small> एवं च तदाधानं नाग्निसंस्कारार्थम्, संस्कृतानामग्नीनामुत्तरत्रोपयोगाभावात्, किं तु तदाधानं लौकिकाग्निगुणकं विश्वजिन्न्यायेन स्वर्गफलं च स्वतन्त्रमेव प्रधानकर्म विधीयते । अग्नीनिति च द्वितीया सक्तूङ् जुहोतीतिवत्तृतीयार्थेति ।<br>
+  <small style="color:var(--muted)">§231</small> प्रकृतमनुसरामः । तत्सिद्धं शूद्रस्याध्ययनविधिसिद्धज्ञानाभावादाधानसिद्धाग्न्यभावाच्च नोत्तरकर्मस्वधिकार इति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">人の特徴として述べられていなくても、資格者の特徴となるものがある。<b>学習の命令によって得た知識</b>、聖火を要する行為については<b>聖火の設置によって得た聖火</b>、そして<b>能力</b>である。後の祭式の命令は知識を与える力がないので、学習の命令で知識を得た者にだけ向けられる。聖火を要する祭式の命令は、聖火を設置した者にだけ向けられる。<br>
+  この教説によれば、シュードラには祭式などの資格がない、とされる。学習の命令による知識も、設置による聖火もないからである（学習は入門式を受けた者のもので、入門式は「八歳でバラモンを入門させよ」などにより上位三ヴァルナのもの。聖火の設置も「春にバラモンは聖火を設置すべし」などにより上位三ヴァルナのもの）。<br>
+  「雨季に車大工（rathakāra）は聖火を設置すべし」で、Saudhanvana と同義の車大工（慣用的意味が語源的意味より強い，§98）に聖火の設置が命じられていても、後の祭式の資格はない。学習による知識がないからである。設置そのものの知識は、この命令自体が含意する。だから車大工の設置は聖火を準備するためではなく、世俗の火を性質とし、Viśvajit の原則により天界を結果とする<b>独立の主の行為</b>である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Among these are knowledge gained by (following) the injunction to study the Veda, and in the case of rites performed with the sacred fires the being provided with the fires …; and also capacity …</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§232–235</span><span class="sutra-num">KSS pp.105–108</span><span class="sutra-title">妻の資格と Niṣāda の長</span></div>
+  <div class="mula"><small style="color:var(--muted)">§232</small> नन्वेवं स्त्रिया अधिकारो न स्यात्, तस्या अध्ययनप्रतिषेधेन तद्विधिसिद्धज्ञानाभावात् । न च नास्त्येवेतिवाच्यम्; यजेत स्वर्गकाम इत्यादौ स्वर्गकामपदस्योद्देश्यसमर्पकत्वेन पुंस्त्वस्योद्देश्याविशेषणत्वाद्ग्रहैकत्ववदविवक्षितत्वेन स्त्रिया अधिकारस्य साधितत्वादिति चेत्, —<br>
+  <small style="color:var(--muted)">§233</small> सत्यम् । अधिकारः साधितो न तु स्वातन्त्र्येण, न स्त्री स्वातन्त्र्यमर्हतीत्यादिना तस्य निषिद्धत्वात्, स्वातन्त्र्येण कर्तृत्वे प्रयोगद्वयस्यापि वैगुण्यापत्तेश्च, यजमानप्रयोगे पत्नीकर्तृकाज्यावेक्षणादिलोपात्, पत्नीप्रयोगे च यजमानकर्तृकाज्यावेक्षणादिलोपात् । अतो दम्पत्योः सहाधिकारः; सहाधिकारत्वेन यजमानविद्ययैव पत्न्या अपि कार्यसिद्धेर्न ज्ञानं विना तस्या अधिकारेऽनुपपत्तिः, पाणिग्रहणात्तु सहत्वं कर्मसु तथा पुण्यफलेष्विति वचनेन स्त्रिया अधिकारनिर्णयाच्च, निषादस्थपतेरिवाध्ययनविधिसिद्धज्ञानविरहिणोऽप्येतया निषादस्थपतिं याजयेदिति वचनान्निषादेष्ट्याम् । निषादस्थपतिशब्दे हि निषादं स्थपतिं चेति कर्मधारयो न तु निषादानां स्थपतिरिति षष्ठीतत्पुरुषः, षष्ठ्यर्थे लक्षणापत्तेः ।<br>
+  <small style="color:var(--muted)">§234</small> एतावांस्तु विशेषः: निषादस्याध्ययनविधिसिद्धज्ञानाभावेनैतस्यैव विधेस्तत्कर्मौपयिकज्ञानाक्षेपकत्वम् । पत्न्यास्तु तादृशज्ञानाभावेऽपि यजमानेन सहाधिकारात्तस्य च तादृशज्ञानवत्त्वात्तेनैव च तस्याः कार्यसिद्धेर्नोत्तरक्रतुविधीनां ज्ञानाक्षेपकत्वम् । ये तु पत्नीमात्रकर्तृकाः पदार्था आज्यावेक्षणादयस्ते ज्ञानं विनाशक्यानुष्ठाना इति तद्विधीनां तदाक्षेपकत्वं स्वीक्रियत इति ।<br>
+  <small style="color:var(--muted)">§235</small> तत्सिद्धमध्ययनविधिसिद्धज्ञानस्याधानसिद्धाग्निमत्तायाश्चोत्तरकर्मस्वधिकारिविशेषणत्वमिति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">【反論】それなら<b>女性</b>には資格がないことになる。学習が禁じられているからである。（しかし資格はあるはずだ。）「天界を望む者は祭るべし」の「望む者」（男性形）は目的を示すだけで、男性であることは意図されていない（容器の単数性と同じ，§36）ので、女性の資格は確立している。<br>
+  【答え】その通り。資格は確立しているが、<b>単独で</b>ではない。「女性は独立に値しない」などで禁じられているからであり、また単独で行うと、夫の祭式では妻が行うべきバターの観察などが、妻の祭式では夫が行うべき観察などが欠けてしまうからである。だから<b>夫婦の共同の資格</b>である。共同なので、夫の知識によって妻も役目を果たせる。「結婚によって行為と功徳の結果を共にする」という言葉もある。これは、学習の知識のない <b>Niṣāda の長</b>に「この（Iṣṭi）で Niṣāda の長に祭らせよ」という言葉で Niṣāda Iṣṭi の資格が与えられるのと同様である（「Niṣāda の長」は「Niṣāda である長」という同格複合語であって、「Niṣāda たちの長」ではない）。<br>
+  違いは、Niṣāda の長にはこの命令自体が必要な知識を含意するが、妻については夫の知識で足りるので含意しないこと。ただし妻だけが行うバターの観察などには、その命令が必要な知識を含意する。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Therefore there is joint qualification of a married couple.<span class="jp">脚注152：三つの版はいずれも否定の接頭辞を欠くが、Jaimini 6.1.8 から見て読まれるべきである。脚注153：夫婦の共同の祭式は Jaimini 6.1.17–21。</span></div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">読むときの注意</div>
+  ここでの身分や性別による資格の議論は、古典的な祭式解釈学の<b>規範体系の内部</b>での議論です。テキストを理解するために正確に読むことと、その価値観を受け入れることとは別の事柄です。
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§236–238</span><span class="sutra-num">KSS pp.108–109</span><span class="sutra-title">能力：随意の祭式と恒常の祭式</span></div>
+  <div class="mula"><small style="color:var(--muted)">§236</small> एवं सामर्थ्यस्याप्यधिकारिविशेषणत्वम्; असमर्थं प्रति विध्यप्रवृत्तेः, आख्यातानामर्थं ब्रुवतां शक्तिः सहकारिणीति न्यायात् । तच्च सामर्थ्यं काम्ये कर्मण्यङ्गप्रधानविषयम्; न त्वङ्गासमर्थः प्रधानमात्रसमर्थश्च काम्ये कर्मण्यधिकारी; प्रधानविधेरङ्गविध्येकवाक्यतापन्नस्य साङ्गकर्मसमर्थं प्रत्येव प्रवृत्तेः; यथाविनियोगमधिकारात् । यदि हि समर्थं प्रत्येव प्रवृत्तौ कयाचिच्छ्रुत्या विरोधः स्यात्, तदासमर्थस्याप्यधिकारः स्यात् । न च विरोधोऽस्ति, स्वर्गकामश्रुतेः समर्थं प्रत्येव प्रवृत्तौ विरोधाभावात्, प्रत्युतासमर्थं प्रति प्रवृत्तौ प्रधानविधेरङ्गवाक्यैकवाक्यतया प्रतिपन्नस्याङ्गसाहित्यस्य बाधापत्तेः, नित्यवच्छ्रुतानामङ्गानां पाक्षिकत्वप्रसङ्गाच्च । अतः साङ्गे प्रयोगे समर्थस्यैव काम्ये कर्मण्यधिकारः ।<br>
+  <small style="color:var(--muted)">§237</small> <mark>नित्यकर्मणां त्वङ्गेषु यथाशक्तिन्यायः</mark> । तानि हि यावज्जीवश्रुत्या यावज्जीवं कर्तव्यत्वेन चोदितानि । न च यावज्जीवं केनापि साङ्गः प्रयोगः कर्तुं शक्यते । अतो नित्यकर्मसु प्रधानमात्रसमर्थोऽधिकारी; अङ्गानि तु यावन्ति कर्तुं शक्यन्ते, तावन्ति कार्याणीत्यास्तां बहूक्त्या, सूरिभिः पराक्रान्तत्वात् ।<br>
+  <small style="color:var(--muted)">§238</small> तत्सिद्धं फलस्वाम्यबोधको विधिरधिकारविधिरिति । तदेवं निरूपितं चतुर्विधभेदनिरूपणेन विधेः प्रयोजनवदर्थपर्यवसानम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">同様に<b>能力</b>も資格者の特徴である。能力のない者に命令は向けられないからである（「意味を表す動詞は能力を伴う」という原則）。<b>随意の祭式</b>では、能力は補助と主の両方に関わる。主だけできて補助ができない者は、随意の祭式の資格者ではない。主の命令は補助の命令と一つの文になっているので、補助を含めて行える者にだけ向けられる（資格は充当に従う）。<br>
+  <b>恒常の祭式</b>の補助については「<b>できる限り</b>」の原則が当てはまる。それらは「一生の間」という直接言明によって一生行うべしと命じられており、一生のあいだ補助をすべて含めて行える者はいない。だから恒常の祭式では主だけ行える者が資格者で、補助はできる限り行えばよい。賢者たちが論じ尽くしているので、これ以上は述べない。<br>
+  こうして、<b>結果の所有を知らせる命令文が資格文</b>であることが確定した。こうして、四種の分類を述べることで、命令文が有益な目的をもつ事柄に帰着することを最後まで説明した。（以上、Āpadeva 作『Mīmāṃsānyāyaprakāśa』の前半。）</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">We have thus now explained to the very end the practical uses of injunctions, by explaining their four-fold divisions. (Here ends the First Part …)</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表3-1　資格者の特徴（§§226–237）</caption>
+<tr><th>種類</th><th>例</th><th>根拠</th></tr>
+<tr><td>述べられた特徴</td><td>「王」「天界を望む」</td><td>人の特徴として文に述べられている</td></tr>
+<tr><td>知識</td><td>学習の命令で得た Veda の知識</td><td>後の祭式の命令は知識を与えられない</td></tr>
+<tr><td>聖火</td><td>設置で得た聖火</td><td>聖火を要する祭式の命令は聖火のある者へ</td></tr>
+<tr><td>能力</td><td>随意：補助を含めて／恒常：主だけ（補助はできる限り）</td><td>能力のない者に命令は向かない</td></tr>
+</table></div>
+<div class="point">本書の前半（命令文 §§10–238）はここで終わる。後半は Veda の残り四区分（祭詞・祭名・禁止文・釈義）を扱う。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 実行文はなぜ「遅れないこと」を命じるのか？</summary><div>主と補助の命令文が一つの文であることから「一緒であること」が分かり、遅れればそれが成り立たず、同時実行も不可能だから。（§§196–197）</div></details>
+<details class="q"><summary>Q2. 順序の六つの根拠を強い順に挙げよ。</summary><div>直接言明・意味・本文・位置・主・進行。（§199）</div></details>
+<details class="q"><summary>Q3. 祭詞の本文が Brāhmaṇa の本文より強い理由は？</summary><div>祭詞は実行時に行為を思い起こさせ、実行の順序は想起の順序に依るので、実行に内的に近いから。Brāhmaṇa は実行の外で役目を終える。（§203）</div></details>
+<details class="q"><summary>Q4. Sādyaskra で三頭の動物を Savanīya の場所で行い、Savanīya を最初にする理由は？</summary><div>主に近く移動量が等しくなる場所であり、Aśvin の杯の直後に最初に現れるのが Savanīya だから。（§§209–212）</div></details>
+<details class="q"><summary>Q5. 進行による順序で、各動物の引き渡しとつなぎの間隔はどうなるか？</summary><div>どれも十六の時点で等しくなる。（§223）</div></details>
+<details class="q"><summary>Q6. 資格文の定義と、「結果の所有」の意味は？</summary><div>結果の所有を知らせる命令文。結果の所有とは、行為から生じる結果を享受する者であること。（§225）</div></details>
+<details class="q"><summary>Q7. 随意の祭式と恒常の祭式で、能力の要件はどう違うか？</summary><div>随意の祭式では補助も含めて行える能力が必要。恒常の祭式では主だけ行えればよく、補助は「できる限り」。（§§236–237）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第9課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">प्रयोगविधि</td><td class="iast">prayogavidhi</td><td>実行文</td><td class="en">injunction of performance</td></tr>
+<tr><td class="dev">प्राशुभाव / अविलम्ब</td><td class="iast">prāśubhāva / avilamba</td><td>速やかさ／遅れないこと</td><td class="en">promptness / avoidance of delay</td></tr>
+<tr><td class="dev">क्रम</td><td class="iast">krama</td><td>順序</td><td class="en">order</td></tr>
+<tr><td class="dev">अर्थ / पाठ / मुख्य / प्रवृत्ति</td><td class="iast">artha / pāṭha / mukhya / pravṛtti</td><td>意味／本文／主／進行</td><td class="en">sense / text / chief-matter / procedure</td></tr>
+<tr><td class="dev">मन्त्रपाठ / ब्राह्मणपाठ</td><td class="iast">mantrapāṭha / brāhmaṇapāṭha</td><td>祭詞の本文／Brāhmaṇa の本文</td><td class="en">formula-text / brāhmaṇa-text</td></tr>
+<tr><td class="dev">अधिकारविधि</td><td class="iast">adhikāravidhi</td><td>資格文</td><td class="en">injunction of qualification</td></tr>
+<tr><td class="dev">फलस्वाम्य</td><td class="iast">phalasvāmya</td><td>結果の所有</td><td class="en">ownership of the fruit</td></tr>
+<tr><td class="dev">अधिकारिविशेषण</td><td class="iast">adhikāriviśeṣaṇa</td><td>資格者の特徴</td><td class="en">characteristic of the qualified person</td></tr>
+<tr><td class="dev">निमित्त</td><td class="iast">nimitta</td><td>機会</td><td class="en">occasion</td></tr>
+<tr><td class="dev">काम्य / नित्य</td><td class="iast">kāmya / nitya</td><td>随意の／恒常の（祭式）</td><td class="en">optional / permanent</td></tr>
+<tr><td class="dev">यथाशक्तिन्याय</td><td class="iast">yathāśaktinyāya</td><td>「できる限り」の原則</td><td class="en">“to the best of one’s ability”</td></tr>
+</table></div>
+<h3>底本について（第9課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文（Text, pp. 233–243）を採り、KSS版（1949年）と照合しました。§§202–224 と §§227–235 は訳を「要旨」としています。OCR の崩れ（<span class="dev">एकप्रसरताभङ्ग</span>、<span class="dev">बलवती</span>、<span class="dev">अधीतानि</span>、<span class="dev">सहकारिणीति</span> など）や語の切れ目を直しました。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson8.html">← 第8課　位置・名称・補助の分類</a><span class="spacer"></span><a href="mnp_lesson10.html">第10課　祭詞と三種の命令 →</a></nav>
+
+<footer>
+  やさしい祭式解釈学 · 第9課　実行文と資格文<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§196–238, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>
