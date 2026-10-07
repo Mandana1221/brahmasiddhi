@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい祭式解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+.en { font-family: 'Cormorant Garamond', serif; font-size: 1.08em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Cormorant Garamond', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — नामधेयम् (२)</div>
+  <h1>やさしい祭式解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 12</div>
+  <div class="header-jp">第12課　Veda の第三区分「祭名」（2）── 「と（ca）」の意味、Śyena、Vaiśvadeva と「第五の理由」<br>
+  本文：Edgerton §§286–319 ／ KSS版 pp. 137–156<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>Agnihotra の議論の決着：「と（ca）」は文の分裂を防げない（§§286–299）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>前祭の名前と、理由④「それにたとえる」：Śyena（§§300–302）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>「第五の理由」説：Vaiśvadeva（§§303–311）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>別の師たちの説：釈義も「それを告げる聖典」になる（§§312–319）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<div class="map" role="img" aria-label="本書後半の地図">
+  <div class="m-mantra" style="flex:10">②</div>
+  <div class="m-nama here" style="flex:71">③ 祭名 §249–319</div>
+  <div class="m-nis" style="flex:44">④ 禁止 §320–363</div>
+  <div class="m-av" style="flex:34">⑤ 釈義＋結び §364–397</div>
+</div>
+<p class="map-legend">赤枠がこの課。この課で祭名の部が終わる。</p>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　Agnihotra の議論の決着</h2>
+<p class="chapter-sub">§§286–299 ／ 第11課 §§273–285 の続き</p>
+
+<div class="note"><b>前回のおさらい。</b>Agnihotra の Agni は、祭詞「<span class="dev">अग्निर्ज्योतिर्ज्योतिरग्निः स्वाहा</span>」（Agni は光、光は Agni、スヴァーハー）によって既に神格として得られている（祭詞の文言に基づく＝<span class="iast">māntravarṇika</span>）。だから agnihotra という語は神格を命じる語ではなく、祭名である──これが著者（第二説）の立場でした。反論者は「<span class="dev">यदग्नये च प्रजापतये च सायं जुहोति</span>」（夕方に Agni と Prajāpati に献供する）という文が Agni と Prajāpati の二神をまとめて命じている、と主張します。</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§286–287</span><span class="sutra-num">KSS p.137</span><span class="sutra-title">反論：「夕方」の語が無駄になる／答え：それはお互いさま</span></div>
+  <div class="mula"><small style="color:var(--muted)">§286</small> यत्त्वग्नेर्मान्त्रवर्णिकत्वे मन्त्रवर्णस्याग्निर्ज्योतिर्ज्योतिरग्निः स्वाहेति सायं जुहोतीतिवाक्येन सायंहोमे विनियुक्तत्वात्तत्प्रकाश्यस्याग्नेरपि प्रजापतिसमुच्चितस्य तत्रैव देवतात्वावगतेर्यदग्नये चेति वाक्ये सायंशब्दो व्यर्थ इति । एवं यत्सूर्याय चेति वाक्ये प्रातःशब्दो व्यर्थ इति । किं च मन्त्रवर्णेन ज्योतिष्ट्वगुणविशिष्टस्याग्नेः प्रकाशनाद्विशिष्टस्यैव देवतात्वापात इति —<br>
+  <small style="color:var(--muted)">§287</small> तदपि न, होमानुवादेन देवताद्वयविधानेऽपि मन्त्रवर्णयोर्लिङ्गादेव प्राप्तिसम्भवात्तद्विध्यानर्थक्यात्; मिश्रलिङ्गमन्त्रविधिपर्युदस्तयोः प्रतिप्रसवार्थं विधानेऽपि तद्विधिगतयोः सायम्प्रातःशब्दयोरानर्थक्यम्, विधीयमानयोर्मन्त्रयोर्व्यवस्थयैव प्राप्तिसम्भवात्तत्प्रकाश्ययोर्देवतयोर्व्यवस्थितत्वात् । अनुवादत्वोक्तिस्तूभयत्र तुल्येति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v"><b>反論：</b>Agni が祭詞の文言に基づくなら、その祭詞は「『Agni は光…』で夕方に献供する」という文で夕方の献供に充てられているので、そこで Agni が（Prajāpati と並ぶ）神格だと分かる。すると「夕方に Agni と Prajāpati に」の文の<b>「夕方」の語が無駄</b>になる。朝の文の「朝」も同様。さらに祭詞は「光であること」という性質をもつ Agni を示すので、神格は<b>性質で限定された Agni</b> になってしまう。<br>
+  <b>答え：</b>そうではない。あなたのように献供に言及して二神を命じると考えても、二つの祭詞はその語の意味（語の意味能力）だけで神格を与えるので、その二神を命じる文そのものが無意味になる。「混じった祭詞」（Agni は光、光は Sūrya…）で打ち消されたものを再び認めるために命じる、と言っても、やはり「夕方」「朝」の語は無意味である。命じられる二つの祭詞の区別だけで、それらが示す二神は既に区別されているから。<b>「繰り返し」（anuvāda）だという非難は、どちらの説にも等しく当てはまる。</b></div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But there is as much resumptive statement in one case as in the other.<span class="jp">脚注193：anuvāda（Edgerton は普通 further-reference / -allusion と訳す）は、Edgerton と読んだパンディットによれば「繰り返し・無意味さ」の丁寧な言い方。注釈は、反論者は「二語の無駄」を避けようとして「文全体の無駄」に陥っている、「蠍を避けて蛇の口に入る」ようなものだ、とまとめる。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§288–289</span><span class="sutra-num">KSS p.138</span><span class="sutra-title">神格は「性質つきの Agni」ではなく、ただの Agni</span></div>
+  <div class="mula"><small style="color:var(--muted)">§288</small> मान्त्रवर्णिकत्वेऽप्यग्नेः केवलस्यैव देवतात्वं न गुणविशिष्टस्य, यदग्नये चेतिवाक्येऽग्नेः पूर्वाहुतिरित्यत्र च केवलस्यैवाग्नेः संकीर्तनात्केवलस्यैव देवतात्वावगतेः । यथा ह्युपांशुयाजे विष्ण्वादेर्मान्त्रवर्णिकत्वेऽपि न गुणविशिष्टस्य देवतात्वं विष्णुरुपांशु यष्टव्य इत्यर्थवादे केवलस्यैव संकीर्तनात्, तद्वदिति ।<br>
+  <small style="color:var(--muted)">§289</small> अतश्च मान्त्रवर्णिकत्वे दोषाभावाद्देवताद्वयविधाने च गौरवापत्तेरन्यतः प्राप्तमग्निमनूद्य तत्समुच्चितः प्रजापतिरेवात्र विधीयते; होमानुवादेनोभयविधाने वाक्यभेदप्रसङ्गाच्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">祭詞の文言に基づく場合でも、神格は<b>ただの Agni</b> であって、性質で限定された Agni ではない。「Agni と…に」の文でも「最初の献供は Agni のもの」の文でも、ただの Agni だけが述べられているので、ただの Agni が神格だと分かるからである。ちょうど<b>ささやき祭</b>（<span class="iast">upāṃśuyāja</span>）で、Viṣṇu などは祭詞の文言に基づくが、「Viṣṇu をささやいて祭るべし」という釈義でただの Viṣṇu が述べられるので、性質つきの Viṣṇu が神格ではないのと同じである。<br>
+  だから、祭詞の文言に基づくとしても不都合はなく、二神を命じると考えると煩雑になるので、ここでは<b>他から得られた Agni に言及し、それと並べて Prajāpati だけが命じられる</b>。献供に言及して両方を命じると、文の分裂にもなるからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… therefore only Prajāpati is here enjoined, in further-allusion to the elsewhere establisht Agni, and in conjunction with him.<span class="jp">脚注194：祭詞 idaṃ viṣṇur vi cakrame は Viṣṇu の「大股の歩み」に触れるが、神格を Trivikrama などに限定するものとは見なされない。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 210" role="img" aria-label="反論者と著者の読み方の比較">
+  <text x="360" y="22" text-anchor="middle" font-size="14" class="t-dev">यदग्नये च प्रजापतये च सायं जुहोति</text>
+  <g font-size="12">
+  <rect x="10" y="40" width="340" height="160" rx="8" class="box"/>
+  <text x="180" y="62" text-anchor="middle" class="t-acc">反論者の読み（第11課 §276）</text>
+  <rect x="30" y="76" width="130" height="34" rx="6" class="box-blue"/><text x="95" y="98" text-anchor="middle">Agni を命じる</text>
+  <rect x="200" y="76" width="130" height="34" rx="6" class="box-blue"/><text x="265" y="98" text-anchor="middle">Prajāpati を命じる</text>
+  <path d="M95,110 L180,140 L265,110" class="line"/>
+  <rect x="110" y="140" width="140" height="30" rx="6" class="box"/><text x="180" y="160" text-anchor="middle">献供（言及）</text>
+  <text x="180" y="190" text-anchor="middle" class="t-mute" font-size="11">命じるものが二つ → 文の分裂 ✕</text>
+  <rect x="370" y="40" width="340" height="160" rx="8" class="box-green"/>
+  <text x="540" y="62" text-anchor="middle" class="t-acc">著者の読み（§§289, 298）</text>
+  <rect x="390" y="76" width="130" height="34" rx="6" class="box"/><text x="455" y="92" text-anchor="middle">Agni（言及）</text><text x="455" y="105" text-anchor="middle" font-size="10" class="t-mute">祭詞で既に得られている</text>
+  <rect x="560" y="76" width="130" height="34" rx="6" class="box-acc"/><text x="625" y="98" text-anchor="middle">Prajāpati を命じる</text>
+  <path d="M520,93 L560,93" class="line-acc"/>
+  <rect x="470" y="140" width="140" height="30" rx="6" class="box"/><text x="540" y="160" text-anchor="middle">献供（言及）</text>
+  <path d="M625,110 L540,140" class="line"/>
+  <text x="540" y="190" text-anchor="middle" class="t-mute" font-size="11">命じるものは一つ → 分裂なし ○</text>
+  </g>
+</svg>
+<figcaption><b>図1　「夕方に Agni と Prajāpati に献供する」の二つの読み。</b>著者は Agni を「既に得られたものへの言及」とし、新しく命じられるのは Prajāpati だけとする。だから agnihotra の語が Agni を与える必要はなく、祭名となる。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§290–292</span><span class="sutra-num">KSS pp.139–140</span><span class="sutra-title">「と（ca）」は並列を主として表さない</span></div>
+  <div class="mula"><small style="color:var(--muted)">§290</small> न च चकारश्रवणान्न वाक्यभेद इति वाच्यम् । चकारार्थो हि समुच्चयः । तं च समुच्चयं यदि चकारः प्राधान्येन ब्रूयात्, तदा प्रधानस्यानेकविशेषणसंग्राहकत्वादारुण्यादिविशिष्टक्रयविधान इव कारकद्वयसमुच्चयविधाने वाक्यभेदो न भवेत् । <mark>न च चकारः समुच्चयं प्राधान्येन ब्रूते, परोपसर्जनत्वेनैवाभिधानात्</mark> ।<br>
+  <small style="color:var(--muted)">§291</small> अत एव दशमे भाष्यकारैश्चकारस्य समुच्चयशब्दाद्वैलक्षण्यं प्रतिपादितम् । समुच्चयशब्दो हि तं प्राधान्येन ब्रूते, न चकारः । यदि हि प्राधान्येन ब्रूयात्तदा तत्प्रतिपन्नः समुच्चयः क्रियागुणैः सम्बध्येत; समुच्चयः शोभनः, समुच्चयो द्रष्टव्य इतिवत्, च शोभनश्च द्रष्टव्य इति प्रयोगः स्यात्; समुच्चयशब्दवच्चकारस्य प्राधान्येन समुच्चयवाचित्वे धवखदिरयोः समुच्चय इतिवद्धवखदिरयोश्चेत्यपि प्रयोगः स्यादिति ।<br>
+  <small style="color:var(--muted)">§292</small> अतश्चकारः समुच्चयं प्राधान्येन न ब्रूते, येन प्रधानस्यैकस्य विधानान्न वाक्यभेदो भवेत् । किं तु कारकद्वयोपसर्जनत्वेनैव स तं ब्रूते । समुच्चितावग्निप्रजापती इति प्रधानद्वयविधाने च वाक्यभेदः स्यादेव; यथा ग्रहोद्देशेन सम्मार्गैकत्वविधाने ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">चकार</span> <span class="iast">cakāra</span> 「ca」という語（「と」）</span>
+    <span class="w"><span class="dev">समुच्चय</span> <span class="iast">samuccaya</span> 並べること（連言）</span>
+    <span class="w"><span class="dev">प्राधान्येन</span> <span class="iast">prādhānyena</span> 主として（独立に）</span>
+    <span class="w"><span class="dev">उपसर्जन</span> <span class="iast">upasarjana</span> 従属するもの</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">「『と（ca）』の語があるので文の分裂はない」と言ってはならない。ca の意味は<b>並べること</b>である。もし ca がその並列を<b>主として</b>表すのなら、主なものは複数の限定語をまとめられるので、「赤い（一歳の雌牛）によってソーマを買う」の命令（第5課 §70）のように、二つの行為参与者の並列を一つとして命じても分裂にはならないだろう。しかし ca は並列を主として表さない。<b>他に従属するものとしてのみ表す</b>からである。<br>
+  だからこそ第10巻で Bhāṣya の著者は、ca が「並列」という名詞と違うことを示した。「並列」という語は並列を主として表すが ca はそうではない。もし主として表すなら、「よい並列」「並列を見よ」と言えるように「よい ca」「ca を見よ」とも言え、「dhava 材と khadira 材の並列」と言えるように「dhava 材と khadira 材の ca」とも言えるはずだ。<br>
+  だから ca は二つの行為参与者（Agni へ・Prajāpati へ）に従属するものとして並列を表すにすぎない。並べられた Agni と Prajāpati という<b>二つの主なもの</b>を命じれば、杯（graha）について「清めること」と「単数」を命じる場合（第3課 §36）と同じく、文の分裂がやはり起こる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the word ‘and’ does not express conjunction as a principal thing, because it has this meaning only in dependence on something else.<span class="jp">脚注196：Bhāṣya は布施の十品目（第11課 §277）の ca を「全部与えよ」の意味ではなく「あるいは」（athavā）の意味と見る。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-1　名詞「並列」（samuccaya）と小辞「と」（ca）の違い（§291）</caption>
+<tr><th></th><th>名詞 <span class="dev">समुच्चय</span></th><th>小辞 <span class="dev">च</span></th></tr>
+<tr><td>並列の表し方</td><td>主として（独立に）</td><td>他の語に従属して</td></tr>
+<tr><td>形容詞・動詞と結びつくか</td><td>○「よい並列」「並列を見よ」</td><td>✕「よい ca」「ca を見よ」とは言えない</td></tr>
+<tr><td>属格の語をとれるか</td><td>○ <span class="dev">धवखदिरयोः समुच्चयः</span></td><td>✕ <span class="dev">धवखदिरयोश्च</span>（「dhava と khadira の ca」）とは言えない</td></tr>
+<tr><td>文の分裂を防げるか</td><td colspan="2">ca は「一つの主なもの」を作れない → 防げない</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§293–294</span><span class="sutra-num">KSS pp.140–141</span><span class="sutra-title">格語尾で表された行為参与者は動詞にだけ従属する</span></div>
+  <div class="mula verse"><small style="color:var(--muted)">§293</small> यद्यपि चकारः समुच्चयं प्राधान्येन ब्रूयात्, तथापि तस्य कारकद्वयं प्रति प्राधान्यमनुपपन्नम्, विभक्त्यभिहितस्य कारकद्वयस्य क्रियोपसर्जनत्वेन समुच्चयोपसर्जनत्वाभावात् । कृदन्तादिशब्दैरुपस्थितं हि कारकं क्रियातोऽन्येन सम्बध्यते; कारकसमुच्चयः करणसमुच्चय इति । विभक्त्यभिहितं तु क्रिययैव, कारकाणां तयैवान्वयात् । अतश्चकारेणोच्यमानः स कारकोपसर्जनत्वेनैवोच्यते । कारकद्वयं च प्रधानम् । एकोद्देशेन च प्रधानद्वयविधाने वाक्यभेद एव । यथाहुः:<br>
+  <small style="color:var(--muted)">§294</small> अनेकपदसम्बद्धं यद्येकमपि कारकं ।<br>तथापि तदनावृत्तैः प्रत्ययैर्न विधीयते । इति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">仮に ca が並列を主として表すとしても、二つの行為参与者に対して主となることはできない。<b>格語尾で表された</b>行為参与者は動作（動詞）に従属するので、並列に従属することはないからである。kṛt 接尾辞などをもつ語（「行為者の並列」「手段の並列」のように名詞で表される行為参与者）なら動作以外のものと結びつけるが、格語尾で表された行為参与者は動作とだけ結びつく。だから ca が表すものは行為参与者に従属するものとしてのみ表され、主なものは二つの行為参与者である。一つのものに対して二つの主なものを命じれば、それはまさに文の分裂である。こう言われている──<br>
+  「たとえ一つの行為参与者が多くの語と結びついていても、（動詞の）接辞が繰り返されなければ、それは命じられない。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“Even tho one instrument (case-form, kāraka) may be connected with several words, nevertheless this is not enjoined without repeated verbal endings.”<span class="jp">脚注197：つまり反論者の意味を表すには agnaye juhoti, prajāpataye juhoti と二つの命令が必要になる。</span></div></div>
+</div>
+
+<div class="note"><b>ここでの kāraka。</b>Edgerton は kāraka を instrument / dependent noun と訳します。文法でいう「動作を成り立たせる関係」（行為者・対象・手段・受け手など）のことで、ここでは「Agni に」「Prajāpati に」という<b>与格（受け手）</b>です。格語尾で表された関係は必ず動詞「献供する」にかかるので、ca の「並列」が二つをまとめて一つの主なものにすることはできない、というのが §293 の論点です。</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§295–298</span><span class="sutra-num">KSS pp.141–144</span><span class="sutra-title">布施の文「牛と馬と…」はなぜ分裂しないのか</span></div>
+  <div class="mula"><small style="color:var(--muted)">§295</small> यच्च यथा दक्षिणानुवादेन गवादीनामनेकेषां विधाने न वाक्यभेदस्तथा कारकद्वयविधानेऽपीति, तन्न । न हि गौश्चाश्वश्चेत्यस्मिन्वाक्ये दक्षिणानुवादेन गवादयो विधीयन्ते, उक्तरीत्या वाक्यभेदापत्तेः । चकारेण कथंचित्परिहारेऽपि गवादीनामनेकेषां द्वादशशतसंख्यायाश्च विधाने वाक्यभेद एव । आध्वर्यवशाखायां गौश्चेत्यादेस्तस्य द्वादशशतमित्यन्तस्य सहश्रुतत्वेन चास्यैकवाक्यत्वमित्युक्तं दशमे ।<br>
+  <small style="color:var(--muted)">§296</small> अतोऽनेन वाक्येनोभयविशिष्टा दक्षिणैव विधीयते । <mark>विशिष्टविधानाच्च न वाक्यभेदः</mark> । अत एव पार्थसारथिमिश्रैर्दशमे तत्र तत्र सोभयविशिष्टा विधीयत इति, अनेकगवाद्यात्मिकैका दक्षिणा विधीयत इति चोक्तम् ।<br>
+  <small style="color:var(--muted)">§297</small> न चैवमृत्विग्भ्यो दक्षिणां ददातीत्यस्यानर्थक्यम्, तस्यानुवादत्वात्, ऋत्विक्सम्बन्धपरत्वाद्वा । दक्षिणाशब्दसामर्थ्याद्ध्यृत्विजां चमसाध्वर्य्वादीनां च तत्सम्बन्धः स्यात् । एतद्वाक्यसत्त्वे च न भवति, ऋत्विक्शब्दस्य ब्रह्मादिगतर्तुयजननिमित्तत्वेन चमसाध्वर्यूणामृत्विक्त्वाभावस्य तृतीय उक्तत्वात् ।<br>
+  <small style="color:var(--muted)">§298</small> अतश्च गौश्चाश्वश्चेत्यस्मिन्वाक्ये विशिष्टविधानान्न वाक्यभेदः । यदग्नये च प्रजापतये च सायं जुहोतीति तु न विशिष्टविधानम्, होमस्याग्निहोत्रं जुहोतीत्यनेन प्राप्तत्वात् । अतश्च होमानुवादेन समुच्चितोभयविधाने वाक्यभेदाद्गौरवापत्तेश्च नानेन वाक्येन देवताद्वयं विधीयते, किं तु मन्त्रवर्णप्राप्तमग्निमनूद्य तत्समुच्चितः प्रजापतिर्होमोद्देशेन विधीयते ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">反論者は「布施に言及して牛など多くのものを命じても分裂しないように、二つの行為参与者を命じても分裂しない」と言った（第11課 §277）。しかしそうではない。「牛と馬と…」の文では、布施に言及して牛などが命じられているのではない。そうなら上に述べた仕方で分裂になる。ca でなんとか逃れても、牛など多くのものと「百十二」という数を命じれば、やはり分裂である。Yajurveda の学派ではこの「牛と…」から「その（布施）は百十二」までが一続きに伝えられているので、第10巻でこれは<b>一つの文</b>だとされた。<br>
+  だからこの文は、<b>両方（品目と数）で限定された布施そのもの</b>を命じている。限定されたものを（新たに）命じるので分裂はない（<span class="iast">viśiṣṭavidhi</span>）。Pārthasārathi Miśra も第10巻で「両方で限定されたそれが命じられる」「牛などからなる一つの布施が命じられる」と述べている。<br>
+  それでも「祭官たちに布施を与える」の文は無意味にならない。それは言及（anuvāda）であるか、あるいは<b>祭官（ṛtvij）との結びつきを示すため</b>である。「布施」の語の力だけなら、正規の祭官にも杯の助手（camasādhvaryu）などにも布施が及びうるが、この文があればそうならない。ṛtvij の語は「季節ごとに祭る」ことを根拠に Brahman など（十七人）だけを指し、杯の助手は祭官でないことが第3巻で述べられている。<br>
+  だから「牛と馬と…」は限定規定なので分裂しない。しかし「夕方に Agni と Prajāpati に献供する」は限定規定ではない。献供は「agnihotra を献供する」で既に得られているからである。献供に言及して二神を命じれば分裂と煩雑さが生じるので、この文は<b>祭詞で得られた Agni に言及し、それと並べて Prajāpati を献供に対して命じる</b>。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Therefore this sentence is rather the (originative) injunction of the sacrificial fee particularized by both these (things, the number 112, and the objects to be given). And because it is a particularized injunction, there is no split of the sentence.<span class="jp">脚注199：杯の助手（cup-adhvaryus）は adhvaryu に道具を手渡す下働きにすぎない。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-2　分裂しない文と分裂する文（§§295–298）</caption>
+<tr><th></th><th>布施の文「牛と馬と…百十二」</th><th>「夕方に Agni と Prajāpati に献供する」</th></tr>
+<tr><td>主役（新しく命じるもの）は既知か？</td><td>未知（布施はここで初めて命じられる）</td><td>既知（献供は「agnihotra を献供する」で既出）</td></tr>
+<tr><td>文の種類</td><td>限定規定（viśiṣṭavidhi）</td><td>既知のものへの付属物の命令</td></tr>
+<tr><td>付属物が複数でも？</td><td>一つの「限定された布施」を命じるので分裂なし</td><td>二つ命じると分裂 → Agni は言及、Prajāpati だけ命令</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§299</span><span class="sutra-num">KSS p.144</span><span class="sutra-title">結論：agnihotra は「それを告げる聖典」による祭名</span></div>
+  <div class="mula">अतश्च नेदमग्नेः प्रापकं किं तु मन्त्रवर्ण एव । अतश्च तेनाग्नेः प्राप्तत्वान्नाग्निहोत्रपदं देवतासमर्पकं किं तर्हि नामधेयमेव । <mark>तत्सिद्धमेतत्तत्प्रख्यशास्त्रादग्निहोत्रशब्दस्य कर्मनामधेयत्वमिति</mark> ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">だから Agni を与えるのはこの文ではなく、祭詞の文言そのものである。それによって Agni が得られているので、agnihotra の語は神格を与えるものではなく、<b>名前にほかならない</b>。こうして、<b>それを告げる聖典があるため</b>に agnihotra の語が祭式の名前であることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">So it is establisht that the word agnihotra is taken as a name of a rite because of an authoritative passage setting forth that.</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　前祭の名前と、理由④「それにたとえる」</h2>
+<p class="chapter-sub">§§300–302</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§300–301</span><span class="sutra-num">KSS pp.144–145</span><span class="sutra-title">前祭（prayāja）の「薪」なども祭名</span></div>
+  <div class="mula verse"><small style="color:var(--muted)">§300</small> एवं प्रयाजेषु समिदादिदेवतानां समिधः समिधोऽग्न आज्यस्य व्यन्त्वित्यादिमन्त्रवर्णेभ्यः प्राप्तत्वात्समिधो यजतीत्यादिषु समिदादिशब्दास्तत्प्रख्यशास्त्रात्कर्मनामधेयानि । यथाहुः:<br>
+  <small style="color:var(--muted)">§301</small> विधित्सितगुणप्रापि शास्त्रमन्यद्यतस्त्विह ।<br>तस्मात्तत्प्रापणं व्यर्थमिति नामत्वमिष्यते । इति दिक् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">同様に、前祭（<span class="iast">prayāja</span>）では「薪」などの神格が「薪たちよ、Agni よ、バターを味わえ」などの祭詞の文言から得られているので、「薪を祭る」などの文の「薪」などの語は、<b>それを告げる聖典があるため</b>に祭式の名前である。こう言われている──<br>
+  「ここでは、命じようとする付属物を与える別の聖典があるので、それを与えるのは無意味である。だから名前であると認められる。」以上は手がかりにすぎない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“But since in this case there is another authoritative statement establishing the accessory which it might be desired to enjoin, therefore the establishing of that would be meaningless, and we accept the fact that it is a name.”</div></div>
+</div>
+
+<div class="point">「それを告げる聖典」（<span class="iast">tatprakhyaśāstra</span>）の原則：<b>その語が表すはずの付属物が、別の聖典で既に得られている</b> → その語でもう一度与えるのは無駄 → 祭名。Agnihotra（Agni）も前祭の「薪」（<span class="iast">samidh</span>）もこの型です。</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§302</span><span class="sutra-num">KSS p.145</span><span class="sutra-title">理由④「それにたとえる」：Śyena（鷹）</span></div>
+  <div class="mula">श्येनेनाभिचरन्यजेतेत्यत्र श्येनशब्दस्य कर्मनामधेयत्वं तद्व्यपदेशात्, तेन व्यपदेश उपमानं तदन्यथानुपपत्त्येति यावत् । तथा हि, यद्विधेयं तस्य स्तुतिर्भवति । तद्यद्यत्र श्येनो विधेयः स्यात्, तदार्थवादैस्तस्यैव स्तुतिः कार्या । न च यथा वै श्येनो निपत्यादत्ते, एवमयं द्विषन्तं भ्रातृव्यं निपत्यादत्त इत्यनेनार्थवादेन श्येनः स्तोतुं शक्यः, श्येनोपमानेनार्थान्तरस्तुतेः क्रियमाणत्वात् । न च श्येनोपमानेन स एव स्तोतुं शक्यते, <mark>उपमानोपमेयभावस्य भिन्ननिष्ठत्वात्</mark> । यदा तु श्येनसंज्ञको यागो विधीयते, तदार्थवादेन श्येनोपमानेन तस्य स्तुतिः कर्तुं शक्यत इति श्येनशब्दस्य तद्व्यपदेशाद्यागनामधेयत्वम् । तत्सिद्धं निमित्तचतुष्टयान्नामधेयत्वम् ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">श्येन</span> <span class="iast">śyena</span> 鷹（Śyena 祭）</span>
+    <span class="w"><span class="dev">अभिचरन्</span> <span class="iast">abhicaran</span> 呪詛しようとする者</span>
+    <span class="w"><span class="dev">व्यपदेश</span> <span class="iast">vyapadeśa</span> たとえ（比喩としての言及）</span>
+    <span class="w"><span class="dev">उपमान／उपमेय</span> <span class="iast">upamāna / upameya</span> たとえるもの／たとえられるもの</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">「呪詛しようとする者は Śyena で祭るべし」では、Śyena の語は<b>それにたとえること</b>（<span class="iast">tadvyapadeśa</span>）によって祭式の名前である。つまり、そう読まなければ、それによるたとえ（比喩）が成り立たないからである。<br>
+  説明しよう。<b>命じられるものが称えられる。</b>もしここで鷹が（材料として）命じられているなら、釈義はその鷹を称えなければならない。しかし「まことに、鷹が舞い降りて（獲物を）つかむように、この（祭式）は憎い敵を舞い降りてつかむ」という釈義で鷹を称えることはできない。鷹をたとえとして、<b>別のもの</b>が称えられているからである。また鷹をたとえとして鷹そのものを称えることはできない。<b>たとえるものとたとえられるものは別のものでなければならない</b>から。しかし Śyena という名の祭式が命じられているとすれば、釈義は鷹をたとえとしてその祭式を称えることができる。だから Śyena の語は、それにたとえることによって祭式の名前である。<br>
+  こうして、<b>四つの理由</b>によって祭名であることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… because the thing compared and the thing compared-with must be different things. But when (we assume that) a sacrifice named ‘falcon’ is enjoined, then the explanatory-statement is capable of glorifying it by comparison to a falcon.</div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 220" role="img" aria-label="Śyena の釈義：たとえるものとたとえられるもの">
+  <text x="360" y="22" text-anchor="middle" font-size="13" class="t-dev">यथा वै श्येनो निपत्यादत्ते, एवमयं द्विषन्तं भ्रातृव्यं निपत्यादत्ते</text>
+  <text x="360" y="42" text-anchor="middle" font-size="11" class="t-mute">「鷹が舞い降りてつかむように、この（祭式）は憎い敵を舞い降りてつかむ」</text>
+  <g font-size="12" text-anchor="middle">
+  <rect x="10" y="58" width="340" height="152" rx="8" class="box"/>
+  <text x="180" y="80" class="t-acc">✕ śyena ＝ 材料の「鷹」と読むと</text>
+  <rect x="40" y="96" width="120" height="40" rx="6" class="box-blue"/><text x="100" y="114">鷹</text><text x="100" y="129" font-size="10" class="t-mute">たとえるもの</text>
+  <rect x="200" y="96" width="120" height="40" rx="6" class="box-blue"/><text x="260" y="114">鷹（命じられたもの）</text><text x="260" y="129" font-size="10" class="t-mute">たとえられるもの</text>
+  <path d="M160,116 L200,116" class="line"/>
+  <text x="180" y="166">同じものを同じものにたとえる？</text>
+  <text x="180" y="186" class="t-mute" font-size="11">upamāna と upameya は別でなければならない</text>
+  <rect x="370" y="58" width="340" height="152" rx="8" class="box-green"/>
+  <text x="540" y="80" class="t-acc">○ Śyena ＝ 祭式の名前と読むと</text>
+  <rect x="400" y="96" width="120" height="40" rx="6" class="box-blue"/><text x="460" y="114">鷹</text><text x="460" y="129" font-size="10" class="t-mute">たとえるもの</text>
+  <rect x="560" y="96" width="120" height="40" rx="6" class="box-acc"/><text x="620" y="114">Śyena 祭</text><text x="620" y="129" font-size="10" class="t-mute">たとえられるもの</text>
+  <path d="M520,116 L560,116" class="line-acc"/>
+  <text x="540" y="166">鷹のように敵をつかむ祭式</text>
+  <text x="540" y="186" class="t-mute" font-size="11">命じられた祭式が称えられる ✓</text>
+  </g>
+</svg>
+<figcaption><b>図2　理由④「それにたとえる」（§302）。</b>釈義は命じられたものを称える。鷹を材料と読むと「鷹を鷹にたとえる」ことになり比喩が成り立たない。Edgerton の訳語は representation of it、falcon。</figcaption>
+</figure>
+
+<div class="tbl-wrap"><table>
+<caption>表2-1　祭名とみなす四つの理由のまとめ（§§255–302）</caption>
+<tr><th>理由</th><th>原語</th><th>例</th><th>要点</th><th>課</th></tr>
+<tr><td>① 転義を避ける</td><td class="dev">मत्वर्थलक्षणाभयात्</td><td>Udbhid</td><td>付属物と読むと「〜をもつ祭式」と所有の意の転義が要る</td><td>11</td></tr>
+<tr><td>② 文の分裂を避ける</td><td class="dev">वाक्यभेदभयात्</td><td>Citrā</td><td>付属物と読むと一文で複数を命じることになる</td><td>11</td></tr>
+<tr><td>③ それを告げる聖典</td><td class="dev">तत्प्रख्यशास्त्रात्</td><td>Agnihotra、前祭の「薪」</td><td>付属物が別の聖典で既に得られている</td><td>11・12</td></tr>
+<tr><td>④ それにたとえる</td><td class="dev">तद्व्यपदेशात्</td><td>Śyena</td><td>釈義のたとえが成り立つには祭式の名前でなければならない</td><td>12</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　「第五の理由」説：Vaiśvadeva</h2>
+<p class="chapter-sub">§§303–311 ／ 一部の学者（Someśvara）の説</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§303–304</span><span class="sutra-num">KSS pp.146–147</span><span class="sutra-title">第五の理由「発生文で教えられた付属物の方が強い」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§303</small> <mark>उत्पत्तिशिष्टगुणबलीयस्त्वमपि पञ्चमं केचिन्नामधेयत्वे निमित्तमाहुः</mark>; वैश्वदेवेन यजेतेत्यत्र वैश्वदेवशब्दस्य कर्मनामधेयत्वमुत्पत्तिशिष्टगुणबलीयस्त्वात्, उक्तमत्वर्थलक्षणादिप्रकारचतुष्टयासम्भवात् ।<br>
+  <small style="color:var(--muted)">§304</small> तथा हि: न तावन्मत्वर्थलक्षणाभयान्नामधेयत्वं युक्तमिति वक्तुं शक्यम्, वैश्वदेवेनेति तद्धितेनैव मत्वर्थस्य यागस्योक्तत्वात् । सास्य देवतेत्यस्मिन्नर्थे हि तद्धितस्मरणम् । तत्रास्यशब्दस्य तद्धितान्तर्गतस्य यद्यपि सूक्तहविषोरिति स्मृतेः सूक्ते हविषि वा मुख्यत्वमवगतम्, तथापि सर्वनाम्नामुपस्थितवाचित्वात्सूक्तहविषोश्चात्रानुपस्थितत्वाद्यजेतेत्युपस्थितं यागमेवास्यशब्दोऽभिधत्त इति न यागे मत्वर्थलक्षणा । विश्वदेवरूपैकदेवताविधानाच्च न वाक्यभेदः ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">उत्पत्तिशिष्टगुणबलीयस्त्व</span> <span class="iast">utpattiśiṣṭaguṇabalīyastva</span> 発生文で教えられた付属物の方が強いこと</span>
+    <span class="w"><span class="dev">वैश्वदेव</span> <span class="iast">vaiśvadeva</span> Vaiśvadeva（Viśvadeva 神群の祭）</span>
+    <span class="w"><span class="dev">चातुर्मास्य</span> <span class="iast">cāturmāsya</span> 四か月祭</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">ある人々は、名前であることの<b>第五の理由</b>として「<b>発生文（utpattividhi）で教えられた付属物の方が強いこと</b>」を挙げる。「Vaiśvadeva で祭るべし」の Vaiśvadeva が祭名なのはこの理由による、というのである。上の四つの理由はどれも当てはまらないから。<br>
+  ①転義を避けるため、とは言えない。vaiśvadeva という派生接尾辞（taddhita）の語が、それだけで所有の意味（「Viśvadeva たちを神格とする」）を祭式に与えているからである。文法規則「これがそれの神格である」の意味で派生接尾辞が教えられている。その中の「それの」は、規則「讃歌と供物について」により本来は讃歌や供物を指すが、代名詞は目の前のものを指し、ここでは讃歌も供物も述べられていないので、「祭るべし」で目の前にある<b>祭式</b>を指す。だから祭式に所有の意の転義はない。②また Viśvadeva という一つの神格を命じるので文の分裂もない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Some say that there is a fifth criterion for names, viz. the greater power of accessories taught in the originative injunction.<span class="jp">脚注200：Someśvara の『Rāṇaka』（Tantravārttika の注）。脚注201：Vaiśvadeva は四か月祭（cāturmāsya）の四つの節（parvan）の一つ。脚注202：Vaiśvadeva ＝ viśvadevavat「Viśvadeva たちを（神格として）もつ」。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§305–307</span><span class="sutra-num">KSS pp.147–148</span><span class="sutra-title">③「それを告げる聖典」も当てはまらない：八つの祭式</span></div>
+  <div class="mula"><small style="color:var(--muted)">§305</small> नापि तत्प्रख्यशास्त्रान्नामत्वम् । यत्र हि विधित्सितो गुणोऽन्यतः प्राप्तः, तत्र तत्प्रख्यशास्त्रान्नामधेयत्वम्, यथाग्निहोत्रशब्दे । अत्र चाग्नेयादयोऽष्टौ यागाः प्रकृताः । तत्रामिक्षायागे यद्यपि विश्वेदेवाः प्राप्ता वैश्वदेव्यामिक्षेति, तथापि सप्तसु तेषामप्राप्तत्वाद्वैश्वदेवेन यजेतेत्यनेन तत्र तद्विधाने न तत्प्रख्यशास्त्रमन्यद्येन तद्वशान्नामत्वं स्यात् ।<br>
+  <small style="color:var(--muted)">§306</small> न चामिक्षायागस्यैवैतन्नामेति वाच्यम्; वैश्वदेवेन यजेतेति वाक्यवैयर्थ्यापत्तेः । वैश्वदेवशब्दस्यामिक्षायागमात्रनामत्वे स एव यागोऽनेनानूद्येत । न च तदनुवादेनास्ति किंचित्कृत्यम्; प्राचीनप्रवणे वैश्वदेवेन यजेतेति विधीयमानस्य प्राचीनप्रवणदेशस्य विनाप्येतद्वाक्यमामिक्षायाग एव संबन्धोपपत्तेः, विश्वदेवसंबन्धात्तस्य ।<br>
+  <small style="color:var(--muted)">§307</small> आग्नेयाद्यशेषप्रकृतयागनामत्वे तु न वैश्वदेवेन यजेतेति वाक्यानर्थक्यम् । तदा ह्यनेनाष्टौ यागा अनूद्यन्ते । अनुवादेन चैकप्रतीत्यारूढत्वात्समुदितानामष्टानामपि वैश्वदेवशब्दो नामधेयं सिध्यति । एवं च प्राचीनप्रवणे वैश्वदेवेन यजेतेत्यत्र वैश्वदेवशब्देनाष्टौ यागाननूद्य प्राचीनप्रवणविधानं तत्र सिद्धं भवति । तद्वाक्यस्यासत्त्वेऽनेन वाक्येनामिक्षायाग एव प्राचीनप्रवणदेशसंबन्धः स्यात् । अतश्चाष्टसु यागेषु प्राचीनप्रवणदेशसंबन्ध एवैतद्वाक्यप्रयोजनम् । एवं च वैश्वदेवशब्दोऽष्टानां नामधेयम् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">③それを告げる聖典による、とも言えない。それは命じようとする付属物が他で得られている場合（agnihotra のように）である。ここ（Vaiśvadeva 節）では Agni の祭など<b>八つの祭式</b>が扱われている。そのうち酪の祭には「Viśvadeva たちの酪」で Viśvadeva たちが得られているが、<b>残りの七つでは得られていない</b>。だから「Vaiśvadeva で祭るべし」がその七つに Viśvadeva たちを命じるのなら、それを告げる別の聖典はない。<br>
+  また Vaiśvadeva を酪の祭だけの名前とすることもできない。そうすると「Vaiśvadeva で祭るべし」は酪の祭への単なる言及になり、言及してすることが何もない。「東に傾いた所で Vaiśvadeva で祭るべし」が命じる<b>東に傾いた場所</b>は、この文がなくても酪の祭と結びつく（東は Viśvadeva たちのものだから）。<br>
+  しかし Agni の祭などの<b>八つ全部の名前</b>とすれば、文は無意味にならない。この文は八つの祭式に言及し、言及によって八つを一つの観念にまとめるので、Vaiśvadeva は八つ全体の名前となる。すると「東に傾いた所で…」の文は八つ全部に言及して東に傾いた場所を命じることになる。この文がなければ、東に傾いた場所は酪の祭だけに結びつくだろう。<b>八つの祭式すべてを東に傾いた場所と結びつけること</b>が、この文の目的である。こうして Vaiśvadeva は八つの名前である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And this supplementary-allusion brings them all under a unitary concept, and in so doing establishes the term Vaiśvadeva as a name for all eight in association.<span class="jp">脚注204：八つの祭式の神格は Agni、Soma、Savitṛ、Sarasvatī、Pūṣan、Marut たち、Viśvadeva たち、天地。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 250" role="img" aria-label="Vaiśvadeva の八つの祭式">
+  <rect x="230" y="8" width="260" height="44" rx="8" class="box-acc"/>
+  <text x="360" y="28" text-anchor="middle" font-size="14"><tspan class="t-dev">वैश्वदेवेन यजेत</tspan></text>
+  <text x="360" y="45" text-anchor="middle" font-size="11" class="t-mute">Vaiśvadeva ＝ 八つ全体の名前</text>
+  <path d="M360,52 L360,66 M50,66 L670,66" class="line"/>
+  <g font-size="12" text-anchor="middle">
+  <path d="M50,66 L50,82 M138,66 L138,82 M226,66 L226,82 M314,66 L314,82 M402,66 L402,82 M490,66 L490,82 M578,66 L578,82 M670,66 L670,82" class="line"/>
+  <rect x="10" y="84" width="80" height="80" rx="6" class="box"/><text x="50" y="108">Agni</text><text x="50" y="128" font-size="10" class="t-mute">八皿の餅</text>
+  <rect x="98" y="84" width="80" height="80" rx="6" class="box"/><text x="138" y="108">Soma</text><text x="138" y="128" font-size="10" class="t-mute">粥</text>
+  <rect x="186" y="84" width="80" height="80" rx="6" class="box"/><text x="226" y="108">Savitṛ</text>
+  <rect x="274" y="84" width="80" height="80" rx="6" class="box"/><text x="314" y="108">Sarasvatī</text>
+  <rect x="362" y="84" width="80" height="80" rx="6" class="box"/><text x="402" y="108">Pūṣan</text>
+  <rect x="450" y="84" width="80" height="80" rx="6" class="box"/><text x="490" y="108">Marut たち</text>
+  <rect x="538" y="84" width="80" height="80" rx="6" class="box-green"/><text x="578" y="108">Viśvadeva</text><text x="578" y="124">たち</text><text x="578" y="144" font-size="10" class="t-mute">酪（āmikṣā）</text>
+  <rect x="630" y="84" width="80" height="80" rx="6" class="box"/><text x="670" y="108">天地</text>
+  <path d="M10,180 L530,180" class="line"/><text x="270" y="200" class="t-mute" font-size="11">七つ：発生文で神格が既に決まっている（Agni など）→ Viśvadeva たちは入れない</text>
+  <path d="M538,180 L618,180" class="line-acc"/><text x="578" y="200" class="t-acc" font-size="11">Viśvadeva たちの祭</text>
+  <text x="360" y="236" font-size="12">「東に傾いた所で Vaiśvadeva で祭るべし」→ 東に傾いた場所が<tspan class="t-acc">八つすべて</tspan>に及ぶ</text>
+  </g>
+</svg>
+<figcaption><b>図3　Vaiśvadeva 節の八つの祭式（脚注204）。</b>Viśvadeva たちが神格なのは酪の祭（緑）だけ。残り七つにはそれぞれ発生文で決まった神格がある。Vaiśvadeva の語は八つ全体の名前であり、「東に傾いた所で…」の文はそれによって八つすべてに場所を与える。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§308–311</span><span class="sutra-num">KSS pp.148–150</span><span class="sutra-title">だから理由は「発生文の付属物の方が強いこと」</span></div>
+  <div class="mula verse"><small style="color:var(--muted)">§308</small> न च तत्र तत्प्रख्यशास्त्रं निमित्तं संभवति, सप्तसु विश्वेदेवाप्राप्तेः । अतो न वैश्वदेवशब्दस्य तत्प्रख्यशास्त्रान्नामधेयत्वमिति । नापि तद्व्यपदेशात्, तादृशस्य व्यपदेशस्यानुपलम्भात् । अतश्च वैश्वदेवशब्दस्य नामधेयत्व उक्तप्रकारचतुष्टयस्यानिमित्तत्वादुत्पत्तिशिष्टगुणबलीयस्त्वमेव निमित्तम् । तथा हि:<br>
+  <small style="color:var(--muted)">§309</small> वैश्वदेवेन यजेतेत्यत्र न तावदप्रकृतकर्मानुवादेन देवताविधानं संभवति, तेषामत्रानुपस्थितेः । नापि देवताविशिष्टकर्मान्तरविधानं संभवति, गौरवापत्तेः; अष्टौ हवींषीत्यनन्यगतिकलिङ्गविरोधात् ।<br>
+  <small style="color:var(--muted)">§310</small> अतोऽनेन प्रकृतकर्मानुवादेन देवता विधीयन्त इति वक्तव्यम् । तत्रामिक्षायागे विश्वदेवप्राप्तेः सप्तसु यागेष्वनेन वाक्येन विश्वेदेवा विधीयन्त इति वक्तव्यम् । न च तत्संभवति, तेषामुत्पत्तिशिष्टाग्न्याद्यवरोधात् । आकाङ्क्षया हि सम्बन्धो भवति । आग्नेयादियागानां हि देवताकाङ्क्षोत्पत्तिशिष्टैरग्न्यादिभिरेव निवृत्तेति न तत्र विश्वदेवविधानं युक्तम् । अतश्चोत्पत्तिशिष्टगुणबलीयस्त्वाद्वैश्वदेवशब्दस्य कर्मनामधेयत्वमिति । यथाहुः:<br>
+  <small style="color:var(--muted)">§311</small> गुणान्तरावरुद्धत्वान्नावकाश्यो गुणोऽपरः ।<br>विकल्पोऽपि न वैषम्यात्तस्मान्नामैव युज्यते । इति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">（八つについては）Viśvadeva たちが七つで得られていないので、それを告げる聖典は理由になりえない。④それにたとえることも理由にならない。そのようなたとえは見当たらないから。四つの理由がどれも当てはまらないので、理由は<b>発生文で教えられた付属物の方が強いこと</b>しかない。<br>
+  「Vaiśvadeva で祭るべし」で、扱われていない祭式に言及して神格を命じることはできない。それはここに現れていないから。神格で限定された<b>別の（九番目の）祭式</b>を命じることもできない。煩雑であり、「<b>八つの供物</b>」という、他に適用しようのない語の意味能力（<span class="iast">liṅga</span>）と矛盾するからである。<br>
+  だから、扱われている（八つの）祭式に言及して神格を命じると言わなければならない。酪の祭には Viśvadeva たちが得られているので、残り七つに Viśvadeva たちを命じることになる。しかしそれはできない。<b>発生文で教えられた Agni などによって（神格の席が）ふさがれている</b>から。結びつきは期待によって生じるが、Agni の祭などの神格への期待は、発生文で教えられた Agni などで既に満たされている。だから、発生文で教えられた付属物の方が強いので、Vaiśvadeva の語は祭式の名前である。こう言われている──<br>
+  「別の付属物でふさがれているので、さらなる付属物の入る余地はない。（二つの間の）選択もありえない。（力が）等しくないから。だから名前であることだけが成り立つ。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“Because it would be contrary to another accessory, a further accessory is not in place (here). Nor is there option (between them), because they are unequal (in authority). Therefore only a name is construable.”<span class="jp">脚注205：注釈によれば、「等しくない」とは、Vaiśvadeva の語による神格の表示は文脈（vākya）によってしか分からないのに対し、発生文の神格は直接の言明（śruti）だということ。</span></div></div>
+</div>
+
+<div class="note"><b>「発生文」（utpattividhi）を思い出そう。</b>第4課・第5課で学んだように、発生文は祭式の<b>形</b>（材料と神格）をはじめて告げる命令です。「Agni に八皿の餅」のような発生文で神格が決まると、その祭式の「神格が欲しい」という期待は満たされます。後から来た語が別の神格を押し込もうとしても、先に席をとった発生文の付属物が勝つ──これが「発生文で教えられた付属物の方が強い」という原則です。</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　別の師たちの説：釈義も「それを告げる聖典」になる</h2>
+<p class="chapter-sub">§§312–319 ／ Pārthasārathi Miśra の学派</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§312–313</span><span class="sutra-num">KSS p.151</span><span class="sutra-title">命令でも釈義でもよい</span></div>
+  <div class="mula"><small style="color:var(--muted)">§312</small> अन्ये त्वाचार्या आहुः: यः शब्दो यत्र कर्मणि यद्गुणसम्बन्धं बोधयति, स चेत्सम्बन्धः शास्त्रान्तरप्रतिपन्नः, तदा तस्य शब्दस्य तन्नामधेयत्वं तत्प्रख्यशास्त्रात् । <mark>तच्च शास्त्रान्तरं विधिर्वार्थवादो वेत्यत्रानादरः</mark> । तत्राग्निहोत्रशब्देऽग्निसम्बन्धबोधकं शास्त्रान्तरं विधिरेव । वैश्वदेवशब्दश्च विश्वदेवसम्बन्धं कर्मणि बोधयति । विश्वदेवसम्बन्धश्चाष्टसु यागेषु यद्विश्वेदेवाः समयजन्त तद्वैश्वदेवस्य वैश्वदेवत्वमित्यर्थवादावगतः ।<br>
+  <small style="color:var(--muted)">§313</small> न च विधिरेव तत्प्रख्यशास्त्रं नार्थवाद इत्यत्र किंचित्प्रमाणमस्ति । अत एव ज्योतिष्टोमेन स्वर्गकामो यजेतेत्यत्र ज्योतिष्टोमशब्द एतानि वाव तानि ज्योतींषि य एतस्य स्तोमाः, इत्यर्थवादावगतं ज्योतिःसम्बन्धं निमित्तीकृत्य सोमयागे प्रवर्तमानस्तत्प्रख्यशास्त्रान्नामधेयं भवति । एवं प्रकृतेऽपि द्रष्टव्यम्, पञ्चमप्रकारकल्पने प्रमाणाभावात् । अत एव वैश्वदेवाधिकरणे वार्तिककारैरेवमुपसंहृतम्: तत्प्रख्यतयैव सर्वेषां नामधेयत्वमिति । यच्चोत्पत्तिशिष्टगुणबलीयस्त्वमुक्तं तद्गुणविध्यसम्भवे युक्त्यभ्युच्चयमात्रम् । तत्सिद्धं तत्प्रख्यशास्त्राद्वैश्वदेवशब्दस्य कर्मनामधेयत्वमिति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">しかし別の師たちは言う。ある語がある祭式についてある付属物との結びつきを示し、その結びつきが<b>別の聖典で分かっている</b>なら、その語は「それを告げる聖典」によってその祭式の名前である。<b>その別の聖典が命令か釈義かは問わない。</b>agnihotra では、Agni との結びつきを示す別の聖典はたまたま命令だった。Vaiśvadeva の語は Viśvadeva たちとの結びつきを示すが、八つの祭式と Viśvadeva たちとの結びつきは、「Viśvadeva たちが共に祭ったこと、それが Vaiśvadeva の Vaiśvadeva たるゆえんである」という<b>釈義</b>から分かっている。<br>
+  「それを告げる聖典は命令だけで、釈義は含まない」と言う根拠は何もない。だからこそ「天界を望む者は Jyotiṣṭoma で祭るべし」でも、Jyotiṣṭoma の語は「まことに、この（祭式）の stoma（讃唱）こそがその光（jyotis）である」という釈義から分かる「光」との結びつきを根拠にソーマ祭に用いられ、それを告げる聖典によって名前となる。今の場合も同じである。<b>第五の理由を立てる根拠はない。</b>だから Vārttika の著者（Kumārila）も Vaiśvadeva 節で「それを告げることによってのみ、すべての名前である」とまとめた。「発生文の付属物の方が強い」というのは、付属物の命令がありえないことを補強する議論の積み重ねにすぎない。こうして、それを告げる聖典によって Vaiśvadeva は祭式の名前であることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And it makes no difference whether that other authoritative passage is an injunction or an explanatory-passage.<span class="jp">脚注206：Pārthasārathi Miśra の学派（Śāstradīpikā 1.4.13–16）。脚注207：ソーマ祭の stoma（讃唱）の詩句には jyotis（光）の語が現れる。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 230" role="img" aria-label="Vaiśvadeva が祭名である理由についての二つの説">
+  <text x="360" y="22" text-anchor="middle" font-size="14">Vaiśvadeva はなぜ祭名か？</text>
+  <g font-size="12">
+  <rect x="10" y="38" width="340" height="184" rx="8" class="box"/>
+  <text x="180" y="60" text-anchor="middle" class="t-acc">ある人々（Someśvara）§§303–311</text>
+  <text x="30" y="88">・「それを告げる聖典」＝<tspan class="t-acc">命令だけ</tspan></text>
+  <text x="30" y="112">・七つの祭式には Viśvadeva を告げる命令がない</text>
+  <text x="30" y="136">・四つの理由はどれも当てはまらない</text>
+  <text x="30" y="160">→ 第五の理由が必要：</text>
+  <text x="50" y="184" class="t-dev" font-size="12">उत्पत्तिशिष्टगुणबलीयस्त्वम्</text>
+  <text x="50" y="206" font-size="11" class="t-mute">発生文で教えられた付属物の方が強い</text>
+  <rect x="370" y="38" width="340" height="184" rx="8" class="box-green"/>
+  <text x="540" y="60" text-anchor="middle" class="t-acc">別の師たち（Pārthasārathi）§§312–318</text>
+  <text x="390" y="88">・「それを告げる聖典」＝<tspan class="t-acc">命令でも釈義でもよい</tspan></text>
+  <text x="390" y="112">・釈義「Viśvadeva たちが共に祭った…」</text>
+  <text x="390" y="136">　が八つとの結びつきを告げる</text>
+  <text x="390" y="160">・例：Jyotiṣṭoma（釈義「stoma こそ光」）</text>
+  <text x="390" y="184">→ 理由③で足りる。第五の理由は不要</text>
+  <text x="390" y="206" font-size="11" class="t-mute">（Āpadeva はこちらに軍配）</text>
+  </g>
+</svg>
+<figcaption><b>図4　Vaiśvadeva をめぐる二つの説。</b>違いは「それを告げる聖典」（tatprakhyaśāstra）に釈義（arthavāda）を含めるかどうか。Āpadeva は Vārttika を引いて第二の説を支持し、四つの理由で十分だとする（§319）。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§314</span><span class="sutra-num">KSS p.153</span><span class="sutra-title">反論：「Vaiśvadeva で祭るべし」こそ発生文では？</span></div>
+  <div class="mula">ननु पशुसोमाधिकरण ऐन्द्रवायवं गृह्णातीत्यादौ न यजिकल्पनं सोमेन यजेतेति प्रत्यक्षयजिश्रुतेरित्युक्तम् । तेन न्यायेन वैश्वदेव्यामिक्षेत्यत्रापि यजिकल्पना मास्तु, वैश्वदेवेन यजेतेत्यत्र प्रत्यक्षयजिश्रुतेः । एवं चानेनैव वाक्येन देवताविशिष्टकर्मविधानमस्तु । तस्य च द्रव्याकाङ्क्षायां वैश्वदेव्यामिक्षेति द्रव्यविधानमस्तु । एवं च न वाक्यद्वयस्याप्यनुवादत्वम्; नाप्यष्टौ हवींषीत्यनन्यगतिकलीङ्गविरोधो भवेदिति चेत् —</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v"><b>反論：</b>「家畜ソーマ節」（Jaimini の該当箇所）では、「Indra と Vāyu の杯を汲む」などの文に「祭る」を補う必要はない、「ソーマで祭るべし」と祭る（yaji）が直接述べられているから、とされた。同じ理屈で、「Viśvadeva たちの酪」にも「祭る」を補わなくてよい。「Vaiśvadeva で祭るべし」に祭るが直接述べられているから。そうすると、この文が<b>神格で限定された祭式の発生文</b>となり、それが材料を期待するところに「Viśvadeva たちの酪」が材料を命じる。そうすれば、どちらの文も単なる言及にはならず、「八つの供物」という語の意味能力とも矛盾しない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">By this same rule why not assume that the word ‘sacrifice’ is not supplied in the words “The curds for the Viśvadevas” either …?</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§315–316</span><span class="sutra-num">KSS pp.153–154</span><span class="sutra-title">答え①：「Viśvadeva たちの酪」には「祭る」を補うしかない</span></div>
+  <div class="mula"><small style="color:var(--muted)">§315</small> मैवम् । वैश्वदेव्यामिक्षेत्यत्र यज्यकल्पन आमिक्षा किमनुवादेन विधीयत इति वक्तव्यम् । विश्वदेवानुवादेन द्रव्यविधाने द्रव्यस्य देवताङ्गत्वमेव स्यात्, न यागाङ्गत्वम् । किं च वैश्वदेवीशब्दो देवतातद्धितत्वादामिक्षां तत्त्वेन ब्रूत इत्युक्तम् । तत्र विश्वदेवानुवादेन द्रव्यविधानं वैश्वदेवीशब्देनैव कर्तव्यम्, पदश्रुतेः; यथा भावनायां करणसमर्पणं धातुनैव क्रियते पदश्रुतेः, न तूपपदेनेत्युक्तं भावार्थाधिकरणे, तद्वत् । तत्र च वषट्कर्तुः प्रथमभक्ष इतिवदेकप्रसरताविरोधः । अतो यागानुवादेनापि द्रव्यविधानार्थं वैश्वदेव्यामिक्षेत्यत्र यजिकल्पनं तावदवश्यं कर्तव्यम् ।<br>
+  <small style="color:var(--muted)">§316</small> अतश्च पशुसोमाधिकरणन्यायवैषम्यम्, ऐन्द्रवायवं गृह्णातीत्यत्र देवताविशिष्टग्रहणविधानेन यज्यकल्पनात्; यजिकल्पने च वैश्वदेव्यामिक्षेत्यत्रैव द्रव्यदेवताविशिष्टकर्मविधानं युक्तं रूपद्वयश्रवणात् । एवं चाग्नेयोऽष्टाकपालः सौम्यश्चरुरित्यादिवाक्यैर्वैश्वदेव्यामिक्षेतिवाक्यस्य प्रायपाठो रक्षितो भवति । अन्यथा हि तेषु सर्वेषु द्रव्यदेवतासम्बन्धकल्पितयागविधानमत्र च द्रव्यमात्रविधानमिति वैरूप्यं प्रसज्येत ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v"><b>答え：</b>そうではない。「Viśvadeva たちの酪」に「祭る」を補わないなら、<b>酪は何に言及して命じられるのか</b>を言わなければならない。Viśvadeva たちに言及して材料を命じれば、材料は神格の付属物になり、祭式の付属物にならない。しかも「Viśvadeva たちの」という語は神格を表す派生接尾辞なので、酪を「それ（神格）のもの」として表す（第11課 §§251–254）。すると Viśvadeva たちへの言及も材料の命令も、同じ一語 vaiśvadevī がしなければならない（<b>同じ語の中にある</b>という直接性による。ちょうど「生じさせる働き」の手段を与えるのは語根であって添え語ではない、と bhāvārtha 節で言われたように）。そうなると「最初の取り分は vaṣaṭ を唱える者のもの」のように、<b>主題の一貫性</b>が壊れる。だから、祭式に言及して材料を命じるためにさえ、「Viśvadeva たちの酪」には「祭る」を補うしかない。<br>
+  だから家畜ソーマ節の理屈とは事情が違う。「Indra と Vāyu の杯を汲む」では、神格で限定された「汲むこと」の命令なので「祭る」を補わないのである。そして「祭る」を補えば、材料と神格の<b>二つの形</b>がそろっている「Viśvadeva たちの酪」こそが祭式の発生文であるのが正しい。こうすれば「Agni に八皿の餅」「Soma に粥」などの文と<b>並びが揃う</b>。そうでないと、他はみな材料と神格で想定された祭式の命令なのに、これだけ材料だけの命令となって不揃いになる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… then the injunction of the rite particularized by the material and the deity in the same sentence, viz. “The curds for the Viśvadevas,” is quite proper, since both ‘forms’ are expressly stated.<span class="jp">脚注209：同じ語が、他で命じられたものへの言及と新しいものの命令を同時に行うことはできない（第9課 §199、第11課 §270 参照）。脚注210：「杯を汲む」の文は付属物の命令ではなく発生文だが、命じるのは付属的な行為（汲むこと）にすぎない。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§317–318</span><span class="sutra-num">KSS p.155</span><span class="sutra-title">答え②：釈義が宙に浮く／答え③：酪と乳清の選択になる</span></div>
+  <div class="mula"><small style="color:var(--muted)">§317</small> किं च वैश्वदेवेन यजेतेत्यत्र वैश्वदेवशब्दस्य देवतासमर्पकत्वे यद्विश्वेदेवाः समयजन्त तद्वैश्वदेवस्य वैश्वदेवत्वमित्येतस्यार्थवादस्यात्यन्तमेव निरालम्बनत्वं स्यात् । एतदर्थवादाद्धि वैश्वदेवशब्दो विश्वदेवकर्तृकत्वेन कर्मणि प्रवृत्त इति ज्ञायते, न देवतासमर्पकत्वेन ।<br>
+  <small style="color:var(--muted)">§318</small> किं च वैश्वदेवेन यजेतेत्यस्य यागविधित्व आमिक्षाया नोत्पत्तिशिष्टत्वम् । तथा च तया न वाजिनं बाधितुं शक्यत इत्युभयोरप्यामिक्षावाजिनयोर्यागाङ्गत्वं स्यात् । तथा च विकल्पः; स चाष्टदोष इति । तस्माद्वैश्वदेव्यामिक्षेत्यत्रैव यागविधानम्, इतरस्य त्वनुवादत्वम् । अनुवादत्वे च यथा नानर्थक्यं तथोक्तमित्यास्तां तावत् । तत्सिद्धं वैश्वदेवशब्दस्य कर्मनामधेयत्वम् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">さらに、「Vaiśvadeva で祭るべし」の Vaiśvadeva が神格を与える語なら、「Viśvadeva たちが共に祭ったこと、それが Vaiśvadeva の Vaiśvadeva たるゆえんである」という<b>釈義は完全に拠り所を失う</b>。この釈義から、Vaiśvadeva の語は「Viśvadeva たちが<b>行為者</b>として行った」という理由で祭式に用いられていると分かるのであって、神格を与えるものとしてではない。<br>
+  さらに、「Vaiśvadeva で祭るべし」が祭式の命令なら、酪は発生文で教えられたものでなくなる。すると酪は<b>乳清</b>（vājina）を退けることができず、酪と乳清の両方が祭式の付属物になる。そうすると<b>選択</b>（vikalpa）になるが、選択には<b>八つの欠点</b>がある。<br>
+  だから祭式の命令は「Viśvadeva たちの酪」の方にあり、もう一方は言及である。言及であっても無意味にならないことは上で述べた。これでよかろう。こうして Vaiśvadeva の語が祭式の名前であることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And then we should have an option, which has eight faults.<span class="jp">脚注211：乳清（whey, vājina）は同じ箇所で命じられている。脚注212：選択とは、両立しない二つの選択肢がともに命じられている場合。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表4-1　選択（vikalpa）の八つの欠点（脚注212・注釈による）</caption>
+<tr><th></th><th>米を使うとき、大麦の命令について</th><th>大麦を使うとき、米の命令について</th></tr>
+<tr><td>①</td><td>確かめられた権威を捨てる</td><td>同左（米の命令の権威を捨てる）</td></tr>
+<tr><td>②</td><td>なかった無権威を想定する</td><td>同左</td></tr>
+<tr><td>③</td><td>（次に大麦を使うとき）捨てた権威を取り戻す</td><td>同左</td></tr>
+<tr><td>④</td><td>想定した無権威を捨てる</td><td>同左</td></tr>
+<tr><td colspan="3">二つの命令それぞれに四つずつ → 合計<b>八つの欠点</b>。だからミーマーンサーは選択をできるだけ避ける。</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§319</span><span class="sutra-num">KSS p.156</span><span class="sutra-title">祭名の章のまとめ</span></div>
+  <div class="mula">तदेवं निरूपितं मत्वर्थलक्षणादिप्रकारचतुष्टयनिरूपणेन <mark>नामधेयस्य विधेयार्थपरिच्छेदकत्वेनार्थवत्त्वम्</mark> ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">このようにして、所有の意の転義などの<b>四つの理由</b>を論じることによって、祭名が<b>命じられるものを特定すること</b>によって意味をもつことを論じた。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Thus then we have set forth, by setting forth the four ways (of proving it), (avoidance of) implication of possessive indication and the rest, the fact that a name finds its use in defining the meaning of the (sacrifice) to be enjoined.</div></div>
+</div>
+
+<div class="point">第11・12課の結論：祭名（nāmadheya）の役目は「命じられるものの特定」。祭名とみなす理由は <b>四つ</b>（転義回避・分裂回避・それを告げる聖典・それにたとえる）で足りる。次の第13課では Veda の第四区分「<b>禁止</b>」（<span class="iast">niṣedha</span>）に進みます。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 「夕方に Agni と Prajāpati に献供する」で、新しく命じられているのは何か？</summary><div>Prajāpati だけ。Agni は祭詞の文言で既に得られており、言及されるだけ。（§§289, 298）</div></details>
+<details class="q"><summary>Q2. 「と（ca）」があっても文の分裂が防げないのはなぜ？</summary><div>ca は並列を主として表さず、二つの行為参与者に従属するものとして表すにすぎないので、「一つの主なもの」を作れないから。（§§290–293）</div></details>
+<details class="q"><summary>Q3. 布施の文「牛と馬と…百十二」はなぜ分裂しない？</summary><div>既知の布施に付属物を命じるのではなく、品目と数で限定された布施そのものを命じる「限定規定」だから。（§§295–296）</div></details>
+<details class="q"><summary>Q4. Śyena を材料の鷹と読めないのはなぜ？</summary><div>釈義は命じられたものを称えるが、「鷹のように…」と鷹を鷹にたとえることはできない。たとえるものとたとえられるものは別でなければならない。（§302）</div></details>
+<details class="q"><summary>Q5. Vaiśvadeva について「第五の理由」を立てる人々と、それを不要とする師たちの違いは？</summary><div>「それを告げる聖典」に釈義を含めるかどうか。後者は釈義「Viśvadeva たちが共に祭った…」で十分とし、Jyotiṣṭoma の例を挙げる。（§§303–313）</div></details>
+<details class="q"><summary>Q6. 選択（vikalpa）の欠点はいくつ？</summary><div>八つ。二つの命令それぞれについて、権威を捨てる・無権威を想定する・権威を取り戻す・無権威を捨てる、の四つずつ。（§318、脚注212）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第12課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">समुच्चय</td><td class="iast">samuccaya</td><td>並べること（並列）</td><td class="en">conjunction</td></tr>
+<tr><td class="dev">उपसर्जन</td><td class="iast">upasarjana</td><td>従属するもの</td><td class="en">dependent (thing)</td></tr>
+<tr><td class="dev">कारक</td><td class="iast">kāraka</td><td>行為参与者</td><td class="en">instrument, dependent noun</td></tr>
+<tr><td class="dev">विशिष्टविधि</td><td class="iast">viśiṣṭavidhi</td><td>限定規定</td><td class="en">particularized injunction</td></tr>
+<tr><td class="dev">अनुवाद</td><td class="iast">anuvāda</td><td>言及（繰り返し）</td><td class="en">further-allusion, supplementary-allusion</td></tr>
+<tr><td class="dev">तद्व्यपदेश</td><td class="iast">tadvyapadeśa</td><td>それにたとえること</td><td class="en">representation of it</td></tr>
+<tr><td class="dev">उपमान／उपमेय</td><td class="iast">upamāna / upameya</td><td>たとえるもの／たとえられるもの</td><td class="en">thing compared-with / thing compared</td></tr>
+<tr><td class="dev">उत्पत्तिशिष्टगुणबलीयस्त्व</td><td class="iast">utpattiśiṣṭaguṇabalīyastva</td><td>発生文で教えられた付属物の方が強いこと</td><td class="en">greater power of accessories taught in the originative injunction</td></tr>
+<tr><td class="dev">विकल्प</td><td class="iast">vikalpa</td><td>選択</td><td class="en">option</td></tr>
+<tr><td class="dev">प्राचीनप्रवण</td><td class="iast">prācīnapravaṇa</td><td>東に傾いた場所</td><td class="en">eastern cavity</td></tr>
+</table></div>
+<h3>底本について（第12課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文を採り、KSS版（1949年）と照合しました。§§286–298、§§303–318 は議論が細かいため、訳を「要旨」としています。OCR の誤りと思われる箇所（<span class="dev">संकीर्तनात्</span>、<span class="dev">भ्रातृव्यं</span>、<span class="dev">हवींषि</span>、<span class="dev">अनन्यगतिकलिङ्ग</span>、<span class="dev">ज्योतींषि</span>、§311 の <span class="dev">गुणोऽपरः</span>）は直しました。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson11.html">← 第11課　祭名（1）</a><span class="spacer"></span><a href="mnp_lesson13.html">第13課　禁止 →</a></nav>
+
+<footer>
+  やさしい祭式解釈学 · 第12課　祭名（2）<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§286–319, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>
