@@ -1,0 +1,892 @@
+<title>Tarkasaṃgraha 入門</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tiro+Devanagari+Sanskrit&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Shippori+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&display=swap">
+<style>
+/* Layout: 一本の読み物カラム（約44rem）＋広い画面では左に目次。各節は「原文→翻字→和訳→語釈→解説→図表→補説」の順に積む。 */
+:root{
+  --paper:#f6f7f9;
+  --sheet:#ffffff;
+  --ink:#1d2433;
+  --ink-soft:#4d5568;
+  --rule:#d9dde6;
+  --indigo:#2b3a78;        /* 主色: 墨藍 */
+  --indigo-wash:#eceffa;
+  --ochre:#a8650b;         /* 副色: 鬱金（原文番号・強調） */
+  --ochre-wash:#fbf2e3;
+  --leaf:#2f6b52;          /* 解説 */
+  --leaf-wash:#e9f3ee;
+  --rose:#9b2f45;          /* 反論・誤り */
+  --rose-wash:#f8eaee;
+  --font-deva:"Tiro Devanagari Sanskrit","Noto Serif Devanagari","Sanskrit Text",serif;
+  --font-iast:"Gentium Book Plus","Gentium Plus","Times New Roman",serif;
+  --font-head:"Shippori Mincho","Hiragino Mincho ProN","Yu Mincho",serif;
+  --font-body:"Noto Sans JP","Hiragino Sans","Yu Gothic",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#12151d; --sheet:#1a1e29; --ink:#e4e7ef; --ink-soft:#a9b0c2; --rule:#30364a;
+    --indigo:#9fb0f2; --indigo-wash:#222a45; --ochre:#e3a54e; --ochre-wash:#2e2516;
+    --leaf:#7fc8a6; --leaf-wash:#18291f; --rose:#ec8ea2; --rose-wash:#2f1a20;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#12151d; --sheet:#1a1e29; --ink:#e4e7ef; --ink-soft:#a9b0c2; --rule:#30364a;
+  --indigo:#9fb0f2; --indigo-wash:#222a45; --ochre:#e3a54e; --ochre-wash:#2e2516;
+  --leaf:#7fc8a6; --leaf-wash:#18291f; --rose:#ec8ea2; --rose-wash:#2f1a20;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--font-body);font-size:16px;line-height:1.85;padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:72rem;margin:0 auto;display:grid;grid-template-columns:1fr;gap:32px}
+@media (min-width:1000px){.wrap{grid-template-columns:14rem minmax(0,1fr)}}
+main{min-width:0;max-width:46rem}
+.deva{font-family:var(--font-deva);font-size:1.15em;line-height:1.9}
+.iast{font-family:var(--font-iast);font-style:italic}
+.iast-r{font-family:var(--font-iast)}
+h1,h2,h3,h4{font-family:var(--font-head);text-wrap:balance;line-height:1.4;margin:0}
+p{margin:0}
+a{color:var(--indigo)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--ochre);outline-offset:2px}
+
+/* ---- 表紙 ---- */
+.cover{padding-block:48px 28px;border-bottom:1px solid var(--rule);display:grid;gap:14px}
+.cover .series{font-size:.78rem;letter-spacing:.12em;color:var(--ink-soft)}
+.cover .deva-title{font-family:var(--font-deva);font-size:clamp(2.2rem,7vw,3.4rem);color:var(--indigo);line-height:1.3}
+.cover h1{font-size:clamp(1.4rem,4vw,1.9rem)}
+.cover .sub{color:var(--ink-soft)}
+.cover .basis{font-size:.9rem;color:var(--ink-soft);border-left:3px solid var(--ochre);padding-left:12px}
+
+/* ---- 目次 ---- */
+nav.toc{font-size:.88rem}
+@media (min-width:1000px){nav.toc{position:sticky;top:calc(env(safe-area-inset-top,0px) + 24px);align-self:start;max-height:calc(100vh - 48px);overflow:auto;padding-top:48px}}
+nav.toc h2{font-size:.78rem;letter-spacing:.12em;color:var(--ink-soft);font-family:var(--font-body);font-weight:500;margin-bottom:8px}
+nav.toc ol{list-style:none;margin:0;padding:0;display:grid;gap:2px}
+nav.toc a{display:grid;grid-template-columns:3.2rem 1fr;gap:6px;text-decoration:none;color:var(--ink);padding:4px 6px;border-radius:4px}
+nav.toc a:hover{background:var(--indigo-wash)}
+nav.toc .n{font-family:var(--font-deva);color:var(--ochre)}
+nav.toc .grp{font-size:.75rem;color:var(--ink-soft);padding:12px 6px 2px;letter-spacing:.06em}
+
+/* ---- 凡例 ---- */
+.legend{margin-block:28px;display:grid;gap:12px}
+.legend h2{font-size:1.15rem}
+.legend dl{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:0;font-size:.92rem}
+.legend dt{font-weight:700}
+.legend dd{margin:0;color:var(--ink-soft)}
+.tag{display:inline-block;font-size:.72rem;letter-spacing:.08em;font-weight:700;padding:1px 8px;border-radius:3px;white-space:nowrap}
+.t-mula{background:var(--ochre-wash);color:var(--ochre)}
+.t-tr{background:var(--indigo-wash);color:var(--indigo)}
+.t-ex{background:var(--leaf-wash);color:var(--leaf)}
+.t-pv{background:var(--rose-wash);color:var(--rose)}
+
+/* ---- 章見出し ---- */
+.chapter{margin-top:40px;padding:22px 0 10px;border-top:3px double var(--indigo);display:grid;gap:4px}
+.chapter .k{font-size:.8rem;letter-spacing:.14em;color:var(--ink-soft)}
+.chapter .deva{font-size:1.9rem;color:var(--indigo);line-height:1.4}
+.chapter h2{font-size:1.3rem}
+
+/* ---- 節（LSK 形式） ---- */
+section.sutra{margin-top:44px;display:grid;gap:16px;scroll-margin-top:16px}
+.sutra-head{display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;border-bottom:1px solid var(--rule);padding-bottom:6px}
+.sutra-no{font-family:var(--font-deva);font-size:1.6rem;color:var(--ochre);line-height:1}
+.sutra-no small{font-family:var(--font-body);font-size:.75rem;color:var(--ink-soft);margin-left:6px}
+.sutra-head h3{font-size:1.12rem}
+.mula{background:var(--sheet);border:1px solid var(--rule);border-left:4px solid var(--ochre);border-radius:2px;padding:18px 20px;display:grid;gap:10px}
+.mula .deva{font-size:1.45rem;line-height:1.85}
+.mula .iast-r{font-style:italic;color:var(--ink-soft);font-size:1.02rem;line-height:1.7}
+.trans{display:grid;gap:4px}
+.trans p{font-size:1.04rem}
+.block{display:grid;gap:10px}
+.block > .tag{justify-self:start}
+.block p + p{margin-top:2px}
+.note{font-size:.9rem;color:var(--ink-soft)}
+.xref{font-size:.85rem;color:var(--ink-soft)}
+.xref a{font-family:var(--font-deva)}
+.subsec{display:grid;gap:12px;padding-top:6px}
+.subsec h4{font-size:1rem;color:var(--indigo)}
+
+/* 語釈表・一般の表 */
+.tbl{overflow-x:auto;border:1px solid var(--rule);border-radius:4px;background:var(--sheet)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;line-height:1.6}
+th,td{padding:7px 10px;text-align:left;vertical-align:top;border-bottom:1px solid var(--rule)}
+tr:last-child td{border-bottom:0}
+th{background:var(--indigo-wash);color:var(--indigo);font-weight:700;font-size:.82rem;letter-spacing:.04em;white-space:nowrap}
+td.num{font-variant-numeric:tabular-nums;color:var(--ink-soft);text-align:right;width:2.2rem}
+td .deva{font-size:1.1rem}
+caption{caption-side:top;text-align:left;font-size:.85rem;color:var(--ink-soft);padding:8px 10px;font-weight:500}
+.mk{display:inline-block;min-width:3.2em;text-align:center;font-size:.75rem;border-radius:3px;padding:0 6px;font-weight:700}
+.mk-v{background:var(--ochre-wash);color:var(--ochre)}
+.mk-s{background:var(--indigo-wash);color:var(--indigo)}
+.mk-b{background:var(--leaf-wash);color:var(--leaf)}
+.dag{color:var(--rose);font-weight:700}
+
+/* 図 */
+figure{margin:0;display:grid;gap:8px}
+figure .canvas{overflow-x:auto;background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:12px}
+figcaption{font-size:.85rem;color:var(--ink-soft)}
+figcaption b{color:var(--ink);font-weight:700;margin-right:6px}
+svg{display:block;max-width:none}
+svg text{fill:var(--ink);font-family:var(--font-body)}
+svg .dv{font-family:var(--font-deva)}
+svg .ia{font-family:var(--font-iast);font-style:italic;fill:var(--ink-soft)}
+svg .soft{fill:var(--ink-soft)}
+svg .box{fill:var(--sheet);stroke:var(--rule);stroke-width:1.2}
+svg .box-i{fill:var(--indigo-wash);stroke:var(--indigo);stroke-width:1.2}
+svg .box-o{fill:var(--ochre-wash);stroke:var(--ochre);stroke-width:1.2}
+svg .box-r{fill:var(--rose-wash);stroke:var(--rose);stroke-width:1.2}
+svg .box-l{fill:var(--leaf-wash);stroke:var(--leaf);stroke-width:1.2}
+svg .ln{stroke:var(--ink-soft);stroke-width:1.2;fill:none}
+svg .ln-i{stroke:var(--indigo);stroke-width:2;fill:none}
+svg .ln-o{stroke:var(--ochre);stroke-width:2;fill:none}
+svg .ln-r{stroke:var(--rose);stroke-width:6;fill:none;stroke-linecap:round}
+svg .ln-l{stroke:var(--leaf);stroke-width:6;fill:none;stroke-linecap:round}
+svg .ln-d{stroke:var(--ink-soft);stroke-width:1;stroke-dasharray:4 4;fill:none}
+svg .fill-i{fill:var(--indigo)} svg .fill-o{fill:var(--ochre)} svg .fill-r{fill:var(--rose)} svg .fill-l{fill:var(--leaf)}
+svg .count{font-weight:700;fill:var(--ochre)}
+
+/* 4項目カード（anubandha） */
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(10rem,1fr));gap:10px}
+.card{background:var(--sheet);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;display:grid;gap:4px;align-content:start;min-width:0}
+.card .k{font-family:var(--font-iast);font-style:italic;color:var(--indigo);font-size:1.05rem}
+.card .j{font-size:.8rem;color:var(--ink-soft)}
+.card .v{font-size:.92rem}
+.card .src{font-family:var(--font-deva);color:var(--ochre)}
+
+/* 問答（pūrvapakṣa / siddhānta） */
+.debate{display:grid;gap:8px}
+.debate .turn{display:grid;grid-template-columns:5.5rem 1fr;gap:10px;align-items:start;padding:10px 12px;border-radius:4px}
+.debate .who{font-size:.78rem;font-weight:700;letter-spacing:.04em;line-height:1.5}
+.debate .who .iast{display:block;font-weight:400;font-size:.85rem}
+.pp{background:var(--rose-wash)} .pp .who{color:var(--rose)}
+.sd{background:var(--leaf-wash)} .sd .who{color:var(--leaf)}
+@media (max-width:480px){.debate .turn{grid-template-columns:1fr;gap:2px}}
+
+/* 階層（jāti） */
+.nest{display:grid;gap:0}
+.nest div{border:1.5px solid var(--indigo);border-radius:6px;padding:8px 12px 12px;margin-top:6px;background:color-mix(in srgb,var(--indigo-wash) 55%,var(--sheet))}
+.nest div div{background:var(--sheet)}
+.nest div div div{background:color-mix(in srgb,var(--indigo-wash) 55%,var(--sheet))}
+.nest div div div div{background:var(--ochre-wash);border-color:var(--ochre)}
+.nest .lab{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;font-size:.92rem}
+.nest .lab .deva{font-size:1.15rem}
+.nest .lab .tagline{font-size:.78rem;color:var(--ink-soft)}
+
+.keypoint{background:var(--indigo-wash);border-radius:4px;padding:12px 16px;display:grid;gap:4px}
+.keypoint b{color:var(--indigo)}
+.cite{font-family:var(--font-iast);font-style:italic;color:var(--ink-soft);border-left:2px solid var(--rule);padding-left:12px}
+
+footer{margin-top:56px;padding-top:16px;border-top:1px solid var(--rule);font-size:.82rem;color:var(--ink-soft);display:grid;gap:6px}
+@media (prefers-reduced-motion:no-preference){html{scroll-behavior:smooth}}
+</style>
+
+<div class="wrap">
+
+<nav class="toc" aria-label="目次">
+  <h2>目次（見本）</h2>
+  <ol>
+    <li><a href="#hanrei"><span class="n">—</span><span>凡例と本書の構成</span></a></li>
+    <li class="grp">第1章 प्रत्यक्षपरिच्छेदः</li>
+    <li><a href="#s1"><span class="n">१</span><span>maṅgala（序の偈）</span></a></li>
+    <li><a href="#s2"><span class="n">२</span><span>七つの padārtha</span></a></li>
+    <li><a href="#s3a"><span class="n">३ क</span><span>九つの dravya</span></a></li>
+    <li><a href="#s3b"><span class="n">३ ख</span><span>二十四の guṇa</span></a></li>
+    <li><a href="#s3c"><span class="n">३ ग</span><span>五つの karma</span></a></li>
+    <li><a href="#s3d"><span class="n">३ घ–च</span><span>sāmānya・viśeṣa・samavāya</span></a></li>
+    <li><a href="#s3g"><span class="n">३ छ</span><span>四つの abhāva</span></a></li>
+  </ol>
+</nav>
+
+<main>
+
+<header class="cover">
+  <div class="series">インド論理学入門 ・ 見本版</div>
+  <div class="deva-title">॥ तर्कसंग्रहः ॥</div>
+  <h1>Annambhaṭṭa の <span class="iast">Tarkasaṃgraha</span> を読む</h1>
+  <p class="sub">原文・翻字・和訳・語釈・解説を一節ずつ</p>
+  <p class="basis">底本：S. Kuppuswami Sastri, <span class="iast">A Primer of Indian Logic according to Annambhaṭṭa’s Tarkasaṃgraha</span>, 2nd ed., Madras, 1951。原文の節番号と区切り（Part II）、英訳と解説（Part III）にもとづいて構成しています。</p>
+</header>
+
+<section class="legend" id="hanrei">
+  <h2>凡例と本書の構成</h2>
+  <p>底本は三部からなります。Part I は歴史的序論、Part II は Devanāgarī の原文とローマ字翻字、Part III は英訳と解説です。この教科書では <span class="iast">Laghusiddhāntakaumudī</span> の形にならい、Part II の各節（原文）を見出しに立て、その下に Part III の訳と解説を置きます。一つの節が一つの学習単位です。</p>
+  <dl>
+    <dt><span class="tag t-mula">原文 mūla</span></dt><dd>底本 Part II の Devanāgarī 本文。節番号は底本どおり（१, २, ३ क …）。</dd>
+    <dt><span class="tag t-mula">翻字</span></dt><dd>IAST による翻字。底本の翻字にもとづき、OCR で失われた補助記号を補っています。</dd>
+    <dt><span class="tag t-tr">和訳</span></dt><dd>底本 Part III の英訳（T—）を参照した日本語訳。</dd>
+    <dt><span class="tag t-tr">語釈</span></dt><dd>語を切り分けた表（padaccheda）。文法は初学者向けに最小限。</dd>
+    <dt><span class="tag t-ex">解説</span></dt><dd>底本 Part III の exposition を要約・再構成したもの。</dd>
+    <dt><span class="tag t-pv">補説</span></dt><dd>他学派との比較や反論（pūrvapakṣa）と応答（siddhānta）。</dd>
+  </dl>
+  <p class="xref">「→ §४५」は、その語の定義が後の節で与えられることを示します。<span class="iast">Laghusiddhāntakaumudī</span> の相互参照と同じ使い方です。</p>
+</section>
+
+<div class="chapter">
+  <span class="k">第 1 章</span>
+  <span class="deva">प्रत्यक्षपरिच्छेदः</span>
+  <h2><span class="iast">Pratyakṣa-paricchedaḥ</span>（知覚の章）</h2>
+  <p class="note">冒頭の §१–३ は、論じる対象をすべて名前だけ列挙する部分（<span class="iast">uddeśa</span>）です。定義（<span class="iast">lakṣaṇa</span>）は §४ 以降で一つずつ与えられます。</p>
+</div>
+
+<!-- ============ §1 ============ -->
+<section class="sutra" id="s1">
+  <div class="sutra-head"><span class="sutra-no">१<small>§1</small></span><h3>序の偈（maṅgala）</h3></div>
+
+  <div class="mula">
+    <span class="tag t-mula" style="justify-self:start">原文</span>
+    <p class="deva">निधाय हृदि विश्वेशं विधाय गुरुवन्दनम् ।<br>बालानां सुखबोधाय क्रियते तर्कसंग्रहः ॥</p>
+    <p class="iast-r">nidhāya hṛdi viśveśaṃ vidhāya guruvandanam |<br>bālānāṃ sukhabodhāya kriyate tarkasaṃgrahaḥ ||</p>
+  </div>
+
+  <div class="trans block">
+    <span class="tag t-tr">和訳</span>
+    <p>世界の主（<span class="iast">viśveśa</span>）を心に置き、師に礼拝をささげて、初学者がたやすく理解できるように、この <span class="iast">Tarkasaṃgraha</span> を著す。</p>
+  </div>
+
+  <div class="block">
+    <span class="tag t-tr">語釈</span>
+    <div class="tbl"><table>
+      <thead><tr><th>語</th><th>分解</th><th>文法</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td><span class="deva">निधाय</span><br><span class="iast">nidhāya</span></td><td class="iast">ni-√dhā + -ya</td><td>絶対分詞</td><td>置いて</td></tr>
+        <tr><td><span class="deva">हृदि</span><br><span class="iast">hṛdi</span></td><td class="iast">hṛd</td><td>中性・処格・単数</td><td>心に</td></tr>
+        <tr><td><span class="deva">विश्वेशम्</span><br><span class="iast">viśveśam</span></td><td class="iast">viśva-īśa</td><td>男性・対格・単数</td><td>世界の主を</td></tr>
+        <tr><td><span class="deva">विधाय</span><br><span class="iast">vidhāya</span></td><td class="iast">vi-√dhā + -ya</td><td>絶対分詞</td><td>行って</td></tr>
+        <tr><td><span class="deva">गुरुवन्दनम्</span><br><span class="iast">guruvandanam</span></td><td class="iast">guru-vandana</td><td>中性・対格・単数</td><td>師への礼拝を</td></tr>
+        <tr><td><span class="deva">बालानाम्</span><br><span class="iast">bālānām</span></td><td class="iast">bāla</td><td>男性・属格・複数</td><td>初学者たちの</td></tr>
+        <tr><td><span class="deva">सुखबोधाय</span><br><span class="iast">sukhabodhāya</span></td><td class="iast">sukha-bodha</td><td>男性・為格・単数</td><td>容易な理解のために</td></tr>
+        <tr><td><span class="deva">क्रियते</span><br><span class="iast">kriyate</span></td><td class="iast">√kṛ</td><td>受動・現在・3人称単数</td><td>作られる</td></tr>
+        <tr><td><span class="deva">तर्कसंग्रहः</span><br><span class="iast">tarkasaṃgrahaḥ</span></td><td class="iast">tarka-saṃgraha</td><td>男性・主格・単数</td><td>Tarkasaṃgraha が</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="block">
+    <span class="tag t-ex">解説</span>
+    <p>サンスクリットの学術書（<span class="iast">śāstra</span>）は、正統派の慣習にしたがって吉祥の句（<span class="iast">maṅgala</span>）で始まります。ここでは神と師への敬意がそれにあたります。<span class="iast">Viśveśa</span>「世界の主」という語は、Nyāya の有神論の中心にある論証、つまり世界には作者がいるという創造論的な論証を暗示しています。</p>
+    <p>偈の後半には、書物の前提となる四項目（<span class="iast">anubandha-catuṣṭaya</span>）が込められています。近代の本なら「はしがき」に書く内容を、サンスクリットの論書は冒頭の偈で手短に述べます。</p>
+  </div>
+
+  <figure>
+    <div class="grid4">
+      <div class="card"><span class="k">viṣaya</span><span class="j">主題</span><span class="v">諸学派を統合した形の Nyāya-Vaiśeṣika の基本要素</span><span class="src">तर्कसंग्रहः</span></div>
+      <div class="card"><span class="k">prayojana</span><span class="j">目的</span><span class="v">初学者がそれをたやすく理解すること</span><span class="src">सुखबोधाय</span></div>
+      <div class="card"><span class="k">adhikārin</span><span class="j">対象読者</span><span class="v">初学者</span><span class="src">बालानाम्</span></div>
+      <div class="card"><span class="k">sambandha</span><span class="j">関係</span><span class="v">説かれるものと説くものの関係（<span class="iast">pratipādya-pratipādaka-bhāva</span>）</span><span class="src">（含意）</span></div>
+    </div>
+    <figcaption><b>図 1-1</b>四つの前提（<span class="iast">anubandha-catuṣṭaya</span>）と、偈のどの語がそれを示すか（下段のオレンジ色の語）</figcaption>
+  </figure>
+
+  <div class="block">
+    <span class="tag t-pv">補説</span>
+    <p><b>sambandha について。</b>底本によれば、<span class="iast">sambandha</span> を文字どおり「説かれるものと説くものの関係」と受け取ると、ほとんど情報がありません。「著者はこの主題を正しく扱えるので信頼してよい」という保証として読むと意味をもちます。</p>
+    <p><b>書名について。</b>Annambhaṭṭa 自身は書名を「Vaiśeṣika の実体・性質などの存在範疇のうち、Nyāya も認めるものの性質を簡潔に説き明かすもの」と解釈しています。<span class="iast">tarka</span> のふつうの意味（論理、推論、帰謬法、討論）とは少し違う用法です。底本は全体として、書名を「統合された Nyāya-Vaiśeṣika 体系の入門書」と同じ意味に解してよいとしています。</p>
+  </div>
+</section>
+
+<!-- ============ §2 ============ -->
+<section class="sutra" id="s2">
+  <div class="sutra-head"><span class="sutra-no">२<small>§2</small></span><h3>七つの padārtha</h3></div>
+
+  <div class="mula">
+    <span class="tag t-mula" style="justify-self:start">原文</span>
+    <p class="deva">द्रव्य-गुण-कर्म-सामान्य-विशेष-समवायाभावाः सप्त पदार्थाः ॥</p>
+    <p class="iast-r">dravya-guṇa-karma-sāmānya-viśeṣa-samavāyābhāvāḥ sapta padārthāḥ ||</p>
+  </div>
+
+  <div class="trans block">
+    <span class="tag t-tr">和訳</span>
+    <p>実体（<span class="iast">dravya</span>）、性質（<span class="iast">guṇa</span>）、運動（<span class="iast">karma</span>）、普遍（<span class="iast">sāmānya</span>）、特殊（<span class="iast">viśeṣa</span>）、内属（<span class="iast">samavāya</span>）、非存在（<span class="iast">abhāva</span>）が、七つの <span class="iast">padārtha</span>（範疇）である。</p>
+  </div>
+
+  <div class="block">
+    <span class="tag t-tr">語釈</span>
+    <div class="tbl"><table>
+      <thead><tr><th>語</th><th>分解・文法</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td><span class="deva">द्रव्य…अभावाः</span></td><td><span class="iast">dravya-…-samavāya-abhāva</span>。並列複合語（<span class="iast">dvandva</span>）、男性・主格・複数。<span class="iast">samavāya + abhāvāḥ → samavāyābhāvāḥ</span>（a + a → ā）</td><td>実体・…・非存在が</td></tr>
+        <tr><td><span class="deva">सप्त</span></td><td><span class="iast">saptan</span> 数詞・主格</td><td>七つの</td></tr>
+        <tr><td><span class="deva">पदार्थाः</span></td><td><span class="iast">pada-artha</span> 男性・主格・複数（a + a → ā）</td><td>語の対象（範疇）</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="block">
+    <span class="tag t-ex">解説</span>
+    <p><span class="iast">Padārtha</span> は文字どおりには「語（<span class="iast">pada</span>）の対象（<span class="iast">artha</span>）」、つまり名づけることのできるものです。定義としては「知られうるもの」（<span class="iast">jñeya</span>）、「正しく認識されうるもの」（<span class="iast">prameya</span>）、「名指されうるもの」（<span class="iast">abhidheya</span>）が用いられます。Nyāya-Vaiśeṣika は、この七範疇で知られうるもの・名づけうるものがすべて分類し尽くされると主張します。</p>
+    <p>前の六つは存在するもの（<span class="iast">bhāva-padārtha</span>）で、最後の <span class="iast">abhāva</span> だけが非存在です。非存在も私たちは正しく知ることができ、否定語はそれを指し示します。だから、知られうるものの完全な一覧から外すことはできません。</p>
+  </div>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 800 300" width="800" height="300" role="img" aria-label="七つのpadārthaの分類図">
+        <rect class="box-i" x="330" y="10" width="140" height="52" rx="6"/>
+        <text x="400" y="34" text-anchor="middle" class="dv" font-size="20">पदार्थः</text>
+        <text x="400" y="54" text-anchor="middle" class="ia" font-size="13">padārtha · 7</text>
+        <path class="ln" d="M400 62 V80 H330 V100 M400 80 H720 V100"/>
+        <rect class="box-o" x="260" y="100" width="140" height="52" rx="6"/>
+        <text x="330" y="124" text-anchor="middle" class="dv" font-size="18">भावः</text>
+        <text x="330" y="144" text-anchor="middle" class="ia" font-size="13">bhāva 存在 · 6</text>
+        <rect class="box-r" x="650" y="100" width="140" height="52" rx="6"/>
+        <text x="720" y="124" text-anchor="middle" class="dv" font-size="18">अभावः</text>
+        <text x="720" y="144" text-anchor="middle" class="ia" font-size="13">abhāva 非存在 · 1</text>
+        <path class="ln" d="M330 152 V172 H60 V196 M170 172 V196 M280 172 V196 M390 172 V196 M500 172 V196 M330 172 H610 V196"/>
+        <path class="ln" d="M720 152 V196"/>
+        <g font-size="12">
+          <rect class="box" x="12" y="196" width="96" height="92" rx="5"/>
+          <text x="60" y="220" text-anchor="middle" class="dv" font-size="17">द्रव्यम्</text>
+          <text x="60" y="238" text-anchor="middle" class="ia">dravya</text>
+          <text x="60" y="256" text-anchor="middle">実体</text>
+          <text x="60" y="278" text-anchor="middle" class="count">9 種</text>
+          <rect class="box" x="122" y="196" width="96" height="92" rx="5"/>
+          <text x="170" y="220" text-anchor="middle" class="dv" font-size="17">गुणः</text>
+          <text x="170" y="238" text-anchor="middle" class="ia">guṇa</text>
+          <text x="170" y="256" text-anchor="middle">性質</text>
+          <text x="170" y="278" text-anchor="middle" class="count">24 種</text>
+          <rect class="box" x="232" y="196" width="96" height="92" rx="5"/>
+          <text x="280" y="220" text-anchor="middle" class="dv" font-size="17">कर्म</text>
+          <text x="280" y="238" text-anchor="middle" class="ia">karma</text>
+          <text x="280" y="256" text-anchor="middle">運動</text>
+          <text x="280" y="278" text-anchor="middle" class="count">5 種</text>
+          <rect class="box" x="342" y="196" width="96" height="92" rx="5"/>
+          <text x="390" y="220" text-anchor="middle" class="dv" font-size="17">सामान्यम्</text>
+          <text x="390" y="238" text-anchor="middle" class="ia">sāmānya</text>
+          <text x="390" y="256" text-anchor="middle">普遍</text>
+          <text x="390" y="278" text-anchor="middle" class="count">2 種</text>
+          <rect class="box" x="452" y="196" width="96" height="92" rx="5"/>
+          <text x="500" y="220" text-anchor="middle" class="dv" font-size="17">विशेषः</text>
+          <text x="500" y="238" text-anchor="middle" class="ia">viśeṣa</text>
+          <text x="500" y="256" text-anchor="middle">特殊</text>
+          <text x="500" y="278" text-anchor="middle" class="count">無数</text>
+          <rect class="box" x="562" y="196" width="96" height="92" rx="5"/>
+          <text x="610" y="220" text-anchor="middle" class="dv" font-size="17">समवायः</text>
+          <text x="610" y="238" text-anchor="middle" class="ia">samavāya</text>
+          <text x="610" y="256" text-anchor="middle">内属</text>
+          <text x="610" y="278" text-anchor="middle" class="count">1 のみ</text>
+          <rect class="box" x="672" y="196" width="96" height="92" rx="5"/>
+          <text x="720" y="220" text-anchor="middle" class="dv" font-size="17">अभावः</text>
+          <text x="720" y="238" text-anchor="middle" class="ia">abhāva</text>
+          <text x="720" y="256" text-anchor="middle">非存在</text>
+          <text x="720" y="278" text-anchor="middle" class="count">4 種</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>図 2-1</b>七範疇の全体図。下段の数は §३ (क)–(छ) で示される下位区分の数。</figcaption>
+  </figure>
+
+  <div class="block">
+    <span class="tag t-pv">補説 ― 範疇の数の歴史と他学派</span>
+    <p>Kaṇāda の <span class="iast">Vaiśeṣika-sūtra</span> は、実体・性質・運動の三つを <span class="iast">artha</span> と呼びます。Praśastapāda は前の六範疇を数え、後代の Vaiśeṣika が <span class="iast">abhāva</span> を加えて七とします。Kaṇāda が <span class="iast">abhāva</span> を <span class="iast">artha</span> に含めないのは、<span class="iast">artha</span> を「存在性（<span class="iast">sattā</span>）が内属するもの」と理解しているためです。</p>
+    <div class="tbl"><table>
+      <caption>表 2-1　諸学派の padārtha 体系（底本 Part III, pp. 6–7 による）</caption>
+      <thead><tr><th>学派</th><th>数</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td>Nyāya-Vaiśeṣika（本書）</td><td>7</td><td class="iast">dravya, guṇa, karma, sāmānya, viśeṣa, samavāya, abhāva</td></tr>
+        <tr><td>Gautama（<span class="iast">Nyāya-sūtra</span> 1.1.1）</td><td>16</td><td><span class="iast">pramāṇa, prameya, saṃśaya … nigrahasthāna</span>。形而上学的な範疇ではなく、討論術を学ぶための16の論題</td></tr>
+        <tr><td>Bhāṭṭa Mīmāṃsā</td><td>5</td><td class="iast">dravya, sāmānya, guṇa, karma, abhāva</td></tr>
+        <tr><td>Prābhākara Mīmāṃsā</td><td>8</td><td><span class="iast">viśeṣa</span> を除く五つの <span class="iast">bhāva</span> ＋ <span class="iast">śakti, sādṛśya, saṃkhyā</span>（<span class="iast">abhāva</span> は認めない）</td></tr>
+        <tr><td>Sāṃkhya</td><td>2</td><td><span class="iast">prakṛti</span>（根本原質）、<span class="iast">puruṣa</span>（精神）</td></tr>
+        <tr><td>Advaita</td><td>2</td><td><span class="iast">cit / acit</span>（または <span class="iast">ātman / anātman</span>）。究極的実在は Brahman のみ</td></tr>
+        <tr><td>Viśiṣṭādvaita</td><td>3</td><td class="iast">cit, acit, Īśvara</td></tr>
+        <tr><td>Dvaita</td><td>2</td><td>独立なもの・依存するもの</td></tr>
+        <tr><td><span class="iast">Daśapadārtha-śāstra</span></td><td>10</td><td>六つの <span class="iast">bhāva</span> ＋ <span class="iast">śakti, aśakti, sāmānya-viśeṣa, abhāva</span></td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="debate">
+    <div class="turn pp"><div class="who">反論<span class="iast">pūrvapakṣa</span></div><p>（Mīmāṃsaka）障害物（<span class="iast">pratibandhaka</span>）があると、原因があっても結果は生じない。これは原因の効力（<span class="iast">śakti</span>）が破壊されたと考えるほかない。ゆえに <span class="iast">śakti</span> を独立の範疇として認めるべきだ。</p></div>
+    <div class="turn sd"><div class="who">応答<span class="iast">siddhānta</span></div><p>（Naiyāyika）障害物が<em>ないこと</em>（<span class="iast">pratibandhakābhāva</span>）が、原因の総体（<span class="iast">sāmagrī</span>）の一要素なのである。障害物があればその要素が欠けるだけで、<span class="iast">śakti</span> という別の範疇は要らない。</p></div>
+    <div class="turn pp"><div class="who">反論<span class="iast">pūrvapakṣa</span></div><p>（Prābhākara）類似性（<span class="iast">sādṛśya</span>）は経験の中に独立したものとして現れる。</p></div>
+    <div class="turn sd"><div class="who">応答<span class="iast">siddhānta</span></div><p>経験をよく分析すれば、類似性とは同種の部分・性質・特徴を共有していることにすぎない。</p></div>
+  </div>
+</section>
+
+<!-- ============ §3a ============ -->
+<section class="sutra" id="s3a">
+  <div class="sutra-head"><span class="sutra-no">३ (क)<small>§3(a)</small></span><h3>九つの dravya</h3></div>
+
+  <div class="mula">
+    <span class="tag t-mula" style="justify-self:start">原文</span>
+    <p class="deva">तत्र द्रव्याणि पृथिव्यप्-तेजो-वाय्वाकाश-काल-दिग्-आत्म-मनांसि नवैव ॥</p>
+    <p class="iast-r">tatra dravyāṇi pṛthivy-ap-tejo-vāyv-ākāśa-kāla-dig-ātma-manāṃsi navaiva ||</p>
+  </div>
+
+  <div class="trans block">
+    <span class="tag t-tr">和訳</span>
+    <p>そのうち実体は、地・水・火・風・虚空・時間・方角・自己・意（<span class="iast">manas</span>）の九つ<b>だけ</b>である。</p>
+  </div>
+
+  <div class="block">
+    <span class="tag t-tr">語釈</span>
+    <div class="tbl"><table>
+      <thead><tr><th>語</th><th>分解・文法</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td><span class="deva">तत्र</span></td><td class="iast">tatra（不変化詞）</td><td>そのうち（七範疇のうち）</td></tr>
+        <tr><td><span class="deva">द्रव्याणि</span></td><td><span class="iast">dravya</span> 中性・主格・複数</td><td>実体は</td></tr>
+        <tr><td><span class="deva">पृथिव्यप्…मनांसि</span></td><td>並列複合語、中性・主格・複数。<span class="iast">pṛthivī + ap → pṛthivyap</span>（ī → y）、<span class="iast">vāyu + ākāśa → vāyvākāśa</span>（u → v）</td><td>地・水・…・意が</td></tr>
+        <tr><td><span class="deva">नवैव</span></td><td><span class="iast">nava + eva</span>（a + e → ai）</td><td>九つだけ</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="tbl"><table>
+    <caption>表 3-1　九つの実体と、後の節で与えられる定義（→ §४–१२）</caption>
+    <thead><tr><th></th><th>実体</th><th>定義（lakṣaṇa）</th><th>数と性格</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td><span class="deva">पृथिवी</span><br><span class="iast">pṛthivī</span> 地</td><td><span class="deva">गन्धवती</span> 香をもつもの</td><td>原子は常住・所産は無常</td></tr>
+      <tr><td class="num">2</td><td><span class="deva">आपः</span><br><span class="iast">ap</span> 水</td><td><span class="deva">शीतस्पर्शवत्यः</span> 冷たい触をもつもの</td><td>同上</td></tr>
+      <tr><td class="num">3</td><td><span class="deva">तेजः</span><br><span class="iast">tejas</span> 火・光</td><td><span class="deva">उष्णस्पर्शवत्</span> 熱い触をもつもの</td><td>同上</td></tr>
+      <tr><td class="num">4</td><td><span class="deva">वायुः</span><br><span class="iast">vāyu</span> 風</td><td><span class="deva">रूपरहितः स्पर्शवान्</span> 色がなく触をもつもの</td><td>同上</td></tr>
+      <tr><td class="num">5</td><td><span class="deva">आकाशम्</span><br><span class="iast">ākāśa</span> 虚空</td><td><span class="deva">शब्दगुणकम्</span> 音を性質とするもの</td><td>一つ・遍在・常住</td></tr>
+      <tr><td class="num">6</td><td><span class="deva">कालः</span><br><span class="iast">kāla</span> 時間</td><td><span class="deva">अतीतादिव्यवहारहेतुः</span> 「過去」などと言う根拠</td><td>一つ・遍在・常住</td></tr>
+      <tr><td class="num">7</td><td><span class="deva">दिक्</span><br><span class="iast">dik</span> 方角</td><td><span class="deva">प्राच्यादिव्यवहारहेतुः</span> 「東」などと言う根拠</td><td>一つ・遍在・常住</td></tr>
+      <tr><td class="num">8</td><td><span class="deva">आत्मा</span><br><span class="iast">ātman</span> 自己</td><td><span class="deva">ज्ञानाधिकरणम्</span> 認識の基体</td><td>神は一つ、個我は身体ごとに別・遍在・常住</td></tr>
+      <tr><td class="num">9</td><td><span class="deva">मनः</span><br><span class="iast">manas</span> 意</td><td><span class="deva">सुखाद्युपलब्धिसाधनमिन्द्रियम्</span> 楽などを知覚する器官</td><td>自己ごとに一つ・原子大・常住</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="block">
+    <span class="tag t-ex">解説 ― 「だけ」（eva）の働き</span>
+    <p><span class="deva">नवैव</span> の <span class="iast">eva</span>「だけ」は、Mīmāṃsaka が十番目の実体とする「闇」（<span class="iast">tamas</span>）を除くために置かれています。</p>
+  </div>
+  <div class="debate">
+    <div class="turn pp"><div class="who">反論<span class="iast">pūrvapakṣa</span></div><p>（Mīmāṃsaka）「闇は青い」「闇が動く」と経験する。色と運動をもつのだから闇は実体であり、九つのどれにも当たらないので第十の実体である。</p></div>
+    <div class="turn sd"><div class="who">応答<span class="iast">siddhānta</span></div><p>色をもつ実体は光があるときにしか見えない。闇は光がないときに見えるのだから、色をもつ実体ではありえない。闇とは、通常の知覚に必要な光が完全に欠けていること（<span class="iast">abhāva</span>）にすぎない。</p></div>
+  </div>
+
+  <div class="subsec">
+    <h4>uddeśa・lakṣaṇa・parīkṣā ― Nyāya の説明法</h4>
+    <p>九つを数え上げただけでは定義になりません。Vātsyāyana（<span class="iast">Nyāya-bhāṣya</span> 1.2.3 序）によれば、完全な説明は三段階からなります。</p>
+    <figure>
+      <div class="canvas">
+        <svg viewBox="0 0 720 120" width="720" height="120" role="img" aria-label="uddeśa lakṣaṇa parīkṣā の三段階">
+          <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="fill-i"/></marker></defs>
+          <rect class="box-o" x="10" y="14" width="200" height="92" rx="6"/>
+          <text x="110" y="42" text-anchor="middle" class="dv" font-size="19">उद्देशः</text>
+          <text x="110" y="62" text-anchor="middle" class="ia" font-size="13">uddeśa（＋vibhāga）</text>
+          <text x="110" y="84" text-anchor="middle" font-size="12">名を挙げ、区分する</text>
+          <text x="110" y="100" text-anchor="middle" font-size="11" class="soft">本書 §१–३</text>
+          <path class="ln-i" d="M212 60 H252" marker-end="url(#ar)"/>
+          <rect class="box-i" x="260" y="14" width="200" height="92" rx="6"/>
+          <text x="360" y="42" text-anchor="middle" class="dv" font-size="19">लक्षणम्</text>
+          <text x="360" y="62" text-anchor="middle" class="ia" font-size="13">lakṣaṇa</text>
+          <text x="360" y="84" text-anchor="middle" font-size="12">定義を与える</text>
+          <text x="360" y="100" text-anchor="middle" font-size="11" class="soft">本書 §४ 以降</text>
+          <path class="ln-i" d="M462 60 H502" marker-end="url(#ar)"/>
+          <rect class="box-l" x="510" y="14" width="200" height="92" rx="6"/>
+          <text x="610" y="42" text-anchor="middle" class="dv" font-size="19">परीक्षा</text>
+          <text x="610" y="62" text-anchor="middle" class="ia" font-size="13">parīkṣā</text>
+          <text x="610" y="84" text-anchor="middle" font-size="12">定義を検討する</text>
+          <text x="610" y="100" text-anchor="middle" font-size="11" class="soft">注釈書の議論</text>
+        </svg>
+      </div>
+      <figcaption><b>図 3-1</b>Nyāya の説明の三段階</figcaption>
+    </figure>
+  </div>
+
+  <div class="subsec">
+    <h4>定義（lakṣaṇa）の三つの誤り</h4>
+    <p>Nyāya の定義は、語の内包を説明するだけのものではありません。定義されるもの（<span class="iast">lakṣya</span>）だけがもつ固有の特徴（<span class="iast">asādhāraṇa-dharma</span>）を示します。その特徴は、次の三つの誤りを免れていなければなりません。</p>
+    <figure>
+      <div class="canvas">
+        <svg viewBox="0 0 720 210" width="720" height="210" role="img" aria-label="定義の三つの誤りの図">
+          <text x="90" y="20" text-anchor="middle" font-size="13" font-weight="700">正しい定義</text>
+          <circle cx="90" cy="105" r="62" class="box-i"/>
+          <circle cx="90" cy="105" r="62" class="ln-o" stroke-dasharray="6 4"/>
+          <text x="90" y="100" text-anchor="middle" font-size="12">定義域 ＝</text>
+          <text x="90" y="118" text-anchor="middle" font-size="12">lakṣya</text>
+          <text x="90" y="195" text-anchor="middle" font-size="11" class="ia">sāsnādimattva（喉の垂れ肉）</text>
+
+          <text x="270" y="20" text-anchor="middle" font-size="13" font-weight="700" class="fill-r">ativyāpti 過大</text>
+          <circle cx="270" cy="105" r="48" class="box-i"/>
+          <circle cx="270" cy="105" r="72" class="ln-o" stroke-dasharray="6 4"/>
+          <text x="270" y="110" text-anchor="middle" font-size="12">lakṣya</text>
+          <text x="270" y="195" text-anchor="middle" font-size="11" class="ia">śṛṅgitva（角がある）</text>
+
+          <text x="450" y="20" text-anchor="middle" font-size="13" font-weight="700" class="fill-r">avyāpti 一部不適用</text>
+          <circle cx="450" cy="105" r="62" class="box-i"/>
+          <circle cx="425" cy="95" r="30" class="ln-o" stroke-dasharray="6 4"/>
+          <text x="470" y="140" text-anchor="middle" font-size="12">lakṣya</text>
+          <text x="450" y="195" text-anchor="middle" font-size="11" class="ia">kapilatva（褐色）</text>
+
+          <text x="630" y="20" text-anchor="middle" font-size="13" font-weight="700" class="fill-r">asambhava 全く不適用</text>
+          <circle cx="610" cy="105" r="50" class="box-i"/>
+          <circle cx="680" cy="70" r="26" class="ln-o" stroke-dasharray="6 4"/>
+          <text x="600" y="110" text-anchor="middle" font-size="12">lakṣya</text>
+          <text x="630" y="195" text-anchor="middle" font-size="11" class="ia">ekaśaphatva（蹄が割れていない）</text>
+        </svg>
+      </div>
+      <figcaption><b>図 3-2</b>牛（<span class="iast">gauḥ</span>）を定義する例。塗りの円が定義される牛全体（<span class="iast">lakṣya</span>）、点線の円が定義が当てはまる範囲。正しい定義の例 <span class="iast">sāsnādimattva</span> は伝統的な例で、他の三つは底本の例。</figcaption>
+    </figure>
+    <div class="keypoint">
+      <p><b>定義の目的</b>：<span class="cite">vyāvṛttir vyavahāro vā lakṣaṇasya prayojanam</span></p>
+      <p>定義の目的は「他との区別（<span class="iast">vyāvṛtti</span>）」か「名指し（<span class="iast">vyavahāra</span>）」である。たとえば「香をもつ」は地を地でないものから区別し、それを推論する正しい根拠（<span class="iast">hetu</span>）にもなる。</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ §3b ============ -->
+<section class="sutra" id="s3b">
+  <div class="sutra-head"><span class="sutra-no">३ (ख)<small>§3(b)</small></span><h3>二十四の guṇa</h3></div>
+
+  <div class="mula">
+    <span class="tag t-mula" style="justify-self:start">原文</span>
+    <p class="deva">रूप-रस-गन्ध-स्पर्श-संख्या-परिमाण-पृथक्त्व-संयोग-विभाग-परत्वापरत्व-गुरुत्व-द्रवत्व-स्नेह-शब्द-बुद्धि-सुख-दुःखेच्छा-द्वेष-प्रयत्न-धर्माधर्म-संस्काराः चतुर्विंशतिर्गुणाः ॥</p>
+    <p class="iast-r">rūpa-rasa-gandha-sparśa-saṃkhyā-parimāṇa-pṛthaktva-saṃyoga-vibhāga-paratvāparatva-gurutva-dravatva-sneha-śabda-buddhi-sukha-duḥkhecchā-dveṣa-prayatna-dharmādharma-saṃskārāḥ caturviṃśatir guṇāḥ ||</p>
+  </div>
+
+  <div class="trans block">
+    <span class="tag t-tr">和訳</span>
+    <p>色・味・香・触・数・量・別異性・結合・分離・遠さ・近さ・重さ・流動性・粘性・音・認識・楽・苦・欲求・嫌悪・努力・功徳・罪過・潜在的形成力が、二十四の性質である。</p>
+  </div>
+
+  <div class="tbl"><table>
+    <caption>表 3-2　二十四の guṇa（<span class="mk mk-v">特殊</span> 特殊性質 viśeṣa-guṇa ／ <span class="mk mk-s">一般</span> 一般性質 sāmānya-guṇa ／ <span class="dag">†</span> 底本が独立の性質とすることに疑問を呈するもの）</caption>
+    <thead><tr><th></th><th>Devanāgarī</th><th>IAST</th><th>意味</th><th>区分</th></tr></thead>
+    <tbody>
+      <tr><td class="num">1</td><td class="deva">रूपम्</td><td class="iast">rūpa</td><td>色</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">2</td><td class="deva">रसः</td><td class="iast">rasa</td><td>味</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">3</td><td class="deva">गन्धः</td><td class="iast">gandha</td><td>香</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">4</td><td class="deva">स्पर्शः</td><td class="iast">sparśa</td><td>触</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">5</td><td class="deva">संख्या</td><td class="iast">saṃkhyā</td><td>数</td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">6</td><td class="deva">परिमाणम्</td><td class="iast">parimāṇa</td><td>量（大きさ）</td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">7</td><td class="deva">पृथक्त्वम्</td><td class="iast">pṛthaktva</td><td>別異性 <span class="dag">†</span></td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">8</td><td class="deva">संयोगः</td><td class="iast">saṃyoga</td><td>結合</td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">9</td><td class="deva">विभागः</td><td class="iast">vibhāga</td><td>分離 <span class="dag">†</span></td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">10</td><td class="deva">परत्वम्</td><td class="iast">paratva</td><td>遠さ <span class="dag">†</span></td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">11</td><td class="deva">अपरत्वम्</td><td class="iast">aparatva</td><td>近さ <span class="dag">†</span></td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">12</td><td class="deva">गुरुत्वम्</td><td class="iast">gurutva</td><td>重さ</td><td><span class="mk mk-s">一般</span></td></tr>
+      <tr><td class="num">13</td><td class="deva">द्रवत्वम्</td><td class="iast">dravatva</td><td>流動性</td><td><span class="mk mk-b">両方</span> 自然の流動性は特殊</td></tr>
+      <tr><td class="num">14</td><td class="deva">स्नेहः</td><td class="iast">sneha</td><td>粘性</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">15</td><td class="deva">शब्दः</td><td class="iast">śabda</td><td>音</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">16</td><td class="deva">बुद्धिः</td><td class="iast">buddhi</td><td>認識</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">17</td><td class="deva">सुखम्</td><td class="iast">sukha</td><td>楽</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">18</td><td class="deva">दुःखम्</td><td class="iast">duḥkha</td><td>苦</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">19</td><td class="deva">इच्छा</td><td class="iast">icchā</td><td>欲求</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">20</td><td class="deva">द्वेषः</td><td class="iast">dveṣa</td><td>嫌悪</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">21</td><td class="deva">प्रयत्नः</td><td class="iast">prayatna</td><td>努力</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">22</td><td class="deva">धर्मः</td><td class="iast">dharma</td><td>功徳</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">23</td><td class="deva">अधर्मः</td><td class="iast">adharma</td><td>罪過</td><td><span class="mk mk-v">特殊</span></td></tr>
+      <tr><td class="num">24</td><td class="deva">संस्कारः</td><td class="iast">saṃskāra</td><td>潜在的形成力</td><td><span class="mk mk-b">両方</span> 記憶の潜在印象（<span class="iast">bhāvanā</span>）は特殊</td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="block">
+    <span class="tag t-ex">解説</span>
+    <p><b>特殊性質（<span class="iast">viśeṣa-guṇa</span>）</b>とは、二種類以上の実体に共通して見られることがない性質です。それ以外が<b>一般性質（<span class="iast">sāmānya-guṇa</span>）</b>です。</p>
+    <p>Patañjali の <span class="iast">Mahābhāṣya</span> は <span class="iast">guṇa</span> を次のように描きます。</p>
+    <p class="cite">sattve niviśate ’paiti pṛthag jātiṣu vartate |<br>ādheyaś cākriyājaś ca so ’sattvaprakṛtir guṇaḥ ||</p>
+    <p>平たく言えば、<span class="iast">guṇa</span> は実体に内属し、常住なものも無常なものもあり、実体でも運動でもないものです。文法家の理解は、実用上 Naiyāyika のものと同じです。</p>
+  </div>
+  <div class="block">
+    <span class="tag t-pv">補説 ― 「guṇa」の多義性と底本の批判</span>
+    <div class="tbl"><table>
+      <thead><tr><th>学派</th><th><span class="iast">guṇa</span> の意味</th></tr></thead>
+      <tbody>
+        <tr><td>Nyāya-Vaiśeṣika</td><td>実体に内属する性質（24種）。術語として厳密</td></tr>
+        <tr><td>Mīmāṃsā</td><td>性質、または「従属的なもの・付随的なもの」</td></tr>
+        <tr><td>Sāṃkhya</td><td><span class="iast">prakṛti</span> を構成する三本の撚り糸：<span class="iast">sattva, rajas, tamas</span></td></tr>
+        <tr><td>Vedānta</td><td>属性（<span class="iast">dharma</span>）一般</td></tr>
+        <tr><td>詩学・一般用法</td><td>文学的な美点、長所</td></tr>
+      </tbody>
+    </table></div>
+    <p>底本は † 印の四つ（<span class="iast">pṛthaktva, vibhāga, paratva, aparatva</span>）を独立の性質とする必要はないと述べます。別異性は「相互非存在」（<span class="iast">anyonyābhāva</span>）と変わらず、分離は「結合の消滅」（<span class="iast">saṃyoganāśa</span>）とほぼ区別できず、遠さ・近さは間にある結合の数の多少にすぎないからです。新派（Navya-Nyāya）にもこれらを捨てる論者がいます。それでも伝統的な一覧に残っているのは、思考や言葉の一つ一つに外界の実在を対応させようとする実在論への強いこだわりのためだ、と底本は述べています。</p>
+  </div>
+</section>
+
+<!-- ============ §3c ============ -->
+<section class="sutra" id="s3c">
+  <div class="sutra-head"><span class="sutra-no">३ (ग)<small>§3(c)</small></span><h3>五つの karma</h3></div>
+
+  <div class="mula">
+    <span class="tag t-mula" style="justify-self:start">原文</span>
+    <p class="deva">उत्क्षेपणावक्षेपणाकुञ्चन-प्रसारण-गमनानि पञ्च कर्माणि ॥</p>
+    <p class="iast-r">utkṣepaṇāvakṣepaṇākuñcana-prasāraṇa-gamanāni pañca karmāṇi ||</p>
+  </div>
+
+  <div class="trans block">
+    <span class="tag t-tr">和訳</span>
+    <p>上へ投げる運動・下へ投げる運動・縮む運動・伸びる運動・進む運動が、五つの運動である。</p>
+  </div>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 720 150" width="720" height="150" role="img" aria-label="五つの運動の図">
+        <defs><marker id="ao" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="fill-o"/></marker></defs>
+        <g font-size="12">
+          <circle cx="72" cy="58" r="9" class="fill-i"/><path class="ln-o" d="M72 46 V14" marker-end="url(#ao)"/>
+          <text x="72" y="100" text-anchor="middle" class="dv" font-size="16">उत्क्षेपणम्</text>
+          <text x="72" y="118" text-anchor="middle" class="ia">utkṣepaṇa</text>
+          <text x="72" y="136" text-anchor="middle">上方の場所と結合</text>
+
+          <circle cx="216" cy="22" r="9" class="fill-i"/><path class="ln-o" d="M216 34 V68" marker-end="url(#ao)"/>
+          <text x="216" y="100" text-anchor="middle" class="dv" font-size="16">अवक्षेपणम्</text>
+          <text x="216" y="118" text-anchor="middle" class="ia">avakṣepaṇa</text>
+          <text x="216" y="136" text-anchor="middle">下方の場所と結合</text>
+
+          <circle cx="360" cy="44" r="8" class="fill-i"/>
+          <path class="ln-o" d="M318 44 H346" marker-end="url(#ao)"/><path class="ln-o" d="M402 44 H374" marker-end="url(#ao)"/>
+          <text x="360" y="100" text-anchor="middle" class="dv" font-size="16">आकुञ्चनम्</text>
+          <text x="360" y="118" text-anchor="middle" class="ia">ākuñcana</text>
+          <text x="360" y="136" text-anchor="middle">身体に近いものと結合</text>
+
+          <circle cx="504" cy="44" r="8" class="fill-i"/>
+          <path class="ln-o" d="M492 44 H462" marker-end="url(#ao)"/><path class="ln-o" d="M516 44 H546" marker-end="url(#ao)"/>
+          <text x="504" y="100" text-anchor="middle" class="dv" font-size="16">प्रसारणम्</text>
+          <text x="504" y="118" text-anchor="middle" class="ia">prasāraṇa</text>
+          <text x="504" y="136" text-anchor="middle">遠いものと結合</text>
+
+          <circle cx="618" cy="44" r="8" class="fill-i"/>
+          <path class="ln-o" d="M630 44 C660 14,690 74,706 40" marker-end="url(#ao)"/>
+          <text x="648" y="100" text-anchor="middle" class="dv" font-size="16">गमनम्</text>
+          <text x="648" y="118" text-anchor="middle" class="ia">gamana</text>
+          <text x="648" y="136" text-anchor="middle">それ以外すべて</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>図 3-3</b>五種の運動。下段の説明は後の定義（→ §४४）による。</figcaption>
+  </figure>
+
+  <div class="block">
+    <span class="tag t-ex">解説 ― 運動は四刹那だけ続く</span>
+    <p>Vaiśeṣika と Nyāya によれば、運動の本質は「分離」→「前の場所との結合の消滅」→「次の場所との結合」を引き起こすことです。それぞれが一刹那（<span class="iast">kṣaṇa</span>、時間の最小単位）を占めます。</p>
+    <p class="cite">kriyā, tato vibhāgaḥ, tataḥ pūrvadeśasaṃyoganāśaḥ, tataḥ uttaradeśasaṃyogaḥ, tataḥ kriyānāśaḥ</p>
+  </div>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 720 170" width="720" height="170" role="img" aria-label="運動の五刹那の図">
+        <defs><marker id="ai2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="fill-i"/></marker></defs>
+        <g font-size="12">
+          <text x="76" y="18" text-anchor="middle" class="soft">第1刹那</text>
+          <text x="214" y="18" text-anchor="middle" class="soft">第2刹那</text>
+          <text x="352" y="18" text-anchor="middle" class="soft">第3刹那</text>
+          <text x="490" y="18" text-anchor="middle" class="soft">第4刹那</text>
+          <text x="628" y="18" text-anchor="middle" class="soft">第5刹那</text>
+          <rect class="box-o" x="12" y="28" width="128" height="62" rx="5"/>
+          <text x="76" y="52" text-anchor="middle" class="dv" font-size="15">क्रिया</text>
+          <text x="76" y="70" text-anchor="middle" class="ia">kriyā</text>
+          <text x="76" y="84" text-anchor="middle" font-size="11">運動の発生</text>
+          <path class="ln-i" d="M142 59 H148" marker-end="url(#ai2)"/>
+          <rect class="box" x="150" y="28" width="128" height="62" rx="5"/>
+          <text x="214" y="52" text-anchor="middle" class="dv" font-size="15">विभागः</text>
+          <text x="214" y="70" text-anchor="middle" class="ia">vibhāga</text>
+          <text x="214" y="84" text-anchor="middle" font-size="11">分離</text>
+          <path class="ln-i" d="M280 59 H286" marker-end="url(#ai2)"/>
+          <rect class="box" x="288" y="28" width="128" height="62" rx="5"/>
+          <text x="352" y="50" text-anchor="middle" class="dv" font-size="13">पूर्वदेशसंयोगनाशः</text>
+          <text x="352" y="68" text-anchor="middle" class="ia" font-size="10">pūrvadeśasaṃyoganāśa</text>
+          <text x="352" y="84" text-anchor="middle" font-size="11">前の場所との結合が消滅</text>
+          <path class="ln-i" d="M418 59 H424" marker-end="url(#ai2)"/>
+          <rect class="box" x="426" y="28" width="128" height="62" rx="5"/>
+          <text x="490" y="50" text-anchor="middle" class="dv" font-size="13">उत्तरदेशसंयोगः</text>
+          <text x="490" y="68" text-anchor="middle" class="ia" font-size="10">uttaradeśasaṃyoga</text>
+          <text x="490" y="84" text-anchor="middle" font-size="11">次の場所と結合</text>
+          <path class="ln-i" d="M556 59 H562" marker-end="url(#ai2)"/>
+          <rect class="box-r" x="564" y="28" width="128" height="62" rx="5"/>
+          <text x="628" y="52" text-anchor="middle" class="dv" font-size="15">क्रियानाशः</text>
+          <text x="628" y="70" text-anchor="middle" class="ia">kriyānāśa</text>
+          <text x="628" y="84" text-anchor="middle" font-size="11">運動の消滅</text>
+          <path class="ln-l" d="M16 116 H550"/>
+          <text x="283" y="140" text-anchor="middle">運動（kriyā）が存在する4刹那。第4刹那で目的を果たす</text>
+          <path class="ln-r" d="M568 116 H688"/>
+          <text x="628" y="140" text-anchor="middle">消滅</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>図 3-4</b>一つの運動の生涯</figcaption>
+  </figure>
+
+  <div class="keypoint">
+    <p><b>系（corollary）：運動は運動を生まない。</b></p>
+    <p>後の運動の原因として前の運動を考えようとすると、第2〜4刹那では前の運動がまだ目的を果たしている最中で、後の運動の生じる余地がありません。第5刹那では前の運動はすでに消えているので、原因になれません。</p>
+  </div>
+
+  <div class="block">
+    <span class="tag t-pv">補説 ― 「karma」と紛らわしい語</span>
+    <div class="tbl"><table>
+      <thead><tr><th>語</th><th>意味</th><th>ここでの karma との関係</th></tr></thead>
+      <tbody>
+        <tr><td class="iast">karma / kriyā</td><td>運動（本節の意味）</td><td>日常語では同義</td></tr>
+        <tr><td class="iast">kṛti = yatna</td><td>意志的努力。随意運動の直前に必ずある内的過程</td><td>性質（guṇa）であり運動ではない</td></tr>
+        <tr><td class="iast">karman（文法）</td><td>動作の目的語</td><td>別物</td></tr>
+        <tr><td class="iast">karman（業）</td><td>行為が残す見えない潜在力（「業説」「<span class="iast">prārabdha-karma</span>」）</td><td>別物</td></tr>
+      </tbody>
+    </table></div>
+    <p>Kaṇāda 以来のこの五分類は、Nīlakaṇṭha（<span class="iast">Prakāśikā</span>）らも指摘するとおり不十分です。広い意味の <span class="iast">gamana</span> は他の四つをすべて含んでしまうからです。文法家（Vaiyākaraṇa）にとっての <span class="iast">kriyā</span> は動詞語根が表すもので、多くの動作（<span class="iast">vyāpāra</span>）が順に起こる過程です。Prābhākara は運動を感官で知覚できないものとし、分離に続く結合から推論されるだけだと考えます。</p>
+  </div>
+</section>
+
+<!-- ============ §3d–f ============ -->
+<section class="sutra" id="s3d">
+  <div class="sutra-head"><span class="sutra-no">३ (घ)(ङ)(च)<small>§3(d)–(f)</small></span><h3>sāmānya・viśeṣa・samavāya</h3></div>
+
+  <div class="mula">
+    <span class="tag t-mula" style="justify-self:start">原文</span>
+    <p class="deva">(घ) परम् अपरं चेति द्विविधं सामान्यम् ॥<br>(ङ) नित्यद्रव्यवृत्तयो विशेषास्तु अनन्ता एव ॥<br>(च) समवायस्तु एक एव ॥</p>
+    <p class="iast-r">(d) param aparaṃ ceti dvividhaṃ sāmānyam ||<br>(e) nityadravyavṛttayo viśeṣās tu anantā eva ||<br>(f) samavāyas tu eka eva ||</p>
+  </div>
+
+  <div class="trans block">
+    <span class="tag t-tr">和訳</span>
+    <p>(d) 普遍には、より広いもの（<span class="iast">para</span>）とより狭いもの（<span class="iast">apara</span>）の二種がある。<br>(e) 一方、特殊は常住な実体に存し、無数である。<br>(f) 一方、内属はただ一つである。</p>
+  </div>
+
+  <div class="block">
+    <span class="tag t-tr">語釈</span>
+    <div class="tbl"><table>
+      <thead><tr><th>語</th><th>分解・文法</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td><span class="deva">चेति</span></td><td><span class="iast">ca + iti</span>（a + i → e）</td><td>「…と…」と</td></tr>
+        <tr><td><span class="deva">नित्यद्रव्यवृत्तयः</span></td><td><span class="iast">nitya-dravya-vṛtti</span>、所有複合語、男性・主格・複数</td><td>常住な実体に存在するもの</td></tr>
+        <tr><td><span class="deva">विशेषास्तु</span></td><td><span class="iast">viśeṣāḥ + tu</span>（ḥ → s、t の前）</td><td>特殊は一方</td></tr>
+        <tr><td><span class="deva">अनन्ताः</span></td><td><span class="iast">an-anta</span> 男性・主格・複数</td><td>果てしない、無数の</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+
+  <div class="subsec">
+    <h4>(घ) sāmānya ＝ jāti（→ §४५）</h4>
+    <p>日常語の <span class="iast">sāmānya</span> は「共通点」ですが、Nyāya の術語では <span class="iast">jāti</span>（類）と同じです。あるクラスに属するすべての個体（<span class="iast">vyakti</span>）に内属する、常住の類的特徴です。個々の人間は生まれては死にますが、「人間性」（<span class="iast">manuṣyatva</span>）は人類の誕生以前からあり、人類が滅んだ後もあり続けます。</p>
+    <div class="keypoint">
+      <p><b>なぜ jāti を認めるのか。</b>人を見ても獣を見ても、私たちの経験は必ず「これは人だ」「これは獣だ」という一様な形をとります。この一様さは、共通の類的特徴を想定しないと説明できません。そのうえで思考の節約（<span class="iast">lāghava</span>）の原則により、それを「常住・単一・内属によって結びつくもの」すなわち <span class="iast">jāti</span> とみなします。</p>
+    </div>
+    <figure>
+      <div class="nest" role="img" aria-label="jātiの包摂関係">
+        <div><span class="lab"><span class="deva">सत्ता</span><span class="iast">sattā</span>存在性<span class="tagline">最も広い（para）。dravya・guṇa・karma に内属</span></span>
+          <div><span class="lab"><span class="deva">द्रव्यत्वम्</span><span class="iast">dravyatva</span>実体性<span class="tagline">sattā より狭く、pṛthivītva より広い（parāpara）</span></span>
+            <div><span class="lab"><span class="deva">पृथिवीत्वम्</span><span class="iast">pṛthivītva</span>地性</span>
+              <div><span class="lab"><span class="deva">घटत्वम्</span><span class="iast">ghaṭatva</span>壺性<span class="tagline">最も狭い（apara）。最下位の類 antya-jāti</span></span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <figcaption><b>図 3-5</b><span class="iast">jāti</span> の系列。外側ほど広い（<span class="iast">para</span>）、内側ほど狭い（<span class="iast">apara</span>）。どの系列でも最上位は <span class="iast">sattā</span> ただ一つです。</figcaption>
+    </figure>
+    <div class="tbl"><table>
+      <caption>表 3-3　jāti と紛らわしいもの</caption>
+      <thead><tr><th>種類</th><th>個体との関係</th><th>例</th></tr></thead>
+      <tbody>
+        <tr><td><span class="iast">jāti</span>（類）</td><td>内属（<span class="iast">samavāya</span>）</td><td><span class="iast">ghaṭatva, manuṣyatva, dravyatva</span></td></tr>
+        <tr><td><span class="iast">akhaṇḍopādhi</span>（不可分の付加的特徴）</td><td>自己関係（<span class="iast">svarūpa-sambandha</span>）</td><td><span class="iast">viṣayatātva, pratiyogitātva</span></td></tr>
+        <tr><td><span class="iast">sakhaṇḍopādhi</span>（分析可能な付加的特徴）</td><td>間接的関係（<span class="iast">paramparā-sambandha</span>）</td><td><span class="iast">mūrtatva</span> ＝「運動の基体であること」</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">Kaṇāda の「<span class="iast">sāmānyaṃ viśeṣa iti buddhyapekṣam</span>」（VS 1.2.3）を、<span class="iast">jāti</span> を思考の中だけのものとする概念論と読むのは誤りだ、と底本は強調します。同じ <span class="iast">dravyatva</span> でも、実体をまとめる面から見れば <span class="iast">sāmānya</span>、実体を性質・運動から区別する面から見れば <span class="iast">viśeṣa</span>（差異）になる、という意味です。</p>
+  </div>
+
+  <div class="subsec">
+    <h4>(ङ) viśeṣa（→ §४६）</h4>
+    <p>壺や布のように部分からなるものは、部分の違いで互いを区別できます。しかし同じ地の原子どうしは、性質・運動・類がまったく同じです。それでも聖者やヨーギンの超常的知覚（<span class="iast">alaukika-pratyakṣa</span>）は、一つの原子を別の原子から区別します。知覚が区別するには区別する特徴が必要なので、常住の実体の一つ一つに固有の <span class="iast">viśeṣa</span> を認めます。</p>
+    <div class="tbl"><table>
+      <caption>表 3-4　viśeṣa の性格</caption>
+      <tbody>
+        <tr><th>所在</th><td>常住の実体（四元素の原子、虚空、自己、意 …）。数だけ無数にある</td></tr>
+        <tr><th>関係</th><td>基体に内属（<span class="iast">samavāya</span>）する。常住</td></tr>
+        <tr><th>自己区別</th><td>自らを区別する（<span class="iast">svato-vyāvartaka</span>）。別の特徴で区別すると無限遡行（<span class="iast">anavasthā</span>）になる</td></tr>
+        <tr><th>類をもたない</th><td>「<span class="iast">viśeṣatva</span>」という <span class="iast">jāti</span> は認められない</td></tr>
+        <tr><th>名前</th><td><span class="iast">antya-viśeṣa</span>「究極の特殊」とも呼ばれる</td></tr>
+      </tbody>
+    </table></div>
+    <p class="note">解脱した個我（<span class="iast">mukta</span>）とその意は、もはや経験の違いで区別できません。そのため、個我と意それぞれに <span class="iast">viśeṣa</span> が必要だという点では Naiyāyika の意見は一致しています。虚空・時間・方角については議論があり、Raghunātha Śiromaṇi は時間と方角を神（<span class="iast">Īśvara</span>）に含めます。</p>
+  </div>
+
+  <div class="subsec">
+    <h4>(च) samavāya（→ §४७）</h4>
+    <p>内属は唯一・常住の関係で、「切り離しては成り立たない二つ」（<span class="iast">ayutasiddha</span>）をつなぎます。§४७ の原文は次のとおりです。</p>
+    <p class="deva" style="font-size:1.2rem">नित्यसम्बन्धः समवायः, अयुतसिद्धवृत्तिः ।</p>
+    <div class="tbl"><table>
+      <caption>表 3-5　内属で結ばれる五つの組（§४७）</caption>
+      <thead><tr><th></th><th>依存する側</th><th>基体</th><th>例</th></tr></thead>
+      <tbody>
+        <tr><td class="num">1</td><td>全体 <span class="iast">avayavin</span></td><td>部分 <span class="iast">avayava</span></td><td>布 ― 糸</td></tr>
+        <tr><td class="num">2</td><td>性質 <span class="iast">guṇa</span></td><td>性質をもつもの <span class="iast">guṇin</span></td><td>壺の色 ― 壺</td></tr>
+        <tr><td class="num">3</td><td>運動 <span class="iast">kriyā</span></td><td>運動するもの <span class="iast">kriyāvat</span></td><td>投げられた石の運動 ― 石</td></tr>
+        <tr><td class="num">4</td><td>類 <span class="iast">jāti</span></td><td>個体 <span class="iast">vyakti</span></td><td><span class="iast">ghaṭatva</span> ― 壺</td></tr>
+        <tr><td class="num">5</td><td>特殊 <span class="iast">viśeṣa</span></td><td>常住の実体 <span class="iast">nityadravya</span></td><td>原子の <span class="iast">viśeṣa</span> ― 原子</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</section>
+
+<!-- ============ §3g ============ -->
+<section class="sutra" id="s3g">
+  <div class="sutra-head"><span class="sutra-no">३ (छ)<small>§3(g)</small></span><h3>四つの abhāva</h3></div>
+
+  <div class="mula">
+    <span class="tag t-mula" style="justify-self:start">原文</span>
+    <p class="deva">अभावः चतुर्विधः, प्रागभावः, प्रध्वंसाभावः, अत्यन्ताभावः, अन्योन्याभावश्च इति ॥</p>
+    <p class="iast-r">abhāvaś caturvidhaḥ — prāgabhāvaḥ, pradhvaṃsābhāvaḥ, atyantābhāvaḥ, anyonyābhāvaś ca iti ||</p>
+  </div>
+
+  <div class="trans block">
+    <span class="tag t-tr">和訳</span>
+    <p>非存在には四種ある。先行非存在、消滅後非存在、絶対非存在、相互非存在である。</p>
+  </div>
+
+  <div class="block">
+    <span class="tag t-ex">解説</span>
+    <p><span class="iast">abhāva</span> の訳語には「非存在」と「否定」がありますが、底本は「非存在」を選びます。「否定」は否定の<em>表現</em>を指しがちで、表現が指し示す範疇そのものを指さないからです。<span class="iast">abhāva</span> は「内属をもたず、内属そのものでもないもの」と定義されます。</p>
+  </div>
+
+  <figure>
+    <div class="canvas">
+      <svg viewBox="0 0 720 230" width="720" height="230" role="img" aria-label="四つの非存在の時間図">
+        <defs><marker id="at" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10 z" class="fill-i"/></marker></defs>
+        <g font-size="12">
+          <path class="ln-i" d="M20 40 H700" marker-end="url(#at)"/>
+          <text x="700" y="28" text-anchor="end" class="soft">時間 →</text>
+          <path class="ln-d" d="M270 30 V170"/><path class="ln-d" d="M450 30 V170"/>
+          <text x="270" y="24" text-anchor="middle">壺の生成</text>
+          <text x="450" y="24" text-anchor="middle">壺の破壊</text>
+
+          <path class="ln-r" d="M24 70 H266"/>
+          <text x="145" y="92" text-anchor="middle" class="dv" font-size="15">प्रागभावः</text>
+          <text x="145" y="108" text-anchor="middle" class="ia">prāgabhāva ― 始まりなく終わりあり</text>
+
+          <rect class="box-l" x="272" y="58" width="176" height="24" rx="4"/>
+          <text x="360" y="75" text-anchor="middle" font-weight="700">壺が存在する</text>
+
+          <path class="ln-r" d="M454 70 H696"/>
+          <text x="575" y="92" text-anchor="middle" class="dv" font-size="15">प्रध्वंसः</text>
+          <text x="575" y="108" text-anchor="middle" class="ia">pradhvaṃsa ― 始まりあり終わりなし</text>
+
+          <path class="ln-o" d="M24 140 H696" stroke-width="3"/>
+          <text x="360" y="162" text-anchor="middle"><tspan class="dv" font-size="15">अत्यन्ताभावः</tspan> <tspan class="ia">atyantābhāva</tspan> ―「この地面に壺はない」：三時にわたる、常住</text>
+          <path class="ln-o" d="M24 200 H696" stroke-width="3" stroke-dasharray="2 6"/>
+          <text x="360" y="222" text-anchor="middle"><tspan class="dv" font-size="15">अन्योन्याभावः</tspan> <tspan class="ia">anyonyābhāva</tspan> ―「壺は布ではない」：同一性の否定、常住</text>
+        </g>
+      </svg>
+    </div>
+    <figcaption><b>図 3-6</b>壺を例にした四つの非存在。上二つは壺の生成・破壊と時間的に結びつき、下二つは時間に左右されません。</figcaption>
+  </figure>
+
+  <div class="tbl"><table>
+    <caption>表 3-6　四つの abhāva（定義は → §४८）</caption>
+    <thead><tr><th>名称</th><th>始まり</th><th>終わり</th><th>否定される関係</th><th>例</th></tr></thead>
+    <tbody>
+      <tr><td><span class="deva">प्रागभावः</span><br><span class="iast">prāgabhāva</span> 先行非存在</td><td>なし <span class="iast">anādi</span></td><td>あり <span class="iast">sānta</span></td><td>結合など（<span class="iast">saṃsarga</span>）</td><td>「ここに壺ができるだろう」<br><span class="iast">atra ghaṭo bhaviṣyati</span></td></tr>
+      <tr><td><span class="deva">प्रध्वंसः</span><br><span class="iast">pradhvaṃsa</span> 消滅後非存在</td><td>あり <span class="iast">sādi</span></td><td>なし <span class="iast">ananta</span></td><td>結合など</td><td>「壺は壊れた」<br><span class="iast">ghaṭo dhvastaḥ</span></td></tr>
+      <tr><td><span class="deva">अत्यन्ताभावः</span><br><span class="iast">atyantābhāva</span> 絶対非存在</td><td>なし</td><td>なし</td><td>三時にわたる結合</td><td>「この地面に壺はない」<br><span class="iast">bhūtale ghaṭo nāsti</span></td></tr>
+      <tr><td><span class="deva">अन्योन्याभावः</span><br><span class="iast">anyonyābhāva</span> 相互非存在</td><td>なし</td><td>なし</td><td>同一性（<span class="iast">tādātmya</span>）</td><td>「壺は布ではない」<br><span class="iast">ghaṭaḥ paṭo na</span></td></tr>
+    </tbody>
+  </table></div>
+
+  <div class="block">
+    <span class="tag t-ex">解説 ― 創造説との結びつき</span>
+    <p>Nyāya の因果論（<span class="iast">ārambha-vāda</span>）では、生じたものはそれまで一度も存在しなかったものであり、滅したものは二度と生じません。そのため、生じた存在はすべて先行非存在と消滅後非存在の二つにはさまれています。先行非存在は結果を生む原因の総体の一部です。どちらの非存在も、結果の質料因（<span class="iast">samavāyi-kāraṇa</span>）、たとえば布にとっての糸を所在とします。</p>
+  </div>
+  <div class="debate">
+    <div class="turn pp"><div class="who">新派の疑問<span class="iast">Raghunātha</span></div><p>消滅後非存在は誰もが経験するので認めるべきだ。しかし先行非存在を支える固有の経験はない。それは生成前の時間と結びつけて見た絶対非存在にすぎないのではないか。</p></div>
+    <div class="turn sd"><div class="who">古派の応答<span class="iast">prācīna</span></div><p>布の先行非存在を「布ができた瞬間に終わる」特別な非存在と認めないと、同じ布が刹那ごとに何度も生み出され続けることになる（<span class="iast">paṭa-dhārāpatti</span>）。先行非存在は原因の一つで、布ができた第一刹那に消える。だから布は二度生じない。</p></div>
+  </div>
+</section>
+
+<footer>
+  <p>見本版：第1章 §१–३ (छ)。以後、§४ 地（<span class="iast">pṛthivī</span>）から同じ形式で続けます。</p>
+  <p>底本：S. Kuppuswami Sastri, <span class="iast">A Primer of Indian Logic</span>, 2nd ed., The Kuppuswami Sastri Research Institute, Madras, 1951（Part II 本文 pp. 3–4、Part III 解説 pp. 3–40）。図表は底本の記述をもとに本書で作成。正しい定義の例 <span class="iast">sāsnādimattva</span> は伝統的な例として補ったもの。</p>
+</footer>
+
+</main>
+</div>
