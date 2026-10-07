@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい祭式解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+.en { font-family: 'Cormorant Garamond', serif; font-size: 1.08em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Cormorant Garamond', serif; font-size: 1.08rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Cormorant Garamond', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — गुणविधिपूर्वपक्षनिरासः</div>
+  <h1>やさしい祭式解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 4</div>
+  <div class="header-jp">第4課　Āpadeva の答え ──「ソーマで祭式を行うべし」こそ発生文である<br>
+  本文：Edgerton §§47–61（校訂本文 pp. 202–205 ／ KSS版 pp. 19–24）<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#intro"><span class="n">序</span>この課の地図</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>発生文と資格文の区別（§§47–48）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>文の分裂は転義より重い（§§49–53）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>直接言明による意味と文的結合による意味（§§54–56）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>祭式の「姿」を示す文が発生文（§§57–61）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+<h2 class="chapter">この課の地図</h2>
+<p class="lead">第3課の反論者は、「ソーマで祭式を行うべし」を付属物規定とし、祭式は「天界を望む者は Jyotiṣṭoma で祭るべし」が命じる、と主張しました。Edgerton 脚注35：「ここで §24 から始まった反論者の長い議論が終わり、その論駁が始まる。」Āpadeva は<b>四つの論拠</b>で反論者を退けます。</p>
+
+<figure class="fig">
+<svg viewBox="0 0 720 260" role="img" aria-label="Āpadevaの四つの論拠の図">
+  <rect x="230" y="10" width="260" height="46" rx="8" class="box-acc"/>
+  <text x="360" y="32" text-anchor="middle" font-size="14" class="t-acc">結論：सोमेन यजेत こそ発生文</text>
+  <text x="360" y="49" text-anchor="middle" font-size="11" class="t-mute">ज्योतिष्टोमेन… は資格文にすぎない</text>
+  <path d="M100,96 L300,58 M270,96 L340,58 M450,96 L380,58 M620,96 L420,58" class="line"/>
+  <rect x="10" y="98" width="170" height="150" rx="8" class="box"/>
+  <text x="95" y="122" text-anchor="middle" font-size="13" class="t-acc">① 役割の区別</text>
+  <text x="95" y="146" text-anchor="middle" font-size="11">発生文＝行為の姿だけ</text>
+  <text x="95" y="164" text-anchor="middle" font-size="11">資格文＝結果との結合だけ</text>
+  <text x="95" y="232" text-anchor="middle" font-size="10" class="t-mute">§§47–48</text>
+  <rect x="190" y="98" width="170" height="150" rx="8" class="box"/>
+  <text x="275" y="122" text-anchor="middle" font-size="13" class="t-acc">② 文の分裂</text>
+  <text x="275" y="146" text-anchor="middle" font-size="11">一文で姿と結果を命じれば</text>
+  <text x="275" y="164" text-anchor="middle" font-size="11">「煩雑による文の分裂」</text>
+  <text x="275" y="182" text-anchor="middle" font-size="11">転義（語の欠点）の方が軽い</text>
+  <text x="275" y="232" text-anchor="middle" font-size="10" class="t-mute">§§49–53</text>
+  <rect x="370" y="98" width="170" height="150" rx="8" class="box"/>
+  <text x="455" y="122" text-anchor="middle" font-size="13" class="t-acc">③ 意味の出どころ</text>
+  <text x="455" y="146" text-anchor="middle" font-size="11">同じ語（直接言明）による</text>
+  <text x="455" y="164" text-anchor="middle" font-size="11">命令の方が、別の語</text>
+  <text x="455" y="182" text-anchor="middle" font-size="11">（文的結合）によるより優先</text>
+  <text x="455" y="232" text-anchor="middle" font-size="10" class="t-mute">§§54–56</text>
+  <rect x="550" y="98" width="160" height="150" rx="8" class="box"/>
+  <text x="630" y="122" text-anchor="middle" font-size="13" class="t-acc">④ 祭式の姿</text>
+  <text x="630" y="146" text-anchor="middle" font-size="11">姿＝物質と神格</text>
+  <text x="630" y="164" text-anchor="middle" font-size="11">ソーマの文は物質を示す</text>
+  <text x="630" y="182" text-anchor="middle" font-size="11">Jyotiṣṭoma の文は何も</text>
+  <text x="630" y="200" text-anchor="middle" font-size="11">示さない</text>
+  <text x="630" y="232" text-anchor="middle" font-size="10" class="t-mute">§§57–61</text>
+</svg>
+<figcaption><b>図1　Āpadeva の四つの論拠。</b>どれも「どちらの文が発生文か」を決めるための議論である。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　発生文と資格文の区別</h2>
+<p class="chapter-sub">§§47–48 ／ 一つの文は一つの役割</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§47</span><span class="sutra-num">KSS p.19</span><span class="sutra-title">答え：資格文は発生文になれない</span></div>
+  <div class="mula">अत्रोच्यते: यद्यपि यागोद्देशेन सोमविधौ न मत्वर्थलक्षणा, तथापि यागस्याप्राप्तत्वात्सोमेन यजेतेत्यत्र न यागोद्देशेन सोमविधानं सम्भवति । न च ज्योतिष्टोमेनेत्यादिना यागस्य प्राप्तत्वात्तदुद्देशेन गुणमात्रं विधीयत इति वाच्यम्; तस्याधिकारविधित्वेनोत्पत्तिविधित्वानुपपत्तेः । <mark>कर्मस्वरूपमात्रबोधको विधिरुत्पत्तिविधिः</mark>; तेन च विहितस्य कर्मणः फलविशेषसम्बन्धमात्रमधिकारविधिना क्रियते; फलविशेषसम्बन्धबोधकस्याधिकारविधित्वात्, यथा, यदाग्नेयोऽष्टाकपालो भवतीत्येतद्विहितस्य कर्मणः फलविशेषसम्बन्धमात्रं दर्शपूर्णमासाभ्यां स्वर्गकामो यजेतेति वाक्यं विधत्त इति तस्याधिकारविधित्वम्, नोत्पत्तिविधित्वम् ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">उत्पत्तिविधि</span> <span class="iast">utpattividhi</span> 発生文</span>
+    <span class="w"><span class="dev">अधिकारविधि</span> <span class="iast">adhikāravidhi</span> 資格文</span>
+    <span class="w"><span class="dev">कर्मस्वरूप</span> <span class="iast">karmasvarūpa</span> 行為の姿（本質）</span>
+    <span class="w"><span class="dev">आग्नेयोऽष्टाकपालः</span> <span class="iast">āgneyo ’ṣṭākapālaḥ</span> Agni のための八皿の餅</span>
+    <span class="w"><span class="dev">दर्शपूर्णमासौ</span> <span class="iast">darśapūrṇamāsau</span> 新月祭・満月祭</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">これに対して答えよう。たしかに祭式を指示対象としてソーマを命じるなら所有の意の転義はない。しかし祭式はまだ得られていないので、「ソーマで祭式を行うべし」で、祭式を指示対象としてソーマを命じることはできない。「Jyotiṣṭoma で…」などによって祭式は得られているので、それを指示対象として付属物だけが命じられる、と言ってはならない。それは<b>資格文なので、発生文ではありえない</b>からである。<br>
+  <b>行為の姿だけを知らせる命令が発生文である</b>。そしてそれによって命じられた行為に、特定の結果との結びつきだけを与えるのが資格文である。特定の結果との結びつきを知らせるものが資格文だからである。たとえば「Agni のための八皿の餅がある」で命じられた行為に、特定の結果との結びつきだけを「新月祭と満月祭によって天界を望む者は祭るべし」という文が与える。だからこの文は資格文であって、発生文ではない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">An originative injunction is one which merely indicates the general nature of a rite. And this … only indicates the connexion of a particular fruit with the (already) enjoined rite; (so) it is an injunction of qualification.<span class="jp"><span class="iast">karmasvarūpa</span>＝“the general nature of a rite”。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§48</span><span class="sutra-num">KSS p.20</span><span class="sutra-title">反論者の再反論：Udbhid のように両方を兼ねればよい</span></div>
+  <div class="mula">स्यादेतत्: दर्शपूर्णमासाभ्यामित्येतस्य नोत्पत्तिविधित्वं सम्भवति, आग्नेयोऽष्टाकपाल इत्यादिवाक्यानर्थक्यापत्तेः; न हि तदा तेन कर्म विधीयते, तस्य दर्शपूर्णमासाभ्यामित्यनेन विहितत्वात्; नापि गुणविधानं सम्भवति, प्राप्ते कर्मण्यनेकगुणविधाने वाक्यभेदापत्तेः । अत आग्नेयोऽष्टाकपाल इत्यस्योत्पत्तिविधित्वं दर्शपूर्णमासाभ्यामित्यस्य चाधिकारविधित्वं युक्तम् । ज्योतिष्टोमेनेत्यस्य त्वधिकारविधेरुद्भिदा यजेत पशुकाम इत्यादिवदुत्पत्तिविधित्वेऽपि स्वीक्रियमाणे न कस्यचिदानर्थक्यम् । सोमेन यजेतेत्यस्य गुणविधित्वाद्यागोद्देशेन सोममात्रविधानाच्च न वाक्यभेद इति चेत् —</div>
+  <div class="row"><div class="k">訳</div><div class="v">【反論者】こうは言えるだろう。「新月祭と満月祭によって…」が発生文であることはできない。そうなると「Agni のための八皿の餅…」などの文が無意味になるからである。そのとき後者は行為を命じない（前者によって命じられているから）。付属物を命じることもできない（既に得られた行為に複数の付属物を命じると文の分裂になるから）。だから「八皿の餅」の文が発生文、「新月祭と満月祭」の文が資格文とするのが正しい。<br>
+  しかし「Jyotiṣṭoma で…」という資格文を、「家畜を望む者は Udbhid で祭るべし」などのように発生文でもあると認めても、<b>どの文も無意味にならない</b>。そして「ソーマで祭式を行うべし」は付属物規定であり、祭式を指示対象としてソーマだけを命じるので、文の分裂もない──と言うなら、</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But: if we assume that the injunction of qualification “With the jyotiṣṭoma” etc. is also an originative injunction, as in the case of “With the udbhid who desires cattle shall sacrifice,” then nothing becomes meaningless.</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-1　発生文と資格文 ── 新月祭・満月祭の例（§§47–48）</caption>
+<tr><th></th><th>発生文 <span class="dev">उत्पत्तिविधिः</span></th><th>資格文 <span class="dev">अधिकारविधिः</span></th></tr>
+<tr><td>役割</td><td>行為の<b>姿</b>だけを知らせる</td><td>既に命じられた行為に<b>結果</b>を結びつける</td></tr>
+<tr><td>新月祭・満月祭</td><td class="dev">यदाग्नेयोऽष्टाकपालो भवति</td><td class="dev">दर्शपूर्णमासाभ्यां स्वर्गकामो यजेत</td></tr>
+<tr><td>ソーマ祭（Āpadeva）</td><td class="dev">सोमेन यजेत</td><td class="dev">ज्योतिष्टोमेन स्वर्गकामो यजेत</td></tr>
+<tr><td>Udbhid 祭</td><td colspan="2" style="text-align:center"><span class="dev">उद्भिदा यजेत पशुकामः</span>（一文で両方：他に文がないので<b>やむを得ず</b>，§49）</td></tr>
+<tr><td>Edgerton</td><td class="en">originative injunction</td><td class="en">injunction of qualification</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　文の分裂は転義より重い</h2>
+<p class="chapter-sub">§§49–53 ／ 「語の欠点」と「文の欠点」</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§49</span><span class="sutra-num">KSS p.20</span><span class="sutra-title">答え：Jyotiṣṭoma の文に文の分裂が生じる</span></div>
+  <div class="mula">मैवम् । यद्यपि सोमेन यजेतेत्यत्र न वाक्यभेदः, तथापि ज्योतिष्टोमेनेत्यस्मिन्वाक्ये कर्मस्वरूपे तस्य च फलसम्बन्धे विधीयमाने <mark>गौरवलक्षणो वाक्यभेदोऽस्त्येव</mark>; सोमेन यजेतेत्येतद्वाक्यविहितकर्मणः फलसम्बन्धमात्रविधाने तदभावात् । उद्भिदा यजेतेत्यत्र तु वचनान्तराभावेनागत्या तदाश्रयणम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">そうではない。たとえ「ソーマで祭式を行うべし」に文の分裂がなくても、「Jyotiṣṭoma で…」の文で行為の姿とその結果との結びつきの両方が命じられるなら、<b>煩雑さを特徴とする文の分裂が確かにある</b>。「ソーマで祭式を行うべし」の文で命じられた行為に、結果との結びつきだけを命じるなら、それはない。「Udbhid で祭るべし」の場合は、別の文がないので、やむを得ずその解釈をとるのである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… both the general nature of the rite and its connexion with the fruit would be enjoined, and that does constitute split-of-the-sentence, being much too complicated.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§50–51</span><span class="sutra-num">KSS pp.20–21</span><span class="sutra-title">ソーマの文は分裂しない ── 限定要素の命令は「含意」される</span></div>
+  <div class="mula"><small style="color:var(--muted)">§50</small> न च सोमेन यजेतेत्यत्रापि कर्मणः स्वरूपे गुणे च विधीयमाने वाक्यभेदः स्यादिति वाच्यम्; श्रूयमाणेन विधिना गुणस्याविधेयत्वाद्विशेषणविधेरार्थिकत्वात् । <mark>सर्वत्र हि विशिष्टविधौ विशेषणविधिरार्थिकः</mark> । ज्योतिष्टोमेनेत्यस्य तूत्पत्तिविधित्वे कर्मस्वरूपं फलसम्बन्धश्चेत्युभयं श्रूयमाणेनैव विधिना विधातव्यमिति दृढो गौरवलक्षणो वाक्यभेदः । यथाहुः:<br>
+  <small style="color:var(--muted)">§51</small> श्रौतव्यापारनानात्वे शब्दानामतिगौरवमेकोक्त्यवसितानां तु नार्थाक्षेपो विरुध्यते । इति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「ソーマで祭式を行うべし」でも、行為の姿と付属物の両方が命じられるなら文の分裂になる、と言ってはならない。<b>聞かれている命令</b>によって付属物が命じられるのではなく、限定要素の命令は<b>含意によるもの</b>だからである。<b>あらゆる限定規定において、限定要素の命令は含意によるものである</b>。しかし「Jyotiṣṭoma で…」が発生文なら、行為の姿と結果との結びつきの両方を、聞かれている命令そのものが命じなければならないので、<b>重い</b>煩雑さを特徴とする文の分裂になる。こう言われている──<br>
+  「語の直接の働きが多様になると、非常に煩雑になる。しかし一つの言明で終わっている語には、（ほかの）意味が<b>含意される</b>ことは妨げられない。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For in every particularized injunction there is always implicitly understood a particularizing injunction.<span class="jp">脚注37：「ソーマで祭式を行うべし」ははっきりと「祭式によって望ましいものを生じさせよ」と述べ、同時に「ソーマによって祭式を生じさせよ」という命令を含意する。§51 の詩の出典は Tantravārttika 2.2.6。</span></div></div>
+  <div class="row cm-row"><div class="k">注釈</div><div class="v"><span class="dev">अर्थाक्षेपः विशिष्टविध्यन्यथानुपपत्त्या विशेषणविधिकल्पनमित्यर्थः ।</span>「『意味の含意』とは、限定規定が他の仕方では成り立たないことから、限定要素の命令を想定すること。」</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§52–53</span><span class="sutra-num">KSS p.21</span><span class="sutra-title">転義（語の欠点）は文の分裂（文の欠点）より軽い</span></div>
+  <div class="mula"><small style="color:var(--muted)">§52</small> न च सोमेन यजेतेत्यस्योत्पत्तिविधित्वे यद्यपि न वाक्यभेदस्तथापि मत्वर्थलक्षणा स्यादेवेति वाच्यम्; तस्याः स्वीक्रियमाणत्वात्; लक्षणातो वाक्यभेदस्य जघन्यत्वात् । <mark>लक्षणा हि पददोषो वाक्यभेदस्तु वाक्यदोषः</mark>; पदवाक्ययोर्मध्ये पद एव दोषकल्पनाया उचितत्वात्: गुणे त्वन्याय्यकल्पना, इति न्यायात् ।<br>
+  <small style="color:var(--muted)">§53</small> अत एव जातपुत्रः कृष्णकेशोऽग्नीनादधीत, इत्यत्राधानानुवादेन जातपुत्रत्वकृष्णकेशत्वविधाने वाक्यभेदात्पदद्वयेनावस्थाविशेषो लक्ष्यत इत्युक्तम्; <mark>तस्माद्वाक्यभेदप्रसक्तौ लक्षणैव स्वीकार्या</mark> । तस्मात्सोमेन यजेतेत्ययमेवोत्पत्तिविधिर्न ज्योतिष्टोमेनेत्ययम्, गौरवलक्षणवाक्यभेदापत्तेः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「ソーマで祭式を行うべし」を発生文とすれば、文の分裂はなくても、所有の意の転義は残るではないか、と言ってはならない。<b>それは認める</b>のである。転義に比べて文の分裂の方が<b>より悪い</b>からである。<b>転義は語の欠点、文の分裂は文の欠点である</b>。語と文とでは、語の方に欠点を想定するのが適切である。「従属するものにこそ、不規則な想定を」という原則があるからである。<br>
+  だからこそ、「息子が生まれ、髪がまだ黒いうちに、聖火を設置すべし」については、（既に命じられた）聖火設置に言及して「息子が生まれていること」と「髪が黒いこと」の両方を命じると文の分裂になるので、<b>二つの語で一つの特定の状態</b>（若さ）が転義的に表される、と説かれている。それゆえ、文の分裂が起こりそうな場合には、むしろ転義をとるべきである。したがって、「ソーマで祭式を行うべし」こそが発生文であり、「Jyotiṣṭoma で…」ではない。後者だと、煩雑による文の分裂を招くからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For implied (indirect) meaning is a fault of a (single) word, while split-of-the-sentence is a fault of a whole sentence; and as between a word and a sentence, it is more proper to assume a fault in a mere word …</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表2-1　二つの「欠点」の比較（§52）</caption>
+<tr><th></th><th>転義 <span class="dev">लक्षणा</span></th><th>文の分裂 <span class="dev">वाक्यभेद</span></th></tr>
+<tr><td>どこの欠点か</td><td><b>語</b>の欠点（<span class="dev">पददोषः</span>）</td><td><b>文</b>の欠点（<span class="dev">वाक्यदोषः</span>）</td></tr>
+<tr><td>重さ</td><td>軽い</td><td>重い（<span class="dev">जघन्य</span>，より悪い）</td></tr>
+<tr><td>根拠</td><td colspan="2">「従属するものにこそ、不規則な想定を」（Jaimini 9.3.15）── 語は文に従属する</td></tr>
+<tr><td>実例</td><td colspan="2"><span class="dev">जातपुत्रः कृष्णकेशोऽग्नीनादधीत</span>：二つの条件を命じれば分裂 → 二語で「若い年頃」を転義的に表す</td></tr>
+</table></div>
+<div class="point">文の分裂と転義のどちらかを選ぶなら、転義を選ぶ。だから Āpadeva は §13 の転義を<b>認めた上で</b>、ソーマの文を発生文とする。</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　直接言明による意味と文的結合による意味</h2>
+<p class="chapter-sub">§§54–56 ／ 同じ語の中で完結する意味を優先する</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§54–55</span><span class="sutra-num">KSS p.22</span><span class="sutra-title">第三の論拠</span></div>
+  <div class="mula"><small style="color:var(--muted)">§54</small> किं च सोमेन यजेतेत्यत्र यागविधाने श्रुत्यर्थविधानं गुणविधाने तु वाक्यार्थविधानम्; तच्च श्रुत्यर्थविधानसम्भवेऽयुक्तम् । यथाहुः:<br>
+  <small style="color:var(--muted)">§55</small> वाक्यार्थविधिरन्याय्यः श्रुत्यर्थविधिसम्भवे । इति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">さらに、「ソーマで祭式を行うべし」で祭式を命じるなら、<b>直接言明による意味</b>の命令となるが、付属物を命じるなら、<b>文的結合による意味</b>の命令となる。そして後者は、直接言明による意味の命令が可能なときには正しくない。こう言われている──「直接言明による意味の命令が可能なときに、文的結合による意味の命令は規則にかなわない。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“An injunction of a meaning based on syntactical-connexion (relation between two separate words) is not according to rule when we may take it with a meaning based on direct-statement (in the same word).”<span class="jp">脚注38：「祭式によって望ましいものを生じさせよ」なら、手段（祭式）と生じさせる働きが<b>同じ語</b> <span class="iast">yajeta</span> で表される（同一語の直接言明 <span class="iast">ekapadaśruti</span>）。「ソーマによって祭式を生じさせよ」なら、手段（ソーマ）は別の語で表される（文的結合 <span class="iast">vākya</span>）。§55 の出典は Śāstradīpikā。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§56</span><span class="sutra-num">KSS p.22</span><span class="sutra-title">「文的結合による意味」とは</span></div>
+  <div class="mula">वाक्यार्थः पदान्तरार्थ इत्यर्थः । ज्योतिष्टोमेनेत्यत्रापि फलोद्देशेन यागस्यैव विधानान्न वाक्यार्थविधानम्, तदुत्पत्तिविधित्ववादिनापि तदङ्गीकाराच्च । तस्माज्ज्योतिष्टोमेनेत्ययमधिकारविधिरेव ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「文的結合による意味」とは「<b>別の語の意味</b>」のことである。「Jyotiṣṭoma で…」でも、結果を目指して祭式そのものが命じられているので、文的結合による意味の命令ではない。それを発生文と主張する者もそれを認めているからである。それゆえ「Jyotiṣṭoma で…」は資格文にほかならない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“Meaning based on syntactical-connexion” means “meaning based on another word.”<span class="jp">脚注39（注釈による）：結果は人の力の及ばないものなので命じることはできない。だから資格文が命じうるのは、既に命じられていても、祭式そのものだけである。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 210" role="img" aria-label="直接言明による意味と文的結合による意味の比較">
+  <text x="180" y="22" text-anchor="middle" font-size="14" class="t-acc">○ 直接言明による意味（<tspan class="t-iast">śrutyartha</tspan>）</text>
+  <text x="540" y="22" text-anchor="middle" font-size="14" class="t-mute">✕ 文的結合による意味（<tspan class="t-iast">vākyārtha</tspan>）</text>
+  <line x1="360" y1="8" x2="360" y2="200" class="line-dash"/>
+  <rect x="60" y="45" width="240" height="56" rx="6" class="box-green"/>
+  <line x1="180" y1="45" x2="180" y2="101" class="line"/>
+  <text x="120" y="78" text-anchor="middle" class="t-dev" font-size="18">यज्</text>
+  <text x="240" y="78" text-anchor="middle" class="t-dev" font-size="18">एत</text>
+  <text x="120" y="124" text-anchor="middle" font-size="12">手段（祭式）</text>
+  <text x="240" y="124" text-anchor="middle" font-size="12">生じさせる働き</text>
+  <text x="180" y="156" text-anchor="middle" font-size="12" class="t-mute">同じ一語の中で結びつく</text>
+  <text x="180" y="176" text-anchor="middle" class="t-dev" font-size="13">सोमवता यागेनेष्टं भावयेत्</text>
+  <rect x="400" y="45" width="120" height="56" rx="6" class="box"/>
+  <rect x="560" y="45" width="120" height="56" rx="6" class="box"/>
+  <text x="460" y="78" text-anchor="middle" class="t-dev" font-size="18">सोमेन</text>
+  <text x="620" y="78" text-anchor="middle" class="t-dev" font-size="18">यजेत</text>
+  <text x="460" y="124" text-anchor="middle" font-size="12">手段（ソーマ）</text>
+  <text x="620" y="124" text-anchor="middle" font-size="12">生じさせる働き</text>
+  <text x="540" y="156" text-anchor="middle" font-size="12" class="t-mute">別々の語が文の中で結びつく</text>
+  <text x="540" y="176" text-anchor="middle" class="t-dev" font-size="13">सोमेन यागं भावयेत्</text>
+</svg>
+<figcaption><b>図2　手段がどこで表されるか（§§54–55）。</b>限定規定では手段（ソーマをもつ祭式）が <span class="iast">yajeta</span> の一語の中にある。付属物規定では手段（ソーマ）が別の語にある。前者が優先される。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　祭式の「姿」を示す文が発生文</h2>
+<p class="chapter-sub">§§57–61 ／ 物質と神格</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§57</span><span class="sutra-num">KSS p.22</span><span class="sutra-title">第四の論拠：祭式の姿＝物質と神格</span></div>
+  <div class="mula">अपि च, कर्मस्वरूपविधिस्तत्र स्वीकार्यो यत्र कर्मणोरूपमुपलभ्यते । <mark>यागस्य च द्वे रूपे, द्रव्यं देवता चेति</mark> । सोमेन यजेतेत्यत्र यद्यपि देवता नोपलभ्यते, सोमयागस्याव्यक्तत्वात्, — अव्यक्तत्वं च स्वार्थचोदितदेवताराहित्यम्, न तु देवताराहित्यमात्रम्, ऐन्द्रवायवंगृह्णातीत्यादिवाक्यविहितग्रहदेवतानां सत्त्वात्, ग्रहणार्थाभिरपि देवताभिः प्रसङ्गतो यागोपकारस्य क्रियमाणत्वात्, — तथापि द्रव्यमुपलभ्यत एव; तेनापि यागस्वरूपं ज्ञातुं शक्यमेव । ज्योतिष्टोमेन स्वर्गकामो यजेतेत्यत्र न द्रव्यं देवता वा श्रूयते । अतस्तस्योत्पत्तिविधित्वे यागविशेषज्ञानं यागसामान्यस्याविधेयत्वाद्विशेषस्यैव विधेयत्वादित्यादिक्लेशेन स्यादतो नायं कर्मोत्पत्तिविधिः ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">रूप</span> <span class="iast">rūpa</span> 姿・形</span>
+    <span class="w"><span class="dev">द्रव्य</span> <span class="iast">dravya</span> 物質（供物）</span>
+    <span class="w"><span class="dev">देवता</span> <span class="iast">devatā</span> 神格</span>
+    <span class="w"><span class="dev">अव्यक्त</span> <span class="iast">avyakta</span> （神格が）明示されていない</span>
+    <span class="w"><span class="dev">ग्रह</span> <span class="iast">graha</span> （ソーマの）容器・汲み分け</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">また、行為の姿を命じる命令は、行為の<b>姿</b>が示されている文にこそ認めるべきである。そして祭式の姿は二つ、<b>物質と神格</b>である。「ソーマで祭式を行うべし」では、ソーマ祭が「<b>明示されていない</b>」ものなので、神格は示されていない──「明示されていない」とは、その祭式自体のために命じられた神格がないことであって、神格がまったくないことではない。「Indra と Vāyu の（容器）を汲む」などの文で命じられた容器ごとの神格があり、汲み分けのための神格も付随的に祭式を助けるからである──。それでも<b>物質は示されている</b>。それによっても祭式の姿を知ることはできる。ところが「天界を望む者は Jyotiṣṭoma で祭るべし」では、物質も神格も聞かれない。だからそれを発生文とすれば、祭式一般ではなく特定の祭式を命じなければならない以上、特定の祭式の知識は面倒な手続きを要することになる。それゆえこれは行為の発生文ではない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And there are two elements in the nature of the rite, the material (used) and the deity (addrest). … the soma-sacrifice is not manifest. That it is not manifest means that no deity is prescribed for its own (direct) purpose (per se), not that none exists at all …</div></div>
+  <div class="row cm-row"><div class="k">注釈</div><div class="v"><span class="dev">अव्यक्तत्वं चेति । यागोद्देशेन विहितदेवताभाववत्त्वम्, न तु सर्वथा देवताभावः …</span>「『明示されていない』とは、祭式を指示対象として命じられた神格がないことで、神格がまったくないのではない。」</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表4-1　祭式の「姿」（rūpa）がどの文に示されるか（§57）</caption>
+<tr><th>文</th><th>物質 <span class="dev">द्रव्य</span></th><th>神格 <span class="dev">देवता</span></th><th>判定</th></tr>
+<tr><td class="dev">सोमेन यजेत</td><td>○ ソーマ</td><td>△ 祭式自体の神格はない（容器の神格はある）</td><td>発生文になれる</td></tr>
+<tr><td class="dev">ज्योतिष्टोमेन स्वर्गकामो यजेत</td><td>✕</td><td>✕</td><td>発生文ではない（資格文）</td></tr>
+<tr><td class="dev">अग्निहोत्रं जुहोति</td><td>✕</td><td>✕（agnihotra は名前）</td><td>それでも発生文（他にないので，§59）</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§58–59</span><span class="sutra-num">KSS p.23</span><span class="sutra-title">反論：では「Agnihotra を献供する」も発生文でなくなる？</span></div>
+  <div class="mula"><small style="color:var(--muted)">§58</small> नन्वेवमप्यग्निहोत्रं जुहोतीत्ययमपि होमोत्पत्तिविधिर्न स्याद्रूपाश्रवणात्; तच्छ्रवणाच्च दध्ना जुहोतीत्ययमेवोत्पत्तिविधिः स्यात् । तथा चाघाराग्निहोत्राधिकरणविरोधः । तत्र ह्यग्निहोत्रं जुहोतीत्यस्योत्पत्तिविधित्वं दध्ना जुहोतीत्यादीनां च गुणविधित्वमुक्तमिति चेत्, —<br>
+  <small style="color:var(--muted)">§59</small> सत्यम् । अग्निहोत्रं जुहोतीत्यत्र यद्यपि रूपं नोपलभ्यते, अग्निहोत्रशब्दस्य तत्प्रख्यन्यायेन नामधेयत्वात्, तदेतदग्रे वक्ष्यामः, तथापि तस्योत्पत्तिविधित्वं स्वीक्रियते, अन्यथानर्थक्यापत्तेः । दध्ना जुहोतीत्यस्य च नानर्थक्यं गुणविधित्वात् । अतोऽग्निहोत्रं जुहोतीत्ययं कर्मोत्पत्तिविधिरिति युक्तम् । ज्योतिष्टोमेनेत्यस्य च नानर्थक्यमधिकारविधित्वोपपत्तेः । अतः किमर्थं सम्भवति रूपवति वाक्ये कर्मविधाने तद्रहिते तत्स्वीकार्यम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">【反論】それなら「Agnihotra を献供する」も献供の発生文ではないことになる。姿が聞かれないからである。そして姿が聞かれる「酪で献供する」こそが発生文となるだろう。そうなると「Āghāra と Agnihotra の節」と矛盾する。そこでは「Agnihotra を献供する」が発生文、「酪で献供する」などが付属物規定とされているのだから──と言うなら、<br>
+  【答え】その通り。「Agnihotra を献供する」では、たしかに姿は示されていない。<b>agnihotra という語は「それを告げる」の原則によって名前</b>だからである（これは後で述べる，§273 以下）。それでも、それを発生文と認める。<b>そうでなければ無意味になる</b>からである。そして「酪で献供する」は付属物規定なので無意味にならない。だから「Agnihotra を献供する」が行為の発生文とするのが正しい。また「Jyotiṣṭoma で…」も資格文として働くので無意味にならない。だから、姿を備えた文で行為を命じることが可能なのに、どうしてそれを欠く文にそれを認める必要があろうか。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… nevertheless we admit it as an originative injunction, because otherwise it would be meaningless. … Therefore, when there is found an (originative) injunction of the rite in a sentence which states its nature, why assume it in one which does not state it?</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§60–61</span><span class="sutra-num">KSS p.24</span><span class="sutra-title">酪の文を発生文にすると困ること ──「脱穀場の鳩」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§60</small> किं च दध्ना जुहोतीत्यस्य कर्मोत्पत्तिविधित्वे पयसा जुहोतीत्यनेनैतत्कर्मानुवादेन न पयो विधातुं शक्यते, उत्पत्तिशिष्टदध्यवरोधात् । <mark>उत्पत्तिशिष्टगुणावरुद्धे हि न गुणान्तरं विधीयते</mark>, आकाङ्क्षाया उत्पत्तिशिष्टेनैव निवृत्तत्वात् । अतस्तेनापि विशिष्टं कर्मान्तरं विधेयम् । तथा चानेकादृष्टकल्पनागौरवम् । अग्निहोत्रं जुहोतीत्यस्य तूत्पत्तिविधित्व एतद्वाक्यविहितस्य कर्मणो द्रव्याकाङ्क्षायां युगपदेव खलेकपोतन्यायेन दध्ना जुहोति, पयसा जुहोतीत्यादिवाक्यैर्गुणा विधीयन्त इति नानेकादृष्टकल्पनागौरवम् ।<br>
+  <small style="color:var(--muted)">§61</small> अतोऽग्निहोत्रं जुहोतीत्ययमुत्पत्तिविधिः, पयसा जुहोतीत्यादयस्तु गुणविधय इति युक्तम् । सोमेन यजेतेत्यत्र तु रूपवति वाक्ये कर्मोत्पत्तिविधाने स्वीक्रियमाणे न किंचिद्दूषणम्, पक्षद्वयेऽप्येकस्यादृष्टस्य तुल्यत्वात् । तस्माद्युक्तं सोमेन यजेतेत्ययमेवोत्पत्तिविधिरित्यलमनया विधिनिरूपणानुगतप्रपञ्चनिरूपणचिन्तया । प्रकृतमनुसरामः । <mark>तत्सिद्धं विधिः प्रयोजनवन्तमप्राप्तमर्थं विधत्त इति</mark> ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">उत्पत्तिशिष्ट</span> <span class="iast">utpattiśiṣṭa</span> 発生文で教えられた</span>
+    <span class="w"><span class="dev">अवरुद्ध</span> <span class="iast">avaruddha</span> 塞がれた（期待が満たされた）</span>
+    <span class="w"><span class="dev">खलेकपोतन्याय</span> <span class="iast">khalekapotanyāya</span> 脱穀場の鳩の原則</span>
+    <span class="w"><span class="dev">पयस्</span> <span class="iast">payas</span> 乳</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">さらに、「酪で献供する」を行為の発生文とすると、「乳で献供する」によってこの行為に言及して乳を命じることはできない。<b>発生文で教えられた酪によって塞がれている</b>からである。発生文で教えられた付属物で塞がれていれば、別の付属物は命じられない。（物質への）期待は、発生文で教えられたものによって既に満たされているからである。だから乳の文も、限定された別の行為を命じることになり、複数の不可見の効果を想定する煩雑さが生じる。<br>
+  しかし「Agnihotra を献供する」を発生文とすれば、この文で命じられた行為に物質の期待が生じたとき、<b>脱穀場の鳩のように一斉に</b>、「酪で献供する」「乳で献供する」などの文によって付属物が命じられる。だから複数の不可見の効果を想定する煩雑さはない。<br>
+  それゆえ「Agnihotra を献供する」が発生文、「乳で献供する」などは付属物規定とするのが正しい。そして「ソーマで祭式を行うべし」では、姿を備えた文で行為の発生を命じると認めても、何の難点もない。どちらの立場でも不可見の効果は一つで同じだからである。それゆえ「ソーマで祭式を行うべし」こそが発生文とするのが正しい。<b>命令の説明から派生した長い議論の検討はこれで十分である</b>。本題に戻ろう。こうして、<b>命令は有益な目的をもつ、まだ得られていない事柄を命じる</b>ことが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… and instantly, like (the proverbial) “doves to the threshing-floor,” the (material) accessories are enjoined by the sentences “He offers oblation with sour-milk,” “with milk,” etc.<span class="jp">脚注40：Edgerton の師（パンディット）が引いた文法の諺：「老いた鳩も若い鳩も雛も、脱穀場に一斉に舞い降りるように、文中のすべての語の意味は一斉に互いに結びつく。」</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 230" role="img" aria-label="脱穀場の鳩の原則。Agnihotraの発生文に物質の期待が生じ、酪や乳の文が一斉に答える">
+  <defs><marker id="k1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead-acc"/></marker></defs>
+  <rect x="250" y="150" width="220" height="64" rx="8" class="box-acc"/>
+  <text x="360" y="176" text-anchor="middle" class="t-dev" font-size="16">अग्निहोत्रं जुहोति</text>
+  <text x="360" y="198" text-anchor="middle" font-size="12">発生文：「物質は何？」（期待）</text>
+  <rect x="30" y="20" width="160" height="50" rx="25" class="box-green"/>
+  <text x="110" y="50" text-anchor="middle" class="t-dev" font-size="15">दध्ना जुहोति</text>
+  <rect x="280" y="20" width="160" height="50" rx="25" class="box-green"/>
+  <text x="360" y="50" text-anchor="middle" class="t-dev" font-size="15">पयसा जुहोति</text>
+  <rect x="530" y="20" width="160" height="50" rx="25" class="box-green"/>
+  <text x="610" y="50" text-anchor="middle" font-size="14">… など</text>
+  <path d="M130,70 L300,148" class="line-acc" marker-end="url(#k1)"/>
+  <path d="M360,70 L360,148" class="line-acc" marker-end="url(#k1)"/>
+  <path d="M590,70 L420,148" class="line-acc" marker-end="url(#k1)"/>
+  <text x="555" y="120" font-size="12" class="t-mute">一斉に舞い降りる</text>
+  <text x="555" y="138" font-size="12" class="t-mute">（不可見の効果は一つ）</text>
+  <text x="20" y="120" font-size="12" class="t-mute">酪の文が発生文だと</text>
+  <text x="20" y="138" font-size="12" class="t-mute">乳は入れない（§60）</text>
+</svg>
+<figcaption><b>図3　脱穀場の鳩の原則（khalekapotanyāya，§60）。</b>Agnihotra の発生文が物質を指定していないから、酪・乳などの付属物規定がいっせいにその「空き」に入れる。</figcaption>
+</figure>
+<div class="point">§10 から始まった命令文の議論の結論：命令文は「有益な目的をもつ、まだ得られていない事柄」を命じる（§61）。次の課から、命令文の四つの種類に進む。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 発生文と資格文をそれぞれ定義せよ。</summary><div>発生文：行為の姿だけを知らせる命令。資格文：既に命じられた行為に特定の結果との結びつきを与える命令。（§47）</div></details>
+<details class="q"><summary>Q2. 「Jyotiṣṭoma で…」を発生文とすると、どんな問題が起こるか？</summary><div>一つの文が行為の姿と結果との結びつきの両方を命じることになり、煩雑による文の分裂が起こる。（§§49–50）</div></details>
+<details class="q"><summary>Q3. 転義と文の分裂、どちらが重い欠点か。その理由は？</summary><div>文の分裂。転義は語の欠点、文の分裂は文の欠点であり、「従属するもの（語）にこそ不規則な想定を」という原則があるから。（§52）</div></details>
+<details class="q"><summary>Q4. 「息子が生まれ、髪が黒いうちに聖火を設置すべし」はどう解釈されるか？</summary><div>二つの条件を命じれば文の分裂になるので、二語で一つの状態（若い年頃）を転義的に表すと解する。（§53）</div></details>
+<details class="q"><summary>Q5. 祭式の「姿」を構成する二つの要素は？</summary><div>物質（dravya）と神格（devatā）。（§57）</div></details>
+<details class="q"><summary>Q6. 「脱穀場の鳩の原則」とは？</summary><div>発生文で物質が決まっていないとき、その期待に対して複数の付属物規定（酪、乳など）が一斉に結びつくこと。（§60）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第4課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">कर्मस्वरूप</td><td class="iast">karmasvarūpa</td><td>行為の姿</td><td class="en">general nature of a rite</td></tr>
+<tr><td class="dev">फलविशेषसम्बन्ध</td><td class="iast">phalaviśeṣasambandha</td><td>特定の結果との結びつき</td><td class="en">connexion of a particular fruit</td></tr>
+<tr><td class="dev">विशेषणविधि</td><td class="iast">viśeṣaṇavidhi</td><td>限定要素の命令</td><td class="en">particularizing injunction</td></tr>
+<tr><td class="dev">आर्थिक / अर्थाक्षेप</td><td class="iast">ārthika / arthākṣepa</td><td>含意による／意味の含意</td><td class="en">implicitly understood / hinting</td></tr>
+<tr><td class="dev">पददोष / वाक्यदोष</td><td class="iast">padadoṣa / vākyadoṣa</td><td>語の欠点／文の欠点</td><td class="en">fault of a word / of a sentence</td></tr>
+<tr><td class="dev">श्रुत्यर्थ / वाक्यार्थ</td><td class="iast">śrutyartha / vākyārtha</td><td>直接言明による意味／文的結合による意味</td><td class="en">meaning based on direct-statement / on syntactical-connexion</td></tr>
+<tr><td class="dev">रूप</td><td class="iast">rūpa</td><td>（祭式の）姿</td><td class="en">nature</td></tr>
+<tr><td class="dev">अव्यक्त</td><td class="iast">avyakta</td><td>明示されていない</td><td class="en">not manifest</td></tr>
+<tr><td class="dev">उत्पत्तिशिष्ट</td><td class="iast">utpattiśiṣṭa</td><td>発生文で教えられた</td><td class="en">prescribed by an originative injunction</td></tr>
+<tr><td class="dev">खलेकपोतन्याय</td><td class="iast">khalekapotanyāya</td><td>脱穀場の鳩の原則</td><td class="en">“doves to the threshing-floor”</td></tr>
+</table></div>
+<h3>底本について（第4課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文（Text, pp. 202–205）を採り、KSS版（1949年）pp. 19–24 と照合しました。OCR で語がつながった箇所（<span class="dev">दृढो गौरव…</span>、<span class="dev">न वाक्यभेदः</span>、<span class="dev">कर्मणो रूपम्</span>）は分かち書きを直しています。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson3.html">← 第3課　反論者の挑戦</a><span class="spacer"></span><a href="mnp_lesson5.html">第5課　命令文の四種と直接言明 →</a></nav>
+
+<footer>
+  やさしい祭式解釈学 · 第4課　Āpadeva の答え<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Text pp. 202–205, Translation §§47–61, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>
