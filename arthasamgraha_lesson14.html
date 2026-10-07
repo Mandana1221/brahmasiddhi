@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — षष्ठोऽर्थवादविभागः · उपसंहारः</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 14</div>
+  <div class="header-jp">第14課　arthavāda と結び ── ほめ言葉にも役目がある<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 65–69（§72–§75），Notes pp. 286–294</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>最終部へようこそ</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§72 arthavāda の定義 ── なぜ転義で読むのか</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§73 2種類：vidhi の補い・niṣedha の補い</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§74 3種類：guṇavāda・anuvāda・bhūtārthavāda</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§75 結び ── ヴェーダ全体が dharma を教える</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>結びの詩節と奥書</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>全14課をふりかえる</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">最終部へようこそ</h2>
+<p>ヴェーダの5区分の最後、<b>arthavāda</b>（<span class="dev">अर्थवादः</span>、釈義・賛辞）です。§72–§74 が第6章、§75 が全体の結び（<span class="dev">उपसंहारः</span>）です。</p>
+<div class="note">
+  <div class="note-title">arthavāda の何が問題なのか</div>
+  <p>ヴェーダには「風神は最も速い神である」「彼は泣いた。泣いたから Rudra と呼ばれる」のような、<b>何も命じない</b>文がたくさんあります。Mīmāṃsā の大原則は「ヴェーダはすべて<b>行為（祭式）のため</b>にある」（JS 1.2.1）。では、こうした文はどう役立つのか？ ── これがこの課の問いです。</p>
+  <p><span class="dev">अर्थवादः</span> の語義：<span class="dev">अर्थस्य प्राशस्त्यरूपस्य निन्दारूपस्य वा वादः वचनम्</span>「ほめ・けなしという事柄を語ること」。英訳ではふつう explanatory passage。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§72 arthavāda の定義</h2>
+<p class="chapter-sub"><span class="dev">अर्थवादः</span> ／ 底本 p. 66，Notes pp. 286–289</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§72</span><span class="sutra-num">p. 66</span><span class="sutra-text">प्राशस्त्यनिन्दान्यतरपरं वाक्यमर्थवादः । तस्य च लक्षणया प्रयोजनवदर्थपर्यवसानम् । तथा हि — अर्थवादवाक्यं हि स्वार्थप्रतिपादने प्रयोजनाभावाद्विधेयनिषेध्ययोः प्राशस्त्यनिन्दितत्वे लक्षणया प्रतिपादयति । स्वार्थमात्रपरत्वे आनर्थक्यप्रसङ्गात् । आम्नायस्य हि क्रियार्थत्वात् । न चेष्टापत्तिः । ‘स्वाध्यायोऽध्येतव्यः’ इत्यध्ययनविधिना सकलवेदाध्ययनं कर्तव्यमिति बोधयता सर्ववेदस्य प्रयोजनवदर्थपर्यवसायित्वं सूचयतोपात्तत्वेनानर्थक्यानुपपत्तेः ।</span></div>
+  <div class="sutra-iast">prāśastyanindānyataraparaṃ vākyam arthavādaḥ | tasya ca lakṣaṇayā prayojanavadarthaparyavasānam | tathā hi — arthavādavākyaṃ hi svārthapratipādane prayojanābhāvād vidheyaniṣedhyayoḥ prāśastyaninditatve lakṣaṇayā pratipādayati | svārthamātraparatve ānarthakyaprasaṅgāt | āmnāyasya hi kriyārthatvāt | na ceṣṭāpattiḥ | ‘svādhyāyo ’dhyetavyaḥ’ ity adhyayanavidhinā sakalavedādhyayanaṃ kartavyam iti bodhayatā sarvavedasya prayojanavadarthaparyavasāyitvaṃ sūcayatopāttatvenānarthakyānupapatteḥ |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">प्राशस्त्य-निन्दा-अन्यतर-परम्</span>「ほめ・けなしの<b>どちらか一方</b>を目指す」（<span class="dev">प्राशस्त्यम्</span> ＝ <span class="dev">प्र-शंस्</span>「ほめる」から）／ <span class="dev">प्रयोजनवत्-अर्थ-पर्यवसानम्</span>「目的をもつ事柄（＝ dharma）に<b>最終的に行き着く</b>こと」／ <span class="dev">आम्नायः</span>「ヴェーダ」／ <span class="dev">इष्टापत्तिः</span>「（その帰結は）望むところだ」／ <span class="dev">उपात्त</span>「取り込まれた・含まれた」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>ほめることか、けなすことか、どちらか一方を目指す文</b>が arthavāda である。そしてそれは、<b>転義（lakṣaṇā）によって</b>、目的をもつ事柄（dharma）に行き着く。すなわち、arthavāda の文は、<b>自分の（字義どおりの）意味</b>を伝えることには目的がないので、<b>命じられるもの・禁じられるもの</b>が<b>ほめられるべきこと・けなされるべきこと</b>を、転義によって伝えるのである。自分の意味だけを目指すなら、無意味になってしまうからである。ヴェーダは<b>行為のため</b>にあるのだから。<br>
+  「（arthavāda が無意味でも）かまわない」と言うこともできない。「<b>自分の（家の）ヴェーダを学ぶべし</b>」という学習の命令が、ヴェーダ全体を学ぶべきだと教えつつ、ヴェーダ全体が目的をもつ事柄に行き着くことを示唆しており、（arthavāda も）それに<b>含まれている</b>ので、無意味であることはありえないからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">An explanatory passage [is] a sentence, which aims at either the praise or blame [of a rite]. And it ultimately leads to a matter with a purpose by indication. To explain: Indeed, a sentence [which forms] an explanatory passage conveys by indication the praise or censure of a matter to be enjoined or a matter to be prohibited, because there is no purpose in conveying its own [literal] sense. For, if it were to aim at only its own sense, there would arise the contingency of its purposelessness. Because the Veda [is] for the purpose of action. And [you must] not [say that] the contingency is desirable. Because it is unreasonable to accept purposelessness, since [they are] included in this injunction to study viz. ‘The Veda should be studied,’ which teaches that the study of the entire Veda should be performed [and] which suggests that the entire Veda ultimately leads to matters with a purpose.</div></div>
+</div>
+
+<h3>図解：arthavāda が dharma に届くまで</h3>
+<div class="flow">
+  <div class="box"><span class="dev">स्वाध्यायोऽध्येतव्यः</span><br><small>ヴェーダ<b>全体</b>を学べ</small></div><div class="arr">→</div>
+  <div class="box"><small>無意味なものを学べとは言わない</small><br>→ 全体に目的がある</div><div class="arr">→</div>
+  <div class="box"><small>arthavāda も含まれる</small><br>→ 目的があるはず</div><div class="arr">→</div>
+  <div class="box hl"><small>字義では目的なし</small><br>→ <b>転義</b>で「命じられるものはすばらしい」</div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　JS 1.2.1 と「行為のため」</div>
+  <p><span class="dev">आम्नायस्य हि क्रियार्थत्वात्</span> は Jaimini のスートラからの借用：</p>
+  <div class="cite"><span class="dev">आम्नायस्य क्रियार्थत्वादानर्थक्यमतदर्थानाम्, तस्मादनित्यमुच्यते ।</span><span class="ja">ヴェーダは行為のためにあるので、それ（行為）のためでないものは無意味である。それゆえ（arthavāda は）無常（＝権威なし）と言われる。</span><span class="src">Jaiminisūtra 1.2.1（反対論者の説）</span></div>
+  <p>「目的をもつ事柄」（<span class="dev">प्रयोजनवदर्थः</span>）＝ dharma ＝ 祭祀など（§2，第1課）。だから <span class="dev">प्रयोजनवदर्थपर्यवसानम्</span> は <span class="dev">धर्मपर्यवसानम्</span>「dharma に行き着くこと」と同じ。</p>
+  <p><span class="dev">उपात्तत्वेन</span> の構文：<span class="dev">अध्ययनविधिना … बोधयता … सूचयता [च अर्थवादस्य] उपात्तत्वेन [तस्य] आनर्थक्यानुपपत्तेः</span>。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§73 2種類：vidhi の補い・niṣedha の補い</h2>
+<p class="chapter-sub"><span class="dev">अर्थवादो द्विविधः</span> ／ 底本 pp. 66–67，Notes pp. 289–291</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§73</span><span class="sutra-num">pp. 66–67</span><span class="sutra-text">स द्विविधः, विधिशेषो निषेधशेषश्चेति । तत्र ‘वायव्यं श्वेतमालभेत भूतिकामः’ इत्यादिविधिशेषस्य ‘वायुर्वै क्षेपिष्ठा देवता’ इत्यादेर्विधेयार्थप्राशस्त्यबोधकतयार्थवत्त्वम् । ‘बर्हिषि रजतं न देयम्’ इत्यादिनिषेधशेषस्य ‘सोऽरोदीत्, यद् अरोदीत् तद् रुद्रस्य रुद्रत्वम्’ इत्यादेर्निषेध्यस्य निन्दितत्वबोधकतयार्थवत्त्वम् । न च प्राशस्त्यादिबोधस्य निष्प्रयोजनत्वेन नार्थवादस्यार्थवत्त्वमिति वाच्यम् । आलस्यादिवशादप्रवर्तमानस्य पुंसः प्रवृत्त्यादिजनकत्वेन तद्बोधस्योपयोगात् ।</span></div>
+  <div class="sutra-iast">sa dvividhaḥ, vidhiśeṣo niṣedhaśeṣaś ceti | tatra ‘vāyavyaṃ śvetam ālabheta bhūtikāmaḥ’ ityādividhiśeṣasya ‘vāyur vai kṣepiṣṭhā devatā’ ityāder vidheyārthaprāśastyabodhakatayārthavattvam | ‘barhiṣi rajataṃ na deyam’ ityādiniṣedhaśeṣasya ‘so ’rodīt, yad arodīt tad rudrasya rudratvam’ ityāder niṣedhyasya ninditatvabodhakatayārthavattvam | na ca prāśastyādibodhasya niṣprayojanatvena nārthavādasyārthavattvam iti vācyam | ālasyādivaśād apravartamānasya puṃsaḥ pravṛttyādijanakatvena tadbodhasyopayogāt |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">शेषः</span>「補い・従属するもの」／ <span class="dev">वायव्यम्</span>「風神 Vāyu に捧げる（獣を）」／ <span class="dev">आलभेत</span>「（供犠獣を）屠るべし」／ <span class="dev">भूतिकामः</span>「繁栄を望む者」／ <span class="dev">क्षेपिष्ठा</span>「最も速い」（<span class="dev">क्षिप्र</span> の最上級）／ <span class="dev">बर्हिः</span>「祭草」／ <span class="dev">रजतम्</span>「銀」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">それ（arthavāda）は2種類である。<b>vidhi の補い</b>と<b>niṣedha の補い</b>とである。そのうち、「繁栄を望む者は Vāyu に白い（獣）を屠るべし」などの vidhi の補いである「<b>Vāyu は実に最も速い神である</b>」などは、<b>命じられる事柄がすばらしいこと</b>を知らせることによって意義をもつ。「<b>祭草の上で銀を与えてはならない</b>」などの niṣedha の補いである「<b>彼は泣いた。泣いたので、それが Rudra の Rudra たるゆえんである</b>」などは、<b>禁じられるものがけなされるべきこと</b>を知らせることによって意義をもつ。<br>
+  「ほめ言葉などを知っても目的がないので、arthavāda には意義がない」と言ってはならない。<b>怠惰などのために取りかからない人</b>に、取りかかること（や手を引くこと）を生じさせるので、その知識は役に立つからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">It [is] of two kinds viz. complimentary to injunction and complimentary to prohibition. There [the explanatory passage] beginning with ‘Vāyu, verily, is the swiftest deity,’ which is complimentary to the injunction commencing with ‘[One] desirous of prosperity should immolate a white [animal] in honour of Vāyu,’ possesses a purpose, because it teaches the praise of the matter to be enjoined. [The explanatory passage] beginning with ‘He howled. Since he howled, therefore to Rudra belongs the character of the Howler,’ which is complimentary to the prohibition commencing with ‘On the grass silver should not be offered,’ serves a purpose, because it conveys the censure of the matter to be prohibited. And it should not be urged that as the knowledge of the praise and the like has no object, an explanatory passage is not possessed of a purpose. For, the knowledge of that is useful, because it produces activity and the like in [one who is] inactive through the force of laziness and the like.</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<tr><th></th><th>vidhi の補い（<span class="dev">विधिशेषः</span>）</th><th>niṣedha の補い（<span class="dev">निषेधशेषः</span>）</th></tr>
+<tr><td>主文</td><td><span class="dev">वायव्यं श्वेतमालभेत भूतिकामः</span></td><td><span class="dev">बर्हिषि रजतं न देयम्</span></td></tr>
+<tr><td>arthavāda</td><td><span class="dev">वायुर्वै क्षेपिष्ठा देवता</span></td><td><span class="dev">सोऽरोदीत्, यद् अरोदीत् तद् रुद्रस्य रुद्रत्वम्</span></td></tr>
+<tr><td>字義</td><td>Vāyu は最も速い神だ</td><td>（Agni が）泣いた、だから Rudra（泣く者）</td></tr>
+<tr><td>転義で伝えること</td><td>白い獣の供犠は<b>すばらしい</b>（<span class="dev">प्राशस्त्यम्</span>）</td><td>銀の贈与は<b>けしからん</b>（<span class="dev">निन्दा</span>）</td></tr>
+<tr><td>効き目</td><td>怠け者も取りかかる（<span class="dev">प्रवृत्तिः</span>）</td><td>平気な人も手を引く（<span class="dev">निवृत्तिः</span>）</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Vāyu の arthavāda の全文</div>
+  <div class="cite"><span class="dev">वायुर्वै क्षेपिष्ठा देवता, वायुमेव स्वेन भागधेयेनोपधावति, स एवैनं भूतिं गमयति ।</span><span class="ja">Vāyu は実に最も速い神である。（祭主は）Vāyu にこそ、その（神）自身の取り分をもって近づく。彼（Vāyu）こそがこの者を繁栄へと導く。</span></div>
+  <p>字義は Vāyu の賛美だが、それ自体は dharma（白い獣の供犠）と直接の関係がない。だから転義によって、Vāyu ではなく<b>Vāyu に捧げる白い獣の供犠</b>（＝命じられるもの）の賛美と理解する。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Agni の涙と銀</div>
+  <p>祭官への謝礼（dakṣiṇā）は祭草（barhis）の上に置いて渡す。だから「祭草の上で銀を与えてはならない」＝祭式で銀を謝礼にしてはならない。</p>
+  <div class="cite"><span class="dev">पुरा कदाचित् देवासुराणां युद्धं प्रावर्तत । तत्र युद्धार्थं गच्छन्तो देवाः स्वीयमनर्घं रमणीयं च वस्तुजातमग्निसमीपेऽस्थापयन् यदि कदाचिदस्मान् असुरा जयेयुः तदिदमस्माकं लोकयात्रार्थं भविष्यतीति । दृष्ट्वा च तदतिसुन्दरममूल्यं च वस्तुजातं लोभाकृष्टचित्तोऽग्निः तत् गृहीत्वा पलायत । ते च देवा असुरान् जित्वा प्रतिनिवृत्ताः यदा पलायितमग्निमवागच्छन् तदा तमन्विष्य तत् सर्वमपि धनं बलाद्गृह्णन् । तादृशधनवियोगजं दुःखमसहमानोऽग्निररुदत् । रुदतस्तस्य नेत्राभ्यामपतदश्रु । तदेव रजतं संजातमिति ।</span><span class="ja">昔、神々と阿修羅の戦いがあった。神々は戦いに出かけるとき、自分たちの貴重で美しい財宝を Agni のそばに置いた。「万一阿修羅に負けても、これで暮らしていけるだろう」と。Agni はその美しく値のつけられない財宝を見て欲に心を奪われ、それを持って逃げた。神々は阿修羅に勝って戻り、Agni が逃げたと知ると、探し出してその財をすべて力ずくで取り返した。財を失った悲しみに耐えられず Agni は泣いた。泣く彼の両目から涙が落ちた。それが<b>銀</b>になったのである。</span><span class="src">Sāravivecanī</span></div>
+  <div class="flow">
+    <div class="box">Agni が泣く</div><div class="arr">→</div>
+    <div class="box">涙 ＝ 銀</div><div class="arr">→</div>
+    <div class="box hl">銀を贈ると<br>その家に涙が</div>
+  </div>
+  <p><b>G&amp;K の指摘</b>：<span class="dev">सोऽरोदीत् … रुद्रत्वम्</span> 自体は「銀は涙から生まれた」とは言っていない。この禁止にふさわしい arthavāda は本来：</p>
+  <div class="cite"><span class="dev">अश्रुजं हि रजतं, यो बर्हिषि ददाति पुरास्य संवत्सराद् गृहे रुदन्ति ।</span><span class="ja">銀は涙から生まれたものだ。祭草の上で（銀を）与える者は、1年もたたないうちにその家で（人々が）泣くことになる。</span></div>
+  <p>Bhāskara はここでも師 Āpadeva に従って、ずれた例を引いている。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　arthavāda は4種類？</div>
+  <p>善い人は命じられればすぐ行うが、怠惰などでなかなか行わない人もいる。そういう人にはほめ言葉が<b>追加の動機</b>になる。禁止も同様で、「銀を使うと1年以内に家で泣くことになる」と言われれば効く。</p>
+  <p>ほめ（<span class="dev">प्रशंसा</span>）・けなし（<span class="dev">निन्दा</span>）に、<b>偉人の行い</b>（<span class="dev">परकृतिः</span>）と<b>昔の出来事</b>（<span class="dev">पुराकल्पः</span>）を加えて4種とする人もいる。しかし後の2つも結局はほめかけなしを伝えるためなので、2種とする方がよい。</p>
+  <div class="cite"><span class="dev">… स च चतुर्विधः — निन्दाप्रशंसापरकृतिपुराकल्पभेदात् । तत्र निन्दार्थवादो यथा — ‘असत्त्रं वा एतद् यद् अच्छन्दोमम्’ इत्यादिः, ‘अश्रुजं हि रजतं …’ इत्यादिश्च । प्रशंसार्थवादो यथा — ‘शोभतेऽस्य मुखं य एवं वेद’ इत्यादिः, ‘वायुर्वै क्षेपिष्ठा देवता …’ इत्येवमादिश्च । परेण महता पुरुषेण इदं कर्म कृतमिति प्रतिपादकोऽर्थवादः परकृतिः, यथा — ‘अग्निर्वा अकामयत’ इत्यादिः । परप्रवक्तृकार्थप्रतिपादकः पुराकल्पः, यथा — ‘तमशपद् धिया धिया त्वा वध्यासुः’ इत्यादिः । … क्वचित् कार्यान्तरमपि अस्ति । यथा ‘अक्ताः शर्करा उपदधाति’ इति विधौ ‘अक्ताः’ इति पदेन द्रवद्रव्यसामान्यं प्रतीयते । तच्च द्रवद्रव्यं किमिति संदेहे ‘तेजो वै घृतम्’ इति अर्थवादाद् घृतमिति निश्चीयते …</span><span class="src">Mīmāṃsāparibhāṣā</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>種類</th><th>例</th></tr>
+  <tr><td><span class="dev">निन्दा</span> けなし</td><td><span class="dev">असत्त्रं वा एतद् यद् अच्छन्दोमम्</span>「Chandoma のないものは Sattra ではない」、<span class="dev">अश्रुजं हि रजतम्</span></td></tr>
+  <tr><td><span class="dev">प्रशंसा</span> ほめ</td><td><span class="dev">शोभतेऽस्य मुखं य एवं वेद</span>「このように知る者の顔は輝く」、<span class="dev">वायुर्वै क्षेपिष्ठा देवता</span></td></tr>
+  <tr><td><span class="dev">परकृतिः</span> 偉人の行い</td><td><span class="dev">अग्निर्वा अकामयत</span>「Agni は（かつて）望んだ」── Agni がした祭だからすばらしい</td></tr>
+  <tr><td><span class="dev">पुराकल्पः</span> 昔の出来事</td><td><span class="dev">तमशपद् धिया धिया त्वा वध्यासुः</span>「彼はそれを呪った…」</td></tr>
+  </table></div>
+  <p>Paribhāṣā はさらに、arthavāda が<b>不明確な語の意味を決める</b>こともあると言う：<span class="dev">अक्ताः शर्करा उपदधाति</span>「塗られた小石を置く」では何を塗るか不明だが、<span class="dev">तेजो वै घृतम्</span>「ギーは実に光輝である」から<b>ギー</b>と決まる。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Nyāyamālā：文と文のまとまり（vākyaikavākyatā）</div>
+  <div class="cite"><span class="dev">… क्षिप्रगामी वायुः स्वोचितेन भागेन तोषितो भागप्रदाय ऐश्वर्यं प्रयच्छति इत्युक्ते रामायणभारतादाविव वृत्तान्तः कश्चित् प्रतीयते, न तु अनुष्ठेयं किंचित् । अत एकवाक्यत्वाभावाद् नास्ति अर्थवादस्य धर्मे प्रामाण्यमिति प्राप्ते — ब्रूमः । मा भूत् पदैकवाक्यता । वाक्यैकवाक्यता तु विद्यते । विधिवाक्यं तावत् पुरुषं प्रेरयितुं विधेयार्थस्य प्राशस्त्यमपेक्षते । … ‘यतः क्षिप्रगामिस्वभावतया शीघ्रफलप्रदो वायुरस्य पशोर्देवता, ततः प्रशस्तमिमं वायव्यं पशुमालभेत’ इति वाक्ययोरन्वयः । तस्माद् अर्थवादा धर्मे प्रमाणम् ।</span><span class="ja">（反論）「速い Vāyu は、ふさわしい取り分で満足させられると、取り分をくれた者に富を与える」と言えば、ラーマーヤナやマハーバーラタのような何かの<b>物語</b>が理解されるだけで、行うべきことは何も理解されない。…だから arthavāda は dharma について権威がない。（答）語と語のまとまりはないとしても、<b>文と文のまとまり</b>はある。命令文は人を動かすために、命じられることの<b>すばらしさを必要とする</b>。…「Vāyu は速いという本性によってすぐに果報を与えるこの獣の神格であるから、このすばらしい Vāyu の獣を屠るべし」と2文が結びつく。ゆえに arthavāda は dharma について権威である。</span><span class="src">Jaiminīyanyāyamālāvistara pp. 22–23</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§74 3種類：guṇavāda・anuvāda・bhūtārthavāda</h2>
+<p class="chapter-sub"><span class="dev">अर्थवादस्य भेदत्रयम्</span> ／ 底本 pp. 67–68，Notes pp. 291–292</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§74</span><span class="sutra-num">pp. 67–68</span><span class="sutra-text">स पुनस्त्रेधा । तदुक्तम् — ‘विरोधे गुणवादः स्यादनुवादोऽवधारिते । भूतार्थवादस्तद्धानादर्थवादस्त्रिधा मतः ॥’ इति । अस्यार्थः — प्रमाणान्तरविरोधे सत्यर्थवादो गुणवादः, यथा ‘आदित्यो यूपः’ इत्यादिः । यूप आदित्याभेदस्य प्रत्यक्षबाधितत्वादादित्यवदुज्ज्वलत्वरूपगुणोऽनेन लक्षणया प्रतिपाद्यते । प्रमाणान्तरावगतार्थबोधकोऽर्थवादोऽनुवादः, यथा ‘अग्निर्हिमस्य भेषजम्’ इति । अत्र हिमविरोधित्वस्याग्नौ प्रत्यक्षावगतत्वात् । प्रमाणान्तरविरोधतत्प्राप्तिरहितार्थबोधकोऽर्थवादो भूतार्थवादः, यथा ‘इन्द्रो वृत्राय वज्रमुदयच्छत्’ इत्यादिः ।</span></div>
+  <div class="sutra-iast">sa punas tredhā | tad uktam — ‘virodhe guṇavādaḥ syād anuvādo ’vadhārite | bhūtārthavādas taddhānād arthavādas tridhā mataḥ ||’ iti | asyārthaḥ — pramāṇāntaravirodhe saty arthavādo guṇavādaḥ, yathā ‘ādityo yūpaḥ’ ityādiḥ | yūpa ādityābhedasya pratyakṣabādhitatvād ādityavad ujjvalatvarūpaguṇo ’nena lakṣaṇayā pratipādyate | pramāṇāntarāvagatārthabodhako ’rthavādo ’nuvādaḥ, yathā ‘agnir himasya bheṣajam’ iti | atra himavirodhitvasyāgnau pratyakṣāvagatatvāt | pramāṇāntaravirodhatatprāptirahitārthabodhako ’rthavādo bhūtārthavādaḥ, yathā ‘indro vṛtrāya vajram udayacchat’ ityādiḥ |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">गुणवादः</span>「性質を言うもの」／ <span class="dev">अनुवादः</span>「（既知のことの）繰り返し」／ <span class="dev">भूतार्थवादः</span>「実際に起きたことを言うもの」／ <span class="dev">अवधारिते</span>「確定されているときに」／ <span class="dev">तद्धानात्</span>「その（2つの）欠如から」／ <span class="dev">यूपः</span>「（供犠獣をつなぐ）祭柱」／ <span class="dev">भेषजम्</span>「薬」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">それ（arthavāda）はさらに3種類である。こう言われている：<br>
+  <span style="display:block;margin:.4em 0 .4em 1em">「<b>矛盾</b>があれば guṇavāda、<b>確定</b>していれば anuvāda、<b>その両方がない</b>ので bhūtārthavāda ── arthavāda は3種と考えられる。」</span>
+  その意味は：<b>他の認識手段との矛盾</b>があるときの arthavāda が <b>guṇavāda</b>（性質の言明）である。たとえば「<b>祭柱は太陽である</b>」など。祭柱における太陽との同一性は知覚によって否定されるので、これ（arthavāda）によって、転義で、太陽のように<b>輝いている</b>という<b>性質</b>が述べられる。<b>他の認識手段で知られた事柄</b>を知らせる arthavāda が <b>anuvāda</b>（繰り返し）である。たとえば「<b>火は寒さの薬である</b>」。ここでは、火に寒さを打ち消す力があることは知覚で知られているからである。<b>他の認識手段との矛盾も、それによる成立もない</b>事柄を知らせる arthavāda が <b>bhūtārthavāda</b>（実際の出来事の言明）である。たとえば「<b>Indra は Vṛtra に向けて金剛杵を振り上げた</b>」など。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">That [explanatory passage is] again three-fold. The same is declared [in]: ‘In [case of] contradiction, [the Arthavāda] would state a quality; in [case of] ascertainment [it would be] a repetition; on account of the absence of [both of] those [it would] state the real state of affairs — [thus] an explanatory passage [is] regarded to be three-fold.’ The meaning of this [couplet is]: When there is a contradiction with another means of proof, an explanatory passage states a quality, as ‘The sacrificial post [is] the sun’ and the like. On account of the identity with the sun being contradicted in the sacrificial post by perception, this conveys by indication the quality of the form of brilliance like [that of] the sun. An explanatory passage, which conveys a matter understood from another means of proof, [contains] a repetition, as ‘Fire [is] a remedy against cold.’ Because here the opposition of cold towards fire is understood from direct perception. An explanatory passage, which conveys a matter free from contradiction with another means of proof and [also] from establishment by that, [embodies] a statement of the real state of affairs, as ‘Indra raised the thunderbolt for [striking] Vṛtra’ and the like.</div></div>
+</div>
+
+<h3>図解：他の認識手段（知覚など）との関係で3分類</h3>
+<svg class="dia" viewBox="0 0 640 270" role="img" aria-label="arthavāda の3分類図">
+  <defs><marker id="m14a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+  <rect x="170" y="10" width="300" height="50" rx="8" class="bx-hl"/><text x="320" y="32" text-anchor="middle">arthavāda の内容は、知覚など</text><text x="320" y="50" text-anchor="middle">他の認識手段と比べて…</text>
+  <path d="M230,60 L110,105" class="ln" marker-end="url(#m14a)"/><path d="M320,60 L320,105" class="ln" marker-end="url(#m14a)"/><path d="M410,60 L530,105" class="ln" marker-end="url(#m14a)"/>
+  <text x="125" y="82" text-anchor="middle" class="sm">矛盾する</text><text x="352" y="88" text-anchor="middle" class="sm">一致する</text><text x="555" y="82" text-anchor="middle" class="sm">どちらでもない</text>
+  <rect x="15" y="105" width="190" height="150" rx="8" class="bx"/><text x="110" y="130" text-anchor="middle" class="dv">गुणवादः</text><text x="110" y="150" text-anchor="middle" class="sm">性質の言明</text><text x="110" y="180" text-anchor="middle" class="dv">आदित्यो यूपः</text><text x="110" y="205" text-anchor="middle" class="sm">柱は太陽ではない（知覚）</text><text x="110" y="228" text-anchor="middle" class="sm">→ 転義：太陽のように輝く</text>
+  <rect x="225" y="105" width="190" height="150" rx="8" class="bx"/><text x="320" y="130" text-anchor="middle" class="dv">अनुवादः</text><text x="320" y="150" text-anchor="middle" class="sm">繰り返し</text><text x="320" y="180" text-anchor="middle" class="dv">अग्निर्हिमस्य भेषजम्</text><text x="320" y="205" text-anchor="middle" class="sm">火が寒さを消すのは</text><text x="320" y="228" text-anchor="middle" class="sm">知覚で既に知っている</text>
+  <rect x="435" y="105" width="190" height="150" rx="8" class="bx"/><text x="530" y="130" text-anchor="middle" class="dv">भूतार्थवादः</text><text x="530" y="150" text-anchor="middle" class="sm">実際の出来事の言明</text><text x="530" y="180" text-anchor="middle" class="dv" style="font-size:14px">इन्द्रो वृत्राय वज्रमुदयच्छत्</text><text x="530" y="205" text-anchor="middle" class="sm">確かめる手段も</text><text x="530" y="228" text-anchor="middle" class="sm">否定する手段もない</text>
+</svg>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　2つの分類の観点の違い</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>分類</th><th>観点</th><th>種類</th></tr>
+  <tr><td>§73（2種）</td><td>他のもの（vidhi・niṣedha）との<b>関係</b>：どれを助けるか</td><td>vidhiśeṣa ・ niṣedhaśeṣa</td></tr>
+  <tr><td>§74（3種）</td><td>arthavāda そのものの<b>内容</b>：他の認識手段に否定されるか・支持されるか</td><td>guṇavāda ・ anuvāda ・ bhūtārthavāda</td></tr>
+  </table></div>
+  <ul>
+    <li><b>guṇavāda</b>：<span class="dev">आदित्यो यूपः</span> は修辞学（Alaṃkāraśāstra）でいう <b>gauṇī lakṣaṇā</b>（性質に基づく転義）の例。<span class="dev">गौर्वाहीकः</span>「Vāhīka 人は牛だ」（＝鈍い）、<span class="dev">चन्द्रो मुखम्</span>「顔は月だ」と同じ。</li>
+    <li><b>anuvāda</b>：その名のとおり、他の手段ですでに知られたことを<b>繰り返す</b>だけ（<span class="dev">अनु-वद्</span>「後から言う」）。</li>
+    <li><span class="dev">अवधारिते</span> は <span class="dev">नपुंसके भावे क्तः</span>（P 3.3.114，中性の過去分詞を行為名詞として使う）により <span class="dev">अवधारणे</span>「確定があるとき」と取る。そうすれば同じく抽象名詞の <span class="dev">विरोधे</span> と対称になる。</li>
+    <li><b>bhūtārthavāda</b>：<span class="dev">भूतार्थः</span> は「起きたこと」→ 実際に起きたのだから「<b>本当のこと</b>」。カーリダーサ『シャクンタラー』第1幕 <span class="dev">आर्ये, कथयामि ते भूतार्थम्</span>「奥方、本当のことを申しましょう」参照。Indra と Vṛtra の戦いで何が起きたか、そもそも戦いがあったのかを確かめる手段はない。</li>
+    <li><span class="dev">तद्धानात्</span> ＝ <span class="dev">विरोध-अवधारित-हानात्</span>「矛盾と確定の両方がないので」。本文の <span class="dev">प्रमाणान्तरविरोधतत्प्राप्तिरहित</span> の <span class="dev">तत्प्राप्ति</span> は「他の認識手段による成立」。</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§75 結び ── ヴェーダ全体が dharma を教える</h2>
+<p class="chapter-sub"><span class="dev">उपसंहारः</span> ／ 底本 pp. 68–69，Notes pp. 292–294</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§75-a</span><span class="sutra-num">pp. 68–69</span><span class="sutra-text">एवं च ‘यजेत स्वर्गकामः’ इत्यादिनिखिलवेदस्य साक्षात् परम्परया वा यागादिधर्मप्रतिपादकत्वं सिद्धम् ।</span></div>
+  <div class="sutra-iast">evaṃ ca ‘yajeta svargakāmaḥ’ ityādinikhilavedasya sākṣāt paramparayā vā yāgādidharmapratipādakatvaṃ siddham |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">こうして、「天界を望む者は祭祀すべし」などで始まる<b>ヴェーダ全体</b>が、<b>直接に</b>あるいは<b>間接に</b>、祭祀などの <b>dharma を教える</b>ものであることが確立した。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And thus [it is] established that the entire Veda comprising [sentences like] ‘[He] who is desirous of heaven should sacrifice’ and the like, propounds dharma in the form of sacrifice and the like, either directly or indirectly.</div></div>
+</div>
+
+<h3>図解：5区分はそれぞれどう dharma に仕えるか</h3>
+<div class="tbl-wrap"><table>
+<tr><th>区分</th><th>dharma に対して</th><th>意義（<span class="dev">अर्थवत्त्वम्</span>）</th><th>直接／間接</th><th>本講座</th></tr>
+<tr><td><span class="dev">विधिः</span></td><td><span class="dev">विधिना विहितः</span> 命じられる</td><td><span class="dev">प्रयोजनवदर्थविधानेन</span> 目的ある事柄を命じることで</td><td>直接</td><td>第3–9課</td></tr>
+<tr><td><span class="dev">मन्त्रः</span></td><td><span class="dev">मन्त्रेण स्मारितः</span> 思い出させられる</td><td><span class="dev">प्रयोगसमवेतार्थस्मारकत्वेन</span> 実行に関わる事柄を思い出させることで</td><td>間接</td><td>第10課</td></tr>
+<tr><td><span class="dev">नामधेयम्</span></td><td><span class="dev">नामधेयेन परिच्छिन्नः</span> 限定される</td><td><span class="dev">विधेयार्थपरिच्छेदकतया</span> 命じられる事柄を限定することで</td><td>間接</td><td>第11課</td></tr>
+<tr><td><span class="dev">निषेधः</span></td><td><span class="dev">निषेधेन निवर्तितः</span>（悪から）引き戻される</td><td><span class="dev">अनर्थहेतुक्रियानिवृत्तिजनकत्वेन</span> 災いの原因となる行為からの退きを生むことで</td><td>直接</td><td>第12–13課</td></tr>
+<tr><td><span class="dev">अर्थवादः</span></td><td><span class="dev">अर्थवादेन प्रशंसितो निन्दितो वा</span> ほめられ、けなされる</td><td><span class="dev">विधेयनिषेध्ययोः प्राशस्त्यनिन्दितत्वप्रतिपादनद्वारा</span> 命じられるもの・禁じられるもののほめ・けなしを伝えることで</td><td>間接</td><td>第14課</td></tr>
+</table></div>
+<p class="chapter-sub">（表の中身は G&amp;K Notes p. 293 のまとめによる。vidhi と niṣedha は「すべし」「すべからず」を直接言うので直接、他の3つは vidhi・niṣedha の対象と結びついて間接に dharma を教える。）</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§75-b</span><span class="sutra-num">p. 69</span><span class="sutra-text">सोऽयं धर्मो यदुद्दिश्य विहितस्तदुद्देशेन क्रियमाणस्तद्धेतुः । ईश्वरार्पणबुद्ध्या क्रियमाणस्तु निःश्रेयसहेतुः । न च तदर्पणबुद्ध्यानुष्ठाने प्रमाणाभावः । ‘यत् करोषि यदश्नासि यज्जुहोषि ददासि यत् । यत् तपस्यसि कौन्तेय तत् कुरुष्व मदर्पणम् ॥’ इति भगवद्गीतास्मृतेरेव प्रमाणत्वात् । स्मृतिचरणे तत्प्रामाण्यस्य श्रुतिमूलकत्वेन व्यवस्थापनात् । इति शिवम् ।</span></div>
+  <div class="sutra-iast">so ’yaṃ dharmo yad uddiśya vihitas taduddeśena kriyamāṇas taddhetuḥ | īśvarārpaṇabuddhyā kriyamāṇas tu niḥśreyasahetuḥ | na ca tadarpaṇabuddhyānuṣṭhāne pramāṇābhāvaḥ | ‘yat karoṣi yad aśnāsi yaj juhoṣi dadāsi yat | yat tapasyasi kaunteya tat kuruṣva madarpaṇam ||’ iti bhagavadgītāsmṛter eva pramāṇatvāt | smṛticaraṇe tatprāmāṇyasya śrutimūlakatvena vyavasthāpanāt | iti śivam |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">उद्दिश्य</span>「目当てとして」／ <span class="dev">ईश्वर-अर्पण-बुद्ध्या</span>「<b>神に捧げる</b>という心で」／ <span class="dev">निःश्रेयसम्</span>「至高の善・解脱」／ <span class="dev">स्मृतिचरणे</span>「Smṛti の章（JS 1.3）で」／ <span class="dev">शिवम्</span>「吉祥あれ」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">この dharma は、<b>何かを目当てとして</b>命じられており、<b>その目当てをもって</b>行われれば、<b>その（果報の）原因</b>となる。しかし、<b>神に捧げる</b>という心で行われれば、<b>至高の善（解脱）の原因</b>となる。そして、神に捧げる心で行うことに典拠がない、ということはない。<br>
+  <span style="display:block;margin:.4em 0 .4em 1em">「クンティーの子よ、汝がなすこと、食べること、献供すること、与えること、苦行すること ── それを<b>我への捧げもの</b>とせよ。」</span>
+  という Bhagavadgītā の Smṛti こそが典拠だからである。Smṛti の章（JS 1.3）で、その（Smṛti の）権威は<b>天啓（Śruti）を根拠とする</b>ものとして確立されているからである。<b>吉祥あれ</b>。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">This same dharma, when performed with reference to that, with reference to which it is enjoined, is the cause of that. But when performed with the idea of dedication to God, it is the cause of final beatitude. And there is no lack of authority for performing [dharma] with the idea of dedication to Him. Because the Smṛti of the Bhagavadgītā itself, viz. ‘Whatever thou doest, whatever thou eatest, whatever thou offerest in sacrifice, whatever thou givest away, whatever austerity thou practisest, O son of Kuntī, do that as an offering to Me,’ is the authority. For, in the quarter dealing with Smṛtis, their authoritativeness is established as based on Śruti. May there be bliss.</div></div>
+</div>
+
+<h3>図解：dharma の2つの実り</h3>
+<div class="flow">
+  <div class="box">Jyotiṣṭoma などの dharma</div><div class="arr">→</div>
+  <div class="box">天界を<b>目当てに</b>行う<br><small><span class="dev">स्वर्गोद्देशेन क्रियमाणः</span></small></div><div class="arr">→</div>
+  <div class="box">天界（<span class="dev">स्वर्गः</span>）</div>
+</div>
+<div class="flow">
+  <div class="box">同じ dharma</div><div class="arr">→</div>
+  <div class="box hl"><b>神に捧げる</b>心で行う<br><small><span class="dev">ईश्वरार्पणबुद्ध्या</span>（niṣkāma karman）</small></div><div class="arr">→</div>
+  <div class="box hl">解脱（<span class="dev">निःश्रेयसम्</span>）</div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Gītā の典拠</div>
+  <div class="cite"><span class="dev">यत् करोषि यदश्नासि यज्जुहोषि ददासि यत् । यत् तपस्यसि कौन्तेय तत् कुरुष्व मदर्पणम् ॥ २७ ॥ शुभाशुभफलैरेवं मोक्ष्यसे कर्मबन्धनैः । संन्यासयोगयुक्तात्मा विमुक्तो मामुपैष्यसि ॥ २८ ॥</span><span class="ja">（27）…それを我への捧げものとせよ。（28）こうして汝は、善悪の果報をもたらす行為の束縛から解き放たれるだろう。放擲のヨーガに心を結び、解脱して、汝は我のもとに来るだろう。</span><span class="src">Bhagavadgītā 9.27–28</span></div>
+  <p><b>反論</b>：Gītā はマハーバーラタの一部で、人間の作者（Vyāsa）による<b>Smṛti</b>。人の作った Smṛti が、人の作でない Śruti のように dharma の権威になるのか？<br>
+  <b>答</b>：Jaimini は JS 第1章第3節（Smṛti の節）で、Smṛti は <b>Śruti に基づく</b>ので権威があると決めている。</p>
+  <div class="cite"><span class="dev">‘अष्टकाः कर्तव्याः’ इत्यादि स्मृतिवाक्यं न धर्मे प्रमाणम्, पौरुषेयवाक्यत्वे सति मूलप्रमाणरहितत्वात् विप्रलम्भकवाक्यवत् । … इति प्राप्ते — ब्रूमः । विमता स्मृतिर्वेदमूला, वैदिकमन्वादिप्रणीतस्मृतित्वात्, उपनयनाध्ययनादिस्मृतिवत् । न च वैयर्थ्यं शङ्कनीयम्, अस्मदादीनां प्रत्यक्षेषु परोक्षेषु च नानावेदेषु विप्रकीर्णस्य अनुष्ठेयार्थस्य एकत्र संक्षिप्यमाणत्वात् । तस्मादियं स्मृतिर्धर्मे प्रमाणम् ।</span><span class="ja">（反論）「Aṣṭakā 祭を行うべし」などの Smṛti の文は dharma の権威ではない。人の作った文で、根拠となる認識手段を欠くから。だます人の言葉のように。…（答）問題の Smṛti はヴェーダに基づく。ヴェーダに通じた Manu たちが作った Smṛti だから。入門式や学習についての Smṛti のように。無意味だと疑うべきでもない。私たちに見えるものも見えないものも含めて、さまざまなヴェーダに散らばった行うべき事柄が、一か所にまとめられているのだから。ゆえにこの Smṛti は dharma の権威である。</span><span class="src">Jaiminīyanyāyamālāvistara pp. 27–28</span></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　これは本来の Mīmāṃsā ではない</div>
+  <p>Bhāskara の「神に捧げる心で行えば解脱の原因」という言明について、G&amp;K ははっきり指摘します：</p>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>本来の Mīmāṃsā</th><th>§75 の言明（Gītā の影響）</th></tr>
+  <tr><td>無欲の行為（niṣkāma karman）</td><td>知らない</td><td>神に捧げる心で行う</td></tr>
+  <tr><td>最高の果報</td><td><b>天界</b>（Jyotiṣṭoma などで得る）</td><td><b>解脱</b>（niḥśreyasa）</td></tr>
+  <tr><td>天界の位置づけ</td><td>最高のもの</td><td>功徳が尽きれば戻ってくる、一時的な場所</td></tr>
+  <tr><td>神</td><td>Agni・Indra など祭式の神格のみ</td><td>それより上の<b>主宰神（Īśvara）</b>が、行為を嘉して解脱を与える</td></tr>
+  </table></div>
+  <p>「天界は無常で、功徳が尽きれば降りてくる」という考えは、<b>行為より知識</b>を重んじるようになった後代の産物：知識の果報は永遠、行為の果報は（天界も含めて）無常、という推論から。§75 の言明には Bhagavadgītā の哲学の影響がはっきり見てとれる。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　結びの詩節と奥書</h2>
+<p class="chapter-sub"><span class="dev">उपसंहारश्लोकः · पुष्पिका</span> ／ 底本 p. 69，Notes p. 294</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">詩節 2</span><span class="sutra-num">p. 69</span><span class="sutra-text">बालानां सुखबोधाय भास्करेण सुमेधसा । रचितोऽयं समासेन जैमिनीयार्थसंग्रहः ॥ २ ॥</span></div>
+  <div class="sutra-iast">bālānāṃ sukhabodhāya bhāskareṇa sumedhasā | racito ’yaṃ samāsena jaiminīyārthasaṃgrahaḥ || 2 ||</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">बालानाम्</span>「初学者たちの」／ <span class="dev">सुख-बोधाय</span>「たやすく理解するために」／ <span class="dev">सुमेधसा</span>「賢明なる」／ <span class="dev">समासेन</span>「簡潔に」／ <span class="dev">जैमिनीय-अर्थ-संग्रहः</span>「Jaimini（の学説）の要点集」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>初学者たちがたやすく理解できるように</b>、賢明なる Bhāskara によって、この <b>Jaimini の教えの要点集</b>は簡潔に作られた。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">This Compendium of the topics of Jaimini has been composed concisely by the talented Bhāskara for the easy understanding of beginners.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">奥書</span><span class="sutra-num">p. 69</span><span class="sutra-text">इति श्रीमहामहोपाध्यायलौगाक्षिभास्करविरचितपूर्वमीमांसार्थसंग्रहनामकं प्रकरणं समाप्तिमगात् ।</span></div>
+  <div class="sutra-iast">iti śrīmahāmahopādhyāyalaugākṣibhāskaraviracitapūrvamīmāṃsārthasaṃgrahanāmakaṃ prakaraṇaṃ samāptim agāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">以上で、吉祥なる大大師（Mahāmahopādhyāya）<b>Laugākṣi Bhāskara</b> 作『<b>Pūrvamīmāṃsārthasaṃgraha</b>』という名の綱要書は終わった。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　最後の言葉</div>
+  <ul>
+    <li><span class="dev">इति शिवम्</span>：教える者・学ぶ者・一般の読者すべてに吉祥（幸福）があるように、という結びの祝福。</li>
+    <li><span class="dev">सुमेधसा भास्करेण</span>：自分を「賢明な」と呼ぶのは現代の読者には悪趣味に見えるかもしれないが、サンスクリット文学ではこうした自賛は珍しくない。</li>
+    <li><span class="dev">श्रीमहामहोपाध्याय</span>：おそらく Bhāskara がもっていた称号。</li>
+    <li>冒頭の礼拝詩節（詩節 1，第1課）と、この詩節 2 で本書は挟まれている。「<b>初学者のために</b>」── まさにこの講座の目的でもありました。</li>
+  </ul>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　全14課をふりかえる</h2>
+<div class="tbl-wrap"><table>
+<tr><th>課</th><th>本書</th><th>主題</th></tr>
+<tr><td><a href="arthasamgraha_lesson1.html">1</a></td><td>§1–§3</td><td>導入（1）：礼拝詩節、学問の開始、dharma の定義</td></tr>
+<tr><td><a href="arthasamgraha_lesson2.html">2</a></td><td>§4–§9</td><td>導入（2）：yajeta の分析と二つの bhāvanā</td></tr>
+<tr><td><a href="arthasamgraha_lesson3.html">3</a></td><td>§10–§14</td><td>ヴェーダの定義、発生の vidhi・適用の vidhi</td></tr>
+<tr><td><a href="arthasamgraha_lesson4.html">4</a></td><td>§15–§19</td><td>適用を決める6つの根拠と śruti</td></tr>
+<tr><td><a href="arthasamgraha_lesson5.html">5</a></td><td>§20–§24</td><td>liṅga と vākya</td></tr>
+<tr><td><a href="arthasamgraha_lesson6.html">6</a></td><td>§25–§31</td><td>prakaraṇa（文脈・相互期待）</td></tr>
+<tr><td><a href="arthasamgraha_lesson7.html">7</a></td><td>§32–§39</td><td>sthāna・samākhyā と従属物の2種</td></tr>
+<tr><td><a href="arthasamgraha_lesson8.html">8</a></td><td>§40–§44</td><td>実行の vidhi と順序の根拠（1）</td></tr>
+<tr><td><a href="arthasamgraha_lesson9.html">9</a></td><td>§45–§48</td><td>順序の根拠（2）と資格の vidhi</td></tr>
+<tr><td><a href="arthasamgraha_lesson10.html">10</a></td><td>§49–§53</td><td>mantra、vidhi・niyama・parisaṃkhyā</td></tr>
+<tr><td><a href="arthasamgraha_lesson11.html">11</a></td><td>§54–§61</td><td>nāmadheya</td></tr>
+<tr><td><a href="arthasamgraha_lesson12.html">12</a></td><td>§62–§67</td><td>niṣedha（1）：na の結びつき、paryudāsa</td></tr>
+<tr><td><a href="arthasamgraha_lesson13.html">13</a></td><td>§68–§71</td><td>niṣedha（2）：選択の回避、災いの原因</td></tr>
+<tr><td><b>14</b></td><td><b>§72–§75</b></td><td><b>arthavāda、結び</b></td></tr>
+</table></div>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">अर्थवादः</td><td class="iast">arthavāda</td><td>釈義・賛辞（ほめ・けなしの文）</td></tr>
+<tr><td class="dev">प्राशस्त्यम् · निन्दा</td><td class="iast">prāśastya · nindā</td><td>すばらしさ（ほめ） ・ けなし</td></tr>
+<tr><td class="dev">पर्यवसानम्</td><td class="iast">paryavasāna</td><td>最終的に行き着くこと</td></tr>
+<tr><td class="dev">आनर्थक्यम्</td><td class="iast">ānarthakya</td><td>無意味さ</td></tr>
+<tr><td class="dev">अध्ययनविधिः</td><td class="iast">adhyayanavidhi</td><td>学習の命令（<span class="dev">स्वाध्यायोऽध्येतव्यः</span>）</td></tr>
+<tr><td class="dev">विधिशेषः · निषेधशेषः</td><td class="iast">vidhiśeṣa · niṣedhaśeṣa</td><td>vidhi の補い ・ niṣedha の補い</td></tr>
+<tr><td class="dev">परकृतिः · पुराकल्पः</td><td class="iast">parakṛti · purākalpa</td><td>偉人の行い ・ 昔の出来事</td></tr>
+<tr><td class="dev">गुणवादः</td><td class="iast">guṇavāda</td><td>性質の言明（矛盾 → 転義）</td></tr>
+<tr><td class="dev">अनुवादः</td><td class="iast">anuvāda</td><td>既知のことの繰り返し</td></tr>
+<tr><td class="dev">भूतार्थवादः</td><td class="iast">bhūtārthavāda</td><td>実際の出来事の言明</td></tr>
+<tr><td class="dev">यूपः</td><td class="iast">yūpa</td><td>祭柱</td></tr>
+<tr><td class="dev">ईश्वरार्पणम्</td><td class="iast">īśvarārpaṇa</td><td>神への奉献</td></tr>
+<tr><td class="dev">निःश्रेयसम्</td><td class="iast">niḥśreyasa</td><td>至高の善・解脱</td></tr>
+<tr><td class="dev">स्मृतिः · श्रुतिमूलक</td><td class="iast">smṛti · śrutimūlaka</td><td>伝承聖典 ・ 天啓に基づく</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. arthavāda の定義は？ なぜ転義で読む必要があるのか？</summary><div>ほめ・けなしのどちらかを目指す文。字義どおりの意味（Vāyu が速い、など）は行為に役立たず、ヴェーダは行為のためにあるので、転義によって「命じられるもの／禁じられるもの」のほめ・けなしを伝えると理解する。</div></details>
+<details class="q"><summary>Q2. 「arthavāda が無意味でもかまわない」と言えないのはなぜ？</summary><div>学習の命令 <span class="dev">स्वाध्यायोऽध्येतव्यः</span> がヴェーダ全体の学習を命じており、ヴェーダ全体が目的あるものに行き着くことを示唆している。arthavāda もそこに含まれるから。</div></details>
+<details class="q"><summary>Q3. ほめ言葉を知ることが役に立つのはどんな人に対してか？</summary><div>怠惰などのために命じられたことに取りかからない人。ほめ（けなし）が追加の動機になり、取りかかる（手を引く）ようにさせる。</div></details>
+<details class="q"><summary>Q4. 「祭草の上で銀を与えるな」に本来ふさわしい arthavāda は？</summary><div><span class="dev">अश्रुजं हि रजतं, यो बर्हिषि ददाति पुरास्य संवत्सराद् गृहे रुदन्ति</span>「銀は涙から生まれた。祭草の上で与える者の家では1年以内に人が泣く」。Bhāskara の引く <span class="dev">सोऽरोदीत्…</span> は Āpadeva に従ったずれた例。</div></details>
+<details class="q"><summary>Q5. guṇavāda・anuvāda・bhūtārthavāda をそれぞれ例とともに。</summary><div>guṇavāda：他の認識手段と矛盾（<span class="dev">आदित्यो यूपः</span> → 太陽のように輝く）。anuvāda：他の手段で既に知られている（<span class="dev">अग्निर्हिमस्य भेषजम्</span>）。bhūtārthavāda：矛盾も確認もない（<span class="dev">इन्द्रो वृत्राय वज्रमुदयच्छत्</span>）。</div></details>
+<details class="q"><summary>Q6. ヴェーダの5区分のうち、dharma を直接教えるのは？</summary><div>vidhi（命じる）と niṣedha（禁じる）。mantra・nāmadheya・arthavāda は間接に教える。</div></details>
+<details class="q"><summary>Q7. 同じ dharma が天界と解脱という異なる実りをもたらすのはなぜ？ 典拠は？</summary><div>果報を目当てに行えばその果報の原因に、神に捧げる心で行えば解脱の原因になる。典拠は Bhagavadgītā 9.27 で、Smṛti の権威は Śruti に基づくものとして JS 1.3 で確立されている。</div></details>
+<details class="q"><summary>Q8. G&amp;K は §75 の「神に捧げる心」についてどう評したか？</summary><div>無欲の行為や、祭式の神格より上の主宰神、天界を一時的とみる考えは本来の Mīmāṃsā にはなく、Bhagavadgītā の影響だと指摘した。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson13.html">← 第13課　niṣedha（2）</a><span class="spacer"></span><a href="arthasamgraha_lesson1.html">第1課（はじめ）へ戻る ↺</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第14課　arthavāda と結び（完）<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 65–69 (§72–§75), Notes pp. 286–294.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：प्रयोजनवर्थ → प्रयोजनवदर्थ、अध्ययनावधिना → अध्ययनविधिना、°वत्त्वभिति → °वत्त्वमिति、अनुव। दो → अनुवादो、अग्निहिंमस्य → अग्निर्हिमस्य、अर्थबादो → अर्थवादो、वज्ञम् → वज्रम्、(७१) → (७५)、तदुद्दशेन → तदुद्देशेन、बुद्धचा → बुद्ध्या）。
+</footer>
+
+</body>
+</html>

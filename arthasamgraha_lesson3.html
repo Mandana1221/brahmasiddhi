@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — वेदलक्षणम् · द्वितीयो विधिविभागः (१)</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 3</div>
+  <div class="header-jp">第3課　ヴェーダの定義と vidhi（1）── 発生の vidhi・適用の vidhi<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 7–12（§10–§14），Notes pp. 96–111</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第2課のおさらいと、この課で学ぶこと</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§10 ヴェーダの定義と5区分</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§11 vidhi の定義 ── 主 vidhi・属性 vidhi・限定 vidhi</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§11 後半 「somena yajeta」をめぐる論争</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§12–§13 vidhi の4種と発生の vidhi</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>§14 適用の vidhi</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>vidhi の分類表</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第2課のおさらいと、この課で学ぶこと</h2>
+<div class="note">
+  <div class="note-title">第2課で学んだこと</div>
+  ・<span class="dev">यजेत</span> ＝ 語根 yaj ＋ 接尾辞（ākhyātatva ＋ liṅtva）。<br>
+  ・liṅ は<b>言語的 bhāvanā</b>（ヴェーダの駆り立て）、ākhyāta は<b>実際的 bhāvanā</b>（人のやる気）を表す。<br>
+  ・実際的 bhāvanā の三要素：何を ＝ 天界、何によって ＝ 祭祀、どのように ＝ 補助祭式。
+</div>
+<p>ここまでで「dharma とは何か」「ヴェーダはどう命じるか」を見ました。G&amp;K は言います ──「では、dharma を命じる<b>ヴェーダとは何か</b>。Arthasaṃgraha の残りすべては、この問いへの答えである」。</p>
+<p>この課では、まず §10 でヴェーダを定義して5つに分け、§11 から本書の中心である<b>第2部「vidhi（命令）」</b>に入ります。</p>
+<div class="tbl-wrap"><table>
+<tr><th>この課の新しい言葉</th><th>意味</th></tr>
+<tr><td><span class="dev">अपौरुषेय</span> <span class="iast">apauruṣeya</span></td><td>人によって作られたのではない</td></tr>
+<tr><td><span class="dev">प्रमाणम्</span> <span class="iast">pramāṇa</span></td><td>正しい認識の手段（知覚・推論など）</td></tr>
+<tr><td><span class="dev">प्राप्त · अप्राप्त</span> <span class="iast">prāpta · aprāpta</span></td><td>（他の根拠ですでに）得られている ・ 得られていない</td></tr>
+<tr><td><span class="dev">गुणः</span> <span class="iast">guṇa</span></td><td>（祭式の）従属的な要素：供物・神格など</td></tr>
+<tr><td><span class="dev">वाक्यभेदः</span> <span class="iast">vākyabheda</span></td><td>文の分裂（一つの文を二つの文として読まざるを得なくなること）</td></tr>
+<tr><td><span class="dev">उत्पत्तिविधिः · विनियोगविधिः</span></td><td>発生の vidhi（祭式そのものを示す）・ 適用の vidhi（従属物を主に結びつける）</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§10 ヴェーダの定義と5区分</h2>
+<p class="chapter-sub"><span class="dev">वेदलक्षणम्</span> ／ 底本 p. 7，Notes pp. 96–97</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§10</span><span class="sutra-num">p. 7</span><span class="sutra-text">अथ को वेद इति चेदुच्यते । अपौरुषेयं वाक्यं वेदः । स च विधिमन्त्रनामधेयनिषेधार्थवादभेदात् पञ्चविधः ।</span></div>
+  <div class="sutra-iast">atha ko veda iti ced ucyate | apauruṣeyaṃ vākyaṃ vedaḥ | sa ca vidhimantranāmadheyaniṣedhārthavādabhedāt pañcavidhaḥ |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">a-pauruṣeyam</span>「人（puruṣa）によらない」＋ <span class="iast">vākyam</span>「文」／ <span class="iast">vidhi-mantra-nāmadheya-niṣedha-arthavāda-bhedāt</span>「vidhi・mantra・nāmadheya・niṣedha・arthavāda の区別により」＋ <span class="iast">pañca-vidhaḥ</span>「五種類」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">では、ヴェーダとは何か、と問うならば、答えよう。<b>人によって作られたのではない文</b>がヴェーダである。そしてそれは、命令（vidhi）・祭詞（mantra）・名称（nāmadheya）・禁止（niṣedha）・釈義（arthavāda）の区別によって、五種類である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Now, if it be asked ‘What [is] the Veda?’, it is declared, ‘The Veda is the sentence not produced by man.’ And that [Veda is] of five kinds owing to [its] division into injunction (vidhiḥ), sacrificial formula (mantra), name, prohibition and explanatory passage.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">定義はたった二語。第1課で学んだ「定義の言葉は何かを締め出すためにある」を使って読みましょう（下のノート）。</div></div>
+  <div class="point">ヴェーダ ＝ 作者のいない文。5区分は「dharma を命じる働き」という観点からの分け方で、この後の第2〜6部の章立てそのもの。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　定義の二語が締め出すもの</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>候補</th><th class="c"><span class="dev">अपौरुषेयम्</span><br>人が作っていない</th><th class="c"><span class="dev">वाक्यम्</span><br>文である</th><th>判定</th></tr>
+  <tr><td>ヴェーダ</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="yes"><b>ヴェーダ</b></td></tr>
+  <tr><td>Mahābhārata</td><td class="c no-x">✗ Vyāsa の作</td><td class="c yes">✓</td><td>「apauruṣeya」で除外</td></tr>
+  <tr><td>アートマン（自己）など</td><td class="c yes">✓ 誰も作っていない</td><td class="c no-x">✗ 文ではない</td><td>「vākya」で除外</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">वेद इति लक्ष्यनिर्देशः । तत्र भारतादौ अतिव्याप्तिवारणाय अपौरुषेयम् इति विशेषणम् । आत्मादौ तद्दोषवारणाय वाक्यमिति विशेष्यम् ।</span><span class="src">Rāmeśvara</span></div>
+  <h4>Sāyaṇa の定義との比較</h4>
+  <div class="cite"><span class="dev">मन्त्रब्राह्मणात्मकः शब्दराशिर्वेदः ।</span><span class="ja">「mantra と brāhmaṇa からなる言葉の集まりがヴェーダである。」</span><span class="src">Sāyaṇa『Ṛgvedabhāṣya』序論</span></div>
+  <svg class="dia" viewBox="0 0 640 170" role="img" aria-label="Mīmāṃsā の5区分と Sāyaṇa の2区分の対応">
+    <rect x="20" y="15" width="130" height="40" rx="6" class="bx-hl"/><text x="85" y="41" text-anchor="middle" class="dv">मन्त्रः</text>
+    <rect x="200" y="15" width="420" height="40" rx="6" class="bx-hl"/><text x="410" y="41" text-anchor="middle" class="dv">ब्राह्मणम्</text>
+    <text x="10" y="80" class="sm">Sāyaṇa（2区分）↑</text><text x="10" y="100" class="sm">Mīmāṃsā（5区分）↓</text>
+    <rect x="20" y="115" width="130" height="40" rx="6" class="bx"/><text x="85" y="141" text-anchor="middle" class="dv">मन्त्रः</text>
+    <rect x="200" y="115" width="95" height="40" rx="6" class="bx"/><text x="247" y="141" text-anchor="middle" class="dv">विधिः</text>
+    <rect x="308" y="115" width="95" height="40" rx="6" class="bx"/><text x="355" y="141" text-anchor="middle" class="dv">नामधेयम्</text>
+    <rect x="416" y="115" width="95" height="40" rx="6" class="bx"/><text x="463" y="141" text-anchor="middle" class="dv">निषेधः</text>
+    <rect x="524" y="115" width="96" height="40" rx="6" class="bx"/><text x="572" y="141" text-anchor="middle" class="dv">अर्थवादः</text>
+    <path d="M85,55 L85,115" class="ln"/><path d="M247,55 L247,115" class="ln"/><path d="M355,55 L355,115" class="ln"/><path d="M463,55 L463,115" class="ln"/><path d="M572,55 L572,115" class="ln"/>
+  </svg>
+  <p>Sāyaṇa の「brāhmaṇa」は、Mīmāṃsā の vidhi・nāmadheya・niṣedha・arthavāda を覆うので、二つの分け方は実質的に同じです。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§11 vidhi の定義</h2>
+<p class="chapter-sub"><span class="dev">विधिलक्षणम्</span> ／ 底本 pp. 8–9，Notes pp. 97–101 ／ 第2部 <span class="dev">द्वितीयो विधिविभागः</span> のはじまり</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-a</span><span class="sutra-num">p. 8</span><span class="sutra-text">तत्राज्ञातार्थज्ञापको वेदभागो विधिः । स च तादृशप्रयोजनवदर्थविधानेनार्थवान् । तादृशं चार्थं प्रमाणान्तरेणाप्राप्तं विधत्ते ।</span></div>
+  <div class="sutra-iast">tatrājñātārthajñāpako vedabhāgo vidhiḥ | sa ca tādṛśaprayojanavadarthavidhānenārthavān | tādṛśaṃ cārthaṃ pramāṇāntareṇāprāptaṃ vidhatte |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">a-jñāta-artha-jñāpakaḥ</span>「知られていない事柄を知らせる」＋ <span class="iast">veda-bhāgaḥ</span>「ヴェーダの部分」／ <span class="iast">tādṛśa-prayojanavat-artha-vidhānena</span>「そのような、目的をもつ事柄を命じることによって」＋ <span class="iast">arthavān</span>「意義をもつ」／ <span class="iast">pramāṇa-antareṇa a-prāptam</span>「他の認識手段によって得られていない」＋ <span class="iast">vidhatte</span>「命じる」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">そのうち、<b>まだ知られていない事柄を知らせる</b>ヴェーダの部分が vidhi である。そしてそれは、そのような（未知の）目的をもつ事柄を命じることによって、意義をもつ。そしてそのような事柄、すなわち<b>他の認識手段では得られない</b>事柄を命じる。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There, [that] portion of the Veda, which makes known a matter not known [before by any other means, is] injunction. And that [injunction] derives its meaning (arthavān) from its enjoining such a matter having a purpose. And [it] enjoins such a matter as is not established by [some] other means of proof.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">vidhi の本質は「<b>新しいことを教える</b>」こと。知覚や推論でわかることなら、わざわざヴェーダが命じる必要はありません。<br>
+  写本の異読（底本脚注）：<span class="dev">अज्ञातज्ञापकः</span>、<span class="dev">यादृशम्</span>。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　認識手段（pramāṇa）の数</div>
+  <p>何を pramāṇa として認めるかは学派によって違います。Mīmāṃsā は5つまたは6つ。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>pramāṇa</th><th>意味</th><th class="c">Prābhākara 派</th><th class="c">Bhāṭṭa 派（Kumārila）</th></tr>
+  <tr><td class="dev">प्रत्यक्षम्</td><td>知覚</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+  <tr><td class="dev">अनुमानम्</td><td>推論</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+  <tr><td class="dev">उपमानम्</td><td>類比</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+  <tr><td class="dev">शब्दः</td><td>言葉（聖典）</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+  <tr><td class="dev">अर्थापत्तिः</td><td>要請（そうでなければ説明がつかないことからの想定）</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+  <tr><td class="dev">अनुपलब्धिः</td><td>非知覚（ないことの認識）</td><td class="c no-x">✗</td><td class="c yes">✓</td></tr>
+  </table></div>
+  <p>Agnihotra という祭式は、知覚でも推論でも知ることができず、ヴェーダのこの文からしか知られない。だから<b>未知</b>（ajñāta）であり、天界という目的をもつので<b>目的をもつ事柄</b>でもある。だから正しい vidhi なのです。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-b</span><span class="sutra-num">p. 8</span><span class="sutra-text">यथा ‘अग्निहोत्रं जुहुयात् स्वर्गकामः’ इति विधिर्मानान्तरेणाप्राप्तं स्वर्गप्रयोजनवद्धोमं विधत्ते । अग्निहोत्रहोमेन स्वर्गं भावयेदिति वाक्यार्थबोधः ।</span></div>
+  <div class="sutra-iast">yathā ‘agnihotraṃ juhuyāt svargakāmaḥ’ iti vidhir mānāntareṇāprāptaṃ svargaprayojanavad dhomaṃ vidhatte | agnihotrahomena svargaṃ bhāvayed iti vākyārthabodhaḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">たとえば「天界を望む者は Agnihotra を献供すべし」という vidhi は、他の認識手段では得られない、天界を目的とする献供（homa）を命じる。「Agnihotra の献供によって天界を生じさせるべし」── これが文の意味の理解である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">For example, the injunction ‘One desirous of heaven should offer the Agnihotra’ enjoins a sacrifice, which is not established by any other means of proof and which possesses heaven for [its] purpose. ‘[One] should bring into existence heaven by means of the Agnihotra-sacrifice’ — this [is] the meaning understood from the sentence.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">मानम्</span> は <span class="dev">प्रमाणम्</span> と同じ。<span class="dev">स्वर्गप्रयोजनवद्धोमम्</span> ＝ <span class="iast">svargaprayojanavat + homam</span>（t + h → ddh の連声）。<br>
+  <b>注目</b>：原文では <span class="dev">अग्निहोत्रम्</span> は<b>対格</b>（目的語）なのに、意味の理解では <span class="dev">अग्निहोत्रहोमेन</span>「〜によって」と<b>具格</b>（手段）になっています（下のノート）。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Agnihotra とは／なぜ対格が手段になるのか</div>
+  <p><b>Agnihotra</b>：毎日の夕方と朝に、それぞれ Agni（火）と Sūrya（太陽）のために行う献供。生涯続ける義務がある（<span class="dev">यावज्जीवमग्निहोत्रं जुहोति</span>）。</p>
+  <div class="cite"><span class="dev">अग्निसूर्यदेवताकस्य सायंप्रातःकालयोर्नियमेन अनुष्ठेयस्य कर्मणः “अग्निहोत्रम्” इति यौगिकं नामधेयम् ।</span><span class="src">Jaiminīyanyāyamālāvistara p. 45</span></div>
+  <p><b>対格なのに手段？</b>：祭式は、行われるまでは「達成されるべきもの」（sādhya ＝対格的）、完了すると「手段」（sādhana ＝具格的）。両方の性格をもつので、ヴェーダが対格で言い、私たちが手段として理解しても問題はない。</p>
+  <div class="cite"><span class="dev">अनुष्ठानादूर्ध्वं धात्वर्थस्य सिद्धत्वाकारेण करणत्वेऽपि ततः पूर्वं साध्यत्वाकारं वक्तुम् “अग्निहोत्रम्” इति द्वितीयाया युक्तत्वात् ।</span><span class="src">Jaiminīyanyāyamālāvistara pp. 45–46</span></div>
+  <p>この文は「発生の vidhi（utpattividhi）」または「主 vidhi（pradhānavidhi）」と呼ばれます。祭式がこの文から「発生」するから、そして祭式が供物などに対して「主」だからです。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-c</span><span class="sutra-num">pp. 8–9</span><span class="sutra-text">यत्र कर्म मानान्तरेण प्राप्तं तत्र तदुद्देशेन गुणमात्रं विधत्ते । यथा ‘दध्ना जुहोति’ इत्यत्र होमस्य ‘अग्निहोत्रं जुहुयात्’ इत्यनेन प्राप्तत्वाद्धोमोद्देशेन दधिमात्रविधानं ‘दध्ना होमं भावयेत्’ इति ।</span></div>
+  <div class="sutra-iast">yatra karma mānāntareṇa prāptaṃ tatra taduddeśena guṇamātraṃ vidhatte | yathā ‘dadhnā juhoti’ ity atra homasya ‘agnihotraṃ juhuyāt’ ity anena prāptatvād dhomoddeśena dadhimātravidhānaṃ ‘dadhnā homaṃ bhāvayet’ iti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">祭式（karman）が他の根拠によってすでに得られている場合、（vidhi は）それを目当てとして、<b>従属要素（guṇa）だけ</b>を命じる。たとえば「凝乳（dadhi）で献供する」では、献供はすでに「Agnihotra を献供すべし」によって得られているので、献供を目当てとして<b>凝乳だけ</b>が命じられる。「凝乳によって献供を生じさせるべし」と。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Where a [sacrificial] rite is established by some other means of proof, there, an injunction enjoins merely a secondary or accessory matter (guṇaḥ) with reference to it. For example, in ‘[One] sacrifices with curds’, the sacrifice having been established by ‘[One] should offer the Agnihotra,’ only curds is enjoined with reference to the sacrifice, thus: ‘[One] should effect the sacrifice with curds’.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">उद्देश</span>「目当て」（第2課の uddiśya と同じ語根）。すでに知られているもの（献供）を<b>主題</b>として掲げ、新しい情報（凝乳）を<b>述べる</b> ── 日本語の「〜は（主題）…だ（新情報）」に近い構造です。<br>
+  これを <b>属性 vidhi</b>（<span class="dev">गुणविधिः</span>）と呼びます。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-d</span><span class="sutra-num">p. 9</span><span class="sutra-text">यत्र तूभयमप्राप्तं तत्र विशिष्टं विधत्ते । यथा ‘सोमेन यजेत’ इत्यत्र सोमयागयोरप्राप्तत्वात् सोमविशिष्टयागविधानम् । सोमपदे मत्वर्थलक्षणया सोमवता यागेनेष्टं भावयेदिति वाक्यार्थबोधः ।</span></div>
+  <div class="sutra-iast">yatra tūbhayam aprāptaṃ tatra viśiṣṭaṃ vidhatte | yathā ‘somena yajeta’ ity atra somayāgayor aprāptatvāt somaviśiṣṭayāgavidhānam | somapade matvarthalakṣaṇayā somavatā yāgeneṣṭaṃ bhāvayed iti vākyārthabodhaḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">しかし、両方（祭式と従属要素）が得られていない場合には、（vidhi は）<b>限定されたもの</b>を命じる。たとえば「Soma で祭祀すべし」では、Soma も祭祀もまだ得られていないので、<b>Soma によって限定された祭祀</b>が命じられる。Soma という語に「所有」の転義（matvartha-lakṣaṇā）を認めて、「Soma をもつ祭祀によって望むものを生じさせるべし」── これが文の意味の理解である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">But where both are not established, there, [the injunction] lays down [something] which is qualified. For example, in ‘[One] should sacrifice with Soma’, [both] the sacrifice and Soma not having been established, a sacrifice particularized by Soma is enjoined. By means of an indication of possession (matvartha-lakṣaṇā) in the word Soma, the meaning conveyed by the sentence [is], ‘[One] should accomplish [one’s] desired [object] by means of a sacrifice possessing Soma.’</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  これが<b>限定 vidhi</b>（<span class="dev">विशिष्टविधिः</span>）。<br>
+  <span class="dev">सोमेन यागेन इष्टं भावयेत्</span>「Soma によって、祭祀によって…」では二つの具格が並んでしまい意味が通りません。そこで <span class="dev">सोमेन</span> を「<b>Soma をもつ</b>（<span class="dev">सोमवता</span>）」と読み替えて、「祭祀」にかかる形容詞にします。
+  </div></div>
+  <div class="point">三つの場合：祭式が既知 → 属性だけ命じる／祭式も属性も未知 → 両方を一体として命じる。</div>
+</div>
+
+<h3>図解：§11 の三つの vidhi</h3>
+<div class="tbl-wrap"><table>
+<tr><th>種類</th><th>例文</th><th class="c">祭式は既知？</th><th class="c">属性は既知？</th><th>命じられるもの</th><th>意味</th></tr>
+<tr><td><span class="dev">प्रधानविधिः / उत्पत्तिविधिः</span><br>主 vidhi</td><td class="dev">अग्निहोत्रं जुहुयात् स्वर्गकामः</td><td class="c no-x">✗</td><td class="c">―</td><td>祭式そのもの</td><td class="dev">अग्निहोत्रहोमेन स्वर्गं भावयेत्</td></tr>
+<tr><td><span class="dev">गुणविधिः</span><br>属性 vidhi</td><td class="dev">दध्ना जुहोति</td><td class="c yes">✓</td><td class="c no-x">✗</td><td>属性（凝乳）だけ</td><td class="dev">दध्ना होमं भावयेत्</td></tr>
+<tr><td><span class="dev">विशिष्टविधिः</span><br>限定 vidhi</td><td class="dev">सोमेन यजेत</td><td class="c no-x">✗</td><td class="c no-x">✗</td><td>属性で限定された祭式</td><td class="dev">सोमवता यागेनेष्टं भावयेत्</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　matvartha-lakṣaṇā とその代案</div>
+  <p>第一義が文脈に合わないので転義を使う ── 第1課の <span class="dev">गङ्गायां घोषः</span> と同じ仕組みです。似た例：<span class="dev">कुन्ताः प्रविशन्ति</span>「槍が入ってくる」＝ <span class="dev">कुन्तवन्तः पुरुषाः</span>「槍を持った人々が入ってくる」。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>名前</th><th>理由</th></tr>
+  <tr><td class="dev">मत्वर्थलक्षणा</td><td>転義された意味が「〜をもつもの」＝所有の接尾辞 <span class="dev">मतुप्</span>（-mat/-vat）の意味だから（<span class="dev">मतोः अर्थः यस्याः</span>）</td></tr>
+  <tr><td class="dev">उपादानलक्षणा</td><td>転義された意味が第一義（Soma）を<b>取り込んで</b>いるから</td></tr>
+  <tr><td class="dev">अजहल्लक्षणा</td><td>第一義を<b>捨てない</b>転義だから</td></tr>
+  </table></div>
+  <p><b>他の解決法</b>（G&amp;K）：<br>
+  ① 文法学派：<span class="dev">सोमः अस्ति अस्य</span> → Pāṇini 5.2.127 <span class="dev">अर्शआदिभ्योऽच्</span> により、所有を表す接尾辞 -a（ac）が付いて形の変わらない「soma（Soma をもつ）」になる、と考える。<br>
+  ② <span class="dev">उपलक्षणे तृतीया</span>：具格を「〜によって特徴づけられた」の意味に取る（<span class="dev">सोमेन विशिष्टेन</span>）。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§11 後半 「somena yajeta」をめぐる論争</h2>
+<p class="chapter-sub">底本 pp. 9–10，Notes pp. 100–104 ／ 反論二つと、その解決</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-e</span><span class="sutra-num">p. 9</span><span class="sutra-text">न चोभयविधाने वाक्यभेदः, प्रत्येकमुभयस्याविधानात्, किं तु विशिष्टस्यैकस्यैव विधानात् ।</span></div>
+  <div class="sutra-iast">na cobhayavidhāne vākyabhedaḥ, pratyekam ubhayasyāvidhānāt, kiṃ tu viśiṣṭasyaikasyaiva vidhānāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そして、両方を命じても<b>文の分裂</b>（vākyabheda）は起こらない。両方が<b>別々に</b>命じられるのではなく、限定された<b>一つのもの</b>だけが命じられるからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And [there arises] no split of the sentence, when both [these] are enjoined; for the two are not individually (pratyekam) enjoined; but only one as qualified [by the other] is enjoined.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　文の分裂（vākyabheda）と「選択の八つの欠陥」</div>
+  <p>一つの文が独立した二つのことを命じると、その文は<b>二つの文</b>に分裂します。たとえば <span class="dev">व्रीहिभिर्यजेत यवैर्वा</span>「米で、あるいは大麦で祭祀すべし」は、「米で祭祀すべし」「大麦で祭祀すべし」の二文に等しい。米と大麦を同時に使うことはできないので、<b>選択</b>（<span class="dev">विकल्पः</span>）が認められます。</p>
+  <p>ところが選択には<b>八つの欠陥</b>（<span class="dev">अष्टदोषाः</span>）がある、とされます。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>いつ</th><th>大麦の規定（yava-śāstra）について</th><th>米の規定（vrīhi-śāstra）について</th></tr>
+  <tr><td>1回目：<b>米</b>で行う</td><td>① 権威（自分の内容を実行させる力）を<b>捨てる</b><br>② 非権威を<b>受け入れる</b></td><td>―</td></tr>
+  <tr><td>2回目：<b>大麦</b>で行う</td><td>③ 捨てた権威を<b>再び受け入れる</b><br>④ 受け入れた非権威を<b>捨てる</b></td><td>―</td></tr>
+  <tr><td>（逆に）1回目：<b>大麦</b>で行う</td><td>―</td><td>⑤ 権威を捨てる ⑥ 非権威を受け入れる</td></tr>
+  <tr><td>2回目：<b>米</b>で行う</td><td>―</td><td>⑦ 権威を再び受け入れる ⑧ 非権威を捨てる</td></tr>
+  </table></div>
+  <span style="font-size:0.8rem;color:var(--muted)">Rāmeśvara の説明による</span>
+  <p>だから「vākyabheda → 選択 → 八つの欠陥」の連鎖を避けたい。しかし <span class="dev">सोमेन यजेत</span> では、祭祀と Soma は<b>独立していない</b>（一方が他方に従属する）ので、同時に受け入れられる。別々に二つを命じるのではなく、「Soma をもつ祭祀」という<b>一つのもの</b>を命じるので、選択も八つの欠陥も起こらない ── これが Bhāskara の答えです。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-f</span><span class="sutra-num">p. 9</span><span class="sutra-text">न च ‘ज्योतिष्टोमेन स्वर्गकामो यजेत’ इति विधिप्राप्तयागोद्देशेन सोमरूपगुणविधानमेवास्तु ‘सोमेन यागं भावयेत्’ इति, किं मत्वर्थलक्षणयेति वाच्यम् । तस्याधिकारविधित्वेनोत्पत्तिविधित्वासंभवात् ।</span></div>
+  <div class="sutra-iast">na ca ‘jyotiṣṭomena svargakāmo yajeta’ iti vidhiprāptayāgoddeśena somarūpaguṇavidhānam evāstu ‘somena yāgaṃ bhāvayet’ iti, kiṃ matvarthalakṣaṇayeti vācyam | tasyādhikāravidhitvenotpattividhitvāsaṃbhavāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">「『天界を望む者は Jyotiṣṭoma で祭祀すべし』という vidhi によって得られた祭祀を目当てとして、Soma という属性を命じるだけ（『Soma によって祭祀を生じさせるべし』）にすればよい。所有の転義など何のために要るのか」── と言ってはならない。その文は<b>資格の vidhi</b>（adhikāravidhi）なので、発生の vidhi ではあり得ないからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And it should not be urged: ‘Let there be just the enjoining of a secondary matter in the form of Soma [...] with reference to the sacrifice [already] established by the injunction, “One who is desirous of heaven should sacrifice with the Jyotiṣṭoma”; what is the use of the indication of possession?’ For, that [sentence] being an injunction of qualification, it cannot possibly be an injunction of origination.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  反論者のねらい：転義は語の本来の意味を捨てる<b>欠陥</b>（<span class="dev">पददोषः</span>）。もし「Jyotiṣṭoma で…」が祭祀を発生させる文なら、<span class="dev">सोमेन यजेत</span> は <span class="dev">दध्ना जुहोति</span> と同じ<b>属性 vidhi</b> にでき、転義は不要になる。<br>
+  答え：「Jyotiṣṭoma で…」は、祭式の果報が<b>誰に</b>結びつくか（天界を望む人）を示す<b>資格の vidhi</b> であって、祭式を発生させる文ではない。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　発生の vidhi と資格の vidhi の違い／Jyotiṣṭoma</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th><span class="dev">उत्पत्तिविधिः</span> 発生の vidhi</th><th><span class="dev">अधिकारविधिः</span> 資格の vidhi</th></tr>
+  <tr><td>何を示すか</td><td>祭式（何かを得る手段）の<b>本体</b>（<span class="dev">उत्पत्तिः साधनस्वरूपम्</span>）</td><td>祭式の果報が<b>誰に</b>結びつくか（<span class="dev">अधिकारः फलसंबन्धः</span>）</td></tr>
+  <tr><td>例</td><td class="dev">अग्निहोत्रं जुहोति / सोमेन यजेत / आग्नेयोऽष्टाकपालो भवति</td><td class="dev">अग्निहोत्रं जुहुयात् स्वर्गकामः / ज्योतिष्टोमेन स्वर्गकामो यजेत / दर्शपूर्णमासाभ्यां स्वर्गकामो यजेत / सौर्यं चरुं निर्वपेद् ब्रह्मवर्चसकामः</td></tr>
+  </table></div>
+  <p><b>Soma 祭の分類</b>：Soma を1日3回（朝・昼・夕：<span class="dev">त्रिषवणम्</span>）搾るのが中心。所要日数で三分類されます。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>群</th><th>日数</th><th>例</th></tr>
+  <tr><td class="dev">एकाहः</td><td>1日</td><td>Jyotiṣṭoma（すべての Soma 祭の<b>原型</b> prakṛti）</td></tr>
+  <tr><td class="dev">अहीनः</td><td>2〜11日</td><td>―</td></tr>
+  <tr><td class="dev">सत्त्रम्</td><td>12日〜1000年</td><td>―</td></tr>
+  </table></div>
+  <p>Jyotiṣṭoma の7変種：<span class="dev">अग्निष्टोमः, अत्यग्निष्टोमः, उक्थ्यः, षोडशी, अतिरात्रः, अप्तोर्यामः, वाजपेयः</span>。<span class="dev">सोमेन यजेत</span> は Soma 祭一般の<b>発生の vidhi</b> であり、同時に素材 Soma を命じる<b>属性 vidhi</b> でもあります。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-g</span><span class="sutra-num">p. 10</span><span class="sutra-text">ननु ‘उद्भिदा यजेत पशुकामः’ इत्यस्येव ‘ज्योतिष्टोमेन’ इत्यस्याप्युत्पत्त्यधिकारविधित्वमस्त्विति चेत् । न । दृष्टान्ते उत्पत्तिवाक्यान्तराभावेनान्यथानुपपत्त्या तथात्वाश्रयणात् ।</span></div>
+  <div class="sutra-iast">nanu ‘udbhidā yajeta paśukāmaḥ’ ity asyeva ‘jyotiṣṭomena’ ity asyāpy utpattyadhikāravidhitvam astv iti cet | na | dṛṣṭānte utpattivākyāntarābhāvenānyathānupapattyā tathātvāśrayaṇāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">「『家畜を望む者は Udbhid で祭祀すべし』と同じように、『Jyotiṣṭoma で…』にも、発生の vidhi と資格の vidhi の両方の性格を認めればよい」と言うなら、そうではない。その例（Udbhid）では、発生を示す<b>別の文がない</b>ので、他に説明のしようがない（anyathānupapatti）から、そのように（両方だと）認めているのである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">If you were to urge: Let [the sentence] Jyotiṣṭomena etc. also be an injunction of [both] origination and qualification like ‘One who is desirous of cattle should sacrifice with the Udbhid,’ [we reply] No. For, in the illustration, on account of the absence of another sentence of origination, it is impossible to account for it otherwise; hence we have to admit [that sentence] to be of that kind.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">ननु … इति चेत् । न ।</span>「…と言うなら、そうではない」── 第1課の <span class="dev">न च … इति वाच्यम्</span> と並ぶ、反論の型です。<br>
+  JS 1.4.2 で、Udbhid は祭式の<b>名前</b>と決まっています（<span class="dev">उद्भिद्यते पशुफलमनेन यागेन</span>「この祭祀によって家畜という果報が芽生える」）。この祭式を発生させる文はこれしかないので、仕方なく両方の性格を認めるのです。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§11-h</span><span class="sutra-num">p. 10</span><span class="sutra-text">किं च ‘ज्योतिष्टोमेन’ इत्यस्योभयविधित्वेऽनेनैव यागस्तस्य फलसंबन्धोऽपि बोधनीय इति सुदृढो वाक्यभेदः । तद्वरं सोमपदे मत्वर्थलक्षणया विशिष्टविधानम् ।</span></div>
+  <div class="sutra-iast">kiṃ ca ‘jyotiṣṭomena’ ity asyobhayavidhitve ’nenaiva yāgas tasya phalasaṃbandho ’pi bodhanīya iti sudṛḍho vākyabhedaḥ | tad varaṃ somapade matvarthalakṣaṇayā viśiṣṭavidhānam |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">さらに、もし「Jyotiṣṭoma で…」が両方の vidhi であるなら、この同じ文によって祭祀<b>と</b>その果報との結びつきの両方を知らせなければならず、文の分裂は<b>確実</b>になる。それゆえ、Soma という語に所有の転義を認めて、限定されたものを命じる（と考える）方が<b>まし</b>である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Moreover, if [the sentence] Jyotiṣṭomena etc. were to possess the character of a double injunction, the split of the sentence would be quite certain, because the same sentence would intimate the sacrifice [and] also its connection with the fruit. Therefore, it is better to have an injunction of a qualified [matter] by means of an indication of possession in the word Soma.</div></div>
+  <div class="point"><span class="dev">तद्वरम्</span>「だから〜の方がまし」── 二つの欠陥のうち<b>小さい方</b>を選ぶ、という Mīmāṃsā らしい論法。</div>
+</div>
+
+<h3>図解：どちらの欠陥を選ぶか</h3>
+<div class="tbl-wrap"><table>
+<tr><th></th><th>案 A：「Jyotiṣṭoma で…」を発生＋資格の vidhi とする</th><th>案 B（Bhāskara）：「Jyotiṣṭoma で…」は資格の vidhi だけ</th></tr>
+<tr><td><span class="dev">सोमेन यजेत</span> の扱い</td><td>属性 vidhi（転義不要）</td><td>限定 vidhi（転義が必要）</td></tr>
+<tr><td>生じる欠陥</td><td><b>文の分裂</b>（<span class="dev">वाक्यभेदः</span>）＝ <b>文の欠陥</b>（vākyadoṣa）</td><td><b>所有の転義</b>（<span class="dev">मत्वर्थलक्षणा</span>）＝ <b>語の欠陥</b>（padadoṣa）</td></tr>
+<tr><td>判定</td><td class="no-x">より重い ✗</td><td class="yes">より軽い ✓（<span class="dev">तद्वरम्</span>）</td></tr>
+</table></div>
+<div class="cite"><span class="dev">लक्षणातो वाक्यभेदस्य जघन्यत्वात् । लक्षणा हि पददोषः, वाक्यभेदस्तु वाक्यदोषः । पदवाक्ययोर्मध्ये पद एव दोषकल्पनाया उचितत्वात् ।</span><span class="ja">「転義より文の分裂の方が劣るから。転義は語の欠陥、文の分裂は文の欠陥である。語と文のうち、語の方に欠陥を想定するのが適切だから。」</span><span class="src">Āpadevī</span></div>
+<p>Udbhid の文は、文の分裂を含むにもかかわらず両方の vidhi と認めざるを得ない（他に選択肢がない）。Jyotiṣṭoma の文はそこまで切迫していない（<span class="dev">सोमेन यजेत</span> が発生の文になれる）── これが二つの文の違いです。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§12–§13 vidhi の4種と発生の vidhi</h2>
+<p class="chapter-sub"><span class="dev">चतुर्विधो विधिः · उत्पत्तिविधिः</span> ／ 底本 pp. 10–11，Notes pp. 104–108</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§12</span><span class="sutra-num">p. 10</span><span class="sutra-text">विधिश्चतुर्विधः — उत्पत्तिविधिर्विनियोगविधिरधिकारविधिः प्रयोगविधिश्चेति ।</span></div>
+  <div class="sutra-iast">vidhiś caturvidhaḥ — utpattividhir viniyogavidhir adhikāravidhiḥ prayogavidhiś ceti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">vidhi は四種類である。発生の vidhi、適用の vidhi、資格の vidhi、実行の vidhi である。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Injunction [is] four-fold viz. injunction of origination, injunction of application, injunction of qualification and injunction of performance.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">§11 の三分類（主・属性・限定）は「何が命じられるか」による分け方。§12 の四分類は「<b>祭式の実行にどう役立つか</b>」による分け方です。二つの分類は互いに排他的ではありません。</div></div>
+</div>
+
+<h3>図解：vidhi の4種（第2部全体の地図）</h3>
+<div class="tbl-wrap"><table>
+<tr><th>種類</th><th>示すもの</th><th>例</th><th>助けとなる根拠</th><th>本書</th></tr>
+<tr><td><span class="dev">उत्पत्तिविधिः</span><br>発生の vidhi</td><td>祭式の本体だけ</td><td class="dev">अग्निहोत्रं जुहोति</td><td>―</td><td>§13</td></tr>
+<tr><td><span class="dev">विनियोगविधिः</span><br>適用の vidhi</td><td>従属物と主の関係</td><td class="dev">दध्ना जुहोति</td><td>śruti・liṅga・vākya・prakaraṇa・sthāna・samākhyā の6つ</td><td>§14–§39</td></tr>
+<tr><td><span class="dev">प्रयोगविधिः</span><br>実行の vidhi</td><td>従属物の実行の順序</td><td class="dev">वेदं कृत्वा वेदिं करोति</td><td>śruti・artha・pāṭha・sthāna・mukhya・pravṛtti の6つ</td><td>§40–§47</td></tr>
+<tr><td><span class="dev">अधिकारविधिः</span><br>資格の vidhi</td><td>果報の所有者（誰が行うか）</td><td class="dev">यजेत स्वर्गकामः</td><td>―</td><td>§48</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§13-a</span><span class="sutra-num">pp. 10–11</span><span class="sutra-text">तत्र कर्मस्वरूपमात्रबोधको विधिरुत्पत्तिविधिः । यथा ‘अग्निहोत्रं जुहोति’ इति । अत्र च विधौ कर्मणः करणत्वेनान्वयः, ‘अग्निहोत्रहोमेनेष्टं भावयेत्’ इति ।</span></div>
+  <div class="sutra-iast">tatra karmasvarūpamātrabodhako vidhir utpattividhiḥ | yathā ‘agnihotraṃ juhoti’ iti | atra ca vidhau karmaṇaḥ karaṇatvenānvayaḥ, ‘agnihotrahomeneṣṭaṃ bhāvayet’ iti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そのうち、<b>祭式の本体だけ</b>を知らせる vidhi が発生の vidhi である。たとえば「Agnihotra を献供する」。そしてこの vidhi では、祭式は<b>手段</b>として結びつく。「Agnihotra の献供によって望むものを生じさせるべし」と。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There, the injunction of origination [is] the injunction which indicates merely the [general] nature of a rite, as in ‘[He] offers the Agnihotra.’ And in this injunction the action is construed as the instrument, [the sense being] ‘[One] should bring into existence the desired [object] by means of the Agnihotra-sacrifice.’</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">मात्र</span>「だけ」が大事。<span class="dev">दध्ना जुहोति</span> も「献供」という祭式本体を含みますが、凝乳という属性も示すので「だけ」ではない。<br>
+  <b>なぜ手段なのか</b>：文法的には Agnihotra は目的語（<span class="dev">कर्तुरीप्सिततमं कर्म</span>）なので、それが目的（sādhya）だと誤解されかねない。しかし手間のかかる祭祀そのものを望む人はいない。祭祀は手段で、目的は別にある（ここでは天界）。文に目的が書かれていないので、一般的に <span class="dev">इष्टम्</span>「望むもの」と補います。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　「karman」は目的語ではなく祭式</div>
+  <p>ここでの <span class="dev">कर्मणः</span> を「文法上の目的語」と取ることもできそうですが、<span class="dev">श्येनेनाभिचरन् यजेत</span>、<span class="dev">सोमेन यजेत</span>、<span class="dev">उद्भिदा यजेत पशुकामः</span> のように祭式が<b>具格</b>で言われる例もあります。だから <b>karman ＝ 祭式（語根の意味 dhātvartha）</b>と取る方がよい。</p>
+  <div class="cite"><span class="dev">उत्पत्तिविधौ च कर्मणः करणत्वेनैव अन्वयः ‘होमेन इष्टं भावयेद्’ इति । न तु ‘होमं कुर्याद्’ इति साध्यत्वेन । तथा सति साध्यस्य साध्यान्तरान्वयायोगेन अधिकारवाक्यावगतफलसंबन्धो न स्यात् ।</span><span class="ja">「発生の vidhi では祭式は手段として結びつく。目的として（『献供をなすべし』と）結びつくのではない。そうだと、目的にさらに別の目的は結びつかないので、資格の文で知られる果報との結びつきが成り立たなくなる。」</span><span class="src">Āpadevī</span></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§13-b</span><span class="sutra-num">p. 11</span><span class="sutra-text">ननु यागस्य द्वे रूपे द्रव्यं देवता च । तथा च रूपाश्रवणे ‘अग्निहोत्रं जुहोति’ इति कथमुत्पत्तिविधिः । अग्निहोत्रशब्दस्य तु तत्प्रख्यन्यायेन नामधेयत्वादिति चेत् ।</span></div>
+  <div class="sutra-iast">nanu yāgasya dve rūpe dravyaṃ devatā ca | tathā ca rūpāśravaṇe ‘agnihotraṃ juhoti’ iti katham utpattividhiḥ | agnihotraśabdasya tu tatprakhyanyāyena nāmadheyatvād iti cet |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">反論：祭祀には二つの形（rūpa）がある。<b>供物</b>（dravya）と<b>神格</b>（devatā）である。そうすると、形が述べられていないのに、どうして「Agnihotra を献供する」が発生の vidhi なのか。Agnihotra という語は、tatprakhya の原則によって（祭式の）<b>名前</b>にすぎないのだから（神格を示しているわけでもない）── と言うなら、</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">But it may be objected: ‘A sacrifice has two forms — the material and the deity. And so, when the forms are not mentioned, how can “[He] offers the Agnihotra” be an injunction of origination? As regards the word Agnihotra, it is a [proper] name according to the maxim [of the existence of another scriptural passage] declaratory of it.’</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§13-c</span><span class="sutra-num">p. 11</span><span class="sutra-text">न । रूपाश्रवणेऽप्यस्योत्पत्तिविधित्वात् । अन्यथा रूपश्रवणात् ‘दध्ना जुहोति’ इत्ययमेवोत्पत्तिविधिः स्यात् । तथा च ‘अग्निहोत्रं जुहोति’ इति वाक्यमनर्थकं स्यात् ।</span></div>
+  <div class="sutra-iast">na | rūpāśravaṇe ’py asyotpattividhitvāt | anyathā rūpaśravaṇāt ‘dadhnā juhoti’ ity ayam evotpattividhiḥ syāt | tathā ca ‘agnihotraṃ juhoti’ iti vākyam anarthakaṃ syāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そうではない。形が述べられていなくても、これは発生の vidhi だからである。さもなければ、形（凝乳という供物）が述べられているので「凝乳で献供する」の方が発生の vidhi になってしまう。そうすると「Agnihotra を献供する」という文は<b>無意味</b>になってしまうだろう。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">No. Because though the forms are not mentioned, this [sentence is] an injunction of origination. Otherwise this very [sentence] “[He] sacrifices with curds” would be an injunction of origination, because a form is mentioned [therein]. And so, the sentence “[He] offers the Agnihotra” would be purposeless.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">Mīmāṃsā の大原則：ヴェーダの文は<b>一つも無意味であってはならない</b>（<span class="dev">आनर्थक्यम्</span> は最も避けるべきこと）。この原則を使った「背理法」による反論です。</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　本体（svarūpa）と形（rūpa）／tatprakhya の原則</div>
+  <p>発生の vidhi に必要なのは祭式の<b>本体</b>（<span class="dev">स्वरूपम्</span>：「献供」「祭祀」という一般的なあり方）であって、<b>形</b>（<span class="dev">रूपम्</span>：供物・神格）ではない。形は、vidhi が成り立つために想定され、のちに属性 vidhi や mantra から具体的に知られる。</p>
+  <div class="cite"><span class="dev">यद्यपि अत्र कर्मणो रूपं न श्रूयते, तथापि विध्यन्यथानुपपत्त्या तत् कल्प्यते । तच्च सामान्यतः कल्प्यमानं द्रव्यदेवतात्मकं कर्मणो रूपं विशेषाकाङ्क्षया गुणविधिमन्त्रवर्णाभ्यां विशेषेण चावगम्यमानमत्र संभवति ।</span><span class="src">Rāmeśvara</span></div>
+  <h4>tatprakhya の原則（<span class="dev">तत्प्रख्यन्यायः</span>）</h4>
+  <p>JS 1.4.4 <span class="dev">तत्प्रख्यं चान्यशास्त्रम्</span>（tat ＝ 神格という属性、prakhya ＝ それを表すもの）。<br>
+  ・前主張：<span class="dev">अग्निहोत्रम्</span> ＝ <span class="dev">अग्नये होत्रम्</span>「Agni への献供」だから、神格 Agni を命じている。<br>
+  ・定説：神格を示す<b>別の文</b>がある ──「<span class="dev">अग्निर्ज्योतिर्ज्योतिरग्निः स्वाहेति सायं जुहोति, सूर्यो ज्योतिर्ज्योतिः सूर्यः स्वाहेति प्रातः</span>」（夕は Agni に、朝は Sūrya に）。だから agnihotra は、その祭式の<b>名前</b>にすぎない。（詳しくは第11課 §58 で。）</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　§14 適用の vidhi</h2>
+<p class="chapter-sub"><span class="dev">विनियोगविधिः</span> ／ 底本 pp. 11–12，Notes pp. 108–111</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§14-a</span><span class="sutra-num">pp. 11–12</span><span class="sutra-text">अङ्गप्रधानसंबन्धबोधको विधिर्विनियोगविधिः । यथा ‘दध्ना जुहोति’ इति । स हि तृतीयया प्रतिपन्नाङ्गभावस्य दध्नो होमसंबन्धं विधत्ते ‘दध्ना होमं भावयेत्’ इति ।</span></div>
+  <div class="sutra-iast">aṅgapradhānasaṃbandhabodhako vidhir viniyogavidhiḥ | yathā ‘dadhnā juhoti’ iti | sa hi tṛtīyayā pratipannāṅgabhāvasya dadhno homasaṃbandhaṃ vidhatte ‘dadhnā homaṃ bhāvayet’ iti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>従属物（aṅga）と主（pradhāna）の関係</b>を知らせる vidhi が、適用の vidhi である。たとえば「凝乳で献供する」。というのも、それは、<b>具格</b>によって従属物であることが知られた凝乳と、献供との関係を命じているからである。「凝乳によって献供を生じさせるべし」と。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">The injunction which conveys the connection of a subsidiary with the principal [is] the injunction of application, as ‘[He] sacrifices with curds.’ For, that [injunction] lays down the connection of curds, whose subsidiary character is understood by the instrumental case, with the sacrifice, thus: ‘[One] should effect the sacrifice with curds.’</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">具格のふつうの意味は「手段」、手段は主に従属します。だから <span class="dev">दध्ना</span> という<b>格語尾そのもの</b>から、凝乳が従属物だとわかります（これが次の課で学ぶ「śruti」の一種です）。<br>
+  <span class="dev">प्रतिपन्न</span> ＝ <span class="dev">ज्ञात</span>「知られた」。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§14-b</span><span class="sutra-num">p. 12</span><span class="sutra-text">गुणविधौ च धात्वर्थस्य साध्यत्वेनान्वयः । क्वचिदाश्रयत्वेनापि । यथा ‘दध्नेन्द्रियकामस्य जुहुयात्’ इत्यत्र ‘दधिकरणत्वेनेन्द्रियं भावयेत्’ । तच्च किंनिष्ठमित्याकाङ्क्षायां संनिधिप्राप्तहोम आश्रयत्वेनान्वेति ।</span></div>
+  <div class="sutra-iast">guṇavidhau ca dhātvarthasya sādhyatvenānvayaḥ | kvacid āśrayatvenāpi | yathā ‘dadhnendriyakāmasya juhuyāt’ ity atra ‘dadhikaraṇatvenendriyaṃ bhāvayet’ | tac ca kiṃniṣṭham ity ākāṅkṣāyāṃ saṃnidhiprāptahoma āśrayatvenānveti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そして属性 vidhi（＝適用の vidhi）では、語根の意味（祭式）は<b>達成対象</b>として結びつく。ときには<b>拠り所</b>（āśraya）としても結びつく。たとえば「感官の力を望む者のために凝乳で献供すべし」では、「凝乳を手段とすることによって感官の力を生じさせるべし」となる。そして「それ（凝乳が手段であること）は何に宿るのか」という期待に対して、<b>近くに出てくる</b>献供が拠り所として結びつく。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And in an injunction of a subsidiary matter, the sense of the root is construed as the thing to be accomplished. In some cases [it is construed] as the abode also. As in ‘For [him] who is desirous of [the strength of] the senses, [one] should sacrifice with curds,’ [the sense is] ‘[One] should produce [the strength of] the senses by the instrumentality of curds.’ And when the expectancy as to where that resides arises, the sacrifice, which occurs in the neighbourhood, is construed as the abode.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">धात्वर्थः</span>「語根の意味」は §13 の karman を言い換えたもの。G&amp;K によれば、これで karman が「文法上の目的語」ではなく「語根が表す祭式」だとはっきりします。<br>
+  なぜ凝乳を<b>ふつうに食べても</b>感官の力は得られないのか？ 食べることは欲求から自然に行うこと（rāgataḥ prāpta）なので、わざわざヴェーダが命じる必要がない。だから凝乳が手段となるのは、<b>献供の素材として</b>使われるとき。献供は文中で凝乳のすぐ近く（<span class="dev">संनिधिः</span>）にあるので、凝乳の手段性の「拠り所」になる。
+  </div></div>
+</div>
+
+<h3>図解：祭式（語根の意味）の結びつき方</h3>
+<div class="tbl-wrap"><table>
+<tr><th>vidhi</th><th>例文</th><th>祭式の役割</th><th>意味</th></tr>
+<tr><td>発生の vidhi</td><td class="dev">अग्निहोत्रं जुहोति</td><td><b>手段</b>（karaṇa）</td><td class="dev">अग्निहोत्रहोमेनेष्टं भावयेत्</td></tr>
+<tr><td>適用（属性）の vidhi</td><td class="dev">दध्ना जुहोति</td><td><b>達成対象</b>（sādhya）</td><td class="dev">दध्ना होमं भावयेत्</td></tr>
+<tr><td>果報つきの属性 vidhi</td><td class="dev">दध्नेन्द्रियकामस्य जुहुयात्</td><td><b>拠り所</b>（āśraya）</td><td class="dev">होमाश्रयदधिकरणत्वेनेन्द्रियं भावयेत्</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　G&amp;K の代案 ──「拠り所」より「手段」の方が自然では？</div>
+  <p>「凝乳が献供に<b>宿る</b>」という言い方は少し奇妙だ、と G&amp;K は言い、別の読み方を提案します。</p>
+  <div class="flow">
+    <div class="box"><span class="dev">इन्द्रियकामस्य जुहुयात्</span>＝ <span class="dev">होमेन इन्द्रियं भावयेत्</span><br><small>（<span class="dev">जुहुयात् स्वर्गकामः</span> と同じ型）</small></div>
+    <div class="arr">→</div>
+    <div class="box">どんな献供？<br><small>（期待）</small></div>
+    <div class="arr">→</div>
+    <div class="box hl"><span class="dev">दधिविशिष्टेन होमेन इन्द्रियं भावयेत्</span><br><small>凝乳をもつ献供によって</small></div>
+  </div>
+  <p>つまり、属性と<b>果報</b>が一緒に述べられる文（<span class="dev">फलाय गुणवाक्यानि</span>「果報のための属性文」＝属性 vidhi と資格 vidhi の混合）では、祭式は「拠り所」ではなく「<b>手段</b>」として結びつく、と考える方がよい。凝乳の具格は、所有の転義・所有接尾辞 ac・<span class="dev">उपलक्षणे तृतीया</span> のいずれでも説明できる。G&amp;K は Bhāskara の文を次のように書き直しています。</p>
+  <div class="cite"><span class="dev">गुणविधौ च धात्वर्थस्य साध्यत्वेन अन्वयः । क्वचित् करणत्वेनापि । यथा ‘दध्ना इन्द्रियकामस्य जुहुयात्’ इत्यत्र ‘होमेन इन्द्रियं भावयेत्’ इति । तत्र च किंविशिष्टः स होमः इत्याकाङ्क्षायां संनिधिप्राप्तं दधि विशेषणत्वेन अन्वेति ।</span><span class="src">G&amp;K による改案</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　vidhi の分類表</h2>
+<ol class="deriv">
+  <li><span class="form">अपौरुषेयं वाक्यं वेदः</span><span class="why">ヴェーダ ＝ 作者のいない文。vidhi・mantra・nāmadheya・niṣedha・arthavāda の5区分。</span></li>
+  <li><span class="form">अज्ञातार्थज्ञापको विधिः</span><span class="why">vidhi ＝ 他の手段では知られない、目的をもつ事柄を知らせるもの。</span></li>
+  <li><span class="form">प्रधान · गुण · विशिष्ट</span><span class="why">祭式が未知 → 主 vidhi／祭式が既知 → 属性だけ／両方未知 → 限定されたもの（所有の転義）。</span></li>
+  <li><span class="form">वाक्यभेद ＞ लक्षणा</span><span class="why">文の分裂（文の欠陥）より、転義（語の欠陥）を選ぶ。</span></li>
+  <li><span class="form">उत्पत्ति · विनियोग · प्रयोग · अधिकार</span><span class="why">vidhi の4種。発生の vidhi では祭式は手段、適用の vidhi では達成対象（ときに拠り所）。</span></li>
+</ol>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">अपौरुषेय</td><td class="iast">apauruṣeya</td><td>人によって作られたのではない</td></tr>
+<tr><td class="dev">प्राप्त / अप्राप्त</td><td class="iast">prāpta / aprāpta</td><td>（他の根拠で）得られている / いない</td></tr>
+<tr><td class="dev">उद्देश</td><td class="iast">uddeśa</td><td>目当て・主題として掲げること</td></tr>
+<tr><td class="dev">गुणः</td><td class="iast">guṇa</td><td>従属的要素（供物・神格など）</td></tr>
+<tr><td class="dev">विशिष्ट</td><td class="iast">viśiṣṭa</td><td>限定された（属性をもつ）</td></tr>
+<tr><td class="dev">मत्वर्थलक्षणा</td><td class="iast">matvartha-lakṣaṇā</td><td>「〜をもつ」という意味への転義</td></tr>
+<tr><td class="dev">वाक्यभेदः</td><td class="iast">vākyabheda</td><td>文の分裂</td></tr>
+<tr><td class="dev">विकल्पः</td><td class="iast">vikalpa</td><td>選択（八つの欠陥をもつ）</td></tr>
+<tr><td class="dev">अन्यथानुपपत्तिः</td><td class="iast">anyathānupapatti</td><td>他に説明のしようがないこと</td></tr>
+<tr><td class="dev">धात्वर्थः</td><td class="iast">dhātvartha</td><td>語根の意味（＝祭式）</td></tr>
+<tr><td class="dev">आश्रयः</td><td class="iast">āśraya</td><td>拠り所</td></tr>
+<tr><td class="dev">संनिधिः</td><td class="iast">saṃnidhi</td><td>（文中での）近接</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. ヴェーダの定義の <span class="dev">अपौरुषेयम्</span> と <span class="dev">वाक्यम्</span> は、それぞれ何を締め出す？</summary><div>apauruṣeya → Mahābhārata など人の作品。vākya → アートマンなど、誰も作っていないが文ではないもの。</div></details>
+<details class="q"><summary>Q2. Bhāṭṭa 派だけが認める6番目の pramāṇa は？</summary><div><span class="dev">अनुपलब्धिः</span>（非知覚）。</div></details>
+<details class="q"><summary>Q3. <span class="dev">दध्ना जुहोति</span> が命じているのは何？ それはなぜ？</summary><div>凝乳（属性）だけ。献供はすでに「Agnihotra を献供すべし」で得られているから（属性 vidhi）。</div></details>
+<details class="q"><summary>Q4. <span class="dev">सोमेन यजेत</span> で、<span class="dev">सोमेन</span> はどう読まれる？ その理由は？</summary><div>所有の転義で <span class="dev">सोमवता</span>「Soma をもつ（祭祀によって）」。Soma も祭祀も未知なので、Soma で限定された祭祀を一つのものとして命じる（限定 vidhi）。</div></details>
+<details class="q"><summary>Q5. 「Jyotiṣṭoma で…」を発生の vidhi にもすると、どんな欠陥が生じる？</summary><div>同じ文が祭祀とその果報との結びつきの両方を知らせることになり、文の分裂（vākyabheda ＝文の欠陥）が生じる。転義（語の欠陥）の方が軽いので、そちらを選ぶ。</div></details>
+<details class="q"><summary>Q6. Udbhid の文が、発生と資格の両方の vidhi と認められるのはなぜ？</summary><div>Udbhid 祭を発生させる別の文がなく、他に説明のしようがない（anyathānupapatti）から。</div></details>
+<details class="q"><summary>Q7. vidhi の4種を挙げよ。</summary><div>発生の vidhi（utpatti）、適用の vidhi（viniyoga）、資格の vidhi（adhikāra）、実行の vidhi（prayoga）。</div></details>
+<details class="q"><summary>Q8. 「形が述べられていないから <span class="dev">अग्निहोत्रं जुहोति</span> は発生の vidhi ではない」という反論への答えは？</summary><div>形が述べられていなくても発生の vidhi である。そうでないと、形（凝乳）を述べる <span class="dev">दध्ना जुहोति</span> が発生の vidhi になり、<span class="dev">अग्निहोत्रं जुहोति</span> が無意味になってしまう。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson2.html">← 第2課　bhāvanā</a><span class="spacer"></span><a href="arthasamgraha_lesson4.html">第4課　6つの根拠と śruti →</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第3課　ヴェーダの定義と vidhi（1）<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 7–12 (§10–§14), Notes pp. 96–111.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：दंना → दध्ना、प्रैयोजन → प्रयोजन、उत्पात्तावधित्वात् → उत्पत्तिविधित्वात्）。
+</footer>
+
+</body>
+</html>

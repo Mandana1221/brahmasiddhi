@@ -1,0 +1,708 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — पञ्चमो निषेधविभागः (२)</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 13</div>
+  <div class="header-jp">第13課　niṣedha（2）── 除外か、禁止か、そして「災いの原因」とは<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 61–65（§68–§71），Notes pp. 271–285</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第12課のふりかえり</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§68 選択は不適切 → paryudāsa に頼る</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§69 paryudāsa と upasaṃhāra の違い</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§70 選択を受け入れてでも禁止 ── Ṣoḍaśin</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§71 禁じられたものは「災いの原因」か</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>否定文の全体図</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第12課のふりかえり</h2>
+<ul>
+  <li>禁止文では、na は原則として <b>liṅ</b>（śābdī bhāvanā）と結び、「引き戻し」（nivartanā）を表す ＝ <b>pratiṣedha</b>。</li>
+  <li>例外（障害）が2つ：(1)「彼の誓戒は」の導入 → na ＋ 語根、(2) 選択の恐れ → na ＋ 名詞。どちらも <b>paryudāsa</b>。</li>
+  <li><span class="dev">यजतिषु येयजामहं करोति नानुयाजेषु</span> を禁止と取ると、聖典どうしの対立になり、無効化（bādha）できず<b>選択</b>（vikalpa）になってしまう ── ここまでが §67。</li>
+</ul>
+<p>この課では、その選択をどう避けるか（§68）、似た操作との違い（§69）、避けられない場合（§70）、そして禁じられたものが本当に「災い」を生むのか（§71）を読みます。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§68 選択は不適切 → paryudāsa に頼る</h2>
+<p class="chapter-sub"><span class="dev">‘यजतिषु’ इत्यत्र विकल्पस्यायुक्तत्वात् पर्युदास आश्रयणीयः</span> ／ 底本 pp. 61–62，Notes pp. 271–275</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§68-a</span><span class="sutra-num">p. 61</span><span class="sutra-text">तस्माच्छास्त्रविहितस्य शास्त्रान्तरेण प्रतिषेधे विकल्प एव । स च न युक्तः । विकल्पे शास्त्रस्य पाक्षिकाप्रामाण्यापातात् । न ह्यनुयाजेषु ‘ये यजामहे’ इत्यस्यानुष्ठाने ‘नानुयाजेषु’ इत्यस्य प्रामाण्यं संभवति, व्रीहियागानुष्ठाने यवशास्त्रस्येव । द्विरदृष्टकल्पना च स्यात्, विधिप्रतिषेधयोरपि पुरुषार्थत्वात् । अतो नात्र प्रतिषेधस्याश्रयणम्, किंतु नञोऽनुयाजसंबन्धमाश्रित्य पर्युदासस्यैव ।</span></div>
+  <div class="sutra-iast">tasmāc chāstravihitasya śāstrāntareṇa pratiṣedhe vikalpa eva | sa ca na yuktaḥ | vikalpe śāstrasya pākṣikāprāmāṇyāpātāt | na hy anuyājeṣu ‘ye yajāmahe’ ity asyānuṣṭhāne ‘nānuyājeṣu’ ity asya prāmāṇyaṃ saṃbhavati, vrīhiyāgānuṣṭhāne yavaśāstrasyeva | dviradṛṣṭakalpanā ca syāt, vidhipratiṣedhayor api puruṣārthatvāt | ato nātra pratiṣedhasyāśrayaṇam, kiṃtu nañaḥ ’nuyājasaṃbandham āśritya paryudāsasyaiva |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">पाक्षिक-अप्रामाण्य-आपातः</span>「選択肢の一方をとるときの（もう一方の）権威の喪失が生じること」／ <span class="dev">द्विः-अदृष्ट-कल्पना</span>「見えない果報を二重に想定すること」／ <span class="dev">पुरुषार्थ</span>「人のための」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">それゆえ、聖典で命じられたものが別の聖典で禁止されるときは、<b>選択</b>しかない。そして、それは<b>適切でない</b>。選択では、聖典が<b>一方の場合に権威を失う</b>ことになるからである。実に、後祭で「ye yajāmahe」を行えば、「後祭では…ない」の権威は成り立たない ── 米で祭祀を行えば大麦の聖典（の権威が成り立たない）のと同じである。また、<b>見えない果報を二重に</b>想定することにもなろう。命令（を守ること）も禁止（を守ること）も、<b>人のため</b>（の行為）だからである。だから、ここでは禁止に頼るのではなく、na と後祭との結びつきに拠って、<b>paryudāsa</b> にこそ（頼る）のである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Therefore, when what is enjoined by a text is prohibited by another text, option alone [must exist]. And that is not proper. For, in an option there arises the contingency of alternative unauthoritativeness accruing to a text. For, when in the after-sacrifices ‘Ye yajāmahe’ is performed, ‘Not in the after-sacrifices’ cannot possibly have authoritativeness, like the text referring to barley, when the sacrifice is performed with rice-grains. Moreover, the assumption of a double unseen [result] will have to be made, because both injunction and prohibition are for the benefit of man. Hence here, prohibition is not to be resorted to, but only exclusion, taking our stand on the connection of the negative with the after-sacrifices.</div></div>
+</div>
+
+<h3>図解：選択の2つの欠点</h3>
+<div class="tbl-wrap"><table>
+<tr><th>欠点</th><th>中身</th><th>典型例</th></tr>
+<tr><td><span class="dev">पाक्षिकाप्रामाण्यम्</span><br>一方の場合の権威喪失</td><td>どちらを選んでも、選ばなかった方の聖典は（その場では）守られず、権威がないことになる</td><td><span class="dev">व्रीहिभिर्यजेत यवैर्वा</span>：米で祭れば「大麦で」の文が、大麦で祭れば「米で」の文が無視される。→ 選択の8つの欠点（第3課，G&amp;K p. 101）</td></tr>
+<tr><td><span class="dev">द्विरदृष्टकल्पना</span><br>見えない果報の二重想定</td><td>唱える・唱えないのどちらも目に見える結果がない。どちらも聖典が命じる以上、<b>それぞれ別の</b>見えない果報（adṛṣṭa）を生むと想定しなければならない</td><td>ye yajāmahe を唱える → adṛṣṭa ①、唱えない → adṛṣṭa ②</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　puruṣārtha と kratvartha</div>
+  <p>Mīmāṃsā ではよく「<b>人のため</b>」（<span class="dev">पुरुषार्थ</span>）と「<b>祭式のため</b>」（<span class="dev">क्रत्वर्थ</span>）を区別する。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>puruṣārtha（人のため）</th><th>kratvartha（祭式のため）</th></tr>
+  <tr><td>目に見える結果</td><td>ない</td><td>ある</td></tr>
+  <tr><td>見えない力（adṛṣṭa・apūrva）</td><td><b>生む</b></td><td>生まない</td></tr>
+  <tr><td>例</td><td>Jyotiṣṭoma・新満月祭（死後の天界）、入門式 upanayana（少年に見た目の変化はない）</td><td>脱穀（avahanana → 籾が取れる）、前祭など</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">तत्र वेदादिप्रमेयोऽर्थस्त्रिविधः — क्रत्वर्थः, पुरुषार्थः, उभयार्थश्चेति । तत्र प्रयाजादिकं केवलं क्रत्वर्थः । फलं तत्करणं च पुरुषार्थः । यथा स्वर्गादिज्योतिष्टोमादिश्च । दध्यादि तु उभयरूपम् । ‘दध्ना जुहोति’ इति फलासंयुक्तवाक्येन क्रत्वर्थत्वात् । ‘दध्नेन्द्रियकामस्य जुहुयात्’ इत्यनेन फलाय विधानात् पुरुषार्थत्वात् ।</span><span class="ja">ヴェーダなどで知られる事柄は3種：祭式のため、人のため、両方のため。前祭などはもっぱら祭式のため。果報とその手段は人のため（天界と Jyotiṣṭoma など）。凝乳などは両方：「凝乳で献供する」という果報と結びつかない文では祭式のため、「感覚の力を望む者には凝乳で献供すべし」では果報のために命じられるので人のため。</span><span class="src">Mīmāṃsāparibhāṣā</span></div>
+  <p>ye yajāmahe を唱える・唱えないは、目に見える結果を生まないので<b>puruṣārtha</b> とされ、それぞれが別の adṛṣṭa を生むことになる。</p>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§68-b</span><span class="sutra-num">p. 62</span><span class="sutra-text">इत्थं चानुयाजव्यतिरिक्तेषु यजतिषु ‘ये यजामहे’ इति मन्त्रं कुर्यादिति वाक्यार्थबोधः, नञोऽनुयाजव्यतिरिक्ते लाक्षणिकत्वात् । एवं च न विकल्पः । अत्र च वाक्ये ‘ये यजामहे’ इति न विधीयते, ‘यजतिषु येयजामहम्’ इत्यनेनैव प्राप्तत्वात् । किं तु सामान्यशास्त्रप्राप्तयेयजामह इत्यस्यानुवादेन तस्यानुयाजव्यतिरिक्तविषयकत्वं विधीयते । यत् ‘यजतिषु येयजामहं करोति’ तदनुयाजव्यतिरिक्तेष्विति ।</span></div>
+  <div class="sutra-iast">itthaṃ cānuyājavyatirikteṣu yajatiṣu ‘ye yajāmahe’ iti mantraṃ kuryād iti vākyārthabodhaḥ, nañaḥ ’nuyājavyatirikte lākṣaṇikatvāt | evaṃ ca na vikalpaḥ | atra ca vākye ‘ye yajāmahe’ iti na vidhīyate, ‘yajatiṣu yeyajāmaham’ ity anenaiva prāptatvāt | kiṃ tu sāmānyaśāstraprāptayeyajāmaha ity asyānuvādena tasyānuyājavyatiriktaviṣayakatvaṃ vidhīyate | yat ‘yajatiṣu yeyajāmahaṃ karoti’ tad anuyājavyatirikteṣv iti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">こうして「<b>後祭以外の</b>祭祀において『ye yajāmahe』という祭詞を唱えるべし」という文意の理解が得られる。na は転義によって「後祭以外」を表すからである。こうすれば<b>選択はない</b>。<br>
+  そして、この文では「ye yajāmahe」が（新たに）命じられるのではない。「祭祀で ye yajāmahe を」によってすでに得られているからである。そうではなく、一般規則で得られた ye yajāmahe を<b>言い直して</b>（anuvāda）、それが<b>後祭以外を範囲とすること</b>が命じられるのである。つまり「『祭祀で ye yajāmahe を唱える』というのは、後祭以外において（である）」ということ。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And thus the meaning understood from the sentence is: ‘In sacrifices other than the after-sacrifices [one] should utter the formula “Ye yajāmahe”,’ because the negative [denotes] by indication [what is] other than the after-sacrifices. And thus there is no option. And in this sentence ‘Ye yajāmahe’ is not enjoined, because it is established by ‘Ye yajāmahe in [all] sacrifices’ itself. But, by a reference to ‘Ye yajāmahe’ established by the general text, its having as its sphere [sacrifices] other than the after-sacrifices is enjoined: [namely] that which [is said in] ‘He utters “Ye yajāmahe” in [all] sacrifices,’ that [is] in [sacrifices] other than the after-sacrifices.</div></div>
+</div>
+
+<h3>図解：paryudāsa による解決</h3>
+<div class="flow">
+  <div class="box">一般規則<br><span class="dev">यजतिषु येयजामहं करोति</span><br><small>すべての祭祀で</small></div><div class="arr">＋</div>
+  <div class="box hl">特殊規則（paryudāsa）<br><span class="dev">न अनुयाजेषु</span> ＝ <span class="dev">अनुयाजव्यतिरिक्तेषु</span><br><small>後祭<b>以外</b>で</small></div><div class="arr">→</div>
+  <div class="box">結論<br><small>後祭以外で唱える。後祭では<b>命じられていない</b>だけ ── 禁止も選択もない</small></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　ここでも lakṣaṇā は不要</div>
+  <p>Bhāskara：na ＋ 後祭 → 直接の意味は「後祭の無」（<span class="dev">अनुयाजाभावः</span>）で不適切（<span class="dev">मुख्यार्थबाधः</span>）→ 転義で「後祭以外の祭祀において」。<br>
+  G&amp;K：na の6つの意味の一つに「それとは<b>別</b>」（<span class="dev">तदन्यत्वम्</span>）がある。<span class="dev">अब्राह्मणः</span> が <span class="dev">ब्राह्मणेतरः</span> を意味するように、<span class="dev">न अनुयाजेषु</span> は<b>本来の意味で</b>「後祭以外において」を表す。転義は不要。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　想定される反論：文の分裂では？</div>
+  <p><b>反論</b>：この解釈だと、一つの文が (1)「ye yajāmahe を唱えよ」と (2)「それを後祭以外で唱えよ」の<b>2つ</b>を命じることになり、文の分裂（vākyabheda）が起こる。<br>
+  <b>答</b>：(1) は一般規則ですでに命じられているので、ここでは<b>言い直し</b>（anuvāda）にすぎない。命じられるのは (2) <b>範囲の限定</b>だけ。だから分裂はない。</p>
+  <div class="cite"><span class="dev">… ‘यजतिषु येयजामहं करोति’ इति यजिसामान्ये तद्विधायकशास्त्रप्राप्तमेव ‘ये यजामहे’ इति मन्त्रमनूद्य ‘नानुयाजेषु येयजामहं करोति’ इत्यत्र तस्य अनुयाजव्यतिरिक्तविषयता विधीयते इत्यर्थः । … अनुयाजेषु तु तस्य कर्तव्यत्वेन अप्राप्तत्वाद् अप्रतिषिद्धत्वाच्च नात्र विकल्पप्रसङ्गोऽपि संभवति । लक्षणया अनुयाजव्यतिरिक्तविषयसमर्पणाच्च न ‘नानुयाजेषु’ इत्यादिवाक्यस्य अप्रामाण्यमपि भवति ।</span><span class="ja">…一般規則で得られた祭詞を言い直し、その範囲が後祭以外であることを命じる。…後祭ではそれはなすべきものとして得られておらず、禁止されてもいないので、選択の恐れすらない。転義によって「後祭以外」という範囲を与えるので、「後祭では…ない」の文が権威を失うこともない。</span><span class="src">Rāmeśvara</span></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Nyāyamālā：ye yajāmahe は17音節の Prajāpati</div>
+  <div class="cite"><span class="dev">महापितृयज्ञे चोदकप्राप्तं वरणं प्रति श्रूयते — ‘न आर्षेयं वृणीते, न होतारम्’ इति । तथा अनारभ्यवादः श्रूयते — ‘आ श्रावय’ इति चतुरक्षरम्, ‘अस्तु श्रौषट्’ इति चतुरक्षरम्, ‘यज’ इति द्व्यक्षरम्, ‘ये यजामहे’ इति पञ्चाक्षरम्, द्व्यक्षरो वषट्कारः, एष वै सप्तदशः प्रजापतिर्यज्ञमन्वायत्तः’ इति । तत्रोक्तम् — ‘नानुयाजेषु येयजामहं करोति’ इति । … ब्रूमः — अष्टदोषग्रस्तत्वाद् विकल्पो न न्याय्यः । … यदि ‘न’ इत्ययं शब्दः करोतिना संबध्यते, तदा ‘येयजामहं न करोति’ इत्येवं प्रतिषेधः स्यात् । … न तु एवं संबध्यते, किन्तु अनुयाजपदेन वृञ्धातुना च संबध्यते । तथा सति ‘अनुयाजव्यतिरिक्तेषु यागेषु येयजामहः कर्तव्यः’ ‘वरणव्यतिरिक्तमङ्गजातमनुष्ठेयम्’ इति … विकल्पः शङ्कितुमपि शक्यः ।</span><span class="src">Jaiminīyanyāyamālāvistara p. 600</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>句</th><th class="dev">आ श्रावय</th><th class="dev">अस्तु श्रौषट्</th><th class="dev">यज</th><th class="dev">ये यजामहे</th><th class="dev">वौषट्</th><th>計</th></tr>
+  <tr><td>音節数</td><td>4</td><td>4</td><td>2</td><td>5</td><td>2</td><td><b>17</b> ＝ Prajāpati</td></tr>
+  </table></div>
+  <p>Nyāyamālā は同じ理屈を Mahāpitṛyajña の <span class="dev">न आर्षेयं वृणीते, न होतारम्</span>「聖仙の子孫（の名）を選ばない、Hotṛ を選ばない」にも適用し、na は動詞の接尾辞ではなく語根 <span class="dev">वृ</span>（選ぶ）と結び、「選ぶこと以外の付属行為を行え」という paryudāsa になる、とする。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§69 paryudāsa と upasaṃhāra の違い</h2>
+<p class="chapter-sub"><span class="dev">पर्युदासोपसंहारयोर्भेदः</span> ／ 底本 pp. 62–63，Notes pp. 275–276</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§69</span><span class="sutra-num">pp. 62–63</span><span class="sutra-text">नन्वेवं सामान्यशास्त्रप्राप्तस्य विशेषे संकोचनरूपादुपसंहारात् पर्युदासस्य भेदो न स्यादिति चेत् । न । उपसंहारो हि तन्मात्रसंकोचार्थः । यथा ‘पुरोडाशं चतुर्धा करोति’ इति सामान्यप्राप्तचतुर्धाकरणम् ‘आग्नेयं चतुर्धा करोति’ इति विशेषादाग्नेयपुरोडाशमात्रे संकोच्यते । पर्युदासस्तु तदन्यमात्रसंकोचार्थ इति ततो भेदः ।</span></div>
+  <div class="sutra-iast">nanv evaṃ sāmānyaśāstraprāptasya viśeṣe saṃkocanarūpād upasaṃhārāt paryudāsasya bhedo na syād iti cet | na | upasaṃhāro hi tanmātrasaṃkocārthaḥ | yathā ‘puroḍāśaṃ caturdhā karoti’ iti sāmānyaprāptacaturdhākaraṇam ‘āgneyaṃ caturdhā karoti’ iti viśeṣād āgneyapuroḍāśamātre saṃkocyate | paryudāsas tu tadanyamātrasaṃkocārtha iti tato bhedaḥ |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">संकोचनम्</span>「縮めること・限定」／ <span class="dev">उपसंहारः</span>「（適用範囲の）限定」／ <span class="dev">तन्मात्र-संकोच-अर्थः</span>「<b>それだけ</b>に縮めるためのもの」／ <span class="dev">तदन्यमात्र-संकोच-अर्थः</span>「<b>それ以外だけ</b>に縮めるためのもの」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">「そうだとすると、一般規則で得られたものを特定の場合に縮めるという点で、paryudāsa は <b>upasaṃhāra</b>（限定）と区別がなくなるのではないか」と言うなら、そうではない。upasaṃhāra は<b>それ（言及されたもの）だけ</b>に縮めるためのものである。たとえば、「（すべての）供物団子を四つに分ける」という一般規則で得られた四分割が、「Agni の（団子）を四つに分ける」という特殊規則によって、<b>Agni の供物団子だけ</b>に縮められる。一方、paryudāsa は<b>それ以外だけ</b>に縮めるためのものである。これがそれとの違いである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Well, if you urge, ‘Thus, there would be no distinction of exclusion from limitation, which is of the form of the restriction to a particular of what is established by a general text,’ [we say:] No. For, limitation is intended for restricting [a matter] to only that. As the division into four, established generally by ‘[He] divides the cake into four,’ is restricted to only the cake of Agni on account of the special [text] ‘[He] divides into four [the cake] belonging to Agni.’ But exclusion is intended for restricting [a matter] to only [those cases that are] different from that. Thus [exclusion] is distinguished from that.</div></div>
+</div>
+
+<h3>図解：upasaṃhāra と paryudāsa</h3>
+<svg class="dia" viewBox="0 0 640 250" role="img" aria-label="upasaṃhāra と paryudāsa の比較図">
+  <text x="160" y="22" text-anchor="middle">upasaṃhāra（限定）</text>
+  <text x="480" y="22" text-anchor="middle">paryudāsa（除外）</text>
+  <rect x="20" y="35" width="280" height="150" rx="10" class="bx"/>
+  <text x="160" y="55" text-anchor="middle" class="sm"><tspan class="dv" style="font-size:13px">पुरोडाशं चतुर्धा करोति</tspan>（3つの団子すべて）</text>
+  <rect x="35" y="70" width="80" height="70" rx="6" class="bx-hl"/><text x="75" y="100" text-anchor="middle" class="dv">आग्नेय</text><text x="75" y="122" text-anchor="middle" class="sm">◯ 4分割</text>
+  <rect x="120" y="70" width="80" height="70" rx="6" class="bx"/><text x="160" y="100" text-anchor="middle" class="dv">अग्नीषोमीय</text><text x="160" y="122" text-anchor="middle" class="sm">✕</text>
+  <rect x="205" y="70" width="80" height="70" rx="6" class="bx"/><text x="245" y="100" text-anchor="middle" class="dv">ऐन्द्राग्न</text><text x="245" y="122" text-anchor="middle" class="sm">✕</text>
+  <text x="160" y="170" text-anchor="middle" class="sm">言及されたもの<tspan font-weight="bold">だけ</tspan>に残す（形は肯定）</text>
+  <rect x="340" y="35" width="280" height="150" rx="10" class="bx"/>
+  <text x="480" y="55" text-anchor="middle" class="sm"><tspan class="dv" style="font-size:13px">यजतिषु येयजामहं करोति</tspan>（すべての祭祀）</text>
+  <rect x="355" y="70" width="80" height="70" rx="6" class="bx-hl"/><text x="395" y="100" text-anchor="middle">祭祀 a</text><text x="395" y="122" text-anchor="middle" class="sm">◯ 唱える</text>
+  <rect x="440" y="70" width="80" height="70" rx="6" class="bx-hl"/><text x="480" y="100" text-anchor="middle">祭祀 b…</text><text x="480" y="122" text-anchor="middle" class="sm">◯ 唱える</text>
+  <rect x="525" y="70" width="80" height="70" rx="6" class="bx"/><text x="565" y="100" text-anchor="middle" class="dv">अनुयाज</text><text x="565" y="122" text-anchor="middle" class="sm">✕</text>
+  <text x="480" y="170" text-anchor="middle" class="sm">言及されたもの<tspan font-weight="bold">以外</tspan>に残す（形は否定）</text>
+  <text x="320" y="225" text-anchor="middle">どちらも「一般規則で得たものを特定の範囲に縮める」点は同じ</text>
+</svg>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　3つの違い</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>upasaṃhāra</th><th>paryudāsa</th></tr>
+  <tr><td>(1) 縮める先</td><td>言及された場合<b>だけ</b>（<span class="dev">तन्मात्रसंकोचः</span>）</td><td>言及された場合<b>以外だけ</b>（<span class="dev">तदन्यमात्रसंकोचः</span>）</td></tr>
+  <tr><td>(2) 言及するのは</td><td>一般規則を<b>適用する</b>場合</td><td>一般規則から<b>外される</b>場合</td></tr>
+  <tr><td>(3) 形</td><td>肯定的</td><td>否定的（na を含む）</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">स्वमात्रे व्यवस्थापनमुपसंहारः । स्वेतरस्मिन् व्यवस्थापनं पर्युदासः ।</span><span class="ja">自分だけに定めるのが upasaṃhāra、自分以外に定めるのが paryudāsa。</span></div>
+  <div class="cite"><span class="dev">स्वस्मिन् स्वेतरस्मिंश्च प्राप्तं विषयं स्वेतरस्माद् व्यावर्त्य स्वमात्रेऽवस्थापनमुपसंहारः । तथैव प्राप्तं विषयं स्वस्माद् व्यावर्त्य स्वेतरस्मिन् व्यवस्थापनं पर्युदासः ।</span><span class="ja">自分にも自分以外にも及んでいる範囲を、自分以外から外して自分だけに定めるのが upasaṃhāra。同様に及んでいる範囲を、自分から外して自分以外に定めるのが paryudāsa。</span></div>
+  <p><b>新満月祭の3つの団子</b>：<span class="dev">आग्नेय</span>（Agni の）・<span class="dev">अग्नीषोमीय</span>（Agni と Soma の）・<span class="dev">ऐन्द्राग्न</span>（Indra と Agni の）。Sviṣṭakṛt の献供の後、4人の祭官に分配するため団子を4つに分ける。一般規則 <span class="dev">पुरोडाशं चतुर्धा करोति</span> では3つすべてが対象だが、<span class="dev">आग्नेयं चतुर्धा करोति</span> で Agni の団子だけに限定される。</p>
+  <div class="cite"><span class="dev">… आग्नेयवद् ऐन्द्राग्नाग्नीषोमीययोरपि पुरोडाशयोरग्निसंबन्धाद् आग्नेयशब्देन पुरोडाशत्रयमुपलक्ष्यते । … मैवम् । न हि ‘आग्नेयः’ इत्ययं तद्धितः संबन्धमात्रे विहितः, किन्तु देवतासंबन्धे । अग्निश्च केवलो द्विदैवत्ययोः पुरोडाशयोर्न देवता । … मुख्ये एव आग्नेये चतुर्धाकरणं व्यवतिष्ठते ।</span><span class="ja">（反論）他の2つも Agni と関係があるので、「Agni の」は3つの団子すべてを指すのでは？（答）そうではない。taddhita 接尾辞「〜の」は単なる関係ではなく<b>神格</b>との関係で用いられる。Agni 単独は、2柱の神に捧げる団子の神格ではない。…だから四分割は本来の Agni の団子にだけ定まる。</span><span class="src">Jaiminīyanyāyamālāvistara p. 121</span></div>
+  <p>（G&amp;K：Nyāyamālā は本書とは少し違う道筋で Agni の団子だけへの限定を導いている。）</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§70 選択を受け入れてでも禁止 ── Ṣoḍaśin</h2>
+<p class="chapter-sub"><span class="dev">कुत्रचिद् विकल्पप्रसक्तावपि प्रतिषेध आश्रयणीयः</span> ／ 底本 pp. 63–64，Notes pp. 276–279</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§70</span><span class="sutra-num">pp. 63–64</span><span class="sutra-text">कुत्रचिद्विकल्पप्रसक्तावप्यनन्यगत्या प्रतिषेधाश्रयणम् । यथा ‘नातिरात्रे षोडशिनं गृह्णाति’ इत्यादौ । अत्र हि ‘अतिरात्रे षोडशिनं गृह्णाति’ इति शास्त्रप्राप्तषोडशिग्रहणस्य निषेधाद्विकल्पप्रसक्तावपि न पर्युदासाश्रयणम्, असंभवात् । तथा हि । यद्यत्र षोडशिपदार्थेन नञर्थान्वयस्तदातिरात्रे षोडशिव्यतिरिक्तं गृह्णातीति वाक्यार्थबोधः स्यात् । स च न संभवति, ‘अतिरात्रे षोडशिनं गृह्णाति’ इति प्रत्यक्षविधिविरोधात् । यदि चातिरात्रपदार्थेनान्वयस्तदातिरात्रव्यतिरिक्ते षोडशिनं गृह्णातीति वाक्यार्थबोधः स्यात्, सोऽपि न संभवति, तद्विधिविरोधात् । अतोऽत्रानन्यगत्या शास्त्रप्राप्तषोडशिग्रहणस्यैव निषेधः । न च विकल्पप्रसक्तिः, तस्याप्यपेक्षणीयत्वात् ।</span></div>
+  <div class="sutra-iast">kutracid vikalpaprasaktāv apy ananyagatyā pratiṣedhāśrayaṇam | yathā ‘nātirātre ṣoḍaśinaṃ gṛhṇāti’ ityādau | atra hi ‘atirātre ṣoḍaśinaṃ gṛhṇāti’ iti śāstraprāptaṣoḍaśigrahaṇasya niṣedhād vikalpaprasaktāv api na paryudāsāśrayaṇam, asaṃbhavāt | tathā hi | yady atra ṣoḍaśipadārthena nañarthānvayas tadātirātre ṣoḍaśivyatiriktaṃ gṛhṇātīti vākyārthabodhaḥ syāt | sa ca na saṃbhavati, ‘atirātre ṣoḍaśinaṃ gṛhṇāti’ iti pratyakṣavidhivirodhāt | yadi cātirātrapadārthenānvayas tadātirātravyatirikte ṣoḍaśinaṃ gṛhṇātīti vākyārthabodhaḥ syāt, so ’pi na saṃbhavati, tadvidhivirodhāt | ato ’trānanyagatyā śāstraprāptaṣoḍaśigrahaṇasyaiva niṣedhaḥ | na ca vikalpaprasaktiḥ, tasyāpy apekṣaṇīyatvāt |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="dev">अनन्य-गत्या</span>「他に道がないので」／ <span class="dev">अतिरात्रः</span> Atirātra（Soma 祭の一種）／ <span class="dev">षोडशिन्</span> Ṣoḍaśin（Soma を入れる杯の一種）／ <span class="dev">गृह्णाति</span>「（杯に Soma を）汲み取る」／ <span class="dev">अपेक्षणीय</span>「受け入れざるを得ない」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v">ある場合には、選択の恐れがあっても、<b>他に道がない</b>ので禁止に頼る。たとえば「<b>Atirātra では Ṣoḍaśin（杯）を汲まない</b>」などである。ここでは、「Atirātra では Ṣoḍaśin を汲む」という聖典で得られた Ṣoḍaśin 汲みが禁止されるので選択の恐れがあるにもかかわらず、paryudāsa には頼らない。<b>不可能</b>だからである。すなわち、もしここで na の意味が「Ṣoḍaśin」という語の意味と結びつくなら、「Atirātra では Ṣoḍaśin <b>以外のもの</b>を汲む」という文意になるだろう。しかしそれはありえない。「Atirātra では Ṣoḍaśin を汲む」という<b>直接の命令に矛盾する</b>からである。またもし「Atirātra」という語の意味と結びつくなら、「Atirātra <b>以外で</b> Ṣoḍaśin を汲む」という文意になるだろう。それもありえない。その命令に矛盾するからである。だから、ここでは他に道がないので、聖典で得られた Ṣoḍaśin 汲みそのものの<b>禁止</b>である。そして選択の恐れ（を難点として言うこと）もできない。それも<b>受け入れざるを得ない</b>からである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">In some cases, even on the contingency of option, prohibition has to be resorted to owing to there being no other alternative. As in [sentences] beginning with ‘[He] does not take the ṣoḍaśin in the Atirātra.’ For, here, though the contingency of option arises on account of the prohibition of the taking of the ṣoḍaśin, which is established by the text ‘[He] takes the ṣoḍaśin in the Atirātra,’ exclusion is not resorted to on account of [its] impossibility. To explain: If, here, the meaning of the negative is connected with the sense of the word ṣoḍaśin, then the meaning understood from the sentence would be: In the Atirātra [he] takes [something] different from the ṣoḍaśin. And that is not possible, because it contradicts the direct injunction ‘In the Atirātra [he] takes the ṣoḍaśin.’ And if [the meaning of the negative] is construed with the sense of the word Atirātra, then the meaning would be: In [sacrifices] different from the Atirātra [he] takes the ṣoḍaśin. That also is not possible, because it contradicts the injunction of that. Hence, here, on account of there being no other alternative, the prohibition of the taking itself of the ṣoḍaśin, which is established by the text, [has to be resorted to]. And the contingency of option [should] not [be urged against us], because that has to be admitted.</div></div>
+</div>
+
+<h3>図解：na の行き先をすべて試す</h3>
+<div class="tbl-wrap"><table>
+<tr><th>na と結ぶもの</th><th>得られる文意</th><th>判定</th></tr>
+<tr><td>語根 <span class="dev">ग्रह्</span></td><td>（汲まない決意？）</td><td class="no-x">✕ 「彼の誓戒は」の導入がない。誓戒を定める文ではない</td></tr>
+<tr><td>名詞 <span class="dev">षोडशिन्</span></td><td>Atirātra では Ṣoḍaśin <b>以外</b>を汲む</td><td class="no-x">✕ <span class="dev">अतिरात्रे षोडशिनं गृह्णाति</span> と直接矛盾</td></tr>
+<tr><td>名詞 <span class="dev">अतिरात्र</span></td><td>Atirātra <b>以外</b>で Ṣoḍaśin を汲む</td><td class="no-x">✕ 同じく直接矛盾</td></tr>
+<tr><td><b>liṅ（接尾辞）</b></td><td>Atirātra では Ṣoḍaśin を汲むな（<b>禁止</b>）</td><td class="yes">◯ 他に道がない（選択は甘受）</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　なぜ ye yajāmahe とは違うのか</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>ye yajāmahe</th><th>Ṣoḍaśin</th></tr>
+  <tr><td>命令</td><td><span class="dev">यजतिषु</span>（祭祀<b>一般</b>）</td><td><span class="dev">अतिरात्रे षोडशिनं गृह्णाति</span></td></tr>
+  <tr><td>否定文</td><td><span class="dev">नानुयाजेषु</span>（<b>一部</b>だけ）</td><td><span class="dev">नातिरात्रे षोडशिनं गृह्णाति</span></td></tr>
+  <tr><td>対象は</td><td>一般 対 特殊 → ずれがある</td><td><b>まったく同じ</b>事柄</td></tr>
+  <tr><td>結果</td><td>paryudāsa で選択を回避</td><td>回避できず、禁止 ＋ 選択</td></tr>
+  </table></div>
+  <p>もし否定文が <span class="dev">न यजतिषु येयजामहं करोति</span>（祭祀一般で唱えない）だったら、ye yajāmahe でも paryudāsa は使えず、選択を認めるしかなかっただろう。</p>
+  <p><b>Atirātra</b>：Jyotiṣṭoma（Soma 祭）の4種の一つ（ほかに Agniṣṭoma・Ukthya・Ṣoḍaśin）。<b>ṣoḍaśin</b> は普通名詞としては Soma の汁を入れる杯の一種（<span class="dev">सोमपात्रविशेषः</span>）。</p>
+  <p><span class="dev">अपेक्षणीयत्वात्</span>：普通は「望ましいものとして期待される」だが、ここでは「望ましくないが<b>避けられないもの</b>として受け入れられる」（<span class="dev">अनन्यगत्या अभ्युपेयत्वात्</span>）という少し変わった意味。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　否定文の全体のまとめ（Āpadeva）</div>
+  <div class="cite"><span class="dev">अतश्च अत्र पर्युदासस्य अनुपपत्तेः निषेध एव स्वीक्रियते, विकल्पोऽपि स्वीक्रियते । अनन्यगतेः । अतश्चैतत् सिद्धम् । यत्र ‘तस्य व्रतम्’ इत्याद्युपक्रमो विकल्पप्रसक्तिश्च नास्ति तत्र प्रतिषेधः । यथा ‘न कलञ्जं भक्षयेद्’ इति । यत्र वा विकल्पप्रसक्तावपि पर्युदास आश्रयितुं न शक्यते तत्र प्रतिषेधः । यथा ‘नातिरात्रे षोडशिनं गृह्णाति’ इति ।</span><span class="ja">ここでは paryudāsa が成り立たないので禁止を認め、選択も認める。他に道がないから。こうして次のことが確立した：「彼の誓戒は」などの導入も選択の恐れもないところでは禁止（例：kalañja）。あるいは、選択の恐れがあっても paryudāsa に頼れないところでも禁止（例：Ṣoḍaśin）。</span><span class="src">Mīmāṃsānyāyaprakāśa</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§71 禁じられたものは「災いの原因」か</h2>
+<p class="chapter-sub"><span class="dev">विकल्पे प्रतिषिध्यमानं नानर्थहेतुः</span> ／ 底本 pp. 64–65，Notes pp. 279–285</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§71-a</span><span class="sutra-num">pp. 64–65</span><span class="sutra-text">इयांस्तु विशेषो यद्विकल्पादेकप्रतिषेधेऽपि प्रतिषिध्यमानस्य नानर्थहेतुत्वम्, विधिनिषेधोभयस्यापि क्रत्वर्थत्वात् । यत्र तु न विकल्पः, प्राप्तिश्च रागत एव, प्रतिषेधश्च पुरुषार्थः, तत्र प्रतिषिध्यमानस्यानर्थहेतुत्वम्, यथा ‘न कलञ्जं भक्षयेत्’ इत्यादौ कलञ्जभक्षणादेः । तत्र भक्षणनिषेधस्यैव पुरुषार्थत्वात् ।</span></div>
+  <div class="sutra-iast">iyāṃs tu viśeṣo yad vikalpād ekapratiṣedhe ’pi pratiṣidhyamānasya nānarthahetutvam, vidhiniṣedhobhayasyāpi kratvarthatvāt | yatra tu na vikalpaḥ, prāptiś ca rāgata eva, pratiṣedhaś ca puruṣārthaḥ, tatra pratiṣidhyamānasyānarthahetutvam, yathā ‘na kalañjaṃ bhakṣayet’ ityādau kalañjabhakṣaṇādeḥ | tatra bhakṣaṇaniṣedhasyaiva puruṣārthatvāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">ただし、これだけの<b>違い</b>がある。選択のために一方が禁止されても、禁止されるものは<b>災いの原因ではない</b>。命令と禁止の<b>両方とも祭式のため</b>（kratvartha）だからである。一方、(1) <b>選択がなく</b>、(2) 成立が<b>欲望</b>からだけで、(3) 禁止が<b>人のため</b>（puruṣārtha）であるところでは、禁止されるものは災いの原因である。たとえば「kalañja を食べるべからず」などにおける kalañja 食などである。そこでは食べることの<b>禁止だけ</b>が人のためだからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">But this much [is] the difference that even though owing to option one [thing] is prohibited, the thing which is being prohibited does not become the cause of evil; because both the injunction and prohibition [are] in the interest of the sacrifice. But where [there is] no option and the establishment [is] from passion only and the prohibition [is] in the interest of man, there [the thing] which is being prohibited becomes the cause of evil; as the eating of poisoned meat and the like in [texts] like ‘[One] should not eat poisoned meat.’ Because there the prohibition of the eating itself is in the interest of man.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§71-b</span><span class="sutra-num">p. 65</span><span class="sutra-text">न च ‘दीक्षितो न ददाति न जुहोति’ इत्यादौ शास्त्रप्राप्तदानहोमादीनां निषेधाद्विकल्पापत्तिरिति वाच्यम् । स्वतःपुरुषार्थभूतदानहोमादीनां निषेधस्य पुरुषार्थत्वाभावेऽपि निषिध्यमानस्यानर्थहेतुत्वात्, यथा क्रतौ स्वस्त्रीगमनादेः । तन्निषेधस्य क्रत्वर्थत्वेन तस्य क्रतुवैगुण्यसंपादकत्वात् ।</span></div>
+  <div class="sutra-iast">na ca ‘dīkṣito na dadāti na juhoti’ ityādau śāstraprāptadānahomādīnāṃ niṣedhād vikalpāpattir iti vācyam | svataḥpuruṣārthabhūtadānahomādīnāṃ niṣedhasya puruṣārthatvābhāve ’pi niṣidhyamānasyānarthahetutvāt, yathā kratau svastrīgamanādeḥ | tanniṣedhasya kratvarthatvena tasya kratuvaiguṇyasaṃpādakatvāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">「『<b>潔斎した者は施さず、献供しない</b>』などでは、聖典で得られた施し・献供などが禁止されるので、選択になってしまう」と言ってはならない。それ自体は人のためである施し・献供などの禁止は、人のためではないとしても、禁止されるもの（施し・献供）は<b>災いの原因</b>だからである。<b>祭式の最中に自分の妻のもとへ行くこと</b>などと同じように。その禁止は祭式のためなので、それ（禁じられた行為）は<b>祭式の不備</b>（kratuvaiguṇya）を生むからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And it should not be urged: On account of the prohibition of gifts, sacrifices and the like, which are established by [general] texts, by such [texts] as ‘The consecrated [one] gives not, sacrifices not,’ [there arises] the contingency of option. For, though the prohibition of gifts, sacrifices and the like, which in themselves are beneficial to man, is not in the interest of man, the thing which is being prohibited is the cause of evil; as the approach to one's own wife during the sacrifice. For, its prohibition being in the interest of the sacrifice, it produces imperfection in the sacrifice.</div></div>
+</div>
+
+<h3>図解：「災いの原因」となる3条件</h3>
+<div class="tbl-wrap"><table>
+<tr><th>例</th><th>(1) 選択がない</th><th>(2) 成立が欲望から</th><th>(3) 禁止が人のため</th><th>災いの原因か（Bhāskara）</th></tr>
+<tr><td>Ṣoḍaśin を汲む</td><td class="no-x">✕ 選択あり</td><td class="no-x">✕ 聖典から</td><td class="no-x">✕ 祭式のため</td><td><b>ではない</b></td></tr>
+<tr><td>kalañja を食べる</td><td class="yes">◯</td><td class="yes">◯ 食欲から</td><td class="yes">◯</td><td><b>である</b>（死後の苦）</td></tr>
+<tr><td>潔斎者の施し・献供</td><td class="yes">◯</td><td class="no-x">✕ 聖典から</td><td class="no-x">✕ 祭式のため</td><td><b>である</b>（祭式の不備）</td></tr>
+<tr><td>祭式中に妻のもとへ</td><td class="yes">◯</td><td class="yes">◯ 欲望から（※）</td><td class="no-x">✕ 祭式のため</td><td><b>である</b>（祭式の不備）</td></tr>
+</table></div>
+<p class="chapter-sub">※ 一般規則 <span class="dev">ऋतौ भार्यामुपेयात्</span>「適時に妻のもとへ行くべし」があるので、聖典からの成立とみることもできる。</p>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　本当に効いているのは条件(1)だけ</div>
+  <p>表を見ると、潔斎者の施し・献供は条件(1)しか満たさないのに災いの原因になっている。つまり Bhāskara の立場では、3条件のうち<b>(1)「選択がない」だけ</b>が決定的で、(2)(3) はどうでもよい。<br>
+  逆に、選択として禁止される場合は、成立は必ず<b>聖典から</b>である（選択は命令と禁止がともに聖典から来るときだけ認められるので）。禁止が祭式のためか人のためかは場合による。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Ṣoḍaśin は kratvartha、ye yajāmahe は puruṣārtha ── なぜ？</div>
+  <p>§68 では ye yajāmahe を唱える・唱えないは「人のため」とされたのに、§71 では Ṣoḍaśin を汲む・汲まないは「祭式のため」。違いは：</p>
+  <ul>
+    <li>Ṣoḍaśin を汲む・汲まないは<b>身体の行為</b>で、祭式の<b>外形</b>に寄与する → kratvartha。</li>
+    <li>ye yajāmahe を唱える・唱えないは<b>舌の動き</b>だけで、祭式の外形に目に見える影響がない → puruṣārtha。</li>
+  </ul>
+  <p><span class="dev">विधिनिषेधोभयस्यापि क्रत्वर्थत्वात्</span> はぎこちない表現で、<span class="dev">उभयोरपि विधिनिषेधयोः क्रत्वर्थत्वात्</span> の意。<br>
+  <span class="dev">भक्षणनिषेधस्यैव</span> の「だけ」の意味：Ṣoḍaśin では命令も禁止も祭式のためだったが、kalañja では<b>禁止だけ</b>が人のためで、食べること（の命令・実行）はそうではない。</p>
+  <div class="cite"><span class="dev">षोडशिग्रहणविधितत्प्रतिषेधयोरुभयोरपि क्रत्वर्थत्वात् तत्र प्रतिषिध्यमानस्य नानर्थहेतुत्वम् । अत्र तु कलञ्जभक्षणादिप्रतिषेधस्यैव पुरुषार्थत्वं न तु तदनुष्ठानस्य इति प्रतिषिध्यमानस्य कलञ्जभक्षणब्राह्मणहननादेरनर्थहेतुत्वमेव इति भावः ।</span><span class="src">Rāmeśvara</span></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　施し・献供で選択が起きない2つの理由</div>
+  <p><b>潔斎者</b>（<span class="dev">दीक्षितः</span>）：Jyotiṣṭoma などの大祭のために潔斎（dīkṣā）を受けた祭主。施し（dāna）や、家長が毎日行う献供（Agnihotra など）は一般規則で命じられているが、潔斎中は <span class="dev">दीक्षितो न ददाति न जुहोति</span> で禁止される。</p>
+  <ol class="deriv">
+    <li><span class="form">理由1</span><span class="why">選択として禁止されるものは災いの原因ではない（§71-a）。ところが潔斎者の施し・献供は<b>災いの原因</b>である ── 大祭の最中に日常の施しや献供をすると、財布も注意も本来の祭から逸れ、祭式に<b>不備</b>（<span class="dev">क्रतुवैगुण्यम्</span>）が生じる。だから選択ではない。</span></li>
+    <li><span class="form">理由2</span><span class="why">施し・献供の<b>命令は人のため</b>（目に見える結果がなく adṛṣṭa を生む）だが、その<b>禁止は祭式のため</b>（大祭を守るため）。種類が違う（<span class="dev">तुल्यार्थत्वाभावः</span>）ので、選択は成り立たない。両方が同じ種類なら選択になりえた。</span></li>
+  </ol>
+  <p>ある写本は <span class="dev">पुरुषार्थत्वाभावेऽपि</span> の後に <span class="dev">क्रत्वर्थत्वेन</span>「祭式のためであるので」を加えており、意味がよりはっきりする。<br>
+  <b>祭式中の妻のもとへ</b>：新満月祭の章に <span class="dev">न स्त्रियमुपेयात्</span> とある。命令（<span class="dev">ऋतौ भार्यामुपेयात्</span>）は人のため、禁止は祭式のため ── 施し・献供と全く同じ構造。</p>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　「災い」の2つの意味 ── Bhāskara 対 Āpadeva</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>kalañja 食</th><th>潔斎者の施し・献供／祭式中の妻</th></tr>
+  <tr><td>生じる「災い」</td><td>死後の苦を生む見えない力（<span class="dev">मरणोत्तरदुःखजनकमपूर्वम्</span>、地獄など）</td><td>祭式の不備（<span class="dev">क्रतुवैगुण्यम्</span>）</td></tr>
+  <tr><td>Bhāskara（と Rāmeśvara）</td><td>災いの原因</td><td><b>災いの原因</b>（祭式の不備も災い）→ 条件(1)だけが重要</td></tr>
+  <tr><td>Āpadeva</td><td>災いの原因</td><td><b>災いの原因ではない</b>（災い ＝ 悪い apūrva だけ）→ 3条件<b>すべて</b>が必要</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">‘दीक्षितो न ददाति, न जुहोति’ इत्यादिषु तु दानहोमादीनां शास्त्रप्राप्तावपि पुरुषार्थत्वेन प्राप्तत्वात् क्रत्वर्थत्वेन च प्रतिषेधात् तुल्यार्थत्वाभावेन विकल्पाप्रसक्तावपि न तेषामनर्थहेतुत्वम्, रागप्राप्त्यभावात् । रागतः प्राप्तस्यापि क्रत्वर्थत्वेन प्रतिषेधे तदनुष्ठानात् क्रतोर्वैगुण्यम्, नानर्थोत्पत्तिः, यथा स्वस्त्र्युपगमनादिप्रतिषेधे । रागतः प्राप्तस्य पुरुषार्थत्वेन प्रतिषेधे निषिध्यमानस्य अनर्थहेतुत्वम् ।</span><span class="ja">「潔斎者は施さず献供しない」などでは、施し・献供は聖典で得られていても、人のためとして得られ、祭式のためとして禁止されるので、目的が同じでなく選択の恐れはないが、それらは災いの原因ではない。欲望による成立がないから。欲望で得られたものでも、祭式のために禁止される場合は、それを行えば祭式の不備になるだけで、災いは生じない（自分の妻のもとへ行くことの禁止のように）。欲望で得られたものが人のために禁止される場合に、禁止されるものは災いの原因となる。</span><span class="src">Mīmāṃsānyāyaprakāśa</span></div>
+  <div class="cite"><span class="dev">… क्रतौ स्त्रीगमनादेः कलञ्जभक्षणादिवद् अनर्थरूपनरकादिदुःखाहेतुत्वेऽपि क्रतुवैगुण्यसंपादकत्वेन अनर्थहेतुत्वसंभवाद् भवति अत्रापि निषिध्यमानस्य अनर्थहेतुत्वम् ।</span><span class="ja">祭式中の妻のもとへ行くことなどは、kalañja 食のように地獄などの苦の原因にはならないが、祭式の不備を生むという点で災いの原因となりうるので、ここでも禁止されるものは災いの原因である。</span><span class="src">Rāmeśvara</span></div>
+  <p>潔斎者の施し・献供については JNMV 6.5.11 と 10.8.7 も参照。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　否定文の全体図</h2>
+<svg class="dia" viewBox="0 0 640 330" role="img" aria-label="否定文の分類図">
+  <defs><marker id="m13a" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+  <rect x="220" y="10" width="200" height="44" rx="8" class="bx-hl"/><text x="320" y="38" text-anchor="middle">na を含む文</text>
+  <path d="M290,54 L150,96" class="ln" marker-end="url(#m13a)"/><path d="M350,54 L490,96" class="ln" marker-end="url(#m13a)"/>
+  <rect x="40" y="96" width="220" height="56" rx="8" class="bx"/><text x="150" y="120" text-anchor="middle">pratiṣedha（禁止）</text><text x="150" y="140" text-anchor="middle" class="sm">na ＋ liṅ ／ 文意 ＝ nivartanā</text>
+  <rect x="380" y="96" width="220" height="56" rx="8" class="bx"/><text x="490" y="120" text-anchor="middle">paryudāsa（除外）</text><text x="490" y="140" text-anchor="middle" class="sm">na ＋ 語根 ／ 名詞</text>
+  <path d="M110,152 L80,196" class="ln" marker-end="url(#m13a)"/><path d="M190,152 L220,196" class="ln" marker-end="url(#m13a)"/>
+  <path d="M450,152 L420,196" class="ln" marker-end="url(#m13a)"/><path d="M530,152 L560,196" class="ln" marker-end="url(#m13a)"/>
+  <rect x="10" y="196" width="145" height="110" rx="6" class="bx"/><text x="82" y="218" text-anchor="middle" class="sm">障害なし</text><text x="82" y="242" text-anchor="middle" class="dv">न कलञ्जं भक्षयेत्</text><text x="82" y="266" text-anchor="middle" class="sm">§62–64</text><text x="82" y="288" text-anchor="middle" class="sm">→ 災いの原因</text>
+  <rect x="165" y="196" width="145" height="110" rx="6" class="bx"/><text x="237" y="218" text-anchor="middle" class="sm">選択でも他に道なし</text><text x="237" y="242" text-anchor="middle" class="dv">नातिरात्रे षोडशिनम्</text><text x="237" y="266" text-anchor="middle" class="sm">§70</text><text x="237" y="288" text-anchor="middle" class="sm">→ 災いの原因でない</text>
+  <rect x="330" y="196" width="145" height="110" rx="6" class="bx"/><text x="402" y="218" text-anchor="middle" class="sm">「彼の誓戒は」</text><text x="402" y="242" text-anchor="middle" class="dv">नेक्षेतोद्यन्तम्</text><text x="402" y="266" text-anchor="middle" class="sm">§66　na ＋ 語根</text><text x="402" y="288" text-anchor="middle" class="sm">→ 見ない決意</text>
+  <rect x="485" y="196" width="145" height="110" rx="6" class="bx"/><text x="557" y="218" text-anchor="middle" class="sm">選択の恐れ</text><text x="557" y="242" text-anchor="middle" class="dv">नानुयाजेषु</text><text x="557" y="266" text-anchor="middle" class="sm">§67–68　na ＋ 名詞</text><text x="557" y="288" text-anchor="middle" class="sm">→ 後祭以外で</text>
+</svg>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">पाक्षिकाप्रामाण्यम्</td><td class="iast">pākṣikāprāmāṇya</td><td>選択の一方をとるときの（他方の）権威喪失</td></tr>
+<tr><td class="dev">द्विरदृष्टकल्पना</td><td class="iast">dviradṛṣṭakalpanā</td><td>見えない果報の二重想定</td></tr>
+<tr><td class="dev">पुरुषार्थ · क्रत्वर्थ</td><td class="iast">puruṣārtha · kratvartha</td><td>人のため ・ 祭式のため</td></tr>
+<tr><td class="dev">अनुवादः</td><td class="iast">anuvāda</td><td>（既知のものの）言い直し</td></tr>
+<tr><td class="dev">व्यतिरिक्त</td><td class="iast">vyatirikta</td><td>〜以外の</td></tr>
+<tr><td class="dev">उपसंहारः</td><td class="iast">upasaṃhāra</td><td>（言及されたもの）だけへの限定</td></tr>
+<tr><td class="dev">संकोचः</td><td class="iast">saṃkoca</td><td>（範囲を）縮めること</td></tr>
+<tr><td class="dev">चतुर्धाकरणम्</td><td class="iast">caturdhākaraṇa</td><td>（団子の）四分割</td></tr>
+<tr><td class="dev">अनन्यगतिः</td><td class="iast">ananyagati</td><td>他に道がないこと</td></tr>
+<tr><td class="dev">अतिरात्रः · षोडशी</td><td class="iast">atirātra · ṣoḍaśin</td><td>Soma 祭の一種 ・ Soma の杯の一種</td></tr>
+<tr><td class="dev">अनर्थहेतुः</td><td class="iast">anarthahetu</td><td>災いの原因</td></tr>
+<tr><td class="dev">दीक्षितः</td><td class="iast">dīkṣita</td><td>（大祭のために）潔斎した者</td></tr>
+<tr><td class="dev">क्रतुवैगुण्यम्</td><td class="iast">kratuvaiguṇya</td><td>祭式の不備</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 選択（vikalpa）の2つの欠点として §68 が挙げるものは？</summary><div>(1) 一方の場合に聖典が権威を失うこと（pākṣikāprāmāṇya）、(2) 見えない果報を二重に想定すること（dviradṛṣṭakalpanā）。</div></details>
+<details class="q"><summary>Q2. <span class="dev">नानुयाजेषु</span> を paryudāsa と取ると、文意はどうなる？</summary><div>「後祭以外の祭祀で ye yajāmahe を唱えるべし」。一般規則と矛盾せず、選択も起きない。</div></details>
+<details class="q"><summary>Q3. それでは一文で2つを命じる「文の分裂」にならないか？</summary><div>ならない。ye yajāmahe 自体は一般規則で既に命じられており、ここでは言い直し（anuvāda）にすぎない。命じられるのは「後祭以外」という範囲だけ。</div></details>
+<details class="q"><summary>Q4. upasaṃhāra と paryudāsa の違いを例で。</summary><div>upasaṃhāra は言及されたものだけに縮める（<span class="dev">आग्नेयं चतुर्धा करोति</span>：Agni の団子だけ四分割）。paryudāsa は言及されたもの以外に縮める（<span class="dev">नानुयाजेषु</span>：後祭以外で唱える）。</div></details>
+<details class="q"><summary>Q5. <span class="dev">नातिरात्रे षोडशिनं गृह्णाति</span> で paryudāsa が使えないのはなぜ？</summary><div>na を Ṣoḍaśin と結べば「Ṣoḍaśin 以外を汲む」、Atirātra と結べば「Atirātra 以外で汲む」となり、どちらも <span class="dev">अतिरात्रे षोडशिनं गृह्णाति</span> と直接矛盾する。語根と結ぶための「彼の誓戒は」の導入もない。だから禁止を取り、選択を甘受する。</div></details>
+<details class="q"><summary>Q6. 禁止されるものが「災いの原因」となる3条件は？</summary><div>(1) 選択がない、(2) 成立が欲望から、(3) 禁止が人のため。kalañja 食はすべて満たす。</div></details>
+<details class="q"><summary>Q7. 潔斎者の施し・献供の禁止が選択にならない理由は？</summary><div>(1) 禁止される施し・献供は祭式の不備を生む「災いの原因」であり、選択として禁止されるものはそうではないから。(2) 命令は人のため、禁止は祭式のためで種類が違うから。</div></details>
+<details class="q"><summary>Q8. 「災い」の意味について Bhāskara と Āpadeva はどう違う？</summary><div>Bhāskara は祭式の不備も災いに含め、潔斎者の施し・献供や祭式中の妻のもとへ行くことも災いの原因とする（条件(1)だけが重要）。Āpadeva は災いを死後の苦を生む悪い apūrva に限り、それらは災いの原因ではないとする（3条件すべてが必要）。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson12.html">← 第12課　niṣedha（1）</a><span class="spacer"></span><a href="arthasamgraha_lesson14.html">第14課　arthavāda →</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第13課　niṣedha（2）<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 61–65 (§68–§71), Notes pp. 271–285.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：विकल्प पच → विकल्प एव、ये यजामहम् → ये यजामहे、द्विरदृष्ट कल्पना → द्विरदृष्टकल्पना、नत्रो → नञो、इत्यादो → इत्यादौ、षोडशिग्रह्णस्य → षोडशिग्रहणस्य、कलजं → कलञ्जं、ऋतुवैगुण्य → क्रतुवैगुण्य）。
+</footer>
+
+</body>
+</html>

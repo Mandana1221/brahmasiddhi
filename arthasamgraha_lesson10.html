@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — तृतीयो मन्त्रविभागः</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 10</div>
+  <div class="header-jp">第10課　mantra ── 祭詞の役割と、vidhi・niyama・parisaṃkhyā<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 42–46（§49–§53），Notes pp. 212–227</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第3部へようこそ</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§49 mantra とは ── 実行に関わる事柄を思い出させるもの</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§50 新規の vidhi と制限の vidhi（niyama）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§51 排除の vidhi（parisaṃkhyā）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§52–§53 parisaṃkhyā の2種と3つの欠陥</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>§53 末尾 意味のわからない祭詞</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>vidhi・niyama・parisaṃkhyā の比較</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第3部へようこそ</h2>
+<p>§10 で、ヴェーダは5つ（vidhi・mantra・nāmadheya・niṣedha・arthavāda）に分かれると学びました。長い第2部で vidhi を終え、ここから2番目の <b>mantra</b>（祭詞）に入ります。</p>
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Mīmāṃsā にとって mantra は「やっかいもの」</div>
+  <p>mantra には三ヴェーダ（Ṛc・Sāman・Yajus）の Saṃhitā が含まれます。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>ヴェーダ</th><th>形</th><th>唱え方</th></tr>
+  <tr><td>Ṛgveda</td><td>韻文</td><td>朗唱する</td></tr>
+  <tr><td>Sāmaveda</td><td>韻文</td><td>歌う</td></tr>
+  <tr><td>Yajurveda</td><td>主に散文</td><td>低い声でつぶやく（nigada と呼ばれる定式文は大声で：<span class="dev">उपांशु यजुषा, उच्चैर्निगदेन</span>，JS 2.1.36–37）</td></tr>
+  </table></div>
+  <p>Mīmāṃsā が主に扱うのは vidhi（命令）。mantra には命令が含まれないので、厳密な Mīmāṃsā の立場からは<b>役に立たない</b>。しかし Mīmāṃsaka はそれを公言できなかったので、mantra に何か目的を見つけなければならなかった ──「<b>祭式の実行に関わる事柄を思い出させる</b>」という目的です（例：<span class="dev">अग्निमीळे पुरोहितम्</span>、<span class="dev">इन्द्रस्य नु वीर्याणि प्र वोचम्</span> は、供物を捧げる神 Agni・Indra を思い出させる）。Mīmāṃsā 文献は mantra の満足な定義を与えていない、とも G&amp;K は言います（Jaimini の定義は JS 2.1.32 <span class="dev">तच्चोदकेषु मन्त्राख्या</span>）。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§49 mantra とは</h2>
+<p class="chapter-sub"><span class="dev">मन्त्रः</span> ／ 底本 p. 42，Notes pp. 212–214</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§49</span><span class="sutra-num">p. 42</span><span class="sutra-text">प्रयोगसमवेतार्थस्मारका मन्त्राः । तेषां च तादृशार्थस्मारकत्वेनैवार्थवत्त्वम् । न तु तदुच्चारणमदृष्टार्थम्, संभवति दृष्टफलकत्वेऽदृष्टकल्पनाया अन्याय्यत्वात् । न च दृष्टस्यार्थस्मरणस्य प्रकारान्तरेणापि संभवान्मन्त्राम्नानं व्यर्थमिति वाच्यम् । मन्त्रैरेव स्मर्तव्यमिति नियमविध्याश्रयणात् ।</span></div>
+  <div class="sutra-iast">prayogasamavetārthasmārakā mantrāḥ | teṣāṃ ca tādṛśārthasmārakatvenaivārthavattvam | na tu taduccāraṇam adṛṣṭārtham, saṃbhavati dṛṣṭaphalakatve ’dṛṣṭakalpanāyā anyāyyatvāt | na ca dṛṣṭasyārthasmaraṇasya prakārāntareṇāpi saṃbhavān mantrāmnānaṃ vyartham iti vācyam | mantrair eva smartavyam iti niyamavidhyāśrayaṇāt |</div>
+  <div class="row"><div class="k">語の分解</div><div class="v"><span class="iast">prayoga-samaveta-artha-smārakāḥ</span>「実行に<b>密着した</b>事柄を<b>思い出させる</b>もの」</div></div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>実行に関わる事柄を思い出させるもの</b>が mantra である。そしてそれらは、まさにそのような事柄を思い出させることによって意義をもつ。それを唱えることが<b>目に見えない目的</b>のためにあるのではない。目に見える果報があり得るときに、見えないものを想定するのは不当だからである。「目に見える（目的である）事柄の想起は他の方法でもできるのだから、mantra を唱えることは無駄だ」と言ってはならない。「mantra によって<b>のみ</b>思い出すべし」という<b>制限の vidhi</b>（niyamavidhi）に依拠するからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Mantras [are] reminders of matters connected with performance. And they have a purpose by reminding of such matters alone. Their utterance does not have an unseen purpose, because it is unreasonable to imagine the unseen when a seen fruit is possible. And it should not be urged that the recitation of Mantras is useless, as the seen [purpose viz.] recollection of matters is possible in another way also. For, an injunction of restriction ‘[One] should remember by Mantras alone’ is resorted to.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　二つの反論</div>
+  <div class="tbl-wrap"><table>
+  <tr><th>反論</th><th>答え</th></tr>
+  <tr><td><b>祭官学派</b>（Yājñika，Yāska『Nirukta』1.15 の Kautsa が代表）：mantra の意味を理解する必要はない。唱えることが<b>見えない</b>結果を生むのだ。</td><td>目に見える目的（想起）が可能なのに、見えない目的を想定するのは不当（<span class="dev">लभ्यमाने फले दृष्टे नादृष्टफलकल्पना</span>）。</td></tr>
+  <tr><td>想起なら<b>他の方法</b>でもできる。別の祭官に思い出させてもらってもいいし、Brāhmaṇa の文（<span class="dev">इमामगृभ्णन्… इत्यश्वाभिधानीमादत्ते</span>、<span class="dev">उरु प्रथा उरु प्रथस्वेति पुरोडाशं प्रथयति</span>）でもできる。だから mantra を唱えるのは無駄だ。</td><td>「<b>mantra によってのみ</b>思い出すべし」という<b>制限</b>（niyama）がある。</td></tr>
+  </table></div>
+  <p>「<span class="dev">मन्त्रैरेव स्मर्तव्यम्</span>」はヴェーダの引用のように見えるが、出典は見つからない（Jaiminīyanyāyamālāvistara では <span class="dev">मन्त्रेणैवानुस्मरणीयम्</span>）。<br>
+  <span class="dev">मन्त्राम्नानम्</span>：「mantra を（祭で）唱えること」、あるいは「mantra を（想起の手段として）定めること」。</p>
+  <div class="cite"><span class="dev">… ब्राह्मणवाक्येनापि अर्थानुस्मरणसंभवे ‘मन्त्रेणैवानुस्मरणीयम्’ इति यो नियमः, तस्य दृष्टासंभवाददृष्टं प्रयोजनमस्तु ।</span><span class="ja">「Brāhmaṇa の文でも想起が可能なのに『mantra によってのみ想起すべし』という制限があるなら、その<b>制限</b>には見える目的がないので、見えない目的があるとしよう。」</span><span class="src">Jaiminīyanyāyamālāvistara p. 26</span></div>
+  <div class="cite"><span class="dev">… मन्त्रैरेव अर्थं स्मृत्वा अनुष्ठाने सति फलं संभवति, न अन्यथा, इति नियमाङ्गीकारात् । नियमेन अदृष्टस्य अङ्गीकारात् ।</span><span class="src">Mīmāṃsāparibhāṣā</span></div>
+  <p>つまり：想起そのものは<b>見える</b>目的。「mantra で」と限定することには<b>見えない</b>目的（niyamāpūrva）がある。（参照：Śābarabhāṣya の「mantra の liṅga の章」JS 1.2.31–53）</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§50 新規の vidhi と制限の vidhi</h2>
+<p class="chapter-sub"><span class="dev">नियमविधिः</span> ／ 底本 pp. 42–44，Notes pp. 214–219</p>
+
+<p class="lead">「制限の vidhi」が出てきたので、Bhāskara はここで脇道に入り、<b>vidhi のもう一つの三分類</b>（新規・制限・排除）を説明します。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§50-a</span><span class="sutra-num">pp. 42–43</span><span class="sutra-text">नानासाधनसाध्यक्रियायामेकसाधनप्राप्तावप्राप्तस्यापरसाधनस्य प्रापको विधिर्नियमविधिः । यथाहुः — ‘विधिरत्यन्तमप्राप्तौ नियमः पाक्षिके सति । तत्र चान्यत्र च प्राप्तौ परिसंख्येति गीयते ॥’ इति ।</span></div>
+  <div class="sutra-iast">nānāsādhanasādhyakriyāyām ekasādhanaprāptāv aprāptasyāparasādhanasya prāpako vidhir niyamavidhiḥ | yathāhuḥ — ‘vidhir atyantam aprāptau niyamaḥ pākṣike sati | tatra cānyatra ca prāptau parisaṃkhyeti gīyate ||’ iti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>さまざまな手段で達成できる行為</b>において、一つの手段が採られそうなとき、（まだ）採られていない<b>別の手段</b>を採らせる vidhi が、制限の vidhi である。（Kumārila が）言うように ──「<b>まったく</b>得られていないときは vidhi（新規の vidhi）。<b>一方の場合に</b>（得られていない）ときは niyama（制限）。<b>そこにも他所にも</b>得られるときは parisaṃkhyā（排除）と言われる。」</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">In an action that can be accomplished by various means, when one means is likely to be adopted, the injunction which establishes another means not [yet] established [is] the injunction of restriction. As [they] say — ‘[It is] injunction when [a thing is] absolutely non-established; restriction when [it is non-established] in an alternative; when [it is] established there and elsewhere, it is called exclusion.’</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">有名な詩節（Kumārila『Tantravārttika』ad JS 1.2.34）</div>
+  <div class="cite"><span class="dev">विधिरत्यन्तमप्राप्तौ नियमः पाक्षिके सति ।<br>तत्र चान्यत्र च प्राप्तौ परिसंख्येति गीयते ॥</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th>種類</th><th>条件</th><th>Bhāskara の言い換え</th></tr>
+  <tr><td><span class="dev">(अपूर्व)विधिः</span> 新規</td><td><span class="dev">अत्यन्तमप्राप्तौ</span> まったく得られていない</td><td><span class="dev">प्रमाणान्तरेणाप्राप्तस्य प्रापकः</span></td></tr>
+  <tr><td><span class="dev">नियमः</span> 制限</td><td><span class="dev">पाक्षिके सति</span> 一方の場合に得られていない</td><td><span class="dev">पक्षेऽप्राप्तस्य प्रापकः</span></td></tr>
+  <tr><td><span class="dev">परिसंख्या</span> 排除</td><td><span class="dev">तत्र चान्यत्र च प्राप्तौ</span> そこにも他所にも得られる</td><td><span class="dev">उभयोश्च युगपत्प्राप्तौ इतरव्यावृत्तिपरः</span></td></tr>
+  </table></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§50-b</span><span class="sutra-num">p. 43</span><span class="sutra-text">अस्यार्थः । प्रमाणान्तरेणाप्राप्तस्य प्रापको विधिरपूर्वविधिः । यथा ‘यजेत स्वर्गकामः’ इत्यादिः । स्वर्गार्थकयागस्य प्रमाणान्तरेणाप्राप्तस्यानेन विधानात् ।</span></div>
+  <div class="sutra-iast">asyārthaḥ | pramāṇāntareṇāprāptasya prāpako vidhir apūrvavidhiḥ | yathā ‘yajeta svargakāmaḥ’ ityādiḥ | svargārthakayāgasya pramāṇāntareṇāprāptasyānena vidhānāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">その意味はこうである。他の認識手段では得られないものを得させる vidhi が、<b>新規の vidhi</b>（apūrvavidhi）である。たとえば「天界を望む者は祭祀すべし」など。天界のための祭祀は他の認識手段では得られず、これによって命じられるからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Its meaning [is this]: The injunction which establishes [what is] not established by any other means of proof [is] the original injunction, as ‘One desirous of heaven should sacrifice’ etc. For, by this [is enjoined] the sacrifice for heaven, which is not established by any other means of proof.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">अपूर्वस्य पूर्वमज्ञातस्य विधिः</span>「以前に知られていなかったものの vidhi」。§11 の「主（発生）の vidhi」と同じもの。もう一つの例：<span class="dev">व्रीहीन् प्रोक्षति</span>（米への注水は他からは知られない）。<br>底本 OCR の <span class="dev">यजेत सर्वकामः</span> は、後の説明（天界のための祭祀）から <span class="dev">स्वर्गकामः</span> に訂正。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§50-c</span><span class="sutra-num">pp. 43–44</span><span class="sutra-text">पक्षेऽप्राप्तस्य प्रापको विधिर्नियमविधिः । यथा ‘व्रीहीनवहन्ति’ इत्यादिः । कथमस्य पक्षेऽप्राप्तप्रापकत्वमिति चेत् । इत्थम् । अनेन ह्यवघातस्य वैतुष्यार्थत्वं न प्रतिपाद्यतेऽन्वयव्यतिरेकसिद्धत्वात् । किंतु नियमः । स चाप्राप्तांशपूरणम् । वैतुष्यस्य हि नानोपायसाध्यत्वाद् यदा अवघातं परित्यज्य उपायान्तरं ग्रहीतुमारभते, तदा अवघातस्याप्राप्तत्वेन तद्विधानात्मकमप्राप्तांशपूरणमेवानेन विधिना क्रियते । अतश्च नियमविधावप्राप्तांशपूरणात्मको नियम एव वाक्यार्थः । पक्षेऽप्राप्तावघातस्य विधानमिति यावत् ।</span></div>
+  <div class="sutra-iast">pakṣe ’prāptasya prāpako vidhir niyamavidhiḥ | yathā ‘vrīhīn avahanti’ ityādiḥ | katham asya pakṣe ’prāptaprāpakatvam iti cet | ittham | anena hy avaghātasya vaituṣyārthatvaṃ na pratipādyate ’nvayavyatirekasiddhatvāt | kiṃtu niyamaḥ | sa cāprāptāṃśapūraṇam | vaituṣyasya hi nānopāyasādhyatvād yadā avaghātaṃ parityajya upāyāntaraṃ grahītum ārabhate, tadā avaghātasyāprāptatvena tadvidhānātmakam aprāptāṃśapūraṇam evānena vidhinā kriyate | ataś ca niyamavidhāv aprāptāṃśapūraṇātmako niyama eva vākyārthaḥ | pakṣe ’prāptāvaghātasya vidhānam iti yāvat |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>一方の場合に得られていない</b>ものを得させる vidhi が、制限の vidhi である。たとえば「米を搗く」など。どうしてこれが「一方の場合に得られていないものを得させる」のか、と問うなら、こうである。これによって、搗くことが<b>籾殻を取るためである</b>ことが示されるのではない。それは（搗けば取れ、搗かなければ取れないという）肯定・否定の事例から（すでに）知られているからである。そうではなく、<b>制限</b>（が示される）。そしてそれは、<b>得られていない部分を補うこと</b>である。籾殻取りはさまざまな方法でできるので、搗くことをやめて他の方法を採ろうとし始めたとき、搗くことは得られていないので、それを命じるという形で、得られていない部分を補うことが、この vidhi によってなされる。それゆえ、制限の vidhi では、得られていない部分を補うという制限こそが文の意味である。つまり、一方の場合に得られていない搗くことを命じることである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">The injunction which establishes what is non-established in an alternative [is] the injunction of restriction, as ‘[He] thrashes the rice-grains’ etc. If you ask how it establishes what is non-established in an alternative, [it is] thus: by this [injunction] it is not set forth that thrashing is for the purpose of unhusking, because that is known from agreement and difference. But restriction [is set forth]. And that is the supplying of the unestablished part. For, since unhusking can be accomplished by various means, when [one] begins to adopt another means, giving up thrashing, then, as thrashing is not established, the supplying of the unestablished part in the form of its injunction is done by this injunction. Hence in an injunction of restriction the import is just restriction in the form of supplying the unestablished part — that is to say, the enjoining of thrashing, which is not established in an alternative.</div></div>
+</div>
+
+<h3>図解：制限（niyama）の働き方</h3>
+<div class="tbl-wrap"><table>
+<tr><th>籾殻取りの方法</th><th>選んだ場合</th><th>「米を搗く」の vidhi は？</th></tr>
+<tr><td><span class="dev">अवघातः</span> 臼で搗く</td><td>搗くことはすでに得られている</td><td><b>黙っている</b>（<span class="dev">उदास्ते</span>）</td></tr>
+<tr><td><span class="dev">नखविदलनम्</span> 爪で割る</td><td>搗くことは得られていない</td><td><b>働く</b>：搗くことを命じる（爪は自然に退けられる）</td></tr>
+<tr><td><span class="dev">अश्मकुट्टनम्</span> 石で叩く</td><td>同上</td><td><b>働く</b></td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　もう一つの例と、新規 vidhi との違い</div>
+  <p><b>例</b>：<span class="dev">समे देशे यजेत</span>「平らな場所で祭祀すべし」。祭祀は平らな場所でも凸凹の場所でもできる。凸凹の場所でしようとするときだけ、この vidhi が働く。</p>
+  <div class="cite"><span class="dev">… यदा यजमानः समे यियक्षते तदा ‘समे यजेत’ इति वचनमुदास्ते । स्वार्थस्य प्राप्तत्वात् । यदा तु विषमे यियक्षते तदा ‘समे यजेत’ इति स्वार्थं विधत्ते । … विषमदेशे निवृत्तिस्तु आर्थिकी ।</span><span class="src">Mitākṣarā ad Yājñavalkya 1.81</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>新規の vidhi</th><th>制限の vidhi</th></tr>
+  <tr><td>命じるもの</td><td><b>まったく</b>知られていないこと</td><td>他から知られていることを、<b>特定のやり方で</b>行うこと</td></tr>
+  <tr><td>働き</td><td>一つ（命じるだけ）</td><td>実質二つ（一つの選択肢に限定し、他を除外する）</td></tr>
+  <tr><td>例</td><td><span class="dev">व्रीहीन् प्रोक्षति</span>（注水は他からは知られない）</td><td><span class="dev">व्रीहीनवहन्ति</span>（搗けば籾殻が取れることは経験で知られている）</td></tr>
+  </table></div>
+  <p><b>なぜわざわざ搗くのか</b>（どの方法でも籾殻は取れるのに）：搗くことに見える目的の違いはないので、<b>見えない目的</b>を想定する。搗いたときだけ <b><span class="dev">नियमापूर्वम्</span></b>（制限の apūrva）が生じ、それが祭の utpattyapūrva を通じて果報の apūrva に役立つ（Mīmāṃsāparibhāṣā）。</p>
+  <div class="cite"><span class="dev">पक्षे अप्राप्तस्य कदाचित् प्राप्तस्य कदाचिदप्राप्तस्य इत्यर्थः ।</span><span class="ja">「一方の場合に得られていない ＝ あるときは得られ、あるときは得られていない」</span><span class="src">Sāravivecanī</span></div>
+  <p>（Jaiminīyanyāyamālāvistara の JS 4.2.23–24 に、ヴェーダの制限の vidhi の例が多くある。）</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§51 排除の vidhi（parisaṃkhyā）</h2>
+<p class="chapter-sub"><span class="dev">परिसंख्याविधिः</span> ／ 底本 pp. 44–45，Notes pp. 219–223</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§51</span><span class="sutra-num">pp. 44–45</span><span class="sutra-text">उभयोश्च युगपत्प्राप्तावितरव्यावृत्तिपरो विधिः परिसंख्याविधिः । यथा — ‘पञ्च पञ्चनखा भक्ष्याः’ इति । इदं हि वाक्यं न पञ्चपञ्चनखभक्षणपरं, तस्य रागतः प्राप्तत्वात् । नापि नियमपरं, पञ्चपञ्चनखापञ्चपञ्चनखभक्षणस्य युगपत्प्राप्तेः पक्षेऽप्राप्त्यभावात् । अत इदमपञ्चपञ्चनखभक्षणनिवृत्तिपरमिति भवति परिसंख्याविधिः ।</span></div>
+  <div class="sutra-iast">ubhayoś ca yugapatprāptāv itaravyāvṛttiparo vidhiḥ parisaṃkhyāvidhiḥ | yathā — ‘pañca pañcanakhā bhakṣyāḥ’ iti | idaṃ hi vākyaṃ na pañcapañcanakhabhakṣaṇaparaṃ, tasya rāgataḥ prāptatvāt | nāpi niyamaparaṃ, pañcapañcanakhāpañcapañcanakhabhakṣaṇasya yugapatprāpteḥ pakṣe ’prāptyabhāvāt | ata idam apañcapañcanakhabhakṣaṇanivṛttiparam iti bhavati parisaṃkhyāvidhiḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">両方が<b>同時に</b>得られるとき、<b>他方を除外すること</b>を趣旨とする vidhi が、排除の vidhi である。たとえば「<b>5つの5本爪の</b>（動物）は食べてよい」。というのも、この文は5つの5本爪の動物を食べることを趣旨とするのではない。それは欲求によって（すでに）得られているからである。制限を趣旨とするのでもない。5つの5本爪の動物と、それ以外の動物を食べることとは同時に得られるので、「一方の場合に得られていない」ことがないからである。それゆえ、これは<b>5つの5本爪以外の動物を食べることをやめさせる</b>ことを趣旨とする。だから排除の vidhi なのである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">When both are simultaneously established, the injunction which aims at the exclusion of the other [is] the injunction of exclusion, as ‘Five five-nailed [animals] may be eaten.’ For, this sentence does not aim at the eating of five five-nailed [animals], because that is established by natural inclination. Nor does it aim at restriction, because there is no non-establishment in an alternative, since the eating of five five-nailed and other than five five-nailed [animals] is simultaneously established. Hence this aims at the cessation of eating other than five five-nailed [animals]; thus it is an injunction of exclusion.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">परिसंख्या</span>：<span class="dev">परि</span> ＝「除いて」（Pāṇini 1.4.88 <span class="dev">अपपरी वर्जने</span>）、<span class="dev">संख्या</span> ＝「理解」。<b>除外の理解</b>を生む vidhi。<br>
+  空腹のとき、5つの動物の肉も、他の動物の肉も<b>一緒に</b>食べられる（同時に得られる）。この文は「5つを食べよ」と<b>命じてはいない</b>。「（肉を食べるなら）他のは食べるな」と<b>除外</b>しているのです。<br>
+  写本の異読：<span class="dev">अपञ्चनखभक्षणनिवृत्तिपरम्</span>（一部の印刷本）、<span class="dev">पञ्चातिरिक्तपञ्चनखभक्षणनिवृत्तिपरम्</span>（Mīmāṃsānyāyaprakāśa）。G&amp;K は、前の二文でも「pañca」が一つ落ちていて、<span class="dev">पञ्चपञ्चनख…</span> と読むべきだと指摘。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　5つの5本爪の動物／日常の例／ヴェーダの例</div>
+  <div class="cite"><span class="dev">पञ्च पञ्चनखा भक्ष्या ब्रह्मक्षत्रेण राघव । शशकः शल्यको गोधा खड्गी कूर्मोऽथ पञ्चमः ॥</span><span class="src">Rāmāyaṇa, Kiṣkindhākāṇḍa 17.39（Vālin が Rāma に）</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th class="dev">शशकः</th><th class="dev">शल्यकः</th><th class="dev">गोधा</th><th class="dev">खड्गी</th><th class="dev">कूर्मः</th></tr>
+  <tr><td>野ウサギ</td><td>ヤマアラシ</td><td>オオトカゲ（G&amp;K は alligator と訳す）</td><td>サイ</td><td>カメ</td></tr>
+  </table></div>
+  <p>同様のリスト：Devalasmṛti、Manusmṛti 5.18（<span class="dev">श्वाविधं शल्यकं गोधां खड्गकूर्मशशांस्तथा</span>）、Yājñavalkya 1.177、Gautama 17、Vasiṣṭha 14.39。<br>
+  G&amp;K：「神聖な祭式の議論でこのような例を挙げることに Mīmāṃsā の著者たちがためらいを感じていないのは興味深い。肉食は今ほど嫌われていなかったようだ。」</p>
+  <p><b>日常の例</b>：<span class="dev">एकादश्यां फलाहारं कुर्यात्</span>「Ekādaśī には果物を食べよ」── Ekādaśī は完全な断食の日。どうしても何か食べるなら果物を、という意味で、果物以外を<b>除外</b>している。</p>
+  <p><b>ヴェーダの例</b>：祭壇築造（cayana）で、煉瓦用の粘土を運ぶ<b>馬とロバ</b>の手綱を取る。liṅga からは、祭詞 <span class="dev">इमामगृभ्णन् रशनामृतस्य</span> は両方の手綱に使える（同時に得られる）。しかし Brāhmaṇa の文 <span class="dev">… इत्यश्वाभिधानीमादत्ते</span>「…と唱えて<b>馬の</b>手綱を取る」が<b>ロバの手綱を除外</b>する（ロバの手綱は黙って取る）。</p>
+  <div class="cite"><span class="dev">एकस्य अनेकत्र प्राप्तस्य अन्यतो निवृत्त्यर्थमेकत्र पुनर्वचनं परिसंख्या ।</span><span class="ja">「多くの所に得られている一つのものを、他から退けるために一つの所について再び述べること、それが parisaṃkhyā。」</span><span class="src">Mitākṣarā ad Yājñavalkya 1.81</span></div>
+  <h4>二つの例は同じ性質か？</h4>
+  <p>「5本爪」は<b>許可</b>だけ（5つを食べることは命じない）。「馬の手綱」は、ロバの手綱を<b>除外</b>するだけでなく、馬の手綱で唱えることを<b>命じて</b>もいる（vidhi ＋ niṣedha）。<br>
+  では制限（niyama）とどう違うのか？ 制限も「平らな場所」の vidhi ＋「凸凹の場所」の除外を含む。違いは：制限の選択肢は<b>互いに排他的</b>（平らな所と凸凹の所で同時に祭祀はできない）、排除の選択肢は<b>同時に採れる</b>（馬とロバの手綱を同時に取って唱えることはできる）。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§52–§53 parisaṃkhyā の2種と3つの欠陥</h2>
+<p class="chapter-sub"><span class="dev">द्विविधः परिसंख्याविधिः · लाक्षणिक्याः परिसंख्याया दोषत्रयम्</span> ／ 底本 pp. 45–46，Notes pp. 223–227</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§52</span><span class="sutra-num">p. 45</span><span class="sutra-text">सा च द्विविधा — श्रौती लाक्षणिकी चेति । तत्र ‘अत्र ह्येवावपन्ति’ इति श्रौती परिसंख्या, एवकारेण पवमानातिरिक्तस्तोत्रव्यावृत्तेरभिधानात् । ‘पञ्च पञ्चनखा भक्ष्याः’ इति तु लाक्षणिकी, इतरनिवृत्तिवाचकपदाभावात् । अत एवैषा त्रिदोषग्रस्ता ।</span></div>
+  <div class="sutra-iast">sā ca dvividhā — śrautī lākṣaṇikī ceti | tatra ‘atra hy evāvapanti’ iti śrautī parisaṃkhyā, evakāreṇa pavamānātiriktastotravyāvṛtter abhidhānāt | ‘pañca pañcanakhā bhakṣyāḥ’ iti tu lākṣaṇikī, itaranivṛttivācakapadābhāvāt | ata evaiṣā tridoṣagrastā |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そしてそれ（parisaṃkhyā）は二種類である。<b>直接表現された</b>（śrautī）ものと、<b>転義による</b>（lākṣaṇikī）ものである。そのうち「<b>ここでこそ</b>（語を）加える」は直接表現された排除である。「こそ（eva）」という語によって、Pavamāna 以外の讃歌の除外が表されているからである。一方、「5つの5本爪の（動物）は食べてよい」は転義によるものである。他の除外を表す語がないからである。まさにそれゆえ、こちらは<b>三つの欠陥</b>に冒されている。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And that [is] of two kinds, direct and implied. There, ‘Here alone do they insert’ is direct exclusion, because the exclusion of hymns other than the Pavamāna is expressed by the word eva. But ‘Five five-nailed [animals] may be eaten’ is implied, because there is no word expressing the exclusion of others. Hence, indeed, this is vitiated by three defects.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">आवापः</span> ＝ 新しい語の<b>挿入</b>、<span class="dev">उद्वापः</span> ＝ 既存の語の<b>削除</b>。すべての詩節・儀礼でこれを行うのか？ Pavamāna の儀礼について <span class="dev">त्रीणि ह वै यज्ञस्योदराणि गायत्री बृहत्यनुष्टुप् । अत्र ह्येवावपन्ति, अत एवोद्वपन्ति ।</span>「Gāyatrī・Bṛhatī・Anuṣṭubh は祭の三つの腹。<b>ここでこそ</b>挿入し、<b>ここからこそ</b>削除する」とあり、eva が他の儀礼・他の韻律を除外する（JS 10.4.21–22）。<br>
+  G&amp;K：Rāmeśvara は <span class="dev">आवयन्ति</span>（「歌う」と解する）と読むが、引用文から <span class="dev">आवपन्ति</span> が正しい。
+  </div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§53</span><span class="sutra-num">pp. 45–46</span><span class="sutra-text">दोषत्रयं च श्रुतहानिरश्रुतकल्पना प्राप्तबाधश्चेति । तदुक्तम् — ‘श्रुतार्थस्य परित्यागादश्रुतार्थप्रकल्पनात् । प्राप्तस्य बाधादित्येवं परिसंख्या त्रिदूषणा ॥’ इति । श्रुतस्य पञ्चपञ्चनखभक्षणस्य हानात्, अश्रुताया अपञ्चपञ्चनखभक्षणनिवृत्तेः कल्पनात्, प्राप्तस्य चापञ्चपञ्चनखभक्षणस्य बाधनादिति । अस्मिंश्च दोषत्रये दोषद्वयं शब्दनिष्ठम् । प्राप्तबाधस्त्वर्थनिष्ठः । इति दिक् ।</span></div>
+  <div class="sutra-iast">doṣatrayaṃ ca śrutahānir aśrutakalpanā prāptabādhaś ceti | tad uktam — ‘śrutārthasya parityāgād aśrutārthaprakalpanāt | prāptasya bādhād ity evaṃ parisaṃkhyā tridūṣaṇā ||’ iti | śrutasya pañcapañcanakhabhakṣaṇasya hānāt, aśrutāyā apañcapañcanakhabhakṣaṇanivṛtteḥ kalpanāt, prāptasya cāpañcapañcanakhabhakṣaṇasya bādhanād iti | asmiṃś ca doṣatraye doṣadvayaṃ śabdaniṣṭham | prāptabādhas tv arthaniṣṭhaḥ | iti dik |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">三つの欠陥とは、<b>述べられたことの放棄</b>（śrutahāni）、<b>述べられていないことの想定</b>（aśrutakalpanā）、<b>得られているものの否定</b>（prāptabādha）である。こう言われている ──「述べられた意味を捨てること、述べられていない意味を想定すること、得られているものを否定すること、このように parisaṃkhyā は三つの欠陥をもつ」。（すなわち）述べられた「5つの5本爪の動物を食べること」を捨て、述べられていない「5つの5本爪以外の動物を食べることをやめること」を想定し、得られている「5つの5本爪以外の動物を食べること」を否定するからである。そしてこの三つの欠陥のうち、二つは<b>語に</b>関わり、得られているものの否定は<b>事柄に</b>関わる。以上は方向を示しただけである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And the three defects [are] abandonment of what is directly stated, assumption of what is not directly stated, and rejection of what has accrued. That has been said: ‘Owing to the abandonment of the directly stated sense, the assumption of a sense not directly stated, and the rejection of what has accrued, exclusion has three defects.’ [That is,] owing to the abandonment of the directly stated eating of five five-nailed [animals], the assumption of the cessation of eating other than five five-nailed, which is not directly stated, and the rejection of eating other than five five-nailed, which has accrued. And of these three defects, two belong to the word, but the rejection of what has accrued belongs to the matter. This is just the direction.</div></div>
+</div>
+
+<h3>図解：parisaṃkhyā の3つの欠陥</h3>
+<div class="tbl-wrap"><table>
+<tr><th>欠陥</th><th>「5つの5本爪」で何が起きるか</th><th>関わるもの</th><th class="c">転義の parisaṃkhyā</th><th class="c">直接の parisaṃkhyā</th></tr>
+<tr><td><span class="dev">श्रुतहानिः</span><br>述べられたことの放棄</td><td>文面どおりなら「5つを食べよ」（<span class="dev">प्रयाजाः कर्तव्याः</span> のように）だが、その意味を捨てる</td><td>語（<span class="dev">शब्दनिष्ठ</span>）</td><td class="c no-x">✓</td><td class="c yes">―</td></tr>
+<tr><td><span class="dev">अश्रुतकल्पना</span><br>述べられていないことの想定</td><td>「他を食べるな」という、どの語も表していない意味を想定する</td><td>語</td><td class="c no-x">✓</td><td class="c yes">―（eva が表す）</td></tr>
+<tr><td><span class="dev">प्राप्तबाधः</span><br>得られているものの否定</td><td>欲求から得られていた「他の肉も食べる」ことを禁じる</td><td>事柄（<span class="dev">अर्थनिष्ठ</span>）</td><td class="c no-x">✓</td><td class="c no-x">✓</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　補足と批評</div>
+  <p>・<b>直接の parisaṃkhyā</b> も無欠ではない。<span class="dev">अत्र ह्येवावपन्ति</span> は、他の韻律・儀礼にも得られていたはずの挿入・削除を否定するので、<b>得られているものの否定</b>だけはある。</p>
+  <div class="cite"><span class="dev">न च परिसंख्याया त्रिदोषत्वम् । एवकारेण तस्या एव श्रुतत्वात् ।</span><span class="src">Śāstradīpikā ad JS 10.4.21–22</span></div>
+  <p>・<b>「放棄」と「否定」</b>：どちらも何かを「打ち消す」が、違いがある。「5つを食べる」ことは義務ではなくなる（放棄）が、望めば食べてよい。「他を食べる」ことは決してしてはならない（否定）。<br>
+  ・3つの欠陥は「5本爪」の例を念頭に考えられたもの。「馬の手綱」の例では、馬の手綱で唱えることが積極的に命じられているので、厳密には「述べられたことの放棄」はない。<br>
+  ・「得られているもの」は実は「<b>この parisaṃkhyā がなければ</b>得られていたであろうもの」。文がある以上、ロバの手綱で唱えることは得られていないので、「<b>得られていないものの否定</b>（aprāptabādha）」と呼ぶ方が正確だ、という人もいる。<br>
+  ・parisaṃkhyā の文は<b>言っていることを意図していない</b>。これは不自然なので、Mīmāṃsaka もダルマ文献の注釈者も、文を parisaṃkhyā と解釈するのをできるだけ避けます。<br>
+  ・<span class="dev">इति दिक्</span>「方向を示しただけ」：本題は mantra なので、vidhi・niyama・parisaṃkhyā の話は<b>脇道</b>。「ついでながら」の意味にも取れる。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　§53 末尾 意味のわからない祭詞</h2>
+<p class="chapter-sub">底本 p. 46，Notes p. 227</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§53 末</span><span class="sutra-num">p. 46</span><span class="sutra-text">येषां तु प्रयोगसमवेतार्थस्मारकत्वं न संभवति तदुच्चारणस्यानन्यगत्या अदृष्टार्थकत्वं कल्प्यत इति नानर्थक्यमिति ।</span></div>
+  <div class="sutra-iast">yeṣāṃ tu prayogasamavetārthasmārakatvaṃ na saṃbhavati taduccāraṇasyānanyagatyā adṛṣṭārthakatvaṃ kalpyata iti nānarthakyam iti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">しかし、実行に関わる事柄を思い出させることがあり得ない（mantra の）場合は、<b>他に道がない</b>ので、それを唱えることに<b>見えない目的</b>が想定される。だから（それらも）無意味ではない。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">But in the case of those [Mantras], which cannot possibly remind of matters connected with performance, as there is no other way, an unseen purpose is imagined for their utterance; hence there is no purposelessness.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  本題の mantra に戻ります。G&amp;K が挙げる例：<span class="dev">कवचाय हुम्</span>、<span class="dev">नेत्रत्रयाय वौषट्</span>、<span class="dev">अस्त्राय फट्</span> のように、理解できる意味を引き出せない祭詞。<br>
+  学習の vidhi（<span class="dev">स्वाध्यायोऽध्येतव्यः</span>）はヴェーダ<b>全体</b>に及ぶので、こうした祭詞も暗記しなければならない。そして「ヴェーダのどの部分も無意味ではあり得ない」というのが Mīmāṃsā の公理。見える目的がないなら、見えない目的を想定する<b>しかない</b>（<span class="dev">अनन्यगत्या</span>）。
+  </div></div>
+  <div class="point">原則は「見える目的（想起）」。それが不可能なときだけ「見えない目的」── §1 以来の dṛṣṭa/adṛṣṭa の原則がここでも一貫している。</div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　vidhi・niyama・parisaṃkhyā の比較</h2>
+<div class="tbl-wrap"><table>
+<tr><th></th><th><span class="dev">विधिः</span>（新規）</th><th><span class="dev">नियमः</span>（制限）</th><th><span class="dev">परिसंख्या</span>（排除）</th></tr>
+<tr><td>条件</td><td>まったく得られていない</td><td>一方の場合に得られていない（選択肢は排他的）</td><td>両方が同時に得られる</td></tr>
+<tr><td>趣旨</td><td>命じる（injunction）</td><td>一つに限定する（restriction）</td><td>他を除外する（exclusion）</td></tr>
+<tr><td>例</td><td><span class="dev">यजेत स्वर्गकामः</span>、<span class="dev">व्रीहीन् प्रोक्षति</span></td><td><span class="dev">व्रीहीनवहन्ति</span>、<span class="dev">समे देशे यजेत</span>、<span class="dev">मन्त्रैरेव स्मर्तव्यम्</span></td><td><span class="dev">पञ्च पञ्चनखा भक्ष्याः</span>、<span class="dev">इमामगृभ्णन्… अश्वाभिधानीमादत्ते</span></td></tr>
+<tr><td>私たちへの要求</td><td>他ではしないことをせよ</td><td>（すでに命じられたことを）特定のやり方でせよ</td><td>積極的には何も命じず、一方を禁じて他方は任意</td></tr>
+<tr><td>見えない結果</td><td>apūrva</td><td>niyamāpūrva</td><td>―</td></tr>
+</table></div>
+<ol class="deriv">
+  <li><span class="form">प्रयोगसमवेतार्थस्मारका मन्त्राः</span><span class="why">mantra は実行に関わる事柄を思い出させる（見える目的）。</span></li>
+  <li><span class="form">मन्त्रैरेव स्मर्तव्यम्</span><span class="why">他の方法でも思い出せるが、mantra に限定する制限がある。</span></li>
+  <li><span class="form">श्रौती · लाक्षणिकी</span><span class="why">eva がある直接の排除（欠陥1つ）と、ない転義の排除（欠陥3つ）。</span></li>
+  <li><span class="form">अनन्यगत्या अदृष्टार्थम्</span><span class="why">意味のわからない祭詞は、他に道がないので見えない目的をもつ。</span></li>
+</ol>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">स्मारक</td><td class="iast">smāraka</td><td>思い出させるもの</td></tr>
+<tr><td class="dev">प्रयोगसमवेत</td><td class="iast">prayogasamaveta</td><td>実行に密着した</td></tr>
+<tr><td class="dev">अपूर्वविधिः</td><td class="iast">apūrvavidhi</td><td>新規の vidhi</td></tr>
+<tr><td class="dev">नियमविधिः</td><td class="iast">niyamavidhi</td><td>制限の vidhi</td></tr>
+<tr><td class="dev">परिसंख्याविधिः</td><td class="iast">parisaṃkhyāvidhi</td><td>排除の vidhi</td></tr>
+<tr><td class="dev">पाक्षिक</td><td class="iast">pākṣika</td><td>一方の場合の（選択的な）</td></tr>
+<tr><td class="dev">युगपत्प्राप्तिः</td><td class="iast">yugapatprāpti</td><td>同時に得られること</td></tr>
+<tr><td class="dev">वैतुष्यम्</td><td class="iast">vaituṣya</td><td>籾殻を取ること</td></tr>
+<tr><td class="dev">अन्वयव्यतिरेकौ</td><td class="iast">anvayavyatirekau</td><td>肯定・否定の事例（あれば起こり、なければ起こらない）</td></tr>
+<tr><td class="dev">श्रुतहानिः · अश्रुतकल्पना · प्राप्तबाधः</td><td class="iast">śrutahāni · aśrutakalpanā · prāptabādha</td><td>述べられたことの放棄・述べられていないことの想定・得られているものの否定</td></tr>
+<tr><td class="dev">आवापः · उद्वापः</td><td class="iast">āvāpa · udvāpa</td><td>（語の）挿入 ・ 削除</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. mantra の定義は？</summary><div><span class="dev">प्रयोगसमवेतार्थस्मारका मन्त्राः</span>「実行に関わる事柄を思い出させるもの」。</div></details>
+<details class="q"><summary>Q2. 「想起は他の方法でもできる」という反論への答えは？</summary><div>「mantra によってのみ思い出すべし」という制限の vidhi がある。</div></details>
+<details class="q"><summary>Q3. Kumārila の詩節を言えるか？</summary><div><span class="dev">विधिरत्यन्तमप्राप्तौ नियमः पाक्षिके सति । तत्र चान्यत्र च प्राप्तौ परिसंख्येति गीयते ॥</span></div></details>
+<details class="q"><summary>Q4. <span class="dev">व्रीहीनवहन्ति</span> が新規の vidhi ではなく制限の vidhi なのはなぜ？</summary><div>搗けば籾殻が取れることは経験（肯定・否定の事例）から知られているので、命じているのは搗くことそのものではなく、他の方法を採ろうとするときに搗くことに限定すること（制限）だから。</div></details>
+<details class="q"><summary>Q5. 「5つの5本爪の動物は食べてよい」が新規の vidhi でも制限の vidhi でもないのはなぜ？</summary><div>5つを食べることは欲求から得られているので新規ではない。5つとそれ以外とは同時に得られるので「一方の場合に得られていない」ことがなく、制限でもない。</div></details>
+<details class="q"><summary>Q6. 制限と排除の違いは？</summary><div>制限の選択肢は互いに排他的（平らな所と凸凹の所で同時に祭祀はできない）、排除の選択肢は同時に採れる（馬とロバの手綱を同時に取れる）。</div></details>
+<details class="q"><summary>Q7. 転義の parisaṃkhyā の3つの欠陥は？ 直接の parisaṃkhyā にはどれがある？</summary><div>述べられたことの放棄・述べられていないことの想定・得られているものの否定。直接の parisaṃkhyā には「得られているものの否定」だけがある。</div></details>
+<details class="q"><summary>Q8. 意味がわからない祭詞はどう扱われる？</summary><div>実行の事柄を思い出させることができないので、他に道がなく、唱えることに見えない目的が想定される。だから無意味ではない。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson9.html">← 第9課　順序（2）と資格の vidhi</a><span class="spacer"></span><a href="arthasamgraha_lesson11.html">第11課　nāmadheya →</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第10課　mantra<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 42–46 (§49–§53), Notes pp. 212–227.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：मन्ब्राम्नानं व्यर्थीमीत → मन्त्राम्नानं व्यर्थमिति、यजेत सर्वकामः → यजेत स्वर्गकामः、इतरव्यावृत्तिपणे → इतरव्यावृत्तिपरो、प्राप्तवाध → प्राप्तबाध）。
+</footer>
+
+</body>
+</html>
