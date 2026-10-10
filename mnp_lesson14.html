@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい聖典解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+.en { font-family: 'Noto Serif', serif; font-size: 0.95em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Noto Serif', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Noto Serif', serif; font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Noto Serif', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Noto Serif', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+.as-row .k { color: var(--green, #4a6b3a); }
+.as-row .v a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — अर्थवादः, भावनाद्वयम्, उपसंहारः</div>
+  <h1>やさしい聖典解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 14</div>
+  <div class="header-jp">第14課　Veda の第五区分「釈義」と、二つの「生じさせる働き」再論、そして結び<br>
+  本文：Edgerton §§364–397 ／ KSS版 pp. 177–192<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>釈義は命じられたものを称え、禁じられたものをけなす（§§364–367）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>「言葉の生じさせる働き」とは何か：二つの説（§§368–382）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>「対象の生じさせる働き」とは何か：二つの説（§§383–392）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>祭式による解脱と、著者の結び（§§393–397）</a></li>
+    <li><a href="#review"><span class="n">総復習</span>この本の全体像</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<div class="map" role="img" aria-label="本書後半の地図">
+  <div class="m-mantra" style="flex:10">②</div>
+  <div class="m-nama" style="flex:71">③ 祭名 §249–319</div>
+  <div class="m-nis" style="flex:44">④ 禁令 §320–363</div>
+  <div class="m-av here" style="flex:34">⑤ 釈義＋結び §364–397</div>
+</div>
+<p class="map-legend">赤枠がこの課。最後の区分「釈義」を述べたあと、第1課で予告した二つの bhāvanā の議論に戻って、本書が閉じられる。</p>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　釈義の役目</h2>
+<p class="chapter-sub">§§364–367 ／ 第1課 §§7–9 の伏線の回収</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§364</span><span class="sutra-num">KSS p.177</span><span class="sutra-title">釈義も無意味ではない：転義によって役立つ</span></div>
+  <div class="mula">प्रकृतमनुसरामः । तदेवं यथा विध्यादीनामध्ययनविध्युपात्तानां नानर्थक्यम्, एवमर्थवादानामपि तदुपात्तत्वेनानर्थक्यानुपपत्तेः स्वार्थप्रतिपादने च प्रयोजनाभावाल्<mark>लक्षणया प्रयोजनवदर्थपर्यवसानं वक्तव्यम्</mark> ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">अर्थवाद</span> <span class="iast">arthavāda</span> 釈義</span>
+    <span class="w"><span class="dev">अध्ययनविधि</span> <span class="iast">adhyayanavidhi</span> 学習規定</span>
+    <span class="w"><span class="dev">स्वार्थ</span> <span class="iast">svārtha</span> 自分の（字義どおりの）意味</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">本題に戻ろう。こうして、学習規定に含まれる規定などが無意味でないように、<b>釈義</b>も学習規定に含まれるので無意味ではありえない。しかし字義どおりの意味を述べるだけでは役に立たないので、<b>転義によって役に立つ意味に行き着く</b>と言わなければならない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And since they serve no purpose in merely establishing their own (direct or primary) meaning, we must say that they lead to a useful purpose by implication.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson14.html#ch1">第14課 第1章　§72 arthavāda の定義</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§365–366</span><span class="sutra-num">KSS p.177</span><span class="sutra-title">釈義の二種類：規定の補足と禁令の補足</span></div>
+  <div class="mula"><small style="color:var(--muted)">§365</small> ते चार्थवादा द्विविधाः, विधिशेषा निषेधशेषाश्च । तत्र वायव्यं श्वेतमालभेतेत्यादिविधिशेषाणां वायुर्वै क्षेपिष्ठा देवतेत्यादीनामर्थवादानां विधेयार्थस्तावकतयार्थवत्त्वम् ।<br>
+  <small style="color:var(--muted)">§366</small> बर्हिषि रजतं न देयमित्यादिनिषेधशेषाणां सोऽरोदीदित्यादीनामर्थवादानां तु निषेध्यनिन्दकतयेति ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">विधिशेष</span> <span class="iast">vidhiśeṣa</span> 規定の補足</span>
+    <span class="w"><span class="dev">निषेधशेष</span> <span class="iast">niṣedhaśeṣa</span> 禁令の補足</span>
+    <span class="w"><span class="dev">स्तावक</span> <span class="iast">stāvaka</span> 称えるもの</span>
+    <span class="w"><span class="dev">निन्दक</span> <span class="iast">nindaka</span> けなすもの</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">釈義には二種類ある。<b>規定の補足</b>と<b>禁令の補足</b>である。「Vāyu に白い（獣）を捧げるべし」などの規定の補足である「まことに Vāyu は最も速い神格である」などの釈義は、<b>命じられるものを称える</b>ことによって意味をもつ。<br>
+  一方、「祭場の敷き草の上で銀を与えてはならない」などの禁令の補足である「彼（Agni）は泣いた」などの釈義は、<b>禁じられるものをけなす</b>ことによって意味をもつ。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… such explanatory-passages as “Vāyu, verily, is the swiftest deity” have a useful purpose in that they glorify the meaning enjoined …<span class="jp">脚注234：TS 1.5.1 の神話。Agni が神々の財産を預かって返さず、神々が力ずくで取ろうとすると Agni は泣いた（rud）── だから Agni は Rudra と呼ばれる。その涙が銀になった。だから祭場（vedi）で銀を与えてはならない。Edgerton のパンディットによれば、今でも銀の贈り物は家の外で与えることが多いという。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson14.html#ch2">第14課 第2章　§73 2種類：vidhi の補い・niṣedha の補い</a></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-1　釈義の二種類（§§365–366）</caption>
+<tr><th></th><th>規定の補足（vidhiśeṣa）</th><th>禁令の補足（niṣedhaśeṣa）</th></tr>
+<tr><td>主となる文</td><td class="dev">वायव्यं श्वेतमालभेत</td><td class="dev">बर्हिषि रजतं न देयम्</td></tr>
+<tr><td>釈義</td><td class="dev">वायुर्वै क्षेपिष्ठा देवता</td><td class="dev">सोऽरोदीत्</td></tr>
+<tr><td>字義どおりの意味</td><td>Vāyu は最も速い神格だ</td><td>Agni は泣いた（その涙が銀になった）</td></tr>
+<tr><td>転義で表すもの</td><td>命じられたもの（Vāyu への犠牲）は<b>すばらしい</b></td><td>禁じられたもの（銀を与えること）は<b>悪い</b></td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§367</span><span class="sutra-num">KSS p.178</span><span class="sutra-title">釈義は「言葉の生じさせる働き」の執行細目</span></div>
+  <div class="mula">अतश्च लक्षणया प्राशस्त्यमर्थवादैर्बोध्यते । तच्च प्राशस्त्यज्ञानं शब्दभावनायामितिकर्तव्यतात्वेन सम्बध्यते । परमप्रकृतम् । तत्सिद्धं वक्ष्यमाणार्थभावनाभाव्यिका लिङादिज्ञानकरणिका प्राशस्त्यज्ञानेतिकर्तव्यताका <mark>शाब्दी भावना लिङ्त्वांशेनोच्यत इति</mark> ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">だから釈義は、転義によって<b>すばらしさ</b>を知らせる。そのすばらしさの知識は、<b>言葉の生じさせる働き</b>に<b>執行細目</b>として連関する。これが最初に掲げた主題（§9）であった。こうして、<b>これから述べる対象の生じさせる働きを「実現対象」とし、願望法などの知識を「実現手段」とし、称賛の知識を「執行細目」とする言葉の生じさせる働き</b>が、願望法であることの部分によって表される、ということが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the part (of the verbal-ending) which denotes optativeness expresses the word-efficient-force; which has the end-efficient-force, still to be explained, as its aim, knowledge of the optative forms etc. as its means, and knowledge of the glorifications as its manner.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson2.html#ch4">第2課 第4章　§7 言語的 bhāvanā の三要素</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 240" role="img" aria-label="言葉の生じさせる働きの三つの要素">
+  <rect x="220" y="10" width="280" height="56" rx="10" class="box-acc"/>
+  <text x="360" y="34" text-anchor="middle" font-size="15">言葉の生じさせる働き</text>
+  <text x="360" y="54" text-anchor="middle" font-size="12" class="t-dev">शाब्दी भावना（liṅtva の部分が表す）</text>
+  <path d="M360,66 L360,82 M120,82 L600,82 M120,82 L120,100 M360,82 L360,100 M600,82 L600,100" class="line"/>
+  <g font-size="13" text-anchor="middle">
+  <rect x="20" y="100" width="200" height="120" rx="8" class="box-green"/>
+  <text x="120" y="124" class="t-acc">何を？（bhāvya）</text>
+  <text x="120" y="150">対象の生じさせる働き</text>
+  <text x="120" y="170" class="t-dev" font-size="12">आर्थी भावना</text>
+  <text x="120" y="200" font-size="11" class="t-mute">→ 第3章で説明</text>
+  <rect x="260" y="100" width="200" height="120" rx="8" class="box-blue"/>
+  <text x="360" y="124" class="t-acc">何によって？（karaṇa）</text>
+  <text x="360" y="150">願望法などの知識</text>
+  <text x="360" y="170" class="t-dev" font-size="12">लिङादिज्ञानम्</text>
+  <text x="360" y="200" font-size="11" class="t-mute">命令の部（第2〜9課）</text>
+  <rect x="500" y="100" width="200" height="120" rx="8" class="box"/>
+  <text x="600" y="124" class="t-acc">どのように？（itikartavyatā）</text>
+  <text x="600" y="150">称賛の知識</text>
+  <text x="600" y="170" class="t-dev" font-size="12">प्राशस्त्यज्ञानम्</text>
+  <text x="600" y="200" font-size="11" class="t-mute">← 釈義が与える（この課）</text>
+  </g>
+</svg>
+<figcaption><b>図1　「言葉の生じさせる働き」の三要素（§367、第1課 §9 の再説）。</b>規定が人を行為へ向かわせるとき、釈義の称賛は「執行細目」としてそれを助ける。「これはすばらしい」と知ると、人はいっそう行う気になるからである。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　「言葉の生じさせる働き」とは何か</h2>
+<p class="chapter-sub">§§368–382 ／ Someśvara 説と Pārthasārathi 説</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§368</span><span class="sutra-num">KSS p.179</span><span class="sutra-title">第一説：行為に役立つ特別な働き（＝促し）</span></div>
+  <div class="mula">ननु केयं शाब्दी भावना । उच्यते: <mark>पुरुषप्रवृत्त्यनुकूलो व्यापारविशेषः</mark> । स एव विध्यर्थः, लिङादिश्रवणेऽयं मां प्रवर्तयतीति नियमेन प्रतीतेः । यत्त्विष्टसाधनत्वं विध्यर्थ इति तन्न । तथा सतीष्टसाधनमिति शब्दस्य विधिशब्दः पर्यायः स्यात् । न च पर्यायत्वं युज्यते; संध्योपासनं त इष्टसाधनं तस्मात्तत्त्वं कुर्विति सहप्रयोगात्, पर्यायानां च सहप्रयोगाभावात् । अतश्च व्यापारविशेष एव विध्यर्थः । स च लोके पुरुषनिष्ठोऽभिप्रायविशेषः । वेदे तु पुरुषाभावाच्छब्दनिष्ठ एव प्रेरणापरपर्याय इत्युक्तम् ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">प्रेरणा</span> <span class="iast">preraṇā</span> 促し</span>
+    <span class="w"><span class="dev">इष्टसाधनत्व</span> <span class="iast">iṣṭasādhanatva</span> 望むものの実現手段であること</span>
+    <span class="w"><span class="dev">पर्याय</span> <span class="iast">paryāya</span> 同義語</span>
+    <span class="w"><span class="dev">संध्योपासन</span> <span class="iast">saṃdhyopāsana</span> 朝夕の礼拝</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">「言葉の生じさせる働きとは何か」と問われれば、（ある人々は）こう答える。<b>人の行為に役立つ特別な働き</b>である。それこそが命令の意味である。願望法などを聞くと、必ず「これは私を向かわせる」と分かるからである。<br>
+  「望むものの実現手段であること」が命令の意味だという説は正しくない。そうなら命令の語は「望むものの実現手段」という語の<b>同義語</b>になってしまう。しかし同義語ではありえない。「朝夕の礼拝はおまえの望むものの実現手段である。だからそれをせよ」と<b>一緒に使われる</b>からである。同義語は一緒には使われない。<br>
+  だから命令の意味は特別な働きである。それは世間では人に宿る特別な意図であり、Veda では人がいないので<b>言葉に宿り</b>、別名を「促し」という。これは（§4で）述べた。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">It is a species of activity conducive to human action. Just this is what the injunction means; for on hearing an optative or similar form, the idea is necessarily formed that “He is impelling me to act.”<span class="jp">脚注235：この第一説は Someśvara の学派のもの（Nyāyasudhā）。Āpadeva は Pārthasārathi Miśra の学派に属し、§375 以下でこれを退ける。脚注236：「望むものの実現手段」説は Maṇḍana Miśra の学派（§§64, 328 参照）。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson2.html#ch3">第2課 第3章　§6 言語的 bhāvanā</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§369–372</span><span class="sutra-num">KSS pp.180–181</span><span class="sutra-title">子どもはどうやって命令の意味を学ぶか</span></div>
+  <div class="mula"><small style="color:var(--muted)">§369</small> ननु लोके शब्दनिष्ठे प्रेरणापरपर्याये व्यापारे शब्दप्रयोगाभावेन शक्तिग्रहाभावात्कथं तस्य विधिशब्दात्प्रतिपत्तिरिति चेत्, सत्यमेतत् ।<br>
+  <small style="color:var(--muted)">§370</small> तथापि बालस्तावत्स्तन्यदानादौ स्वकृतरोदनादिजनितमातृप्रवृत्तेः स्वाभिप्रायरूपप्रवर्तनाज्ञानजन्यत्वावधारणात्सविधिकप्रयोजकवाक्यश्रवणसमनन्तरभाविनीं प्रयोज्यवृद्धप्रवृत्तिमुपलभ्य तत्कारणत्वेन तस्य प्रवर्तनाज्ञानमनुमिमीते । यद्यपि भोजनादौ स्वप्रवृत्तेः समीहितसाधनताज्ञानपूर्वकत्वावधारणात्प्रयोज्यवृद्धप्रवृत्तेरपि तत्पूर्वकत्वाध्यवसानं युक्तम्, तथाप्यन्यप्रेरितप्रवृत्तौ प्रवर्तनाज्ञानजन्यत्वस्योक्तमातृप्रवृत्तौ दर्शनेन प्रयोज्यवृद्धप्रवृत्तेरप्यन्यप्रेरितप्रवृत्तित्वात्तत्कारणत्वेन प्रवर्तनाज्ञानस्यैवाध्यवसानम् । तच्च प्रवर्तनाज्ञानमन्वयव्यतिरेकाभ्यां प्रयोजकवाक्यजन्यमित्यवधारयति । तत्र चावापोद्वापाभ्यां प्रवर्तनायां विधिशक्तिमवधारयति ।<br>
+  <small style="color:var(--muted)">§371</small> प्रवृत्त्यनुकूलो व्यापारः प्रवर्तना । स च व्यापारः प्रैषादिरूपो विविध इति प्रत्येकं व्यभिचारित्वाद्विधिशब्दवाच्यत्वानुपपत्तेः प्रवर्तनासामान्यमेव विधिशब्दवाच्यमिति कल्पयति । एवं च विधिश्रवणे प्रैषादिरूपस्य वक्त्रभिप्रायस्य प्रवर्तनात्वेनैव रूपेण प्रतीतिर्न विशेषरूपेण, तथैव शक्तिग्रहात् । विशेषरूपेण तु प्रतीतिर्लक्षणयैव ।<br>
+  <small style="color:var(--muted)">§372</small> एवं च वैदिकलिङादिश्रवणेऽपि प्रवर्तनासामान्यमेव प्रतीयते । तत्र कोऽसौ व्यापार इत्यपेक्षायां प्रैषादिरूपस्य वक्त्रभिप्रायस्यापौरुषेये वेदेऽनुपपत्तेः शब्दनिष्ठ एव प्रेरणापरपर्यायः कश्चिद्व्यापार इति कल्प्यते । अतश्च शब्दनिष्ठ एव प्रेरणापरपर्यायो व्यापारः शाब्दी भावना । सैव च प्रवर्तनात्वेन रूपेण विध्यर्थ इति । अयमेव चार्थः —</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">अन्वयव्यतिरेक</span> <span class="iast">anvaya-vyatireka</span> 一致と差異（あるときある・ないときない）</span>
+    <span class="w"><span class="dev">आवापोद्वाप</span> <span class="iast">āvāpa-udvāpa</span> 語を入れたり外したりすること</span>
+    <span class="w"><span class="dev">प्रैष</span> <span class="iast">praiṣa</span> 命令（指図）</span>
+    <span class="w"><span class="dev">अपौरुषेय</span> <span class="iast">apauruṣeya</span> 人が作ったものでない</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v"><b>疑問：</b>世間では、促しという働きは（話し手の意図として）語に宿るが、Veda の語には話し手がいない。その意味をどうやって命令の語から知るのか。──その通りである。<br>
+  それでも、<b>子ども</b>はこう学ぶ。自分が泣くと母が乳をくれる。母のその行為は、自分の意図（＝向かわせる働き）を母が知ったことから生じたと分かる。次に、命令を含む大人の言葉（「牛を連れて来い」）を聞いた直後に、言われた大人が動き出すのを見て、その原因として<b>向かわせる働きの知識</b>を推理する。自分が食べるときは「望むものの実現手段だ」という知識が先にあるので、大人の行為もそうだと思ってもよさそうだが、母の例から<b>他人に促された行為</b>は向かわせる働きの知識から生じると知っており、言われた大人の行為も他人に促された行為なので、その原因は向かわせる働きの知識だと考える。そしてその知識が促す文から生じることを<b>一致と差異</b>によって確かめ、さらに<b>語を入れたり外したり</b>して、命令の語（願望法など）の力が向かわせる働きにあると確かめる。<br>
+  向かわせる働き（pravartanā）とは、行為に役立つ働きである。それは命令・依頼などさまざまなので、どれか一つを命令の語の意味とすることはできず、<b>向かわせる働き一般</b>が命令の語の意味だと考える。だから命令を聞くと、話し手の意図は「向かわせる働き」という形でだけ分かり、命令・依頼などの特定の形は転義によってだけ分かる。<br>
+  同様に Veda の願望法を聞いても、向かわせる働き一般だけが分かる。「その働きとは何か」と期待すると、人が作ったものでない Veda には話し手の意図はありえないので、<b>言葉に宿る</b>、別名「促し」という何らかの働きだと考えられる。だから、<b>言葉に宿る促しという働き</b>が言葉の生じさせる働きであり、それが向かわせる働きという形で命令の意味である。Vārttika のこの句もそういう意味である──</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And by positive and negative examples he ascertains that this knowledge of the impellent force can be produced by sentences which instigate.<span class="jp">脚注238：anvaya と vyatireka。脚注239：āvāpa と udvāpa もほぼ同じ意味。願望法を含む文では向かわせる働きがあり、その語を外すと消える。脚注240：著者（Pārthasārathi 側）はこの論法を「自分で立てた前提を捨てている」（kḷptatyāga）と批判する。最初は促しは他のもの（話し手）に宿ると言いながら、Veda ではそれを捨てるから。Edgerton は pravartanā を impellent-force と訳す。</span></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 230" role="img" aria-label="子どもが命令の意味を学ぶ過程">
+  <defs><marker id="ah14" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead-acc"/></marker></defs>
+  <g font-size="12" text-anchor="middle">
+  <rect x="10" y="20" width="160" height="96" rx="8" class="box"/>
+  <text x="90" y="42" class="t-acc">① 自分の体験</text>
+  <text x="90" y="64">泣く → 母が乳をくれる</text>
+  <text x="90" y="84" font-size="11" class="t-mute">母は「私の意図」を知って</text>
+  <text x="90" y="100" font-size="11" class="t-mute">動いた</text>
+  <rect x="190" y="20" width="160" height="96" rx="8" class="box"/>
+  <text x="270" y="42" class="t-acc">② 観察</text>
+  <text x="270" y="64">「牛を連れて来い」</text>
+  <text x="270" y="84">→ 大人が動く</text>
+  <text x="270" y="102" font-size="11" class="t-mute">（他人に促された行為）</text>
+  <rect x="370" y="20" width="160" height="96" rx="8" class="box-blue"/>
+  <text x="450" y="42" class="t-acc">③ 推理</text>
+  <text x="450" y="64">原因は</text>
+  <text x="450" y="84">「向かわせる働き」の</text>
+  <text x="450" y="102">知識</text>
+  <rect x="550" y="20" width="160" height="96" rx="8" class="box-green"/>
+  <text x="630" y="42" class="t-acc">④ 確認</text>
+  <text x="630" y="64">一致と差異</text>
+  <text x="630" y="84">語を入れる・外す</text>
+  <text x="630" y="102" font-size="11">→ 力は願望法語尾に</text>
+  <path d="M170,68 L188,68" class="line-acc" marker-end="url(#ah14)"/><path d="M350,68 L368,68" class="line-acc" marker-end="url(#ah14)"/><path d="M530,68 L548,68" class="line-acc" marker-end="url(#ah14)"/>
+  <rect x="40" y="146" width="640" height="70" rx="8" class="box-acc"/>
+  <text x="360" y="170">命令の語の意味 ＝ <tspan class="t-acc">向かわせる働き一般</tspan>（pravartanā-sāmānya）</text>
+  <text x="360" y="194" font-size="11" class="t-mute">命令・依頼などの具体的な形は転義で分かる。Veda では話し手がいないので「言葉に宿る促し」と考える（第一説）</text>
+  <path d="M360,116 L360,144" class="line-acc" marker-end="url(#ah14)"/>
+  </g>
+</svg>
+<figcaption><b>図2　子どもは命令の意味をどう学ぶか（§§370–372）。</b>ここまでは両説の共通部分。違いは「Veda で向かわせる働きの中身は何か」で、第一説は「言葉に宿る促し」、第二説（Āpadeva）は「望むものの実現手段であること」と答える。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§373–374</span><span class="sutra-num">KSS p.182</span><span class="sutra-title">Vārttika の句「願望法などは別の、表示の生じさせる働きを言う」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§373</small> अभिधाभावनामाहुरन्यामेव लिङादयः,<br>
+  <small style="color:var(--muted)">§374</small> इति वार्तिकस्य । अभिधीयतेऽनेनेति व्युत्पत्त्याभिधाशब्देन विधिशब्द उच्यते । तद्व्यापारात्मिका भावना लिङादिवाच्येति केचिदाचार्या आहुः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「<b>願望法などは、別の（もう一つの）、表示の生じさせる働きを言う。</b>」<br>
+  これは Vārttika の句である。「それによって表示される（abhidhīyate）」という語源によって、「表示」（abhidhā）の語は<b>命令の語</b>を指す。その（命令の語の）働きからなる生じさせる働きが願望法などの意味だ、と<b>ある師たち</b>は言う。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“The optative endings and the like denote only one (efficient-force, of two …), namely the designation(al)-efficient-force.”<span class="jp">脚注241：Tantravārttika はここで abhidhā（表示）を、よく使われる śabda（śābdī bhāvanā の śabda）の同義語として使っている。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§375–379</span><span class="sutra-num">KSS pp.182–185</span><span class="sutra-title">第二説（Āpadeva）：中身は「望むものの実現手段であること」</span></div>
+  <div class="mula"><small style="color:var(--muted)">§375</small> अन्ये त्वाहुः: सत्यं प्रवर्तनासामान्यं विध्यर्थः,तथैव शक्तिग्रहात् । प्रवृत्त्यनुकूलो व्यापारः प्रवर्तना ।अपौरुषेये च वेदे प्रैषादेरसम्भवात्कश्चित्पुरुषप्रवृत्त्यनुकूलो व्यापारविशेषः कल्पनीयः; विधिशब्दाभिधेयप्रवर्तनासामान्यस्य विशेषमन्तरेणापर्यवसानात् । तत्र कोऽसौ व्यापारविशेष इत्यपेक्षायां धात्वर्थगतं समीहितसाधनत्वमेवेति कल्प्यते, तस्यापि प्रवृत्त्यनुकूलत्वात् ।सर्वो हि समीहितसाधनतां ज्ञात्वा प्रवर्तते । अन्यप्रेरितोऽपि यदीष्टसाधनतां न जानाति तदा नैव प्रवर्तते ।<br>
+  <small style="color:var(--muted)">§376</small> स्वतन्त्रप्रेरणावादेऽपि तदाक्षिप्तसमीहितसाधनताज्ञानं स्वीक्रियत एव; अन्यथा विधेः प्रवर्तकत्वानुपपत्तेः ।अतश्चावश्यकत्वात्समीहितसाधनतैव प्रवर्तनात्वेन रूपेण विध्यर्थः । एवं च विधिशब्दस्यान्यनिष्ठव्यापारबोधकत्वं लोकसिद्धं सिद्धं भवति ।<br>
+  <small style="color:var(--muted)">§377</small> किं च शब्द एको व्यापारः स्पन्दाद्यतिरिक्तः कल्पनीयः ।तस्य च स्वप्रवृत्तौ पराधीनप्रवृत्तौ वा कारणत्वेनाक्ल्प्तस्य प्रवर्तनात्वेन रूपेण ज्ञातस्य प्रवृत्त्यनुकूलत्वंशब्दस्य च परनिष्ठव्यापारज्ञापकत्वेन क्ल्प्तस्य स्वनिष्ठव्यापारबोधकत्वं विधेश्च प्रवर्तकत्वनिर्वाहार्थं धात्वर्थस्य समीहितसाधनत्वमिति कल्पनाद्वरमावश्यकस्यैव समीहितसाधनत्वस्य स्वप्रवृत्तिहेतुत्वेन क्ल्प्तस्य प्रवर्तनात्वेन रूपेण विध्यर्थत्वकल्पनं लाघवात्, अन्यनिष्ठत्वाच्च ।<br>
+  <small style="color:var(--muted)">§378</small> न च विधेः प्रवर्तकत्वनिर्वाहार्थं समीहितसाधनत्वकल्पनात्प्रेरणानभिधाने च विधेः प्रवर्तकत्वाभावाद्धात्वर्थस्य च समीहितसाधनत्वकल्पकमेव नास्तीति वाच्यम्; प्रवर्तनाभिधानेनैव तन्मतेऽपि विधेः प्रवर्तकत्वाद्विध्यभिहितस्य च प्रवर्तनासामान्यस्य विशेषमन्तरेणापर्यवसानात्समीहितसाधनत्वाक्षेपकत्वात् ।<br>
+  <small style="color:var(--muted)">§379</small> न चेष्टसाधनत्वस्य विध्यर्थत्वे संध्योपासनं त इष्टसाधनं तत्त्वं कुर्विति सहप्रयोगानुपपत्तिरितिवाच्यम्; इष्टसाधनत्वस्य विशेषरूपेण विधिनानभिधानात्, प्रवर्तनात्वेन रूपेणाभिधानात् । सामान्यशब्दस्य च विशेषशब्देन दृष्टः सहप्रयोगः पाञ्चालराजो द्रुपद इत्यादौ ।तस्मात्<mark>समीहितसाधनतैव प्रवर्तनात्वेन रूपेण विध्यर्थः</mark> । सैव च तेन रूपेण शब्देनैवाभिधीयत इति शाब्दी भावना ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">しかし<b>別の師たち</b>は言う。命令の意味が<b>向かわせる働き一般</b>であるのは正しい。しかし人の作でない Veda には命令・依頼などはありえないので、人の行為に役立つ何か特別な働きを考えなければならない。一般は特殊なしには完結しないからである。「その特別な働きとは何か」と期待すると、それは<b>語根の意味（祭式）にある「望むものの実現手段であること」</b>だと考えられる。それも行為に役立つからである。誰でも望むものの実現手段だと知って行為する。他人に促されても、望むものの実現手段だと知らなければ行為しない。<br>
+  独立した促しを認める説でも、それが含意する「望むものの実現手段であることの知識」は認めている。そうでないと命令が人を向かわせられないから。だから、どうしても必要な<b>望むものの実現手段であること</b>こそが、向かわせる働きという形で命令の意味である。こうすれば、命令の語が<b>他のものに宿る働き</b>を知らせるという世間でよく知られた事実もそのまま成り立つ。<br>
+  さらに、第一説は三つの無理な想定をしなければならない。①言葉に、動きのない（努力も持たない）働きを想定し、それが行為に役立つと考えること、②世間では他に宿る働きを知らせる言葉が、Veda では自分に宿る働きを知らせると考えること、③命令が向かわせるために語根の意味が望むものの実現手段だと考えること。それより、<b>どのみち必要な「望むものの実現手段であること」を命令の意味とする方が簡潔</b>であり、他に宿るという点でも整合する。<br>
+  「朝夕の礼拝はおまえの望むものの実現手段だ、それをせよ」と一緒に使われるという反論も当たらない。命令は「望むものの実現手段であること」を<b>特定の形では</b>表さず、向かわせる働きという<b>一般の形で</b>表すからである。「Pāñcāla の王 Drupada」のように、一般の語と特殊の語が一緒に使われることはよくある。だから、望むものの実現手段であることが、向かわせる働きという形で命令の意味である。それがその形で<b>言葉だけによって</b>表されるので「言葉の生じさせる働き」と呼ばれる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Therefore the meaning of the injunctive element is just the (root’s) being the means of attaining a desired end, (exprest) under the form of a (general) impellent-force. And it is just that, in that form, which is exprest by a word alone …; whence it is called the word-efficient-force.<span class="jp">脚注242：Pārthasārathi Miśra の学派で、著者はここに属する。脚注244：Mīmāṃsā では言葉は遍在し（vibhu）意識をもたない（acetana）ので、動きや努力（prayatna）をもちえない。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson2.html#ch3">第2課 第3章　§6 言語的 bhāvanā</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§380–382</span><span class="sutra-num">KSS pp.185–186</span><span class="sutra-title">Vārttika の句の本当の意味</span></div>
+  <div class="mula verse"><small style="color:var(--muted)">§380</small> उक्तवार्तिकस्याप्ययमेवाभिप्रायः: अभिधीयते साभिधा समीहितसाधनता, सैव प्रवर्तनात्वेनाभिहिता पुरुषप्रवृत्तिं भावयतीति भावना तां लिङादय आहुरिति ।यथाहुः:<br>
+  <small style="color:var(--muted)">§381</small> पुंसां नेष्टाभ्युपायत्वात्क्रियास्वन्यः प्रवर्तकः ।<br>प्रवृत्तिहेतुं धर्मं च प्रवदन्ति प्रवर्तनाम् ॥ इति ।<br>
+  <small style="color:var(--muted)">§382</small> तत्सिद्धं यजेतेत्यत्र लिङ्त्वांशेन शाब्दी भावनोच्यत इति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">上の Vārttika の句の意図もこうである。「表示されるもの」が「表示」、すなわち<b>望むものの実現手段であること</b>であり、それが向かわせる働きとして表示されて人の行為を<b>生じさせる</b>ので「生じさせる働き」であり、それを願望法などが言う、と。こう言われている──<br>
+  「人々を儀礼行為へと向かわせるものは、（それが）望むものの実現手段であること以外にない。行為の原因であり<b>ダルマ</b>でもあるそれを、向かわせる働きと呼ぶ。」<br>
+  こうして、「祭るべし」において、願望法であることの部分によって<b>言葉の生じさせる働き</b>が表されることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“Other than their (the rites’) serving as means to desired ends, there is none who impels men to ritual acts; (this, which is both) the cause of (their) activity and (their) religious-duty (dharma), is called the impellent-force (of the injunction).”</div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表2-1　「言葉の生じさせる働き」をめぐる二つの説（§§368–382）</caption>
+<tr><th></th><th>第一説（Someśvara の学派）§§368–374</th><th>第二説（Pārthasārathi の学派＝Āpadeva）§§375–382</th></tr>
+<tr><td>命令の一般的な意味</td><td colspan="2">向かわせる働き一般（pravartanā-sāmānya）── 両説共通</td></tr>
+<tr><td>Veda での中身</td><td><b>言葉に宿る促し</b>（preraṇā）</td><td>祭式が<b>望むものの実現手段であること</b>（iṣṭasādhanatā）</td></tr>
+<tr><td>働きのありか</td><td>言葉そのもの（自分に宿る）</td><td>祭式（他のものに宿る）── 世間の命令と同じ</td></tr>
+<tr><td>「礼拝は望みの実現手段だ、それをせよ」</td><td>同義語でない証拠</td><td>一般と特殊なので一緒に使える（「Pāñcāla の王 Drupada」）</td></tr>
+<tr><td>Vārttika の abhidhā</td><td>表示する語＝命令の語</td><td>表示されるもの＝望むものの実現手段であること</td></tr>
+<tr><td>Edgerton</td><td colspan="2" class="en">word-efficient-force; impellent-force (pravartanā); instigation (preraṇā)</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　「対象の生じさせる働き」とは何か</h2>
+<p class="chapter-sub">§§383–392 ／ 再び二つの説</p>
+
+<div class="note en-note">
+  <div class="note-title">⚠ 再確認：ārthī の artha は「目的」ではなく「対象」</div>
+  Edgerton はこの節以下でも <span class="iast">ārthī bhāvanā</span> を “end-efficient-force” と訳しますが、第1課で注意したとおり、<span class="iast">ārthī</span> は <span class="iast">śabda</span>「言葉」と対になる <span class="iast">artha</span>「<b>言葉の対象</b>」から作られた形容詞で、「目的（end）」の意味ではありません。この教科書では「<b>対象の生じさせる働き</b>」と訳します。下の §§383–391 で論じられるのも、言葉が指し示す対象の側（行為者や車や斧）にある働きの中身です。
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§383</span><span class="sutra-num">KSS p.186</span><span class="sutra-title">問題：「行為者の働き」では祭式そのものも含まれてしまう</span></div>
+  <div class="mula">आख्यातत्वांशेनार्थी भावनोच्यते । ननु केयमार्थी भावना । कर्तृव्यापार इति चेन्न; यागादेरपि तद्व्यापारत्वेन भावनात्वापत्तेः । न चेष्टापत्तिः; तस्य प्रकृत्यर्थत्वेन प्रत्ययार्थत्वाभावादिति चेत् —</div>
+  <div class="row"><div class="k">訳</div><div class="v">定動詞語尾であることの部分によって<b>対象の生じさせる働き</b>が表される。<b>反論：</b>では対象の生じさせる働きとは何か。「行為者の働き」と言うなら駄目である。祭式なども行為者の働きなので生じさせる働きになってしまう。それを認めてもよい、とは言えない。祭式は語幹（語根）の意味なので、語尾の意味ではないからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">By the part which denotes (mere general) verbality is exprest the end-efficient-force. (Objection:) But what is this end-efficient-force?</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson2.html#ch5">第2課 第5章　§8–§9 実際的 bhāvanā とその三要素</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§384–387</span><span class="sutra-num">KSS pp.187–188</span><span class="sutra-title">第一説：努力（prayatna）</span></div>
+  <div class="mula verse"><small style="color:var(--muted)">§384</small> अत्राहुः: सत्यं न यागो भावना किं तु <mark>स्वर्गेच्छाजनितो यागविषयो यः प्रयत्नः स भावना</mark> । स एव चाख्यातांशेनोच्यते; यजेतेत्याख्यातश्रवणे यागेन यतेतेति प्रतीतेर्जायमानत्वात् ।<br>
+  <small style="color:var(--muted)">§385</small> यश्च प्रयत्नपूर्वकं गमनादि करोति तस्मिन्देवदत्तो गमनं करोतीति करोतिप्रयोगदर्शनात्, वातादिना स्पन्दमाने तु नायं करोति किं तु वातादिनास्य स्पन्दो जायत इति प्रयोगात्करोत्यर्थस्तावत्प्रयत्नः । करोतिसामानाधिकरण्यं चाख्याते दृश्यते: यजेत यागेन कुर्यात्,पचति पाकं करोति, गच्छति गमनं करोतीति ।<br>
+  <small style="color:var(--muted)">§386</small> अतश्च करोतिसामानाधिकरण्यात्प्रयत्नस्याख्यातवाच्यत्वम् । न च रथो गच्छतीति प्रयोगानुपपत्तिः, रथे यत्नाभावादिति वाच्यम्; वोढ्रश्वगतं प्रयत्नं रथ आरोप्य प्रयोगोपपत्तेः । यन्मतेऽप्यन्योत्पादनानुकूलम्व्यापारसामान्यं भावना, तन्मतेऽपि रथे गमनातिरिक्तव्यापारानुपलब्धे रथो गच्छतीति प्रयोगस्यौपचारिकत्वमेवेति । अतश्च प्रयत्न एवार्थी भावना । यथाहुः:<br>
+  <small style="color:var(--muted)">§387</small> प्रयत्नव्यतिरिक्तार्थभावना तु न शक्यते ।<br>वक्तुमाख्यातवाच्येह प्रस्तुतेत्युपरम्यते । इति ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">प्रयत्न</span> <span class="iast">prayatna</span> 努力</span>
+    <span class="w"><span class="dev">करोति</span> <span class="iast">karoti</span> 「する」</span>
+    <span class="w"><span class="dev">सामानाधिकरण्य</span> <span class="iast">sāmānādhikaraṇya</span> 同一指示（同一の指示対象を有すること）</span>
+    <span class="w"><span class="dev">औपचारिक</span> <span class="iast">aupacārika</span> 比喩的な</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">これに対して（ある人々は）言う。確かに祭式は生じさせる働きではない。しかし<b>天界への望みから生じ、祭式に向けられた努力</b>、それが生じさせる働きである。それが定動詞語尾の部分によって表される。「祭るべし」を聞くと「祭式によって努めるべし」と分かるからである。<br>
+  努力して歩く人については「Devadatta は歩くことを<b>する</b>」と言うが、風などで揺れている人については「彼がする」とは言わず「風などで彼に揺れが生じる」と言う。だから「する」の意味は努力である。そして定動詞は「する」で言い換えられる──「祭るべし＝祭式によってすべし」「煮る＝煮ることをする」「行く＝行くことをする」。だから定動詞は努力を表す。<br>
+  「車が行く」と言えないではないか（車に努力はない）、と言ってはならない。御者や馬の努力を車に<b>移して</b>言うのである。「他のものを生み出すのに役立つ働き一般」を生じさせる働きとする説でも、車には行くこと以外の働きは見られないので、「車が行く」は比喩的な言い方である。だから対象の生じさせる働きは<b>努力</b>にほかならない。こう言われている──<br>
+  「努力以外の対象の生じさせる働きを、定動詞語尾が表すものとしてここで述べることはできない。だから（議論は）ここで終わる。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the energy (prayatna) which refers to (expresses itself in) sacrifice, and is produced by desire for heaven, that is the efficient-force.<span class="jp">脚注247：Someśvara とその学派（Rāṇaka）。Pārthasārathi の説はそこでは反論者の説として述べられている。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§388–391</span><span class="sutra-num">KSS pp.188–190</span><span class="sutra-title">第二説（Āpadeva）：他のものを生み出すのに役立つ働き</span></div>
+  <div class="mula"><small style="color:var(--muted)">§388</small> अन्ये त्वाहुः: भवितुर्भवनानुकूलो भावकव्यापारस्तावद्भावना । यस्मिन्व्यापारे कृते करणं फलोत्पादनाय समर्थं भवति तादृशो व्यापार इति यावत् । स एव चाख्यातार्थः । कुठारेण छिनत्तीत्याख्यातश्रवणे हि भवत्येतादृशी मतिः: कुठारेण तथा व्याप्रियेत यस्मिन्व्यापारे कृते कुठारेण छेदनं भवतीति । एवं यजेत स्वर्गकाम इत्यस्यायमर्थः: यागेन तथा व्याप्रियेत यस्मिन्व्यापारे कृते यागात्स्वर्गो भवतीति । स च व्यापारः क्वचिदुद्यमननिपातनादिः, क्वचिच्चाग्न्यन्वाधानादिब्राह्मणतर्पणान्तः, कथम्भावाकाङ्क्षायां विशेषरूपेण पश्चादवगम्यते । अन्योत्पादानुकूलत्वेन सामान्यतस्त्वाख्यातादेव ।<br>
+  <small style="color:var(--muted)">§389</small> रथो ग्रामं गच्छतीत्यत्राप्याख्यातेन ग्रामप्राप्त्यनुकूलो व्यापार एव प्रतीयते; रथस्तथा गमनेन व्याप्रियते यस्मिन्व्यापारे कृते गमनाद्ग्रामप्राप्तिर्भवतीति प्रतीतेः । न त्वत्र गमनमात्रमाख्यातार्थः, तस्य धातुनोक्तत्वात् । तत्र कोऽसौ व्यापार इत्यपेक्षायां पूर्वोत्तरावान्तरदेशविभजनसम्योजनरूप इति पश्चादवगम्यते: पूर्वेण प्रदेशेन विभज्योत्तरेण सम्युज्य रथो ग्रामं गच्छतीति प्रयोगात्, उद्यम्य निपात्य कुठारेण छिनत्तीतिवत् ।<br>
+  <small style="color:var(--muted)">§390</small> एवं देवदत्तः प्रयतत इत्यत्रापि देवदत्तस्तथा व्याप्रियते यथा प्रयत्नो भवतीति प्रयत्नानुकूलो व्यापार एवाख्यातार्थो न तु प्रयत्नः; तस्य धातुनोक्तत्वात् । व्यापारविशेषापेक्षायां चेच्छादिः पश्चादवगम्यते, उद्यमननिपातनवत् ।<br>
+  <small style="color:var(--muted)">§391</small> तथा च सर्वत्रानुगतत्वादन्योत्पादानुकूलव्यापारसामान्यमेवाख्यातार्थः, न तु प्रयत्नमात्रम्; रथो गच्छति देवदत्तः प्रयतत इत्यादिषु तदभावात् । न चात्रौपचारिकत्वं वक्तुं युक्तम्, मुख्ये सम्भवति तस्यान्याय्यत्वात् । करोत्यर्थोऽप्यन्योत्पादानुकूलो व्यापार एव न प्रयत्नमात्रम्, करोतेश्चेतनाचेतनकर्तृकाख्यातसामानाधिकरण्यादिति । तत्सिद्धमन्योत्पादानुकूलो <mark>व्यापार आर्थी भावनेति</mark> ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">भवितृ／भावक</span> <span class="iast">bhavitṛ / bhāvaka</span> 生じるもの／生じさせる者</span>
+    <span class="w"><span class="dev">अन्योत्पादानुकूलव्यापार</span> <span class="iast">anyotpādānukūlavyāpāra</span> 他のものを生み出すのに役立つ働き</span>
+    <span class="w"><span class="dev">कुठार</span> <span class="iast">kuṭhāra</span> 斧</span>
+    <span class="w"><span class="dev">उद्यमन／निपातन</span> <span class="iast">udyamana / nipātana</span> 振り上げること／振り下ろすこと</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">しかし<b>別の人々</b>は言う。生じさせる働きとは、<b>生じるものが生じるのに役立つ、生じさせる者の働き</b>である（第1課 §3）。つまり、<b>その働きがなされると、実現手段が結果を生み出せるようになる</b>ような働きである。それこそが定動詞の意味である。「斧で切る」を聞くと、「その働きがなされると斧で切ることが生じるように、斧で働くべし」と分かる。同様に「天界を望む者は祭るべし」は、「その働きがなされると祭式から天界が生じるように、祭式によって働くべし」という意味である。その働きは、斧の場合は<b>振り上げ・振り下ろし</b>など、祭式の場合は<b>火に薪をくべることからバラモンをもてなすことまで</b>であり、「どのように」の期待に対して後から（他の命令によって）特定される。定動詞語尾からは「他のものを生み出すのに役立つ」という一般の形でだけ分かる。<br>
+  「車が村へ行く」でも、定動詞は<b>村に着くのに役立つ働き</b>を表す。行くことだけではない。それは語根が表しているから。その働きの中身は、後から「前の場所から離れ、後の場所と結びついて車は村へ行く」として、場所を離れたり結びついたりすることだと分かる。斧の振り上げ・振り下ろしと同じである。<br>
+  「Devadatta は努力する」でも、定動詞の意味は努力ではなく<b>努力が生じるのに役立つ働き</b>である。努力は語根が表しているから。その中身は望みなどだと後から分かる。<br>
+  だから、どこにでも当てはまる「<b>他のものを生み出すのに役立つ働き一般</b>」こそが定動詞の意味であり、単なる努力ではない。「車が行く」「Devadatta は努力する」には（定動詞の意味としての）努力がないからである。本来の意味で読めるのに比喩と考えるのは正しくない。「する」の意味も、意識あるものにも意識なきものにも使われるので、他のものを生み出すのに役立つ働きであって単なる努力ではない。こうして、<b>他のものを生み出すのに役立つ働き</b>が対象の生じさせる働きであることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">So it is establisht that the end-efficient-force is an operation conducive to the production of something else.<span class="jp">脚注248：Pārthasārathi Miśra の学派（Śāstradīpikā）。脚注252：注釈によれば「Devadatta が煮る」だけでなく「鍋が煮る」とも言えるが、鍋に努力はない。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson2.html#ch5">第2課 第5章　§8–§9 実際的 bhāvanā とその三要素</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 260" role="img" aria-label="対象の生じさせる働き：三つの例">
+  <text x="360" y="20" text-anchor="middle" font-size="13">定動詞語尾の意味 ＝ <tspan class="t-acc">他のものを生み出すのに役立つ働き</tspan>（一般）→ 中身は後から分かる</text>
+  <g font-size="12" text-anchor="middle">
+  <rect x="10" y="36" width="225" height="214" rx="8" class="box"/>
+  <text x="122" y="58" class="t-acc">斧で切る</text>
+  <text x="122" y="80" class="t-dev">कुठारेण छिनत्ति</text>
+  <text x="122" y="106">実現手段：斧</text>
+  <text x="122" y="126">結果：切断</text>
+  <rect x="30" y="140" width="185" height="50" rx="6" class="box-blue"/>
+  <text x="122" y="160">働きの中身</text><text x="122" y="178">振り上げ・振り下ろし</text>
+  <text x="122" y="226" font-size="11" class="t-mute">意識ある行為者</text>
+  <rect x="248" y="36" width="225" height="214" rx="8" class="box-green"/>
+  <text x="360" y="58" class="t-acc">天界を望む者は祭るべし</text>
+  <text x="360" y="80" class="t-dev">यजेत स्वर्गकामः</text>
+  <text x="360" y="106">実現手段：祭式</text>
+  <text x="360" y="126">結果：天界</text>
+  <rect x="268" y="140" width="185" height="50" rx="6" class="box-blue"/>
+  <text x="360" y="160">働きの中身</text><text x="360" y="178">薪をくべる〜バラモン接待</text>
+  <text x="360" y="208" font-size="11" class="t-mute">＝ 執行細目（前祭など）</text>
+  <text x="360" y="226" font-size="11" class="t-mute">他の命令から分かる</text>
+  <rect x="486" y="36" width="225" height="214" rx="8" class="box"/>
+  <text x="598" y="58" class="t-acc">車が村へ行く</text>
+  <text x="598" y="80" class="t-dev">रथो ग्रामं गच्छति</text>
+  <text x="598" y="106">実現手段：行くこと</text>
+  <text x="598" y="126">結果：村に着く</text>
+  <rect x="506" y="140" width="185" height="50" rx="6" class="box-blue"/>
+  <text x="598" y="160">働きの中身</text><text x="598" y="178">場所を離れ・結びつく</text>
+  <text x="598" y="226" font-size="11" class="t-mute">意識なきものにも当てはまる</text>
+  </g>
+</svg>
+<figcaption><b>図3　第二説：対象の生じさせる働き＝他のものを生み出すのに役立つ働き（§§388–391）。</b>第一説（努力）では「車が行く」「鍋が煮る」を比喩とするしかないが、第二説ならどの例も本来の意味で説明できる。Edgerton の訳語は operation conducive to the production of something else。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§392</span><span class="sutra-num">KSS p.190</span><span class="sutra-title">結論：祭式は Veda が目的のために命じるので「ダルマ」</span></div>
+  <div class="mula">सैव चाख्यातांशेनोच्यते, भावयेदिति । तस्याश्च भाव्याकाङ्क्षायां स्वर्गादिर्भाव्यत्वेन सम्बध्यते । करणाकाङ्क्षायां यागादिः करणत्वेन सम्बध्यते; प्रयाजादय इतिकर्तव्यतात्वेन । एवं च यजेतेत्यादिना स्वर्गाद्युद्देशेन यागादेर्विधानात्सिद्धं यागादेर्धर्मत्वं प्रयोजनमुद्दिश्य वेदेन विहितत्वादिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">それこそが定動詞語尾の部分によって「生じさせるべし」と表される。それが<b>何を生じさせるか</b>を期待すると、天界などが<b>生じさせられるもの</b>として連関する。<b>何によって</b>を期待すると、祭式などが<b>実現手段</b>として連関する。前祭などは<b>執行細目</b>として連関する。こうして「祭るべし」などによって、天界などのために祭式などが命じられるので、祭式などは、Veda によって目的のために命じられたものであるから<b>ダルマ</b>であることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… it is establisht that sacrifice etc. is a matter of duty, because enjoined by the Veda with a view to a useful end.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson2.html#ch5">第2課 第5章　§8–§9 実際的 bhāvanā とその三要素</a>／<a href="arthasamgraha_lesson14.html#ch4">第14課 第4章　§75 結び ── ヴェーダ全体が dharma を教える</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 220" role="img" aria-label="yajeta svargakāmaḥ の全体構造">
+  <text x="360" y="22" text-anchor="middle" font-size="15" class="t-dev">यजेत स्वर्गकामः</text>
+  <g font-size="12" text-anchor="middle">
+  <rect x="10" y="40" width="340" height="170" rx="8" class="box-acc"/>
+  <text x="180" y="62" class="t-acc">言葉の生じさせる働き（liṅtva）</text>
+  <text x="180" y="88">実現対象 → 対象の生じさせる働き</text>
+  <text x="180" y="112">実現手段 → 願望法などの知識</text>
+  <text x="180" y="136">執行細目 → 釈義による称賛の知識</text>
+  <text x="180" y="170" font-size="11" class="t-mute">中身：祭式が望むものの実現手段であること</text>
+  <text x="180" y="188" font-size="11" class="t-mute">（Āpadeva・§§375–382）</text>
+  <rect x="370" y="40" width="340" height="170" rx="8" class="box-green"/>
+  <text x="540" y="62" class="t-acc">対象の生じさせる働き（ākhyātatva）</text>
+  <text x="540" y="88">実現対象 → 天界</text>
+  <text x="540" y="112">実現手段 → 祭式（語根 yaj）</text>
+  <text x="540" y="136">執行細目 → 前祭など</text>
+  <text x="540" y="170" font-size="11" class="t-mute">中身：他のものを生み出すのに役立つ働き</text>
+  <text x="540" y="188" font-size="11" class="t-mute">（Āpadeva・§§388–391）</text>
+  <path d="M350,88 L370,88" class="line-acc"/>
+  </g>
+</svg>
+<figcaption><b>図4　「祭るべし」の全体構造（第1課 §§2–9 と第14課 §§367–392 のまとめ）。</b>二つの生じさせる働きは、どちらも「何を・何によって・どのように」の三つの期待をもつ。言葉の生じさせる働きが生じさせるのは、対象の生じさせる働きそのものである。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　祭式による解脱と、著者の結び</h2>
+<p class="chapter-sub">§§393–397</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§393–395</span><span class="sutra-num">KSS pp.190–191</span><span class="sutra-title">Govinda に捧げて行えば至福の原因となる</span></div>
+  <div class="mula verse"><small style="color:var(--muted)">§393</small> सोऽयं धर्मो यदुद्देशेन विहितस्तदुद्देशेन क्रियमाणस्तद्धेतुः । <mark>श्रीगोविन्दार्पणबुद्ध्या क्रियमाणस्तु निःश्रेयसहेतुः</mark> । न च तदर्पणबुद्ध्यानुष्ठाने प्रमाणाभावः:<br>
+  <small style="color:var(--muted)">§394</small> यत्करोषि यदश्नासि यज्जुहोषि ददासि यत् ।<br>यत्तपस्यसि कौन्तेय तत्कुरुष्व मदर्पणम् ॥<br>
+  <small style="color:var(--muted)">§395</small> इति स्मृतेः, अस्याश्चाष्टकादिस्मृतिवत्प्रामाण्यादित्यन्यत्र विस्तरः ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">निःश्रेयस</span> <span class="iast">niḥśreyasa</span> 至福（解脱）</span>
+    <span class="w"><span class="dev">अर्पणबुद्धि</span> <span class="iast">arpaṇabuddhi</span> 捧げるという心</span>
+    <span class="w"><span class="dev">स्मृति</span> <span class="iast">smṛti</span> 伝承聖典</span>
+    <span class="w"><span class="dev">अष्टका</span> <span class="iast">aṣṭakā</span> Aṣṭakā 祭（黒分八日の祭）</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">このダルマは、それが命じられた目的のために行えば、その目的の原因となる。しかし<b>聖なる Govinda に捧げるという心</b>で行えば、<b>至福</b>の原因となる。そのように捧げる心で行うことに根拠がないわけではない。伝承聖典にこうあるからである──<br>
+  「クンティーの子よ、汝がなすこと、汝が食べるもの、汝が献供するもの、汝が与えるもの、汝が行う苦行、それを<b>私に捧げるもの</b>としてなせ。」（Bhagavadgītā 9.27）<br>
+  そしてこの伝承聖典は、Aṣṭakā 祭などを定める伝承聖典と同じく権威がある。詳しくは別の所で述べた。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But performed with the intention to offer it to the Exalted Govinda, it produces supreme beatitude.<span class="jp">脚注253：「別の所」とは著者の『Vedāntasāra』注。注釈は、Kumārila も Mahābhārata の物語は釈義として、命令部分は命令として権威があるとし、Gītā は Vāsudeva 自身の口から出たので特に権威がある、と付け加える。Aṣṭakā 祭は śruti ではなく家庭経（Gṛhyasūtra）で定められる。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson14.html#ch4">第14課 第4章　§75 結び ── ヴェーダ全体が dharma を教える</a></div></div>
+</div>
+
+<div class="point">Mīmāṃsā の本来の立場では、祭式は天界などの<b>果報</b>のために行うもの。Āpadeva は最後に、同じ祭式を<b>神に捧げる心で</b>行えば<b>解脱</b>（至福）に至るという Vedānta 的・バクティ的な見方を加えて、本書を閉じます。</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§396–397</span><span class="sutra-num">KSS pp.191–192</span><span class="sutra-title">著者の謙遜と祈り</span></div>
+  <div class="mula verse"><small style="color:var(--muted)">§396</small> क्वाहं मन्दमतिः क्वेयं प्रक्रिया भाट्टसम्मता ।<br>तस्माद्भक्तेर्विलासोऽयं गोविन्दगुरुपादयोः ।<br>
+  <small style="color:var(--muted)">§397</small> ग्रन्थरूपो मदीयोऽयं वाग्व्यापारः सुशोभनः ।<br>अनेन प्रीयतां देवो गोविन्दो भक्तवत्सलः ॥<br>इति श्रीमदनन्तदेवसूनुनापदेवेन कृतं मीमांसान्यायप्रकाशसंज्ञकं मीमांसाप्रकरणं समाप्तम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「鈍い私が何者であろう、Bhaṭṭa（Kumārila）の徒が尊ぶこの論題に比べて。だからこれは、<b>Govinda と師</b>の御足への<b>献愛の戯れ</b>である。」<br>
+  「書物の形をとった、この私の言葉の営み。これによって、献愛者を慈しむ神 Govinda が喜ばれますように。」<br>
+  以上、聖 Anantadeva の子 Āpadeva によって作られた、『Mīmāṃsānyāyaprakāśa』と名づけられた Mīmāṃsā の綱要書、終わり。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">This is my verbal performance, in the shape of (this) book; may it seem good to the god Govinda, who loves his devotees, and may he be pleased with it.<span class="jp">脚注254：著者の師は父 Anantadeva であって、Keith が誤解したように「Govinda」ではない。Govinda-guru は二人を指す並列複合語（dvandva）。脚注255：suśobhanaḥ は自慢ではなく、「神にとってよいものに見えますように」という願いを表す。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson14.html#ch5">第14課 第5章　結びの詩節と奥書</a></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">総復習　この本の全体像</h2>
+<p class="chapter-sub">第1課〜第14課</p>
+
+<div class="tbl-wrap"><table>
+<caption>表R-1　『Mīmāṃsānyāyaprakāśa』の構成と、この教科書の各課</caption>
+<tr><th>区分</th><th>節</th><th>課</th><th>主な内容</th></tr>
+<tr><td>序</td><td>§§1–9</td><td>1</td><td>ダルマの定義、二つの生じさせる働き、Veda の五区分</td></tr>
+<tr><td rowspan="8">① 規定 <span class="iast">vidhi</span></td><td>§§10–23</td><td>2</td><td>規定は何を命じるか：従属要素規定、限定規定、所有の意の転義</td></tr>
+<tr><td>§§24–46</td><td>3</td><td>反論者の挑戦：「ソーマで祭るべし」は従属要素規定か</td></tr>
+<tr><td>§§47–61</td><td>4</td><td>Āpadeva の答え：それこそ発生規定である</td></tr>
+<tr><td>§§62–89</td><td>5</td><td>規定の四種、根拠①明言</td></tr>
+<tr><td>§§90–115</td><td>6</td><td>根拠②語の意味能力、③文</td></tr>
+<tr><td>§§116–168</td><td>7</td><td>根拠④文脈：相互の期待、原型と変型</td></tr>
+<tr><td>§§169–195</td><td>8</td><td>根拠⑤位置、⑥名称、構成要素の分類、不可見の力</td></tr>
+<tr><td>§§196–238</td><td>9</td><td>執行規定と順序、資格規定</td></tr>
+<tr><td>② 祭詞 <span class="iast">mantra</span></td><td>§§239–248</td><td>10</td><td>祭詞の役目、新規・制限・排除規定</td></tr>
+<tr><td>③ 祭名 <span class="iast">nāmadheya</span></td><td>§§249–319</td><td>11・12</td><td>祭名とみなす四つの理由</td></tr>
+<tr><td>④ 禁令 <span class="iast">niṣedha</span></td><td>§§320–363</td><td>13</td><td>na のかかり方、禁止と除外</td></tr>
+<tr><td>⑤ 釈義 <span class="iast">arthavāda</span>＋結び</td><td>§§364–397</td><td>14</td><td>釈義、二つの生じさせる働き、解脱</td></tr>
+</table></div>
+
+<div class="note">お疲れさまでした。本書の議論は、すべて「<b>Veda のどの文も、人をダルマ（祭式）に向かわせることに役立つ</b>」という一点に向かっています。規定は祭式を命じ、祭詞は祭式の内容を思い出させ、祭名は命じられる祭式を特定し、禁令は災いから退かせ、釈義は称賛によって命令を後押しする。最初の課の「Veda の五区分」の図をもう一度見直すと、全体がつながって見えるはずです。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 釈義の二種類と、それぞれの役目は？</summary><div>規定の補足（命じられたものを称える）と禁令の補足（禁じられたものをけなす）。どちらも転義による。（§§365–366）</div></details>
+<details class="q"><summary>Q2. 釈義は言葉の生じさせる働きの三要素のどれにあたる？</summary><div>執行細目（itikartavyatā）。称賛の知識として。（§367）</div></details>
+<details class="q"><summary>Q3. Āpadeva によれば、Veda の命令の意味（言葉の生じさせる働きの中身）は何か？</summary><div>祭式が望むものの実現手段であること（iṣṭasādhanatā）が、向かわせる働きという一般の形で表されたもの。（§§375–382）</div></details>
+<details class="q"><summary>Q4. 対象の生じさせる働きを「努力」とする説の弱点は？</summary><div>「車が行く」「鍋が煮る」のように意識のない主語の文を比喩とするしかない。本来の意味で読めるのに比喩とするのは正しくない。（§§386, 391）</div></details>
+<details class="q"><summary>Q5. Āpadeva によれば、対象の生じさせる働きとは何か？</summary><div>他のものを生み出すのに役立つ働き（anyotpādānukūlavyāpāra）。（§391）</div></details>
+<details class="q"><summary>Q6. Edgerton の “end-efficient-force” という訳はなぜ不適切か？</summary><div>ārthī の artha は「目的」ではなく「（言葉の）対象」の意味で、śabda「言葉」と対になる語だから。</div></details>
+<details class="q"><summary>Q7. 祭式が至福（解脱）の原因になるのはどんなとき？</summary><div>Govinda に捧げるという心で行うとき。根拠は Bhagavadgītā 9.27。（§§393–395）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第14課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">अर्थवाद</td><td class="iast">arthavāda</td><td>釈義</td><td class="en">explanatory-passage</td></tr>
+<tr><td class="dev">विधिशेष／निषेधशेष</td><td class="iast">vidhiśeṣa / niṣedhaśeṣa</td><td>規定の補足／禁令の補足</td><td class="en">complement of injunction / of prohibition</td></tr>
+<tr><td class="dev">प्राशस्त्य</td><td class="iast">prāśastya</td><td>すばらしさ（称賛）</td><td class="en">excellence</td></tr>
+<tr><td class="dev">शाब्दी भावना</td><td class="iast">śābdī bhāvanā</td><td>言葉の生じさせる働き</td><td class="en">word-efficient-force</td></tr>
+<tr><td class="dev">आर्थी भावना</td><td class="iast">ārthī bhāvanā</td><td>対象の生じさせる働き</td><td class="en">end-efficient-force（不適切）</td></tr>
+<tr><td class="dev">प्रवर्तना</td><td class="iast">pravartanā</td><td>行為へ向かわせる働き</td><td class="en">impellent-force</td></tr>
+<tr><td class="dev">प्रेरणा</td><td class="iast">preraṇā</td><td>促し</td><td class="en">instigation</td></tr>
+<tr><td class="dev">इष्टसाधनता</td><td class="iast">iṣṭasādhanatā</td><td>望むものの実現手段であること</td><td class="en">instrumentality for a desired end</td></tr>
+<tr><td class="dev">प्रयत्न</td><td class="iast">prayatna</td><td>努力</td><td class="en">energy</td></tr>
+<tr><td class="dev">अन्योत्पादानुकूलव्यापार</td><td class="iast">anyotpādānukūlavyāpāra</td><td>他のものを生み出すのに役立つ働き</td><td class="en">operation conducive to the production of something else</td></tr>
+<tr><td class="dev">निःश्रेयस</td><td class="iast">niḥśreyasa</td><td>至福（解脱）</td><td class="en">supreme beatitude</td></tr>
+</table></div>
+<h3>底本について（第14課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文を採り（§367 <span class="dev">भाव्यिका</span>、§377 <span class="dev">शब्द एको</span>〔= śabde ekaḥ〕も Edgerton どおり）、KSS版（1949年）と照合しました。§§369–379、§§384–391 は議論が細かいため、訳を「要旨」としています。OCR の誤りと思われる箇所（<span class="dev">समीहित</span>、<span class="dev">शाब्दी</span>、語の切れ目や句読点の欠落、詩節の区切りなど）は直しました。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson13.html">← 第13課　禁令</a><span class="spacer"></span><a href="mnp_lesson1.html">第1課に戻る ↺</a></nav>
+
+<footer>
+  やさしい聖典解釈学 · 第14課　釈義と結び（完）<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§364–397, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>

@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい聖典解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+.en { font-family: 'Noto Serif', serif; font-size: 0.95em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Noto Serif', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Noto Serif', serif; font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Noto Serif', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Noto Serif', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+.as-row .k { color: var(--green, #4a6b3a); }
+.as-row .v a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — नामधेयम् (१)</div>
+  <h1>やさしい聖典解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 11</div>
+  <div class="header-jp">第11課　Veda の第三区分「祭名」（1）── 祭名とみなす四つの理由、Udbhid・Citrā・Agnihotra<br>
+  本文：Edgerton §§249–285（校訂本文 pp. 248–253 ／ KSS版 pp. 117–136）<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>祭名の役目：命じられたものを特定する（§§249–254）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>祭名とみなす四つの理由（§255）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>理由①転義を避けるため：Udbhid（§§256–264）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>理由②文の分裂を避けるため：Citrā（§§265–272）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>理由③「それを告げる聖典」：Agnihotra と神格（§§273–285）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　祭名の役目：命じられたものを特定する</h2>
+<p class="chapter-sub">§§249–254</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§249</span><span class="sutra-num">KSS p.117</span><span class="sutra-title">祭名の定義</span></div>
+  <div class="mula"><mark>नामधेयानां विधेयार्थपरिच्छेदकतयार्थवत्त्वम्</mark> । तथा हि: उद्भिदा यजेत पशुकाम इत्यत्रोद्भिच्छब्दो यागनामधेयम् । तेन च विधेयार्थपरिच्छेदः क्रियते । अनेन हि वाक्येनाप्राप्तत्वात्फलोद्देशेन यागो विधीयते । यागसामान्यस्य चाविधेयत्वाद्यागविशेष एव विधीयते । तत्र कोऽसौ विशेष इत्यपेक्षायामुद्भिच्छब्दादुद्भिद्रूपो याग इति ज्ञायते; उद्भिदा यागेनेति सामानाधिकरण्येन नामधेयान्वयात् ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">नामधेय</span> <span class="iast">nāmadheya</span> 祭名（祭式の名前）</span>
+    <span class="w"><span class="dev">परिच्छेद</span> <span class="iast">pariccheda</span> 限定・特定</span>
+    <span class="w"><span class="dev">उद्भिद्</span> <span class="iast">udbhid</span> Udbhid（文字どおりは「突き破るもの」）</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">祭名は、<b>命じられるものを特定すること</b>によって意味をもつ。たとえば「家畜を望む者は Udbhid で祭るべし」では、Udbhid という語は<b>祭式の名前</b>である。それによって命じられるものが特定される。この文によって、（他で）未出なので、果報を目指して祭式が命じられる。祭式一般は命じえないので、特定の祭式が命じられる。「その特定のものとは何か」という期待に対して、Udbhid の語から「Udbhid という祭式」と分かる。「Udbhid という祭式によって」と、名前が<b>同一指示で</b>（同一の指示対象を有するものとして）連関するからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Names (nāmadheya) find their use in defining the meaning of (the performance) enjoined.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch1">第11課 第1章　§54–§55 名前の役割と、4つの理由</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§250–254</span><span class="sutra-num">KSS pp.117–119</span><span class="sutra-title">名前の同一指示は「青蓮」型ではなく「Viśvadeva 的な凝固発酵乳」型</span></div>
+  <div class="mula"><small style="color:var(--muted)">§250</small> तस्य च यजिना सामानाधिकरण्यं न नीलोत्पलादिशब्दवत् । तत्र ह्युत्पलशब्दस्यार्थादुत्पलादन्यो नीलशब्दस्य वाच्यार्थोऽस्ति नीलगुणः । लक्षणया तु नीलशब्दस्य द्रव्यपरत्वेन सामानाधिकरण्यम् । उद्भिच्छब्दस्य तु यज्यवगतयागविशेषान्नान्यो वाच्योऽर्थोऽस्ति विशेषवाचित्वात्तस्य ।<br>
+  <small style="color:var(--muted)">§251</small> अतश्चार्थान्तरवाचित्वाभावेन न नामधेयस्य नीलशब्दवत्सामानाधिकरण्यम्, किं तर्हि वैश्वदेव्यामिक्षेत्यत्रामिक्षाशब्दवत् । वैश्वदेवीशब्दस्य हि देवतातद्धितान्तत्वात्तद्धितस्य च सास्य देवतेति सर्वनामार्थे स्मरणात्सर्वनाम्नां चोपस्थितविशेषवाचित्वेन विशेषपरत्वम् । तत्र कोऽसौ वैश्वदेवीशब्दोपात्तो विशेष इत्यपेक्षायामामिक्षापदसांनिध्यादामिक्षारूपो विशेष इत्यवगम्यते । यथाहुः:<br>
+  <small style="color:var(--muted)">§252</small> आमिक्षां देवतायुक्तां वदत्येवैष तद्धितः ।<br>आमिक्षापदसांनिध्यात्तस्यैव विषयार्पणम् । इति । तथा:<br>
+  <small style="color:var(--muted)">§253</small> श्रुत्यैवोपपदस्यार्थः सर्वनाम्नाभिधीयते तदर्थस्तद्धितेनैवं त्रयाणामेकवाच्यता । इति ।<br>
+  <small style="color:var(--muted)">§254</small> तस्माद्यथा वैश्वदेवीशब्दोपात्तविशेषसमर्पकत्वेनामिक्षापदस्य वैश्वदेवीशब्देन सामानाधिकरण्यमेवं सामान्यस्याविधेयत्वाद्यज्यवगतयागविशेषसमर्पकत्वेन नामधेयस्य यजिना सामानाधिकरण्यम् । तत्सिद्धं नामधेयानां विधेयार्थपरिच्छेदकतयार्थवत्त्वम् । यथाहुः: तदधीनत्वाद्यागविशेषसिद्धेरिति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">この名前と語根「祭る」との同一指示の関係は、「<b>青い蓮</b>」のような同一指示ではない。そこでは「青」の意味（青という性質）は「蓮」の意味と別で、転義によって「青」が（青い）物を指して初めて同一指示になる。しかし Udbhid の語には、語根が表す祭式の特定の種類以外に表す意味がない。<br>
+  だから名前の同一指示は「<b>Viśvadeva たちの（ための）凝固発酵乳</b>」の「凝固発酵乳」の語のようなものである。「Viśvadeva たちの」は神格を表す派生接尾辞（taddhita）をもち、それは文法で「これがそれの神格である」という<b>代名詞の意味</b>をもつとされ、代名詞は目の前の特定のものを指す。「その特定のものとは何か」と問えば、近くにある「凝固発酵乳」の語から「凝固発酵乳」と分かる。こう言われている──「この派生接尾辞こそが、神格と結びついた凝固発酵乳を表す。凝固発酵乳という語の近さは、その対象を示すだけである。」<br>
+  だから、「Viśvadeva たちの」が示す特定のものを示すので「凝固発酵乳」が同一指示であるように、祭式一般は命じえないので、語根が示す特定の祭式を示すことで、名前は語根と同一指示である。こうして、<b>祭名は命じられるものを特定することで意味をもつ</b>ことが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the correlation of the name (with the idea of ‘sacrifice’) is not like that of the word “blue-lotus,” but rather like the word ‘curds’ in the phrase “For-the-Viśvadevas curds.”<span class="jp">脚注166：誰も「祭式一般」を行うことはできず、特定の祭式しか行えない。だから Udbhid は「祭式」の特定の種類である。</span></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-1　二つの型の同一指示の関係（§§250–254）</caption>
+<tr><th></th><th>「青い蓮」型</th><th>「Viśvadeva 的な凝固発酵乳」型</th></tr>
+<tr><td>二語の意味</td><td>別々（性質「青」と物「蓮」）</td><td>一方が一般（神格に属するもの）、他方がその特定（凝固発酵乳）</td></tr>
+<tr><td>同一指示のために</td><td>転義が必要（「青」→青いもの）</td><td>転義不要</td></tr>
+<tr><td>祭名の場合</td><td>✕</td><td>○ 語根「祭る」（一般）と名前 Udbhid（特定）</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　祭名とみなす四つの理由</h2>
+<p class="chapter-sub">§255 ／ この課と次の課の地図</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§255</span><span class="sutra-num">KSS p.119</span><span class="sutra-title">四つの理由</span></div>
+  <div class="mula">नामधेयत्वं च निमित्तचतुष्टयात्: <mark>मत्वर्थलक्षणाभयात्, वाक्यभेदभयात्, तत्प्रख्यशास्त्रात्, तद्व्यपदेशाच्चेति</mark> ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">名前であることは四つの理由による。<b>所有の意の転義を避けるため</b>、<b>文の分裂を避けるため</b>、<b>それを告げる聖典があるため</b>、<b>それにたとえるため</b>である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And there are four reasons for (understanding a word as) a ‘name’: (1) avoidance of implication of possessive indication, (2) avoidance of split-of-the-sentence, (3) an authoritative passage setting forth it, and (4) representation of it.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch1">第11課 第1章　§54–§55 名前の役割と、4つの理由</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 230" role="img" aria-label="祭名とみなす四つの理由と代表例">
+  <rect x="270" y="8" width="180" height="44" rx="8" class="box-acc"/>
+  <text x="360" y="30" text-anchor="middle" font-size="14">祭名 <tspan class="t-dev">नामधेयम्</tspan></text>
+  <text x="360" y="46" text-anchor="middle" font-size="11" class="t-mute">四つの理由（§255）</text>
+  <path d="M360,52 L360,66 M90,66 L630,66 M90,66 L90,82 M270,66 L270,82 M450,66 L450,82 M630,66 L630,82" class="line"/>
+  <g font-size="12" text-anchor="middle">
+  <rect x="10" y="84" width="160" height="136" rx="8" class="box-green"/>
+  <text x="90" y="106" class="t-acc">① 転義を避ける</text><text x="90" y="124" class="t-dev" font-size="11">मत्वर्थलक्षणाभयात्</text>
+  <text x="90" y="150">Udbhid</text><text x="90" y="168" class="t-mute" font-size="11">§§256–264</text><text x="90" y="200" class="t-mute" font-size="11">（この課）</text>
+  <rect x="190" y="84" width="160" height="136" rx="8" class="box-blue"/>
+  <text x="270" y="106" class="t-acc">② 文の分裂を避ける</text><text x="270" y="124" class="t-dev" font-size="11">वाक्यभेदभयात्</text>
+  <text x="270" y="150">Citrā</text><text x="270" y="168" class="t-mute" font-size="11">§§265–272</text><text x="270" y="200" class="t-mute" font-size="11">（この課）</text>
+  <rect x="370" y="84" width="160" height="136" rx="8" class="box"/>
+  <text x="450" y="106" class="t-acc">③ それを告げる聖典</text><text x="450" y="124" class="t-dev" font-size="11">तत्प्रख्यशास्त्रात्</text>
+  <text x="450" y="150">Agnihotra</text><text x="450" y="168" class="t-mute" font-size="11">§§273–</text><text x="450" y="200" class="t-mute" font-size="11">（この課〜第12課）</text>
+  <rect x="550" y="84" width="160" height="136" rx="8" class="box"/>
+  <text x="630" y="106" class="t-acc">④ それにたとえる</text><text x="630" y="124" class="t-dev" font-size="11">तद्व्यपदेशात्</text>
+  <text x="630" y="150">Śyena</text><text x="630" y="168" class="t-mute" font-size="11">§§301–302</text><text x="630" y="200" class="t-mute" font-size="11">（第12課）</text>
+  </g>
+</svg>
+<figcaption><b>図1　祭名とみなす四つの理由（§255）。</b>どれも「その語を従属要素（材料・神格など）と読むと困ったことになるので、祭式の名前と読む」という論法。Edgerton の訳語：(1) avoidance of possessive implication (2) avoidance of split-of-the-sentence (3) authoritative passage setting forth it (4) representation of it。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　理由①転義を避けるため：Udbhid</h2>
+<p class="chapter-sub">§§256–264 ／ 第2課・第3課の議論の応用</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§256–257</span><span class="sutra-num">KSS p.120</span><span class="sutra-title">Udbhid を従属要素と読むと？</span></div>
+  <div class="mula"><small style="color:var(--muted)">§256</small> तत्रोद्भिदा यजेत पशुकाम इत्यत्रोद्भिच्छब्दस्य यागनामधेयत्वं मत्वर्थलक्षणाभयात् ।<br>
+  <small style="color:var(--muted)">§257</small> तथा हि: उद्भिच्छब्दस्य गुणसमर्पकत्वे यागानुवादेन तावन्न गुणविधानं युज्यते, फलपदानर्थक्यापत्तेः । न चानेन वाक्येन फलं प्रति यागविधानं तस्मिंश्च गुणविधानं युज्यते, वाक्यभेदापत्तेः । नापि गुणफलसम्बन्धविधानं सम्भवति, परपदार्थविधानेन विप्रकृष्टार्थविधानापत्तेः, धात्वर्थस्य स्वरूपेणाविधानात्तदुद्देशेन वान्यस्य कस्यचिदविधानाद्धातोरत्यन्तपारार्थ्यापत्तेश्च, यज्यानर्थक्यापत्तेश्च । न हि तदानेन करणं समर्प्यते, गुणस्य करणत्वेनान्वयात्; नापि फलम्, पशोर्भाव्यत्वेनान्वयात् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">「家畜を望む者は Udbhid で祭るべし」で Udbhid が祭名なのは、<b>所有の意の転義を避けるため</b>である。<br>
+  Udbhid を従属要素（たとえば「突き破るもの」＝鋤）と読むとする。(a) 既出の祭式に言及して従属要素を命じるのは正しくない。果報の語（家畜を望む）が無意味になる。(b) この文で果報に対して祭式を命じ、同時に従属要素も命じると文の分裂になる。(c) 従属要素と果報の関係を命じる（鋤で家畜を得る）こともできない。別の語の意味を命じると遠い意味になり、語根の意味が自分の意味で命じられず、何かが語根を目指して命じられることもないので、<b>語根がまったく他のためのものになり</b>、「祭る」の語が無意味になるからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… therefore the root (‘sacrifice’) would be entirely subordinate to something else, and there would be no meaning in the root.<span class="jp">脚注168：Udbhid を鋤とする説は、Jaimini 1.4.1 の反論者が ud-bhid（「上に突き破る」）という語源から出したもの。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch2">第11課 第2章　§56 Udbhid ── 所有の転義を避けるため</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§258–262</span><span class="sutra-num">KSS pp.121–124</span><span class="sutra-title">基体とする案、手段性を命じる案も退ける</span></div>
+  <div class="mula"><small style="color:var(--muted)">§258</small> अथ गुणफलसम्बन्धविधाने यागस्याश्रयत्वेन सम्बन्ध इति चेत्, न: यजेतेत्यत्राश्रयत्ववाचकपदाभावात् । अथ सिद्धान्ते करणत्वमिवाश्रयत्वमपि लक्ष्यमिति चेत्, न: आश्रयत्वापेक्षया करणत्वस्य लघुत्वेन तल्लक्षणाया एव युक्तत्वात् । फलाय विधीयमानो गुणो यत्र कारकतामापद्यते स आश्रयः, तत्त्वं चाश्रयत्वम्; करणत्वं च निष्कृष्टा शक्तिरिति लाघवम् ।<br>
+  <small style="color:var(--muted)">§259</small> किं च गुणफलसम्बन्धविधाने करणीभूतो गुणस्तन्निष्ठं वा करणत्वं फलोद्देशेन विधेयम् । तत्राद्ये पक्षे करणत्वस्य गुणोपसर्जनत्वेन प्रतीतिर्लक्षणयैव वाच्या, तस्य तृतीयाप्रत्ययार्थत्वात्प्राधान्येनोपस्थितेः ।<br>
+  <small style="color:var(--muted)">§260</small> यदापि गुणनिष्ठं करणत्वं फलोद्देशेन विधेयं तदापि फलभावनायां करणत्वेनान्वययोग्यगुणनिष्ठकरणत्वोपस्थितिर्लक्षणयैव वाच्या, तृतीयाभिहितस्य करणकारकस्य क्रियान्वययोग्यस्य करणत्वेनान्वयायोग्यत्वात् । करणशब्देनाभिहितं हि करणकारकं तत्त्वेनान्वययोग्यं न तृतीयाभिहितम्, करणशब्दादिव तृतीयातस्तृतीयोत्पत्तिप्रसङ्गात् ।<br>
+  <small style="color:var(--muted)">§261</small> अतश्च करणत्वेनान्वययोग्यगुणनिष्ठकरणत्वोपस्थितिर्लक्षणयैव वाच्या । लक्षणया चोपस्थितकरणत्वस्य करणीभूतस्य वा गुणस्य फलभावनायां यत्करणत्वं तदपि लक्षणयैव वाच्यम्, श्रूयमानया तृतीयया गुणमात्रस्य यागं प्रति करणत्वाभिधानात् । अत एव तन्त्ररत्ने चतुर्थे करणीभूतगोदोहनादेः पश्वर्थत्वं समभिव्याहारादित्युक्तम् ।<br>
+  <small style="color:var(--muted)">§262</small> अतश्च गुणफलसम्बन्धविधाने धातोरत्यन्तपारार्थ्यादिबहुदोषवत्त्वादुद्भिच्छब्दस्य गुणसमर्पकत्वे गुणविशिष्टकर्मविधानमेव स्वीकार्यम् । तथा सति हि यजिना लघुभूतं करणत्वमात्रं लक्ष्यते, उद्भिच्छब्देन च प्रकृत्यंशेन मत्वर्थमात्रं लक्ष्यमिति गुणफलसम्बन्धविधानाल्लाघवं भवति । धातोरत्यन्तपारार्थ्यादिकं तु न भवत्येव, धात्वर्थस्यैव फलोद्देशेन विधानात् । अतश्चोद्भिच्छब्दस्य गुणसमर्पकत्वे तेन मत्वर्थं लक्षयित्वा गुणविशिष्टकर्मविधानं स्वीकार्यम्, उद्भिद्वता यागेन पशुं भावयेदिति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">従属要素と果報の関係を命じ、祭式は<b>基体</b>として連関する（第3課 §38 のように）、という案も駄目である。「祭る」に基体を表す要素がない。転義で表すにしても、基体よりも<b>手段</b>の方が転義しやすい（手段性は独立した力だが、基体性は他に依存する関係だから）。<br>
+  また従属要素と果報の関係を命じるとき、命じられるのは「手段としての従属要素」か「従属要素に宿る手段性」かのどちらかだが、どちらにしても転義を重ねなければならない。<br>
+  だから Udbhid を従属要素と読むなら、結局、<b>従属要素で限定された祭式の命令</b>と認めるしかない──「Udbhid をもつ祭式によって家畜を生じさせるべし」。これには所有の意の転義が必要である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… then we must admit implication of possessive indication and accept the injunction as one of a rite particularized by an accessory, thus: “By the sacrifice characterized by the udbhid he shall effect (the attainment of) cattle.”</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§263–264</span><span class="sutra-num">KSS p.124</span><span class="sutra-title">祭名と読めば転義は不要／ではなぜソーマは祭名でないか</span></div>
+  <div class="mula"><small style="color:var(--muted)">§263</small> कर्मनामधेयत्वे तूद्भिच्छब्दस्य न मत्वर्थलक्षणा, मुख्ययैव वृत्त्या यजिसामानाधिकरण्येन तस्यान्वयसम्भवात्, उद्भिदा यागेन पशुं भावयेदिति । <mark>सम्भवति च मुख्येऽर्थे लक्षणाश्रयितुं न युक्ता</mark> । संनिकृष्टविधानं तु समानमेव ।<br>
+  <small style="color:var(--muted)">§264</small> न चैवं सोमेन यजेतेत्यत्रापि सोमपदस्य यागनामधेयत्वापातो गुणसमर्पकत्वे मत्वर्थलक्षणापत्तेरिति वाच्यम्, सोमपदस्य लतायां रूढत्वेन यागनामधेयत्वानुपपत्तेरगत्या लक्षणाश्रयणात् । उद्भिच्छब्दस्य तु नैवं वाच्योऽर्थः कश्चित्प्रसिद्धः; उद्भिद्यतेऽनेनेति योगस्य तु गुण इव यागेऽपि फलोद्भेदनकारिण्युपपत्तेः । तत्सिद्धमुद्भिच्छब्दस्य मत्वर्थलक्षणाभयाद्यागनामधेयत्वमिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">しかし祭式の名前とすれば、Udbhid の語に所有の意の転義はない。<b>本来の意味のまま</b>語根「祭る」と同一指示で連関させるからである──「Udbhid という祭式によって家畜を生じさせるべし」。<b>本来の意味が可能なのに転義に頼るのは正しくない</b>。命じられるものが近いことは、どちらの場合も同じである。<br>
+  ではなぜ「ソーマで祭式を行うべし」のソーマも祭名としないのか（そうすれば転義が要らないのに）、と言ってはならない。ソーマの語は<b>つる草</b>（ソーマ草）を指すと慣用的に定まっているので祭式の名前にはなりえず、他に道がないので転義に頼るのである。しかし Udbhid の語にはそのような知られた意味はない。「それによって突き破られる」という語源は、従属要素（鋤）にも、果報を芽吹かせる祭式にも同じように当てはまる。こうして、Udbhid の語は転義を避けるために祭式の名前とされることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… because the well-known conventional meaning of soma is a creeper, and so it could not mean the name of a sacrifice …</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch2">第11課 第2章　§56 Udbhid ── 所有の転義を避けるため</a></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表3-1　ソーマと Udbhid のちがい（§§263–264）</caption>
+<tr><th></th><th>ソーマ <span class="dev">सोमेन यजेत</span></th><th>Udbhid <span class="dev">उद्भिदा यजेत पशुकामः</span></th></tr>
+<tr><td>慣用的意味</td><td>ある（つる草）</td><td>ない</td></tr>
+<tr><td>祭名と読めるか</td><td>✕（慣用的意味から引き離せない）</td><td>○（語源は祭式にも当てはまる）</td></tr>
+<tr><td>結論</td><td>従属要素 → 所有の意の転義（第2課）</td><td>祭名 → 転義なし</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　理由②文の分裂を避けるため：Citrā</h2>
+<p class="chapter-sub">§§265–272</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§265</span><span class="sutra-num">KSS p.125</span><span class="sutra-title">Citrā の問題</span></div>
+  <div class="mula">चित्रया यजेत पशुकाम इत्यत्र चित्राशब्दस्य वाक्यभेदभयात्कर्मनामधेयत्वम् । तथा हि: न तावदत्र गुणविशिष्टयागविधानं सम्भवति, दधि मधु पयो घृतं धाना उदकं तन्डुलास्तत्संसृष्टं प्राजापत्यमित्यनेन विहितत्वाद्यागस्य विशिष्टविधानानुपपत्तेः । प्राप्तस्य च यागस्य फलसम्बन्धे गुणसम्बन्धे च विधीयमाने वाक्यभेदः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「家畜を望む者は <b>Citrā</b> で祭るべし」では、Citrā の語は<b>文の分裂を避けるため</b>に祭式の名前である。まずここで、従属要素で限定された祭式の命令はありえない。祭式は「<b>酸乳・蜜・乳・ギー・炒り麦・水・米、それらを混ぜたものが Prajāpati のため</b>」という文で既に命じられているので、限定規定ではありえないからである。そして既出の祭式に果報との結びつきと従属要素との結びつきの両方を命じれば、文の分裂になる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">In the sentence “Who desires cattle shall sacrifice with the citrā” the word citrā is to be taken as the name of a rite to avoid split-of-the-sentence.<span class="jp">脚注175：この Citrā 祭を含む Veda 文献は Edgerton には見つけられなかった。Śābarabhāṣya 1.4.3 に引用がある。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch3">第11課 第3章　§57 Citrā ── 文の分裂を避けるため</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§266–271</span><span class="sutra-num">KSS pp.126–130</span><span class="sutra-title">反論：Citrā は「斑の雌（の家畜）」では？</span></div>
+  <div class="mula"><small style="color:var(--muted)">§266</small> अथ चित्राशब्दाच्चित्रत्वस्त्रीत्वयोः प्रतिपत्तेः स्त्रीत्वस्य च स्वभावतः प्राणिधर्मत्वात्प्रकृते दध्यादिद्रव्यके कर्मणि निवेशायोगान्नानेन वाक्येन प्रकृते कर्मणि गुणविधानं किं तु प्राणिद्रव्यके कर्मणि । तत्रास्य वाक्यस्यानारभ्याधीतत्वादनारभ्याधीतानां च प्रकृतौ वाद्विरुक्तत्वादिति न्यायेन प्रकृतिगामित्वात्, प्राणिद्रव्यकाणां च यागानां दैक्षस्य चेतरेष्विति न्यायेनाग्नीषोमीयप्रकृतिकत्वात्तदनुवादेनानेन वाक्येन गुणो विधीयते ।<br>
+  <small style="color:var(--muted)">§267</small> दैक्षस्य च ज्योतिष्टोमाङ्गत्वेन स्वतन्त्रफलाकाङ्क्षाया अभावात्पशुकामपदं न फलसमर्पकम्, किं त्वग्नीषोमीयपश्वर्जनाङ्गतया प्राप्तकामनानुवादः । तथा च न वाक्यभेद इति चेत्, तथापि दैक्षानुवादेन चित्रत्वस्त्रीत्वविधाने वाक्यभेदाद्विशिष्टकारकविधानेऽपि गौरवलक्षणो वाक्यभेद एव; कारकस्यापि प्राप्तत्वेन विशिष्टविधानानुपपत्तेश्च; कामपदस्यापि स्वरसतः फलपरस्य कामनानुवादत्व आनर्थक्यापत्तेश्च । न च नियमतः पश्वर्जनकामना भवति, कामनातः प्रागेव केनचिद्दत्ते पशौ तदभावात् । तथा च पशुकामपदस्य नित्यवच्छ्रवणबाधः ।<br>
+  <small style="color:var(--muted)">§268</small> दैक्षस्योत्पत्तिशिष्टपुंस्त्वावरुद्धत्वेन तत्र स्त्रीत्वविधानानुपपत्तेश्च, आमिक्षायागानुवादेन वाजिनविधानवत्; कृष्णसारङ्गोऽग्नीषोमीय इति विशेषविहितेन स्वसंनिधिपठितेन च कृष्णसारङ्गवर्णेनावरुद्धे चित्रत्वस्यानारभ्याधीतेन सामान्यशास्त्रेण विधानानुपपत्तेश्च, पाञ्चदश्यावरुद्ध इव साप्तदश्यविधानम् ।<br>
+  <small style="color:var(--muted)">§269</small> अथ मा भूदग्नीषोमीयपश्वनुवादेन चित्रत्वस्त्रीत्वविधानम्; सारस्वती मेषीति वाक्यविहितयागाङ्गमेष्यनुवादेन तु गुणविधानं स्यात्, चित्रयेति स्त्रीकारकानुवादेन चित्रत्वमात्रविधानात् । न च प्राकृतेन कृष्णसारङ्गवर्णेन नैराकाङ्क्ष्यान्न चित्रत्वविधानं युक्तमिति वाच्यम्; उपदिष्टेन चित्रत्वेनातिदिष्टस्य वर्णान्तरस्य बाधोपपत्तेरिति चेत् —<br>
+  <small style="color:var(--muted)">§270</small> मैवम् । न हि चित्रयेत्येकेन पदेन स्त्रीकारकस्योद्देशः चित्रत्वस्य च विधानं संभवति; एकप्रसरताभङ्गलक्षणवाक्यभेदापत्तेः; उद्देश्यविधेयभावस्यानेकपदसाध्यत्वात् । अत एव वषट्कर्तुः प्रथमभक्ष इत्यत्र विशिष्टभक्षविधिर्न तु भक्षानुवादेन प्राथम्यविधिरित्युक्तं तृतीये ।<br>
+  <small style="color:var(--muted)">§271</small> मेष्यनुवादेन चित्रत्वविधाने फलपदानर्थक्यापत्तेश्च; उभयविधाने वाक्यभेदात्, प्रकृतस्य च यागस्य फलाकाङ्क्षाया अनिवृत्तेः । विश्वजिन्न्यायेन फलकल्पने गौरवम्; दधिमध्वित्याद्युत्पत्तिवाक्येनैतस्याधिकारवाक्यस्य प्रतिपन्नैकवाक्यताबाधेन वाक्यभेदप्रसङ्गाच्च ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">【反論】citrā の語は「斑であること」と「女性であること」を表し、女性は生き物の性質なので、酸乳などの祭式には入れない。だからこれは<b>家畜祭</b>に従属要素を命じる独立規定で、原型である Agnīṣomīya（入門祭の家畜）に言及して従属要素を命じる。「家畜を望む」は果報ではなく、Agnīṣomīya の家畜を手に入れる「選択」への言及にすぎない。<br>
+  【答え】それでも、入門祭の家畜に言及して斑と女性の二つを命じれば文の分裂になる。限定された家畜を命じるとしても煩雑で、家畜は既出なので限定規定も成り立たない。「望む（kāma）」の語は本来果報を表すので、選択への言及では無意味になる。また入門祭の家畜は発生規定で<b>雄</b>と定められているので雌は命じえないし、特定の規定「Agnīṣomīya は黒斑である」に反して一般規定（独立規定）で斑を命じることもできない（第6課の十七の薪と同じ）。<br>
+  【反論】では「Sarasvatī に雌羊」で命じられた雌羊に言及して、斑だけを命じるのでは？<br>
+  【答え】そうではない。「citrayā」の一語で、雌の家畜への<b>言及</b>と斑の<b>命令</b>を同時に行うことはできない。言及されるものと命じられるものは別々の語で表されねばならず、さもないと<b>主題の一貫性が壊れる</b>という文の分裂になる（「最初の一口はホートリのもの」が限定規定であるのと同じ，第9課 §199）。また雌羊に言及して命じるなら果報の語が無意味になり、Prajāpati の祭式の果報への期待も満たされず、発生規定と資格規定の一体性も壊れる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For the single word ‘With the citrā’ could not both allude to the feminine instrument (already enjoined), and enjoin varicoloredness, since that would result in a split-of-the-sentence, consisting of breaking the unity of the subject-matter.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§272</span><span class="sutra-num">KSS p.130</span><span class="sutra-title">結論：Citrā は祭名</span></div>
+  <div class="mula">चित्राशब्दस्य तु कर्मनामधेयत्वे प्रकृतस्य कर्मणः फलाकाङ्क्षस्य फलसंबन्धमात्रकरणान्न वाक्यभेदः; प्रकृताया इष्टेरनेकद्रव्यकत्वेन चित्राशब्दस्य तत्रोपपत्तेः । <mark>तत्सिद्धं वाक्यभेदभयाच्चित्राशब्दः कर्मनामधेयमिति</mark> ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">しかし Citrā を祭式の名前とすれば、果報を求めている当の祭式（Prajāpati への混合物の祭）に果報との結びつきだけを与えるので、文の分裂はない。当の祭式は<b>多くの物体</b>を使うので、「色とりどりの（citrā）」という語がそれにふさわしい。こうして、Citrā の語は文の分裂を避けるために祭式の名前であることが確定した。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For the word ‘citrā,’ ‘varicolored’ or ‘variegated,’ naturally applies to the minor sacrifice in question, because it uses materials of various kinds.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch3">第11課 第3章　§57 Citrā ── 文の分裂を避けるため</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 200" role="img" aria-label="Citrāを祭名とする読みの図">
+  <rect x="20" y="20" width="300" height="160" rx="10" class="box-green"/>
+  <text x="170" y="46" text-anchor="middle" font-size="13" class="t-acc">発生規定（Prajāpati の祭）</text>
+  <text x="170" y="72" text-anchor="middle" class="t-dev" font-size="12">दधि मधु पयो घृतं धाना उदकं तण्डुलाः</text>
+  <text x="170" y="92" text-anchor="middle" class="t-dev" font-size="12">तत्संसृष्टं प्राजापत्यम्</text>
+  <text x="170" y="122" text-anchor="middle" font-size="12">七種の物体を混ぜる</text>
+  <text x="170" y="142" text-anchor="middle" font-size="12">＝「色とりどり（citrā）」</text>
+  <text x="170" y="165" text-anchor="middle" font-size="11" class="t-mute">果報がまだない → 果報を求めている</text>
+  <rect x="400" y="20" width="300" height="160" rx="10" class="box-blue"/>
+  <text x="550" y="46" text-anchor="middle" font-size="13" class="t-acc">資格規定</text>
+  <text x="550" y="72" text-anchor="middle" class="t-dev" font-size="13">चित्रया यजेत पशुकामः</text>
+  <text x="550" y="102" text-anchor="middle" font-size="12">Citrā＝その祭の名前</text>
+  <text x="550" y="122" text-anchor="middle" font-size="12">命じるのは「家畜」との結びつきだけ</text>
+  <text x="550" y="165" text-anchor="middle" font-size="11" class="t-mute">→ 文の分裂なし</text>
+  <path d="M322,100 L398,100" class="line-acc"/>
+  <text x="360" y="92" text-anchor="middle" font-size="11" class="t-acc">同じ祭式</text>
+</svg>
+<figcaption><b>図2　Citrā は祭名（§272）。</b>従属要素（斑の雌）と読むと、どう読んでも文の分裂などの瑕疵が生じる。</figcaption>
+</figure>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　理由③「それを告げる聖典」：Agnihotra と神格</h2>
+<p class="chapter-sub">§§273–285（第12課 §§286–304 に続く）</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§273–275</span><span class="sutra-num">KSS p.131</span><span class="sutra-title">tatprakhya の解釈原則</span></div>
+  <div class="mula"><small style="color:var(--muted)">§273</small> अग्निहोत्रं जुहोतीत्यत्राग्निहोत्रशब्दस्य कर्मनामधेयत्वं तत्प्रख्यशास्त्रात् । तस्य गुणस्य प्रख्यापकस्य प्रापकस्य शास्त्रस्य विद्यमानत्वेनाग्निहोत्रशब्दः कर्मनामधेयमिति यावत् । तथा हि:<br>
+  <small style="color:var(--muted)">§274</small> विधिना तावत्तदेव विधेयं यत्प्रकारान्तरेणाप्राप्तम्; <mark>अप्राप्ते शास्त्रमर्थवदिति न्यायात्</mark> । अग्निहोत्रशब्दस्य च गुणविधित्वे यो गुणस्तेन विधेयः स शास्त्रान्तरेण प्राप्तः । कथमिति चेत्, शृणु ।<br>
+  <small style="color:var(--muted)">§275</small> यदि तावदग्नौ होत्रमस्मिन्निति सप्तमीसमासमाश्रित्य होमाधारत्वेनाग्निर्विधेय इत्युच्येत, तदा यदाहवनीये जुहोतीत्यनेनैव प्राप्तत्वाद्विध्यानर्थक्यम् ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">तत्प्रख्यशास्त्र</span> <span class="iast">tatprakhyaśāstra</span> それを告げる聖典</span>
+    <span class="w"><span class="dev">अग्निहोत्र</span> <span class="iast">agnihotra</span> Agnihotra（文字どおりは「火の献供」）</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">「Agnihotra を献供する」では、agnihotra の語は<b>それを告げる聖典</b>があるので祭式の名前である。すなわち、その語が表すはずの従属要素を告げる（既出とする）聖典が<b>別に存在する</b>ので、agnihotra の語は祭名である、ということである。説明しよう。<br>
+  命令は、他の仕方では<b>未出のもの</b>だけを命じる。「<b>未出のことについて聖典は意味をもつ</b>」という解釈原則による。agnihotra の語が従属要素を命じるとすると、命じるべき従属要素は別の聖典で既出である。どうしてか。聞け。<br>
+  まず「火の中に献供があるもの」と処格の複合語と解して、火を献供の<b>場所</b>として命じるとすれば、「Āhavanīya 火に献供する」で既出なので、命令は無意味である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">This is as much as to say that the word agnihotra is a name of a rite because there is found an authoritative statement (elsewhere) setting forth, or establishing, that accessory (to which the word would otherwise be taken to refer).<span class="jp">脚注179：Edgerton は、この発生規定は MS 1.8.6 から取られたと考える（注釈は TS 1.5.9.1 とする）。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch4">第11課 第4章　§58–§59 Agnihotra ── 別の典拠がそれを示すため</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§276–278</span><span class="sutra-num">KSS pp.131–133</span><span class="sutra-title">与格の複合語と読めば？ ── 第一説</span></div>
+  <div class="mula"><small style="color:var(--muted)">§276</small> अथाग्नये होत्रमस्मिन्निति चतुर्थीसमासमाश्रित्याग्निरूपदेवतानेन समर्प्यत इति चेत्, न; शास्त्रान्तरेण प्राप्तत्वात् । किं तच्छास्त्रान्तरमिति चेदत्र केचिद्यदग्नये च प्रजापतये च सायं जुहोतीति शास्त्रान्तरेण होमानुवादेनाग्निप्रजापत्योर्विधानान्नाग्निहोत्रपदं देवतासमर्पकम् । न चोभयविधाने वाक्यभेदः । परस्परनिरपेक्षविधाने हि वाक्यभेदः स्यात्, अग्नये जुहोति प्रजापतये जुहोतीति प्रत्येकं विधिव्यापारात् । चशब्दश्रवणात्तु परस्परसापेक्षस्यैव पदद्वयस्याख्यातान्वयान्न वाक्यभेदः ।<br>
+  <small style="color:var(--muted)">§277</small> अत एवर्त्विग्भ्यो दक्षिणां ददातीति वाक्यविहितदक्षिणानुवादेन गौश्चाश्वश्चाश्वतरश्च गर्दभश्चाजाश्चावयश्च व्रीहयश्च यवाश्च तिलाश्च माषाश्च तस्य द्वादशशतं दक्षिणा इतिवाक्येन गवादीनां विधानं दशमोक्तं संगच्छते, परस्परसापेक्षाणां गवादीनां विधानेन वाक्यभेदाभावात् । अन्यथा दक्षिणानुवादेनानेकेषां गवादीनां विधानं नैव संगच्छेतेति ।<br>
+  <small style="color:var(--muted)">§278</small> अग्निप्रजापत्योश्च देवतयोः सतोः समुच्चयो न तु समुच्चितयोर्देवतात्वम्, पृथक्कारकविभक्तिश्रवणात्; चकारार्थस्य विभक्त्यर्थेनान्वयात्तस्याप्राधान्यात् । अतश्च नाग्नीषोमादिवदग्निप्रजापत्योर्देवतात्वमिति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">では「Agni に献供があるもの」と与格の複合語と解して、Agni という<b>神格</b>を示すとすればどうか。それも駄目である。別の聖典で既出だからである。その聖典とは何か。<b>ある人々</b>（Śābarabhāṣya など）はこう言う──「<b>夕方に Agni と Prajāpati に献供する</b>」という別の聖典が、献供に言及して Agni と Prajāpati を（神格として）命じているので、agnihotra の語は神格を示さない。両方を命じても文の分裂にならない。「と（ca）」があるので、二語は互いに依存して動詞と連関するからである。<br>
+  だからこそ「ホートリたちに祭礼料を与える」に言及して「牛と馬とラバとロバと山羊と羊と米と大麦と胡麻と豆と、その祭礼料は百十二」で多くのものを命じることが、 Jaimini 第10課で認められている。<br>
+  ここで Agni と Prajāpati は神格として「並べられて」いるのであって、二柱が一体となって神格なのではない（Agni-Soma のような双神ではない）。格語尾が別々に聞かれるからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But the direct-expression of the word ‘and’ shows that the two words are construed with the verb in strict interdependence on one another, so that there is no split of the sentence.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch4">第11課 第4章　§58–§59 Agnihotra ── 別の典拠がそれを示すため</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§279–285</span><span class="sutra-num">KSS pp.133–136</span><span class="sutra-title">第二説：Agni は祭詞によって既出</span></div>
+  <div class="mula"><small style="color:var(--muted)">§279</small> अन्ये त्वाचार्या आहुः: यदग्नये च प्रजापतये च सायं जुहोतीतिवाक्यं नाग्नेः प्रापकम्, होमानुवादेन प्रजापतिविधानात् । न च विनिगमनाविरहादुभयविधानं युक्तमिति वाच्यम्; विधिना हि तदेव विधीयते यत्प्रकारान्तरेणाप्राप्तम् । तत्र यथानेन वाक्येन सायंकालो न विधीयते, सायं जुहोतीति वचनान्तरेण प्राप्तत्वात्, तथाग्निरपि न विधीयतेऽग्निर्ज्योतिर्ज्योतिरग्निः स्वाहेति मन्त्रवर्णादेव प्राप्तत्वात् । मन्त्रवर्णस्यापि देवतासमर्पकत्वमस्त्येव । अत एवोपांशुयाजे विष्ण्वादीनां मान्त्रवर्णिकं देवतात्वमित्युक्तम् ।<br>
+  <small style="color:var(--muted)">§280</small> नन्वेवं प्रजापतिदेवतयाग्नेर्बाधः स्यात् । चतुर्थ्या हि प्रजापतेर्देवतात्वमवगम्यते, अग्नेस्तु मान्त्रवर्णिकम् । तत्र सास्य देवतेति देवतात्वे तद्धितस्मरणवद्यद्यपि देवतात्वे चतुर्थीस्मरणं नास्ति, सम्प्रदाने चतुर्थीति सम्प्रदाने तस्याः स्मरणात्, तथापि त्यज्यमानद्रव्योद्देश्यत्वं तावद्देवतात्वम् । तच्च सम्प्रदानस्वरूपान्तर्गतम्, त्यज्यमानद्रव्योद्देश्यत्वे सति प्रतिग्रहितृत्वस्य सम्प्रदानत्वात् । अतश्चतुर्थीतः सम्प्रदानैकदेशतया देवतात्वप्रतीतिरस्त्येव । मन्त्रवर्णात्तु न देवतात्वं प्रतीयते, किं त्वधिष्ठानमात्रम् । अतश्च मन्त्रवर्णश्चतुर्थीतो दुर्बलः । यथाहुः:<br>
+  <small style="color:var(--muted)">§281</small> तद्धितेन चतुर्थ्या वा मन्त्रवर्णेन वा पुनः ।<br>देवताया विधिस्तत्र दुर्बलं तु परं परम् । इति ।<br>
+  <small style="color:var(--muted)">§282</small> अतश्च प्रबलप्रमाणबोधितप्रजापतिदेवतया दुर्बलप्रमाणबोधिताग्नेर्बाधः स्यादिति चेत् —<br>
+  <small style="color:var(--muted)">§283</small> सत्यम् । स्याद्बाधो यदि प्रजापतये जुहोतीति केवलं प्रजापतिविधानं स्यात् । विधीयमानस्तु प्रजापतिर्मन्त्रवर्णप्राप्तमग्निमनूद्य तत्समुच्चितो होमोद्देशेन विधीयते; समुच्चितोभयविधानापेक्षयान्यतः प्राप्तमग्निमनूद्य तत्समुच्चितप्रजापतिमात्रविधाने लाघवात् । अतश्च न बाधकत्वम्, निरपेक्षविधानाभावात् । यथा च त्वन्मतेऽग्निप्रजापत्योरेकहोमोद्देशेन विधानात्तुल्यार्थत्वेन विकल्पे प्रसक्ते प्रजापतेर्न पाक्षिकमग्निबाधकत्वम्, समुच्चयविधानात्; एवं मन्त्रवर्णप्राप्तमग्निमनूद्य तत्समुच्चितप्रजापतिविधानेऽपि न बाधकत्वमिति तुल्यम् ।<br>
+  <small style="color:var(--muted)">§284</small> यत्त्वग्नेर्मान्त्रवर्णिकत्वेऽग्निर्ज्योतिर्ज्योतिः सूर्यः स्वाहेति मिश्रलिङ्गमन्त्रवर्णबलात्सायंहोमस्य द्विदैवत्यत्वापत्तिरिति, तन्न; अग्निसमुच्चितप्रजापतिविधानवत्सूर्यसमुच्चितस्याविधानात्प्रबलप्रमाणबोधितेन प्रजापतिना मन्त्रवर्णप्राप्तस्य सूर्यस्य बाधितत्वात् ।<br>
+  <small style="color:var(--muted)">§285</small> यत्त्वग्नेर्मान्त्रवर्णिकत्वे प्रजापतिविधेरेकेनैव वाक्येन सिद्धेः, यदग्नये च प्रजापतये च सायं जुहोतीति, यत्सूर्याय च प्रजापतये च प्रातर्जुहोतीति, वाक्यद्वयं व्यर्थमिति, तन्न । भवेद्व्यर्थं यदि प्रजापतिमात्रविधानं विवक्षितं स्यात्, सायंहोमेऽग्निसमुच्चितप्रजापतिविधानम्, प्रातर्होमे सूर्यो ज्योतिर्ज्योतिः सूर्यः स्वाहेति मन्त्रवर्णप्राप्तसूर्यसमुच्चितप्रजापतिविधानं च विवक्षितम् । न चैतदेकेन वाक्येन सिध्यति । अतोऽर्थवद्वाक्यद्वयम् ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v"><b>別の先生たち</b>（Pārthasārathi Miśra の学派）はこう言う。「夕方に Agni と Prajāpati に献供する」は Agni を既出とするものではない。献供に言及して Prajāpati を命じるのである。命令は他で未出のものだけを命じる。この文が夕方という時を命じない（「夕方に献供する」で既出）のと同じく、Agni も命じない。祭詞「<b>Agni は光、光は Agni、スヴァーハー</b>」の文言だけで既出だからである。祭詞の文言も神格を示しうる（Upāṃśuyāja（低唱祭）の Viṣṇu などの神格は祭詞の文言による）。<br>
+  【反論】それなら Prajāpati が Agni を打ち消すことになる。神格を示す根拠には強弱があるからである──「派生接尾辞、与格、あるいは祭詞の文言によって神格が命じられる。そのうち後のものほど弱い。」Prajāpati は与格、Agni は祭詞の文言なので、Agni の方が弱い。<br>
+  【答え】Prajāpati だけが命じられるなら打ち消すだろう。しかしここでは、祭詞の文言で既出の Agni に言及して、<b>Agni と並べて</b> Prajāpati が命じられる。独立した命令ではないので打ち消さない。また「Agni は光、光は Sūrya…」という混合の祭詞から夕方の献供に Sūrya も神格になるのでは、という反論には、Sūrya とは並べて命じられていないので強い根拠の Prajāpati が Sūrya を打ち消す、と答える。夕方と朝の二つの文（「朝に Sūrya と Prajāpati に献供する」）が必要なのも、それぞれ Agni と、Sūrya と並べて Prajāpati を命じるためである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“By a secondary formation, or a dative, or again by the wording of a formula, the deity is enjoined; but among them each is weaker than the one before it.”<span class="jp">脚注185：第二説は Pārthasārathi Miśra の学派（Śāstradīpikā 1.4.4）。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson11.html#ch4">第11課 第4章　§58–§59 Agnihotra ── 別の典拠がそれを示すため</a></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表5-1　神格を命じる三つの手段と強弱（§281）</caption>
+<tr><th>強さ</th><th>手段</th><th>例</th><th>Edgerton</th></tr>
+<tr><td>1</td><td>派生接尾辞（taddhita）</td><td class="dev">वैश्वदेवी आमिक्षा（Viśvadeva たちの凝固発酵乳）</td><td class="en">secondary formation</td></tr>
+<tr><td>2</td><td>与格</td><td class="dev">प्रजापतये जुहोति</td><td class="en">dative</td></tr>
+<tr><td>3</td><td>祭詞の文言</td><td class="dev">अग्निर्ज्योतिर्ज्योतिरग्निः स्वाहा</td><td class="en">wording of a formula</td></tr>
+</table></div>
+
+<div class="tbl-wrap"><table>
+<caption>表5-2　Agnihotra の「Agni」はどこで既出か（§§275–285）</caption>
+<tr><th>agnihotra の解釈</th><th>表すもの</th><th>既出とする聖典</th></tr>
+<tr><td>処格複合語「火の中の献供」</td><td>献供の場所（火）</td><td class="dev">यदाहवनीये जुहोति</td></tr>
+<tr><td>与格複合語「Agni への献供」（第一説）</td><td>神格 Agni</td><td class="dev">यदग्नये च प्रजापतये च सायं जुहोति</td></tr>
+<tr><td>与格複合語「Agni への献供」（第二説）</td><td>神格 Agni</td><td>祭詞 <span class="dev">अग्निर्ज्योतिर्ज्योतिरग्निः स्वाहा</span></td></tr>
+</table></div>
+<div class="point">どの解釈でも、agnihotra が表すはずの従属要素は別の聖典で既出 → agnihotra は従属要素ではなく祭名（tatprakhya の解釈原則）。議論は第12課に続く。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 祭名の役目は？</summary><div>命じられるもの（特定の祭式）を特定すること。（§249）</div></details>
+<details class="q"><summary>Q2. 祭名の同一指示は「青い蓮」型か「Viśvadeva 的な凝固発酵乳」型か？ なぜ？</summary><div>後者。祭名には語根が表す祭式の特定の種類以外の意味がなく、一般（祭る）に対する特定として同一指示になるので転義が要らない。（§§250–254）</div></details>
+<details class="q"><summary>Q3. 祭名とみなす四つの理由は？</summary><div>所有の意の転義を避ける・文の分裂を避ける・それを告げる聖典がある・それにたとえる。（§255）</div></details>
+<details class="q"><summary>Q4. Udbhid は祭名なのに、ソーマが祭名でないのはなぜ？</summary><div>ソーマは「つる草」という慣用的意味が定まっていて祭名になりえないから。Udbhid には定まった意味がない。（§264）</div></details>
+<details class="q"><summary>Q5. Citrā を「斑の雌の家畜」と読めない理由を一つ挙げよ。</summary><div>一語で雌の家畜への言及と斑の命令を同時にすることはできず、主題の一貫性が壊れる（文の分裂）。他にも、入門祭の家畜は雄と定められているなど。（§§266–271）</div></details>
+<details class="q"><summary>Q6. 神格を命じる三つの手段の強弱は？</summary><div>派生接尾辞 ＞ 与格 ＞ 祭詞の文言。（§281）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第11課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">नामधेय</td><td class="iast">nāmadheya</td><td>祭名</td><td class="en">name</td></tr>
+<tr><td class="dev">विधेयार्थपरिच्छेद</td><td class="iast">vidheyārthapariccheda</td><td>命じられるものの特定</td><td class="en">defining the meaning enjoined</td></tr>
+<tr><td class="dev">तद्धित</td><td class="iast">taddhita</td><td>派生接尾辞</td><td class="en">secondary derivative</td></tr>
+<tr><td class="dev">तत्प्रख्यशास्त्र</td><td class="iast">tatprakhyaśāstra</td><td>それを告げる聖典</td><td class="en">authoritative passage setting forth it</td></tr>
+<tr><td class="dev">तद्व्यपदेश</td><td class="iast">tadvyapadeśa</td><td>それにたとえること</td><td class="en">representation of it</td></tr>
+<tr><td class="dev">एकप्रसरताभङ्ग</td><td class="iast">ekaprasaratābhaṅga</td><td>主題の一貫性が壊れること</td><td class="en">breaking the unity of the subject-matter</td></tr>
+<tr><td class="dev">मान्त्रवर्णिक</td><td class="iast">māntravarṇika</td><td>祭詞の文言に基づく</td><td class="en">based on the wording of the formulas</td></tr>
+<tr><td class="dev">समुच्चय</td><td class="iast">samuccaya</td><td>並べること（連言）</td><td class="en">conjunction</td></tr>
+</table></div>
+<h3>底本について（第11課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文（Text, pp. 248–253）を採り、KSS版（1949年）と照合しました。§§257–262、§§266–271、§§276–285 は議論が細かいため、訳を「要旨」としています。OCR で ṇ が n、ī が i になっていた箇所（<span class="dev">करणत्व</span>、<span class="dev">लक्षणया</span>、<span class="dev">चतुर्थी</span>、<span class="dev">प्रतीयते</span> など）は直しました。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson10.html">← 第10課　祭詞と三種の規定</a><span class="spacer"></span><a href="mnp_lesson12.html">第12課　祭名（2） →</a></nav>
+
+<footer>
+  やさしい聖典解釈学 · 第11課　祭名（1）<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§249–285, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>

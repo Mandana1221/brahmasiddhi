@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい聖典解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+.en { font-family: 'Noto Serif', serif; font-size: 0.95em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Noto Serif', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Noto Serif', serif; font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Noto Serif', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Noto Serif', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+.as-row .k { color: var(--green, #4a6b3a); }
+.as-row .v a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — स्थानम्, समाख्या, अङ्गविभागः</div>
+  <h1>やさしい聖典解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 8</div>
+  <div class="header-jp">第8課　第五・第六の根拠「位置」「名称」と、構成要素の分類・不可見の力<br>
+  本文：Edgerton §§169–195（校訂本文 pp. 227–233 ／ KSS版 pp. 73–88）<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#ch1"><span class="n">第1章</span>位置（sthāna）（§§169–175）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>位置は名称より強い／名称（samākhyā）（§§176–181）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>構成要素の分類（§§182–185）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>接して助ける構成要素は、離れて助ける構成要素より強い（§§186–191）</a></li>
+    <li><a href="#ch5"><span class="n">第5章</span>すべての構成要素は不可見の力のため（§§192–195）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　位置</h2>
+<p class="chapter-sub">§§169–175 ／ 第五の根拠</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§169–170</span><span class="sutra-num">KSS p.73</span><span class="sutra-title">位置の定義と二種</span></div>
+  <div class="mula"><small style="color:var(--muted)">§169</small> <mark>देशसामान्यं स्थानम्</mark> । तच्च द्विविधम्: पाठसादेश्यमनुष्ठानसादेश्यं चेति । यथाहुः:<br>
+  <small style="color:var(--muted)">§170</small> तत्र क्रमो द्विधैवेष्टो देशसामान्यलक्षणः ।<br>पाठानुष्ठानसादेश्याद्विनियोगस्य कारणम् । इति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v"><b>場所が共通であることが位置である</b>。それは二種、<b>本文での場所の共通</b>と、<b>実行での場所の共通</b>である。こう言われている──「そこで順序は、場所の共通を特徴とし、二種だけと認められる。本文と実行での場所の共通のゆえに、配属の原因となる。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Position (sthāna) means common location. And it is of two kinds, common-location in the text, and common-location in the performance.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch1">第7課 第1章　§32–§33 sthāna ── 読誦の位置の一致</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§171–172</span><span class="sutra-num">KSS pp.74–75</span><span class="sutra-title">本文での場所の共通：番号順と近接</span></div>
+  <div class="mula"><small style="color:var(--muted)">§171</small> स्थानं क्रमश्चेत्यनर्थान्तरम् । पाठसादेश्यमपि द्विविधम्: यथासंख्यपाठः संनिधिपाठश्चेति । तत्रैन्द्राग्नमेकादशकपालं निर्वपेत्, वैश्वानरं द्वादशकपालं निर्वपेदित्येवं क्रमविहितेष्टिष्विन्द्राग्नी रोचना दिव इत्यादीनां याज्यानुवाक्यामन्त्राणां यथासंख्यं प्रथमस्य प्रथमं द्वितीयस्य द्वितीयमित्येवं यो विनियोगः स यथासंख्यपाठात्; प्रथमपठितमन्त्रस्य हि कैमर्थ्याकाङ्क्षायां प्रथमतो विहितं कर्मैव प्रथममुपतिष्ठते समानदेशत्वात् ।<br>
+  <small style="color:var(--muted)">§172</small> यानि तु वैकृतान्यङ्गानि प्राकृताङ्गाननुवादेन विहितानि संदंशापतितानि तेषां विकृत्यर्थत्वं संनिधिपाठात् । तेषां हि कैमर्थ्याकाङ्क्षायां फलवद्विकृत्यपूर्वमेव भाव्यत्वेन सम्बध्यते, उपस्थितत्वात् । अत एव तेषु न विश्वजिन्न्यायावतारः; स्वतन्त्रफलार्थत्वे विकृतिसंनिधिपाठानर्थक्यापत्तेश्च ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">「位置」と「順序（krama）」は同じ意味である。本文での場所の共通にもまた二種、<b>番号順の本文</b>と<b>近接の本文</b>がある。<br>
+  「Indra と Agni に十一皿の餅を分けるべし」「Vaiśvānara に十二皿の餅を分けるべし」と順に命じられた祭式に、「Indra と Agni は天の二つの光の空間…」などの祭詞と招請の詩節が、<b>番号順に、一番目には一番目、二番目には二番目</b>と配属されるのは、番号順の本文による。一番目に唱えられた祭詞に「何のため」の期待が生じると、一番目に命じられた行為が場所が同じなので最初に思い浮かぶからである。<br>
+  原型の構成要素への言及なしに命じられ、はさみの中にもない変型の構成要素が変型のためであるのは、<b>近接の本文</b>による。「何のため」の期待が生じると、近くにある、果報をもつ変型の不可見の力が目的として連関するからである。だからそれらに Viśvajit の解釈原則は適用されない。独自の果報のためなら、変型の近くに唱えられる意味がなくなるからでもある。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">‘Position’ and ‘order’ (krama) mean the same thing. And common-location in the text is again of two kinds, text according to number, and text according to proximity.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch1">第7課 第1章　§32–§33 sthāna ── 読誦の位置の一致</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§173–175</span><span class="sutra-num">KSS pp.75–76</span><span class="sutra-title">実行での場所の共通：Agnīṣomīya の家畜</span></div>
+  <div class="mula"><small style="color:var(--muted)">§173</small> पशुधर्माणामग्नीषोमीयार्थत्वमनुष्ठानसादेश्यात् । औपवसथ्येऽह्न्यग्नीषोमीयः पशुरनुष्ठीयते, तस्मिन्नेव दिने ते धर्माः पठ्यन्ते । अतस्तेषां कैमर्थ्याकाङ्क्षायामनुष्ठेयत्वेनोपस्थितं पश्वपूर्वमेव भाव्यत्वेन सम्बध्यते । अतो युक्तमनुष्ठानसादेश्यात्तदर्थत्वं तेषाम् ।<br>
+  <small style="color:var(--muted)">§174</small> न च पाठसादेश्यादेव तत्किं न स्यादिति वाच्यम्; अग्नीषोमीयस्य पशोः क्रयसंनिधौ पाठात् । न च क्रयसंनिधौ तस्य पाठे तदनुष्ठानमपि तत्र स्यादिति वाच्यम्; स एष द्विदैवत्यः पशुरौपवसथ्येहन्यालब्धव्य इति वचनात्तदनुपपत्तेः । न च स्थानात्प्रकरणस्य बलीयस्त्वेन पशुधर्माणां ज्योतिष्टोमार्थत्वमेव किं न स्यादिति वाच्यम्; तस्य सोमयागत्वेन पशुधर्मग्रहणेऽयोग्यत्वात् । अत आनर्थक्यप्रतिहतानां विपरीतं बलाबलमिति न्यायात्स्थानात्पशुयागार्थत्वमेव धर्माणां युक्तम् ।<br>
+  <small style="color:var(--muted)">§175</small> न च तेषां तदर्थत्वं प्रकरणादेव किं न स्यादिति वाच्यम्; अग्नीषोमीयकथम्भावाकाङ्क्षायाः क्ल्प्तोपकारैः प्राकृतधर्मैरेवोपशान्तत्वात् । स हि साम्नाय्ययागप्रकृतिकः, उभयोः पशुप्रभवद्रव्यत्वसामान्यात् । तदुक्तम्: साम्नाय्यं वा तत्प्रभवत्वादिति । साम्नाय्यं दधिपयसी । तत्र पशुयागः पयोयागप्रकृतिकः साक्षात्पशुप्रभवत्वात् । अतश्चोदकप्राप्तैस्तद्धर्मैर्निराकाङ्क्षत्वान्न पशुयागे धर्माणां प्रकरणं विनियोजकं किं तु स्थानमेव । तदेवं निरूपितः संक्षेपतः स्थानविनियोगः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">家畜の規定（引き寄せ・つなぐこと・火を回すことなど）が Agnīṣomīya の家畜のためであるのは、<b>実行での場所の共通</b>による。Agnīṣomīya の家畜は<b>断食の日</b>に行われ、それらの規定もその同じ日のものとして唱えられる。だから「何のため」の期待に対して、（その日に）行うべきものとして思い浮かぶ家畜祭の不可見の力が目的として連関する。<br>
+  本文での場所の共通によるのではない。Agnīṣomīya の家畜は本文ではソーマ購入の近くに述べられている（購入は第二日、断食の日は第四日）。購入の近くに述べられているなら、その時に行えばよいとも言えない。「この二神（Agni と Soma）の家畜は断食の日に殺されるべし」という言葉に反するからである。文脈は位置より強いので Jyotiṣṭoma のためでは、とも言えない。それはソーマ祭なので家畜祭の規定を受け取るのにふさわしくない。「<b>無意味さに妨げられるときは、強弱が逆になる</b>」という解釈原則による。<br>
+  文脈によってでもない。Agnīṣomīya の「どのように」の期待は、効能の確立した原型（乳の献供）の規定で既に満たされているからである。こうして位置による配属を簡潔に述べた。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">So, by the rule that “when meaninglessness blocks the way, the relative strength (of the modes-of-evidence) is reverst,” it is correct to say that by position these properties are subsidiary rather to the purpose of the animal-sacrifice.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch3">第7課 第3章　§34–§35 実行の位置の一致／sthāna は samākhyā より強い</a></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表1-1　位置（sthāna＝krama）の種類（§§169–175）</caption>
+<tr><th>種類</th><th>小分類</th><th>例</th><th>しくみ</th></tr>
+<tr><td rowspan="2">本文での場所の共通<br><span class="dev">पाठसादेश्य</span></td><td>番号順 <span class="dev">यथासंख्यपाठ</span></td><td>二つの餅の祭と二組の詩節</td><td>1番目の詩節 → 1番目の祭</td></tr>
+<tr><td>近接 <span class="dev">संनिधिपाठ</span></td><td>変型の新しい構成要素（副献供など）</td><td>近くの変型の不可見の力へ</td></tr>
+<tr><td>実行での場所の共通<br><span class="dev">अनुष्ठानसादेश्य</span></td><td>—</td><td>家畜の規定 → Agnīṣomīya の家畜</td><td>同じ日（断食の日）に行う</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　位置は名称より強い／名称</h2>
+<p class="chapter-sub">§§176–181 ／ 第六の根拠</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§176–178</span><span class="sutra-num">KSS pp.77–78</span><span class="sutra-title">名称は関係を表さない</span></div>
+  <div class="mula"><small style="color:var(--muted)">§176</small> <mark>तच्च समाख्यातः प्रबलम्</mark> । स्थानविनियोगे हि पदार्थयोर्देशसामान्यलक्षणः सम्बन्धः प्रत्यक्षः । समाख्याविनियोगे तु सम्बन्धो न प्रत्यक्षः, पदार्थयोर्भिन्नदेशत्वात् । न च सा सम्बन्धवाचिका; यौगिकानां शब्दानां द्रव्यवाचकत्वेन सम्बन्धावाचकत्वात् । तथा हि: समाख्या सम्बन्धसामान्यवाचिका स्यात्, तद्विशेषवाचिका वा । नाद्यः, तदुक्तौ प्रयोजनाभावात्, सर्वयौगिकशब्दानां पर्यायतापत्तेश्च । द्वितीयेऽवश्यं सम्बन्धिनौ वाच्यौ, तदन्तरेण सम्बन्धे विशेषाभावात्, तत्प्रतिपत्तिमन्तरेण तदप्रतिपत्तेश्च । अतश्चावश्यं सम्बन्धिवाचकत्वं समाख्याया वक्तव्यम् । तथा च न सम्बन्धवाचकत्वं सम्बन्धिप्रतिपत्त्यैव वाक्यार्थप्रतिपत्तिन्यायेन तत्प्रतिपत्तिसम्भवे तत्र शक्तिकल्पने गौरवात् । यथाहुः:<br>
+  <small style="color:var(--muted)">§177</small> सर्वत्र यौगिकैः शब्दैर्द्रव्यमेवाभिधीयते ।<br>न हि सम्बन्धवाचित्वं सम्भवत्यतिगौरवात् । इति । तथा:<br>
+  <small style="color:var(--muted)">§178</small> पाकं तु पचिरेवाह कर्तारं प्रत्ययोऽप्यकः ।<br>पाकयुक्तः पुनः कर्ता वाच्यो नैकस्य कस्यचित् । इति ।</div>
+  <div class="row"><div class="k">訳（要旨）</div><div class="v">位置は名称より強い。位置による配属では、二つのものの関係は場所の共通によって<b>目に見えている</b>。名称による配属では関係は目に見えない。二つのものは別々の場所にあるからである。<br>
+  そして名称は<b>関係を表さない</b>。語源的に解される語は物を表すのであって、関係を表さないからである。名称が表すのは関係一般か、特定の関係か。前者なら言っても意味がなく、語源的な語がすべて同義語になってしまう。後者なら関係する二つのものを必ず表さねばならない。そうなれば、関係する二つが分かるだけで（文の意味が分かるのと同じ仕方で）関係も分かるので、関係を表す力まで想定するのは煩雑である。こう言われている──「語源的な語は、どこでも物だけを表す。関係を表すことはありえない。あまりに煩雑だから。」また──「（pācaka『煮る者』で）語根 pac は『煮ること』を、接尾辞 -aka は行為者を表す。しかし『煮ることと結びついた行為者』は、どの要素の意味でもない。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“Everywhere material objects alone are denoted by words taken in their literal sense; for they never express relationships, since that would be too complicated.”</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch3">第7課 第3章　§34–§35 実行の位置の一致／sthāna は samākhyā より強い</a>／<a href="arthasamgraha_lesson7.html#ch4">第7課 第4章　§36 samākhyā ── 名称</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§179–181</span><span class="sutra-num">KSS pp.79–80</span><span class="sutra-title">ヴェーダの名称・世俗の名称</span></div>
+  <div class="mula"><small style="color:var(--muted)">§179</small> तथा च समाख्या न सम्बन्धवाचिका । होतृचमस इत्यादिका तु वैदिकी समाख्या निषादस्थपतिशब्दवन्न षष्ठ्यर्थसम्बन्धवाचिका; नापि वाक्यवत्तद्बोधिका, तस्याः पदत्वेनाप्रमाणत्वात् । पौरोडाशिकमित्यादिसमाख्यास्त्वतिदुर्बलाः; लौकिकत्वेन पुरुषप्रत्ययसापेक्षत्वात्, काण्डगोचरत्वेन तत्तत्पदार्थागोचरत्वाच्च । काण्डवाचकत्वमपि न काण्डत्वेन किं तु पौरोडाशिकत्वादिनैव । न ह्येकहायनीशब्दो द्रव्यवाचकोऽपि गोत्वेन तद्वदति, किं तर्ह्येकहायनीत्वेनैव ।<br>
+  <small style="color:var(--muted)">§180</small> स्थानविनियोगे तु पदार्थयोर्विशेषपुरस्कारेणैव सम्बन्धः प्रत्यक्षप्रमाणप्रतिपन्नः । अतश्च समाख्यामुपलभ्य नूनमनयोः पदार्थयोः सम्बन्धोऽस्तीति यावत्कल्प्यते, तावत्प्रत्यक्षप्रतिपन्नेन सम्बन्धेन परस्परमाकाङ्क्षा, तदभावे च सम्बन्धानुपपत्तेः । कल्पितसम्बन्धेन च यावदितरत्राकाङ्क्षादिकल्पना तावदन्यत्राकाङ्क्षया वाक्यादिकल्पनया विनियोगः क्रियत इति सिद्धं स्थानस्य समाख्यातः प्राबल्यम् । अत एव शुन्धनमन्त्रः सांनाय्यपात्राङ्गं पाठसादेश्यान्न तु पौरोडाशिकसमाख्यया पुरोडाशपात्राङ्गमिति ।<br>
+  <small style="color:var(--muted)">§181</small> <mark>समाख्या यौगिकः शब्दः</mark> । सा च द्विविधा, वैदिकी लौकिकी चेति । तत्र होतुश्चमसभक्षणाङ्गत्वं होतृचमस इति वैदिक्या समाख्यया । अध्वर्योस्तत्तत्पदार्थाङ्गत्वं लौकिक्याध्वर्यवमिति समाख्ययेति संक्षेपः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">こうして名称は関係を表さない。「<b>ホートリの杯</b>」のようなヴェーダの名称も、「Niṣāda の長」と同じく属格の関係を表すのではない（同一指示の複合語として解される）。文のようにそれを知らせるのでもない。一語にすぎないからである。「<b>餅の（章）</b>」のような名称は特に弱い。世俗の語なので人の理解に依存し、書物（章）全体を対象とするので、個々のものを対象としないからである。<br>
+  しかし位置による配属では、二つのものの関係が直接の根拠によって確立している。だから名称を見て「きっとこの二つには関係があるはずだ」と想定している間に、目に見える関係によって相互の期待（文脈）が起き、文などが想定されて配属が済んでしまう。だから位置は名称より強い。だからこそ、浄めの祭詞は本文での場所の共通によって Sāṃnāyya（酸乳と加熱乳の混合物）の器の構成要素でもあり、「餅の（章）」という名称によって餅の器だけの構成要素なのではない。<br>
+  <b>名称とは、語源的に解される語である</b>。それは二種、ヴェーダのものと世俗のものである。「ホートリの杯」というヴェーダの名称によって、ホートリ祭官が杯（の中身）を飲むことの構成要素であることが示される。「アドヴァリユの（章）」という世俗の名称によって、アドヴァリユ祭官がその章の行為の構成要素であることが示される。以上が要約である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">Name (samākhyā) is a word taken in its literal (or etymological) sense (interpreted by decomposing it into its parts). And it is of two kinds, Vedic, and belonging to the common language.<span class="jp">脚注116：「ホートリの杯」は、属格の依主複合語（tatpuruṣa）ではなく同一指示の複合語（karmadhāraya）として解される。複合語はつねに同一指示の複合語として解するのが望ましい。脚注117（注釈）：「一歳のもの」と「牛」は同義語でないので「一歳の牝牛」と言っても重複にならない。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch4">第7課 第4章　§36 samākhyā ── 名称</a></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表2-1　六つの根拠のまとめ（第5課〜第8課）</caption>
+<tr><th>強さ</th><th>根拠</th><th>本質</th><th>代表例</th></tr>
+<tr><td>1</td><td>明言 <span class="dev">श्रुति</span></td><td>聞いただけで関係が分かる語</td><td class="dev">व्रीहिभिर्यजेत</td></tr>
+<tr><td>2</td><td>語の意味能力 <span class="dev">लिङ्ग</span></td><td>能力</td><td class="dev">बर्हिर्देवसदनं दामि</td></tr>
+<tr><td>3</td><td>文 <span class="dev">वाक्य</span></td><td>並べて言うこと</td><td class="dev">यस्य पर्णमयी जुहूः…</td></tr>
+<tr><td>4</td><td>文脈 <span class="dev">प्रकरण</span></td><td>相互の期待</td><td>前祭 → 新月祭・満月祭</td></tr>
+<tr><td>5</td><td>位置 <span class="dev">स्थान</span></td><td>場所の共通（片方の期待）</td><td>家畜の規定 → Agnīṣomīya</td></tr>
+<tr><td>6</td><td>名称 <span class="dev">समाख्या</span></td><td>語源的に解される語</td><td>「ホートリの杯」</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　構成要素の分類</h2>
+<p class="chapter-sub">§§182–185</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§182–183</span><span class="sutra-num">KSS p.81</span><span class="sutra-title">出来上がったものと行為</span></div>
+  <div class="mula"><small style="color:var(--muted)">§182</small> तदेवं निरूपितानि संक्षेपतः श्रुत्यादीनि षट्प्रमाणानि । एतत्सहकृतेन विनियोगविधिना समिदादिभिरुपकृत्य दर्शपूर्णमासाभ्यां यजेतेत्येवंरूपेण यानि विनियुज्यन्ते तान्यङ्गानि । तानि द्विविधानि, सिद्धरूपाणि क्रियारूपाणि चेति ।<br>
+  <small style="color:var(--muted)">§183</small> तत्र <mark>सिद्धरूपाणि जातिद्रव्यसंख्यादीनि</mark> । तानि च दृष्टार्थान्येव । क्रियारूपाणि च द्विविधानि: गुणकर्माणि प्रधानकर्माणि चेति । एतान्येव संनिपत्योपकारकाण्यारादुपकारकाणीति चोच्यन्ते । तत्र कर्माङ्गद्रव्याद्युद्देशेन विधीयमानं कर्म संनिपत्योपकारकम्; यथावघातप्रोक्षणादि । तच्च दृष्टार्थमदृष्टार्थं दृष्टादृष्टार्थं च । दृष्टार्थमवघातादि; अदृष्टार्थं प्रोक्षणादि; दृष्टादृष्टार्थं पशुपुरोडाशयागादि । तद्धि द्रव्यत्यागांशेनादृष्टं देवतोद्देशेन च देवतास्मरणं दृष्टं करोति । इदमेव चाश्रयि कर्मेत्युच्यते ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">सिद्धरूप</span> <span class="iast">siddharūpa</span> 出来上がったもの</span>
+    <span class="w"><span class="dev">क्रियारूप</span> <span class="iast">kriyārūpa</span> 行為</span>
+    <span class="w"><span class="dev">संनिपत्योपकारक</span> <span class="iast">saṃnipatyopakāraka</span> 接して助けるもの</span>
+    <span class="w"><span class="dev">आरादुपकारक</span> <span class="iast">ārādupakāraka</span> 離れて助けるもの</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">こうして明言など六つの根拠を簡潔に述べた。これらに助けられた配属規定──「薪などで助けて、新月祭・満月祭で祭るべし」のような形のもの──によって配属されるものが構成要素である。それは二種、<b>出来上がったもの</b>と<b>行為</b>である。<br>
+  出来上がったものとは、類・物体・数などである。それらは目に見える目的だけのためにある。行為は二種、<b>従属行為</b>と<b>主要行為</b>である。それらはまた<b>接して助けるもの</b>・<b>離れて助けるもの</b>とも呼ばれる。そのうち、行為の構成要素である物体などを目指して命じられる行為が<b>接して助けるもの</b>である。たとえば搗くこと・振りかけることなど。それは目に見える目的のもの（搗く）、目に見えない目的のもの（振りかける）、両方のもの（家畜の餅の献供）がある。最後のものは、物体を手放す面では見えない効果を、神格を指す面では神格を思い起こすという見える効果を生む。これはまた「よりどころをもつ行為」とも呼ばれる。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">These are also known as indirectly-contributing and directly-contributing actions. … an indirectly-contributing action is one that is enjoined with reference to a material-substance or other (fixed-element) subsidiary of the rite …<span class="jp">脚注80：<span class="iast">ārādupakāraka</span> は「現代の翻訳者・注釈者にしばしば誤解されている」語。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch5">第7課 第5章　§37–§39 従属物の2種</a></div></div>
+</div>
+
+<div class="note en-note">
+  <div class="note-title">訳語の注意：Edgerton の “indirectly / directly”</div>
+  <span class="iast">saṃnipatya</span> は「接して、結びついて」、<span class="iast">ārāt</span> は「離れて、遠くから」という意味です。Edgerton は前者を “<b>indirectly</b>-contributing”、後者を “<b>directly</b>-contributing” と訳します。<b>字義と逆に見えますが</b>、Edgerton の観点は「主要行為（の不可見の力）に対して」です。搗くこと・振りかけることは<b>米という物を介して</b>主を助けるので「間接的」、前祭は物を介さず<b>主の不可見の力を直接</b>助けるので「直接的」なのです。この教科書では字義に従い「接して助ける」「離れて助ける」と訳します。
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 280" role="img" aria-label="構成要素の分類の木">
+  <rect x="290" y="8" width="140" height="40" rx="8" class="box-acc"/>
+  <text x="360" y="33" text-anchor="middle" font-size="14">構成要素 <tspan class="t-dev">अङ्गम्</tspan></text>
+  <path d="M360,48 L360,62 M150,62 L520,62 M150,62 L150,78 M520,62 L520,78" class="line"/>
+  <rect x="40" y="80" width="220" height="64" rx="8" class="box"/>
+  <text x="150" y="104" text-anchor="middle" font-size="13">出来上がったもの <tspan class="t-dev">सिद्धरूप</tspan></text>
+  <text x="150" y="126" text-anchor="middle" font-size="11" class="t-mute">類・物体・数・性質…（見える目的）</text>
+  <rect x="410" y="80" width="220" height="64" rx="8" class="box"/>
+  <text x="520" y="104" text-anchor="middle" font-size="13">行為 <tspan class="t-dev">क्रियारूप</tspan></text>
+  <text x="520" y="126" text-anchor="middle" font-size="11" class="t-mute">従属行為・主要行為</text>
+  <path d="M520,144 L520,158 M380,158 L640,158 M380,158 L380,174 M640,158 L640,174" class="line"/>
+  <rect x="270" y="176" width="220" height="96" rx="8" class="box-green"/>
+  <text x="380" y="198" text-anchor="middle" font-size="13" class="t-acc">接して助ける</text>
+  <text x="380" y="216" text-anchor="middle" class="t-dev" font-size="12">संनिपत्योपकारक</text>
+  <text x="380" y="234" text-anchor="middle" class="t-en" font-size="11">“indirectly-contributing”</text>
+  <text x="380" y="252" text-anchor="middle" font-size="11">物を対象：搗く・振りかける</text>
+  <text x="380" y="267" text-anchor="middle" font-size="10" class="t-mute">→ 発生の不可見の力のため（§194）</text>
+  <rect x="510" y="176" width="200" height="96" rx="8" class="box-blue"/>
+  <text x="610" y="198" text-anchor="middle" font-size="13" class="t-acc">離れて助ける</text>
+  <text x="610" y="216" text-anchor="middle" class="t-dev" font-size="12">आरादुपकारक</text>
+  <text x="610" y="234" text-anchor="middle" class="t-en" font-size="11">“directly-contributing”</text>
+  <text x="610" y="252" text-anchor="middle" font-size="11">物を対象としない：前祭</text>
+  <text x="610" y="267" text-anchor="middle" font-size="10" class="t-mute">→ 最高の不可見の力のため（§195）</text>
+</svg>
+<figcaption><b>図1　構成要素の分類（§§182–195）。</b>接して助けるものは、さらに「これから使うもののため」と「使い終えたもののため」に分かれる（§184）。</figcaption>
+</figure>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§184–185</span><span class="sutra-num">KSS pp.82–83</span><span class="sutra-title">これから使うもの・使い終えたもの</span></div>
+  <div class="mula"><small style="color:var(--muted)">§184</small> तच्च संनिपत्योपकारकं द्विविधम्: उपयोक्ष्यमानार्थमुपयुक्तार्थं चेति । तत्रावघातप्रोक्षणाद्युपयोक्ष्यमानार्थम्, व्रीहीणां याग उपयोक्ष्यमानत्वात् । प्रतिपत्तिकर्मेडाभक्षणाद्युपयुक्तपुरोडाशादिसंस्कारकम् । उपयुक्तस्याकीर्णकरतानिवर्तकं कर्म प्रतिपत्तिकर्म ।<br>
+  <small style="color:var(--muted)">§185</small> उपयुक्तसंस्कारार्थं चोपयोक्ष्यमाणसंस्कारार्थाद्दुर्बलम्; उपयुक्तापेक्षयोपयोक्ष्यमाणेत्यादरात् । अत एव प्रायणीयनिष्कास उदयनीयमनुनिर्वपतीत्यत्र निष्कासस्य निर्वापार्थत्वम्, न तु तस्य तदर्थत्वम्, निष्कासस्योपयुक्तत्वादित्युक्तमेकादशे ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この接して助けるものは二種、<b>これから使うもののため</b>と、<b>使い終えたもののため</b>である。搗くこと・振りかけることなどは前者である。米は祭式でこれから使われるからである。Iḍā を食べることなどの<b>処理行為</b>は、使い終えた餅などを処理する。使い終えたものが散らかるのを防ぐ行為が処理行為である。<br>
+  そして使い終えたもののための行為は、これから使うもののための行為より弱い。これから使うものの方が大事だからである。だからこそ、「開始祭の削りかすの中に終了祭（の供物）を分ける」では、削りかすが分けることのためにあるのであって、その逆ではない。削りかすは既に使い終えたものだからである、と Jaimini 第11課で説かれている。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">A concluding act is one which prevents something that has been employed from littering up the place.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch5">第7課 第5章　§37–§39 従属物の2種</a></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　接して助ける構成要素は、離れて助ける構成要素より強い</h2>
+<p class="chapter-sub">§§186–191</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§186–187</span><span class="sutra-num">KSS pp.83–84</span><span class="sutra-title">主張と反論</span></div>
+  <div class="mula"><small style="color:var(--muted)">§186</small> <mark>तच्च संनिपत्योपकारकमारादुपकारकाद्बलीयः</mark> ।<br>
+  <small style="color:var(--muted)">§187</small> नन्ववघातादि भवतु बलीयः, तस्य दृष्टार्थत्वात्, आरादुपकारकस्य चादृष्टार्थत्वात्, दृष्टे सम्भवत्यदृष्टस्यान्याय्यत्वात् । प्रोक्षणादि संनिपत्योपकारकं तु कथं बलीयः, उभयोरदृष्टार्थत्वाविशेषात् । किं चारादुपकारकं साक्षात्प्रधानाङ्गं तस्यान्योद्देशेनाविधानात् । संनिपत्योपकारकं त्वङ्गाङ्गम्, कर्माङ्गव्रीह्याद्युद्देशेन विधानात् । अङ्गाङ्गापेक्षया च साक्षादङ्गं बलीयः, अङ्गगुणविरोधे च तादर्थ्यादिति न्यायात् । अत एव य इष्ट्या पशुना सोमेन यजेत सोऽमावास्यायां पौर्णमास्यां वा यजेतेत्यविशेषविधानेऽपि पर्वानुग्रहः सोमयागस्यैव क्रियते न तु दीक्षणीयादेः । अतः कथं संनिपत्योपकारकस्य बलीयस्त्वम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">そして接して助けるものは、離れて助けるものより強い。<br>
+  【反論】搗くことなどが強いのはよい。見える目的のものだからである。しかし振りかけることなどがどうして強いのか。両方とも見えない目的のものだからである。さらに、離れて助けるものは主の直接の構成要素（他を目指して命じられない）だが、接して助けるものは<b>構成要素の構成要素</b>（主の構成要素である米などを目指して命じられる）である。「構成要素の性質と（主の性質が）衝突するときは（主の性質が勝つ）。（構成要素は）そのためにあるから」という解釈原則により、直接の構成要素の方が強い。だからこそ「Iṣṭi・家畜・ソーマで祭る者は、新月か満月に祭るべし」では、区別なく命じられていても、新月・満月の効用はソーマ祭（主）にだけ及び、入門祭（構成要素）などには及ばない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“And in case (a qualifier of the main action) conflicts with a qualifier of a subsidiary, (the former prevails), because (the subsidiary) serves (only) the purpose of that (main action).”</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch5">第7課 第5章　§37–§39 従属物の2種</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§188–191</span><span class="sutra-num">KSS pp.84–86</span><span class="sutra-title">答え：関係が文で確立しているから</span></div>
+  <div class="mula"><small style="color:var(--muted)">§188</small> उच्यते: सत्यप्यदृष्टार्थत्वाविशेषे संनिपत्योपकारकमारादुपकारकाद्बलीयः । संनिपत्योपकारके हि कर्मण्युपकार्योपकारकयोर्व्रीहिप्रोक्षणयोः सम्बन्धो वाक्यक्ल्प्तः, उपकारमात्रं तु कल्प्यम् । आरादुपकारकस्थले तु दर्शपूर्णमासयोः प्रयाजानुयाजयोः सम्बन्धः कल्प्य उपकारोऽपि ।<br>
+  <small style="color:var(--muted)">§189</small> किं च: आरादुपकारकस्थले हि प्रकरणं विनियोजकम्, इतरत्र तु व्रीहीन्प्रोक्षतीति वाक्यमेव व्रीहिपदेनापूर्वसाधनलक्षणां कृत्वा क्रतौ विनियोजकमिति बलीयस्त्वम् ।<br>
+  <small style="color:var(--muted)">§190</small> यदुक्तम्: अङ्गगुणविरोधे च तादर्थ्यादिति न्यायेन दुर्बलत्वमिति, तदसत् । न हि व्रीह्याद्युद्देशेन विधीयमानं प्रोक्षणादि तदर्थं भवति, तत्स्वरूप आनर्थक्यात्, किं तु तत्संस्कारद्वारा क्रत्वर्थमेव, संनिपत्योपकारकाणामुत्पत्त्यपूर्वप्रयुक्तत्वस्य च वक्ष्यमाणत्वात् । अत उभयविधमप्यङ्गजातं क्रत्वर्थमेवेति नाङ्गगुणविरोधन्यायावतारः । दीक्षणीयादेः पर्वानुग्रहस्तु दीक्षणीयाद्यर्थ एव, तस्य तदपूर्वप्रयुक्तत्वात् । अतो युक्तं साक्षात्प्रधानाङ्गेन प्रधानपर्वानुग्रहेण स बाध्यत इति । तत्सिद्धं संनिपत्योपकारकस्यारादुपकारकाद्बलीयस्त्वम् ।<br>
+  <small style="color:var(--muted)">§191</small> अत एव स्थाणौ स्थाण्वाहुतिं जुहोतीति विहिता स्थाण्वाहुतिर्यूपव्रश्चनस्थाणुद्वारा यूपसंस्कारार्था, देवदत्तधारितायाः स्रजः शुचिदेशनिधानमिव देवदत्तसंस्कारार्थम्; न तु स्थाण्वाहुतिरारादुपकारिकेत्युक्तं दशमे । इति दिक् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">答えよう。見えない目的のものである点では同じでも、接して助けるものの方が強い。接して助けるものでは、助けるものと助けられるもの（振りかけと米）の関係は<b>文によって確立</b>しており、効能だけを想定すればよい。離れて助けるものでは、（前祭・後祭と新月祭・満月祭の）<b>関係も効能も想定せねばならない</b>。さらに、離れて助けるものでは配属するのは文脈だが、接して助けるものでは「米に水を振りかける」という文が、米の語で不可見の力の実現手段を転義的に表して、祭式に配属する。だから強い。<br>
+  構成要素の性質の衝突の解釈原則も当たらない。米などを目指して命じられた振りかけは米のためではなく（米の本体にとっては無意味）、米の準備を通じて<b>儀式のため</b>だからである。だから両種の構成要素とも儀式のためで、この解釈原則は適用されない。入門祭などへの新月・満月の効用は入門祭自身の不可見の力のためなので、主の直接の構成要素（主への新月・満月の効用）に打ち消されるのである。<br>
+  だからこそ、「切り株に切り株の献供をする」で命じられた切り株の献供は、柱を切り出した切り株を通じて<b>柱の準備</b>のためである。Devadatta が身につけていた花輪を清い場所に置くのが Devadatta への敬意であるように。離れて助けるものではない、と Jaimini 第10課で説かれている。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For in an indirectly-contributing action the connexion between the contributing subsidiary and the thing to which it contributes … is establisht by the sentence …, and only the fact that it contributes has to be understood.<span class="jp">脚注126：だから柱を使わない変型では、切り株の献供は行われない。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch5">第7課 第5章　§37–§39 従属物の2種</a></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch5">
+<h2 class="chapter">第5章　すべての構成要素は不可見の力のため</h2>
+<p class="chapter-sub">§§192–195 ／ 発生の不可見の力と最高の不可見の力</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§192–193</span><span class="sutra-num">KSS pp.86–87</span><span class="sutra-title">構成要素は果報のためではなく不可見の力のため</span></div>
+  <div class="mula"><small style="color:var(--muted)">§192</small> <mark>द्रव्याद्यनुद्दिश्य केवलं विधीयमानं कर्मारादुपकारकम्</mark>: यथा प्रयाजादि । तदेवं निरूपितं द्विविधमप्यङ्गजातम् । तच्च न यागादिस्वरूपप्रयुक्तम्, स्वरूप आनर्थक्यात्, तदन्तरेणापि तत्सिद्धेः; किं त्वपूर्वप्रयुक्तमेव । न हि तदन्तरेणापूर्वं भवतीत्यत्र किंचित्प्रमानमस्ति, तस्यादृष्टत्वात् ।<br>
+  <small style="color:var(--muted)">§193</small> न चैवं प्राधान्याददृष्टत्वाच्च फलप्रयुक्तमेव किं न स्यादिति वाच्यम्; फलभावनायां यागस्यैव करणत्वादङ्गानां च करणानुग्राहकत्वात्, तदर्थत्वे बुद्धे, तत्र चानर्थक्यप्रसक्तौ तेन स्वापूर्वमेवोपस्थाप्यते संनिकर्षात्, दीक्षणीयादिशब्देनेव तदपूर्वम्; न तु फलमुपस्थाप्यते विप्रकर्षात् । अतो न तत्प्रयुक्तत्वमङ्गानाम् । अत एवागन्म सुवः सुवरगन्मेति मन्त्रो विकृतावूहितव्य इत्युक्तं नवमे फलदेवतयोश्चेत्यत्र । फलप्रयुक्तत्वे तु सौर्यादिविकृतिषु स्वर्गरूपफलाभावान्मन्त्रो न प्रवर्तेत, नतरां चोहितव्यः स्यादिति । तत्सिद्धमङ्गानामन्यप्रयुक्तत्वानुपपत्तेरपूर्वप्रयुक्तत्वम् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">物体などを目指さずに、ただ命じられる行為が離れて助けるものである。たとえば前祭など。こうして二種の構成要素のすべてを述べた。<br>
+  それらは祭式などの<b>本体</b>のために行われるのではない。本体にとっては無意味だからである。それなしでもそれは成り立つ。そうではなく、<b>不可見の力のため</b>に行われる。それなしでも不可見の力が生じる、という根拠は何もないからである。それは目に見えないのだから。<br>
+  では、主要で見えないものなのだから、<b>果報</b>のために行われるのでは、と言ってはならない。果報を生じさせる働きの手段は祭式だけで、構成要素は手段を助けるだけである。だから構成要素は儀式のためと分かり、（本体にとっては）無意味なので、<b>近い</b>自分の不可見の力を思い起こさせる。遠い果報ではない。だからこそ Jaimini 第9課で、「我らは天に至った、天に我らは至った」という祭詞は（Sūrya 祭などの）変型では<b>語を変更（ūha）</b>すべきだと説かれている。もし構成要素が果報のためなら、天を果報としない Sūrya 祭などの変型ではこの祭詞は準用されず、まして変更されることもないだろう。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">… the subsidiary produces (leads to) only its own transcendental-result, because that is nearest at hand …<span class="jp">脚注127（注釈）：搗くことのように見える目的の構成要素でも、籾殻は爪でむいても取れるので、「まさにこの仕方で」行う理由は不可見の目的にしかない。脚注130：Sūrya 祭では祭詞の「天（svaḥ）」が「梵の輝き（brahmavarcasam）」に置き換えられる。</span></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§194–195</span><span class="sutra-num">KSS pp.87–88</span><span class="sutra-title">二つの不可見の力</span></div>
+  <div class="mula"><small style="color:var(--muted)">§194</small> तत्रापि संनिपत्योपकारकाणां द्रव्यदेवतादिसंस्कारद्वारा यागस्वरूप उपयोगादुत्पत्त्यपूर्वार्थत्वम् । अत एवौषधधर्मावघातादीनामाज्ये न प्रवृत्तिः, तेषामाग्नेयापूर्वप्रयुक्तत्वात्, आज्यस्य च तदर्थत्वाभावादित्युक्तं तृतीये ।<br>
+  <small style="color:var(--muted)">§195</small> आरादुपकारकाणां तु स्वरूपेऽनुपयोगात्परमापूर्वार्थत्वम् । तत्रोत्पत्त्यपूर्वस्य यागस्वरूपानुष्ठानानन्तरमेवोत्पद्यमानत्वात्संनिपत्योपकारकाणां पूर्वाङ्गानां तदुत्पत्तावुपयोगः, उत्तराङ्गानां तु तेषां तत्स्थितावुपयोगः । परमापूर्वस्य तु साङ्गप्रयोगानुष्ठानानन्तरमेवोत्पद्यमानत्वात्सर्वेषामारादुपकारकाणां तदुत्पत्तौ, प्रयोगबहिर्भूतस्य तु तत्स्थितावुपयोगः । यथा बृहस्पतिसवस्य वाजपेयेनेष्ट्वा बृहस्पतिसवेन यजेतेति वाजपेयोत्तरकालमङ्गत्वेन विहितस्य वाजपेयापूर्वस्थितावुपयोगः; तस्य प्रागेवोत्पन्नत्वादित्युक्तं चतुर्थे । तत्सिद्धं सर्वथाङ्गानामपूर्वार्थत्वम् । प्रकृतमनुसरामः । तदेवं निरूपितः संक्षेपतो विनियोगविधिः ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">उत्पत्त्यपूर्व</span> <span class="iast">utpattyapūrva</span> 発生の不可見の力</span>
+    <span class="w"><span class="dev">परमापूर्व</span> <span class="iast">paramāpūrva</span> 最高の不可見の力</span>
+    <span class="w"><span class="dev">स्थिति</span> <span class="iast">sthiti</span> 維持</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">そのうち接して助けるものは、物体や神格などの準備を通じて祭式の本体に役立つので、<b>発生の不可見の力</b>のためである。だからこそ、穀物の規定である搗くことなどはバターオイルには及ばない。それらは Āgneya（餅の献供）の発生の不可見の力のためで、バターオイルはそのためのものではないからである、と Jaimini 第3課で説かれている。<br>
+  離れて助けるものは、本体に役立たないので、<b>最高の不可見の力</b>のためである。発生の不可見の力は祭式の本体の実行直後に生じるので、前にある接して助ける構成要素はその<b>発生</b>に、後にある構成要素はその<b>維持</b>に役立つ。最高の不可見の力は、構成要素を含めた全実行の後に生じるので、すべての離れて助ける構成要素はその発生に役立ち、実行の外にあるものはその維持に役立つ。たとえば「Vājapeya を行った後、Bṛhaspatisava を行うべし」で、Vājapeya の後に構成要素として命じられた Bṛhaspatisava は、既に生じた Vājapeya の不可見の力の維持に役立つ、と Jaimini 第4課で説かれている。こうして、<b>構成要素はすべて不可見の力のため</b>であることが確定した。本題に戻る。こうして配属規定を簡潔に述べた。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But since the supreme transcendental result is produced only after the completion of the (entire) sacrificial performance with (all) its subsidiaries, it requires all the directly-contributing subsidiaries to produce it, while one (extra) that is outside the sacrificial-performance is used to maintain it.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson7.html#ch5">第7課 第5章　§37–§39 従属物の2種</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 230" role="img" aria-label="発生の不可見の力と最高の不可見の力の時間図">
+  <defs><marker id="a8" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs>
+  <path d="M20,120 L700,120" class="line" marker-end="url(#a8)"/>
+  <text x="690" y="140" font-size="11" class="t-mute">時間</text>
+  <rect x="40" y="70" width="110" height="40" rx="6" class="box-green"/><text x="95" y="95" text-anchor="middle" font-size="12">搗く・振りかける</text>
+  <rect x="170" y="70" width="110" height="40" rx="6" class="box-acc"/><text x="225" y="95" text-anchor="middle" font-size="12">主祭（Āgneya）</text>
+  <rect x="300" y="70" width="110" height="40" rx="6" class="box-green"/><text x="355" y="95" text-anchor="middle" font-size="12">処理行為など</text>
+  <rect x="430" y="70" width="120" height="40" rx="6" class="box-blue"/><text x="490" y="95" text-anchor="middle" font-size="12">前祭・後祭</text>
+  <rect x="580" y="70" width="110" height="40" rx="6" class="box"/><text x="635" y="95" text-anchor="middle" font-size="12">外の構成要素</text>
+  <text x="250" y="150" text-anchor="middle" font-size="12" class="t-acc">▲ 発生の不可見の力が生じる</text>
+  <text x="250" y="168" text-anchor="middle" font-size="11" class="t-mute">（接して助けるもの：前＝発生、後＝維持）</text>
+  <text x="560" y="150" text-anchor="middle" font-size="12" class="t-acc">▲ 最高の不可見の力が生じる</text>
+  <text x="560" y="168" text-anchor="middle" font-size="11" class="t-mute">（離れて助けるもの＝発生、外の構成要素＝維持）</text>
+  <text x="360" y="40" text-anchor="middle" font-size="12" class="t-mute">例：Vājapeya の後の Bṛhaspatisava は最高の不可見の力の「維持」に役立つ</text>
+</svg>
+<figcaption><b>図2　二つの不可見の力（§§194–195）。</b>Edgerton 脚注128：接して助けるものは自分の発生の不可見の力（utpatti-apūrva）に、離れて助けるものは主の最高の不可見の力（parama-apūrva）に、直接役立つ。</figcaption>
+</figure>
+<div class="point">構成要素は祭式の「本体」のためではなく「不可見の力」のため。接して助ける構成要素は発生の不可見の力に、離れて助ける構成要素は最高の不可見の力に役立つ。</div>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 位置の二種と、それぞれの例は？</summary><div>本文での場所の共通（番号順：二つの祭と二組の詩節／近接：変型の新しい構成要素）と、実行での場所の共通（家畜の規定 → 断食の日の Agnīṣomīya）。（§§169–173）</div></details>
+<details class="q"><summary>Q2. 「無意味さに妨げられるときは強弱が逆になる」はどこで使われたか？</summary><div>家畜の規定を、文脈で Jyotiṣṭoma（ソーマ祭）に配属すると無意味になるので、弱い位置によって家畜祭に配属する場面。（§174）</div></details>
+<details class="q"><summary>Q3. 名称が関係を表さない理由は？</summary><div>語源的な語は物を表す。関係一般なら無意味、特定の関係なら関係する二つを表せば関係は分かるので、関係を表す力を想定するのは煩雑。（§176）</div></details>
+<details class="q"><summary>Q4. 接して助けるものと離れて助けるものの区別は？ Edgerton の訳語は？</summary><div>物体などを目指して命じられる行為（搗く・振りかける）が接して助けるもの（Edgerton: indirectly-contributing）。物を目指さず命じられる行為（前祭）が離れて助けるもの（directly-contributing）。（§§183, 192）</div></details>
+<details class="q"><summary>Q5. 接して助けるものが離れて助けるものより強い理由は？</summary><div>関係が文で確立しており効能だけ想定すればよいから（離れて助けるものは関係も効能も想定）。また前者は文で、後者は文脈で配属されるから。（§§188–189）</div></details>
+<details class="q"><summary>Q6. 構成要素が果報のためでなく不可見の力のためであることを示す例は？</summary><div>「我らは天に至った」の祭詞が、天を果報としない Sūrya 祭で語を変更（ūha）して用いられること。（§193）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第8課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">स्थान / क्रम</td><td class="iast">sthāna / krama</td><td>位置／順序</td><td class="en">position / order</td></tr>
+<tr><td class="dev">पाठसादेश्य / अनुष्ठानसादेश्य</td><td class="iast">pāṭhasādeśya / anuṣṭhānasādeśya</td><td>本文／実行での場所の共通</td><td class="en">common-location in the text / performance</td></tr>
+<tr><td class="dev">समाख्या</td><td class="iast">samākhyā</td><td>名称</td><td class="en">name</td></tr>
+<tr><td class="dev">यौगिक</td><td class="iast">yaugika</td><td>語源的に解される</td><td class="en">literal (etymological)</td></tr>
+<tr><td class="dev">सिद्धरूप / क्रियारूप</td><td class="iast">siddharūpa / kriyārūpa</td><td>出来上がったもの／行為</td><td class="en">fixed-element / action</td></tr>
+<tr><td class="dev">संनिपत्योपकारक</td><td class="iast">saṃnipatyopakāraka</td><td>接して助けるもの</td><td class="en">indirectly-contributing</td></tr>
+<tr><td class="dev">आरादुपकारक</td><td class="iast">ārādupakāraka</td><td>離れて助けるもの</td><td class="en">directly-contributing</td></tr>
+<tr><td class="dev">प्रतिपत्तिकर्म</td><td class="iast">pratipattikarma</td><td>処理行為</td><td class="en">concluding act</td></tr>
+<tr><td class="dev">उत्पत्त्यपूर्व / परमापूर्व</td><td class="iast">utpattyapūrva / paramāpūrva</td><td>発生の／最高の不可見の力</td><td class="en">productive / supreme transcendental-result</td></tr>
+<tr><td class="dev">ऊह</td><td class="iast">ūha</td><td>（準用時の）語の変更</td><td class="en">alteration</td></tr>
+</table></div>
+<h3>底本について（第8課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文（Text, pp. 227–233）を採り、KSS版（1949年）と照合しました。OCR の崩れ（<span class="dev">यथासंख्य</span>、<span class="dev">प्रमाणम्</span>、<span class="dev">कृत्वा</span>、<span class="dev">औपवसथ्येऽहनि</span> など）は直しました。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson7.html">← 第7課　文脈</a><span class="spacer"></span><a href="mnp_lesson9.html">第9課　執行規定と資格規定 →</a></nav>
+
+<footer>
+  やさしい聖典解釈学 · 第8課　位置・名称・構成要素の分類<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§169–195, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>

@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>やさしい聖典解釈学</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  --blue: #3D5A80;
+  --blue-bg: #E3E9F0;
+  --green-bg: #E6ECDD;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --blue: #8FB0D6;
+    --blue-bg: #232B35;
+    --green-bg: #262C20;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --blue: #8FB0D6;
+  --blue-bg: #232B35;
+  --green-bg: #262C20;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+.en { font-family: 'Noto Serif', serif; font-size: 0.95em; }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Noto Serif', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2 { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* text card (= sūtra card of the LSK series) */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.6rem; margin-bottom: 0.5rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-title { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
+.mula {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.22rem;
+  line-height: 1.85;
+  margin: 0.2rem 0 0.9rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px dashed var(--rule-light);
+  overflow-wrap: anywhere;
+}
+.mula.verse { text-align: center; font-size: 1.3rem; }
+.mula .seg { display: inline; }
+.mula mark { background: var(--point-bg); color: inherit; padding: 0 0.1em; border-radius: 2px; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.6rem; }
+.row .k { font-size: 0.8rem; color: var(--accent); font-weight: 600; letter-spacing: 0.08em; padding-top: 0.2rem; }
+.row .v { min-width: 0; }
+.row.en-row .k { color: var(--blue); }
+.row.en-row .v { font-family: 'Noto Serif', serif; font-size: 0.95rem; line-height: 1.6; color: var(--ink-soft); border-left: 2px solid var(--blue); padding-left: 0.7rem; }
+.row.en-row .v .jp { font-family: 'Shippori Mincho', serif; font-size: 0.9rem; display: block; margin-top: 0.3rem; color: var(--ink); }
+.row.cm-row .k { color: var(--ok-color); }
+.row.cm-row .v { border-left: 2px solid var(--ok-color); padding-left: 0.7rem; }
+.row.cm-row .v .dev { color: var(--ink-soft); }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin-top: 0.8rem; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.note.en-note { background: var(--blue-bg); }
+.note.en-note .note-title { color: var(--blue); }
+
+/* word chips */
+.words { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; }
+.w { border: 1px solid var(--rule); border-radius: 4px; padding: 0.05rem 0.5rem; background: var(--ground); line-height: 1.55; font-size: 0.92rem; }
+.w .dev { font-size: 1.02rem; }
+.w .iast { color: var(--ink-soft); }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.en { color: var(--blue); }
+caption { caption-side: top; text-align: left; font-weight: 600; color: var(--accent); padding-bottom: 0.3rem; font-size: 0.95rem; }
+
+/* figures */
+figure.fig { margin: 1.6rem 0; padding: 1rem 0.8rem 0.8rem; border: 1px solid var(--rule-light); border-radius: 6px; background: var(--card-bg); }
+figure.fig svg { width: 100%; height: auto; display: block; }
+figure.fig figcaption { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; padding: 0 0.3rem; }
+figure.fig figcaption b { color: var(--accent); }
+svg text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', serif; }
+svg .t-dev { font-family: 'Noto Serif Devanagari', serif; }
+svg .t-iast { font-family: 'Noto Serif', serif; font-style: italic; fill: var(--ink-soft); }
+svg .t-en { font-family: 'Noto Serif', serif; fill: var(--blue); }
+svg .t-mute { fill: var(--muted); }
+svg .t-acc { fill: var(--accent); font-weight: 600; }
+svg .t-ok { fill: var(--ok-color); }
+svg .box { fill: var(--ground); stroke: var(--rule); stroke-width: 1.2; }
+svg .box-acc { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.4; }
+svg .box-blue { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.2; }
+svg .box-green { fill: var(--green-bg); stroke: var(--ok-color); stroke-width: 1.2; }
+svg .line { stroke: var(--ink-soft); stroke-width: 1.3; fill: none; }
+svg .line-acc { stroke: var(--accent); stroke-width: 2; fill: none; }
+svg .line-dash { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg .arrowhead { fill: var(--ink-soft); }
+svg .arrowhead-acc { fill: var(--accent); }
+
+/* book map bar */
+.map { display: flex; width: 100%; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule); margin: 0.6rem 0 0.3rem; font-size: 0.78rem; }
+.map div { padding: 0.35rem 0.2rem; text-align: center; border-right: 1px solid var(--rule); line-height: 1.3; min-width: 0; overflow: hidden; }
+.map div:last-child { border-right: none; }
+.map .m-vidhi { background: var(--point-bg); }
+.map .m-mantra { background: var(--blue-bg); }
+.map .m-nama { background: var(--green-bg); }
+.map .m-nis { background: var(--note-bg); }
+.map .m-av { background: var(--card-bg); }
+.map .here { outline: 2px solid var(--it-color); outline-offset: -2px; }
+.map-legend { font-size: 0.82rem; color: var(--ink-soft); }
+
+/* steps */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li { counter-increment: step; position: relative; padding: 0.55rem 0 0.55rem 2.6rem; border-bottom: 1px dashed var(--rule-light); }
+.deriv li::before { content: counter(step); position: absolute; left: 0; top: 0.6rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--accent); color: var(--ground); font-size: 0.85rem; text-align: center; line-height: 1.8rem; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 0.5rem 0; background: var(--card-bg); }
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+.as-row .k { color: var(--green, #4a6b3a); }
+.as-row .v a { color: inherit; text-decoration: underline; text-decoration-color: var(--rule); text-underline-offset: 3px; }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-devanagari">मीमांसान्यायप्रकाशः — मन्त्राः, अपूर्वनियमपरिसंख्याविधयः</div>
+  <h1>やさしい聖典解釈学</h1>
+  <div class="header-sub">An Easy Introduction to Āpadeva’s Mīmāṃsānyāyaprakāśa · Lesson 10</div>
+  <div class="header-jp">第10課　Veda の第二区分「祭詞」と、三種の規定（新規・制限・排除）── 本書後半の始まり<br>
+  本文：Edgerton §§239–248（校訂本文 pp. 243–248 ／ KSS版 pp. 110–116）<br>
+  注釈：A. Chinnaswami Sastri『<span class="iast">Sāravivecinī</span>』　英訳：F. Edgerton (1929)</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#intro"><span class="n">序</span>本書後半の地図</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>祭詞は思い起こさせるためにある（§239）</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>新規規定・制限規定・排除規定（§§240–244）</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>排除規定の二種と「三つの瑕疵」（§§245–248）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+    <li><a href="#gloss"><span class="n">付録</span>用語集／底本について</a></li>
+  </ol>
+</nav>
+
+<section id="intro">
+<h2 class="chapter">本書後半の地図</h2>
+<p class="lead">第9課で本書の前半（規定，§§10–238）が終わりました。後半は、第1課 §10 で予告された Veda の五区分の残り四つを順に扱います。どの部分も「<b>Veda に無意味な部分はない</b>」（第1課 §9）ことを示すのが目的です。</p>
+<div class="map" role="img" aria-label="本書後半の地図">
+  <div class="m-mantra here" style="flex:10">② 祭詞<br>§239–248</div>
+  <div class="m-nama" style="flex:71">③ 祭名 §249–319</div>
+  <div class="m-nis" style="flex:44">④ 禁令 §320–363</div>
+  <div class="m-av" style="flex:34">⑤ 釈義＋結び §364–397</div>
+</div>
+<p class="map-legend">赤枠がこの課。祭詞の説明の中で、規定の三種（新規・制限・排除）という重要な分類が出てくる。</p>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　祭詞は思い起こさせるためにある</h2>
+<p class="chapter-sub">§239</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§239</span><span class="sutra-num">KSS p.110</span><span class="sutra-title">祭詞の役目</span></div>
+  <div class="mula">मन्त्राणां च <mark>प्रयोगसमवेतार्थस्मारकतयार्थवत्त्वम्</mark> । न तु तदुच्चारणमदृष्टार्थम्, दृष्टे सम्भवत्यदृष्टस्यान्याय्यत्वात् । न च दृष्टस्य प्रकारान्तरेणापि सम्भवान्मन्त्राम्नानमनर्थकम्; मन्त्रैरेव स्मर्तव्यमिति नियमविध्याश्रयणात् ।</div>
+  <div class="row"><div class="k">語句</div><div class="v"><div class="words">
+    <span class="w"><span class="dev">मन्त्र</span> <span class="iast">mantra</span> 祭詞</span>
+    <span class="w"><span class="dev">प्रयोगसमवेत</span> <span class="iast">prayogasamaveta</span> 実行に関わる</span>
+    <span class="w"><span class="dev">स्मारक</span> <span class="iast">smāraka</span> 思い起こさせるもの</span>
+    <span class="w"><span class="dev">नियमविधि</span> <span class="iast">niyamavidhi</span> 制限規定</span>
+  </div></div></div>
+  <div class="row"><div class="k">訳</div><div class="v">そして祭詞は、<b>実行に関わる事柄を思い起こさせる</b>ことによって意味をもつ。それを唱えることは見えない効果のためではない。見える効果がありうるのに見えない効果を想定するのは正しくないからである。見える効果（思い起こさせること）は他の方法でも得られるので、祭詞を学ぶことは無意味だ、と言ってはならない。「<b>祭詞によってのみ思い起こすべし</b>」という<b>制限規定</b>に依拠するからである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">And formulas (mantra) find their use in reminding us of something connected with the performance. … Because it depends on an injunction of fixation (necessary-arrangement) to the effect that the reminding must be done only by the formulas.<span class="jp"><span class="iast">niyamavidhi</span>＝“injunction of fixation”。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson10.html#ch1">第10課 第1章　§49 mantra とは</a></div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　新規規定・制限規定・排除規定</h2>
+<p class="chapter-sub">§§240–244 ／ 命令の「強さ」による三分類</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§240–241</span><span class="sutra-num">KSS pp.110–111</span><span class="sutra-title">定義と引用詩</span></div>
+  <div class="mula"><small style="color:var(--muted)">§240</small> <mark>साधनद्वयस्य पक्षप्राप्तावन्यतरस्य साधनस्याप्राप्ततादशायां यो विधिः स नियमविधिः</mark> । यथाहुः:<br>
+  <small style="color:var(--muted)">§241</small> विधिरत्यन्तमप्राप्ते नियमः पाक्षिके सति ।<br>तत्र चान्यत्र च प्राप्ते परिसंख्येति गीयते । इति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">二つの手段が（それぞれ）場合によっては帰結するとき、一方の手段が帰結しない場合（未出の場合）についての命令が<b>制限規定</b>である。こう言われている──「<b>まったく未出のものについては（新規の）命令、場合によって既出のものについては制限、ここでもあそこでも既出のものについては排除</b>と唱えられる。」</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">“A (new, apūrva) injunction is (found) in the case of something wholly unestablisht; a fixation … where it is partially so; and where there is establishment on this side and on that …, exclusive-specification is said to be used …”</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson10.html#ch2">第10課 第2章　§50 新規の vidhi と制限の vidhi</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§242–243</span><span class="sutra-num">KSS pp.112–113</span><span class="sutra-title">新規規定と制限規定</span></div>
+  <div class="mula"><small style="color:var(--muted)">§242</small> अस्यायमर्थः: यस्य यदर्थत्वं प्रमाणान्तरेणाप्राप्तं तस्य तदर्थत्वेन यो विधिः सोऽपूर्वविधिः;यथा यजेत स्वर्गकाम इत्यादिः । यागस्य हि स्वर्गार्थत्वं न प्रमाणान्तरेण प्राप्तं किं त्वनेनैव विधिनेतिभवत्ययमपूर्वविधिः ।<br>
+  <small style="color:var(--muted)">§243</small> पक्षेऽप्राप्तस्य तु यो विधिः स नियमविधिः; यथा व्रीहीनवहन्तीत्यादिः । अनेन हि विधिनावघातस्य न वैतुष्यार्थत्वं बोध्यते, अन्वयव्यतिरेकसिद्धत्वात्; किं तु नियमः । स चाप्राप्तांशपूरणम्; वैतुष्यस्य हि नानोपायसाध्यत्वाद्यस्यां दशायामवघातं परिहृत्योपायान्तरं ग्रहीतुमारभते, तस्यां दशायामवघातस्याप्राप्तत्वेन तद्विधानात्मकमप्राप्तांशपूरणमेवानेन विधिना क्रियते । अतश्च नियमविधावप्राप्तांशपूरणात्मकोनियम एव वाक्यार्थः; पक्षेऽप्राप्ततादशायामवघातविधानमिति यावत्; न त्वपूर्वविधाविवात्यन्ताप्राप्ततया विधानमिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この詩の意味はこうである。あるものがある目的に役立つことが他の根拠によって未出である場合に、それをその目的のために命じるのが<b>新規規定（apūrvavidhi）</b>である。たとえば「天界を望む者は祭るべし」。祭式が天界のためであることは、他の根拠ではなく、この命令によってのみ知られるので、これは新規規定である。<br>
+  場合によって未出のものの命令が<b>制限規定</b>である。たとえば「<b>米を搗く</b>」。この命令は、搗くことが籾殻を取るためであることを知らせるのではない。それは<b>共存と非共存</b>（搗けば籾殻が取れ、搗かなければ残る）で既に知られているからである。そうではなく<b>制限</b>であり、<b>未出の部分を補う</b>ものである。籾殻を取るにはいろいろな方法があるので、搗くことをやめて別の方法（爪でむくなど）をとろうとする場合には、搗くことは未出である。その場合について搗くことを命じる、という「未出の部分の補充」がこの命令の働きである。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">For by this injunction it is not meant to show that the beating is useful for removing the husks, since that is already establisht by positive and negative examples. But rather it is a fixation, and supplies the unestablisht part.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson10.html#ch2">第10課 第2章　§50 新規の vidhi と制限の vidhi</a></div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§244</span><span class="sutra-num">KSS p.114</span><span class="sutra-title">排除規定</span></div>
+  <div class="mula"><mark>उभयस्य युगपत्प्राप्तावितरव्यावृत्तिपरो विधिः परिसंख्याविधिः</mark>; यथा पञ्च पञ्चनखा भक्ष्या इति । इदं हि वाक्यं न भक्षणविधिपरम्, तस्य रागतः प्राप्तत्वात्; नापि नियमपरम्, पञ्चनखापञ्चनखभक्षणस्य युगपत्प्राप्तेः पक्षेऽप्राप्त्यभावात्; अत इदं पञ्चातिरिक्तपञ्चनखभक्षणनिवृत्तिपरमिति भवति परिसंख्याविधिः ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">両方が同時に既出であるとき、一方を<b>除外する</b>ことを目的とする命令が<b>排除規定（parisaṃkhyāvidhi）</b>である。たとえば「<b>五本指の動物のうち五種は食べてよい</b>」。この文は食べることを命じるのではない。それは<b>欲求</b>によって既出だからである。制限でもない。五本指の動物（の五種）も（それ以外の）五本指の動物も同時に（欲求によって）既出であり、場合によって未出となることがないからである。だからこれは、<b>五種以外の五本指の動物を食べることをやめさせる</b>ことを目的とする排除規定である。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">So it is just an injunction of exclusive-specification, aiming at abstention from the eating of five-nailed animals other than the five (referred to).<span class="jp">脚注159：出典は『Rāmāyaṇa』キシュキンダー巻。五種は兎・ヤマアラシ・オオトカゲ・サイ・亀など（版により異なる）。脚注160（注釈）：その五種を食べなくても罪はなく、食べても報いはない。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson10.html#ch3">第10課 第3章　§51 排除の vidhi（parisaṃkhyā）</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 260" role="img" aria-label="新規規定・制限規定・排除規定の比較図">
+  <g font-size="13" text-anchor="middle">
+  <rect x="10" y="10" width="225" height="240" rx="10" class="box-green"/>
+  <text x="122" y="36" class="t-acc">① 新規規定</text>
+  <text x="122" y="54" class="t-dev" font-size="12">अपूर्वविधिः</text>
+  <text x="122" y="72" class="t-en" font-size="12">new (apūrva) injunction</text>
+  <circle cx="122" cy="135" r="45" class="box" style="stroke-dasharray:4 3"/>
+  <text x="122" y="132" font-size="12">手段の役立ちが</text>
+  <text x="122" y="150" font-size="12">まったく未出</text>
+  <text x="122" y="208" font-size="12">祭式 → 天界</text>
+  <text x="122" y="228" class="t-dev" font-size="12">यजेत स्वर्गकामः</text>
+  <rect x="247" y="10" width="225" height="240" rx="10" class="box-blue"/>
+  <text x="360" y="36" class="t-acc">② 制限規定</text>
+  <text x="360" y="54" class="t-dev" font-size="12">नियमविधिः</text>
+  <text x="360" y="72" class="t-en" font-size="12">injunction of fixation</text>
+  <circle cx="330" cy="135" r="38" class="box-acc" style="fill-opacity:0.6"/>
+  <circle cx="392" cy="135" r="38" class="box" style="fill-opacity:0.6"/>
+  <text x="318" y="139" font-size="11">搗く</text>
+  <text x="404" y="139" font-size="11">爪でむく</text>
+  <text x="360" y="192" font-size="11" class="t-mute">どちらでも籾は取れる</text>
+  <text x="360" y="210" font-size="12">→「搗く」に固定</text>
+  <text x="360" y="228" class="t-dev" font-size="12">व्रीहीनवहन्ति</text>
+  <rect x="484" y="10" width="226" height="240" rx="10" class="box"/>
+  <text x="597" y="36" class="t-acc">③ 排除規定</text>
+  <text x="597" y="54" class="t-dev" font-size="12">परिसंख्याविधिः</text>
+  <text x="597" y="72" class="t-en" font-size="12">exclusive-specification</text>
+  <circle cx="597" cy="135" r="50" class="box" style="fill-opacity:0.6"/>
+  <circle cx="580" cy="135" r="22" class="box-green"/>
+  <text x="580" y="139" font-size="11">五種</text>
+  <text x="625" y="125" font-size="10" style="fill:var(--it-color)">✕他</text>
+  <text x="597" y="200" font-size="11" class="t-mute">欲求で全部が既出</text>
+  <text x="597" y="214" font-size="12">→ 五種以外を除外</text>
+  <text x="597" y="232" class="t-dev" font-size="11">पञ्च पञ्चनखा भक्ष्याः</text>
+  </g>
+</svg>
+<figcaption><b>図1　規定の三種（§§241–244）。</b>まったく未出（新規）／場合によって未出（制限）／両方が同時に既出（排除）。祭詞を唱えることは②の制限規定に基づく。</figcaption>
+</figure>
+
+<div class="tbl-wrap"><table>
+<caption>表2-1　規定の三種の比較</caption>
+<tr><th></th><th>新規規定</th><th>制限規定</th><th>排除規定</th></tr>
+<tr><td>前提</td><td>他の根拠でまったく未出</td><td>二つの手段が場合によって既出</td><td>二つが同時に既出</td></tr>
+<tr><td>命令の働き</td><td>役立ちそのものを教える</td><td>未出の場合を補う（一方に固定）</td><td>他方を除外する</td></tr>
+<tr><td>例</td><td>天界を望む者は祭るべし</td><td>米を搗く／祭詞で思い起こす</td><td>五本指の動物の五種は食べてよい</td></tr>
+<tr><td>Edgerton</td><td class="en">new injunction</td><td class="en">fixation</td><td class="en">exclusive-specification</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　排除規定の二種と「三つの瑕疵」</h2>
+<p class="chapter-sub">§§245–248</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§245–246</span><span class="sutra-num">KSS pp.115–116</span><span class="sutra-title">明言による排除と、転義による排除</span></div>
+  <div class="mula"><small style="color:var(--muted)">§245</small> सा च परिसंख्या द्विविधा, श्रौती लाक्षणिकी चेति । तत्रात्र ह्येवावपन्तीत्यत्र श्रौती परिसंख्या; एवकारेण पवमानातिरिक्तस्तोत्रव्यावृत्तेरभिधानात् ।<br>
+  <small style="color:var(--muted)">§246</small> पञ्च पञ्चनखा भक्ष्या इत्यत्र तु लाक्षणिकी; इतरनिवृत्तिवाचकस्य पदस्याभावात् । अत एवैषा त्रिदोषग्रस्ता । दोषत्रयं च श्रुतहानिरश्रुतकल्पना प्राप्तबाधश्चेति; श्रुतस्य पञ्चनखभक्षणस्य हानादश्रुतपञ्चातिरिक्तपञ्चनखभक्षणनिवृत्तिकल्पनात्प्राप्तस्य च पञ्चातिरिक्तपञ्चनखभक्षणस्य बाधनादिति । अस्मिंश्च दोषत्रये दोषद्वयं शब्दनिष्ठम्, प्राप्तबाधस्तु दोषोऽर्थनिष्ठ इति दिक् ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">この排除は二種、<b>明言によるもの</b>と<b>転義によるもの</b>である。「<b>ここにこそ（追加の讃歌を）挿入する</b>」では明言による排除である。「こそ（eva）」という語が、（三つの）Pavamāna 讃歌以外の讃歌の除外を表すからである。<br>
+  「五本指の動物のうち五種は食べてよい」は転義による排除である。他の除外を表す語がないからである。だからこそ、これは<b>三つの瑕疵</b>に冒されている。三つの瑕疵とは、<b>聞かれたものの放棄</b>、<b>聞かれていないものの想定</b>、<b>既出のものの打ち消し</b>である。聞かれた「五本指の動物を食べること（の許可）」を捨て、聞かれていない「五種以外を食べるのをやめること」を想定し、（欲求によって）既出だった「五種以外を食べること」を打ち消すからである。この三つの瑕疵のうち二つは<b>言葉に関わり</b>、既出のものの打ち消しは<b>意味に関わる</b>。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">The three defects are: departure from direct-statement, implication of what is not directly-stated, and annulment of what is establisht.<span class="jp">脚注162：完全な文は「三つが祭式の腹である。Gāyatrī、Bṛhatī、Anuṣṭubh。ここにこそ挿入し、ここからこそ取り出す」（Śābarabhāṣya 10.5.22）。</span></div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson10.html#ch4">第10課 第4章　§52–§53 parisaṃkhyā の2種と3つの欠陥</a></div></div>
+</div>
+
+<div class="tbl-wrap"><table>
+<caption>表3-1　転義による排除の「三つの瑕疵」（§246）</caption>
+<tr><th>瑕疵</th><th>原語</th><th>Edgerton</th><th>「五本指の動物」の場合</th><th>関わるもの</th></tr>
+<tr><td>聞かれたものの放棄</td><td class="dev">श्रुतहानि</td><td class="en">departure from direct-statement</td><td>「食べてよい」という聞かれた意味を捨てる</td><td>言葉</td></tr>
+<tr><td>聞かれていないものの想定</td><td class="dev">अश्रुतकल्पना</td><td class="en">implication of what is not directly-stated</td><td>「五種以外を食べるな」を想定する</td><td>言葉</td></tr>
+<tr><td>既出のものの打ち消し</td><td class="dev">प्राप्तबाध</td><td class="en">annulment of what is establisht</td><td>欲求で既出の「五種以外を食べること」を打ち消す</td><td>意味</td></tr>
+</table></div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§§247–248</span><span class="sutra-num">KSS p.116</span><span class="sutra-title">祭詞のまとめ</span></div>
+  <div class="mula"><small style="color:var(--muted)">§247</small> तत्सिद्धं मन्त्रैरेव स्मर्तव्यमिति नियमविध्याश्रयनान्न मन्त्राम्नानमनर्थकम् । अतश्च युक्तं मन्त्राणां प्रयोगसमवेतार्थस्मारकतयार्थवत्त्वम् ।<br>
+  <small style="color:var(--muted)">§248</small> तत्र ये मन्त्रा यत्र पठितास्तेषां तत्र यद्यर्थप्रकाशनं प्रयोजनं सम्भवति, तदा तत्रैव विनियोगः । येषां तु न सम्भवति, तेषां यत्र सम्भवति तत्रोत्कर्षः; यथा पूषानुमन्त्रनमन्त्रानामित्युक्तम् । येषां क्वापि न सम्भवति, तदुच्चारनस्य त्वगत्यादृष्टार्थत्वम् । सर्वथापि तु तेषां नानर्थक्यमिति ।</div>
+  <div class="row"><div class="k">訳</div><div class="v">こうして、「祭詞によってのみ思い起こすべし」という制限規定に依拠するので、祭詞を学ぶことは無意味ではないことが確定した。だから、祭詞が実行に関わる事柄を思い起こさせることで意味をもつ、と言うのは正しい。<br>
+  そのうち、祭詞が唱えられている場所でその意味を照らし出すことができるなら、<b>その場所で</b>配属される。できない祭詞は、できる場所へ<b>移される</b>。たとえば Pūṣan への後唱の祭詞（第6課 §§93–100）。どこでもできない祭詞は、他に道がないので、それを唱えることは<b>見えない効果</b>のためとされる。いずれにしても、祭詞は無意味ではない。</div></div>
+  <div class="row en-row"><div class="k">Edgerton</div><div class="v">But where they cannot be applied anywhere, then, because there is no other way out, their recitation must be understood as having an invisible purpose. But in no case can it be admitted that they are meaningless.</div></div>
+<div class="row as-row"><div class="k">参照</div><div class="v">『Arthasaṃgraha を読む』<a href="arthasamgraha_lesson10.html#ch5">第10課 第5章　§53 末尾 意味のわからない祭詞</a></div></div>
+</div>
+
+<figure class="fig">
+<svg viewBox="0 0 720 170" role="img" aria-label="祭詞の配属の三段階">
+  <defs><marker id="a10" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="arrowhead"/></marker></defs>
+  <g font-size="12" text-anchor="middle">
+  <rect x="10" y="40" width="210" height="80" rx="8" class="box-green"/><text x="115" y="70">① 唱えられた場所で</text><text x="115" y="90">意味を照らせる</text><text x="115" y="110" class="t-acc">→ その場所で配属</text>
+  <rect x="255" y="40" width="210" height="80" rx="8" class="box-blue"/><text x="360" y="70">② その場所では無理</text><text x="360" y="90">→ できる場所へ移す</text><text x="360" y="110" class="t-mute">例：Pūṣan の祭詞</text>
+  <rect x="500" y="40" width="210" height="80" rx="8" class="box"/><text x="605" y="70">③ どこでも無理</text><text x="605" y="90">→ 見えない効果のため</text><text x="605" y="110" class="t-mute">（他に道がないので）</text>
+  </g>
+  <path d="M220,80 L253,80" class="line" marker-end="url(#a10)"/>
+  <path d="M465,80 L498,80" class="line" marker-end="url(#a10)"/>
+  <text x="360" y="150" text-anchor="middle" font-size="12" class="t-acc">どの場合も祭詞は無意味ではない（§248）</text>
+</svg>
+<figcaption><b>図2　祭詞の配属（§248）。</b>見える効果（思い起こさせること）を最優先し、どうしても無理なときだけ見えない効果を想定する。</figcaption>
+</figure>
+</section>
+
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 祭詞の役目は？ 他の方法でも思い起こせるのに祭詞を学ぶ意味は？</summary><div>実行に関わる事柄を思い起こさせること。「祭詞によってのみ思い起こすべし」という制限規定があるので無意味ではない。（§239）</div></details>
+<details class="q"><summary>Q2. 新規・制限・排除規定を、それぞれ一言で定義せよ。</summary><div>新規：まったく未出のものを命じる。制限：場合によって未出のものを補って一方に固定する。排除：同時に既出の二つのうち他方を除外する。（§§241–244）</div></details>
+<details class="q"><summary>Q3. 「米を搗く」が新規規定でない理由は？</summary><div>搗けば籾殻が取れることは共存と非共存（経験）で既に知られているから。（§243）</div></details>
+<details class="q"><summary>Q4. 「五本指の動物のうち五種は食べてよい」が制限規定でない理由は？</summary><div>五種もそれ以外も欲求によって同時に既出であり、場合によって未出となることがないから。（§244）</div></details>
+<details class="q"><summary>Q5. 転義による排除の三つの瑕疵は？</summary><div>聞かれたものの放棄・聞かれていないものの想定・既出のものの打ち消し。前二つは言葉、最後は意味に関わる。（§246）</div></details>
+</section>
+
+<section id="gloss">
+<h2 class="chapter">付録　用語集（第10課）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>原語</th><th>IAST</th><th>この教科書の訳</th><th>Edgerton の訳語</th></tr>
+<tr><td class="dev">मन्त्र</td><td class="iast">mantra</td><td>祭詞</td><td class="en">formula</td></tr>
+<tr><td class="dev">अपूर्वविधि</td><td class="iast">apūrvavidhi</td><td>新規規定</td><td class="en">new (apūrva) injunction</td></tr>
+<tr><td class="dev">नियमविधि</td><td class="iast">niyamavidhi</td><td>制限規定</td><td class="en">injunction of fixation</td></tr>
+<tr><td class="dev">परिसंख्याविधि</td><td class="iast">parisaṃkhyāvidhi</td><td>排除規定</td><td class="en">injunction of exclusive-specification</td></tr>
+<tr><td class="dev">अन्वयव्यतिरेक</td><td class="iast">anvayavyatireka</td><td>共存と非共存</td><td class="en">positive and negative examples</td></tr>
+<tr><td class="dev">राग</td><td class="iast">rāga</td><td>欲求</td><td class="en">(natural) appetite</td></tr>
+<tr><td class="dev">श्रौती / लाक्षणिकी</td><td class="iast">śrautī / lākṣaṇikī</td><td>明言による／転義による</td><td class="en">directly-stated / implied</td></tr>
+<tr><td class="dev">श्रुतहानि / अश्रुतकल्पना / प्राप्तबाध</td><td class="iast">śrutahāni / aśrutakalpanā / prāptabādha</td><td>聞かれたものの放棄／聞かれていないものの想定／既出のものの打ち消し</td><td class="en">departure from direct-statement / implication of the unstated / annulment of the establisht</td></tr>
+<tr><td class="dev">उत्कर्ष</td><td class="iast">utkarṣa</td><td>（他の場所への）移動</td><td class="en">transfer</td></tr>
+</table></div>
+<h3>底本について（第10課）</h3>
+<p style="font-size:0.95rem">本文は Edgerton の校訂本文（Text, pp. 243–248）を採り、KSS版（1949年）と照合しました。OCR で ṇ が n になっていた箇所（<span class="dev">भक्षण</span>、<span class="dev">लाक्षणिकी</span>、<span class="dev">मन्त्राणाम्</span> など）や語の切れ目を直しました。§244 の「五種以外の五本指の動物」の読みは、Edgerton 脚注161 に従い C 版の読みによります。ページ画像での確認をおすすめします。</p>
+</section>
+
+<nav class="lesson-nav"><a href="mnp_lesson9.html">← 第9課　執行規定と資格規定</a><span class="spacer"></span><a href="mnp_lesson11.html">第11課　祭名（1） →</a></nav>
+
+<footer>
+  やさしい聖典解釈学 · 第10課　祭詞と三種の規定<br>
+  Based on Āpadeva’s Mīmāṃsānyāyaprakāśa, ed. and tr. F. Edgerton (1929), Translation §§239–248, with A. Chinnaswami Sastri’s Sāravivecinī (Kashi Sanskrit Series 25, 1949).
+</footer>
+</body>
+</html>
