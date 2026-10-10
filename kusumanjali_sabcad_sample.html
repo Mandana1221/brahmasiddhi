@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>クスマーンジャリ科段</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  /* 論敵ごとの色 */
+  --c-self: #8B4A2B;
+  --c-mim: #3F6A8A;
+  --c-sam: #7A5C99;
+  --c-bud: #A0782A;
+  --c-car: #4F7A4A;
+  --c-gen: #7E7265;
+  --on-c: #FFFFFF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --c-self: #C47A54;
+    --c-mim: #6E9CC0;
+    --c-sam: #A98BC7;
+    --c-bud: #C9A55A;
+    --c-car: #86B07F;
+    --c-gen: #9A8F83;
+    --on-c: #1E1D1B;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --c-self: #C47A54;
+  --c-mim: #6E9CC0;
+  --c-sam: #A98BC7;
+  --c-bud: #C9A55A;
+  --c-car: #86B07F;
+  --c-gen: #9A8F83;
+  --on-c: #1E1D1B;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+a { color: var(--accent); }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin: 0.8rem 0; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.c, th.c { text-align: center; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no { color: var(--it-color); font-weight: 600; }
+
+/* kārikā card (LSK の sutra カードと同じ形) */
+.sutra { background: var(--card-bg); border: 1px solid var(--rule-light); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem 0.9rem; margin: 1rem 0; }
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; line-height: 1.7; overflow-wrap: anywhere; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; overflow-wrap: anywhere; }
+.sutra-jp { font-size: 0.95rem; }
+
+/* ===== 科段アコーディオン ===== */
+.controls { position: sticky; top: 0; z-index: 5; background: var(--ground); border-bottom: 1px solid var(--rule-light); padding: 0.6rem 0; margin: 1rem 0 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.controls .lbl { font-size: 0.8rem; color: var(--muted); margin-right: 0.2rem; }
+.controls button { font-family: 'Shippori Mincho', serif; font-size: 0.85rem; background: var(--card-bg); color: var(--accent); border: 1px solid var(--rule); border-radius: 999px; padding: 0.15rem 0.8rem; cursor: pointer; }
+.controls button:hover, .controls button:focus-visible { border-color: var(--accent); }
+
+details.node { border-left: 2px solid var(--rule-light); margin: 0.25rem 0 0.25rem 0; }
+details.node > summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: auto 1fr auto; gap: 0.2rem 0.6rem; align-items: baseline;
+  padding: 0.35rem 0.5rem 0.35rem 0.6rem; border-radius: 0 4px 4px 0;
+}
+details.node > summary::-webkit-details-marker { display: none; }
+details.node > summary:hover { background: var(--note-bg); }
+details.node > summary::before {
+  content: "▸"; color: var(--accent-soft); font-size: 0.8rem; grid-column: 1; grid-row: 1;
+  transition: transform 0.15s; display: inline-block; width: 0.8rem;
+}
+details.node[open] > summary::before { transform: rotate(90deg); }
+details.node > summary .num { grid-column: 1; grid-row: 1; margin-left: 1.1rem; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1.02rem; white-space: nowrap; }
+details.node > summary .ttl { grid-column: 2; }
+details.node > summary .ttl .sk { font-size: 0.85rem; color: var(--ink-soft); }
+details.node > summary .refs { grid-column: 3; display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: flex-end; }
+.ref { font-size: 0.72rem; border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.35rem; color: var(--muted); white-space: nowrap; line-height: 1.6; font-family: 'Shippori Mincho', serif; }
+.ref.k { border-color: var(--accent-soft); color: var(--accent); }
+.ref.opp { color: var(--on-c); border: none; }
+.opp.mim { background: var(--c-mim); } .opp.sam { background: var(--c-sam); } .opp.bud { background: var(--c-bud); }
+.opp.car { background: var(--c-car); } .opp.self { background: var(--c-self); } .opp.gen { background: var(--c-gen); }
+details.node > .body { padding: 0.1rem 0 0.4rem 1.2rem; }
+details.node > .body > p.gist { font-size: 0.95rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; }
+details.node > .body > p.gist::before { content: "要旨　"; font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; }
+details.node.lv1 { border-left: 4px solid var(--accent); background: var(--card-bg); border-radius: 4px; margin: 0.8rem 0; padding: 0.2rem 0.4rem 0.4rem 0; }
+details.node.lv1 > summary .num { font-size: 1.25rem; }
+details.node.lv1 > summary .ttl { font-weight: 600; font-size: 1.08rem; }
+details.node.lv2 > summary .ttl { font-weight: 600; }
+details.node.leaf > summary::before { content: "·"; transform: none !important; }
+@media (max-width: 560px) {
+  details.node > summary { grid-template-columns: auto 1fr; }
+  details.node > summary .refs { grid-column: 2; justify-content: flex-start; }
+  details.node > .body { padding-left: 0.7rem; }
+}
+
+/* ===== 図：五つの異論 → 五つのスタバカ ===== */
+.flow { display: grid; grid-template-columns: 1fr 2.2rem 1fr; gap: 0.5rem 0; align-items: stretch; margin: 1.2rem 0 1.6rem; }
+.flow .q, .flow .a { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.5rem 0.75rem; font-size: 0.9rem; line-height: 1.6; background: var(--card-bg); }
+.flow .q { border-left: 4px solid var(--it-color); }
+.flow .a { border-left: 4px solid var(--ok-color); }
+.flow .q b, .flow .a b { display: block; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.flow .arr { display: flex; align-items: center; justify-content: center; color: var(--accent-soft); font-size: 1.2rem; }
+.flow .head { font-size: 0.8rem; color: var(--ink-soft); font-weight: 600; text-align: center; letter-spacing: 0.1em; }
+@media (max-width: 560px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow .arr { transform: rotate(90deg); height: 1.4rem; }
+  .flow .head.h2, .flow .head.h3 { display: none; }
+}
+
+/* ===== 図：段落マップ（[1]–[80] の帯グラフ） ===== */
+.map { display: flex; width: 100%; height: 2.4rem; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-light); margin: 0.8rem 0 0.3rem; }
+.map > a { display: flex; align-items: center; justify-content: center; color: var(--on-c); font-size: 0.72rem; text-decoration: none; border-right: 1px solid var(--ground); font-family: 'Cormorant Garamond', serif; font-weight: 600; min-width: 0; overflow: hidden; }
+.map > a:hover { filter: brightness(1.12); }
+.map-scale { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.6rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1rem; }
+.legend span::before { content: ""; display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: -0.05rem; background: var(--sw); }
+
+/* ===== 図：五つの理由 → 結論 ===== */
+.reasons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; margin: 1rem 0 0; }
+.reasons div { background: var(--point-bg); border-radius: 4px; padding: 0.45rem 0.5rem; text-align: center; font-size: 0.85rem; line-height: 1.5; }
+.reasons div .no-r { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1rem; }
+.reasons div .iast { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+.converge { text-align: center; color: var(--accent-soft); font-size: 1.1rem; line-height: 1.2; margin: 0.2rem 0; }
+.concl { border: 2px solid var(--accent); border-radius: 6px; text-align: center; padding: 0.5rem; font-weight: 600; margin-bottom: 1rem; }
+.concl .dev { display: block; font-weight: 400; font-size: 1.05rem; }
+@media (max-width: 560px) { .reasons { grid-template-columns: repeat(2, 1fr); } }
+
+/* ===== 図：論敵の位置づけ ===== */
+.opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.opp-card { border-radius: 4px; padding: 0.6rem 0.7rem; background: var(--card-bg); border: 1px solid var(--rule-light); border-top: 5px solid var(--sw); font-size: 0.88rem; line-height: 1.6; }
+.opp-card b { display: block; font-size: 0.95rem; }
+.opp-card .where { font-size: 0.78rem; color: var(--muted); }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+.tentative { font-size: 0.72rem; color: var(--it-color); border: 1px dashed var(--it-color); border-radius: 3px; padding: 0 0.3rem; margin-left: 0.3rem; white-space: nowrap; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-devanagari">न्यायकुसुमाञ्जलिः — कुसुमाञ्जलिविस्तरसहितः</div>
+  <h1>ニヤーヤ・クスマーンジャリ　目次と科段</h1>
+  <div class="header-sub">Udayana, Nyāyakusumāñjali · Outline (sa bcad) · Sample</div>
+  <div class="header-jp">
+    本文：ウダヤナ『ニヤーヤ・クスマーンジャリ』（神の存在論証の書）<br>
+    注釈：T. ヴィーララーガヴァーチャーリヤ『クスマーンジャリ・ヴィスタラ』（ティルパティ，第1巻 1940年・第2巻 1941年）<br>
+    <strong>見本版</strong>：全体の目次＋序と第1スタバカの詳細な科段
+  </div>
+</div>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#guide"><span class="n">序</span>この科段の読み方</a></li>
+    <li><a href="#whole"><span class="n">第1部</span>全体の構成 ── 五つの異論と五つのスタバカ</a></li>
+    <li><a href="#s1map"><span class="n">第2部</span>第1スタバカの見取り図</a></li>
+    <li><a href="#sabcad"><span class="n">第3部</span>詳細な科段（序・第1スタバカ）</a></li>
+    <li><a href="#rest"><span class="n">第4部</span>第2〜第5スタバカの目次（仮）</a></li>
+    <li><a href="#notes"><span class="n">付録</span>底本と注意点</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="guide">
+<h2 class="chapter">この科段の読み方</h2>
+<p class="chapter-sub">「科段」は、チベットの <span class="iast">sa bcad</span> のように、本文を番号付きの段落に細かく分けた見取り図です。</p>
+
+<div class="tbl-wrap"><table>
+  <tr><th>表示</th><th>意味</th></tr>
+  <tr><td><span class="ref k">k.4</span></td><td>カーリカー（偈）の番号。本文は偈と、ウダヤナ自身の散文の解説からなる。</td></tr>
+  <tr><td><span class="ref">[5]–[11]</span></td><td>刊本の段落番号。本文と『ヴィスタラ』に同じ番号が付いている。</td></tr>
+  <tr><td><span class="ref opp mim">ミーマーンサー</span></td><td>その段で批判される論敵。色は論敵ごとに決めてある（下の図）。</td></tr>
+  <tr><td><span class="tentative">推定</span></td><td>OCR で見出しが読み取れず、前後の流れから区切った箇所。</td></tr>
+</table></div>
+
+<div class="note">
+  <div class="note-title">アコーディオンの使い方</div>
+  ▸ の付いた行をクリックすると、その下の細目が開きます。ページ上部のボタンで「第2階層まで」「第3階層まで」などと、まとめて開け閉めもできます。まず第2階層だけで全体の流れをつかみ、気になるところを深く開いていくのがおすすめです。
+</div>
+
+<h3>登場する論敵</h3>
+<div class="opp-grid">
+  <div class="opp-card" style="--sw: var(--c-car)"><b>順世派（チャールヴァーカ）</b>来世も、目に見えない力もない。精神は身体の性質。<div class="where">第1スタバカ 1.10</div></div>
+  <div class="opp-card" style="--sw: var(--c-mim)"><b>ミーマーンサー</b>ヴェーダは常住で作者がない。祭祀の効力は「力」(śakti) による。<div class="where">第1・2・3・4スタバカ</div></div>
+  <div class="opp-card" style="--sw: var(--c-sam)"><b>サーンキヤ</b>行為の性質は根本物質に属し、精神 (puruṣa) は不変。<div class="where">第1スタバカ 1.9、第2スタバカ</div></div>
+  <div class="opp-card" style="--sw: var(--c-bud)"><b>仏教</b>あらゆるものは刹那に滅する。語の意味は他の否定 (apoha)。<div class="where">第1スタバカ 1.3.3・1.11</div></div>
+  <div class="opp-card" style="--sw: var(--c-self)"><b>ニヤーヤ（著者）</b>神は世界を作り、目に見えない力を導き、ヴェーダを説く。<div class="where">全編</div></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="whole">
+<h2 class="chapter">第1部　全体の構成</h2>
+<p class="chapter-sub">序の [4] で、神の存在に対する<strong>五つの異論</strong> (<span class="iast">pañcatayī vipratipattiḥ</span>) が示されます。五つのスタバカ（花房＝章）が、それを一つずつ退けます。</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">[4]</span><span class="sutra-num">本文</span></div>
+  <div class="sutra-text">तदिह संक्षेपतः पञ्चतयी विप्रतिपत्तिः — अलौकिकस्य परलोकसाधनस्याभावात्; अन्यथापि परलोकसाधनानुष्ठानसम्भवात्; तदभावावेदकप्रमाणसद्भावात्; सत्त्वेऽपि तस्याप्रमाणत्वात्; तत्साधकप्रमाणाभावाच्चेति ॥</div>
+  <div class="sutra-jp">ここで要するに、異論は五つある。①超世間的な来世の手段がないから。②それがなくても来世の手段を行えるから。③神がないことを知らせる認識手段があるから。④神がいても認識手段ではないから。⑤神を証明する認識手段がないから。</div>
+</div>
+
+<h3>図1　五つの異論と、それを退けるスタバカ</h3>
+<div class="flow" role="img" aria-label="五つの異論がそれぞれ第1から第5のスタバカで論駁される対応図">
+  <div class="head">異論（神はいない、なぜなら…）</div><div class="head h2"></div><div class="head h3">論駁（ウダヤナの答え）</div>
+
+  <div class="q"><b>異論①　順世派</b>来世をもたらす、目に見えない手段 (<span class="iast">adṛṣṭa</span>) などない</div>
+  <div class="arr">→</div>
+  <div class="a"><b>第1スタバカ（20偈）</b>五つの理由で不可見力を立てる。ミーマーンサー・サーンキヤ・仏教の代案も退ける</div>
+
+  <div class="q"><b>異論②　ミーマーンサー・サーンキヤ</b>神がいなくても、常住のヴェーダか聖仙の教えで祭祀は行える</div>
+  <div class="arr">→</div>
+  <div class="a"><b>第2スタバカ</b>正しさは外から生じ外から知られる。ヴェーダは作られたもので、作者は神</div>
+
+  <div class="q"><b>異論③　ミーマーンサー</b>知覚・推論・類比・言葉・要請・非認識が、神の非存在を示す</div>
+  <div class="arr">→</div>
+  <div class="a"><b>第3スタバカ</b>六つの認識手段のどれも、神を否定できない</div>
+
+  <div class="q"><b>異論④　ミーマーンサー</b>神がいても、その知は正しい認識 (<span class="iast">pramā</span>) とはいえない</div>
+  <div class="arr">→</div>
+  <div class="a"><b>第4スタバカ</b>正しい認識の定義を改め、神の知が正しいことを示す</div>
+
+  <div class="q"><b>異論⑤　無神論者全般</b>神を積極的に証明する手段がない</div>
+  <div class="arr">→</div>
+  <div class="a"><b>第5スタバカ</b>「結果であるから」など七つの理由で神を論証する</div>
+</div>
+
+<h3>表1　スタバカ一覧</h3>
+<div class="tbl-wrap"><table>
+  <tr><th>スタバカ</th><th>主題</th><th>主な論敵</th><th>巻・頁（目安）</th></tr>
+  <tr><td>第1</td><td>不可見力 (<span class="iast">adṛṣṭa</span>) の確立</td><td><span class="ref opp car">順世派</span> <span class="ref opp mim">ミーマーンサー</span> <span class="ref opp sam">サーンキヤ</span> <span class="ref opp bud">仏教</span></td><td>第1巻 p.1–72</td></tr>
+  <tr><td>第2</td><td>ヴェーダの正しさと作者、創造と帰滅</td><td><span class="ref opp mim">ミーマーンサー</span> <span class="ref opp sam">サーンキヤ</span></td><td>第1巻 p.73–144</td></tr>
+  <tr><td>第3</td><td>神を否定する認識手段はない</td><td><span class="ref opp mim">ミーマーンサー</span></td><td>第1巻 p.145 – 第2巻 p.230</td></tr>
+  <tr><td>第4</td><td>神の知は正しい認識である</td><td><span class="ref opp mim">ミーマーンサー</span></td><td>第2巻 p.1–32</td></tr>
+  <tr><td>第5</td><td>神の存在の積極的論証</td><td><span class="ref opp gen">無神論者全般</span></td><td>第2巻 p.33–</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="s1map">
+<h2 class="chapter">第2部　第1スタバカの見取り図</h2>
+<p class="chapter-sub">段落 [1]〜[80]、偈 k.1〜k.20。前半で自説を立て、後半で他派の代案を順に退けます。</p>
+
+<h3>図2　段落マップ（帯の幅＝段落の数）</h3>
+<p style="font-size:0.9rem;color:var(--ink-soft)">帯をクリックすると、その科段へ移動して開きます。</p>
+<div class="map" role="img" aria-label="第1スタバカの段落1から80の配分">
+  <a href="#n0"    style="flex:4;  background:var(--c-gen)" title="0 序 [1]–[4]">0</a>
+  <a href="#n1-1"  style="flex:1;  background:var(--c-self)" title="1.1 総説 [5]">1.1</a>
+  <a href="#n1-2"  style="flex:6;  background:var(--c-self)" title="1.2 依存性 [6]–[11]">1.2</a>
+  <a href="#n1-3"  style="flex:10; background:var(--c-self)" title="1.3 無始性 [12]–[21]">1.3</a>
+  <a href="#n1-4"  style="flex:3;  background:var(--c-self)" title="1.4 多様性 [22]–[24]">1.4</a>
+  <a href="#n1-5"  style="flex:4;  background:var(--c-self)" title="1.5 万人の営み [25]–[28]">1.5</a>
+  <a href="#n1-6"  style="flex:2;  background:var(--c-self)" title="1.6 各自への限定 [29]–[30]">1.6</a>
+  <a href="#n1-7"  style="flex:21; background:var(--c-mim)" title="1.7 ミーマーンサーの力説 [31]–[51]">1.7 śakti 説批判</a>
+  <a href="#n1-8"  style="flex:2;  background:var(--c-gen)" title="1.8 基体 [52]–[53]">1.8</a>
+  <a href="#n1-9"  style="flex:5;  background:var(--c-sam)" title="1.9 サーンキヤ [54]–[58]">1.9</a>
+  <a href="#n1-10" style="flex:1;  background:var(--c-car)" title="1.10 身体精神論 [59]">·</a>
+  <a href="#n1-11" style="flex:17; background:var(--c-bud)" title="1.11 刹那滅論 [60]–[76]">1.11 刹那滅論批判</a>
+  <a href="#n1-12" style="flex:3;  background:var(--c-gen)" title="1.12 常住者の因果性 [77]–[79]">1.12</a>
+  <a href="#n1-13" style="flex:1;  background:var(--c-self)" title="1.13 結び [80]">·</a>
+</div>
+<div class="map-scale"><span>[1]</span><span>[20]</span><span>[40]</span><span>[60]</span><span>[80]</span></div>
+<div class="legend">
+  <span style="--sw:var(--c-self)">自説の論証</span>
+  <span style="--sw:var(--c-mim)">ミーマーンサー批判</span>
+  <span style="--sw:var(--c-sam)">サーンキヤ批判</span>
+  <span style="--sw:var(--c-car)">順世派批判</span>
+  <span style="--sw:var(--c-bud)">仏教批判</span>
+  <span style="--sw:var(--c-gen)">序・総論</span>
+</div>
+<div class="point">紙幅の半分近くを、ミーマーンサーの「力」説（1.7）と仏教の刹那滅論（1.11）の批判が占めています。自説の論証そのもの（1.1〜1.6）は30段落ほどです。</div>
+
+<h3>図3　k.4 の五つの理由（第1スタバカの骨組み）</h3>
+<div class="reasons">
+  <div><span class="no-r">① 1.2</span>依存性<span class="iast">sāpekṣatvāt</span></div>
+  <div><span class="no-r">② 1.3</span>無始性<span class="iast">anāditvāt</span></div>
+  <div><span class="no-r">③ 1.4</span>多様性<span class="iast">vaicitryāt</span></div>
+  <div><span class="no-r">④ 1.5</span>万人の営み<span class="iast">viśvavṛttitaḥ</span></div>
+  <div><span class="no-r">⑤ 1.6</span>各自への限定<span class="iast">pratyātmaniyamāt</span></div>
+</div>
+<div class="converge">↓　↓　↓　↓　↓</div>
+<div class="concl">
+  <span class="dev">अस्ति हेतुरलौकिकः</span>
+  経験（享受）には、超世間的な原因がある
+</div>
+
+<h3>表2　偈と段落の対応</h3>
+<div class="tbl-wrap"><table>
+  <tr><th class="c">偈</th><th class="c">段落</th><th>内容</th><th>科段</th></tr>
+  <tr><td class="c">k.1</td><td class="c">[1]</td><td>帰敬・祈願</td><td>0.1</td></tr>
+  <tr><td class="c">k.2</td><td class="c">[1]</td><td>著述の目的</td><td>0.2</td></tr>
+  <tr><td class="c">k.3</td><td class="c">[3]</td><td>思惟 (manana) としての礼拝</td><td>0.3.2</td></tr>
+  <tr><td class="c">k.4</td><td class="c">[5]</td><td>五つの理由</td><td>1.1</td></tr>
+  <tr><td class="c">k.5</td><td class="c">[6]</td><td>無因論の否定</td><td>1.2.2</td></tr>
+  <tr><td class="c">k.6</td><td class="c">[13]</td><td>流れは無始</td><td>1.3</td></tr>
+  <tr><td class="c">k.7</td><td class="c">[22]</td><td>結果の多様性</td><td>1.4</td></tr>
+  <tr><td class="c">k.8</td><td class="c">[25]</td><td>万人の営み</td><td>1.5</td></tr>
+  <tr><td class="c">k.9</td><td class="c">[28]末</td><td>滅した行為と残存力</td><td>1.6</td></tr>
+  <tr><td class="c">k.10</td><td class="c">[31]</td><td>非存在も原因、妨げるもの</td><td>1.7.1</td></tr>
+  <tr><td class="c">k.11</td><td class="c">[41]</td><td>浄化は人に属す</td><td>1.7.3</td></tr>
+  <tr><td class="c">k.12</td><td class="c">[47]末</td><td>神像の聖別など</td><td>1.7.4</td></tr>
+  <tr><td class="c">k.13</td><td class="c">[50]</td><td>神判</td><td>1.7.5</td></tr>
+  <tr><td class="c">k.14</td><td class="c">[56]</td><td>サーンキヤ批判</td><td>1.9.2</td></tr>
+  <tr><td class="c">k.15</td><td class="c">[59]</td><td>身体精神論批判</td><td>1.10</td></tr>
+  <tr><td class="c">k.16</td><td class="c">[61]</td><td>刹那滅の論証不可</td><td>1.11.1</td></tr>
+  <tr><td class="c">k.17</td><td class="c">[72]末</td><td>持続の確定</td><td>1.11.3</td></tr>
+  <tr><td class="c">k.18</td><td class="c">[75]</td><td>因果性は仮構でない</td><td>1.11.4</td></tr>
+  <tr><td class="c">k.19</td><td class="c">[78]</td><td>常住・遍在者の因果性</td><td>1.12</td></tr>
+  <tr><td class="c">k.20</td><td class="c">[80]</td><td>結びの偈</td><td>1.13</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sabcad">
+<h2 class="chapter">第3部　詳細な科段</h2>
+<p class="chapter-sub">序（0）と第1スタバカ（1）。各行の右に、偈・段落・論敵を示します。</p>
+
+<div class="controls" id="controls">
+  <span class="lbl">まとめて開く：</span>
+  <button type="button" data-depth="1">第1階層のみ</button>
+  <button type="button" data-depth="2">第2階層まで</button>
+  <button type="button" data-depth="3">第3階層まで</button>
+  <button type="button" data-depth="9">すべて開く</button>
+  <button type="button" data-depth="0">すべて閉じる</button>
+</div>
+
+<div id="tree">
+
+<!-- ===================== 0 序 ===================== -->
+<details class="node lv1" id="n0" open>
+<summary><span class="num">0</span><span class="ttl">序 ── 何のために神を論じるのか</span><span class="refs"><span class="ref k">k.1–3</span><span class="ref">[1]–[4]</span></span></summary>
+<div class="body">
+<p class="gist">祈願の偈ののち、「天界と解脱の因である最高我を考察する」と宣言する。誰も疑わない神をなぜ論じるのかという疑問には、聖典の命じる「思惟」(manana) だと答え、最後に五つの異論を示す。</p>
+
+  <details class="node lv2" id="n0-1">
+  <summary><span class="num">0.1</span><span class="ttl">帰敬・祈願の偈 <span class="sk">maṅgala</span></span><span class="refs"><span class="ref k">k.1</span><span class="ref">[1]</span></span></summary>
+  <div class="body">
+    <p class="gist">本書を神の両足に捧げる「花の捧げもの」(añjali) にたとえる。書名の由来。</p>
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.1</span></div>
+      <div class="sutra-text">सत्पक्षप्रसरः सतां परिमलप्रोद्बोधबद्धोत्सवो विम्लानो न विमर्दनेऽमृतरसप्रस्यन्दमाध्वीकभूः । ईशस्यैष निवेशितः पदयुगे भृङ्गायमाणं भ्रमच्चेतो मे रमयत्वविघ्नमनघो न्यायप्रसूनाञ्जलिः ॥</div>
+      <div class="sutra-jp">神の両足に捧げられたこの「正理の花の捧げもの」が、蜂のようにさまよう私の心を、障りなく楽しませますように。</div>
+    </div>
+    <details class="node leaf"><summary><span class="num">0.1.1</span><span class="ttl">『ヴィスタラ』：比喩の読み解き</span><span class="refs"><span class="ref">[1]</span></span></summary>
+    <div class="body">
+      <div class="tbl-wrap"><table>
+        <tr><th>比喩</th><th>指すもの</th></tr>
+        <tr><td>花房 (stabaka)</td><td>各章</td></tr>
+        <tr><td>花 (prasūna)</td><td>偈で述べられる論証の理由</td></tr>
+        <tr><td>花びら (dala)</td><td>その間に挟まる細かな議論</td></tr>
+        <tr><td>前半の三つの形容</td><td>推論の三種の誤りがないこと（主題の性質・遍充・推論知を妨げる誤り）</td></tr>
+        <tr><td>「無垢な」(anagha)</td><td>言葉の誤りがないこと</td></tr>
+      </table></div>
+      <p style="font-size:0.92rem">神には身体がないのに「両足」とはどういうことか、という問いも論じられる。答えの一つは、両足を神を知らせる二つのもの（認識手段と推論）と読むこと。</p>
+    </div></details>
+  </div></details>
+
+  <details class="node lv2" id="n0-2">
+  <summary><span class="num">0.2</span><span class="ttl">著述の目的：最高我を考察する</span><span class="refs"><span class="ref k">k.2</span></span></summary>
+  <div class="body">
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.2</span></div>
+      <div class="sutra-text">स्वर्गापवर्गयोर्मार्गमामनन्ति मनीषिणः । यदुपास्तिमसावत्र परमात्मा निरूप्यते ॥</div>
+      <div class="sutra-jp">賢者たちが「天界と解脱への道」と説く、その方への礼拝。その方、すなわち最高我を、ここで考察する。</div>
+    </div>
+    <details class="node leaf"><summary><span class="num">0.2.1</span><span class="ttl">『ヴィスタラ』：ヨーガだけで解脱できるなら神は不要では？</span></summary>
+    <div class="body"><p class="gist">神への礼拝による恵みがなければ、ヨーガも、自分の功徳と罪の直観も容易ではない。だから神の考察は必要である（『ギーター』8.13 を引く）。</p></div></details>
+  </div></details>
+
+  <details class="node lv2" id="n0-3">
+  <summary><span class="num">0.3</span><span class="ttl">疑問と答え：なぜ考察が必要か</span><span class="refs"><span class="ref k">k.3</span><span class="ref">[2]–[3]</span></span></summary>
+  <div class="body">
+    <details class="node" id="n0-3-1"><summary><span class="num">0.3.1</span><span class="ttl">疑問：誰も疑わない神を、なぜ論じるのか</span><span class="refs"><span class="ref">[2]</span></span></summary>
+    <div class="body">
+      <p class="gist">考察 (nyāya) は疑わしいことに対して行うもの。ところが諸派はみな、それぞれの名で神を礼拝している。疑いがないなら考察は不要ではないか。</p>
+      <h3 style="margin-top:0.6rem">表3　[2] に挙げられる諸派の神観</h3>
+      <div class="tbl-wrap"><table>
+        <tr><th>派</th><th>神は…</th></tr>
+        <tr><td>ウパニシャッド派</td><td>清浄で目覚めた本性のもの</td></tr>
+        <tr><td>カピラ派（サーンキヤ）</td><td>原初の賢者、完成者</td></tr>
+        <tr><td>パタンジャリ派（ヨーガ）</td><td>煩悩・業・果報・潜在印象に触れず、化身をとって伝統を広め、恵みを与えるもの</td></tr>
+        <tr><td>大パーシュパタ派</td><td>世間とヴェーダに反する行いにも汚されない、自在なもの</td></tr>
+        <tr><td>シヴァ派</td><td>シヴァ</td></tr>
+        <tr><td>ヴィシュヌ派</td><td>最高のプルシャ（プルショーッタマ）</td></tr>
+        <tr><td>プラーナ派</td><td>祖父神（ブラフマー）</td></tr>
+        <tr><td>祭官</td><td>祭祀のプルシャ</td></tr>
+        <tr><td>仏教</td><td>一切知者</td></tr>
+        <tr><td>ジャイナ教（空衣派）</td><td>覆いのないもの</td></tr>
+        <tr><td>ミーマーンサー</td><td>礼拝の対象として説かれるもの</td></tr>
+        <tr><td>順世派</td><td>世間の慣習によって成り立つもの</td></tr>
+        <tr><td>ニヤーヤ派</td><td>説かれた限りの性質を、理にかなう形で備えるもの</td></tr>
+        <tr><td>職人たち</td><td>ヴィシュヴァカルマン（万物の造り手）</td></tr>
+      </table></div>
+    </div></details>
+
+    <details class="node" id="n0-3-2"><summary><span class="num">0.3.2</span><span class="ttl">答え：聴聞のあとの「思惟」としての礼拝</span><span class="refs"><span class="ref k">k.3</span><span class="ref">[3]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.3</span></div>
+        <div class="sutra-text">न्यायचर्चेयमीशस्य मननव्यपदेशभाक् । उपासनैव क्रियते श्रवणानन्तरागता ॥</div>
+        <div class="sutra-jp">神についてのこの正理の考究は「思惟」と呼ばれる。聴聞 (śravaṇa) のあとに来る礼拝そのものを、ここで行うのである。</div>
+      </div>
+      <details class="node leaf"><summary><span class="num">0.3.2.1</span><span class="ttl">聖典の根拠：「聞くべし、思惟すべし」</span></summary>
+      <div class="body"><p class="gist">ウパニシャッドの「聞くべし、思惟すべし」と、伝承文献の「聖典・推論・瞑想の三つで智慧を養い、最高のヨーガを得る」を引く。</p></div></details>
+      <details class="node leaf"><summary><span class="num">0.3.2.2</span><span class="ttl">『ヴィスタラ』：疑いがなくても考察は成り立つ</span></summary>
+      <div class="body"><p class="gist">「異論 (vipratipatti)」は疑いそのものではなく、相反する主張を述べる二つの文のこと。自分で論証を繰り返すのは「既に成り立つことの論証」という誤りにはならない。諸派の誤解（真珠貝を銀と見るような）を正すためにも思惟が要る。</p></div></details>
+    </div></details>
+  </div></details>
+
+  <details class="node lv2" id="n0-4">
+  <summary><span class="num">0.4</span><span class="ttl">五つの異論の提示</span><span class="refs"><span class="ref">[4]</span></span></summary>
+  <div class="body">
+    <p class="gist">図1・表1を参照。『ヴィスタラ』はここで「全スタバカの要旨」を述べ、各異論をさらに下位の異論に分ける。</p>
+    <details class="node leaf"><summary><span class="num">0.4.1</span><span class="ttl">『ヴィスタラ』：第一の異論の下位の異論（五つ）</span></summary>
+    <div class="body">
+      <div class="tbl-wrap"><table>
+        <tr><th>#</th><th>順世派の主張</th><th>退ける科段</th></tr>
+        <tr><td>a</td><td>結果は原因に依存しない（因果関係を認めない）</td><td>1.2</td></tr>
+        <tr><td>b</td><td>依存する場合があっても、どこでもそうとは限らない</td><td>1.3</td></tr>
+        <tr><td>c</td><td>依存しても、すべて一種類の原因から生じうる</td><td>1.4</td></tr>
+        <tr><td>d</td><td>多様な原因が要っても、来世の手段まで認める必要はない</td><td>1.5</td></tr>
+        <tr><td>e</td><td>要るとしても祭祀・布施そのものが手段で、魂に宿る不可見力の証拠はない</td><td>1.6</td></tr>
+      </table></div>
+    </div></details>
+    <details class="node leaf"><summary><span class="num">0.4.2</span><span class="ttl">『ヴィスタラ』：第二〜第五の異論の下位の異論</span></summary>
+    <div class="body">
+      <div class="tbl-wrap"><table>
+        <tr><th>異論</th><th>下位の異論</th></tr>
+        <tr><td>②</td><td>知の正しさは本来的（自ずから）／ヴェーダは常住／大衆が受け入れている／流れは無始／聖仙カピラらの作 ── 最後のみサーンキヤ、他はミーマーンサー</td></tr>
+        <tr><td>③</td><td>六つの認識手段ごとに一つずつ、計六つ</td></tr>
+        <tr><td>④</td><td>未知の対象を知るのが正しい認識だが神には言えない／一切を知るなら誤りも知る／神の知は常住で、生み出す働きがない</td></tr>
+        <tr><td>⑤</td><td>「結果であるから」など神を論証する理由の一つひとつが、似非理由ではないかという疑い</td></tr>
+      </table></div>
+    </div></details>
+  </div></details>
+</div>
+</details>
+
+<!-- ===================== 1 第1スタバカ ===================== -->
+<details class="node lv1" id="n1" open>
+<summary><span class="num">1</span><span class="ttl">第1スタバカ ── 不可見力 (adṛṣṭa) の確立</span><span class="refs"><span class="ref k">k.4–20</span><span class="ref">[5]–[80]</span></span></summary>
+<div class="body">
+<p class="gist">「来世をもたらす目に見えない手段などない」という第一の異論を退ける。前半（1.1〜1.6）で五つの理由により不可見力を立て、後半（1.7〜1.12）でその代わりになる他派の説を退ける。</p>
+
+  <!-- 1.1 -->
+  <details class="node lv2" id="n1-1">
+  <summary><span class="num">1.1</span><span class="ttl">総説：五つの理由</span><span class="refs"><span class="ref k">k.4</span><span class="ref">[5]</span><span class="ref opp self">自説</span></span></summary>
+  <div class="body">
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.4</span></div>
+      <div class="sutra-text">सापेक्षत्वादनादित्वाद्वैचित्र्याद्विश्ववृत्तितः । प्रत्यात्मनियमाद्भुक्तेरस्ति हेतुरलौकिकः ॥</div>
+      <div class="sutra-iast">sāpekṣatvād anāditvād vaicitryād viśvavṛttitaḥ | pratyātmaniyamād bhukter asti hetur alaukikaḥ ||</div>
+      <div class="sutra-jp">依存性・無始性・多様性・万人の営み・各自への限定のゆえに、経験には超世間的な原因がある。</div>
+    </div>
+    <p class="gist">五つの理由と、それを論じる科段の対応は図3を参照。『ヴィスタラ』は、第一の異論の文は「認識手段で確かめられたものを否定しているので正しくない」とまとめる。</p>
+  </div></details>
+
+  <!-- 1.2 -->
+  <details class="node lv2" id="n1-2">
+  <summary><span class="num">1.2</span><span class="ttl">第一の理由「依存性」 <span class="sk">sāpekṣatva</span></span><span class="refs"><span class="ref k">k.5</span><span class="ref">[6]–[11]</span><span class="ref opp car">順世派</span></span></summary>
+  <div class="body">
+    <p class="gist">結果は時々しか生じない（kādācitka）から、何かに依存している。依存するものが一切なければ、「常にある」か「決してない」かのどちらかになるはずだ。</p>
+    <details class="node" id="n1-2-1"><summary><span class="num">1.2.1</span><span class="ttl">輪廻は原因なしにはありえない</span><span class="refs"><span class="ref">[6]</span></span></summary>
+    <div class="body"><p class="gist">さまざまな苦しみに満ちた輪廻が、何にも依存しないことはありえない。そうなら「常にある」か「決してない」かで、「ある時だけある」ことはない。</p></div></details>
+
+    <details class="node" id="n1-2-2"><summary><span class="num">1.2.2</span><span class="ttl">「偶然に (akasmāt) 生じる」の四つの解釈を退ける</span><span class="refs"><span class="ref k">k.5</span><span class="ref">[6]–[8]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.5</span></div>
+        <div class="sutra-text">हेतुभूतिनिषेधो न स्वानुपाख्यविधिर्न च । स्वभाववर्णना नैवमवधेर्नियतत्वतः ॥</div>
+        <div class="sutra-jp">原因の否定でも、生起の否定でも、自分自身や無からの生起でもない。自性による説明でもない。期限が定まっているからである。</div>
+      </div>
+      <h3 style="margin-top:0.4rem">表4　「偶然に生じる」の四つの読み方</h3>
+      <div class="tbl-wrap"><table>
+        <tr><th>科段</th><th>「偶然に」の意味</th><th>退ける理由</th></tr>
+        <tr><td>1.2.2.1</td><td>原因がない (hetu-niṣedha)</td><td>原因がなければ、生じる時を限るものがなく、常に生じてしまう</td></tr>
+        <tr><td>1.2.2.2</td><td>生起がない (bhūti-niṣedha)</td><td>現に生じているので、経験と矛盾する</td></tr>
+        <tr><td>1.2.2.3</td><td>自分自身、または「無」(anupākhya) から生じる</td><td>まだ無いものは原因になれない。無は何も生まない</td></tr>
+        <tr><td>1.2.2.4</td><td>自性 (svabhāva) による</td><td>生じる時と場所（期限）が決まっていることを、自性では説明できない</td></tr>
+      </table></div>
+      <details class="node leaf"><summary><span class="num">1.2.2.1</span><span class="ttl">原因の否定と解する場合</span><span class="refs"><span class="ref">[7]</span></span></summary><div class="body"><p class="gist">表4の1行目。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.2.2.2</span><span class="ttl">生起の否定と解する場合</span><span class="refs"><span class="ref">[7]</span></span></summary><div class="body"><p class="gist">表4の2行目。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.2.2.3</span><span class="ttl">自分自身・無から生じると解する場合</span><span class="refs"><span class="ref">[7]</span></span></summary><div class="body"><p class="gist">表4の3行目。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.2.2.4</span><span class="ttl">自性によると解する場合</span><span class="refs"><span class="ref">[8]</span></span></summary><div class="body"><p class="gist">反論者は「四つの読みはどれも我々の主張ではない。自性論だ」と言う。しかし自性論では、なぜその時その場所で生じるのかを説明できない。</p></div></details>
+    </div></details>
+
+    <details class="node" id="n1-2-3"><summary><span class="num">1.2.3</span><span class="ttl">期限 (avadhi) が決まっていることから原因が要る</span><span class="refs"><span class="ref">[9]–[11]</span></span></summary>
+    <div class="body">
+      <details class="node leaf"><summary><span class="num">1.2.3.1</span><span class="ttl">反論：先行非存在 (prāgabhāva) だけが期限だ</span><span class="refs"><span class="ref">[9]</span></span></summary><div class="body"><p class="gist">その時には他のもの（棒・轆轤など）も存在している。先行非存在だけを期限とする理由がない。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.2.3.2</span><span class="ttl">反論：期限はあっても依存はしない</span><span class="refs"><span class="ref">[10]</span></span></summary><div class="body"><p class="gist">決まった期限がなければ生じない以上、それが「依存する」ということである。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.2.3.3</span><span class="ttl">結論：結果は原因をもつ</span><span class="refs"><span class="ref">[11]</span><span class="tentative">推定</span></span></summary><div class="body"><p class="gist">1.2 の結論。</p></div></details>
+    </div></details>
+  </div></details>
+
+  <!-- 1.3 -->
+  <details class="node lv2" id="n1-3">
+  <summary><span class="num">1.3</span><span class="ttl">第二の理由「無始性」 <span class="sk">anāditva</span></span><span class="refs"><span class="ref k">k.6</span><span class="ref">[12]–[21]</span><span class="ref opp self">自説</span></span></summary>
+  <div class="body">
+    <p class="gist">原因と結果の流れには始まりがない。また、同じ種類の結果は同じ種類の原因から生じる。だから因果関係は「種」によって決まっている。</p>
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.6</span><span class="sutra-num">[13]</span></div>
+      <div class="sutra-text">प्रवाहोऽनादिमानेष न विजात्येकशक्तिमान् । तस्मै यत्नवता भाव्यमन्वयव्यतिरेकयोः ॥</div>
+      <div class="sutra-jp">この流れには始まりがなく、異なる種類のものが同じ一つの力をもつこともない。それを見極めるには、一致と不一致（あれば生じ、なければ生じない）に注意深くあるべきだ。<span class="tentative">刊本の読み</span></div>
+    </div>
+    <details class="node" id="n1-3-1"><summary><span class="num">1.3.1</span><span class="ttl">流れは始まりをもたない</span><span class="refs"><span class="ref">[12]–[14]</span><span class="tentative">推定</span></span></summary><div class="body"><p class="gist">「後のものには前のものが期限」という反論から、原因の連鎖は無始であることを示す。</p></div></details>
+    <details class="node" id="n1-3-2"><summary><span class="num">1.3.2</span><span class="ttl">同種の結果は同種の原因から</span><span class="refs"><span class="ref">[15]–[17]</span></span></summary>
+    <div class="body">
+      <details class="node leaf"><summary><span class="num">1.3.2.1</span><span class="ttl">反論：種ではなく個体ごとに決まる</span><span class="refs"><span class="ref">[15]</span></span></summary><div class="body"><p class="gist">壺という種に対して土片という種が原因、と種で決まっている。個体ごとでは規則にならない。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.3.2.2</span><span class="ttl">難問：草・火鑽り木・宝珠から同じ火が出る</span><span class="refs"><span class="ref">[16]–[17]</span></span></summary>
+      <div class="body">
+        <p class="gist">異なる種類の原因から同じ種類の火が生じるのは、規則の例外ではないか。答え：結果の種類を決めるのは素材因（質料因）であり、補助因ではない。</p>
+        <div class="tbl-wrap"><table>
+          <tr><th>原因</th><th>そのための働き</th><th>結果</th></tr>
+          <tr><td>草 (tṛṇa)</td><td>吹く</td><td rowspan="3" style="vertical-align:middle">火</td></tr>
+          <tr><td>火鑽り木 (araṇi)</td><td>擦る</td></tr>
+          <tr><td>宝珠 (maṇi)</td><td>日光を集める</td></tr>
+        </table></div>
+      </div></details>
+    </div></details>
+    <details class="node" id="n1-3-3"><summary><span class="num">1.3.3</span><span class="ttl">仏教のアポーハ説も退けられる</span><span class="refs"><span class="ref">[18]</span><span class="ref opp bud">仏教</span></span></summary><div class="body"><p class="gist">同じ理由で、「種」を実在とせず他の否定 (apoha) とする仏教の説でも、因果の規則は立たない。</p></div></details>
+    <details class="node" id="n1-3-4"><summary><span class="num">1.3.4</span><span class="ttl">結果の側にも下位の種の違いがある</span><span class="refs"><span class="ref">[19]–[21]</span></span></summary><div class="body"><p class="gist">草の火・木の火などは、同じ「火」の中の下位の種として異なる。だから一般的な火には一般的な原因、特定の火には特定の原因、と二重に因果関係が立つ。</p></div></details>
+  </div></details>
+
+  <!-- 1.4 -->
+  <details class="node lv2" id="n1-4">
+  <summary><span class="num">1.4</span><span class="ttl">第三の理由「多様性」 <span class="sk">vaicitrya</span></span><span class="refs"><span class="ref k">k.7</span><span class="ref">[22]–[24]</span><span class="ref opp self">自説</span></span></summary>
+  <div class="body">
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.7</span><span class="sutra-num">[22]</span></div>
+      <div class="sutra-text">एकस्य न क्रमः क्वापि वैचित्र्यं च समस्य न । शक्तिभेदो न चाभिन्नः स्वभावो दुरतिक्रमः ॥</div>
+      <div class="sutra-jp">単一のものに継起はなく、一様なものに多様性はない。区別のないものに異なる力はない。本性は越えがたい。</div>
+    </div>
+    <p class="gist">結果が多様なのだから、原因も多様でなければならない。ランプ一つが闇を払い、芯を焦がし、色を照らす例が反論に出るが退けられる。</p>
+    <details class="node leaf"><summary><span class="num">1.4.1</span><span class="ttl">単一の原因は継起的な結果を生まない</span><span class="refs"><span class="ref">[22]–[23]</span><span class="tentative">推定</span></span></summary><div class="body"><p class="gist">原因が一つなら、結果はすべて同時に生じるはずだ。</p></div></details>
+    <details class="node leaf"><summary><span class="num">1.4.2</span><span class="ttl">多数でも一様な原因は多様な結果を生まない</span><span class="refs"><span class="ref">[24]</span></span></summary><div class="body"><p class="gist">過不足のない一定の原因の集まりからは、一定の結果しか生じない。</p></div></details>
+  </div></details>
+
+  <!-- 1.5 -->
+  <details class="node lv2" id="n1-5">
+  <summary><span class="num">1.5</span><span class="ttl">第四の理由「万人の営み」 <span class="sk">viśvavṛtti</span></span><span class="refs"><span class="ref k">k.8</span><span class="ref">[25]–[28]</span><span class="ref opp car">順世派</span></span></summary>
+  <div class="body">
+    <p class="gist">見える補助因だけで足りる、という反論に答える。賢者を含む万人が、布施や学習などの宗教的な営みを行っている。それには目に見えない果があるはずだ。</p>
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.8</span><span class="sutra-num">[25]</span></div>
+      <div class="sutra-text">विफला विश्ववृत्तिर्नो न दुःखैकफलापि वा । दृष्टलाभफला नापि विप्रलम्भोऽपि नेदृशः ॥</div>
+      <div class="sutra-jp">万人の営みは無果ではなく、苦しみだけを果とするのでもない。目に見える利得を果とするのでもなく、このようなものが欺瞞であるはずもない。</div>
+    </div>
+    <h3 style="margin-top:0.4rem">表5　宗教的営みの目的についての四つの可能性</h3>
+    <div class="tbl-wrap"><table>
+      <tr><th>科段</th><th>可能性</th><th class="c">判定</th><th>理由</th></tr>
+      <tr><td>1.5.1</td><td>果がない</td><td class="c no">✗</td><td>賢い人が果のないことに努めるはずがない</td></tr>
+      <tr><td>1.5.2</td><td>苦しみだけが果</td><td class="c no">✗</td><td>苦しみを望んで行う人はいない</td></tr>
+      <tr><td>1.5.3</td><td>利得・供養・名声 [26]、快楽 [27]</td><td class="c no">✗</td><td>それらが何によって得られるかが問題になる。無神論者も同じことをするはずだ</td></tr>
+      <tr><td>1.5.4</td><td>先人に欺かれている [28]</td><td class="c no">✗</td><td>先人も自ら行っている。欺く者が自分で損をするはずがない</td></tr>
+      <tr><td colspan="2"><strong>残るのは</strong></td><td class="c yes">✓</td><td><strong>目に見えない果（来世の果）</strong></td></tr>
+    </table></div>
+  </div></details>
+
+  <!-- 1.6 -->
+  <details class="node lv2" id="n1-6">
+  <summary><span class="num">1.6</span><span class="ttl">第五の理由「各自への限定」 <span class="sk">pratyātmaniyama</span></span><span class="refs"><span class="ref k">k.9</span><span class="ref">[28]–[30]</span><span class="ref opp self">自説</span></span></summary>
+  <div class="body">
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.9</span></div>
+      <div class="sutra-text">चिरध्वस्तं फलायालं न कर्मातिशयं विना । सम्भोगो निर्विशेषाणां न भूतैः संस्कृतैरपि ॥</div>
+      <div class="sutra-jp">とうに滅した行為は、残存する力 (atiśaya) なしには果を生めない。また、区別のない魂たちの享受は、浄められた物質によっても説明できない。</div>
+    </div>
+    <p class="gist">祭祀はすぐ滅するが、果は後に、しかもそれを行った本人にだけ生じる。だから行為者の魂に宿る力（不可見力）が必要である。</p>
+  </div></details>
+
+  <!-- 1.7 -->
+  <details class="node lv2" id="n1-7">
+  <summary><span class="num">1.7</span><span class="ttl">ミーマーンサーの「力」(śakti) 説の論駁</span><span class="refs"><span class="ref k">k.10–13</span><span class="ref">[31]–[51]</span><span class="ref opp mim">ミーマーンサー</span></span></summary>
+  <div class="body">
+    <p class="gist">ミーマーンサーは、ものには目に見えない「力」があり、それで結果が生じると言う。これを認めれば不可見力は不要になってしまう。ウダヤナは、力の例とされる現象をすべて別の仕方で説明する。</p>
+
+    <details class="node" id="n1-7-1"><summary><span class="num">1.7.1</span><span class="ttl">非存在も原因：妨げるもの (pratibandhaka) の理論</span><span class="refs"><span class="ref k">k.10</span><span class="ref">[31]–[36]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.10</span><span class="sutra-num">[31]</span></div>
+        <div class="sutra-text">भावो यथा तथाऽभावः कारणं कार्यवन्मतः । प्रतिबन्धो विसामग्री तद्धेतुः प्रतिबन्धकः ॥</div>
+        <div class="sutra-jp">存在と同じく非存在も、結果と同じように原因と認められる。「妨げ」とは原因の集まりが欠けること、「妨げるもの」とはその欠ける原因である。</div>
+      </div>
+      <h3 style="margin-top:0.4rem">表6　宝珠と火の例（力を立てずに説明する）</h3>
+      <div class="tbl-wrap"><table>
+        <tr><th>火</th><th>呪力ある宝珠</th><th>促進するもの (uttejaka)</th><th class="c">焼ける？</th></tr>
+        <tr><td class="yes">あり</td><td>なし</td><td>―</td><td class="c yes">○</td></tr>
+        <tr><td class="yes">あり</td><td class="no">あり</td><td>なし</td><td class="c no">×</td></tr>
+        <tr><td class="yes">あり</td><td class="no">あり</td><td class="yes">あり</td><td class="c yes">○</td></tr>
+      </table></div>
+      <div class="point">「宝珠の非存在」（正確には「促進するものを伴わない宝珠」の非存在）を原因の一つに数えれば、火に「焼く力」を認めなくても結果を説明できる。</div>
+      <details class="node leaf"><summary><span class="num">1.7.1.1</span><span class="ttl">宝珠の非存在を原因とすることへの反論と答え</span><span class="refs"><span class="ref">[32]–[34]</span></span></summary><div class="body"><p class="gist">宝珠が一つあれば、同種の別の宝珠がなくても焼けない、などの難点に答える。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.7.1.2</span><span class="ttl">呪文なども、ただ妨げるだけ</span><span class="refs"><span class="ref">[35]–[36]</span></span></summary><div class="body"><p class="gist">「力を認めなければ呪文が妨げるとは言えない」という反論に対し、妨げとは原因の集まりの欠如にすぎないと答える。</p></div></details>
+    </div></details>
+
+    <details class="node" id="n1-7-2"><summary><span class="num">1.7.2</span><span class="ttl">付与された力 (ādheya-śakti) の否定</span><span class="refs"><span class="ref">[37]–[40]</span></span></summary>
+    <div class="body">
+      <p class="gist">「生まれつきの力はないとしても、儀礼で付与される力はある」という反論。例は、米に水を注ぐ浄め (prokṣaṇa)。</p>
+      <details class="node leaf"><summary><span class="num">1.7.2.1</span><span class="ttl">浄めは「目印」か「限定」か</span><span class="refs"><span class="ref">[38]</span></span></summary><div class="body"><p class="gist">浄めが米の目印にすぎないなら、浄めていない米でもよいことになってしまう。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.7.2.2</span><span class="ttl">ミーマーンサーの論拠：農耕・医療と同じく、米に何かが加わる</span><span class="refs"><span class="ref">[39]–[40]</span></span></summary><div class="body"><p class="gist">反論側の主張の提示。</p></div></details>
+    </div></details>
+
+    <details class="node" id="n1-7-3"><summary><span class="num">1.7.3</span><span class="ttl">浄化は人に属し、原子の特性は熱による</span><span class="refs"><span class="ref k">k.11</span><span class="ref">[41]–[47]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.11</span><span class="sutra-num">[41]</span></div>
+        <div class="sutra-text">संस्कारः पुंस एवेष्टः प्रोक्षणाभ्युक्षणादिभिः । स्वगुणाः परमाणूनां विशेषाः पाकजादयः ॥</div>
+        <div class="sutra-jp">浄め・振りかけなどによる浄化は、人にだけ生じると認められる。原子の特性は、熱による変化などの、原子自身の性質である。</div>
+      </div>
+      <details class="node leaf"><summary><span class="num">1.7.3.1</span><span class="ttl">米を再び使うときの問題</span><span class="refs"><span class="ref">[42]–[43]</span></span></summary><div class="body"><p class="gist">力が米に宿るなら、使ったあとの米を再び使えるはずだ、という問題などを論じる。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.7.3.2</span><span class="ttl">農耕・医療の場合</span><span class="refs"><span class="ref">[44]</span></span></summary><div class="body"><p class="gist">これらは目に見える、熱による変化だけで説明できる。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.7.3.3</span><span class="ttl">劫の初めの場合</span><span class="refs"><span class="ref">[45]</span></span></summary><div class="body"><p class="gist">種子がない創造の初めにも、同じ仕方で説明できる。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.7.3.4</span><span class="ttl">熱の変化のない水・火・風の場合</span><span class="refs"><span class="ref">[46]–[47]</span></span></summary><div class="body"><p class="gist">熱による変化以外にも特性の違いは生じうる。</p></div></details>
+    </div></details>
+
+    <details class="node" id="n1-7-4"><summary><span class="num">1.7.4</span><span class="ttl">神像の聖別などの場合</span><span class="refs"><span class="ref k">k.12</span><span class="ref">[48]–[49]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.12</span></div>
+        <div class="sutra-text">निमित्तभेदसंसर्गादुद्भवानुद्भवादयः । देवतासन्निधानेन प्रत्यभिज्ञानतोऽपि वा ॥</div>
+        <div class="sutra-jp">顕現・非顕現などは、異なる作用因との接触による。または神格の臨在によるか、再認識によるかである。</div>
+      </div>
+    </div></details>
+
+    <details class="node" id="n1-7-5"><summary><span class="num">1.7.5</span><span class="ttl">神判 (parīkṣā) の場合</span><span class="refs"><span class="ref k">k.13</span><span class="ref">[50]–[51]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.13</span><span class="sutra-num">[50]</span></div>
+        <div class="sutra-text">जयेतरनिमित्तस्य वृत्तिलाभाय केवलम् । परीक्ष्य समवेतस्य परीक्षाविधयो मताः ॥</div>
+        <div class="sutra-jp">神判の規定は、試される人に属する勝ち負けの原因（功徳と罪）が働くようにするためだけのものである。</div>
+      </div>
+      <p class="gist">秤による神判で、罪のない人が勝つのは、秤に力があるからではない。法を司る神格がその人の功徳に応じて働くからだ [50]。では力の否定に何の認識手段があるのか、という問いに答える [51]。</p>
+    </div></details>
+  </div></details>
+
+  <!-- 1.8 -->
+  <details class="node lv2" id="n1-8">
+  <summary><span class="num">1.8</span><span class="ttl">不可見力の基体は物質でなく精神</span><span class="refs"><span class="ref">[52]–[53]</span><span class="ref opp gen">総論</span></span></summary>
+  <div class="body"><p class="gist">浄化されるのが精神であって物質でないと、どう決めるのか。物質を基体とすると規則が立たない、と論じる。</p></div></details>
+
+  <!-- 1.9 -->
+  <details class="node lv2" id="n1-9">
+  <summary><span class="num">1.9</span><span class="ttl">サーンキヤ説の論駁</span><span class="refs"><span class="ref k">k.14</span><span class="ref">[54]–[58]</span><span class="ref opp sam">サーンキヤ</span></span></summary>
+  <div class="body">
+    <p class="gist">サーンキヤでは、功徳と罪は統覚（buddhi＝根本物質の産物）に属し、精神は不変の傍観者である。ウダヤナは、行為の性質と、知る者は同じ主体に属すると反論する。</p>
+    <details class="node" id="n1-9-1"><summary><span class="num">1.9.1</span><span class="ttl">サーンキヤ説の紹介</span><span class="refs"><span class="ref">[54]–[55]</span></span></summary>
+    <div class="body">
+      <div class="tbl-wrap"><table>
+        <tr><th>働き</th><th>担い手</th></tr>
+        <tr><td>知覚 (ālocana)</td><td>感官</td></tr>
+        <tr><td>分別 (vikalpa)</td><td>意 (manas)</td></tr>
+        <tr><td>自我意識 (abhimāna)</td><td>自我意識 (ahaṅkāra)</td></tr>
+        <tr><td>決定 (adhyavasāya)</td><td>統覚 (buddhi / mahat)</td></tr>
+        <tr><td>意識 (caitanya)</td><td>精神 (puruṣa) ── 統覚との区別を知らないことで経験が生じる</td></tr>
+      </table></div>
+    </div></details>
+    <details class="node" id="n1-9-2"><summary><span class="num">1.9.2</span><span class="ttl">行為の性質も、知る者も同じ主体に属する</span><span class="refs"><span class="ref k">k.14</span><span class="ref">[56]–[57]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.14</span><span class="sutra-num">[56]</span></div>
+        <div class="sutra-text">कर्तृधर्मा नियन्तारश्चेतिता च स एव नः । अन्यथाऽनपवर्गः स्यादसंसारोऽथवा ध्रुवः ॥</div>
+        <div class="sutra-jp">結果を決めるのは行為者の性質であり、知る者もその同じ者だ、と我々は考える。そうでなければ、解脱がないか、輪廻がないか、のどちらかになる。</div>
+      </div>
+      <details class="node leaf"><summary><span class="num">1.9.2.1</span><span class="ttl">ディレンマ：統覚が常住なら解脱がない／無常なら…</span><span class="refs"><span class="ref">[57]</span></span></summary><div class="body"><p class="gist">統覚が常住なら精神は常に条件付きで、解脱はない。統覚が無常なら、統覚のない精神には初めから輪廻がない。</p></div></details>
+    </div></details>
+    <details class="node" id="n1-9-3"><summary><span class="num">1.9.3</span><span class="ttl">属性と基体を完全に別とすることはできない</span><span class="refs"><span class="ref">[58]</span></span></summary><div class="body"><p class="gist">精神に知などの属性を認めても、不変性（kūṭasthatva）と矛盾しない。</p></div></details>
+  </div></details>
+
+  <!-- 1.10 -->
+  <details class="node lv2" id="n1-10">
+  <summary><span class="num">1.10</span><span class="ttl">身体＝精神説の論駁</span><span class="refs"><span class="ref k">k.15</span><span class="ref">[59]</span><span class="ref opp car">順世派</span></span></summary>
+  <div class="body">
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.15</span><span class="sutra-num">[59]</span></div>
+      <div class="sutra-text">नान्यदृष्टं स्मरत्यन्यो नैकं भूतमपक्रमात् । वासनासंक्रमो नास्ति न च गत्यन्तरं स्थिरे ॥</div>
+      <div class="sutra-jp">他人が見たものを別の者は思い出さない。身体は変化するので一つの元素ではありえない。潜在印象が移ることもない。持続する主体を認める以外に道はない。</div>
+    </div>
+    <p class="gist">身体の部分は入れ替わり続ける。身体が意識の主体なら、子供の頃の記憶を大人が思い出すことは説明できない。</p>
+  </div></details>
+
+  <!-- 1.11 -->
+  <details class="node lv2" id="n1-11">
+  <summary><span class="num">1.11</span><span class="ttl">仏教の刹那滅論の論駁</span><span class="refs"><span class="ref k">k.16–18</span><span class="ref">[60]–[76]</span><span class="ref opp bud">仏教</span></span></summary>
+  <div class="body">
+    <p class="gist">「ものは刹那ごとに滅し、似たものが続くだけだ。だから持続する魂も不可見力も要らない」という仏教の反論。ウダヤナは、刹那滅は知覚でも推論でも確かめられないと示す。</p>
+
+    <details class="node" id="n1-11-1"><summary><span class="num">1.11.1</span><span class="ttl">「効力ある姿」(kurvadrūpa) という異質性は証明できない</span><span class="refs"><span class="ref k">k.16</span><span class="ref">[60]–[69]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.16</span><span class="sutra-num">[61]</span></div>
+        <div class="sutra-text">न वैजात्यं विना तत्स्यान्न तस्मिन्ननुमा भवेत् । विना तेन न तत्सिद्धिर्नाध्यक्षं निश्चयं विना ॥</div>
+        <div class="sutra-jp">異質性なしには刹那滅は成り立たない。しかし異質性を認めると推論が成り立たなくなる。推論なしには刹那滅は証明されず、確定を伴わない知覚も証明にならない。</div>
+      </div>
+      <h3 style="margin-top:0.4rem">図4　k.16 の論法（四つの環）</h3>
+      <div class="flow" style="grid-template-columns:1fr 2.2rem 1fr" role="img" aria-label="k.16の論法の環">
+        <div class="q"><b>①</b>刹那滅には「異質性」(vaijātya) が必要</div><div class="arr">→</div><div class="q"><b>②</b>異質性を認めると推論が成り立たない</div>
+        <div class="q"><b>④</b>知覚は確定がなければ証明にならない</div><div class="arr">←</div><div class="q"><b>③</b>推論なしでは刹那滅は証明できない</div>
+      </div>
+      <details class="node leaf"><summary><span class="num">1.11.1.1</span><span class="ttl">仏教側の説明：「効力ある姿」とは何か</span><span class="refs"><span class="ref">[60]–[62]</span></span></summary><div class="body"><p class="gist">種子が芽を出すその瞬間だけ「効力ある姿」をもつ、という仏教の主張を示し、それを認めると推論が崩れることを述べる。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.11.1.2</span><span class="ttl">非認識からの推論も成り立たない</span><span class="refs"><span class="ref">[63]</span></span></summary><div class="body"><p class="gist">（仏教の三種の論理的理由のうち）非認識による推論も、結果による推論と同じく崩れる。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.11.1.3</span><span class="ttl">自性による理由 (svabhāvahetu) も成り立たない</span><span class="refs"><span class="ref">[64]</span></span></summary><div class="body"><p class="gist">反対の場合を否定する根拠（vipakṣa-bādhaka）がないので、自性による推論も立たない。</p></div></details>
+      <details class="node leaf"><summary><span class="num">1.11.1.4</span><span class="ttl">シンシャパー樹の揺れの例</span><span class="refs"><span class="ref">[65]–[69]</span></span></summary><div class="body"><p class="gist">シンシャパー樹であることは樹を生む原因の集まりで決まるが、揺れは風などの外から来る補助因による。相容れない二つの種は同じものに共存しない、と論じる。</p></div></details>
+    </div></details>
+
+    <details class="node" id="n1-11-2"><summary><span class="num">1.11.2</span><span class="ttl">刹那滅は知覚でも推論でも確定しない</span><span class="refs"><span class="ref">[70]–[71]</span></span></summary><div class="body"><p class="gist">「現在の刹那は知覚される」という反論にも、それが前後の刹那と別だとは知覚されない、と答える。</p></div></details>
+
+    <details class="node" id="n1-11-3"><summary><span class="num">1.11.3</span><span class="ttl">持続についての疑いも成り立たない</span><span class="refs"><span class="ref k">k.17</span><span class="ref">[72]–[73]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.17</span></div>
+        <div class="sutra-text">स्थैर्यदृष्ट्योर्न सन्देहो न प्रामाण्ये विरोधतः । एकतानिश्चयो येन क्षणे तेन स्थिरे मतः ॥</div>
+        <div class="sutra-jp">持続と知覚について疑いはない。正しさについても、矛盾するので疑いはない。一刹那の同一性を確定させるものが、持続するものの同一性も確定させる。</div>
+      </div>
+      <details class="node leaf"><summary><span class="num">1.11.3.1</span><span class="ttl">再認識 (pratyabhijñā) は正しい認識である</span><span class="refs"><span class="ref">[73]</span></span></summary><div class="body"><p class="gist">切った髪がまた生えて「同じ髪だ」と思う誤りがあるから、再認識はすべて疑わしい、という反論に答える。</p></div></details>
+    </div></details>
+
+    <details class="node" id="n1-11-4"><summary><span class="num">1.11.4</span><span class="ttl">因果関係は仮構されたものではない</span><span class="refs"><span class="ref k">k.18</span><span class="ref">[74]–[76]</span></span></summary>
+    <div class="body">
+      <div class="sutra">
+        <div class="sutra-head"><span class="sutra-num">k.18</span><span class="sutra-num">[75]</span></div>
+        <div class="sutra-text">हेतुशक्तिमनादृत्य नीलाद्यपि न वस्तुसत् । …… ॥</div>
+        <div class="sutra-jp">原因としての力を無視すれば、青なども実在しないことになる。……<span class="tentative">後半 OCR 判読不確実</span></div>
+      </div>
+      <details class="node leaf"><summary><span class="num">1.11.4.1</span><span class="ttl">一つのものが相反する多くの結果を生むことについて</span><span class="refs"><span class="ref">[76]</span></span></summary><div class="body"><p class="gist">持続するものは、補助因が異なれば異なる結果を生む。矛盾はない。</p></div></details>
+    </div></details>
+  </div></details>
+
+  <!-- 1.12 -->
+  <details class="node lv2" id="n1-12">
+  <summary><span class="num">1.12</span><span class="ttl">常住・遍在するものも原因となりうる</span><span class="refs"><span class="ref k">k.19</span><span class="ref">[77]–[79]</span><span class="ref opp gen">総論</span></span></summary>
+  <div class="body">
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.19</span><span class="sutra-num">[78]</span></div>
+      <div class="sutra-text">पूर्वभावो हि हेतुत्वं मीयते येन केनचित् । व्यापकस्यापि नित्यस्य धर्मिधीरन्यथा न हि ॥</div>
+      <div class="sutra-jp">原因であるとは「先にあること」であり、何らかの認識手段で知られる。遍在し常住するものについても同じである。さもなければ、そもそもその基体を知ることができない。</div>
+    </div>
+    <details class="node leaf"><summary><span class="num">1.12.1</span><span class="ttl">反論：常住・遍在の魂には不一致（なければ生じない）が見られない</span><span class="refs"><span class="ref">[77]</span></span></summary><div class="body"><p class="gist">持続は認めても、常住で遍在する魂が原因であることは成り立たない、という反論の提示。</p></div></details>
+    <details class="node leaf"><summary><span class="num">1.12.2</span><span class="ttl">『ヴィスタラ』：結果からの推論で知られる原因の範囲</span><span class="refs"><span class="ref">[79]</span></span></summary><div class="body"><p class="gist">「結果である」という理由から推論されるのは、一致と不一致が確かめられた種類の原因（内属因など）である。第5スタバカの「同じだと言い張る誤り」(utkarṣasama) の議論を予告する。</p></div></details>
+  </div></details>
+
+  <!-- 1.13 -->
+  <details class="node lv2" id="n1-13">
+  <summary><span class="num">1.13</span><span class="ttl">結びの偈</span><span class="refs"><span class="ref k">k.20</span><span class="ref">[80]</span><span class="ref opp self">自説</span></span></summary>
+  <div class="body">
+    <div class="sutra">
+      <div class="sutra-head"><span class="sutra-num">k.20</span><span class="sutra-num">[80]</span></div>
+      <div class="sutra-text">इत्येषा सहकारिशक्तिरसमा माया दुरुन्नीतितो मूलत्वात्प्रकृतिः प्रबोधभयतोऽविद्येति यस्योदिता । देवोऽसौ विरतप्रपञ्चरचनाकल्लोलकोलाहलः साक्षात्साक्षितया मनस्यभिरतिं बध्नातु शान्तो मम ॥</div>
+      <div class="sutra-jp">この比類なき補助の力（不可見力）は、推し量りがたいので「マーヤー」、根源なので「プラクリティ」、目覚めを恐れるので「無明」と呼ばれる。その主である神が、世界を作る波の騒ぎを鎮め、目撃者として私の心に喜びを結びますように。</div>
+    </div>
+    <div class="point">他派が「マーヤー」「プラクリティ」「無明」と呼ぶものも、じつはこの章で立てた不可見力のことだ、とまとめている。</div>
+  </div></details>
+
+</div>
+</details>
+
+</div><!-- /tree -->
+</section>
+
+<!-- ============================================================ -->
+<section id="rest">
+<h2 class="chapter">第4部　第2〜第5スタバカの目次（仮）</h2>
+<p class="chapter-sub">刊本の目録による第2階層。詳細な科段は、この見本の形式でこれから作ります。</p>
+
+<details class="node lv1" id="n2">
+<summary><span class="num">2</span><span class="ttl">第2スタバカ ── ヴェーダの正しさと作者</span><span class="refs"><span class="ref">第1巻 p.73–</span><span class="ref opp mim">ミーマーンサー</span><span class="ref opp sam">サーンキヤ</span></span></summary>
+<div class="body">
+  <div class="tbl-wrap"><table>
+    <tr><th>科段</th><th>主題</th><th>頁</th></tr>
+    <tr><td>2.1</td><td>正しさは外から生じる (parataḥ utpatti)</td><td>74</td></tr>
+    <tr><td>2.2</td><td>正しさは外から知られる (parataḥ jñapti)</td><td>78</td></tr>
+    <tr><td>2.3</td><td>音素の常住性の否定、音声の消滅の知覚と推論</td><td>86–100</td></tr>
+    <tr><td>2.4</td><td>語と意味の結びつき、普遍への表示力の否定</td><td>113</td></tr>
+    <tr><td>2.5</td><td>世界の創造と帰滅の論証</td><td>117–123</td></tr>
+    <tr><td>2.6</td><td>伝統の衰退、常住で推知されるヴェーダ説の否定</td><td>126–128</td></tr>
+    <tr><td>2.7</td><td>クマーリラ派の論駁、ヴェーダは個我に由来しない</td><td>131–139</td></tr>
+  </table></div>
+</div></details>
+
+<details class="node lv1" id="n3">
+<summary><span class="num">3</span><span class="ttl">第3スタバカ ── 神を否定する認識手段はない</span><span class="refs"><span class="ref">第1巻 p.145 – 第2巻</span><span class="ref opp mim">ミーマーンサー</span></span></summary>
+<div class="body">
+  <div class="tbl-wrap"><table>
+    <tr><th>科段</th><th>認識手段</th><th>主題</th><th>頁</th></tr>
+    <tr><td>3.1</td><td>知覚</td><td>知覚は神を否定しない／意の遍在性の否定</td><td>145–155</td></tr>
+    <tr><td>3.2</td><td>推論</td><td>否定の推論の検討／兎の角の否定の問題</td><td>160–165</td></tr>
+    <tr><td>3.3</td><td>（推論補論）</td><td>無効な理由 (aprayojaka) と仮定的推論 (tarka)</td><td>170–182</td></tr>
+    <tr><td>3.4</td><td>類比</td><td>類似性は独立の範疇ではない [47]–　《第2巻ここから》</td><td>193–201</td></tr>
+    <tr><td>3.5</td><td>言葉</td><td>言葉は推論に含まれる／期待／連結表示説の否定</td><td>205–222</td></tr>
+    <tr><td>3.6</td><td>要請</td><td>要請は推論に含まれる</td><td>223–224</td></tr>
+    <tr><td>3.7</td><td>非認識</td><td>非認識は独立の認識手段ではない</td><td>230</td></tr>
+  </table></div>
+</div></details>
+
+<details class="node lv1" id="n4">
+<summary><span class="num">4</span><span class="ttl">第4スタバカ ── 神の知は正しい認識である</span><span class="refs"><span class="ref">第2巻 p.1–</span><span class="ref opp mim">ミーマーンサー</span></span></summary>
+<div class="body">
+  <div class="tbl-wrap"><table>
+    <tr><th>科段</th><th>主題</th><th>頁</th></tr>
+    <tr><td>4.1</td><td>ミーマーンサーの「正しい認識」の定義の論駁</td><td>1</td></tr>
+    <tr><td>4.2</td><td>記憶は正しい認識ではない／「知られていること」(jñātatā) の否定</td><td>6</td></tr>
+    <tr><td>4.3</td><td>知は感官を越えたものではない</td><td>16</td></tr>
+    <tr><td>4.4</td><td>神の知は誤りをも対象とするが、なお正しい</td><td>30</td></tr>
+  </table></div>
+</div></details>
+
+<details class="node lv1" id="n5">
+<summary><span class="num">5</span><span class="ttl">第5スタバカ ── 神の存在の論証</span><span class="refs"><span class="ref">第2巻 p.33–</span><span class="ref opp gen">無神論者全般</span></span></summary>
+<div class="body">
+  <div class="tbl-wrap"><table>
+    <tr><th>科段</th><th>主題</th><th>頁</th></tr>
+    <tr><td>5.1</td><td>神を論証する理由の総まとめ（「結果であるから」など）</td><td>33</td></tr>
+    <tr><td>5.2</td><td>「結果であること」は似非理由ではない</td><td>34</td></tr>
+    <tr><td>5.3</td><td>聖典との一致／「結合」(āyojana) などの理由</td><td>50–51</td></tr>
+    <tr><td>5.4</td><td>「意図」(tātparya)、命令形 liṅ の意味の考察</td><td>67–104</td></tr>
+    <tr><td>5.5</td><td>「天啓から」などの理由</td><td>106</td></tr>
+    <tr><td>5.6</td><td>神の直接知覚、夢は記憶ではない</td><td>109–112</td></tr>
+  </table></div>
+</div></details>
+</section>
+
+<!-- ============================================================ -->
+<section id="notes">
+<h2 class="chapter">付録　底本と注意点</h2>
+<div class="note">
+  <div class="note-title">底本</div>
+  <em>Nyāyakusumāñjali</em> with <em>Kusumāñjalivistara</em> by T. Viraraghavacharya, 2 vols., Tirupati, 1940–41. Dharmamitra OCR のテキストを使用。
+</div>
+<div class="note">
+  <div class="note-title">この見本の確かさ</div>
+  <ul style="padding-left:1.2rem">
+    <li>第1・第2階層は、『ヴィスタラ』自身の要旨（[4]）と刊本の目録に沿っている。</li>
+    <li>第3階層より下は、偈と段落の内容から立てた案。<span class="tentative">推定</span> の箇所は OCR で見出しが拾えなかった。</li>
+    <li>偈の本文は OCR の誤りを校訂した。k.6・k.18 は刊本の読みに不確かな点がある。</li>
+    <li>和訳はすべて、内容をつかむための試訳。</li>
+    <li>OCR には本文と無関係な文（チベット語など）が紛れ込んでいる箇所がある。確定版には刊本の画像との照合が必要。</li>
+    <li>第2〜第5スタバカの頁は、目録の段組が崩れているため目安。</li>
+  </ul>
+</div>
+</section>
+
+<footer>
+  ニヤーヤ・クスマーンジャリ　目次と科段（見本版）
+</footer>
+
+<script>
+(function () {
+  var tree = document.getElementById('tree');
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
+  function depth(el) {
+    var d = 0, p = el;
+    while (p) { if (p.matches && p.matches('details.node')) d++; p = p.parentElement; }
+    return d;
+  }
+  all.forEach(function (el) { el.dataset.depth = depth(el); });
+  document.getElementById('controls').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-depth]');
+    if (!b) return;
+    var n = parseInt(b.dataset.depth, 10);
+    all.forEach(function (el) {
+      if (!tree.contains(el)) return;
+      el.open = parseInt(el.dataset.depth, 10) < n;
+    });
+  });
+  // 帯グラフ・リンクから飛んだとき、親をすべて開く
+  function openTo(hash) {
+    if (!hash) return;
+    var t = document.getElementById(hash.slice(1));
+    if (!t || !t.matches('details.node')) return;
+    var p = t;
+    while (p) { if (p.matches && p.matches('details')) p.open = true; p = p.parentElement; }
+    t.scrollIntoView({ block: 'start' });
+  }
+  document.querySelectorAll('a[href^="#n"]').forEach(function (a) {
+    a.addEventListener('click', function (e) { e.preventDefault(); openTo(a.getAttribute('href')); try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {} });
+  });
+  openTo(location.hash);
+})();
+</script>
+</body>
+</html>
