@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Arthasaṃgraha を読む</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+
+.dev { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.95em; }
+
+/* header */
+.header {
+  text-align: center;
+  padding-bottom: 2.5rem;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid var(--rule);
+}
+.header-devanagari {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+}
+.header h1 {
+  font-family: 'Noto Serif', 'Shippori Mincho', serif;
+  font-weight: 600;
+  font-size: 1.75rem;
+  letter-spacing: 0.08em;
+  color: var(--accent);
+}
+.header-sub {
+  font-family: 'Noto Serif', serif;
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--ink-soft);
+}
+.header-jp {
+  font-size: 0.88rem;
+  color: var(--ink-soft);
+  margin-top: 0.6rem;
+  line-height: 1.7;
+}
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--ink-soft);
+  letter-spacing: 0.12em;
+  margin-bottom: 0.8rem;
+}
+.toc ol { list-style: none; }
+.toc a {
+  color: var(--accent);
+  text-decoration: none;
+  display: flex;
+  gap: 0.7rem;
+  padding: 0.35rem 0;
+  border-bottom: 1px solid var(--rule-light);
+  font-size: 0.95rem;
+}
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+/* chapters */
+h2.chapter {
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent);
+  margin: 3.5rem 0 0.4rem;
+  letter-spacing: 0.05em;
+}
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+.lead { margin-bottom: 1.5rem; }
+
+/* sutra card */
+.sutra {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-left: 4px solid var(--accent);
+  border-radius: 4px;
+  padding: 1.3rem 1.3rem 1.1rem;
+  margin: 1.6rem 0;
+}
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num {
+  font-size: 0.78rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 3px;
+  padding: 0 0.45rem;
+  white-space: nowrap;
+}
+.sutra-text { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.45rem; font-weight: 600; line-height: 1.5; }
+.sutra-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.02rem; color: var(--ink-soft); margin-bottom: 0.8rem; }
+.vrtti { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 0.98rem; color: var(--ink-soft); margin: -0.4rem 0 0.8rem; }
+.row { display: grid; grid-template-columns: 5.5rem 1fr; gap: 0.2rem 0.8rem; margin-bottom: 0.55rem; }
+.row .k {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  padding-top: 0.2rem;
+}
+.row .v { min-width: 0; }
+@media (max-width: 560px) {
+  .row { grid-template-columns: 1fr; }
+  .row .k { padding-top: 0; }
+}
+.point {
+  background: var(--point-bg);
+  border-radius: 4px;
+  padding: 0.7rem 0.9rem;
+  margin-top: 0.8rem;
+  font-size: 0.97rem;
+}
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+.note {
+  background: var(--note-bg);
+  border-radius: 4px;
+  padding: 0.9rem 1.1rem;
+  margin: 1.2rem 0;
+  font-size: 0.95rem;
+}
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.95rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.08rem; }
+
+/* maheshvara grid */
+.ms-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 0.6rem;
+  margin: 1.2rem 0;
+}
+.ms {
+  background: var(--card-bg);
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.5rem 0.7rem;
+}
+.ms .no { font-size: 0.75rem; color: var(--muted); }
+.ms .d { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.3rem; }
+.ms .r { font-family: 'Noto Serif', serif; font-style: italic; color: var(--ink-soft); }
+.it { color: var(--it-color); font-weight: 600; }
+
+/* calculator */
+.calc {
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 1.1rem 1.2rem;
+  margin: 1.5rem 0;
+  background: var(--card-bg);
+}
+.calc-title { font-weight: 600; color: var(--accent); margin-bottom: 0.6rem; }
+.calc-controls { display: flex; flex-wrap: wrap; gap: 0.6rem 1rem; align-items: center; margin-bottom: 0.8rem; }
+.calc label { font-size: 0.88rem; color: var(--ink-soft); }
+.calc select {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', 'Shippori Mincho', serif;
+  font-size: 1rem;
+  padding: 0.25rem 0.4rem;
+  background: var(--ground);
+  color: var(--ink);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  max-width: 100%;
+}
+.presets { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-bottom: 0.9rem; }
+.presets button {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  font-size: 0.95rem;
+  background: var(--ground);
+  color: var(--accent);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.1rem 0.75rem;
+  cursor: pointer;
+}
+.presets button:hover { border-color: var(--accent); }
+.calc-name { font-size: 1.1rem; margin-bottom: 0.4rem; }
+.chips { display: flex; flex-wrap: wrap; gap: 0.3rem; }
+.chip {
+  font-family: 'Noto Serif Devanagari', 'Noto Serif', serif;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0 0.45rem;
+  background: var(--ground);
+  text-align: center;
+  line-height: 1.5;
+}
+.chip small { display: block; font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.8rem; }
+.calc-msg { color: var(--it-color); font-size: 0.92rem; }
+
+/* derivation */
+.deriv { counter-reset: step; list-style: none; margin: 1rem 0; }
+.deriv li {
+  counter-increment: step;
+  position: relative;
+  padding: 0.55rem 0 0.55rem 2.6rem;
+  border-bottom: 1px dashed var(--rule-light);
+}
+.deriv li::before {
+  content: counter(step);
+  position: absolute; left: 0; top: 0.6rem;
+  width: 1.8rem; height: 1.8rem;
+  border-radius: 50%;
+  background: var(--accent);
+  color: var(--ground);
+  font-size: 0.85rem;
+  text-align: center;
+  line-height: 1.8rem;
+}
+.form { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 1.2rem; font-weight: 600; }
+.why { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+
+/* quiz */
+details.q {
+  border: 1px solid var(--rule-light);
+  border-radius: 4px;
+  padding: 0.6rem 0.9rem;
+  margin: 0.5rem 0;
+  background: var(--card-bg);
+}
+details.q summary { cursor: pointer; }
+details.q div { margin-top: 0.5rem; color: var(--ok-color); }
+
+dl.gloss { display: grid; grid-template-columns: max-content 1fr; gap: 0.35rem 1rem; }
+dl.gloss dt { font-weight: 600; }
+@media (max-width: 560px) { dl.gloss { grid-template-columns: 1fr; } dl.gloss dd { margin-bottom: 0.5rem; } }
+
+/* compact card for vārttikas and minor rules */
+.sutra.mini { padding: 0.9rem 1.1rem 0.7rem; border-left-width: 3px; border-left-color: var(--accent-soft); }
+.sutra.mini .sutra-text { font-size: 1.2rem; }
+.tag-v { font-size: 0.72rem; color: var(--ground); background: var(--accent-soft); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.ex { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.ex b { color: var(--accent); }
+
+/* lesson navigation */
+.lesson-nav { display: flex; justify-content: space-between; gap: 1rem; margin: 3rem 0 0; font-size: 0.92rem; }
+.lesson-nav a { text-decoration: none; border: 1px solid var(--rule); border-radius: 4px; padding: 0.5rem 0.9rem; }
+.lesson-nav a:hover { border-color: var(--accent); }
+.lesson-nav .spacer { flex: 1; }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+a { color: var(--accent); }
+
+/* ---- additions for Arthasaṃgraha ---- */
+.eng { font-family: 'Noto Serif', serif; font-size: 0.9rem; color: var(--muted); line-height: 1.6; }
+.cite {
+  border-left: 2px solid var(--rule);
+  padding: 0.2rem 0 0.2rem 0.9rem;
+  margin: 0.6rem 0;
+}
+.cite .dev { font-size: 1.05rem; }
+.cite .src { display: block; font-size: 0.8rem; color: var(--muted); }
+.cite .ja { display: block; font-size: 0.93rem; color: var(--ink-soft); }
+.note p:last-child { margin-bottom: 0; }
+.note h4 { font-size: 0.95rem; margin: 0.9rem 0 0.3rem; color: var(--ink); }
+.tag-gk { font-size: 0.72rem; color: var(--ground); background: var(--muted); border-radius: 3px; padding: 0 0.4rem; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no-x { color: var(--it-color); font-weight: 600; }
+td.c, th.c { text-align: center; }
+
+/* flow diagram */
+.flow { display: flex; flex-wrap: wrap; align-items: stretch; gap: 0.4rem; margin: 1.2rem 0; }
+.flow .box {
+  flex: 1 1 140px;
+  background: var(--card-bg);
+  border: 1px solid var(--rule);
+  border-radius: 6px;
+  padding: 0.6rem 0.7rem;
+  text-align: center;
+  font-size: 0.92rem;
+  line-height: 1.6;
+}
+.flow .box .dev { display: block; font-size: 1.15rem; font-weight: 600; }
+.flow .box.hl { border-color: var(--accent); background: var(--point-bg); }
+.flow .arr { align-self: center; color: var(--accent); font-size: 1.3rem; }
+@media (max-width: 560px) { .flow { flex-direction: column; } .flow .box { flex: 0 0 auto; } .flow .arr { transform: rotate(90deg); } }
+
+/* word-map of a sūtra */
+.wmap { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.wmap div { border: 1px solid var(--rule-light); border-top: 3px solid var(--accent); border-radius: 4px; padding: 0.5rem 0.6rem; background: var(--card-bg); font-size: 0.9rem; line-height: 1.55; }
+.wmap div.sup { border-top-style: dashed; border-top-color: var(--muted); }
+.wmap b.dev { display: block; font-size: 1.3rem; }
+.wmap .iast { display: block; color: var(--ink-soft); }
+
+/* chain (paramparā) */
+.chain { display: flex; flex-wrap: wrap; align-items: center; gap: 0.3rem 0.2rem; margin: 1rem 0; }
+.chain span.p { background: var(--card-bg); border: 1px solid var(--rule); border-radius: 999px; padding: 0.05rem 0.7rem; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; }
+.chain span.p.hl { border-color: var(--accent); color: var(--accent); font-weight: 600; }
+.chain span.a { color: var(--accent); }
+
+/* svg diagrams */
+svg.dia { width: 100%; height: auto; display: block; margin: 1rem auto; max-width: 640px; }
+svg.dia .bx { fill: var(--card-bg); stroke: var(--rule); stroke-width: 1.2; }
+svg.dia .bx-hl { fill: var(--point-bg); stroke: var(--accent); stroke-width: 1.6; }
+svg.dia .ln { stroke: var(--accent-soft); stroke-width: 1.4; fill: none; }
+svg.dia .ln-d { stroke: var(--muted); stroke-width: 1.2; fill: none; stroke-dasharray: 4 3; }
+svg.dia text { fill: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 13px; }
+svg.dia text.dv { font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-size: 17px; font-weight: 600; }
+svg.dia text.sm { font-size: 11px; fill: var(--ink-soft); }
+svg.dia .ah { fill: var(--accent-soft); }
+svg.dia .ahd { fill: var(--muted); }
+details.fulltoc { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.6rem 0.9rem; margin: 1rem 0; background: var(--card-bg); }
+details.fulltoc summary { cursor: pointer; }
+details.fulltoc table { font-size: 0.9rem; }
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-devanagari">अर्थसंग्रहः — द्वितीयो विधिविभागः (६)</div>
+  <h1>Arthasaṃgraha を読む</h1>
+  <div class="header-sub">An Easy Introduction to Laugākṣi Bhāskara's Compendium of Pūrvamīmāṃsā · Lesson 8</div>
+  <div class="header-jp">第8課　vidhi（6）── 実行の vidhi と、順序を決める根拠（1）<br>
+  底本：Gajendragadkar &amp; Karmarkar 本文 pp. 29–34（§40–§44），Notes pp. 173–185</div>
+</header>
+
+<nav class="toc">
+  <h2>目次</h2>
+  <ol>
+    <li><a href="#review"><span class="n">復習</span>第7課のおさらいと、この課で学ぶこと</a></li>
+    <li><a href="#ch1"><span class="n">第1章</span>§40 実行の vidhi ── すばやく、決まった順序で</a></li>
+    <li><a href="#ch2"><span class="n">第2章</span>§41–§42 順序を決める6つの根拠と śruti</a></li>
+    <li><a href="#ch3"><span class="n">第3章</span>§43 目的による順序（artha）</a></li>
+    <li><a href="#ch4"><span class="n">第4章</span>§44 読誦による順序（pāṭha）── 祭詞と Brāhmaṇa</a></li>
+    <li><a href="#sum"><span class="n">まとめ</span>順序の根拠（前半）</a></li>
+    <li><a href="#quiz"><span class="n">練習</span>確認問題</a></li>
+  </ol>
+</nav>
+
+<!-- ============================================================ -->
+<section id="review">
+<h2 class="chapter">第7課のおさらいと、この課で学ぶこと</h2>
+<div class="note">
+  <div class="note-title">ここまでの vidhi の学び</div>
+  ・発生の vidhi（§13）：祭式そのもの。<br>
+  ・適用の vidhi（§14–§39）：<b>何が何に従属するか</b>を、6つの根拠（śruti〜samākhyā）で決める。
+</div>
+<p>どの行為がどの祭式に属するかが決まっても、それを<b>どの順番で</b>行うかが決まらなければ祭式は行えません。それを決めるのが <b>実行の vidhi</b>（<span class="dev">प्रयोगविधिः</span>）です。順序を決めるのにも、また <b>6つの根拠</b>があります。</p>
+<div class="tbl-wrap"><table>
+<tr><th></th><th>適用の vidhi の6根拠（第4〜7課）</th><th>実行の vidhi の6根拠（第8〜9課）</th></tr>
+<tr><td>1</td><td>śruti 直接の言明</td><td><b>śruti</b> 直接の言明</td></tr>
+<tr><td>2</td><td>liṅga 語の力</td><td><b>artha</b> 目的</td></tr>
+<tr><td>3</td><td>vākya 同一文</td><td><b>pāṭha</b> 読誦の順</td></tr>
+<tr><td>4</td><td>prakaraṇa 相互期待</td><td><b>sthāna</b> 位置</td></tr>
+<tr><td>5</td><td>sthāna 位置</td><td><b>mukhya</b> 主祭の順</td></tr>
+<tr><td>6</td><td>samākhyā 名称</td><td><b>pravṛtti</b> 開始の順</td></tr>
+</table></div>
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　なぜ資格の vidhi より先に実行の vidhi なのか</div>
+  <p>§12 の列挙順（発生・適用・<b>資格</b>・実行）に従えば、資格の vidhi を先に扱うべき。しかし実行の vidhi は、適用の vidhi が決めた主従関係を一定の順序で実行させるもので、適用の vidhi と密接につながる。だから先に扱うのは自然です。<br>
+  G&amp;K はさらに、§12 の順序は<b>写字生の誤り</b>で、本来は「発生・適用・実行・資格」だったと推測します。理由：①Bhāskara が通常従う Āpadeva の順序がそうであること、②Rāmeśvara が資格の vidhi の注釈を「今、順番に従って資格の vidhi を説明する」（<span class="dev">इदानीं क्रमप्राप्तमधिकारविधिं निरूपयति</span>）と始めていること。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch1">
+<h2 class="chapter">第1章　§40 実行の vidhi ── すばやく、決まった順序で</h2>
+<p class="chapter-sub"><span class="dev">प्रयोगविधिः</span> ／ 底本 pp. 29–30，Notes pp. 173–176</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§40-a</span><span class="sutra-num">p. 29</span><span class="sutra-text">प्रयोगप्राशुभावबोधको विधिः प्रयोगविधिः । स चाङ्गवाक्यैकवाक्यतापन्नः प्रधानविधिरेव । स हि साङ्गं प्रधानमनुष्ठापयन् विलम्बे प्रमाणाभावादविलम्बापरपर्यायं प्रयोगप्राशुभावं विधत्ते ।</span></div>
+  <div class="sutra-iast">prayogaprāśubhāvabodhako vidhiḥ prayogavidhiḥ | sa cāṅgavākyaikavākyatāpannaḥ pradhānavidhir eva | sa hi sāṅgaṃ pradhānam anuṣṭhāpayan vilambe pramāṇābhāvād avilambāparaparyāyaṃ prayogaprāśubhāvaṃ vidhatte |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">実行の<b>すばやさ</b>（prāśubhāva）を知らせる vidhi が、実行の vidhi である。そしてそれは、従属物の文と<b>一つの文になった主 vidhi</b> にほかならない。というのも、それは従属物を伴った主（祭）を実行させつつ、<b>遅らせることに根拠がない</b>ので、「遅れのなさ」を別名とする実行のすばやさを命じるからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">The injunction which intimates the speediness of performance [is] the injunction of performance. And that is the principal injunction itself, which has become one sentence with the sentences of the subsidiaries. For, causing the principal [rite] along with its subsidiaries to be performed, it enjoins the speediness of performance, the other synonym of which is absence of delay, because there is no authority for delay.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v"><span class="dev">प्राशु</span> ＝ <span class="dev">आशु</span>「速い」。実行の vidhi は<b>新しい独立の vidhi ではない</b>。主 vidhi（発生の vidhi）と属性 vidhi（適用の vidhi）が一つの文にまとまると、「主祭を従属物とともに行え」という命令になる ── それが実行の vidhi です。</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§40-b</span><span class="sutra-num">pp. 29–30</span><span class="sutra-text">न च तदविलम्बेऽपि प्रमाणाभाव इति वाच्यम् । विलम्बे हि अङ्गप्रधानविध्येकवाक्यतावगततत्साहित्यानुपपत्तिः । विलम्बेन क्रियमाणयोः पदार्थयोः ‘इदमनेन सहकृतम्’ इति साहित्यव्यवहाराभावात् ।</span></div>
+  <div class="sutra-iast">na ca tadavilambe ’pi pramāṇābhāva iti vācyam | vilambe hi aṅgapradhānavidhyekavākyatāvagatatatsāhityānupapattiḥ | vilambena kriyamāṇayoḥ padārthayoḥ ‘idam anena sahakṛtam’ iti sāhityavyavahārābhāvāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">「遅れのなさにも根拠がない」と言ってはならない。遅れがあると、従属物と主の vidhi が一つの文をなすことから知られる、両者の<b>一緒にあること</b>（sāhitya）が成り立たなくなるからである。間をおいて行われる二つの事柄について、「これはあれと一緒に行われた」と言うことはないからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And it should not be urged that there is no authority for the absence of delay also. For, in [case of] delay, the togetherness of them, understood from the syntactical unity of the injunctions of the subsidiary and the principal, would become impossible. For, with regard to two things performed with delay, there is no usage of togetherness such as ‘This is done along with that.’</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§40-c</span><span class="sutra-num">p. 30</span><span class="sutra-text">स चाविलम्बो नियते क्रमे आश्रीयमाणे भवति । अन्यथा हि ‘किमेतदनन्तरमेतत् कर्तव्यमेतदनन्तरं वा’ इति प्रयोगविक्षेपापत्तेः । अतः प्रयोगविधिरेव स्वविधेयप्रयोगप्राशुभावसिद्ध्यर्थं नियतं क्रममपि पदार्थविशेषणतया विधत्ते । अत एवाङ्गानां क्रमबोधको विधिः प्रयोगविधिरित्यपि लक्षणम् । तत्र क्रमो नाम विततिविशेषः, पौर्वापर्यरूपो वा ।</span></div>
+  <div class="sutra-iast">sa cāvilambo niyate krame āśrīyamāṇe bhavati | anyathā hi ‘kim etadanantaram etat kartavyam etadanantaraṃ vā’ iti prayogavikṣepāpatteḥ | ataḥ prayogavidhir eva svavidheyaprayogaprāśubhāvasiddhyarthaṃ niyataṃ kramam api padārthaviśeṣaṇatayā vidhatte | ata evāṅgānāṃ kramabodhako vidhiḥ prayogavidhir ity api lakṣaṇam | tatra kramo nāma vitativiśeṣaḥ, paurvāparyarūpo vā |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そしてその遅れのなさは、<b>決まった順序</b>に従うときに成り立つ。さもなければ、「これの後にこれをすべきか、それともこれの後か」と、実行が<b>混乱</b>してしまうからである。それゆえ実行の vidhi こそが、自らの命じる実行のすばやさを実現するために、決まった順序をも、<b>事柄の属性として</b>命じる。まさにそれゆえ、「従属物の順序を知らせる vidhi が実行の vidhi である」というのも（もう一つの）定義である。そこで順序とは、<b>特定の並べ方</b>、すなわち前後関係という形のものである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And that absence of delay is possible when a fixed order is followed. For, otherwise, confusion in the performance would result [in the form] ‘Is this to be done after this or after that?’ Hence the injunction of performance itself, in order to accomplish the speediness of performance enjoined by it, enjoins a fixed order also as an attribute of the things. Hence also [there is] the definition: The injunction which intimates the order of subsidiaries [is] the injunction of performance. There, order means a particular extension (vitati), or [a particular extension] in the form of precedence and sequence.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <b>なぜ「事柄の属性として」？</b>（G&amp;K）：①順序は抽象的な観念で、それ自体は命令の対象になりにくい。②「すばやさ」と「順序」を別々に命じると<b>文の分裂</b>が起こる。だから順序は、従属物（具体的な事柄）の<b>属性</b>として命じられる。<br>
+  <span class="dev">विततिः</span>：vi-√tan「広げる」から。√tan・vi-√tan は「祭を行う」の意味でよく使われます（Raghuvaṃśa 3.69、Kumārasaṃbhava 2.46）。<span class="dev">वितानम्</span> は「祭」そのもの（Veṇīsaṃhāra 6.30）。
+  </div></div>
+  <div class="point">実行の vidhi ＝ 主 vidhi が「従属物とともに、すばやく、決まった順序で行え」と命じる働き。</div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　順序は誰の性質か ── 二つの見解</div>
+  <p>G&amp;K は、<span class="dev">पौर्वापर्यरूपो वा</span> は「<span class="dev">पौर्वापर्यं वा</span>」で足りるのに不格好で、「ここでも Āpadeva の<b>盗用</b>だ」と評します。<span class="dev">पूर्वं च अपरं च पूर्वापरे, तयोर्भावः पौर्वापर्यम्</span>「前と後であること」。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th>見解</th><th>主張</th></tr>
+  <tr><td>①</td><td>順序は<b>前と後の両方</b>の性質。前・後は相対的な概念だから。</td></tr>
+  <tr><td>②</td><td>順序は<b>後のもの</b>だけの性質。前の行為は「自分の後に何をすべきか」とは期待しない（行えば終わり）。後の行為は「自分は何の後に行うべきか」と期待する。</td></tr>
+  </table></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch2">
+<h2 class="chapter">第2章　§41–§42 順序を決める6つの根拠と śruti</h2>
+<p class="chapter-sub"><span class="dev">क्रमे श्रुत्यादिषट्प्रमाणानि · श्रुतिक्रमः</span> ／ 底本 pp. 30–31，Notes pp. 176–181</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§41</span><span class="sutra-num">p. 30</span><span class="sutra-text">तत्र षट् प्रमाणानि श्रुत्यर्थपाठस्थानमुख्यप्रवृत्त्याख्यानि ।</span></div>
+  <div class="sutra-iast">tatra ṣaṭ pramāṇāni śrutyarthapāṭhasthānamukhyapravṛttyākhyāni |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そこ（順序の決定）には6つの根拠がある。śruti・artha・pāṭha・sthāna・mukhya・pravṛtti と呼ばれるものである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There, [there are] six means of proof called direct statement, sense, text, position, principal and procedure.</div></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§42-a</span><span class="sutra-num">p. 31</span><span class="sutra-text">तत्र क्रमपरवचनं श्रुतिः । तच्च द्विविधम् । केवलक्रमपरं तद्विशिष्टपदार्थपरं चेति । तत्र ‘वेदं कृत्वा वेदिं करोति’ इति केवलक्रमपरम्, वेदिकरणादेर्वचनान्तरप्राप्तत्वात् । ‘वषट्कर्तुः प्रथमभक्षः’ इति तु क्रमविशिष्टपदार्थपरम् । एकप्रसरताभङ्गभयेन भक्षानुवादेन क्रममात्रस्य विधातुमशक्यत्वात् ।</span></div>
+  <div class="sutra-iast">tatra kramaparavacanaṃ śrutiḥ | tac ca dvividham | kevalakramaparaṃ tadviśiṣṭapadārthaparaṃ ceti | tatra ‘vedaṃ kṛtvā vediṃ karoti’ iti kevalakramaparam, vedikaraṇāder vacanāntaraprāptatvāt | ‘vaṣaṭkartuḥ prathamabhakṣaḥ’ iti tu kramaviśiṣṭapadārthaparam | ekaprasaratābhaṅgabhayena bhakṣānuvādena kramamātrasya vidhātum aśakyatvāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そのうち、<b>順序を述べる言葉</b>が śruti である。それは二種類ある。<b>順序だけ</b>を述べるものと、<b>順序で限定された事柄</b>を述べるものである。そのうち「veda（草箒）を作ってから vedi（祭壇の窪み）を作る」は順序だけを述べる。vedi を作ることなどは別の文で得られているからである。一方、「vaṣaṭ を唱える者（Hotṛ）の<b>最初の</b>飲用」は、順序で限定された事柄を述べる。<b>一つの流れ（ekaprasaratā）が壊れる</b>のを避けるため、飲用を再言して順序だけを命じる、ということはできないからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">There, a statement which conveys order [is] direct statement. And that [is] of two kinds, conveying mere order and conveying a thing qualified by that. There, ‘Having made the veda, [he] makes the vedi’ conveys mere order, because the making of the vedi etc. accrues from another statement. But ‘The first draught of the vaṣaṭ-utterer’ conveys a thing qualified by order. For, owing to the fear of the violation of the unity of the course, it is impossible to enjoin mere order by an allusion to the draught.</div></div>
+  <div class="row"><div class="k">やさしく</div><div class="v">
+  <span class="dev">कृत्वा</span>：絶対分詞は「同じ行為者の二つの行為のうち<b>前の方</b>」を表す（Pāṇini 3.4.21 <span class="dev">समानकर्तृकयोः पूर्वकाले</span>）。他に <span class="dev">अथ, ततः, पश्चात्</span> なども順序を直接表します。<br>
+  <span class="dev">वेदः</span> ＝ 祭壇を掃くためのダルバ草の束（<span class="dev">संमार्जनार्थो दर्भमुष्टिविशेषः</span>）。<span class="dev">वेदिः</span> ＝ Āhavanīya と Gārhapatya の間の、深さ4指の窪み（供物を置く場所）。
+  </div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　vaṣaṭ と「最初の飲用」</div>
+  <p><b>vaṣaṭkartṛ ＝ Hotṛ</b>：献供の手順 ── Adhvaryu が「<span class="dev">अग्नयेऽनुब्रूहि</span>（Agni に招請詩を唱えよ）」と指示 → Hotṛ が招請詩（anuvākyā，供物の前に唱えるので puro'nuvākyā）を唱える → Adhvaryu が「<span class="dev">अग्निं यज</span>（Agni に献供せよ）」と指示 → Hotṛ が献供詩（yājyā）を唱え、最後に「<span class="dev">वषट्</span>」と叫ぶ（<span class="dev">याज्याया अधि वषट्करोति</span>）→ Adhvaryu が供物を火に投じる。vaṣaṭ（√vah「運ぶ」から：「Agni が Indra に供物を運べ」）を叫ぶので Hotṛ は vaṣaṭkartṛ。<br>
+  Āpastamba の別の定義：前半に神格の印がある詩節が招請詩、後半にあるのが献供詩（<span class="dev">पुरस्ताल्लक्ष्मा पुरोऽनुवाक्या । उपरिष्टाल्लक्ष्मा याज्या</span>）。</p>
+  <p><b>最初の飲用</b>：Jyotiṣṭoma で、Soma を神々に捧げた残りを祭官たちが飲む。そのとき Hotṛ が最初に飲む。</p>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th><span class="dev">वेदं कृत्वा वेदिं करोति</span></th><th><span class="dev">वषट्कर्तुः प्रथमभक्षः</span></th></tr>
+  <tr><td>行為そのもの</td><td>vedi 作りは<b>他の文で既に</b>命じられている → 再言されているだけ</td><td>Hotṛ の飲用は<b>他のどこにも</b>命じられていない</td></tr>
+  <tr><td>命じられるもの</td><td><b>順序だけ</b></td><td><b>順序をもった飲用</b></td></tr>
+  </table></div>
+  <h4><span class="dev">एकप्रसरताभङ्गभयेन</span> の3つの解釈</h4>
+  <ol class="deriv">
+    <li><span class="form">एकप्रसरता ＝ एकवाक्यता</span><span class="why">順序だけを命じると、飲用そのものも命じなければならず「Hotṛ は飲む」「Hotṛ は最初に飲む」の二文に分裂する（反復型の文の分裂 āvṛttyātmaka vākyabheda）。</span></li>
+    <li><span class="form">एकप्रसरता ＝ संभूय विशिष्टार्थप्रतिपादकत्वम्</span><span class="why">prathamabhakṣa は同格複合語（karmadhāraya）で「最初であることで限定された飲用」を<b>一緒に</b>表す（nīlotpala「青い蓮」のように）。「Hotṛ の飲用は最初だ」と読むなら、主題（飲用）が先、述語（最初）が後に来るはずだが、複合語では逆。</span></li>
+    <li><span class="form">एकस्यां वृत्तौ प्रसरः</span><span class="why">一つの複合語の中に主題と述語が入ることはできない。入れば詩論でいう「述語部分の不明瞭（<span class="dev">अविमृष्टविधेयांशः</span>）」という欠陥になる。</span></li>
+  </ol>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§42-b</span><span class="sutra-num">p. 31</span><span class="sutra-text">सेयं श्रुतिरितरप्रमाणापेक्षया बलवती । तेषां वचनकल्पनद्वारा क्रमप्रमाणत्वात् । अत एवाश्विनग्रहस्य पाठक्रमात् तृतीयस्थाने ग्रहणप्रसक्तौ ‘आश्विनो दशमो गृह्यते’ इति वचनाद्दशमस्थाने ग्रहणमित्युक्तम् ।</span></div>
+  <div class="sutra-iast">seyaṃ śrutir itarapramāṇāpekṣayā balavatī | teṣāṃ vacanakalpanadvārā kramapramāṇatvāt | ata evāśvinagrahasya pāṭhakramāt tṛtīyasthāne grahaṇaprasaktau ‘āśvino daśamo gṛhyate’ iti vacanād daśamasthāne grahaṇam ity uktam |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">この śruti は他の根拠より強い。それら（他の根拠）は、言葉（śruti）を<b>想定する</b>ことを通じて順序の根拠となるからである。まさにそれゆえ、Aśvin たちの杯（graha）は、読誦の順序からは<b>3番目</b>に取ることになりそうなところを、「Aśvin の杯は<b>10番目</b>に取られる」という言葉によって、10番目に取る、と（JS 5.4.1 で）言われている。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">This direct statement [is] stronger in comparison with the other means of proof. For, they are means of proof for order through the presumption of a statement. Hence, when the taking of the cup of the Aśvins in the third place accrues from the order of the text, it is said that [it is] taken in the tenth place on account of the statement ‘The cup of the Aśvins is taken tenth.’</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Aśvin の杯の例</div>
+  <p>Jyotiṣṭoma のある節に <span class="dev">ऐन्द्रवायवं गृह्णाति, मैत्रावरुणं गृह्णाति, आश्विनं गृह्णाति</span>「Indra-Vāyu の杯を取る、Mitra-Varuṇa の杯を取る、Aśvin の杯を取る」とある（杯の中身を神々に捧げるため）。読誦の順序からは Aśvin の杯は<b>3番目</b>（「Aśvin の杯は3番目に取られる」という śruti を<b>想定</b>）。しかし実在する śruti「<span class="dev">आश्विनो दशमो गृह्यते</span>」が<b>10番目</b>と言う → 10番目。</p>
+  <div class="cite"><span class="dev">पाठो हि न क्रमस्य अभिधायकः । किन्तु अन्यथानुपपत्त्या क्रमं कल्पयति । ‘दशमः’ इत्येषा श्रुतिस्तु साक्षादेव क्रममभिधत्ते । ततः पाठादपि श्रुतिः प्रबला ।</span><span class="src">Rāmeśvara</span></div>
+  <p><b>なぜ2番目（artha）ではなく3番目（pāṭha）との比較なのか？</b>（第4課の「大関を倒す」と違う）：artha（目的）はもともと śruti に<b>従って</b>想定されるので、両者が衝突することはあり得ない。だから śruti と pāṭha の比較を示した。</p>
+  <div class="cite"><span class="dev">श्रुत्यर्थयोर्विरोधस्तु नैव वचनसंभवे । यथाश्रुत्यैव हि न्याय्यमर्थस्य परिकल्पनम् ॥</span><span class="src">Sāravivecanī が引く詩節</span></div>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch3">
+<h2 class="chapter">第3章　§43 目的による順序（artha）</h2>
+<p class="chapter-sub"><span class="dev">अर्थक्रमः</span> ／ 底本 p. 32，Notes pp. 181–182</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§43</span><span class="sutra-num">p. 32</span><span class="sutra-text">यत्र प्रयोजनवशेन क्रमनिर्णयः सोऽर्थक्रमः । यथा ‘अग्निहोत्रं जुहोति’ ‘यवागूं पचति’ इत्यग्निहोत्रयवागूपाकयोः । अत्र हि यवाग्वा होमार्थत्वेन तत्पाकः प्रयोजनवशेन पूर्वमनुष्ठीयते । स चायं पाठक्रमाद्बलवान् । यथापाठं ह्यनुष्ठाने क्लृप्तप्रयोजनबाधोऽदृष्टार्थत्वं च स्यात् । न हि होमानन्तरं क्रियमाणस्य पाकस्य किंचिद् दृष्टं प्रयोजनमस्ति ।</span></div>
+  <div class="sutra-iast">yatra prayojanavaśena kramanirṇayaḥ so ’rthakramaḥ | yathā ‘agnihotraṃ juhoti’ ‘yavāgūṃ pacati’ ity agnihotrayavāgūpākayoḥ | atra hi yavāgvā homārthatvena tatpākaḥ prayojanavaśena pūrvam anuṣṭhīyate | sa cāyaṃ pāṭhakramād balavān | yathāpāṭhaṃ hy anuṣṭhāne klṛptaprayojanabādho ’dṛṣṭārthatvaṃ ca syāt | na hi homānantaraṃ kriyamāṇasya pākasya kiṃcid dṛṣṭaṃ prayojanam asti |</div>
+  <div class="row"><div class="k">和訳</div><div class="v"><b>目的に基づいて</b>順序が決まる場合、それが目的による順序である。たとえば「Agnihotra を献供する」「粥（yavāgū）を炊く」における、Agnihotra の献供と粥炊きのように。ここでは、粥は献供のためのものなので、その目的に基づいて粥炊きが<b>先に</b>行われる。そしてこれは読誦の順序より強い。読誦どおりに行うと、確定している目的が損なわれ、（粥炊きが）見えない目的のものになってしまうからである。献供の後に炊かれる粥には、何の目に見える目的もないからである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">Where order is determined through the force of purpose, that [is] order by sense, as of the Agnihotra-sacrifice and the cooking of gruel in ‘[He] offers the Agnihotra,’ ‘[He] cooks gruel.’ For, here, since the gruel is intended for the sacrifice, the cooking thereof is performed first through the force of purpose. And this [order] is stronger than the order of the text. For, if performance were according to the text, the established purpose would be stultified and [the cooking] would have an unseen purpose. For, the cooking done after the sacrifice has no seen purpose at all.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Agnihotra と粥</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>読誦の順（pāṭha）</th><th>目的による順（artha）</th></tr>
+  <tr><td>順序</td><td>① 献供 → ② 粥炊き</td><td>① <b>粥炊き</b> → ② 献供</td></tr>
+  <tr><td>根拠</td><td>文がこの順に並んでいる</td><td><span class="dev">यवाग्वाग्निहोत्रं जुहोति</span>「粥で Agnihotra を献供する」── 具格から、粥は献供の<b>材料</b></td></tr>
+  <tr><td>問題点</td><td>①確定した目的（粥が献供の材料）が損なわれる ②後で炊いた粥には見える目的がないので、見えない目的を想定しなければならない（<span class="dev">लभ्यमाने फले दृष्टे नादृष्टफलकल्पना</span> に反する）</td><td>―</td></tr>
+  </table></div>
+  <div class="cite"><span class="dev">द्रव्यमन्तरेण होमासंभवात् । द्रव्यनिष्पत्त्यै पाकस्यैव प्राथमिकत्वावश्यंभावत्वात् । … तस्मात् पाठक्रमं बाधित्वा अर्थतः क्रमोऽत्र अभ्युपगन्तव्यः ।</span><span class="src">Jaiminīyanyāyamālāvistara p. 265</span></div>
+  <p><span class="dev">यवागूः</span>：√yu「混ぜる」から、米や大麦で作る粥。<br>
+  名前の由来：目的は<b>意味（artha）</b>を理解して初めてわかるので「意味による順序」。あるいは artha ＝ <span class="dev">प्रयोजन</span>（目的）なので「目的による順序」（<span class="dev">अर्थो … निवृत्तौ च प्रयोजने</span>，Medinī）。</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="ch4">
+<h2 class="chapter">第4章　§44 読誦による順序（pāṭha）</h2>
+<p class="chapter-sub"><span class="dev">पाठक्रमः</span> ／ 底本 pp. 32–34，Notes pp. 182–185</p>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§44-a</span><span class="sutra-num">pp. 32–33</span><span class="sutra-text">पदार्थबोधकवाक्यानां यः क्रमः स पाठक्रमः । तस्माच्च पदार्थानां क्रम आश्रीयते । येन हि क्रमेण वाक्यानि पठितानि तेनैव क्रमेणाधीतान्यर्थप्रत्ययं जनयन्ति । यथाप्रत्ययं च पदार्थानामनुष्ठानम् । स च पाठो द्विविधः — मन्त्रपाठो ब्राह्मणपाठश्चेति । तत्राग्नेयाग्नीषोमीययोस्तत्तद्याज्यानुवाक्यानां पाठाद् यः क्रम आश्रीयते स मन्त्रपाठात् ।</span></div>
+  <div class="sutra-iast">padārthabodhakavākyānāṃ yaḥ kramaḥ sa pāṭhakramaḥ | tasmāc ca padārthānāṃ krama āśrīyate | yena hi krameṇa vākyāni paṭhitāni tenaiva krameṇādhītāny arthapratyayaṃ janayanti | yathāpratyayaṃ ca padārthānām anuṣṭhānam | sa ca pāṭho dvividhaḥ — mantrapāṭho brāhmaṇapāṭhaś ceti | tatrāgneyāgnīṣomīyayos tattadyājyānuvākyānāṃ pāṭhād yaḥ krama āśrīyate sa mantrapāṭhāt |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">事柄を知らせる<b>文の並び順</b>が読誦の順序である。そしてそこから事柄の順序が採られる。というのも、文はそれが読まれた順序で学ばれ、その順序で意味の理解を生む。そして事柄は理解された順に実行されるからである。そしてその読誦は二種類ある。<b>祭詞の読誦</b>と <b>Brāhmaṇa の読誦</b>である。そのうち、Āgneya 祭と Agnīṣomīya 祭について、それぞれの献供詩・招請詩の読誦から採られる順序は、祭詞の読誦による。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">The order of the sentences which convey [sacrificial] matters [is] order of the text. And from that the order of the matters is adopted. For, in the order in which the sentences are read, in the same order, being studied, they produce the comprehension of the sense. And the performance of the matters [is] according to the comprehension. And that text [is] of two kinds, the text of the Mantras and the text of the Brāhmaṇas. There, the order which is adopted with regard to the Āgneya and Agnīṣomīya [oblations] from the text of their respective presenting and invoking verses, [is] from the text of the Mantras.</div></div>
+</div>
+
+<div class="flow">
+  <div class="box">読誦の順<br><small>pāṭhakrama</small></div><div class="arr">→</div>
+  <div class="box">学習の順<br><small>adhyayanakrama</small></div><div class="arr">→</div>
+  <div class="box">理解の順<br><small>arthapratyayakrama</small></div><div class="arr">→</div>
+  <div class="box hl">実行の順<br><small>anuṣṭhāna</small></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§44-b</span><span class="sutra-num">p. 33</span><span class="sutra-text">स चायं मन्त्रपाठो ब्राह्मणपाठाद्बलीयान्, अनुष्ठाने ब्राह्मणवाक्यापेक्षया मन्त्रपाठस्यान्तरङ्गत्वात् । ब्राह्मणवाक्यं हि प्रयोगाद्बहिरेवेदं कर्तव्यमिति अवबोध्य कृतार्थम् । मन्त्राः पुनः प्रयोगकाले व्याप्रियन्ते, अनुष्ठानक्रमस्य स्मरणक्रमाधीनत्वात् । तत्क्रमस्य च मन्त्रक्रमाधीनत्वाद् अन्तरङ्गोऽयं मन्त्रपाठः ।</span></div>
+  <div class="sutra-iast">sa cāyaṃ mantrapāṭho brāhmaṇapāṭhād balīyān, anuṣṭhāne brāhmaṇavākyāpekṣayā mantrapāṭhasyāntaraṅgatvāt | brāhmaṇavākyaṃ hi prayogād bahir evedaṃ kartavyam iti avabodhya kṛtārtham | mantrāḥ punaḥ prayogakāle vyāpriyante, anuṣṭhānakramasya smaraṇakramādhīnatvāt | tatkramasya ca mantrakramādhīnatvād antaraṅgo ’yaṃ mantrapāṭhaḥ |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">そしてこの祭詞の読誦は Brāhmaṇa の読誦より強い。実行において、Brāhmaṇa の文に比べて祭詞の読誦の方が<b>内的に近い</b>（antaraṅga）からである。Brāhmaṇa の文は、実行の<b>外から</b>「これをなすべし」と知らせれば目的を果たしてしまう。一方、祭詞は実行の<b>最中に</b>働く。実行の順序は想起の順序に依存し、その（想起の）順序は祭詞の順序に依存するので、この祭詞の読誦は内的に近いのである。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">And this text of the Mantras is stronger than the text of the Brāhmaṇas, because in performance the text of the Mantras is more intimately connected (antaraṅga) than the Brāhmaṇa sentences. For, a Brāhmaṇa sentence serves its purpose by making known, from outside the performance, that this is to be done. But the Mantras function at the time of performance, because the order of performance depends on the order of remembrance, and that order depends on the order of the Mantras; [hence] this text of the Mantras is intimately connected.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　Āgneya と Agnīṣomīya（満月祭）の順序</div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>Taittirīya-Brāhmaṇa（Brāhmaṇa の読誦）</th><th>Taittirīya-Saṃhitā（祭詞の読誦）</th></tr>
+  <tr><td>1番目</td><td>Agnīṣomīya（第5 prapāṭhaka 第2 anuvāka）</td><td><b>Āgneya</b> の献供詩・招請詩（<span class="dev">अग्निर्मूर्धा …</span>）</td></tr>
+  <tr><td>2番目</td><td>Āgneya（第6 prapāṭhaka 第3 anuvāka）</td><td>（Prājāpatya）→ <b>Agnīṣomīya</b>（<span class="dev">अग्नीषोमा सवेदसा …</span>）</td></tr>
+  <tr><td>判定</td><td class="no-x">負け</td><td class="yes">勝ち → Āgneya が先</td></tr>
+  </table></div>
+  <p>Adhvaryu 篇（<span class="dev">अग्नये जुष्टं निर्वपामि</span> → <span class="dev">अग्नीषोमाभ्याम्…</span>）、Yajamāna 篇（<span class="dev">अग्नेरहं देवयज्यया…</span> → <span class="dev">अग्नीषोमयोरहं…</span>）でも Āgneya が先です。</p>
+  <div class="cite"><span class="dev">… मन्त्रक्रमश्च प्रबलः, मन्त्रैः स्मृत्वा पश्चादनुष्ठेयत्वात् । ब्राह्मणं तु अप्राप्तपदार्थविधिनापि चरितार्थम् । अतोऽनुष्ठानस्मरणाय नैव उत्पन्नत्वात् मन्त्रान् बाधितुं नालम् ।</span><span class="src">Jaiminīyanyāyamālāvistara p. 270</span></div>
+  <div class="tbl-wrap"><table>
+  <tr><th></th><th>Brāhmaṇa の文</th><th>祭詞（mantra）</th></tr>
+  <tr><td>働く時</td><td>実行の<b>前</b>（外から）：「これをせよ」と命じて終わり</td><td>実行の<b>最中</b>：唱えながら、次にすべきことを思い出させる</td></tr>
+  <tr><td>実行との関係</td><td><span class="dev">बहिरङ्ग</span>（外的）</td><td><span class="dev">अन्तरङ्ग</span>（内的に近い）</td></tr>
+  </table></div>
+</div>
+
+<div class="sutra">
+  <div class="sutra-head"><span class="sutra-num">§44-c</span><span class="sutra-num">pp. 33–34</span><span class="sutra-text">प्रयाजानां ‘समिधो यजति’ ‘तनूनपातं यजति’ इत्येवंविधपाठक्रमाद् यः क्रमः स ब्राह्मणपाठक्रमात् । यद्यपि ब्राह्मणवाक्यान्यर्थं विधाय कृतार्थानि, तथापि प्रयाजादीनां क्रमस्मारकान्तरस्याभावात्तान्येव क्रमस्मारकत्वेन स्वीक्रियन्ते ।</span></div>
+  <div class="sutra-iast">prayājānāṃ ‘samidho yajati’ ‘tanūnapātaṃ yajati’ ity evaṃvidhapāṭhakramād yaḥ kramaḥ sa brāhmaṇapāṭhakramāt | yady api brāhmaṇavākyāny arthaṃ vidhāya kṛtārthāni, tathāpi prayājādīnāṃ kramasmārakāntarasyābhāvāt tāny eva kramasmārakatvena svīkriyante |</div>
+  <div class="row"><div class="k">和訳</div><div class="v">前祭の、「samidh に祭る」「Tanūnapāt に祭る」というような読誦の順序からの順序は、Brāhmaṇa の読誦の順序による。Brāhmaṇa の文は事柄を命じれば目的を果たしてしまうとはいえ、前祭などには順序を思い出させる<b>他のもの</b>がないので、それら（Brāhmaṇa の文）こそが順序を思い出させるものとして採用される。</div></div>
+  <div class="row"><div class="k">英訳（参考）</div><div class="v eng">The order of the fore-sacrifices [derived] from the order of a text such as ‘[He] sacrifices to the samidhs,’ ‘[He] sacrifices to Tanūnapāt’ [is] from the order of the Brāhmaṇa-text. Although the Brāhmaṇa sentences serve their purpose by enjoining the matter, still, as there is nothing else that reminds of the order of the fore-sacrifices and others, they themselves are accepted as reminding of the order.</div></div>
+</div>
+
+<div class="note">
+  <div class="note-title">解説ノート <span class="tag-gk">G&amp;K</span>　前祭の例は適切か？</div>
+  <p>前祭を命じる Brāhmaṇa の文には、<span class="dev">कृत्वा</span> や <span class="dev">ततः</span> のような順序を直接示す語もなく（śruti ではない）、目的による順序もない（samidh 祭をしなくても Tanūnapāt 祭はできる）。だから Brāhmaṇa の読誦の順に従う ── これが Bhāskara の説明です。</p>
+  <p><b>しかし</b>注釈者たちは、前祭の順序を示す<b>祭詞</b>もある、と指摘します。<br>
+  ・Taittirīya-Saṃhitā 2.6.1 <span class="dev">समिधो यजति । वसन्तमेव ऋतूनामवरुन्धे । तनूनपातं यजति । ग्रीष्ममेवावरुन्धे । इडो यजति । वर्षा एवावरुन्धे । बर्हिर्यजति । शरदमेवावरुन्धे । स्वाहाकारं यजति । हेमन्तमेवावरुन्धे ।</span>（5つの前祭を5つの季節に対応させる）<br>
+  ・前祭の祭詞 <span class="dev">समिधो अग्न आज्यस्य व्यन्तु …</span> も同じ順。<br>
+  だから Bhāskara の例は<b>適切でない</b>。この例は「順序を示す祭詞がないときは Brāhmaṇa の文が順序を示す」という一般論として読むべきで、特に<b>祭詞なしで黙って行う儀礼</b>（<span class="dev">तूष्णीं विहितानि कर्माणि</span>）に当てはまる、と G&amp;K は言います。</p>
+  <div class="cite"><span class="dev">एवं च यत्र कर्माङ्गभूतो मन्त्रः समस्ति तत्र मन्त्रपाठक्रमादेव क्रमः । यत्र स नास्ति, तत्र ब्राह्मणपाठस्यापि अगत्या क्रमबोधकत्वमङ्गीकरणीयमिति भावः ।</span><span class="src">Sāravivecanī</span></div>
+  <p>（細かい指摘：前の文の <span class="dev">मन्त्रपाठात्</span> と揃えるなら、<span class="dev">ब्राह्मणपाठक्रमात्</span> は <span class="dev">ब्राह्मणपाठात्</span> とすべき。）</p>
+</div>
+</section>
+
+<!-- ============================================================ -->
+<section id="sum">
+<h2 class="chapter">まとめ　順序の根拠（前半）</h2>
+<div class="tbl-wrap"><table>
+<tr><th>根拠</th><th>定義</th><th>例</th><th>勝つ相手</th></tr>
+<tr><td><b>śruti</b></td><td><span class="dev">क्रमपरवचनम्</span> 順序を述べる言葉</td><td>「veda を作ってから vedi」（順序だけ）／「Hotṛ の最初の飲用」（順序つきの事柄）</td><td>Aśvin の杯は3番目（pāṭha）ではなく10番目</td></tr>
+<tr><td><b>artha</b></td><td><span class="dev">प्रयोजनवशेन क्रमनिर्णयः</span> 目的による</td><td>粥炊き → Agnihotra</td><td>読誦の順（献供 → 粥）に勝つ</td></tr>
+<tr><td><b>pāṭha</b>（祭詞）</td><td>文の並び順</td><td>Āgneya → Agnīṣomīya</td><td>Brāhmaṇa の読誦に勝つ（内的に近い）</td></tr>
+<tr><td><b>pāṭha</b>（Brāhmaṇa）</td><td>同上</td><td>前祭（祭詞がない場合）</td><td>―</td></tr>
+</table></div>
+<ol class="deriv">
+  <li><span class="form">प्रयोगप्राशुभावः</span><span class="why">実行の vidhi は主 vidhi が従属物の文と一つになったもの。遅れなく行わせ、そのために決まった順序も（事柄の属性として）命じる。</span></li>
+  <li><span class="form">श्रुति · अर्थ · पाठ · स्थान · मुख्य · प्रवृत्ति</span><span class="why">順序を決める6根拠。前のものほど強い（他は śruti の想定を要する）。</span></li>
+  <li><span class="form">मन्त्रपाठ ＞ ब्राह्मणपाठ</span><span class="why">祭詞は実行の最中に想起の順序を与える。</span></li>
+</ol>
+
+<h3>この課の重要語</h3>
+<div class="tbl-wrap"><table>
+<tr><th>語</th><th>IAST</th><th>意味</th></tr>
+<tr><td class="dev">प्रयोगविधिः</td><td class="iast">prayogavidhi</td><td>実行の vidhi</td></tr>
+<tr><td class="dev">प्राशुभावः · अविलम्बः</td><td class="iast">prāśubhāva · avilamba</td><td>すばやさ ・ 遅れのなさ</td></tr>
+<tr><td class="dev">साहित्यम्</td><td class="iast">sāhitya</td><td>一緒にあること</td></tr>
+<tr><td class="dev">प्रयोगविक्षेपः</td><td class="iast">prayogavikṣepa</td><td>実行の混乱</td></tr>
+<tr><td class="dev">क्रमः · पौर्वापर्यम्</td><td class="iast">krama · paurvāparya</td><td>順序 ・ 前後関係</td></tr>
+<tr><td class="dev">वषट्कर्तृ</td><td class="iast">vaṣaṭkartṛ</td><td>vaṣaṭ を唱える者 ＝ Hotṛ</td></tr>
+<tr><td class="dev">एकप्रसरता</td><td class="iast">ekaprasaratā</td><td>一つの流れ（統一性）</td></tr>
+<tr><td class="dev">ग्रहः</td><td class="iast">graha</td><td>（Soma の）杯</td></tr>
+<tr><td class="dev">यवागूः</td><td class="iast">yavāgū</td><td>粥</td></tr>
+<tr><td class="dev">अन्तरङ्ग · बहिरङ्ग</td><td class="iast">antaraṅga · bahiraṅga</td><td>内的に近い ・ 外的な</td></tr>
+</table></div>
+</section>
+
+<!-- ============================================================ -->
+<section id="quiz">
+<h2 class="chapter">確認問題</h2>
+<p class="chapter-sub">クリックすると答えが出ます</p>
+<details class="q"><summary>Q1. 実行の vidhi は独立の vidhi か？</summary><div>独立ではない。従属物の文と一つの文になった主 vidhi そのもの。</div></details>
+<details class="q"><summary>Q2. 「遅れのなさにも根拠がない」という反論への答えは？</summary><div>遅れがあると、主と従属物が「一緒に」行われることが成り立たなくなる。間をおいて行ったものは「一緒に行った」とは言わない。</div></details>
+<details class="q"><summary>Q3. 順序が「事柄の属性として」命じられるのはなぜ？</summary><div>順序は抽象的で命令の対象になりにくく、すばやさと別に命じると文の分裂が起こるから。</div></details>
+<details class="q"><summary>Q4. <span class="dev">वेदं कृत्वा वेदिं करोति</span> と <span class="dev">वषट्कर्तुः प्रथमभक्षः</span> の違いは？</summary><div>前者は vedi 作りが他で命じられているので順序だけを述べる。後者は Hotṛ の飲用が他で命じられていないので、順序をもった飲用そのものを述べる。</div></details>
+<details class="q"><summary>Q5. Aśvin の杯は何番目に取る？ なぜ？</summary><div>10番目。「āśvino daśamo gṛhyate」という śruti が、読誦の順（3番目）より強いから。</div></details>
+<details class="q"><summary>Q6. 粥炊きが Agnihotra の献供より先なのはなぜ？</summary><div>粥は献供の材料（目的）なので。読誦の順に従うと目的が損なわれ、粥炊きが見えない目的のものになってしまう。</div></details>
+<details class="q"><summary>Q7. 祭詞の読誦が Brāhmaṇa の読誦より強い理由は？</summary><div>Brāhmaṇa は実行の外から命じれば終わりだが、祭詞は実行の最中に唱えられ、実行の順序（＝想起の順序）を決めるので、実行に内的に近い（antaraṅga）から。</div></details>
+<details class="q"><summary>Q8. G&amp;K が前祭の例を「不適切」とするのはなぜ？</summary><div>前祭の順序を示す祭詞（TS 2.6.1 や前祭の祭詞）が実際にあるから。Brāhmaṇa の読誦が順序を決めるのは、祭詞のない（黙って行う）儀礼の場合と読むべき。</div></details>
+</section>
+
+<nav class="lesson-nav"><a href="arthasamgraha_lesson7.html">← 第7課　sthāna・samākhyā・aṅga</a><span class="spacer"></span><a href="arthasamgraha_lesson9.html">第9課　順序（2）と資格の vidhi →</a></nav>
+
+<footer>
+  Arthasaṃgraha を読む · 第8課　vidhi（6）<br>
+  Based on <i>The Arthasaṃgraha of Laugākṣi Bhāskara</i>, ed. &amp; tr. A. B. Gajendragadkar and R. D. Karmarkar: text pp. 29–34 (§40–§44), Notes pp. 173–185.<br>
+  和訳はサンスクリット原文から訳出。英訳は底本からの参考引用。OCR の誤りは訂正（例：वषटुर्तुः → वषट्कर्तुः、पाठक्रमातृतीय → पाठक्रमात् तृतीय、मन्ब्रक्रमा → मन्त्रक्रमा）。
+</footer>
+
+</body>
+</html>
