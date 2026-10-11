@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>アートマタットヴァ・ヴィヴェーカ</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  /* 論敵ごとの色 */
+  --c-self: #8B4A2B;
+  --c-mim: #3F6A8A;
+  --c-sam: #7A5C99;
+  --c-bud: #A0782A;
+  --c-car: #4F7A4A;
+  --c-gen: #7E7265;
+  --c-vai: #2F7F7A;
+  --on-c: #FFFFFF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --c-self: #C47A54;
+    --c-mim: #6E9CC0;
+    --c-sam: #A98BC7;
+    --c-bud: #C9A55A;
+    --c-car: #86B07F;
+    --c-gen: #9A8F83;
+    --c-vai: #6FB8B2;
+    --on-c: #1E1D1B;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --c-self: #C47A54;
+  --c-mim: #6E9CC0;
+  --c-sam: #A98BC7;
+  --c-bud: #C9A55A;
+  --c-car: #86B07F;
+  --c-gen: #9A8F83;
+  --c-vai: #6FB8B2;
+  --on-c: #1E1D1B;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+a { color: var(--accent); }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin: 0.8rem 0; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.c, th.c { text-align: center; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no { color: var(--it-color); font-weight: 600; }
+
+/* kārikā card (LSK の sutra カードと同じ形) */
+.sutra { background: var(--card-bg); border: 1px solid var(--rule-light); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem 0.9rem; margin: 1rem 0; }
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; line-height: 1.7; overflow-wrap: anywhere; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; overflow-wrap: anywhere; }
+.sutra-jp { font-size: 0.95rem; }
+
+/* ===== 科段アコーディオン ===== */
+.controls { position: sticky; top: 0; z-index: 5; background: var(--ground); border-bottom: 1px solid var(--rule-light); padding: 0.6rem 0; margin: 1rem 0 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.controls .lbl { font-size: 0.8rem; color: var(--muted); margin-right: 0.2rem; }
+.controls button { font-family: 'Shippori Mincho', serif; font-size: 0.85rem; background: var(--card-bg); color: var(--accent); border: 1px solid var(--rule); border-radius: 999px; padding: 0.15rem 0.8rem; cursor: pointer; }
+.controls button:hover, .controls button:focus-visible { border-color: var(--accent); }
+
+details.node { border-left: 2px solid var(--rule-light); margin: 0.25rem 0 0.25rem 0; }
+details.node > summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: auto 1fr auto; gap: 0.2rem 0.6rem; align-items: baseline;
+  padding: 0.35rem 0.5rem 0.35rem 0.6rem; border-radius: 0 4px 4px 0;
+}
+details.node > summary::-webkit-details-marker { display: none; }
+details.node > summary:hover { background: var(--note-bg); }
+details.node > summary::before {
+  content: "▸"; color: var(--accent-soft); font-size: 0.8rem; grid-column: 1; grid-row: 1;
+  transition: transform 0.15s; display: inline-block; width: 0.8rem;
+}
+details.node[open] > summary::before { transform: rotate(90deg); }
+details.node > summary .num { grid-column: 1; grid-row: 1; margin-left: 1.1rem; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1.02rem; white-space: nowrap; }
+details.node > summary .ttl { grid-column: 2; }
+details.node > summary .ttl .sk { font-size: 0.85rem; color: var(--ink-soft); }
+details.node > summary .refs { grid-column: 3; display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: flex-end; }
+.ref { font-size: 0.72rem; border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.35rem; color: var(--muted); white-space: nowrap; line-height: 1.6; font-family: 'Shippori Mincho', serif; }
+.ref.k { border-color: var(--accent-soft); color: var(--accent); }
+.ref.opp { color: var(--on-c); border: none; }
+.opp.mim { background: var(--c-mim); } .opp.sam { background: var(--c-sam); } .opp.bud { background: var(--c-bud); }
+.opp.car { background: var(--c-car); } .opp.self { background: var(--c-self); } .opp.gen { background: var(--c-gen); }
+details.node > .body { padding: 0.1rem 0 0.4rem 1.2rem; }
+details.node > .body > p.gist { font-size: 0.95rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; }
+details.node > .body > p.gist::before { content: "要旨　"; font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; }
+details.node.lv1 { border-left: 4px solid var(--accent); background: var(--card-bg); border-radius: 4px; margin: 0.8rem 0; padding: 0.2rem 0.4rem 0.4rem 0; }
+details.node.lv1 > summary .num { font-size: 1.25rem; }
+details.node.lv1 > summary .ttl { font-weight: 600; font-size: 1.08rem; }
+details.node.lv2 > summary .ttl { font-weight: 600; }
+details.node.leaf > summary::before { content: "·"; transform: none !important; }
+@media (max-width: 560px) {
+  details.node > summary { grid-template-columns: auto 1fr; }
+  details.node > summary .refs { grid-column: 2; justify-content: flex-start; }
+  details.node > .body { padding-left: 0.7rem; }
+}
+
+/* ===== 図：五つの異論 → 五つのスタバカ ===== */
+.flow { display: grid; grid-template-columns: 1fr 2.2rem 1fr; gap: 0.5rem 0; align-items: stretch; margin: 1.2rem 0 1.6rem; }
+.flow .q, .flow .a { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.5rem 0.75rem; font-size: 0.9rem; line-height: 1.6; background: var(--card-bg); }
+.flow .q { border-left: 4px solid var(--it-color); }
+.flow .a { border-left: 4px solid var(--ok-color); }
+.flow .q b, .flow .a b { display: block; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.flow .arr { display: flex; align-items: center; justify-content: center; color: var(--accent-soft); font-size: 1.2rem; }
+.flow .head { font-size: 0.8rem; color: var(--ink-soft); font-weight: 600; text-align: center; letter-spacing: 0.1em; }
+@media (max-width: 560px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow .arr { transform: rotate(90deg); height: 1.4rem; }
+  .flow .head.h2, .flow .head.h3 { display: none; }
+}
+
+/* ===== 図：段落マップ（[1]–[80] の帯グラフ） ===== */
+.map { display: flex; width: 100%; height: 2.4rem; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-light); margin: 0.8rem 0 0.3rem; }
+.map > a { display: flex; align-items: center; justify-content: center; color: var(--on-c); font-size: 0.72rem; text-decoration: none; border-right: 1px solid var(--ground); font-family: 'Cormorant Garamond', serif; font-weight: 600; min-width: 0; overflow: hidden; }
+.map > a:hover { filter: brightness(1.12); }
+.map-scale { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.6rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1rem; }
+.legend span::before { content: ""; display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: -0.05rem; background: var(--sw); }
+
+/* ===== 図：五つの理由 → 結論 ===== */
+.reasons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; margin: 1rem 0 0; }
+.reasons div { background: var(--point-bg); border-radius: 4px; padding: 0.45rem 0.5rem; text-align: center; font-size: 0.85rem; line-height: 1.5; }
+.reasons div .no-r { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1rem; }
+.reasons div .iast { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+.converge { text-align: center; color: var(--accent-soft); font-size: 1.1rem; line-height: 1.2; margin: 0.2rem 0; }
+.concl { border: 2px solid var(--accent); border-radius: 6px; text-align: center; padding: 0.5rem; font-weight: 600; margin-bottom: 1rem; }
+.concl .dev { display: block; font-weight: 400; font-size: 1.05rem; }
+@media (max-width: 560px) { .reasons { grid-template-columns: repeat(2, 1fr); } }
+
+/* ===== 図：論敵の位置づけ ===== */
+.opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.opp-card { border-radius: 4px; padding: 0.6rem 0.7rem; background: var(--card-bg); border: 1px solid var(--rule-light); border-top: 5px solid var(--sw); font-size: 0.88rem; line-height: 1.6; }
+.opp-card b { display: block; font-size: 0.95rem; }
+.opp-card .where { font-size: 0.78rem; color: var(--muted); }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+.tentative { font-size: 0.72rem; color: var(--it-color); border: 1px dashed var(--it-color); border-radius: 3px; padding: 0 0.3rem; margin-left: 0.3rem; white-space: nowrap; }
+
+.opp.vai { background: var(--c-vai); }
+.reasons.r3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 560px) { .reasons.r3 { grid-template-columns: 1fr; } }
+h3.cap { margin-top: 0.6rem; }
+details.fold { border: 1px solid var(--rule-light); border-radius: 4px; background: var(--card-bg); padding: 0.4rem 0.8rem; margin: 1rem 0; }
+details.fold > summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 0.92rem; }
+.pm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.pm { display: block; text-decoration: none; color: var(--ink); background: var(--card-bg); border: 1px solid var(--rule-light); border-left: 4px solid var(--ok-color); border-radius: 4px; padding: 0.5rem 0.75rem; font-size: 0.88rem; line-height: 1.6; }
+.pm:hover { border-color: var(--accent); }
+.pm b { display: block; color: var(--accent); font-size: 1rem; }
+.pm .iast { display: block; color: var(--ink-soft); }
+.pm .sec { display: block; font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+.stats { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.35rem 0.8rem; align-items: center; margin: 1rem 0 0.4rem; font-size: 0.85rem; }
+.stats .lab a { text-decoration: none; }
+.stats .bars { display: flex; flex-direction: column; gap: 3px; }
+.stats .bar { height: 0.95rem; border-radius: 2px; color: var(--on-c); font-size: 0.7rem; line-height: 0.95rem; padding-left: 0.35rem; white-space: nowrap; }
+.stats .bar.p { background: var(--accent); }
+.stats .bar.k { background: var(--accent-soft); }
+section.stabaka { border-top: 1px solid var(--rule); margin-top: 3rem; }
+
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1.2rem; padding: 0.7rem 0 0.8rem; border-bottom: 1px dashed var(--rule-light); position: relative; }
+.seg-sa { font-size: 1.04rem; line-height: 1.9; overflow-wrap: anywhere; }
+.seg-ja { font-size: 0.98rem; line-height: 1.95; }
+.tnote { background: var(--note-bg); border-radius: 4px; padding: 0.55rem 0.9rem 0.6rem; margin: 0.4rem 0 0.9rem; font-size: 0.88rem; line-height: 1.85; }
+.tnote-h { font-weight: 600; color: var(--accent); font-size: 0.78rem; letter-spacing: 0.1em; }
+.tnote ol { padding-left: 1.3rem; }
+.tnote b { color: var(--ink); }
+.legend-tr { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1.2rem; font-size: 0.8rem; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; margin: 1rem 0 0.2rem; }
+.toc-tr a { text-decoration: none; }
+@media (max-width: 640px) {
+  .seg, .legend-tr { grid-template-columns: 1fr; }
+  .legend-tr span:last-child { display: none; }
+  .seg-ja { padding-left: 0.6rem; border-left: 3px solid var(--rule-light); }
+}
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-devanagari">आत्मतत्त्वविवेकः</div>
+  <h1>アートマタットヴァ・ヴィヴェーカ　対訳と解説</h1>
+  <div class="header-sub">Udayana, Ātmatattvaviveka · Annotated Japanese Translation (sample)</div>
+  <div class="header-jp">本文：ウダヤナの本文（Chowkhamba Sanskrit Series, 1940 によるOCR）　ノート：ナーラーヤナの注『ナーラーヤニー』と、刊本の脚注が引く『カルパラター』（シャンカラ・ミシュラ）ほかによる<br>
+  見本の範囲：序論（p.1–5）</div>
+</div>
+
+<section id="guide">
+<h2 class="chapter">この見本の読み方</h2>
+<div class="tbl-wrap"><table>
+  <tr><th>要素</th><th>内容</th></tr>
+  <tr><td>科段</td><td>Chowkhamba 版の目次（viṣayasūcīpatram）をもとにした番号と見出し。▸ をクリックすると開く。</td></tr>
+  <tr><td>偈のカード</td><td>偈の本文・ローマ字・和訳。</td></tr>
+  <tr><td>左右の対訳</td><td>左にウダヤナの本文、右に和訳。〔p.n〕は Chowkhamba 版のページ。スマホでは上下に並ぶ。</td></tr>
+  <tr><td>ノート</td><td>注釈による解説。主に『ナーラーヤニー』（ナーラーヤナ・アートレーヤ）を要約し、脚注の『カルパラター』（シャンカラ・ミシュラ）・『ディーディティ』（ラグナータ）の説も示す。本文の読みの問題（「読み」）もここに記す。</td></tr>
+  <tr><td>（　）</td><td>訳者による補い。</td></tr>
+</table></div>
+
+<h3>全体の構成：自己を否定する四つの論拠と、四つの章</h3>
+<p>ウダヤナは序論で、仏教徒が「恒常的な自己（アートマン）はない」と主張するときの論拠を四つにまとめ、それを一つずつ退けていく。本書の四つの章は、この四つの論拠に対応する。</p>
+<div class="flow">
+  <div class="head">仏教側の論拠（bādhaka）</div><div class="head h2"></div><div class="head h3">それを退ける章</div>
+  <div class="q"><b>① kṣaṇabhaṅga</b>すべてのものは刹那ごとに滅する</div><div class="arr">→</div><div class="a"><b>第1章</b>刹那滅論の批判（p.5–188）</div>
+  <div class="q"><b>② bāhyārthabhaṅga</b>認識の外に対象はない</div><div class="arr">→</div><div class="a"><b>第2章</b>外界対象の否定の批判（p.189–319）</div>
+  <div class="q"><b>③ guṇaguṇibhedabhaṅga</b>性質と、性質をもつ実体は別でない</div><div class="arr">→</div><div class="a"><b>第3章</b>性質と実体の区別の否定の批判（p.320–333）</div>
+  <div class="q"><b>④ anupalambha</b>自己は知覚されない</div><div class="arr">→</div><div class="a"><b>第4章</b>不知覚論の批判と自己の確立（p.334–452）</div>
+</div>
+</section>
+
+<div class="controls" id="controls">
+  <span class="lbl">まとめて開く：</span>
+  <button type="button" data-depth="1">第1階層のみ</button>
+  <button type="button" data-depth="2">第2階層まで</button>
+  <button type="button" data-depth="3">第3階層まで</button>
+  <button type="button" data-depth="9">すべて開く</button>
+  <button type="button" data-depth="0">すべて閉じる</button>
+</div>
+
+<section class="stabaka" id="st0">
+<h2 class="chapter">序論</h2>
+<p class="chapter-sub">何のために自己を考察するのか（p.1–5）</p>
+<div class="legend-tr"><span>本文（ウダヤナ）</span><span>和訳</span></div>
+<div class="tree">
+<details class="node lv1" id="n0" open>
+<summary><span class="num">0</span><span class="ttl">序論 ── 何のために自己を考察するのか</span><span class="refs"><span class="ref">p.1–5</span></span></summary>
+<div class="body">
+
+<details class="node lv2" id="n0-1" open>
+<summary><span class="num">0.1</span><span class="ttl">帰敬偈 <span class="sk">maṅgalācaraṇa</span></span><span class="refs"><span class="ref k">偈</span><span class="ref">p.1</span></span></summary>
+<div class="body">
+<p class="gist">世界の父である神（シヴァ）に敬礼する。人間の父と同じ点（主権・保護・教育・しつけ）と、人間の父にまさる点（偽りのない言葉・見返りを求めない慈悲・世界のためだけの努力）を並べてたたえる。</p>
+<div class="sutra"><div class="sutra-head"><span class="sutra-num">偈1</span></div><div class="sutra-text">स्वाम्यं यस्य निजं जगत्सु जनितेष्वादौ ततः पालनं व्युत्पत्तेः करणं हिताहितविधिव्यासेधसम्भावनम् । भूतोक्तिः सहजा कृपा निरुपधिर्यत्नस्तदर्थात्मकस्तस्मै पूर्वगुरूत्तमाय जगतामीशाय पित्रे नमः ॥ १ ॥</div><div class="sutra-iast">svāmyaṃ yasya nijaṃ jagatsu janiteṣv ādau tataḥ pālanaṃ vyutpatteḥ karaṇaṃ hitāhitavidhivyāsedhasambhāvanam | bhūtoktiḥ sahajā kṛpā nirupadhir yatnas tadarthātmakas tasmai pūrvagurūttamāya jagatām īśāya pitre namaḥ ||</div><div class="sutra-jp">生み出された世界に対して、まずその方自身のものである主権があり、次に（世界の）保護があり、（言葉と技の）理解を生じさせ、益と害について命令と禁止をはっきり示す。真実の言葉は生まれつき備わり、慈悲は条件によらず、努力はひたすら世界のためのものである。その、古の師たちの中の最高の師、世界の主である父に、敬礼する。</div></div>
+<div class="tnote"><div class="tnote-h">ノート</div><ol>
+<li><b>なぜ帰敬偈を書くか</b>：『ナーラーヤニー』は、自己の真実を考察しようとする著者が、著作が障りなく完成するように、世界の主シヴァに敬礼する、と説明する。脚注の『カルパラター』は、敬礼を書き記すのは弟子に（著作の始めに敬礼すべきことを）教えるためだ、と付け加える。</li>
+<li><b>人間の父と同じ点</b>（前半）：『ナーラーヤニー』によれば、人間の父が生まれた子に対してもつ主権・保護・教育・しつけを、神は世界に対してもつ。「理解を生じさせる」(vyutpatteḥ karaṇam) は、言葉とその意味の関係などを教えること。脚注の「ミシュラ」（シャンカラ・ミシュラ）は、神が教える者と教わる者の身体をとって、「牛」などの語や、布を織るなどの技を人々に教えた、と説く。「益と害」は功徳と罪のことで、神はヴェーダとスムリティによって「天界を望む者は祭祀せよ」のような命令と、「…を食べてはならない」のような禁止を示す。</li>
+<li><b>人間の父にまさる点</b>（後半）：①神の言葉は「生まれつき」真実である。神は一切を知り、憎しみがないので、思い違いも欺きもありえないが、人間の父はそうではない。②慈悲は「条件によらない」。神には自分の目的がないので、慈悲は他者の苦を除きたいという願いそのもので、見返りを求めない。③努力は「世界のためを本質とする」。「世界のため」と言えば足りるところを「本質とする」と言うのは、努力の目的が世界の益だけであることを強調するため、と『ナーラーヤニー』は説く。</li>
+<li><b>修辞</b>：同じ点を挙げたうえで違う点を挙げて相手をたたえるのは、詩学の「対照（vyatireka）」という修辞にあたる、と『ナーラーヤニー』は詩学書の定義を引いて述べる。</li>
+<li><b>「古の師たちの最高者」</b>：脚注は、神は（人間の）父のさらに父である、という含みを指摘する。</li>
+<li><b>読み</b>：OCR は「तगतामीशाय」。注釈の言い換え（जगतां पित्र ईशाय）と Asiatic Society 版（jagatām īśāya）により「जगतामीशाय」と直す。</li>
+</ol></div>
+</div></details>
+
+<details class="node lv2" id="n0-2" open>
+<summary><span class="num">0.2</span><span class="ttl">目的と主題：苦を除く道は真実の知、知るべきは自己 <span class="sk">prayojana, abhidheya</span></span><span class="refs"><span class="ref">p.3–4</span></span></summary>
+<div class="body">
+<p class="gist">誰もが苦を除きたい。苦を除く手段は真実の知だけだ、とすべての思想家が一致して説く。そして、知るべき対象は自己である。自己が「ある」と考える者にとっても「ない」と考える者にとっても、生まれつきの自己の知は誤りだからである。だから自己の真実を考察する。</p>
+
+<details class="node" id="n0-2-1" open>
+<summary><span class="num">0.2.1</span><span class="ttl">苦を除く手段は真実の知だけ</span><span class="refs"><span class="ref">p.3</span></span></summary>
+<div class="body">
+<div class="seg"><div class="seg-sa dev">〔p.3〕इह खलु निसर्गप्रतिकूलस्वभावं सर्वजनसंवेदनसिद्धं दुःखं जिहासवः सर्व एव तद्धानोपायमविद्वांसोऽनुसरन्तश्च सर्वाध्यात्मविदेकवाक्यतया तत्त्वज्ञानमेव तदुपायमाकर्णयन्ति न ततोऽन्यम्,</div><div class="seg-ja">この世では、生まれつき嫌なものを本性とし、すべての人が自ら感じることで確かめられている苦を、誰もが除きたいと願っている。（しかし）その苦を除く手段を知らず、（それを）探し求めている人々は、自己について知るすべての人々が声をそろえて、真実の知こそがその手段であり、それ以外のものではない、と（説くのを）聞く。</div></div>
+<div class="tnote"><div class="tnote-h">ノート</div><ol>
+<li><b>この一節の役割</b>：『ナーラーヤニー』によれば、ここは、読む人が本書に取りかかれるように、本書の目的（苦を除くこと）と、本書を書くべき理由を示す部分である。脚注の「ミシュラ」は、思慮ある人が取りかかるために、主題と目的を示す、と言う。</li>
+<li><b>「生まれつき嫌なもの」</b>：苦は、寒さや暑さのように条件しだいで嫌になるのではなく、それがあるだけで嫌なものである。『ナーラーヤニー』は、ここに苦の定義が示されている、と言う。『カルパラター』は次の反論を想定する。「苦を除くことは、それ自体として人生の目的ではない。人は楽を求めて苦を避けるだけだ」。「生まれつき」の一語がこれに答えている。苦を除きたいという願いは、楽を求める心とは別に、それ自体として起こる。</li>
+<li><b>「すべての人が感じる」</b>：苦の存在は、誰もが自分で感じていることによって確かめられる。だから「誰もが」除きたいと願う。</li>
+<li><b>「声をそろえて」</b>（ekavākyatā）：「自己について知る人々」とは、自己の知を扱う解脱の教えを説く人々のこと。真実の知が解脱の手段であることは、どの学派も認めている、という意味である。</li>
+<li><b>「それ以外のものではない」</b>：脚注によれば、たとえばカーシー（ヴァーラーナシー）で死ぬことなど、ほかの手段が解脱をもたらすという考えを退けている。</li>
+</ol></div>
+</div></details>
+
+<details class="node" id="n0-2-2" open>
+<summary><span class="num">0.2.2</span><span class="ttl">知るべきは自己：ある派にも、ない派にも</span><span class="refs"><span class="ref">p.3–4</span></span></summary>
+<div class="body">
+<div class="seg"><div class="seg-sa dev">प्रतियोग्यनुयोगितया चात्मैव तत्त्वतो ज्ञेयः,</div><div class="seg-ja">そして、（否定されるものとしての）反対項としても、（肯定されるものとしての）主項としても、真実において知られるべきものは、自己にほかならない。</div></div>
+<div class="seg"><div class="seg-sa dev">〔p.4〕तथाहि यदि नैरात्म्यं यदि वाऽऽत्मास्ति वस्तुभूतः, उभयथापि नैसर्गिकमात्मज्ञानमतत्त्वज्ञानमेवेत्यत्राप्येकवाक्यतैव वादिनाम्,</div><div class="seg-ja">すなわち、（真実が）無我であるにせよ、実在する自己があるにせよ、どちらの場合でも、生まれつきの自己の知は誤った知にほかならない。この点でも、論者たちは声をそろえている。</div></div>
+<div class="tnote"><div class="tnote-h">ノート</div><ol>
+<li><b>「反対項としても、主項としても」</b>（pratiyogy-anuyogitayā）：『ナーラーヤニー』の第二の解釈によれば、自己を否定する者にとっても、肯定する者にとっても、という意味。脚注の『カルパラター』は、次の偈を引いて説明する。「ある人々は無我の見方を解脱の原因と考え、正理とヴェーダに従う人々は自己の真実の知を（解脱の原因と考える）」。仏教徒にとっては「自己はない」という知が解脱の原因で、そこで自己は否定される側（反対項）として知られる。正統派にとっては「自己は身体などと別である」という知が解脱の原因で、自己は主項として知られる。どちらの場合も、知るべきものは自己である。</li>
+<li><b>想定される反論</b>：「誰もが『私』という意識をもっているのだから、自己はもう知られている。何を考察するのか」。「すなわち」以下がこれに答える。</li>
+<li><b>「生まれつきの自己の知は誤り」</b>：脚注の説明。「私は色白だ」のような、始まりのない「身体と自分は同じだ」という潜在印象から生じた自己の知は、誤った知である。仏教の立場では、存在しない自己が現れているから誤りである。ニヤーヤの立場では、自己と身体を同じと捉えているから誤りである。ときに「私は幸せだ」のように身体を含まない正しい知も起こるが、強い誤った知の流れに押さえられて、働くことができない。</li>
+<li><b>読み</b>：OCR は p.4 の行頭を落として「यदि नैरा- / यदि बाऽऽत्मास्ति वस्तुभृतः」とする。Asiatic Society 版（yadi nairātmyaṃ yadi vātmāsti vastubhūtaḥ）により補う。</li>
+</ol></div>
+</div></details>
+
+<details class="node" id="n0-2-3" open>
+<summary><span class="num">0.2.3</span><span class="ttl">だから自己の真実を考察する</span><span class="refs"><span class="ref">p.4</span></span></summary>
+<div class="body">
+<div class="seg"><div class="seg-sa dev">अत आत्मतत्त्वं विविच्यते ।</div><div class="seg-ja">それゆえ、自己の真実を（ここで）考察する。</div></div>
+<div class="tnote"><div class="tnote-h">ノート</div><ol>
+<li><b>論の流れ</b>：『ナーラーヤニー』のまとめ。①苦は誰もが除きたい。②苦を除く手段は自己の真実の知のほかにない。③その知は生まれつき備わってはいない。だから、その知を得るために自己の真実を考察する。書名『アートマタットヴァ・ヴィヴェーカ』（自己の真実の考察）は、この一文から来ている。</li>
+<li><b>何を確かめるのか</b>：『ナーラーヤニー』は、「ない」と「ある」のうち「ある」が真実であることを考察する、と言う。脚注の「ミシュラ」は、身体などと別で、恒常で、楽などの性質をもつ自己を、区別して示すことだ、と言う。</li>
+</ol></div>
+</div></details>
+</div></details>
+
+<details class="node lv2" id="n0-3" open>
+<summary><span class="num">0.3</span><span class="ttl">自己を否定する四つの論拠 <span class="sk">ātmabādhakavikalpa</span></span><span class="refs"><span class="ref">p.5</span></span></summary>
+<div class="body">
+<p class="gist">自己の存在を妨げる論拠があるとすれば、①刹那滅、②外界対象の否定、③性質と実体の区別の否定、④不知覚、の四つのどれかである。本書はこの順に退けていく。</p>
+<div class="seg"><div class="seg-sa dev">〔p.5〕तत्र बाधकं भवत् क्षणभङ्गो वा बाह्यार्थभङ्गो वा गुणगुणिभेदभङ्गो वा अनुपलम्भो वेति ।</div><div class="seg-ja">そこで、（自己を）否定するものがあるとすれば、それは、①刹那滅か、②外界対象の否定か、③性質と性質をもつものの区別の否定か、④不知覚か、のいずれかである。</div></div>
+<div class="tnote"><div class="tnote-h">ノート</div><ol>
+<li><b>なぜ否定論から退けるか</b>：脚注の『カルパラター』の説明。強い反証があれば、それを支える証拠がいくつあっても役に立たない。だから、自己を立てる前に、まず自己を否定する論拠を退けなければならない。ヴェーダーンタ学派も、うわべでは（ニヤーヤが認める自己を認めない点で）無我論者と同じなので、その説もあわせて批判される。</li>
+<li><b>四つの論拠がそれぞれ何を否定するか</b>：『ナーラーヤニー』と脚注による。
+  <div class="tbl-wrap"><table>
+  <tr><th>論拠</th><th>仏教側の主張</th><th>否定されるもの</th></tr>
+  <tr><td>① 刹那滅</td><td>すべては一瞬ごとに滅する</td><td>後で行為の果報を受ける、恒常の自己</td></tr>
+  <tr><td>② 外界対象の否定</td><td>認識の外に対象はない</td><td>認識と別の自己</td></tr>
+  <tr><td>③ 性質と実体の区別の否定</td><td>知や楽などの性質のほかに、それを担う実体はない</td><td>性質と別の、性質をもつ自己</td></tr>
+  <tr><td>④ 不知覚</td><td>身体などと別の自己は知覚されない</td><td>自己そのものの存在</td></tr>
+  </table></div></li>
+<li><b>「否定するものがあるとすれば」</b>（bādhakaṃ bhavat）：『ナーラーヤニー』は、ここで中性形が使われるのは、まだ中身を特定しない「否定するもの」一般を指し、これから四つに分けて検討するからだ、と文法的に説明する。</li>
+<li><b>読み</b>：Asiatic Society 版は「बाधकं भवदात्मनि（自己について否定するものがあるとすれば）」と、「自己について」を加えて読む。</li>
+</ol></div>
+</div></details>
+
+</div></details>
+</div>
+</section>
+
+<section class="stabaka" id="outline">
+<h2 class="chapter">全体の科段（見本では第2階層まで）</h2>
+<p class="chapter-sub">正式版では、各節の下に目次の全項目（約350）を並べ、訳ができたところから対訳とノートを入れる。</p>
+<div class="tree">
+<details class="node lv1" id="n1">
+<summary><span class="num">1</span><span class="ttl">第1章　刹那滅論の批判 <span class="sk">kṣaṇabhaṅga</span></span><span class="refs"><span class="ref">p.5–188</span></span></summary>
+<div class="body">
+<details class="node lv2 leaf"><summary><span class="num">1.1</span><span class="ttl">「存在するものは刹那的」という論証の批判</span><span class="refs"><span class="ref">p.5–85</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">1.2</span><span class="ttl">「滅するものだから刹那的」という論証の批判</span><span class="refs"><span class="ref">p.85–105</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">1.3</span><span class="ttl">持続の論証</span><span class="refs"><span class="ref">p.106–112</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">1.4</span><span class="ttl">アポーハ（他の排除）論の批判</span><span class="refs"><span class="ref">p.113–161</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">1.5</span><span class="ttl">（付随して）経量部説の批判</span><span class="refs"><span class="ref">p.162–172</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">1.6</span><span class="ttl">普遍を否定する論の批判</span><span class="refs"><span class="ref">p.172–188</span></span></summary></details>
+</div></details>
+<details class="node lv1" id="n2">
+<summary><span class="num">2</span><span class="ttl">第2章　外界対象の否定の批判 <span class="sk">bāhyārthabhaṅga</span></span><span class="refs"><span class="ref">p.189–319</span></span></summary>
+<div class="body">
+<details class="node lv2 leaf"><summary><span class="num">2.1</span><span class="ttl">認識と対象は同じ、という説の批判</span><span class="refs"><span class="ref">p.189–201</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">2.2</span><span class="ttl">多様な相をもつ一つの認識（citrajñāna）の批判</span><span class="refs"><span class="ref">p.202–213</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">2.3</span><span class="ttl">一切空論の批判</span><span class="refs"><span class="ref">p.214–233</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">2.4</span><span class="ttl">外界対象の論証</span><span class="refs"><span class="ref">p.234–256</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">2.5</span><span class="ttl">全体（avayavin）の論証</span><span class="refs"><span class="ref">p.257–278</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">2.6</span><span class="ttl">原子の論証</span><span class="refs"><span class="ref">p.279–290</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">2.7</span><span class="ttl">唯識説の批判</span><span class="refs"><span class="ref">p.291–319</span></span></summary></details>
+</div></details>
+<details class="node lv1" id="n3">
+<summary><span class="num">3</span><span class="ttl">第3章　性質と実体の区別の否定の批判 <span class="sk">guṇaguṇibhedabhaṅga</span></span><span class="refs"><span class="ref">p.320–333</span></span></summary>
+<div class="body">
+<details class="node lv2 leaf"><summary><span class="num">3.1</span><span class="ttl">自己の論証</span><span class="refs"><span class="ref">p.320–326</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">3.2</span><span class="ttl">性質と実体は同じ、という説の批判</span><span class="refs"><span class="ref">p.326–333</span></span></summary></details>
+</div></details>
+<details class="node lv1" id="n4">
+<summary><span class="num">4</span><span class="ttl">第4章　不知覚論の批判と自己の確立 <span class="sk">anupalambha</span></span><span class="refs"><span class="ref">p.334–452</span></span></summary>
+<div class="body">
+<details class="node lv2 leaf"><summary><span class="num">4.1</span><span class="ttl">持続する自己の論証</span><span class="refs"><span class="ref">p.334–341</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">4.2</span><span class="ttl">識を自己とする説の批判</span><span class="refs"><span class="ref">p.342–365</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">4.3</span><span class="ttl">自己の性質</span><span class="refs"><span class="ref">p.366–375</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">4.4</span><span class="ttl">聖典（ヴェーダ）の権威</span><span class="refs"><span class="ref">p.376–377</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">4.5</span><span class="ttl">神の論証</span><span class="refs"><span class="ref">p.378–407</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">4.6</span><span class="ttl">一切知者（神）の論証とヴェーダの権威</span><span class="refs"><span class="ref">p.408–435</span></span></summary></details>
+<details class="node lv2 leaf"><summary><span class="num">4.7</span><span class="ttl">解脱と結び</span><span class="refs"><span class="ref">p.437–452</span></span></summary></details>
+</div></details>
+</div>
+</section>
+<footer>アートマタットヴァ・ヴィヴェーカ　対訳と解説（見本）</footer>
+
+<script>
+(function () {
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
+  function depth(el) {
+    var d = 0, p = el;
+    while (p) { if (p.matches && p.matches('details.node')) d++; p = p.parentElement; }
+    return d;
+  }
+  all.forEach(function (el) { el.dataset.depth = depth(el); });
+  document.getElementById('controls').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-depth]');
+    if (!b) return;
+    var n = parseInt(b.dataset.depth, 10);
+    all.forEach(function (el) { el.open = parseInt(el.dataset.depth, 10) < n; });
+  });
+  // 図・表のリンクから飛んだとき、親をすべて開く
+  function target(hash) {
+    if (!hash || hash.length < 2) return null;
+    var t = document.getElementById(hash.slice(1));
+    return t && t.matches('details.node') ? t : null;
+  }
+  function openTo(t) {
+    var p = t;
+    while (p) { if (p.matches && p.matches('details')) p.open = true; p = p.parentElement; }
+    t.scrollIntoView({ block: 'start' });
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = target(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      openTo(t);
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {}
+    });
+  });
+  var t0 = target(location.hash);
+  if (t0) openTo(t0);
+})();
+</script>
+</body>
+</html>
