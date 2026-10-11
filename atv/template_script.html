@@ -1,0 +1,41 @@
+<script>
+(function () {
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
+  function depth(el) {
+    var d = 0, p = el;
+    while (p) { if (p.matches && p.matches('details.node')) d++; p = p.parentElement; }
+    return d;
+  }
+  all.forEach(function (el) { el.dataset.depth = depth(el); });
+  document.getElementById('controls').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-depth]');
+    if (!b) return;
+    var n = parseInt(b.dataset.depth, 10);
+    all.forEach(function (el) { el.open = parseInt(el.dataset.depth, 10) < n; });
+  });
+  // 図・表のリンクから飛んだとき、親をすべて開く
+  function target(hash) {
+    if (!hash || hash.length < 2) return null;
+    var t = document.getElementById(hash.slice(1));
+    return t && t.matches('details.node') ? t : null;
+  }
+  function openTo(t) {
+    var p = t;
+    while (p) { if (p.matches && p.matches('details')) p.open = true; p = p.parentElement; }
+    t.scrollIntoView({ block: 'start' });
+  }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = target(a.getAttribute('href'));
+      if (!t) return;
+      e.preventDefault();
+      openTo(t);
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {}
+    });
+  });
+  var t0 = target(location.hash);
+  if (t0) openTo(t0);
+})();
+</script>
+</body>
+</html>
