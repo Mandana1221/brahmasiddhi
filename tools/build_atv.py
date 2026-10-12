@@ -146,11 +146,10 @@ def main():
     progress = f"p.1–{max(pages)}（全452ページ）" if pages else "未着手"
     parts = [(ATV / "template_head.html").read_text(encoding="utf-8"),
              (ATV / "intro.html").read_text(encoding="utf-8").replace("{{PROGRESS}}", progress)]
+    # 章見出しは第1階層のアコーディオン自身が兼ねる（閉じたときに余白を残さない）
+    parts.append('<div class="legend-tr"><span>本文（ウダヤナ）</span><span>和訳</span></div>\n')
     for i, r in enumerate(roots):
         parts.append(f'<section class="stabaka" id="st{r["num"]}">\n'
-                     f'<h2 class="chapter">{inline(r["title"])}</h2>\n'
-                     f'<p class="chapter-sub">{inline(r["sub"])}</p>\n'
-                     f'<div class="legend-tr"><span>本文（ウダヤナ）</span><span>和訳</span></div>\n'
                      f'<div class="tree">\n{render_node(r, blocks)}</div>\n</section>\n')
     parts.append("<footer>アートマタットヴァ・ヴィヴェーカ　対訳と解説</footer>\n")
     parts.append((ATV / "template_script.html").read_text(encoding="utf-8"))
