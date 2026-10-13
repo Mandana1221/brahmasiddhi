@@ -63,7 +63,7 @@ def main():
   <tr><td>（　）・ノート</td><td>（　）は訳者の補い。ノートは理解のための説明。</td></tr>
 </table></div>
 <div class="note"><div class="note-title">底本とおことわり</div>
-底本は Anantalal Thakur 校訂本（Indian Council of Philosophical Research, 1996）。本文は OCR から起こしたもので、刊本の脚注（写本の異読）は収めていない。AI（Claude）の助けを借りた試訳であり、読み違いや誤りが残っている可能性がある。</div>
+底本は Anantalal Thakur 校訂本（Indian Council of Philosophical Research, 1996）。本文は OCR から起こしたもので、刊本の脚注（写本の異読）は収めていない。</div>
 </section>
 <section>
 <h2 class="chapter">目次</h2>
@@ -72,7 +72,7 @@ def main():
 {"".join(rows)}
 </table></div>
 </section>
-<footer>ウダヤナ『タートパリヤ・パリシュッディ』全訳（試訳）</footer>
+<footer>ウダヤナ『タートパリヤ・パリシュッディ』全訳</footer>
 </body>
 </html>
 '''

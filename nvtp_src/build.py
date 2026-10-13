@@ -198,7 +198,7 @@ def build(part):
 {chr(10).join(out)}
 </div>
 <div class="pnav">{nav}</div>
-<footer>ウダヤナ『タートパリヤ・パリシュッディ』全訳（試訳）　本文：A. Thakur 校訂本（1996）の OCR による。脚注の異読は省略。</footer>
+<footer>ウダヤナ『タートパリヤ・パリシュッディ』全訳　本文：A. Thakur 校訂本（1996）の OCR による。脚注の異読は省略。</footer>
 <script>
 (function () {{
   var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
