@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="ウダヤナ『タートパリヤ・パリシュッディ』とニヤーヤ学派の論理学・認識論を、大学1年生向けに図と表で解説するページ。">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>タートパリヤ・パリシュッディ入門</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Tiro+Devanagari+Sanskrit&display=swap">
+<style>
+/* Layout: 読み物の1カラム（約44em）。図と表だけ少し広い帯に出す。ヒーローは注釈の塔。 */
+:root{
+  --paper:#F4F5F9; --card:#FFFFFF; --ink:#1C2142; --muted:#596079; --line:#D6D9E6;
+  --gold:#B86A00; --gold-soft:#FCEBCB;
+  --opp:#AE2F55; --opp-soft:#FBE3EA;
+  --ans:#1F7A58; --ans-soft:#DDF2E8;
+  --indigo-soft:#E6E8F4;
+  --f-display:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+  --f-body:"Zen Kaku Gothic New","Hiragino Sans","Yu Gothic","Noto Sans JP",sans-serif;
+  --f-sa:"Tiro Devanagari Sanskrit","Noto Serif Devanagari",serif;
+  --measure:44em;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#11131D; --card:#1A1D2B; --ink:#E6E7F0; --muted:#A3A8BF; --line:#2E3249;
+  --gold:#F0A53A; --gold-soft:#3A2B11; --opp:#EE85A3; --opp-soft:#3B1C27;
+  --ans:#5FC79E; --ans-soft:#12322A; --indigo-soft:#22263A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#11131D; --card:#1A1D2B; --ink:#E6E7F0; --muted:#A3A8BF; --line:#2E3249;
+  --gold:#F0A53A; --gold-soft:#3A2B11; --opp:#EE85A3; --opp-soft:#3B1C27;
+  --ans:#5FC79E; --ans-soft:#12322A; --indigo-soft:#22263A; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.9;
+  padding-inline:16px;padding-block:0 64px}
+.wrap{max-width:var(--measure);margin-inline:auto}
+.wide{max-width:64em;margin-inline:auto}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;line-height:1.35;margin:0}
+h2{font-size:clamp(1.55rem,4.2vw,2.05rem);font-weight:800}
+h3{font-size:1.2rem;font-weight:800;margin-top:2.2em}
+p{margin:0 0 1em}
+a{color:var(--gold)}
+a:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:4px}
+.sa{font-family:var(--f-sa)}
+em.t{font-style:normal;font-family:var(--f-body);color:var(--muted);font-size:.88em}
+.eyebrow{font-size:.78rem;letter-spacing:.14em;color:var(--gold);font-weight:700}
+.muted{color:var(--muted)}
+small,.cap{font-size:.84rem;color:var(--muted);line-height:1.7}
+
+/* nav */
+nav.toc{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--paper);
+  border-bottom:1px solid var(--line);margin-inline:-16px;padding:8px 16px;overflow-x:auto;white-space:nowrap}
+nav.toc ol{list-style:none;margin:0 auto;padding:0;display:flex;gap:6px;max-width:64em}
+nav.toc a{display:inline-flex;align-items:center;gap:6px;text-decoration:none;color:var(--ink);font-size:.86rem;
+  padding:4px 10px;border-radius:999px;border:1px solid var(--line);background:var(--card)}
+nav.toc a b{font-family:var(--f-display);color:var(--gold)}
+
+/* hero */
+header.hero{padding-block:48px 24px}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:32px;align-items:center}
+@media (max-width:760px){.hero-grid{grid-template-columns:minmax(0,1fr)}}
+.hero h1{font-size:clamp(2.6rem,9vw,4.4rem);font-weight:800;letter-spacing:.04em;margin-block:.15em .1em}
+.hero .devtitle{font-family:var(--f-sa);font-size:1.35rem;color:var(--gold)}
+.hero .sub{font-family:var(--f-display);font-size:1.2rem;font-weight:600;margin-bottom:1.2em}
+.flower{width:100%;max-width:420px;margin-inline:auto;display:block}
+.flower .petal{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.5;transition:fill .2s}
+.flower a:hover .petal,.flower a:focus .petal{stroke-width:3.5;fill:var(--indigo-soft)}
+.flower text{fill:var(--ink);font-family:var(--f-body);font-size:13px;text-anchor:middle}
+.flower .pn{font-family:var(--f-display);font-weight:800;font-size:17px;fill:var(--gold)}
+.flower .core{fill:var(--ink)}
+.flower .coretext{fill:var(--paper);font-family:var(--f-display);font-weight:800;font-size:15px}
+
+section{padding-block:56px 8px;border-top:1px solid var(--line);margin-top:40px}
+section.first{border-top:0;margin-top:0}
+.sec-head{display:flex;gap:16px;align-items:baseline;margin-bottom:1em;flex-wrap:wrap}
+.petal-no{font-family:var(--f-display);font-weight:800;font-size:2.6rem;line-height:1;color:var(--gold)}
+.sec-head .sub{color:var(--muted);font-size:.95rem;width:100%}
+
+/* facts */
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,18em),1fr));gap:12px;margin:0}
+.facts div{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px 16px;min-width:0}
+.facts dt{font-size:.78rem;letter-spacing:.12em;color:var(--gold);font-weight:700}
+.facts dd{margin:4px 0 0;line-height:1.7}
+
+/* tables */
+.tbl{overflow-x:auto;margin-block:1.2em 1.6em;border:1px solid var(--line);border-radius:10px;background:var(--card)}
+table{border-collapse:collapse;width:100%;font-size:.92rem;line-height:1.65}
+th,td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+tr:last-child td{border-bottom:0}
+thead th{font-size:.78rem;letter-spacing:.08em;color:var(--muted);background:var(--indigo-soft);font-weight:700;white-space:nowrap}
+td.k{font-weight:700;white-space:nowrap}
+td .iast{display:block;font-size:.8rem;color:var(--muted);font-weight:400;font-style:italic}
+.tbl.min table{min-width:620px}
+.ok{color:var(--ans);font-weight:700}
+.ng{color:var(--opp);font-weight:700}
+
+/* pills */
+.pill{display:inline-block;font-size:.74rem;font-weight:700;padding:1px 8px;border-radius:999px;white-space:nowrap;line-height:1.7}
+.pill.opp{background:var(--opp-soft);color:var(--opp)}
+.pill.ans{background:var(--ans-soft);color:var(--ans)}
+.pill.k{background:var(--gold-soft);color:var(--gold)}
+
+/* objection → answer rows */
+.duel{display:grid;gap:10px;margin-block:1.2em}
+.duel .row{display:grid;grid-template-columns:3.2em minmax(0,1fr) 1.6em minmax(0,1fr);gap:10px;align-items:stretch}
+.duel .no{font-family:var(--f-display);font-weight:800;font-size:1.5rem;color:var(--gold);align-self:center;text-align:center}
+.duel .o,.duel .a{border-radius:10px;padding:10px 14px;font-size:.93rem;line-height:1.65}
+.duel .o{background:var(--opp-soft)}
+.duel .a{background:var(--ans-soft)}
+.duel .o b{color:var(--opp)} .duel .a b{color:var(--ans)}
+.duel .arr{align-self:center;text-align:center;color:var(--muted);font-size:1.2rem}
+@media (max-width:620px){.duel .row{grid-template-columns:2.2em minmax(0,1fr)}.duel .arr{display:none}.duel .a{grid-column:2}}
+.groupnote{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,16em),1fr));gap:10px;margin-top:6px}
+.groupnote div{border:1px dashed var(--line);border-radius:10px;padding:10px 14px;font-size:.9rem}
+
+/* figures */
+figure{margin:1.6em 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:16px}
+figure .scroll{overflow-x:auto}
+figcaption{font-size:.84rem;color:var(--muted);margin-top:10px;line-height:1.7}
+figcaption b{color:var(--ink)}
+svg text{font-family:var(--f-body)}
+.s-ink{fill:var(--ink)} .s-muted{fill:var(--muted)} .s-gold{fill:var(--gold)} .s-opp{fill:var(--opp)} .s-ans{fill:var(--ans)}
+.s-card{fill:var(--card)} .s-paper{fill:var(--paper)} .s-goldsoft{fill:var(--gold-soft)} .s-oppsoft{fill:var(--opp-soft)} .s-anssoft{fill:var(--ans-soft)} .s-indsoft{fill:var(--indigo-soft)}
+.st-line{stroke:var(--line)} .st-ink{stroke:var(--ink)} .st-muted{stroke:var(--muted)} .st-gold{stroke:var(--gold)} .st-opp{stroke:var(--opp)} .st-ans{stroke:var(--ans)}
+.nofill{fill:none}
+
+/* callouts */
+.point{background:var(--gold-soft);border-radius:10px;padding:14px 18px;margin-block:1.4em}
+.point .lbl{font-size:.76rem;letter-spacing:.14em;font-weight:700;color:var(--gold);display:block;margin-bottom:2px}
+.point p:last-child{margin:0}
+blockquote{margin:1.2em 0;padding:4px 0 4px 18px;border-left:3px solid var(--gold);font-family:var(--f-display);font-size:1.02rem;line-height:1.85}
+blockquote cite{display:block;font-family:var(--f-body);font-style:normal;font-size:.8rem;color:var(--muted);margin-top:4px}
+
+/* syllogism */
+.syl{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,19em),1fr));gap:14px;margin-block:1.2em}
+.sylc{background:var(--card);border:1px solid var(--line);border-radius:10px;overflow:hidden;min-width:0}
+.syl ol{list-style:none;margin:0;padding:0}
+.syl li{display:grid;grid-template-columns:4.6em minmax(0,1fr);gap:8px;padding:8px 12px;border-bottom:1px solid var(--line);font-size:.92rem;line-height:1.6}
+.syl li:last-child{border-bottom:0}
+.syl li span{font-size:.75rem;font-weight:700;color:var(--gold);letter-spacing:.06em;padding-top:2px}
+.syl h4{margin:0;padding:8px 12px;font-size:.85rem;background:var(--indigo-soft)}
+
+/* quiz */
+details{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:12px 16px;margin-block:10px}
+summary{cursor:pointer;font-weight:700}
+details p{margin:.6em 0 0;font-size:.94rem}
+
+footer{margin-top:56px;padding-top:20px;border-top:1px solid var(--line);font-size:.84rem;color:var(--muted)}
+
+/* hero: four gates */
+.gates{width:100%;max-width:420px;margin-inline:auto;display:block}
+.gates .gate{fill:var(--opp-soft);stroke:var(--opp);stroke-width:1.5;transition:fill .2s}
+.gates a:hover .gate,.gates a:focus .gate{fill:var(--ans-soft);stroke:var(--ans);stroke-width:3}
+.gates text{fill:var(--ink);font-family:var(--f-body);font-size:13px;text-anchor:middle}
+.gates .pn{font-family:var(--f-display);font-weight:800;font-size:17px;fill:var(--opp)}
+.gates .core{fill:var(--ink)}
+.gates .coretext{fill:var(--paper);font-family:var(--f-display);font-weight:800;font-size:15px}
+.gates .wall{fill:none;stroke:var(--line);stroke-width:10;stroke-linecap:round}
+/* bar of pages */
+.bar{display:flex;height:34px;border-radius:8px;overflow:hidden;margin:.6em 0 .4em;border:1px solid var(--line)}
+.bar span{display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;color:var(--ink);white-space:nowrap;overflow:hidden;min-width:0}
+.legend{font-size:.82rem;color:var(--muted);line-height:1.6}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+
+<style>
+.tower{width:100%;max-width:420px;margin-inline:auto;display:block}
+.tower .tw{fill:var(--indigo-soft);stroke:var(--line);stroke-width:1.5;transition:fill .2s}
+.tower .tw.top{fill:var(--gold-soft);stroke:var(--gold);stroke-width:2.5}
+.tower .tw.base{fill:var(--ink);stroke:var(--ink)}
+.tower a:hover .tw,.tower a:focus .tw{stroke:var(--gold)}
+.tower .tn{fill:var(--ink);font-family:var(--f-display);font-weight:800;font-size:16px}
+.tower .tt{fill:var(--muted);font-family:var(--f-body);font-size:12.5px}
+.tower .bn{fill:var(--paper)}
+.tower .tcap{fill:var(--muted);font-family:var(--f-body);font-size:12px}
+</style>
+</head>
+<body>
+
+<nav class="toc" aria-label="目次">
+  <ol>
+    <li><a href="#intro">入口</a></li>
+    <li><a href="#map">設計図</a></li>
+    <li><a href="#s1"><b>1</b>なぜ学ぶ・何で知る</a></li>
+    <li><a href="#s2"><b>2</b>認識手段の吟味</a></li>
+    <li><a href="#s3"><b>3</b>自己と心</a></li>
+    <li><a href="#s4"><b>4</b>解脱と真実の知</a></li>
+    <li><a href="#s5"><b>5</b>反則集</a></li>
+    <li><a href="#think">考えてみよう</a></li>
+    <li><a href="#terms">用語集</a></li>
+  </ol>
+</nav>
+
+<header class="hero wide">
+  <div class="hero-grid">
+    <div>
+      <div class="eyebrow">はじめてのインド哲学</div>
+      <h1>正しく<br>考える技法</h1>
+      <div class="devtitle">न्यायवार्त्तिकतात्पर्यपरिशुद्धिः</div>
+      <p class="sub">ウダヤナ『タートパリヤ・パリシュッディ』を図で読む</p>
+      <p>「それって本当？」「どうしてそう言えるの？」。こう問われたとき、私たちは理由を挙げ、例を出し、相手の反論に答えます。インドには、この<strong>「正しく知り、正しく論じる」</strong>技法を千年以上かけて磨いた学派がありました。ニヤーヤ（正理学派）です。</p>
+      <p>その根本の書『ニヤーヤ・スートラ』には、何世代にもわたって注釈が書き重ねられました。このページの図は、その「注釈の塔」です。いちばん上に立つのが、ウダヤナの本書。塔をのぼるように、ニヤーヤの議論のすべてを見わたせる位置にある本です。サンスクリット語の知識は要りません。</p>
+    </div>
+    <svg class="tower" viewBox="0 0 400 420" role="img" aria-label="ニヤーヤ・スートラの上に、バーシュヤ、ヴァールッティカ、ティーカー、パリシュッディの順に注釈が積み重なった塔の図。いちばん上が本書。">
+      <g text-anchor="middle">
+        <a href="#layers" aria-label="注釈の積み重ねの表へ">
+          <rect class="tw top" x="110" y="20" width="180" height="62" rx="8"/>
+          <text class="tn" x="200" y="46">5 パリシュッディ</text><text class="tt" x="200" y="68">ウダヤナ　本書</text>
+          <rect class="tw" x="90" y="92" width="220" height="62" rx="8"/>
+          <text class="tn" x="200" y="118">4 ティーカー</text><text class="tt" x="200" y="140">ヴァーチャスパティ</text>
+          <rect class="tw" x="70" y="164" width="260" height="62" rx="8"/>
+          <text class="tn" x="200" y="190">3 ヴァールッティカ</text><text class="tt" x="200" y="212">ウッディヨータカラ</text>
+          <rect class="tw" x="50" y="236" width="300" height="62" rx="8"/>
+          <text class="tn" x="200" y="262">2 バーシュヤ</text><text class="tt" x="200" y="284">ヴァーツヤーヤナ</text>
+          <rect class="tw base" x="30" y="308" width="340" height="62" rx="8"/>
+          <text class="tn bn" x="200" y="334">1 ニヤーヤ・スートラ</text><text class="tt bn" x="200" y="356">ガウタマ（アクシャパーダ）</text>
+        </a>
+      </g>
+      <text x="200" y="400" text-anchor="middle" class="tcap">下の層を、上の層が説明する</text>
+    </svg>
+  </div>
+</header>
+
+<main>
+<!-- ============ 入口 ============ -->
+<section id="intro" class="first wrap">
+  <div class="sec-head"><h2>まず30秒で</h2></div>
+  <dl class="facts">
+    <div><dt>著者</dt><dd>ウダヤナ<br><small>10世紀後半〜11世紀。北インド、ミティラー地方の学者とされる。『ニヤーヤ・クスマーンジャリ』『アートマタットヴァ・ヴィヴェーカ』の著者でもある</small></dd></div>
+    <div><dt>学派</dt><dd>ニヤーヤ（正理学派）<br><small>認識論と論理学・討論術の学派。原子論のヴァイシェーシカと組む</small></dd></div>
+    <div><dt>書名の意味</dt><dd>『ニヤーヤ・ヴァールッティカ』の「趣旨の注釈」（タートパリヤ・ティーカー）の浄化（パリシュッディ）</dd></div>
+    <div><dt>分量</dt><dd>全5章10日課、刊本で約600ページ<br><small>底本：A. Thakur 校訂、Nyāyacaturgranthikā 第4巻（1996年）</small></dd></div>
+  </dl>
+
+  <h3 id="layers">注釈の塔：だれが、何を書いたか</h3>
+  <p>本書を読むときにいちばん戸惑うのは、「だれの言葉を説明しているのか」です。本書は、ヴァーチャスパティ・ミシュラの『ニヤーヤ・ヴァールッティカ・タートパリヤ・ティーカー』に対する注釈です。ところがそのティーカーは『ヴァールッティカ』の注釈で、『ヴァールッティカ』は『バーシュヤ』の注釈、『バーシュヤ』は『スートラ』の注釈です。ウダヤナは、この4つの層すべてを見わたしながら、ティーカーの語句を一つずつ取り上げて説明していきます。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>層</th><th>書名</th><th>著者</th><th>時代（おおよそ）</th><th>どんな書か</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1</td><td class="k">ニヤーヤ・スートラ<span class="iast">Nyāyasūtra</span></td><td>ガウタマ（アクシャパーダ）</td><td>2〜3世紀ごろまでに成立</td><td>約530の短い文（スートラ）。学派の根本の教え</td></tr>
+        <tr><td class="k">2</td><td class="k">バーシュヤ<span class="iast">Nyāyabhāṣya</span></td><td>ヴァーツヤーヤナ</td><td>5世紀ごろ</td><td>スートラの最初の注釈。この書の中では「注釈文」と呼ぶ</td></tr>
+        <tr><td class="k">3</td><td class="k">ヴァールッティカ<span class="iast">Nyāyavārttika</span></td><td>ウッディヨータカラ</td><td>6〜7世紀</td><td>仏教論理学（ディグナーガ）への反論を加えた評釈</td></tr>
+        <tr><td class="k">4</td><td class="k">ティーカー<span class="iast">Tātparyaṭīkā</span></td><td>ヴァーチャスパティ・ミシュラ</td><td>10世紀</td><td>ヴァールッティカの「趣旨」を説く注釈。ダルマキールティらへの反論</td></tr>
+        <tr><td class="k">5</td><td class="k">パリシュッディ<span class="iast">Tātparyapariśuddhi</span></td><td>ウダヤナ</td><td>10〜11世紀</td><td><strong>本書。</strong>ティーカーを清め、補い、仏教・ミーマーンサーなどに再反論する</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="point">
+    <span class="lbl">読むときのコツ</span>
+    <p>全訳で「〜と言う」とあれば、主語はたいていヴァーチャスパティ（ティーカー）です。ウダヤナは「（問い）……。――そこで『○○』と言う」という形で、<strong>相手の疑問に、ティーカーのどの言葉が答えているか</strong>を示していきます。つまり本書は、ティーカーの一語一語に「なぜそう書いたのか」を添える本なのです。</p>
+  </div>
+
+  <h3>ニヤーヤの16項目</h3>
+  <p>『ニヤーヤ・スートラ』の第1スートラは、「次の16項目の真実を知ることから、至福（解脱）が得られる」と宣言します。この16項目がそのまま、本書全体の目次の役割を果たします。大きく分けると、<span class="pill k">知るための道具</span>、<span class="pill ans">知るべき対象</span>、<span class="pill opp">討論の技術</span>の3つです。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>#</th><th>項目</th><th>ひとことで</th><th>グループ</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1</td><td class="k">認識手段<span class="iast">pramāṇa</span></td><td>正しく知る手段。知覚・推論・類比・言葉の4つ</td><td><span class="pill k">道具</span></td></tr>
+        <tr><td class="k">2</td><td class="k">認識対象<span class="iast">prameya</span></td><td>解脱のために知るべき12のもの（自己・身体・感官…解脱）</td><td><span class="pill ans">対象</span></td></tr>
+        <tr><td class="k">3</td><td class="k">疑い<span class="iast">saṃśaya</span></td><td>「杭か人か」と決められない状態。考察の出発点</td><td rowspan="2"><span class="pill k">考察の出発</span></td></tr>
+        <tr><td class="k">4</td><td class="k">目的<span class="iast">prayojana</span></td><td>何のために行動・考察するか</td></tr>
+        <tr><td class="k">5</td><td class="k">実例<span class="iast">dṛṣṭānta</span></td><td>両者が認める例（「かまど」など）</td><td rowspan="2"><span class="pill k">共通の土台</span></td></tr>
+        <tr><td class="k">6</td><td class="k">定説<span class="iast">siddhānta</span></td><td>学派が確定した教え（4種）</td></tr>
+        <tr><td class="k">7</td><td class="k">論証式の支分<span class="iast">avayava</span></td><td>主張・理由・例・適用・結論の5つ</td><td rowspan="3"><span class="pill k">論証</span></td></tr>
+        <tr><td class="k">8</td><td class="k">吟味<span class="iast">tarka</span></td><td>「もし〜なら、おかしなことになる」という仮定の考察</td></tr>
+        <tr><td class="k">9</td><td class="k">確定<span class="iast">nirṇaya</span></td><td>考察を経て得られる決定</td></tr>
+        <tr><td class="k">10</td><td class="k">論議<span class="iast">vāda</span></td><td>真理を求める討論</td><td rowspan="3"><span class="pill opp">討論</span></td></tr>
+        <tr><td class="k">11</td><td class="k">論争<span class="iast">jalpa</span></td><td>勝つための討論（詭弁なども使う）</td></tr>
+        <tr><td class="k">12</td><td class="k">論詰<span class="iast">vitaṇḍā</span></td><td>自説を立てず、相手を崩すだけの討論</td></tr>
+        <tr><td class="k">13</td><td class="k">見せかけの理由<span class="iast">hetvābhāsa</span></td><td>理由に見えて理由でないもの（5種）</td><td rowspan="4"><span class="pill opp">反則</span></td></tr>
+        <tr><td class="k">14</td><td class="k">詭弁<span class="iast">chala</span></td><td>言葉の取り違えによる言いがかり（3種）</td></tr>
+        <tr><td class="k">15</td><td class="k">誤った論難<span class="iast">jāti</span></td><td>形だけ似せた、成り立たない反論（24種）</td></tr>
+        <tr><td class="k">16</td><td class="k">敗北の立場<span class="iast">nigrahasthāna</span></td><td>討論で負けとなる失策（22種）</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============ 設計図 ============ -->
+<section id="map" class="wrap">
+  <div class="sec-head"><h2>本書の設計図</h2><span class="sub">挙げる・定義する・吟味する</span></div>
+  <p>ニヤーヤでは、学問は3つのはたらきで進むと考えます。まず項目の名前を<strong>挙げ</strong>（挙示）、次に他と区別できるように<strong>定義し</strong>、最後にその定義が正しいかを<strong>吟味する</strong>。『ニヤーヤ・スートラ』の5章（＝本書の5章）は、この3段階に沿って組み立てられています。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 230" style="min-width:560px;width:100%" role="img" aria-label="挙示と定義が第1章、吟味が第2章から第4章、第5章は反則の詳しい定義、という対応図">
+      <defs><marker id="ah0" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" class="s-muted"/></marker></defs>
+      <g font-size="13" text-anchor="middle">
+        <rect x="10" y="20" width="150" height="60" rx="10" class="s-goldsoft"/><text x="85" y="46" font-weight="700" class="s-gold">挙示</text><text x="85" y="66" font-size="12" class="s-ink">16項目の名を挙げる</text>
+        <rect x="180" y="20" width="150" height="60" rx="10" class="s-goldsoft"/><text x="255" y="46" font-weight="700" class="s-gold">定義</text><text x="255" y="66" font-size="12" class="s-ink">一つずつ定義する</text>
+        <rect x="350" y="20" width="300" height="60" rx="10" class="s-anssoft"/><text x="500" y="46" font-weight="700" class="s-ans">吟味</text><text x="500" y="66" font-size="12" class="s-ink">反論を立てて、定義を確かめる</text>
+        <path d="M160 50 H178" class="st-muted" stroke-width="1.5" marker-end="url(#ah0)"/><path d="M330 50 H348" class="st-muted" stroke-width="1.5" marker-end="url(#ah0)"/>
+        <rect x="10" y="110" width="320" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="170" y="140" class="s-ink"><tspan font-weight="700">第1章</tspan>　16項目すべての挙示と定義</text>
+        <rect x="350" y="110" width="96" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="398" y="132" font-weight="700" class="s-ink">第2章</text><text x="398" y="150" font-size="11.5" class="s-muted">認識手段</text>
+        <rect x="452" y="110" width="96" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="500" y="132" font-weight="700" class="s-ink">第3章</text><text x="500" y="150" font-size="11.5" class="s-muted">対象（前半）</text>
+        <rect x="554" y="110" width="96" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="602" y="132" font-weight="700" class="s-ink">第4章</text><text x="602" y="150" font-size="11.5" class="s-muted">対象（後半）</text>
+        <rect x="10" y="172" width="640" height="46" rx="8" class="s-oppsoft"/><text x="330" y="200" class="s-ink"><tspan font-weight="700" class="s-opp">第5章</tspan>　第1章で「多くの種類がある」とだけ言った反則（誤った論難24種・敗北の立場22種）を詳しく定義</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図1　学問の3つのはたらきと5つの章。</b>本書の第5章冒頭でウダヤナは、第5章の主題は「吟味」ではなく「定義」だ、と論じている。反則は数が多くて覚えにくいので、吟味とは別に定義だけをまとめた、というのがその説明である。</figcaption>
+  </figure>
+
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>章</th><th>日課</th><th>主な内容</th><th>刊本</th><th>全訳</th></tr></thead>
+      <tbody>
+        <tr><td class="k" rowspan="2">1</td><td>1</td><td>学問の目的、認識手段と認識対象の定義、論証式</td><td>pp.1–306</td><td><a href="nvtp_zenyaku_01a.html">01a</a>・<a href="nvtp_zenyaku_01b.html">01b</a>・<a href="nvtp_zenyaku_01c.html">01c</a>・<a href="nvtp_zenyaku_01d.html">01d</a></td></tr>
+        <tr><td>2</td><td>討論の3種、見せかけの理由、詭弁</td><td>pp.307–334</td><td><a href="nvtp_zenyaku_02.html">02</a></td></tr>
+        <tr><td class="k" rowspan="2">2</td><td>1</td><td>疑い、知覚・推論・類比・言葉の吟味、全体（アヴァヤヴィン）</td><td>pp.335–389</td><td><a href="nvtp_zenyaku_03.html">03</a></td></tr>
+        <tr><td>2</td><td>認識手段は4つか、言葉は無常か、語は何を指すか</td><td>pp.390–422</td><td><a href="nvtp_zenyaku_04.html">04</a></td></tr>
+        <tr><td class="k" rowspan="2">3</td><td>1</td><td>自己は感官・身体・意と別、身体・感官・対象</td><td>pp.423–461</td><td><a href="nvtp_zenyaku_05.html">05</a></td></tr>
+        <tr><td>2</td><td>知の性質、刹那滅論の論破、意、身体と業</td><td>pp.462–498</td><td><a href="nvtp_zenyaku_06.html">06</a></td></tr>
+        <tr><td class="k" rowspan="2">4</td><td>1</td><td>来世、8つの異説の批判（神・空・偶然など）、結果・苦・解脱</td><td>pp.499–540</td><td><a href="nvtp_zenyaku_07.html">07</a></td></tr>
+        <tr><td>2</td><td>真実の知：全体と原子、外界の実在、知を育て守る</td><td>pp.541–558</td><td><a href="nvtp_zenyaku_08.html">08</a></td></tr>
+        <tr><td class="k" rowspan="2">5</td><td>1</td><td>誤った論難（ジャーティ）24種</td><td>pp.559–585</td><td><a href="nvtp_zenyaku_09.html">09</a></td></tr>
+        <tr><td>2</td><td>敗北の立場（ニグラハスターナ）22種</td><td>pp.586–601</td><td><a href="nvtp_zenyaku_10.html">10</a></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p>各章の分量を比べると、本書の性格がはっきり見えます。</p>
+  <figure>
+    <div class="bar" role="img" aria-label="各章のページ数の割合。第1章が半分以上を占め、そのうち第1スートラの注釈だけで約100ページある。">
+      <span style="flex:101;background:var(--gold-soft)">第1スートラ 101p</span>
+      <span style="flex:233;background:var(--gold-soft);opacity:.65">第1章の残り 233p</span>
+      <span style="flex:88;background:var(--indigo-soft)">第2章 88p</span>
+      <span style="flex:76;background:var(--ans-soft)">第3章 76p</span>
+      <span style="flex:60;background:var(--ans-soft);opacity:.7">4章 60p</span>
+      <span style="flex:43;background:var(--opp-soft)">5章</span>
+    </div>
+    <p class="legend">左から第1章（pp.1–334、うち第1スートラの注釈 pp.1–101）、第2章（pp.335–422）、第3章（pp.423–498）、第4章（pp.499–558）、第5章（pp.559–601）。</p>
+    <figcaption><b>図2　ページ配分。</b>全体の半分以上が第1章で、しかも最初のたった1つのスートラの注釈が約100ページ、全体の6分の1を占める。「なぜこの学問を学ぶのか」「正しい知とは何か」という土台の議論に、ウダヤナがいちばん力を注いだことが分かる。</figcaption>
+  </figure>
+</section>
+
+<!-- ============ 第1章 ============ -->
+<section id="s1" class="wrap">
+  <div class="sec-head"><span class="petal-no">1</span><h2>なぜ学ぶのか、何によって知るのか</h2><span class="sub">第1章　16項目の挙示と定義　p.1–334</span></div>
+
+  <h3>出発点：苦しみの連鎖を断つ</h3>
+  <p>ニヤーヤは、論理学を「頭の体操」としてではなく、<strong>苦しみから解放されるための学問</strong>として位置づけます。第2スートラ（1.1.2）は、苦しみが生まれる因果の連鎖を示し、その根を断てば連鎖全体が止まると説きます。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 200" style="min-width:560px;width:100%" role="img" aria-label="誤った知から過失、行動、生まれ、苦が順に生じ、真実の知が誤った知を断つと逆順に止んでいく図">
+      <defs>
+        <marker id="ah1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" class="s-muted"/></marker>
+        <marker id="ah1g" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" class="s-ans"/></marker>
+      </defs>
+      <g font-size="12" text-anchor="middle">
+        <rect x="10" y="40" width="112" height="64" rx="10" class="s-oppsoft"/><text x="66" y="66" font-weight="700" font-size="13.5" class="s-opp">誤った知</text><text x="66" y="88" class="s-ink">体を自己と思う</text>
+        <rect x="142" y="40" width="112" height="64" rx="10" class="s-oppsoft"/><text x="198" y="66" font-weight="700" font-size="13.5" class="s-opp">過失</text><text x="198" y="88" class="s-ink">貪り・憎しみ・迷い</text>
+        <rect x="274" y="40" width="112" height="64" rx="10" class="s-oppsoft"/><text x="330" y="66" font-weight="700" font-size="13.5" class="s-opp">行動</text><text x="330" y="88" class="s-ink">善業・悪業</text>
+        <rect x="406" y="40" width="112" height="64" rx="10" class="s-oppsoft"/><text x="462" y="66" font-weight="700" font-size="13.5" class="s-opp">生まれ</text><text x="462" y="88" class="s-ink">身体を得る</text>
+        <rect x="538" y="40" width="112" height="64" rx="10" class="s-oppsoft"/><text x="594" y="66" font-weight="700" font-size="13.5" class="s-opp">苦</text><text x="594" y="88" class="s-ink">さまざまな苦悩</text>
+        <path d="M122 72 H140" class="st-muted" stroke-width="1.5" marker-end="url(#ah1)"/><path d="M254 72 H272" class="st-muted" stroke-width="1.5" marker-end="url(#ah1)"/><path d="M386 72 H404" class="st-muted" stroke-width="1.5" marker-end="url(#ah1)"/><path d="M518 72 H536" class="st-muted" stroke-width="1.5" marker-end="url(#ah1)"/>
+        <text x="330" y="26" class="s-muted">生じる順 →</text>
+        <rect x="10" y="130" width="112" height="44" rx="10" class="s-anssoft"/><text x="66" y="157" font-weight="700" font-size="13" class="s-ans">真実の知</text>
+        <path d="M66 128 V108" class="st-ans" stroke-width="2" marker-end="url(#ah1g)"/>
+        <path d="M140 152 H640" class="st-ans" stroke-width="1.5" stroke-dasharray="5 4" marker-end="url(#ah1g)"/>
+        <text x="390" y="145" class="s-ans" font-weight="700">根が断たれると、順に止んでいく → 解脱</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図3　第2スートラの連鎖。</b>16項目を学ぶことは、いちばん左の「誤った知」を「真実の知」に置きかえるためにある。ウダヤナはここで、真実の知が「聞く・考える・瞑想する・直接とらえる」の4段階で深まることや、すでに積んだ業は結果を受けることによってのみ尽きることも論じる。</figcaption>
+  </figure>
+
+  <h3>第1スートラだけで約100ページ：何を論じているのか</h3>
+  <p>第1スートラの注釈では、「この学問に目的はあるか」「目的があると、どうして信じられるのか」という問いから、認識論の根本問題へと議論が広がっていきます。その中心が、<strong>認識の正しさ（プラーマーニャ）は何によって確かめられるか</strong>という問題です。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 262" style="min-width:560px;width:100%" role="img" aria-label="水の認識から行動し、喉の渇きがいやされると、さかのぼって最初の認識が正しかったと分かる、という循環の図">
+      <defs><marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" class="s-muted"/></marker></defs>
+      <g font-size="12" text-anchor="middle">
+        <rect x="10" y="30" width="150" height="70" rx="10" class="s-indsoft"/><text x="85" y="58" font-weight="700" font-size="13.5" class="s-ink">「水がある」</text><text x="85" y="80" class="s-muted">遠くに光るものを見る</text>
+        <rect x="200" y="30" width="130" height="70" rx="10" class="s-indsoft"/><text x="265" y="58" font-weight="700" font-size="13.5" class="s-ink">近づく</text><text x="265" y="80" class="s-muted">行動</text>
+        <rect x="370" y="30" width="130" height="70" rx="10" class="s-anssoft"/><text x="435" y="58" font-weight="700" font-size="13.5" class="s-ans">飲めた</text><text x="435" y="80" class="s-ink">行動の成功</text>
+        <rect x="540" y="30" width="110" height="70" rx="10" class="s-goldsoft"/><text x="595" y="58" font-weight="700" font-size="13.5" class="s-gold">正しかった</text><text x="595" y="80" class="s-ink">と確定</text>
+        <path d="M160 65 H198" class="st-muted" stroke-width="1.5" marker-end="url(#ah2)"/><path d="M330 65 H368" class="st-muted" stroke-width="1.5" marker-end="url(#ah2)"/><path d="M500 65 H538" class="st-muted" stroke-width="1.5" marker-end="url(#ah2)"/>
+        <rect x="10" y="126" width="640" height="128" rx="10" class="s-oppsoft"/>
+        <text x="330" y="150" font-weight="700" class="s-opp">反論：堂々めぐりではないか？</text>
+        <text x="330" y="172" class="s-ink">「正しいと分かったから行動する」のに「行動して初めて正しいと分かる」のなら、行動は始められない</text>
+        <text x="330" y="202" font-weight="700" class="s-ans">ウダヤナの答え</text>
+        <text x="330" y="222" class="s-ink">行動は「正しいかもしれない」という段階でも起こる。</text>
+        <text x="330" y="242" class="s-ink">何度も経験した種類の認識は、そのつど確かめなくてよい</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図4　正しさはどう確定されるか。</b>ニヤーヤは、認識の正しさは認識それ自体からではなく、行動の成功などから<strong>後で</strong>確かめられる（他律説）と考える。ミーマーンサー派は「認識は自分で自分の正しさを示す」（自律説）と考え、この点で両派は長く論争した。ウダヤナは、何度も経験した種類の認識（「同じ種類であること」）や推論の正しさについては、改めて確かめる必要がないと論じて循環を断ち切る。</figcaption>
+  </figure>
+
+  <h3>4つの認識手段</h3>
+  <p>正しく知る手段（プラマーナ）は4つです。第3〜8スートラでそれぞれが定義されます。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>手段</th><th>スートラの定義（要旨）</th><th>身近な例</th></tr></thead>
+      <tbody>
+        <tr><td class="k">知覚<span class="iast">pratyakṣa</span></td><td>感官と対象の接触から生じ、言葉で表されず、外れがなく、確定の形をとる知</td><td>目の前のリンゴを見る</td></tr>
+        <tr><td class="k">推論<span class="iast">anumāna</span></td><td>知覚を先立てて生じる知。3種（原因から結果、結果から原因、一般的に見られたもの）</td><td>煙を見て、山に火があると知る</td></tr>
+        <tr><td class="k">類比<span class="iast">upamāna</span></td><td>よく知られたものとの類似によって、所証（名と対象の関係）を確立すること</td><td>「ガヴァヤは牛に似た動物」と聞いて、森で見た動物がガヴァヤだと知る</td></tr>
+        <tr><td class="k">言葉<span class="iast">śabda</span></td><td>信頼できる人の教え</td><td>医者の言葉、ヴェーダ</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>知覚には「名前のつく前」と「後」がある</h3>
+  <p>仏教の論理学者は、「本当の知覚は、言葉や概念が入りこむ前の一瞬の知覚だけ。『これは牛だ』と名前をつけた時点で、それは概念による作りものだ」と考えました。ニヤーヤは、名前のついた知覚も知覚でありうると反論します（1.1.4）。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 210" style="min-width:560px;width:100%" role="img" aria-label="無分別知覚から有分別知覚へ進む2段階と、それぞれを知覚と認めるかどうかの仏教とニヤーヤの対比">
+      <defs><marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" class="s-muted"/></marker></defs>
+      <g font-size="12" text-anchor="middle">
+        <rect x="10" y="20" width="200" height="80" rx="10" class="s-indsoft"/><text x="110" y="48" font-weight="700" font-size="13.5" class="s-ink">無分別の知覚</text><text x="110" y="70" class="s-ink">何かがある（名前より前）</text><text x="110" y="88" class="s-muted">nirvikalpaka</text>
+        <path d="M215 60 H255" class="st-muted" stroke-width="1.5" marker-end="url(#ah3)"/>
+        <rect x="260" y="20" width="200" height="80" rx="10" class="s-indsoft"/><text x="360" y="48" font-weight="700" font-size="13.5" class="s-ink">有分別の知覚</text><text x="360" y="70" class="s-ink">「これは牛だ」</text><text x="360" y="88" class="s-muted">savikalpaka</text>
+        <rect x="480" y="20" width="170" height="80" rx="10" class="s-goldsoft"/><text x="565" y="48" font-weight="700" font-size="13" class="s-gold">「これは、あの牛だ」</text><text x="565" y="70" class="s-ink">再認識</text><text x="565" y="88" class="s-muted">pratyabhijñā</text>
+        <rect x="10" y="120" width="310" height="76" rx="10" class="s-oppsoft"/><text x="165" y="146" font-weight="700" class="s-opp">仏教（ダルマキールティら）</text><text x="165" y="168" class="s-ink">知覚は左端だけ。名前がついたら</text><text x="165" y="186" class="s-ink">概念の作りもの（知覚ではない）</text>
+        <rect x="340" y="120" width="310" height="76" rx="10" class="s-anssoft"/><text x="495" y="146" font-weight="700" class="s-ans">ニヤーヤ（ウダヤナ）</text><text x="495" y="168" class="s-ink">3つとも知覚。牛性（普遍）も名前も</text><text x="495" y="186" class="s-ink">知覚を誤りにはしない</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図5　知覚の2段階。</b>再認識（「これは、あのときの牛だ」）は、ものが時間を通して持続していることをとらえる知覚として、本書のあちこちで使われる。仏教の「すべては刹那ごとに滅する」という説を退ける切り札でもある（第3章を見よ）。</figcaption>
+  </figure>
+
+  <h3>インドの論証式は5段</h3>
+  <p>推論を他人に示すときは、5つの支分（アヴァヤヴァ）からなる論証式を使います。いちばん有名な例で見てみましょう。</p>
+  <div class="syl">
+    <div class="sylc">
+      <h4>五支論証式（1.1.32–39）</h4>
+      <ol>
+        <li><span>1 主張</span>あの山には火がある</li>
+        <li><span>2 理由</span>煙があるから</li>
+        <li><span>3 例</span>煙があるものには火がある。かまどのように</li>
+        <li><span>4 適用</span>あの山にも、そのような煙がある</li>
+        <li><span>5 結論</span>それゆえ、あの山には火がある</li>
+      </ol>
+    </div>
+    <div class="sylc">
+      <h4>しくみ</h4>
+      <ol>
+        <li><span>遍充</span>「煙があれば必ず火がある」という例外のない結びつき。3の「例」が示す</li>
+        <li><span>主題所属</span>理由（煙）が主題（山）にあること。4の「適用」が示す</li>
+        <li><span>注意</span>5段は他人に示すため。自分ひとりで推論するときは、心の中で一瞬に起こる</li>
+      </ol>
+    </div>
+  </div>
+
+  <h3>討論の3つの型と、見せかけの理由</h3>
+  <p>第1章第2日課は討論の規則を定めます。同じ「議論」でも、目的によって許される手が違います。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>型</th><th>目的</th><th>自分の主張</th><th>詭弁などの使用</th></tr></thead>
+      <tbody>
+        <tr><td class="k">論議<span class="iast">vāda</span></td><td>真理を確かめる（師と弟子など）</td><td><span class="ok">立てる</span></td><td><span class="ng">使わない</span></td></tr>
+        <tr><td class="k">論争<span class="iast">jalpa</span></td><td>相手に勝つ</td><td><span class="ok">立てる</span></td><td>使ってよい</td></tr>
+        <tr><td class="k">論詰<span class="iast">vitaṇḍā</span></td><td>相手の主張を崩す</td><td><span class="ng">立てない</span></td><td>使ってよい</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>見せかけの理由（1.2.4–9）</th><th>どこがだめか</th><th>例</th></tr></thead>
+      <tbody>
+        <tr><td class="k">不確定<span class="iast">savyabhicāra</span></td><td>理由が、所証のない所にもある</td><td>「声は常住だ。触れられないから」――触れられないのに無常な「知」がある</td></tr>
+        <tr><td class="k">矛盾<span class="iast">viruddha</span></td><td>理由が、認めた定説と食い違う</td><td>「変化は永続する」と言いながら「変化は消える」と認める</td></tr>
+        <tr><td class="k">対抗推論<span class="iast">prakaraṇasama</span></td><td>同じ強さの反対の推論が立つ</td><td>常住を示す推論と無常を示す推論が拮抗する</td></tr>
+        <tr><td class="k">所証と等しい<span class="iast">sādhyasama</span></td><td>理由そのものが証明を要する</td><td>「影は実体だ。動くから」――影が動くこと自体が問題</td></tr>
+        <tr><td class="k">時を過ぎた<span class="iast">kālātīta</span></td><td>他の認識手段ですでに否定されている</td><td>「火は冷たい。実体だから」</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p><a href="nvtp_zenyaku_01a.html" target="_blank">全訳で第1章を読む →</a></p>
+</section>
+
+<!-- ============ 第2章 ============ -->
+<section id="s2" class="wrap">
+  <div class="sec-head"><span class="petal-no">2</span><h2>認識手段を吟味する</h2><span class="sub">第2章　疑い・認識手段・言葉　p.335–422</span></div>
+  <p>第2章からは「吟味」の段階です。最初に問われるのは、「そもそも疑いは定義どおりに生じるのか」「認識手段で対象を知るなら、その認識手段は何で知るのか（無限にさかのぼらないか）」といった根本的な反論です。ウダヤナは、灯火が自分も他のものも照らすように、認識手段は対象を知らせ、同時にそれ自身も別の認識手段によって知られうる、という答えを補強します。</p>
+
+  <h3>認識手段は本当に4つか</h3>
+  <p>他の学派は、4つ以外の認識手段も認めました。ニヤーヤは、それらがすべて4つのどれかに含まれると論じます（2.2.1–12）。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>他派の認識手段</th><th>例</th><th>ニヤーヤの整理</th></tr></thead>
+      <tbody>
+        <tr><td class="k">伝承<span class="iast">aitihya</span></td><td>「この木には夜叉が住むと言い伝えられる」</td><td>言葉に含まれる</td></tr>
+        <tr><td class="k">推定<span class="iast">arthāpatti</span></td><td>「デーヴァダッタは太っているが昼は食べない」→夜に食べている</td><td>推論に含まれる</td></tr>
+        <tr><td class="k">包含<span class="iast">sambhava</span></td><td>「1000ある」なら「100ある」</td><td>推論に含まれる</td></tr>
+        <tr><td class="k">非存在<span class="iast">abhāva</span></td><td>「ここに壺はない」と知る</td><td>推論に含まれる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>言葉は永遠か：ミーマーンサー派との論争</h3>
+  <p>ヴェーダを永遠の聖典とするミーマーンサー派は、「言葉（音素）そのものが常住で、発音はそれを顕わにするだけだ」と考えました。ニヤーヤは、言葉は発音のたびに生じては消える<strong>無常なもの</strong>だと論じます（2.2.13–）。ではヴェーダの権威はどうなるのか。ニヤーヤでは、ヴェーダの権威は「永遠だから」ではなく、<strong>信頼できる説き手（主宰神）の言葉だから</strong>、と説明されます。</p>
+  <div class="duel" role="list">
+    <div class="row" role="listitem"><div class="no">1</div><div class="o"><b>ミーマーンサー</b>　同じ「ガ」の音を何度聞いても「同じ『ガ』だ」と再認識する。だから音素は一つで常住</div><div class="arr">→</div><div class="a"><b>ニヤーヤ</b>　再認識は「同じ種類」をとらえるだけ。踊りを「同じ踊りだ」と言うのと同じ</div></div>
+    <div class="row" role="listitem"><div class="no">2</div><div class="o"><b>ミーマーンサー</b>　発音は、すでにある音を顕わにするだけ</div><div class="arr">→</div><div class="a"><b>ニヤーヤ</b>　音には始まりがあり、感官でとらえられ、作られたものと同じように扱われる。だから無常</div></div>
+  </div>
+
+  <h3>「牛」という語は何を指すか</h3>
+  <p>第2章の最後は、語の意味の論題です。「牛を連れて来い」と言うとき、「牛」は個々の牛を指すのか、牛の形を指すのか、牛性という普遍を指すのか。スートラ（2.2.68）の答えは、<strong>「その3つ全部が語の意味である」</strong>。何が中心になるかは場面によって変わります。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 190" style="min-width:560px;width:100%" role="img" aria-label="牛という語の意味が、個物、形、普遍の3つからなり、場面によって中心が変わることを示す図">
+      <g font-size="12" text-anchor="middle">
+        <rect x="250" y="10" width="160" height="50" rx="25" class="s-goldsoft"/><text x="330" y="41" font-weight="700" font-size="14" class="s-gold">「牛」という語</text>
+        <path d="M290 60 L120 90 M330 60 L330 90 M370 60 L540 90" class="st-gold" stroke-width="1.5"/>
+        <rect x="20" y="92" width="200" height="86" rx="10" class="s-card st-line" stroke-width="1.5"/><text x="120" y="118" font-weight="700" font-size="13.5" class="s-ink">個物<tspan class="s-muted" font-weight="400"> vyakti</tspan></text><text x="120" y="142" class="s-ink">この一頭の牛</text><text x="120" y="164" class="s-muted">「牛を連れて来い」</text>
+        <rect x="230" y="92" width="200" height="86" rx="10" class="s-card st-line" stroke-width="1.5"/><text x="330" y="118" font-weight="700" font-size="13.5" class="s-ink">形<tspan class="s-muted" font-weight="400"> ākṛti</tspan></text><text x="330" y="142" class="s-ink">こぶ・角・尾などの形</text><text x="330" y="164" class="s-muted">「粘土で牛を作れ」</text>
+        <rect x="440" y="92" width="200" height="86" rx="10" class="s-card st-line" stroke-width="1.5"/><text x="540" y="118" font-weight="700" font-size="13.5" class="s-ink">普遍<tspan class="s-muted" font-weight="400"> jāti</tspan></text><text x="540" y="142" class="s-ink">すべての牛に共通の牛性</text><text x="540" y="164" class="s-muted">「牛は殺してはならない」</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図6　語の意味の3要素。</b>ウダヤナはここで、仏教の「語は『それ以外のものの排除（アポーハ）』を表すだけ」という説を批判する。この論争は同じ著者の『アートマタットヴァ・ヴィヴェーカ』第1章で、さらに詳しく展開される。</figcaption>
+  </figure>
+  <p><a href="nvtp_zenyaku_03.html" target="_blank">全訳で第2章を読む →</a></p>
+</section>
+
+<!-- ============ 第3章 ============ -->
+<section id="s3" class="wrap">
+  <div class="sec-head"><span class="petal-no">3</span><h2>自己と心をめぐって</h2><span class="sub">第3章　自己・身体・感官・知・意　p.423–498</span></div>
+  <p>第3章から、12の認識対象の吟味に入ります。まず問われるのは、認識の主体である<strong>自己（アートマン）</strong>は、目や耳などの感官、身体、心（意）とは別のものか、という問題です。</p>
+
+  <h3>見たものに、触れている</h3>
+  <p>第3章の最初のスートラ（3.1.1）は、ニヤーヤの自己論の出発点です。</p>
+  <blockquote>見ることと触れることによって、同じ一つの対象をとらえるから〔自己は感官とは別である〕。<cite>『ニヤーヤ・スートラ』3.1.1</cite></blockquote>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 220" style="min-width:560px;width:100%" role="img" aria-label="目は色だけ、手は触感だけをとらえるが、私が見たものに私が触れているという統合は、両方の感官とは別の自己でなければできないことを示す図">
+      <defs><marker id="ah4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" class="s-muted"/></marker></defs>
+      <g font-size="12" text-anchor="middle">
+        <rect x="10" y="20" width="160" height="66" rx="10" class="s-indsoft"/><text x="90" y="48" font-weight="700" font-size="13.5" class="s-ink">目</text><text x="90" y="70" class="s-muted">色だけをとらえる</text>
+        <rect x="10" y="120" width="160" height="66" rx="10" class="s-indsoft"/><text x="90" y="148" font-weight="700" font-size="13.5" class="s-ink">手（触覚）</text><text x="90" y="170" class="s-muted">触感だけをとらえる</text>
+        <path d="M175 55 L245 95" class="st-muted" stroke-width="1.5" marker-end="url(#ah4)"/><path d="M175 152 L245 115" class="st-muted" stroke-width="1.5" marker-end="url(#ah4)"/>
+        <rect x="250" y="70" width="200" height="70" rx="35" class="s-goldsoft"/><text x="350" y="100" font-weight="700" font-size="13" class="s-ink">「私が見たものに、</text><text x="350" y="120" font-weight="700" font-size="13" class="s-ink">いま私が触れている」</text>
+        <path d="M455 105 H495" class="st-muted" stroke-width="1.5" marker-end="url(#ah4)"/>
+        <rect x="500" y="60" width="150" height="90" rx="10" class="s-anssoft"/><text x="575" y="92" font-weight="700" font-size="14" class="s-ans">自己</text><text x="575" y="114" class="s-ink">両方を結びつける</text><text x="575" y="134" class="s-ink">一つの主体</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図7　統合（プラティサンダーナ）の論証。</b>目は触感を知らず、手は色を知らない。それでも私たちは「見たものと触れているものは同じだ」と知る。この結びつけは、どちらか一方の感官にはできない。だから両方の感官とは別の、一つの知る主体がある。同じ形の論証で、自己は身体とも意とも別であることが示される。</figcaption>
+  </figure>
+
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>論題（3.1）</th><th>反対説</th><th>ニヤーヤの答え</th></tr></thead>
+      <tbody>
+        <tr><td class="k">感官と別</td><td>見る・聞くのは感官そのもの</td><td>異なる感官の知を統合する主体が要る（図7）</td></tr>
+        <tr><td class="k">身体と別</td><td>身体が自己（唯物論）</td><td>身体を焼いても罪にならないことになる。身体は刻々と変わるが記憶は続く</td></tr>
+        <tr><td class="k">意と別</td><td>心（意）が知る主体</td><td>意は知るための<strong>道具</strong>。道具を使う知る者が別にいる</td></tr>
+        <tr><td class="k">常住</td><td>自己は生まれと共に始まる</td><td>生まれたばかりの赤ん坊が乳を求めて喜ぶのは、前世の経験の記憶による</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>すべては一瞬で消えるのか：刹那滅論の論破</h3>
+  <p>第3章第2日課では、知（ブッディ）が無常であることを論じる途中で、話のつながりから仏教の<strong>刹那滅論</strong>（存在するものはすべて一瞬ごとに滅する）を論破します。ウダヤナはここで、ダルマキールティの後継者ジュニャーナシュリーミトラの説を名指しで取り上げ、同じニヤーヤ学派の先人トリローチャナらの説にも検討を加えながら、注釈としては異例の長さで論じます。</p>
+  <div class="duel" role="list">
+    <div class="row" role="listitem"><div class="no">1</div><div class="o"><b>仏教</b>　存在するとは「はたらきをなす」こと。持続するものは、はたらきを順にも同時にもなせない。だから存在するものは刹那的</div><div class="arr">→</div><div class="a"><b>ウダヤナ</b>　持続するものも、補助因がそろえば作り、そろわなければ作らない。「順にも同時にもなせない」は成り立たない</div></div>
+    <div class="row" role="listitem"><div class="no">2</div><div class="o"><b>仏教</b>　滅びには原因がない。生じたものは必ず滅びるから、生じたとたんに滅びる</div><div class="arr">→</div><div class="a"><b>ウダヤナ</b>　壺は槌で打たれて滅びる。滅びにも原因がある。だから「すぐ滅びる」ことは出てこない</div></div>
+  </div>
+
+  <h3>心（意）は一つで、原子の大きさ</h3>
+  <p>私たちは、見る・聞く・嗅ぐを<strong>同時には</strong>知らない、とニヤーヤは考えます。知は一つずつ順に生じる。これを説明するのが意（マナス）です。意は原子の大きさで、各身体に一つだけあり、一度に一つの感官とだけ結びつく。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 200" style="min-width:560px;width:100%" role="img" aria-label="燃え木を回すと火の輪に見えるように、意がすばやく動くので、知が同時に起きているように見える、という図">
+      <g font-size="12" text-anchor="middle">
+        <circle cx="110" cy="100" r="62" class="nofill st-gold" stroke-width="3" stroke-dasharray="4 7"/>
+        <circle cx="172" cy="100" r="9" class="s-gold"/>
+        <text x="110" y="104" font-weight="700" font-size="13" class="s-ink">火の輪？</text>
+        <text x="110" y="186" class="s-muted">燃え木を速く回すと輪に見える</text>
+        <rect x="240" y="30" width="410" height="140" rx="12" class="s-indsoft"/>
+        <g class="s-card st-line" stroke-width="1.5">
+          <rect x="262" y="50" width="76" height="40" rx="8"/><rect x="350" y="50" width="76" height="40" rx="8"/><rect x="438" y="50" width="76" height="40" rx="8"/><rect x="526" y="50" width="100" height="40" rx="8"/>
+        </g>
+        <text x="300" y="75" class="s-ink">見る</text><text x="388" y="75" class="s-ink">聞く</text><text x="476" y="75" class="s-ink">味わう</text><text x="576" y="75" class="s-ink">触れる</text>
+        <circle cx="300" cy="118" r="8" class="s-ans"/>
+        <path d="M300 118 C340 140 420 140 470 120" class="st-ans nofill" stroke-width="1.5" stroke-dasharray="4 4"/>
+        <text x="445" y="152" class="s-ink">意（原子大）が一つずつ順に、すばやく移る</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図8　燃え木の輪のたとえ（3.2.58）。</b>ダンスを見ながら音楽を聞くと、同時に知っているように思える。しかしそれは、意がきわめて速く移るので、順番が気づかれないだけだ、とニヤーヤは説明する。</figcaption>
+  </figure>
+  <p>第3章の最後は、「身体は前世の業（見えない力＝不可見力）によって作られる」という論題です。身体が人ごとに決まっていること、生まれの多様性、死や解脱があることは、元素だけでは説明できない、とウダヤナは論じます。<a href="nvtp_zenyaku_05.html" target="_blank">全訳で第3章を読む →</a></p>
+</section>
+
+<!-- ============ 第4章 ============ -->
+<section id="s4" class="wrap">
+  <div class="sec-head"><span class="petal-no">4</span><h2>来世、神、そして解脱</h2><span class="sub">第4章　残りの認識対象と真実の知　p.499–558</span></div>
+
+  <h3>8つの異説との対決</h3>
+  <p>第4章第1日課では、「来世（再生）」を確かめる途中で、世界の成り立ちについての8つの説が次々と取り上げられます。どれも、認めてしまうと来世や業の教えが成り立たなくなる説です。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>#</th><th>異説</th><th>主張</th><th>ウダヤナの評価</th></tr></thead>
+      <tbody>
+        <tr><td class="k">1</td><td>空から生じる</td><td>芽は種が壊れて（無になって）から出る。存在は無から生じる</td><td><span class="ng">否</span>　無は原因の一つにはなるが、質料因ではない</td></tr>
+        <tr><td class="k">2</td><td>神が質料因</td><td>ブラフマン（神）が転変して、あるいは仮に現れて世界になる</td><td><span class="ok">一部可</span>　神は動力因（作り手）であって、材料ではない</td></tr>
+        <tr><td class="k">3</td><td>偶然</td><td>茨の鋭さのように、ものは原因なしに生じる</td><td><span class="ng">否</span>　茨にも原因がある</td></tr>
+        <tr><td class="k">4</td><td>すべては無常</td><td>生じて滅びるのが存在のしるし</td><td><span class="ng">否</span>　虚空・原子・自己など常住なものがある</td></tr>
+        <tr><td class="k">5</td><td>すべては常住</td><td>すべては五元素からなり、元素は常住</td><td><span class="ng">否</span>　壺の生滅は見られている</td></tr>
+        <tr><td class="k">6</td><td>すべては別々</td><td>「壺」は色・形などの寄せ集めの名にすぎない</td><td><span class="ng">否</span>　多くの特徴から一つのものが成立する</td></tr>
+        <tr><td class="k">7</td><td>すべては無</td><td>どの存在も他のものでないから、無である</td><td><span class="ng">否</span>　ものには固有の本性がある</td></tr>
+        <tr><td class="k">8</td><td>数の一方的主張</td><td>すべては一つ（不二）、すべては二つ、など</td><td><span class="ng">否</span>　原因と結果の区別が成り立たなくなる</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>神は陶工である</h3>
+  <p>2番目の説への答えは、ニヤーヤの神（主宰神）観をよく示しています。</p>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 220" style="min-width:560px;width:100%" role="img" aria-label="壺の質料因は粘土、動力因は陶工。世界の質料因は原子、動力因は神で、神は人々の業に応じて作る、という対応図">
+      <defs><marker id="ah5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0 L10 5 L0 10z" class="s-muted"/></marker></defs>
+      <g font-size="12" text-anchor="middle">
+        <text x="110" y="24" font-weight="700" class="s-muted">原因の種類</text><text x="330" y="24" font-weight="700" class="s-muted">壺の場合</text><text x="550" y="24" font-weight="700" class="s-muted">世界の場合</text>
+        <rect x="20" y="38" width="180" height="50" rx="8" class="s-indsoft"/><text x="110" y="60" font-weight="700" class="s-ink">質料因（材料）</text><text x="110" y="78" class="s-muted">結果がそこに内属する</text>
+        <rect x="240" y="38" width="180" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="330" y="68" class="s-ink">粘土</text>
+        <rect x="460" y="38" width="180" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="550" y="68" class="s-ink">原子（地・水・火・風）</text>
+        <rect x="20" y="100" width="180" height="50" rx="8" class="s-goldsoft"/><text x="110" y="122" font-weight="700" class="s-gold">動力因（作り手）</text><text x="110" y="140" class="s-muted">知と意志をもつ</text>
+        <rect x="240" y="100" width="180" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="330" y="130" class="s-ink">陶工</text>
+        <rect x="460" y="100" width="180" height="50" rx="8" class="s-anssoft"/><text x="550" y="130" font-weight="700" class="s-ans">主宰神</text>
+        <rect x="20" y="162" width="180" height="50" rx="8" class="s-indsoft"/><text x="110" y="184" font-weight="700" class="s-ink">補助因</text><text x="110" y="202" class="s-muted">はたらきを左右する</text>
+        <rect x="240" y="162" width="180" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="330" y="192" class="s-ink">ろくろ・棒・水</text>
+        <rect x="460" y="162" width="180" height="50" rx="8" class="s-card st-line" stroke-width="1.5"/><text x="550" y="192" class="s-ink">人々の業（善悪の行い）</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図9　神は世界の材料ではなく、作り手（4.1.19–21）。</b>神が人の業と無関係に世界を作るなら、行いの報いがなくなる。だから神は、人々の業に応じて結果を与える。ウダヤナはここで「大地などは作り手をもつ。結果だから。壺のように」という神の存在の推論を、他学派の批判から詳しく擁護する。この論証は『ニヤーヤ・クスマーンジャリ』の主題でもある。</figcaption>
+  </figure>
+
+  <h3>苦と解脱</h3>
+  <p>第4章第1日課の終わりで、「生まれることは、まさに苦である」（4.1.55）と論じられます。楽しみもあるではないか、という反論には、楽しみも苦に囲まれ、それを求めること自体が苦を生む、と答えます。そして<strong>解脱とは、苦が究極的に止むこと</strong>。「人には負債（祭祀の義務）があり、煩悩も行動も途切れないから、解脱などありえない」という反論にも一つずつ答えます。</p>
+
+  <h3>真実の知を育て、守る</h3>
+  <p>第4章第2日課は、本書の締めくくりとなる真実の知の吟味です。その途中で、「全体（部分からなる一つのもの）は存在しない」「外界は存在しない（唯識）」という仏教の説が改めて退けられます。そして最後に、真実の知をどう育て、どう守るかが述べられます。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>段階</th><th>スートラ</th><th>内容</th></tr></thead>
+      <tbody>
+        <tr><td class="k">生じさせる</td><td>4.2.1–3</td><td>体や対象を「不浄」と観て、貪りの原因となる見方を断つ</td></tr>
+        <tr><td class="k">育てる</td><td>4.2.38–49</td><td>特別な三昧の反復。森・洞窟・砂州でのヨーガ。禁戒・勧戒。学問を同じくする人々との論議</td></tr>
+        <tr><td class="k">守る</td><td>4.2.50–51</td><td>論争と論詰で、真実の確定を守る（図10）</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <figure>
+    <div class="scroll">
+    <svg viewBox="0 0 660 200" style="min-width:560px;width:100%" role="img" aria-label="芽を茨の垣根が囲んで守るように、真実の知を論争と論詰が守るという図">
+      <g font-size="12" text-anchor="middle">
+        <rect x="10" y="10" width="300" height="180" rx="12" class="s-indsoft"/>
+        <path d="M160 140 C150 110 165 95 160 70" class="st-ans nofill" stroke-width="3"/>
+        <path d="M160 92 C140 85 135 72 140 64" class="st-ans nofill" stroke-width="2.5"/><path d="M161 80 C180 74 186 62 182 54" class="st-ans nofill" stroke-width="2.5"/>
+        <ellipse cx="160" cy="145" rx="16" ry="8" class="s-gold"/>
+        <path d="M70 160 L80 40 M100 160 L110 40 M220 160 L210 40 M250 160 L240 40" class="st-opp" stroke-width="2"/>
+        <path d="M74 60 L86 54 M76 90 L88 84 M78 120 L90 114 M104 60 L116 54 M106 100 L118 94 M214 60 L202 54 M216 100 L204 94 M244 60 L232 54 M246 120 L234 114" class="st-opp" stroke-width="1.5"/>
+        <text x="160" y="180" class="s-ink">芽を、茨の枝の垣根が守る</text>
+        <rect x="350" y="30" width="300" height="60" rx="10" class="s-anssoft"/><text x="500" y="56" font-weight="700" font-size="13.5" class="s-ans">芽 ＝ 真実の確定</text><text x="500" y="76" class="s-ink">まだ弱く、踏みにじられやすい</text>
+        <rect x="350" y="110" width="300" height="60" rx="10" class="s-oppsoft"/><text x="500" y="136" font-weight="700" font-size="13.5" class="s-opp">茨の垣根 ＝ 論争・論詰</text><text x="500" y="156" class="s-ink">それ自体はとげとげしいが、芽を守る</text>
+      </g>
+    </svg>
+    </div>
+    <figcaption><b>図10　茨の垣根のたとえ（4.2.50）。</b>勝つための論争や、相手を崩すだけの論詰は、真理を求める論議より一段低いものに見える。しかしニヤーヤは、それらにも役目があると言う。真実をまだ確信しきれない人が、他の学派のもっともらしい議論に惑わされないよう、垣根として知を守るのである。</figcaption>
+  </figure>
+  <p><a href="nvtp_zenyaku_07.html" target="_blank">全訳で第4章を読む →</a></p>
+</section>
+
+<!-- ============ 第5章 ============ -->
+<section id="s5" class="wrap">
+  <div class="sec-head"><span class="petal-no">5</span><h2>討論の反則集</h2><span class="sub">第5章　誤った論難24種と敗北の立場22種　p.559–601</span></div>
+  <p>第5章は、討論で使われてはならない「反則」のカタログです。図10の垣根が役に立つためには、どんな反論が<strong>見かけだけ</strong>で、どんな失策をしたら<strong>負け</strong>になるかを知っておく必要があります。</p>
+
+  <h3>誤った論難（ジャーティ）：形だけ似せた反論</h3>
+  <p>誤った論難とは、相手の論証と<strong>形だけ同じ</strong>反論をぶつけることです。いちばん基本的な「同類相似」を見てみましょう。</p>
+  <div class="duel" role="list">
+    <div class="row" role="listitem"><div class="no">論</div><div class="o" style="background:var(--indigo-soft)"><b style="color:var(--ink)">論者</b>　自己は運動をもつ。運動の原因となる性質（努力など）をもつから。土塊のように</div><div class="arr">→</div><div class="a" style="background:var(--opp-soft)"><b style="color:var(--opp)">誤った論難</b>　いや、自己は運動をもたない。遍在するから。虚空のように</div></div>
+  </div>
+  <p>この反論は、同じ形の論証式を立てているので、一見もっともらしく見えます。しかし相手の論証の<strong>どこが悪いのか</strong>（遍充の欠陥など）を示していません。単に似た形の論証を並べただけです。スートラ（5.1.3）は「牛性によって牛が成立するように」と答えます。論証で大事なのは、例との単なる似かよりではなく、<strong>例外のない結びつき（遍充）</strong>だ、ということです。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>グループ</th><th>誤った論難</th><th>やり口</th></tr></thead>
+      <tbody>
+        <tr><td class="k">似ていることで返す</td><td>同類相似・異類相似</td><td>似た形・反対の形の論証をぶつける</td></tr>
+        <tr><td class="k">所証と例の属性を操作</td><td>増加・減少・記述されるべきもの・記述されるべきでないもの・選択・所証相似</td><td>「例に他の性質があるなら主題にもあるはず」などと難くせをつける</td></tr>
+        <tr><td class="k">理由と所証の関係を攻撃</td><td>到達・非到達相似</td><td>「理由は所証に届いて証明するのか、届かずにか」</td></tr>
+        <tr><td class="k">例を攻撃</td><td>帰謬・反対実例相似</td><td>「その例の根拠は？」と無限に問う。反対の例を出す</td></tr>
+        <tr><td class="k">時間・疑い・論題</td><td>非生起・疑い・論題・無理由相似</td><td>「生じる前には理由がない」「三時のどれでも理由は成り立たない」</td></tr>
+        <tr><td class="k">推定・区別</td><td>推定・無区別・成立相似</td><td>「〜なら逆も言える」「すべて区別がなくなる」</td></tr>
+        <tr><td class="k">知覚・常住・結果</td><td>知覚・非知覚・無常・常住・結果相似</td><td>「理由がなくても知覚される」「無常性は常にあるから常住だ」</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>敗北の立場（ニグラハスターナ）：負けとなる失策</h3>
+  <p>敗北の立場は、討論で「その時点で負け」とされる失策です。スートラは22種を挙げ、ウダヤナはそれを7つのグループにまとめます。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>グループ（ウダヤナの分類）</th><th>敗北の立場</th></tr></thead>
+      <tbody>
+        <tr><td class="k">言ったことそのものの失策</td><td>主張の放棄・別の主張・主張の矛盾・主張の撤回・別の理由</td></tr>
+        <tr><td class="k">意味が伝わらない</td><td>別の意味（脱線）・無意味・意味が理解されないもの・無関連</td></tr>
+        <tr><td class="k">論証式の形の失策</td><td>時機を失したもの（順序違い）・不足・過剰</td></tr>
+        <tr><td class="k">くり返し</td><td>重複</td></tr>
+        <tr><td class="k">答えられない</td><td>復唱しないこと・無知・答えに窮すること・回避（「明日話そう」）</td></tr>
+        <tr><td class="k">誤った答え</td><td>相手の見解の承認・非難すべきものの看過・非難すべきでないものへの非難</td></tr>
+        <tr><td class="k">別の認識手段で示される</td><td>自説からの逸脱・見せかけの理由</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="point">
+    <span class="lbl">「回避」に注目</span>
+    <p>「回避（ヴィクシェーパ）」は、「用事があるので、明日話そう、明後日話そう」と言って議論を引き延ばすこと。今でもよく見る手ですね。ウダヤナは、こうした失策が「その人に答える力がない」ことを示す<strong>しるし（徴表）</strong>だから負けになるのだ、と説明します。黙りこんでいても負けになるのは、そのためです。</p>
+  </div>
+  <p><a href="nvtp_zenyaku_09.html" target="_blank">全訳で第5章を読む →</a></p>
+</section>
+
+<!-- ============ 考えてみよう ============ -->
+<section id="think" class="wrap">
+  <div class="sec-head"><h2>考えてみよう</h2><span class="sub">西洋の論理学と比べ、自分で問いを立てる</span></div>
+  <p>「正しく推論する」技法は、ギリシアでも独自に発達しました。並べてみると、インドの論理学の特徴が見えてきます。</p>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th></th><th>ニヤーヤ（ウダヤナ）</th><th>アリストテレス</th><th>現代の論理学</th></tr></thead>
+      <tbody>
+        <tr><td class="k">論証の形</td><td>5支（主張・理由・例・適用・結論）</td><td>3段（大前提・小前提・結論）</td><td>前提から結論への形式的な導出</td></tr>
+        <tr><td class="k">例の役割</td><td>必須。「かまどのように」と具体例を挙げる</td><td>不要（形式だけで正しさが決まる）</td><td>不要</td></tr>
+        <tr><td class="k">何を扱うか</td><td>知識の獲得（認識論）と討論</td><td>正しい推論の形式</td><td>記号による推論の形式</td></tr>
+        <tr><td class="k">誤りの分類</td><td>見せかけの理由5種、詭弁3種、誤った論難24種、敗北の立場22種</td><td>『詭弁論駁論』の13種の誤謬</td><td>形式的誤謬・非形式的誤謬</td></tr>
+        <tr><td class="k">目的</td><td>解脱（苦からの解放）</td><td>学問的知識（エピステーメー）</td><td>妥当な推論の研究</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <details>
+    <summary>問1　「正しいと分かってから行動する」のか、「行動して正しいと分かる」のか？</summary>
+    <p>初めて入る店で、看板の「営業中」を信じてドアを開けるとき、あなたはその認識が正しいと「知って」いるでしょうか。図4のニヤーヤの考え方（正しさは後で確かめられる）と、ミーマーンサーの考え方（認識は自分で自分の正しさを示す）のどちらが、日常の感覚に近いでしょうか。</p>
+  </details>
+  <details>
+    <summary>問2　なぜインドの論証式には「例」が必要なのか？</summary>
+    <p>「すべての人間は死ぬ。ソクラテスは人間だ。ゆえにソクラテスは死ぬ」には具体例がありません。ニヤーヤは「かまどのように」と必ず例を挙げます。例を求めることには、どんな良さがあるでしょうか。ヒント：「すべての〜」という全称の主張は、どうやって確かめられたのでしょうか。</p>
+  </details>
+  <details>
+    <summary>問3　ネット上の議論に「誤った論難」はあるか？</summary>
+    <p>「それを言うなら、あなたの国だって……」と、相手の主張の欠陥を示さずに、似た形の反論を返す。こうした論法は、第5章の「同類相似」とよく似ています。身の回りの議論から、第5章の表にあてはまる例を探してみましょう。</p>
+  </details>
+  <details>
+    <summary>問4　勝つための議論に、価値はあるか？</summary>
+    <p>ニヤーヤは、真理を求める「論議」だけでなく、勝つための「論争」や、崩すだけの「論詰」にも、真実の知を守る垣根としての役目を認めました（図10）。ディベートの授業や裁判の弁論を思い浮かべながら、この考え方に賛成か反対か、理由をつけて書いてみましょう。</p>
+  </details>
+</section>
+
+<!-- ============ 用語集 ============ -->
+<section id="terms" class="wrap">
+  <div class="sec-head"><h2>用語集</h2></div>
+  <div class="tbl min">
+    <table>
+      <thead><tr><th>用語</th><th>原語</th><th>意味</th></tr></thead>
+      <tbody>
+        <tr><td class="k">認識手段</td><td><i>pramāṇa</i></td><td>正しい認識を生む手段。ニヤーヤでは知覚・推論・類比・言葉の4つ</td></tr>
+        <tr><td class="k">認識対象</td><td><i>prameya</i></td><td>解脱のために知るべき12のもの（自己・身体・感官・対象・知・意・行動・過失・来世・結果・苦・解脱）</td></tr>
+        <tr><td class="k">正しさ</td><td><i>prāmāṇya</i></td><td>認識が対象どおりであること。ニヤーヤは他律説、ミーマーンサーは自律説</td></tr>
+        <tr><td class="k">遍充</td><td><i>vyāpti</i></td><td>「煙があれば必ず火がある」のような例外のない結びつき。推論の土台</td></tr>
+        <tr><td class="k">主題</td><td><i>pakṣa</i></td><td>推論で何かを証明される対象（「あの山」）</td></tr>
+        <tr><td class="k">所証</td><td><i>sādhya</i></td><td>証明されるべき性質（「火があること」）</td></tr>
+        <tr><td class="k">論証因（理由）</td><td><i>hetu, liṅga</i></td><td>証明の根拠となるしるし（「煙」）</td></tr>
+        <tr><td class="k">無分別・有分別</td><td><i>nirvikalpaka / savikalpaka</i></td><td>名前や概念が入る前の知覚と、入った後の知覚</td></tr>
+        <tr><td class="k">再認識</td><td><i>pratyabhijñā</i></td><td>「これはあのときのものだ」という認識。持続を示す</td></tr>
+        <tr><td class="k">統合</td><td><i>pratisandhāna</i></td><td>別々の知を「同じもの」として結びつけること。自己の存在の根拠</td></tr>
+        <tr><td class="k">意</td><td><i>manas</i></td><td>知の内的な道具。原子大で、身体ごとに一つ</td></tr>
+        <tr><td class="k">不可見力</td><td><i>adṛṣṭa</i></td><td>善悪の行い（業）が残す、目に見えない力。身体や世界を形づくる</td></tr>
+        <tr><td class="k">刹那滅</td><td><i>kṣaṇabhaṅga</i></td><td>すべてのものは一瞬ごとに滅する、という仏教の説</td></tr>
+        <tr><td class="k">全体</td><td><i>avayavin</i></td><td>部分からなり、部分とは別の一つのもの（布・壺など）</td></tr>
+        <tr><td class="k">主宰神</td><td><i>īśvara</i></td><td>業に応じて世界を作る作り手（動力因）。ヴェーダの説き手</td></tr>
+        <tr><td class="k">誤った論難</td><td><i>jāti</i></td><td>形だけ似せた、成り立たない反論（24種）</td></tr>
+        <tr><td class="k">敗北の立場</td><td><i>nigrahasthāna</i></td><td>討論で負けとなる失策（22種）。答える力のなさのしるし</td></tr>
+        <tr><td class="k">解脱</td><td><i>apavarga</i></td><td>苦からの究極的な解放</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>次に読むなら</h3>
+  <p>このページで挙げたスートラ番号（1.1.2、3.1.1 など）は、全訳の各ページの見出しにも出てきます。気になった箇所は、原文と和訳を並べて読んでみてください。</p>
+  <ul>
+    <li><a href="https://mandana1221.github.io/brahmasiddhi/nvtp_index.html">ウダヤナ『タートパリヤ・パリシュッディ』全訳　目次（サンスクリット・日本語対照）</a></li>
+    <li><a href="https://mandana1221.github.io/brahmasiddhi/atmatattvaviveka_nyumon.html">アートマタットヴァ・ヴィヴェーカ入門（同じ著者による、仏教の無我説への反論）</a></li>
+    <li><a href="https://mandana1221.github.io/brahmasiddhi/kusumanjali_zenyaku.html">ウダヤナ『ニヤーヤ・クスマーンジャリ』全訳（同じ著者の神の存在証明）</a></li>
+  </ul>
+</section>
+</main>
+
+<footer class="wrap">
+  この解説は、上記の全訳（A. Thakur 校訂本〔1996年〕にもとづく）を読んでまとめたものです。たとえと図、西洋論理学との比較は、理解を助けるための解説者による補いです。
+</footer>
+</body>
+</html>
