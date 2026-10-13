@@ -11,8 +11,29 @@
     var b = e.target.closest('button[data-depth]');
     if (!b) return;
     var n = parseInt(b.dataset.depth, 10);
+    // いま画面のいちばん上に見えている節を覚えておく
+    var bar = document.getElementById('controls').getBoundingClientRect().bottom;
+    var anchor = null;
+    for (var i = 0; i < all.length; i++) {
+      if (!visible(all[i])) continue;
+      var r = all[i].getBoundingClientRect();
+      if (r.bottom <= bar) continue;
+      anchor = all[i];               // 画面上端にかかる、いちばん深い節
+      if (r.top > bar) break;
+    }
     all.forEach(function (el) { el.open = parseInt(el.dataset.depth, 10) < n; });
+    void document.body.offsetHeight;  // 開閉後のレイアウトを確定させる
+    // その節（閉じて見えなくなったら、見えている親）の位置に画面を合わせる
+    if (anchor) {
+      while (anchor && !visible(anchor)) anchor = anchor.parentElement.closest('details.node');
+      if (anchor) anchor.scrollIntoView({ block: 'start' });
+    }
   });
+  function visible(el) {
+    var p = el.parentElement;
+    while (p) { if (p.tagName === 'DETAILS' && !p.open) return false; p = p.parentElement; }
+    return true;
+  }
   // 図・表のリンクから飛んだとき、親をすべて開く
   function target(hash) {
     if (!hash || hash.length < 2) return null;
