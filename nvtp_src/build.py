@@ -44,6 +44,9 @@ def src_lines(a, b):
             continue
         if FOOT.search(s):
             continue
+        s = re.sub(r'\s+(5|10|15|20|25)$', '', s)          # 行末の行番号
+        s = re.sub(r'^(5|10|15|20|25)\s+', '', s)          # 行頭の行番号
+        s = re.sub(r'(?<=[\u0915-\u0939\u093e-\u094d\u0902\u0903])[०-९]{1,2}(?=[\s।॥,;:\-]|$)', '', s)  # 脚注番号
         out.append(('text', s))
     return out
 
