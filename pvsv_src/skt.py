@@ -5,7 +5,7 @@ from indic_transliteration import sanscript
 SRC_DEFAULT = __file__.rsplit("/", 1)[0] + "/PVSV.tex"
 
 # Stems with genuine vrddhi ai/au word-internally (not a+i / a+u junctions).
-VRDDHI = ("pauruSey", "vaiphaly", "vaikaly", "vaiyarthy", "nairAtmy", "trailoky", "paurvApary",
+VRDDHI = ("ekaik", "pauruSey", "vaiphaly", "vaikaly", "vaiyarthy", "nairAtmy", "trailoky", "paurvApary",
           "vaidharmy", "vaizeS", "naiyAyik", "saugat", "vailakSaNy", "vaicitry", "vaiSamy",
           "vaiziSTy", "vaiyadhikaraNy", "vaisAdRzy", "vaisadRzy", "laukik", "vaidik", "jaimin",
           "bauddh", "kautuk", "vaijAty", "taimir", "saukSmy", "maitr", "caitr", "aindr", "aikAnt",
