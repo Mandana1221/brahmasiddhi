@@ -25,12 +25,13 @@ nanu atha tAvat sarvathA anyathA ekadA ubhayathA iva kevalam yataH tataH ataH tA
 def _junction_vowels(tok):
     """Convert e-text a+u -> o / a+i -> e markers ('au','ai' inside a word)."""
     tok = re.sub(r"(?<=.)(AA|aA|Aa)", "A", tok)
+    tok = tok.replace("cz", "cch")
     def fix(m):
         i = m.start()
         rest = tok[i:]
         for v in VRDDHI:
             # genuine if a vrddhi stem starts at the consonant(s) just before this ai/au
-            for k in (1, 2, 3):
+            for k in (0, 1, 2, 3):
                 if i - k >= 0 and tok[i - k:].startswith(v):
                     return m.group(0)
         return {"ai": "e", "au": "o"}[m.group(0)]
@@ -75,9 +76,15 @@ def _a_underlying(w):
 def _aa_underlying(w):
     if w in AA_WORDS:
         return True
-    return w.endswith(("yA", "tA", "nA", "vA", "dhA", "kA")) and len(w) > 2
+    return w.endswith(("yA", "tA", "nA", "NA", "dhA", "kA")) and len(w) > 2
 
-FUNC = set("iti eva api iva ca na hi tu vA cet punaH punar tathA yathA ced iha atra tatra tu kila khalu".split())
+FUNC = set(("iti ity eva api apy iva ca na hi tu vA cet punaH punar tathA yathA ced iha atra tatra kila khalu "
+            "Aha AhuH ayam ayaM iyam iyaM idam idaM anena asya asau eSa etat etad evam evaM atha anyathA anyatra "
+            "ataH asti santi").split())
+
+def _free_word(w):
+    """Next-line word that is clearly a separate word (not the tail of a compound)."""
+    return w in FUNC or w.endswith(("te", "nte", "ti", "nti", "yAt", "tAm", "eta"))
 
 def _vsandhi(a, b, force=False, last=None):
     """Vowel sandhi between a and b. force=True for compound junctions (line breaks)."""
@@ -194,12 +201,14 @@ def render_hk(tokens, fixes=()):
     for t in tokens:
         w = t.w
         if w.startswith("|"):
+            if res and res[-1][-1:] in "gdDb":
+                res[-1] = res[-1][:-1] + {"g": "k", "d": "t", "D": "T", "b": "p"}[res[-1][-1]]
             res.append(w); last = w; continue
         w = _junction_vowels(w)
         if not res or res[-1].startswith("|"):
             res.append(w); last = w; continue
         prev = res[-1]
-        compound = t.bol and w not in FUNC and _stem_like(last)
+        compound = t.bol and not _free_word(w) and _stem_like(last)
         j = _vsandhi(prev, w, force=compound, last=last)
         if j is None:
             j = _visarga(prev, w)
@@ -216,6 +225,8 @@ def render_hk(tokens, fixes=()):
                     res[-1] = prev[:-1] + H_GEM[prev[-1]] + w[1:]
                 else:
                     res.append(w)
+            elif prev[-1] == "c" and w[0] == "z":
+                res[-1] = prev + "ch" + w[1:]
             else:
                 res[-1] = prev + w
         elif compound:
