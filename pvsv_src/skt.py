@@ -194,7 +194,7 @@ EXTRA_VERSE_LINES = {"03405", "03406"}
 NONVERSE_LINES = {"13101", "13128"}
 # first verse lines that end in '//' where a single danda is meant
 MIDVERSE_DANDA = {"11027", "11113", "11121", "11208", "11214", "11302", "11308",
-                  "11405", "11415", "11503"}
+                  "11405", "11415", "11503", "14415"}
 
 def load(path=SRC_DEFAULT):
     toks = []
