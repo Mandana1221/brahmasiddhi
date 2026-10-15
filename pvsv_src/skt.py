@@ -59,6 +59,8 @@ def _junction_vowels(tok):
         tok = "".join(t)
     tok = re.sub(r"(?<=.)ae", "ai", tok)   # e-text marks a+e as 'ae'
     tok = re.sub(r"(?<=.)Ae", "ai", tok)
+    tok = re.sub(r"(?<=.)uu", "U", tok)
+    tok = re.sub(r"(?<=.)ii", "I", tok)
     tok = re.sub(r"(?<=.)Ao", "au", tok)
     return tok
 
