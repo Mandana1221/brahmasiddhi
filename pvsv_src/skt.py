@@ -18,7 +18,7 @@ VRDDHI = ("pauruSey", "vaiphaly", "vaikaly", "vaiyarthy", "nairAtmy", "trailoky"
           "mauna", "vaiSNav", "zaiv", "rauravA")
 
 # Indeclinables ending in a/A/i/u: a line ending with one of these is a separate word.
-INDECL = set("""sa ta ya ka ca na eva iva tatra atra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha
+INDECL = set("""pUrvatra paratra uttaratra sa ta ya ka ca na eva iva tatra atra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha
 vA yathA tathA sadA tadA yadA kadA kva api iti hi tu nu punaH bhavati asti nAsti syAt kila khalu
 nanu atha tAvat sarvathA anyathA ekadA ubhayathA iva kevalam yataH tataH ataH tAvan na-""".split())
 
@@ -67,7 +67,7 @@ def _first_vowel(w):
 
 # a-final words whose -a is underlying (so a+V sandhi applies). Other -a before a vowel
 # in the e-text is hiatus (from -aH / -e) and must stay separate.
-A_WORDS = set("atha ca na eva iva atra tatra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha "
+A_WORDS = set("nAma atha ca na eva iva atra tatra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha "
               "uta yena tena kena anena ena".split())
 AA_WORDS = set("tathA yathA sadA tadA yadA kadA sarvathA anyathA ubhayathA ekadA vA mA vinA sahA "
                "sA yA kA eSA saiSA".split())
@@ -174,7 +174,7 @@ def _stem_like(w):
     """Heuristic for a line-final token: compound member (join without space)?"""
     if w in INDECL or w in A_WORDS or w in AA_WORDS:
         return False
-    if w[-1] in "aiuR" and not w.endswith(("sya", "ena", "eNa", "ati", "Ni", "ini", "au", "ai", "Ani", "Ini", "Uni")):
+    if w[-1] in "aiuR" and not w.endswith(("sya", "ena", "eNa", "ati", "Ni", "ini", "au", "ai", "Ani", "Ini", "Uni", "Aya")):
         return True
     return False
 
@@ -183,6 +183,9 @@ class Token:
     def __init__(self, w, line, verse, bol):
         self.w, self.line, self.verse, self.bol = w, line, verse, bol
 
+# verse lines that lack the leading tab in the e-text
+EXTRA_VERSE_LINES = {"03405", "03406"}
+
 def load(path=SRC_DEFAULT):
     toks = []
     for raw in open(path, encoding="utf-8"):
@@ -190,7 +193,8 @@ def load(path=SRC_DEFAULT):
         if not m:
             continue
         num, body = m.groups()
-        verse = body.startswith("\t")
+        verse = body.startswith("\t") or num in EXTRA_VERSE_LINES
+        body = re.sub(r"//\s*(\d+)\s*/(?!/)", r"//\1//", body)   # e-text slip: '//63 /'
         body = re.sub(r"//\s*(\d+)\s*//", r" ||\1|| ", body)
         body = body.replace("//", " || ").replace("/", " | ")
         for k, w in enumerate(body.split()):
