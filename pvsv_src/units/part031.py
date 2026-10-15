@@ -17,7 +17,7 @@ dict(
 dict(
   label="第214偈　吟味に値する言明",
   upto="kaH punar asya avisaMvAdaH /",
-  fixes=[("anAzritya AgamAsituM", "anAzrityAgamamAsituM"), ("nAdriyetavicArayitum", "nAdriyeta vicArayitum"), ("parIkSyeta anyatrA", "parIkSyetAnyatrA")],
+  fixes=[("nAzritya AgamAsituM", "nAzrityAgamamAsituM"), ("nAdriyetavicArayitum", "nAdriyeta vicArayitum"), ("parIkSyeta anyatrA", "parIkSyetAnyatrA")],
   kfull="sambaddhAnuguNopAyaM puruSArthAbhidhAyakam |\nparIkSAdhikRtaM vAkyamato'nadhikRtaM param ||214||",
   tr="""<p>［問］では、「信頼できる人の言葉の不欺性との共通性から、推論であること」[第216偈]と、経典の妥当性が推論であると言われたこのことは、どうしてなのか。［答］この人は、経典に依拠せずにいることはできない。感覚を超えた果報をもつ何らかのことについて、行うこと・控えることに大きな利益や罪があると聞くからであり、またそれがあることに矛盾が見られないからである。だから、行動しなければならないときには、このように行動するのがよりよい、と[考えて]、吟味によって妥当性を[師は]述べるのである。そしてそれ[経典]は——</p>
 <p class="ktr">【第214偈】首尾一貫し、適切な手段をもち、人間の目的を語る言明が、吟味に値する。それ以外のものは[吟味に]値しない。</p>
