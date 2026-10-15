@@ -40,7 +40,8 @@ dict(
 <p>［問］では今、どうして作られたものは必ず無常であると理解されるべきなのか。それによってこのように言われるのは。［答］なぜなら——<b>消滅には原因がないので、本性によって随伴するのである</b>。なぜなら、事物は滅びるとき、その状態について原因を必要としない。自らの原因からすでに滅びる性質のものとして存在するからである。それゆえ、何であれ作られたものは、本来、滅びるものである。すなわち——</p>""",
   cm="""<p><b>主張の省略</b>：Dharmakīrti の論式では「音声は無常である」という主張命題（<i>pratijñā</i>）は不要である。遍充（「作られたものはすべて無常」）と、主題における論証因の存在（「音声は作られたもの」）を示せば、結論はおのずから理解される。これはニヤーヤ学派の五支論証や、主張を論証式の一部とする Dignāga 以前の伝統に対する立場表明でもある。</p>
 <p><b>消滅に原因がない</b>：ここから刹那滅論証の核心に入る。消滅が外的な原因（棒で壺を打つなど）によって起こるなら、その原因がない場合には消滅しないものもありうる。消滅が原因を必要とせず、事物の本性そのものであるからこそ、「作られたものは必ず無常である」と言える。これが「消滅無因説」（<i>vināśāhetukatva</i>）である。</p>
-<p class="pvin"><b>PVin 対応</b>：PVin 2 は「<i>tau punar hetū yatkiñcit kṛtakaṃ …</i>」と例を挙げるが、本偈前半に相当する偈はない。後半 <i>ahetutvād vināśasya svabhāvād anubandhitā</i> は、PVin でも同じ形で引かれ、続く自注の文もほぼ同文である。</p>"""
+<p class="pvin"><b>PVin 対応</b>：PVin 2 は「<i>tau punar hetū yatkiñcit kṛtakaṃ …</i>」と例を挙げるが、本偈前半に相当する偈はない。後半 <i>ahetutvād vināśasya svabhāvād anubandhitā</i> は、PVin でも同じ形で引かれ、続く自注の文もほぼ同文である。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（1968/69「Die Entwicklung des <i>kṣaṇikatvānumānam</i> bei Dharmakīrti」）によれば、刹那滅の論証は次のように発展した。PV 第1章の Vṛtti では、「作られたものは無常である」という遍充を、消滅に原因がないこと（<i>vināśitvānumāna</i>、本偈以下と第269偈以下）によって基礎づける。PVin 第2章ではこれに加えて、「目的の実現をなしうるもの（存在するもの）は、順次にも同時にも働けない常住なものではありえない」という存在性からの論証（<i>sattvānumāna</i>）が導入される。この論証は HB でさらに整えられる。</p>"""
 ),
 dict(
   label="第194偈　条件に依存するものには必然性がない",
@@ -100,7 +101,8 @@ dict(
 <li><b>作用の否定</b>：「棒は壺の非存在を作る」と言っても、非存在が何かの「もの」なら、それは存在であって非存在ではない。結局「棒は何も作らない」と言っているにすぎない。</li>
 </ol>
 <p><b>本文校訂</b>：e-text の <i>vināśaṃ praty <u>anapekṣayā</u> bhāvasya</i> は、PVin の並行文に従って <i>anapekṣatā</i> と読む。</p>
-<p class="pvin"><b>PVin 対応</b>：PVin 2 では本偈の前半 <i>asāmarthyāc ca taddhetoḥ</i> と、<i>bhavaty eṣa svabhāvataḥ</i> が散文の中に引かれ、後半が PVin 2.56ab <i>yatra nāma bhavaty asmād anyatrāpi svabhāvataḥ</i> と一致する。</p>"""
+<p class="pvin"><b>PVin 対応</b>：PVin 2 では本偈の前半 <i>asāmarthyāc ca taddhetoḥ</i> と、<i>bhavaty eṣa svabhāvataḥ</i> が散文の中に引かれ、後半が PVin 2.56ab <i>yatra nāma bhavaty asmād anyatrāpi svabhāvataḥ</i> と一致する。</p>
+<p class="stk"><span class="tag">Steinkellner</span>上記の Steinkellner の指摘は、手元の PVin テキストでも確かめられる。PVin 第2章では、第194・195偈に対応する PVin 2.53–54 のあと、本偈後半に対応する PVin 2.56 より前の位置に、 <i>arthakriyāsamarthaṃ yat tad atra paramārthasat / asanto 'kṣaṇikās tasyāṃ kramākramavirodhataḥ</i>（PVin 2.55、「要約偈」）が置かれ、順次・同時の矛盾による存在性からの論証が展開される。この偈とその議論は PVSV にはない。</p>"""
 ),
 dict(
   label="第197偈　実在を対象とする推論は二種のみ",

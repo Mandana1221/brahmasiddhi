@@ -17,7 +17,8 @@ dict(
 <tr><td>本性である特定の属性</td><td>生起（<i>utpatti</i>）</td><td>本性そのものである特定の属性を取り上げたもの</td></tr>
 </table>
 <p>この三分類は、後の『論理一滴』（<i>Hetubindu</i>）でも本性因の区分として整理される。</p>
-<p class="pvin"><b>PVin 対応</b>：PVin 2.52 <i>upādhyapekṣaḥ śuddho vā nāśe kāryatvasattvavat</i>。PV の本偈と趣旨は同じで、表現が異なる（「限定の区別に依存するもの／単独のもの」が「限定に依存するもの／純粋なもの」になっている）。続く散文（<i>apekṣitaparavyāpāro hi …</i> から <i>svabhāvahetupravibhāgā draṣṭavyāḥ</i> まで）は、PVSV とほぼ同文である。</p>"""
+<p class="pvin"><b>PVin 対応</b>：PVin 2.52 <i>upādhyapekṣaḥ śuddho vā nāśe kāryatvasattvavat</i>。PV の本偈と趣旨は同じで、表現が異なる（「限定の区別に依存するもの／単独のもの」が「限定に依存するもの／純粋なもの」になっている）。続く散文（<i>apekṣitaparavyāpāro hi …</i> から <i>svabhāvahetupravibhāgā draṣṭavyāḥ</i> まで）は、PVSV とほぼ同文である。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner は、本性因の理論が PV 第1章の Vṛtti から PVin、HB、<i>Vādanyāya</i> へと段階的に展開したことを跡づけている。本偈の三分類は、PVin 2.52 とその自注にほぼそのまま引き継がれる。</p>"""
 ),
 dict(
   label="第187偈　［反論］存在性が論証因なら、存在性も論証できるはず",

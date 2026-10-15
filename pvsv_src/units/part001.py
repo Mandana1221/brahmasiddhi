@@ -123,8 +123,9 @@ dict(
 ① PVin は例を「非知覚 → 本性 → 結果」の順に挙げる（偈の <i>anupalambhātmakāryākhyāḥ</i> の語順に合わせている）。
 ② PVin は「<i>yadi <b>hi</b> syāt</i>」と <i>hi</i> を入れる。
 ③ PVin には最後の「<i>tenopalabdhilakṣaṇaprāptasattvasyety uktaṃ bhavati</i>」がない。
-PVSV は、PVin の文を PV の偈に合わせて並べ替え、説明を一文補ったものと見ることができる。</p>
-<p class="pvin"><span class="tag">対応</span>NB 2.11–12 も参照。</p>""",
+Frauwallner 以来の通説（Steinkellner も同じ）では PV 第1章と Vṛtti が Dharmakīrti の最初期の著作で、PVin はそれより後に書かれた。したがって、PVin がこの段を整理し直したものと見るのが自然である（PVin では最後の一文が省かれ、例の順序が偈に合わせて組み替えられている）。</p>
+<p class="pvin"><span class="tag">対応</span>NB 2.11–12 も参照。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013『Dharmakīrtis frühe Logik』）は、論証因を結果・本性・非知覚の三種に限り、その根拠を二つの実在的関係（同一性 <i>tādātmya</i> と因果関係 <i>tadutpatti</i>）に求める理論が、ここで初めて示されたことを重視する。Dignāga の三相説を受け継ぎながら、なぜ三相が成り立つのかを実在の関係で裏づけた点が、Dharmakīrti の新しさである。</p>""",
 ),
 dict(
   label='自注 §8\u3000本質的結合（svabhāvapratibandha）',

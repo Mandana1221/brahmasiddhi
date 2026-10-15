@@ -52,7 +52,8 @@ dict(
 <p><b>因果の示し方</b>：火と煙のように別個のものの場合は、「火があるときにのみ煙がある」ことを喩例（かまど）で示す。</p>
 <p><b>結論</b>：結合が示されれば、否定的随伴は「本性・原因なしにはありえない」ことから自動的に成立する。異類例に具体的な基体は要らない。</p>
 <p class="note">本文：電子テキスト <i>kṣaṇasthitodharmā</i> は <i>kṣaṇasthitidharmā</i>（刹那的に存続する性質をもつ）と読んだ（暫定的な訂正）。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章（k.71 の後の散文）にほぼ同文がある（「<i>dṛṣṭānte hi sādhyadharmasya tadbhāvas tanmātrānubandhena khyāpyate. yaḥ kṛtakasvabhāvaṃ janayati, so 'nityaṃ svabhāvaṃ santaṃ janayatīti pramāṇaṃ dṛṣṭāntenopadarśyate …</i>」）。ただし PVin には偈の文句がなく、「<i>anyathaikadharmasadbhāvāt …</i>」（疑いが残る）と「<i>svakāraṇād eva kṛtakas …</i>」（刹那滅の説明）の二文もない。</p>"""
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章（k.71 の後の散文）にほぼ同文がある（「<i>dṛṣṭānte hi sādhyadharmasya tadbhāvas tanmātrānubandhena khyāpyate. yaḥ kṛtakasvabhāvaṃ janayati, so 'nityaṃ svabhāvaṃ santaṃ janayatīti pramāṇaṃ dṛṣṭāntenopadarśyate …</i>」）。ただし PVin には偈の文句がなく、「<i>anyathaikadharmasadbhāvāt …</i>」（疑いが残る）と「<i>svakāraṇād eva kṛtakas …</i>」（刹那滅の説明）の二文もない。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2004「The early Dharmakīrti on the purpose of examples」）はこの前後（Gnoli 17–19）を取り上げ、付録で英訳している。初期の Dharmakīrti にとって喩例の役割は、遍充の根拠である本質的結合（同一性・因果関係）を示すことにあり、それをすでに知っている者には論証因だけを述べれば足りる（第27偈後半）。喩例を論式の独立した支分とする Dignāga 以前の見方からの転換点とされる。</p>"""
 ),
 dict(
   label="第27偈後半　知っている者には論証因だけでよい",
