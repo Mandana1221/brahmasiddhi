@@ -52,12 +52,13 @@ def _junction_vowels(tok):
         if tail[0] in "aAiIuUReo":
             continue
         out.append((i, fix(m)))
-    if not out:
-        return tok
-    t = list(tok)
-    for i, rep in reversed(out):
-        t[i:i + 2] = list(rep)
-    return "".join(t)
+    if out:
+        t = list(tok)
+        for i, rep in reversed(out):
+            t[i:i + 2] = list(rep)
+        tok = "".join(t)
+    tok = re.sub(r"(?<=.)ae", "ai", tok)   # e-text marks a+e as 'ae'
+    return tok
 
 VOW = "aAiIuURLeo"
 def _first_vowel(w):
@@ -174,7 +175,7 @@ def _stem_like(w):
     """Heuristic for a line-final token: compound member (join without space)?"""
     if w in INDECL or w in A_WORDS or w in AA_WORDS:
         return False
-    if w[-1] in "aiuR" and not w.endswith(("sya", "ena", "eNa", "ati", "Ni", "ini", "au", "ai", "Ani", "Ini", "Uni", "Aya")):
+    if w[-1] in "aiuR" and not w.endswith(("sya", "ena", "eNa", "ati", "Ni", "ini", "au", "ai", "Ani", "Ini", "Uni", "Aya", "Su")):
         return True
     return False
 
