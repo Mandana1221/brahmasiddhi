@@ -56,7 +56,7 @@ dict(
 dict(
   label="第250偈後半　一つの部分のない文は順に理解されえない",
   upto="sati vA tad anityaM vA syAn nityaM vA / yadi /",
-  fixes=[('yathA kathaMcit', 'yathAkathaMcit'), ('sAdhume syAt', 'sAdhu me syAt')],
+  fixes=[('yathA kathaMcit', 'yathAkathaMcit'), ('sAdhume syA', 'sAdhu me syA')],
   kfull="sakRcchrutau ca sarveSAM kAlabhedo na yujyate |\nekatve'pi hyabhinnasya kramazo gatyasambhavAt ||250||",
   tr="""<p class="ktr">【第250偈後半】また、一つであるとしても、区別のないものには、順次に理解されることはありえないからである。</p>
 <p>［自注］時間の違いはまったく理にかなわない。なぜなら、一つのものが順に理解されることは理にかなわない。把握されたものと把握されていないものとが区別されないからである。しかし文の理解は順になされるのが見られる。文全体を発音し、聞き、想起する時間は、多くの刹那・まばたきの順次によって完了するからであり、音素の姿に触れず一つの知に現れる語の本体は現れないからであり、音素の順次が理解されるからである。それら[音素]に違いがなくても、文の違いは順序によって作られるので、文の理解は順序をもつ。もし音素の順序の助けに依存しないなら、それら[音素]をどのように用いても、あるいは音素なしでも、何らかの文が理解されるであろう。順序をもつそれらによって、順序のないものが助けられることはありえないからであり、順序なしに発音することはできないからであり、他の道がないからである。</p>
