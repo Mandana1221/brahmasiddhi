@@ -29,7 +29,8 @@ dict(
   cm="""<p><b>批判の相手</b>：第16–18偈は、否定的随伴は「異類に見られないこと（<i>adarśanamātra</i>）」で成立する、と考える論者を批判する。注釈の伝統では、この論者を Īśvarasena とする。</p>
 <p><b>論旨</b>：Dignāga は、論証では同類例と異類例の両方を述べるべきだとした。異類例を述べる目的が「異類に論証因が見られないこと」を知らせるだけなら、その陳述は不要である。不見は観察がないことにすぎず、言われなくても聞き手にはすでに成り立っているからである。異類例の陳述に意味があるのは、本質的結合に基づいて否定的随伴を<em>確定</em>させるからである。</p>
 <p><b>想起の反論</b>：肯定的随伴の例（かまどに火と煙がある）は、聞き手に過去の観察を思い出させる役に立つ。しかし不見は「思い出す」べき内容をもたない。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章では、第16偈の内容が偈の形をとらず散文で述べられる（「<i>asaty api pratibandhe 'darśanamātreṇa vyatireke yad āha … yadi tena vipakṣe 'darśanaṃ khyāpyate, tad anukte 'pi gamyate</i>」）。PVSV の偈は、この散文を韻文化したものとも見られる。異読は次のとおり。PVin「<i>smṛtir vācā 'darśane</i>」「<i>smaraṇārthaṃ vacanam</i>」／PVSV「<i>smaraṇādhānam</i>」。</p>"""
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章では、第16偈の内容が偈の形をとらず散文で述べられる（「<i>asaty api pratibandhe 'darśanamātreṇa vyatireke yad āha … yadi tena vipakṣe 'darśanaṃ khyāpyate, tad anukte 'pi gamyate</i>」）。PVSV の偈は、この散文を韻文化したものとも見られる。異読は次のとおり。PVin「<i>smṛtir vācā 'darśane</i>」「<i>smaraṇārthaṃ vacanam</i>」／PVSV「<i>smaraṇādhānam</i>」。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の分析では、第16偈から第20偈前後（Gnoli 11,5–15,8）は、全体として Īśvarasena の「単なる不見」（<i>adarśanamātra</i>）説の論駁にあてられる。Īśvarasena は Dharmakīrti の師で、Dignāga『集量論』の注釈を書いた人物である。Steinkellner によれば、Dignāga 自身も『集量論』第5章（アポーハ論）で同じ <i>adarśanamātra</i> の考えを述べているが、Dharmakīrti はそのことには触れず、師の説として一貫して批判している。</p>"""
 ),
 dict(
   label="第17偈　「ない」と言うだけでは「ない」ことにならない",

@@ -18,7 +18,8 @@ dict(
 <li>事物は一つでも、区別の観点が異なるので、概念（属性）は異なる。だから論証因と所証は、概念として別のものでありうる。</li>
 </ul>
 <p>これが Dignāga に始まるアポーハ（<i>apoha</i>、他者の排除）論である。言葉と概念は、実在する普遍を指すのではない。「それ以外のものからの区別」を指す。第40偈から長い議論が始まる。</p>
-<p class="pvin"><span class="tag">PVin</span>第40–42偈は PVin 第2章 k.29–31（中間偈）と同文である。PVin では、Dignāga の言葉「<i>sarva evāyam anumānānumeyavyavahāro buddhyārūḍhena …</i>」の引用（PVSV 2,22–3,3 に当たる）の直後に置かれている。つまり PVin では、§8「属性の区別の構想」（1,19 以下）の根拠として、この三偈がすぐに示される。PVSV では同じ論点が、ここまで先送りされている。</p>"""
+<p class="pvin"><span class="tag">PVin</span>第40–42偈は PVin 第2章 k.29–31（中間偈）と同文である。PVin では、Dignāga の言葉「<i>sarva evāyam anumānānumeyavyavahāro buddhyārūḍhena …</i>」の引用（PVSV 2,22–3,3 に当たる）の直後に置かれている。つまり PVin では、§8「属性の区別の構想」（1,19 以下）の根拠として、この三偈がすぐに示される。PVSV では同じ論点が、ここまで先送りされている。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の分析では、ここから第185偈まで（Gnoli 24,16–93,5）がアポーハに関する長い余論である。本性因では論証因が主張の内容の一部になってしまう、という非難に答えるために置かれている（VI.1b β「帰謬による結合の確定」に付属）。Steinkellner の独訳はこの部分を含まず、内容の要約は Frauwallner の論文（1932–35）に譲っている。</p>"""
 ),
 dict(
   label="自注　普遍の否定",

@@ -72,6 +72,14 @@ def render_skt(u):
                 s = s.replace(a, b, 1); used.add(i)
         return s
 
+    def hk_lines(g):
+        # the fixes were matched on the whole verse group; apply them to each half-verse too
+        s = skt.render_hk(g)
+        for a, b in fixes:
+            if a in s:
+                s = s.replace(a, b, 1)
+        return s
+
     for verse, g in groups:
         s = hk_of(g)
         nwords = len([t for t in g if not t.w.startswith("|")])
@@ -85,7 +93,7 @@ def render_skt(u):
             if cur:
                 lines.append(cur)
             if len(lines) > 1:
-                parts = [hk_of(l) for l in lines]
+                parts = [hk_lines(l) for l in lines]
             else:
                 parts = [s]
             isk = any(KNUM.match(t.w) for t in g)

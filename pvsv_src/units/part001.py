@@ -16,7 +16,8 @@ dict(
   tr="""<p>世の人はたいてい俗事に執着し、[真理に]立ち向かうだけの智慧（<i>prajñā</i>）をもたない。良き言葉（<i>subhāṣita</i>）を求めないばかりか、嫉妬の垢にまみれて、それを憎みさえする。だから私たちは、この[書]が他者を益する（<i>paropakāra</i>）ものになるとは考えてもいない。けれども私たちの心は、長いあいだ優れた言葉（<i>sūkta</i>）に親しむうちに熱中が深まり、この[著作]に強く惹かれているのである。</p>""",
   cm="""<p>大乗の論書は、ふつう「他者のために（<i>parārtha</i>）」書くと宣言する。ところがこの偈は、利他は期待できないと言い切り、執筆の動機を「長年の学習で募った熱中（<i>vyasana</i>）」に求めている。謙遜と皮肉の混じった、有名な序偈である。</p>
 <p><b>naḥ</b>（私たちの）：一人称複数は著者の謙譲表現である。</p>
-<p class="pvin"><span class="tag">PVin</span>この偈も PVin にはない。ただし PVin の冒頭偈にも「鈍い知性の世の人（<i>jaḍamatir lokaḥ</i>）」には[真意が]分からない、という表現があり、世人への悲観的な見方という点では通じ合う。</p>""",
+<p class="pvin"><span class="tag">PVin</span>この偈も PVin にはない。ただし PVin の冒頭偈にも「鈍い知性の世の人（<i>jaḍamatir lokaḥ</i>）」には[真意が]分からない、という表現があり、世人への悲観的な見方という点では通じ合う。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 は、帰敬偈と本偈を I・II、巻末の偈（本書の第340偈）を III と数え、本文の偈とは区別する。本偈に表れた孤立感について、Steinkellner は、経典一般への批判的な姿勢や、師 Īśvarasena との理論上の対立が背景にあると推測する。</p>""",
 ),
 dict(
   label='導入',
@@ -39,7 +40,8 @@ dict(
 </ol>
 <p>例：「この山には火がある（所証）、煙があるから（論証因）」。この場合、主題（pakṣa）は「この山」、所証の属性（<i>sādhyadharma</i>）は「火」、論証因は「煙」である。</p>
 <p class="pvin"><span class="tag">PVin</span>PVin 第2章では、まず「<i>svārthaṃ trirūpāl liṅgato 'rthadṛk</i>」（自己のための[推論]とは、三相をもつ論証因から対象を見ること）と定義する。そのうえで、三相を k.9 で「<i>anumeye 'tha tattulye sadbhāvo nāstitāsati / niścitā</i>」と、Dignāga 以来の用語（<i>anumeya</i>・<i>tattulya</i>・<i>asat</i>）のまま規定する。続く k.9'cd「<i>'nupalambhātmakāryākhyā hetavas trayaḥ</i>」で三種の因を挙げる。PV 第1偈は、同じ内容を <i>pakṣadharma</i> と <i>vyāpti</i> の二概念で言い換えている点が特徴である。</p>
-<p class="pvin"><span class="tag">対応</span>この偈は Hetubindu（HB）冒頭の偈と同文である。Nyāyabindu 2.5–7（三相）、2.11–12（三種の因）も参照。</p>""",
+<p class="pvin"><span class="tag">対応</span>この偈は Hetubindu（HB）冒頭の偈と同文である。Nyāyabindu 2.5–7（三相）、2.11–12（三種の因）も参照。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013（Analyse, S.127–142）によれば、本書（Frauwallner の呼び方で *<i>Hetuprakaraṇa</i>）は、一見乱雑に見えても明確な構成をもつ。序（第1偈前半）のあと、I. 論証因の定義の説明（Gnoli 1,12–2,14）、II. 三種の論証因（2,14–3,9）、III. 三種の各論（3,9–6,21）、IV. 本質的結合（10,13–20,13）、V. 不可離の結合の限定は本性による（20,14–21,24）、VI. 三種の論証因における結合の認識（21,24 以下、構造上は本書の最後まで）と続く。アポーハ論（第40–185偈）と、経典の権威をめぐる議論（第213–339偈）は VI の中の余論である。定義から当然予想される VII. 似因（<i>hetvābhāsa</i>）の論は書かれていない。また本書は偈に散文の注をつけたものではなく、はじめから偈と散文を組み合わせた混成体（<i>miśraka</i>）の作品として書かれた、と Steinkellner は考える。</p>""",
 ),
 dict(
   label='自注 §1\u3000pakṣa ＝ dharmin',
