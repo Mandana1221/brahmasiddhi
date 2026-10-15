@@ -32,7 +32,6 @@ dict(
 dict(
   label="第52偈　限定（upādhi）説の批判",
   upto="upakAratvena api iti /",
-  fixes=[("bhinnaivopAdhayaH", "bhinnA evopAdhayaH"), ("bhinnaiva zabda", "bhinnA eva zabda")],
   kfull="yasyApi nAnopAdherdhIrgrAhikArthasya bhedinaH |\nnAnopAdhyupakArAGgazaktyabhinnAtmano grahe ||52||\nsarvAtmanopakArasya ko bhedakaH syAdanizcitaH |\ntayorAtmani sambandhAdekajJAne dvayagrahaH ||53||",
   tr="""<p class="ktr">【第52偈】また、知が、多くの限定（<i>upādhi</i>）をもつ区別された対象を捉えるものだとする者にとっても、多くの限定を助ける要因である能力と、自体が異ならない[事物]を把握するとき——</p>
 <p class="ktr">【第53偈】全体として[限定を]助けるもの[である事物]の、どの区別するもの[限定]が確定されないままであろうか。両者[限定と限定をもつもの]は自体において結合しているので、一つの知において両者が把握される。</p>
@@ -54,7 +53,6 @@ dict(
 dict(
   label="第54偈　能力を別物としても無限遡及",
   upto="tadupakArAtmA tadvattvena na gRhyate /",
-  fixes=[("bhinnaiva zaktayaH", "bhinnA eva zaktayaH"), ("bhinnaiva bhAvAt", "bhinnA eva bhAvAt")],
   tr="""<p>［対論者］また、こう言うかもしれない。能力をもつもの[事物]には、それによって限定を助ける、[事物とは]別の能力がある。だから、この[すべての限定が把握される]誤った帰結はない、と。</p>
 <p class="ktr">【第54偈】属性を助ける能力が[事物と]異なるなら、それら[の能力]はそれ[事物]の何であるのか。もしそれ[事物]からそれら[能力]への助けがないなら[、それの能力とは言えない]。[助けがあるなら]同様に無限遡及（<i>anavasthiti</i>）になるであろう。</p>
 <p>［自注］もし、各限定に対する[事物の]助けるはたらき（能力）が、それ[事物]の自体ではなく、またそれ[事物]から助けを受けることもないなら、どうしてそれらが「それ[事物]の」[能力]と言われるのか。あるいは[事物が能力を]助けるのなら、自体となっている能力によって[別の]能力を助けるこの一つの[事物]は、一つの限定によって把握されるときでも、全体として把握されることになる。すなわち、一つの限定を把握するとき、それを助ける能力が把握される。それを把握するとき、それを助ける事物が、自体となっているすべての能力への助けとともに把握される。[その事物が]すべての能力を把握させ、それら[能力]が自らの限定を[把握させる]。だから誤った帰結は元のままである。</p>

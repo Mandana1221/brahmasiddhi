@@ -46,7 +46,7 @@ dict(
   label="第105偈・第106偈前半　個物が普遍を助けるなら知を直接助ければよい",
   upto="vijJAnaM kurvantu / kiM ca /",
   kfull="zaktisiddhiH samUhe'pi naivaM vyakteH kathaMcana |\ntAsAmanyatamApekSaM taccecchaktaM na kevalam ||105||\ntadekamupakuryustAH kathamekAM dhiyaM ca na |\nkAryazca tAsAM prApto'sau jananaM yadupakriyA ||106||",
-  fixes=[("karoti pratyekam |", "karoti | pratyekaM"), ("tadhetuH", "taddhetuH"), ("bhinnApyekaM", "bhinnA apyekaM"), ("upakurvantikaH", "upakurvanti kaH")],
+  fixes=[("karoti pratyekam |", "karoti | pratyekaM"), ("tadhetuH", "taddhetuH"), ("upakurvantikaH", "upakurvanti kaH")],
   tr="""<p class="ktr">【第105偈】集まりにおいても能力が成立する。個物はどのようにしてもそうではない。もしそれ[普遍]が、それら[個物]のうちいずれか一つに依存して能力をもつのであって、単独ではない、というなら——</p>
 <p>［自注］［反論］また、こうであろう。織り手は織機（<i>veman</i>）なしでは布を作らない。[しかし]それぞれ[特定の]織機がなくても、織り手は[別の織機で]作るので、その[特定の織機]からだけ布が生じるのではない。同様に、個物の一つ一つがなくなって認識が生じる場合にも、普遍だけがその原因であるのではない。そうではなく、個物のうちのいずれか一つに依存して認識を生み出すのである、と。</p>
 <p>［答論］そうであるなら——</p>

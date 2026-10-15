@@ -85,7 +85,7 @@ def _a_underlying(w):
 def _aa_underlying(w):
     if w in AA_WORDS:
         return True
-    return w.endswith(("yA", "tA", "nA", "NA", "dhA", "kA", "tvA", "tmA")) and len(w) > 2
+    return w.endswith(("yA", "tA", "dhA", "kA", "tvA", "tmA", "vinA", "anA")) and len(w) > 2
 
 FUNC = set(("iti ity eva api apy iva ca na hi tu vA cet punaH punar tathA yathA ced iha atra tatra kila khalu "
             "Aha AhuH ayam ayaM iyam iyaM idam idaM anena asya asau eSa etat etad evam evaM atha anyathA anyatra "
