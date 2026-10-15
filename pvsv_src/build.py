@@ -112,7 +112,7 @@ def render_skt(u):
             out.append('<div class="skt prose">%s</div>' % " ".join(b[1]))
         else:
             _, isk, parts = b
-            cls = "karika" if isk and not u.get("kfull") else "verse"
+            cls = "karika" if isk and not u.get("kfull") and not u.get("kshown") else "verse"
             out.append('<div class="skt %s">%s</div>' % (cls, "".join(
                 '<span class="pada">%s</span>' % html.escape(skt.dev(p)) for p in parts)))
     return "\n".join(out)

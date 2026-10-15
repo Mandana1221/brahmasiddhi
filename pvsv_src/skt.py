@@ -24,6 +24,7 @@ nanu atha tAvat sarvathA anyathA ekadA ubhayathA iva kevalam yataH tataH ataH tA
 
 def _junction_vowels(tok):
     """Convert e-text a+u -> o / a+i -> e markers ('au','ai' inside a word)."""
+    tok = re.sub(r"(?<=.)(AA|aA|Aa)", "A", tok)
     def fix(m):
         i = m.start()
         rest = tok[i:]
@@ -61,7 +62,7 @@ def _first_vowel(w):
 
 # a-final words whose -a is underlying (so a+V sandhi applies). Other -a before a vowel
 # in the e-text is hiatus (from -aH / -e) and must stay separate.
-A_WORDS = set("ca na eva iva atra tatra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha "
+A_WORDS = set("atha ca na eva iva atra tatra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha "
               "uta yena tena kena anena ena".split())
 AA_WORDS = set("tathA yathA sadA tadA yadA kadA sarvathA anyathA ubhayathA ekadA vA mA vinA sahA "
                "sA yA kA eSA saiSA tA".split())
@@ -74,7 +75,7 @@ def _a_underlying(w):
 def _aa_underlying(w):
     if w in AA_WORDS:
         return True
-    return w.endswith(("yA", "tA", "nA", "vA", "dhA")) and len(w) > 2
+    return w.endswith(("yA", "tA", "nA", "vA", "dhA", "kA")) and len(w) > 2
 
 FUNC = set("iti eva api iva ca na hi tu vA cet punaH punar tathA yathA ced iha atra tatra tu kila khalu".split())
 
@@ -210,7 +211,7 @@ def render_hk(tokens, fixes=()):
             res[-1] = prev[:-1] + "M"
             res.append(w)
         elif prev[-1] in CONS:
-            if w[0] == "h":
+            if w[0] == "h" and prev[-1] in "kgcjTDtdpb":
                 if prev[-1] in H_GEM:
                     res[-1] = prev[:-1] + H_GEM[prev[-1]] + w[1:]
                 else:
