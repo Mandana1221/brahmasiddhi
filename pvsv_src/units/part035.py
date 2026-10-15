@@ -39,7 +39,7 @@ dict(
   head="非人為性の論拠の批判：作者が記憶されないこと（第239偈以下）",
   label="第239偈　作者が記憶されないから非人為だという説",
   upto="yad evaM prativyUhyeran /",
-  fixes=[("hitaIpsA vipralabdhasya", "hitepsAvipralabdhasya")],
+  fixes=[("hitaIpsA", "hitepsA")],
   kfull="apauruSeyatApISTA kartRRNAmasmRteH kila |\nsantyasyApyanuvaktAra iti dhigvyApakaM tamaH ||239||",
   tr="""<p class="ktr">【第239偈】作者たちが記憶されていないから、人に由来しないことが認められる、というのだ。これを繰り返し唱える者たちまでいる。ああ、遍く覆う闇よ。</p>
 <p>［自注］ヴェーダの文が人に由来しないことが、作者が記憶されていないことから説かれるこのこと、——その[最初に説いた]人に、どうしてこのような知性のつまずきが起こったのか、と我々の心は驚きと憐れみに満ちる。そしてそれを他の人々も繰り返し唱えている。ああ、無慈悲に世界を覆う、遍く覆う闇よ。善を求めて欺かれた生き物に、何の罪があろうか。</p>
