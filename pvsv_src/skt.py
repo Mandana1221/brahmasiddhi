@@ -190,6 +190,9 @@ class Token:
 
 # verse lines that lack the leading tab in the e-text
 EXTRA_VERSE_LINES = {"03405", "03406"}
+# first verse lines that end in '//' where a single danda is meant
+MIDVERSE_DANDA = {"11027", "11113", "11121", "11208", "11214", "11302", "11308",
+                  "11405", "11415", "11503"}
 
 def load(path=SRC_DEFAULT):
     toks = []
@@ -199,6 +202,8 @@ def load(path=SRC_DEFAULT):
             continue
         num, body = m.groups()
         verse = body.startswith("\t") or num in EXTRA_VERSE_LINES
+        if num in MIDVERSE_DANDA:
+            body = re.sub(r"//\s*$", "/", body)
         body = re.sub(r"//\s*(\d+)\s*/(?!/)", r"//\1//", body)   # e-text slip: '//63 /'
         body = re.sub(r"//\s*(\d+)\s*//", r" ||\1|| ", body)
         body = body.replace("//", " || ").replace("/", " | ")

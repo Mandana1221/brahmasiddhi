@@ -40,7 +40,7 @@ dict(
 dict(
   label="第221偈　真実を本性とする心は逆のものに妨げられない",
   upto="yatpratipakSa abhyAsAt prahIyante /",
-  fixes=[("viparyayaiH ||", "viparyayaiH |"), ("upAdAna balabhAvi", "upAdAnabalabhAvi")],
+  fixes=[("upAdAna balabhAvi", "upAdAnabalabhAvi")],
   kfull="nirupadravabhUtArthasvabhAvasya viparyayaiH |\nna bAdhA yatnavattve'pi buddhestatpakSapAtataH ||221||",
   tr="""<p class="ktr">【第221偈】障害のない、真実の対象を本性とするもの[心]には、努力があっても、逆のものによる妨げはない。知はその側に傾くからである。</p>
 <p>［自注］なぜなら、本性は努力なしには退けることができない。ヴェーダ学者がカーパーリカ[髑髏派の行者]を嫌悪するように。そして努力は、得るべき本性と退けるべき本性とに徳と過失を見ることによってなされるであろう。しかしそれは、対立するもの[智慧]を本性とする人には、過失に関してはありえない。その人には障害がないからであり、あらゆる過失が捨てられているからであり、煩悩の現れの生起に結びついた苦を見分けているからであり、寂静の楽の味わいによって動揺しないからである。</p>
@@ -52,7 +52,7 @@ dict(
 dict(
   label="第222偈　すべての過失は有身見から生じる",
   upto="tad eva ca ajJAnam ity ucyate /",
-  fixes=[("satkAyadarzanAt ||", "satkAyadarzanAt |"), ("pazyataM", "pazyataH")],
+  fixes=[("pazyataM", "pazyataH")],
   kfull="sarvAsAM doSajAtInAM jAtiH satkAyadarzanAt |\nsAvidyA tatra tatsnehastasmAddveSAdisambhavaH ||222||",
   tr="""<p class="ktr">【第222偈】あらゆる種類の過失の生起は、有身見（<i>satkāyadṛṣṭi</i>）から[である]。それが無明である。それ[有身見]があると、それ[自己と自己のもの]への愛着があり、それから憎しみなどが生じる。</p>
 <p>［自注］なぜなら、「私ではない、私のものではない」と見る者には、執着なしに、どこにも愛着はない。また貪りのない者には、どこにも憎しみはない。自己と自己のものを妨げないものや、妨げを防ぐものについては、それ[憎しみ]はないからである。それゆえ、同種のものの修習から生じる自己の見解が、「自己のもの」という把握を生む。そしてその二つが、それへの愛着を[生み]、それ[愛着]が憎しみなどを[生む]。だから、すべての過失は有身見から生じる。そしてそれこそが無知と言われる。</p>""",
@@ -69,7 +69,7 @@ dict(
 dict(
   label="第223偈　愚かさと有身見とが過失の根本と説かれる理由",
   upto="sa tu kSINadoSo duranvayo yadupadezAd ayaM pratipadyeta /",
-  fixes=[("bhidhIyate ||", "bhidhIyate |"), ("prAdhAnye ekaika", "prAdhAnya ekaika")],
+  fixes=[("prAdhAnye ekaika", "prAdhAnya ekaika")],
   kfull="moho nidAnaM doSANAmata evAbhidhIyate |\nsatkAyadRSTiranyatra tatprahANe prahANataH ||223||",
   tr="""<p class="ktr">【第223偈】まさにそれゆえ、愚かさ（<i>moha</i>）が過失の根本原因と説かれ、他のところでは有身見が[そう説かれる]。それが捨てられると、[過失が]捨てられるからである。</p>
 <p>［自注］[経典は]愚かさを過失の根本原因と言う。愚かでない者には過失が生じないからである。また他のところでは有身見を[根本原因と言う]。そしてこのこと[二通りの説示]は、もし[両者を別々に]主要なものとして示しているのであれば、[矛盾]であろう。多くのものから生じる過失が、[それぞれ]一つ[の原因]から生じることと矛盾するからである。また二つが主要であるなら、一つずつ示すことは十分な意味をもたない。[しかし実際には両者は同じものなので]どちらの仕方でも、一つを示すことに矛盾はない。そして主要であるとは、それ[過失]の質料因であることによる。それが捨てられると過失が捨てられるからである。</p>
