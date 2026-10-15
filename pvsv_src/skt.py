@@ -44,7 +44,7 @@ def _junction_vowels(tok):
         i = m.start()
         if i == 0 or tok[i - 1] == "a" or i + 2 >= len(tok):
             continue
-        if not any(ch in "aAiIuUReoL" for ch in tok[:i]):
+        if not any(ch in "aAiIuUReoL" for ch in tok[:i]) and not tok.startswith(("svau", "svai")):
             continue   # word-initial consonant cluster + ai/au: genuine vrddhi
         tail = tok[i + 2:]
         if tail in ("H", "z", "s", "r", "S", "M", "m") or re.fullmatch(r"[HzsrSMm]", tail):
@@ -70,7 +70,7 @@ def _first_vowel(w):
 A_WORDS = set("atha ca na eva iva atra tatra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha "
               "uta yena tena kena anena ena".split())
 AA_WORDS = set("tathA yathA sadA tadA yadA kadA sarvathA anyathA ubhayathA ekadA vA mA vinA sahA "
-               "sA yA kA eSA saiSA tA".split())
+               "sA yA kA eSA saiSA".split())
 
 def _a_underlying(w):
     if w in A_WORDS:
