@@ -61,7 +61,7 @@ dict(
 dict(
   label="第68–70偈　普遍は覆い（saṃvṛti）による",
   upto="bahir iva parisphuratAM sAmAnyam ity ucyate /",
-  fixes=[("dhiyA ||", "dhiyA |"), ("svavAsanAprakRtiM anuvidadhatI", "svavAsanAprakRtimanuvidadhatI"), ("Azritya utpadyamAnA", "AzrityotpadyamAnA")],
+  fixes=[("dhiyA ||", "dhiyA |"), ("Azritya utpadyamAnA", "AzrityotpadyamAnA")],
   tr="""<p>［問］では、[他から]完全に退いた姿をもつ事物において、どうして普遍というものがあるのか。それらは混じり合わず、[それらとは]別のもの[普遍]も存在しないからである。</p>
 <p>［答］[先に]述べた。互いに混じり合わないものどもにとって、ある一つのもの[排除されるもの]と結びつかないこと、すなわちそれから区別されていることが、[それらの]同一性である、と。さらに——</p>
 <p class="ktr">【第68偈】区別された事物に依拠して、一つの対象を現す知によって、他の姿が自らの姿によって覆われる。</p>

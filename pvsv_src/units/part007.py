@@ -41,7 +41,6 @@ dict(
 dict(
   label="第33偈前半　別の原因による属性は別物",
   upto="tathA abhidhAnAt /",
-  fixes=[("saha utpatti", "sahotpatti")],
   kfull="arthAntaranimitto hi dharmaH syAdanya eva saH |\npazcAdbhAvAnna hetutvaM phale'pyekAntatA kutaH ||33||",
   tr="""<p class="ktr">【第33偈】なぜなら、[本性とは]別のものを原因とする属性は、[そのものとは]別のものにほかならないであろう。[それは]後から生じるので[そのものの]原因ではない。[また]結果であるとしても、どうして必然性があろうか。</p>
 <p>［自注］さらに——<b>別のものを原因とする属性は、別のものにほかならないであろう</b>。なぜなら、それ[そのもの]がすでに完成しているときに、まだ完成していないもの、あるいは別の原因をもつものが、その本性であることは理にかなわないからである。</p>

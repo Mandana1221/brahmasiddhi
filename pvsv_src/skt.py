@@ -18,7 +18,7 @@ VRDDHI = ("pauruSey", "vaiphaly", "vaikaly", "vaiyarthy", "nairAtmy", "trailoky"
           "mauna", "vaiSNav", "zaiv", "rauravA")
 
 # Indeclinables ending in a/A/i/u: a line ending with one of these is a separate word.
-INDECL = set("""pUrvatra paratra uttaratra sa ta ya ka ca na eva iva tatra atra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha
+INDECL = set("""yadi pUrvatra paratra uttaratra sa ta ya ka ca na eva iva tatra atra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha
 vA yathA tathA sadA tadA yadA kadA kva api iti hi tu nu punaH bhavati asti nAsti syAt kila khalu
 nanu atha tAvat sarvathA anyathA ekadA ubhayathA iva kevalam yataH tataH ataH tAvan na-""".split())
 
@@ -58,6 +58,8 @@ def _junction_vowels(tok):
             t[i:i + 2] = list(rep)
         tok = "".join(t)
     tok = re.sub(r"(?<=.)ae", "ai", tok)   # e-text marks a+e as 'ae'
+    tok = re.sub(r"(?<=.)Ae", "ai", tok)
+    tok = re.sub(r"(?<=.)Ao", "au", tok)
     return tok
 
 VOW = "aAiIuURLeo"
@@ -68,7 +70,7 @@ def _first_vowel(w):
 
 # a-final words whose -a is underlying (so a+V sandhi applies). Other -a before a vowel
 # in the e-text is hiatus (from -aH / -e) and must stay separate.
-A_WORDS = set("nAma atha ca na eva iva atra tatra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha "
+A_WORDS = set("saha nAma atha ca na eva iva atra tatra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha "
               "uta yena tena kena anena ena".split())
 AA_WORDS = set("tathA yathA sadA tadA yadA kadA sarvathA anyathA ubhayathA ekadA vA mA vinA sahA "
                "sA yA kA eSA saiSA".split())
@@ -229,6 +231,10 @@ def render_hk(tokens, fixes=()):
             j = _tfinal(prev, w)
         if j is not None:
             res[-1:] = j.split(" ")
+        elif prev[-1] == "n" and len(prev) > 1 and prev[-2] in "aiu" and w[0] in VOW:
+            res[-1] = prev + "n" + w          # san eva -> sanneva
+        elif prev[-1] == "M" and w[0] in VOW:
+            res[-1] = prev[:-1] + "m" + w
         elif prev[-1] == "m" and w[0] not in VOW:
             res[-1] = prev[:-1] + "M"
             res.append(w)
