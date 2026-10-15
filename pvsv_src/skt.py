@@ -128,10 +128,12 @@ def _visarga(a, b):
             return a[:-1] + " " + b
         if f in VOICED:
             return a[:-2] + "o " + b
-        return None
     if a.endswith("AH"):
         if f in VOICED:
             return a[:-1] + " " + b
+    if f in "tT" or f == "c":
+        return a[:-1] + {"t": "s", "T": "S", "c": "z"}[f] + " " + b
+    if a.endswith("AH"):
         return None
     if f in VOICED:
         if f == "r":
@@ -168,7 +170,7 @@ def _stem_like(w):
     """Heuristic for a line-final token: compound member (join without space)?"""
     if w in INDECL or w in A_WORDS or w in AA_WORDS:
         return False
-    if w[-1] in "aiuR" and not w.endswith(("sya", "ena", "eNa", "ati", "Ni", "ini")):
+    if w[-1] in "aiuR" and not w.endswith(("sya", "ena", "eNa", "ati", "Ni", "ini", "au", "ai")):
         return True
     return False
 
@@ -201,6 +203,8 @@ def render_hk(tokens, fixes=()):
     for t in tokens:
         w = t.w
         if w.startswith("|"):
+            if res and res[-1].endswith("M"):
+                res[-1] = res[-1][:-1] + "m"
             if res and res[-1][-1:] in "gdDb":
                 res[-1] = res[-1][:-1] + {"g": "k", "d": "t", "D": "T", "b": "p"}[res[-1][-1]]
             res.append(w); last = w; continue
