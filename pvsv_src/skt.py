@@ -189,7 +189,7 @@ class Token:
         self.w, self.line, self.verse, self.bol = w, line, verse, bol
 
 # verse lines that lack the leading tab in the e-text
-EXTRA_VERSE_LINES = {"03405", "03406"}
+EXTRA_VERSE_LINES = {"03405", "03406", "15909"}
 # tab-indented lines that are really prose
 NONVERSE_LINES = {"13101", "13128", "15521"}
 # first verse lines that end in '//' where a single danda is meant
