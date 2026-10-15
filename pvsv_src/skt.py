@@ -18,7 +18,7 @@ VRDDHI = ("pauruSey", "vaiphaly", "vaikaly", "vaiyarthy", "nairAtmy", "trailoky"
           "mauna", "vaiSNav", "zaiv", "rauravA")
 
 # Indeclinables ending in a/A/i/u: a line ending with one of these is a separate word.
-INDECL = set("""ca na eva iva tatra atra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha
+INDECL = set("""sa ta ya ka ca na eva iva tatra atra yatra kutra sarvatra anyatra ekatra ubhayatra iha ha sma Aha
 vA yathA tathA sadA tadA yadA kadA kva api iti hi tu nu punaH bhavati asti nAsti syAt kila khalu
 nanu atha tAvat sarvathA anyathA ekadA ubhayathA iva kevalam yataH tataH ataH tAvan na-""".split())
 
@@ -26,6 +26,8 @@ def _junction_vowels(tok):
     """Convert e-text a+u -> o / a+i -> e markers ('au','ai' inside a word)."""
     tok = re.sub(r"(?<=.)(AA|aA|Aa)", "A", tok)
     tok = tok.replace("cz", "cch")
+    tok = re.sub(r"(?<=.)Au", "o", tok)
+    tok = re.sub(r"(?<=.)Ai", "e", tok)
     def fix(m):
         i = m.start()
         rest = tok[i:]
