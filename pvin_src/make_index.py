@@ -53,6 +53,7 @@ def main():
 </section>
 <section>
 <h2 class="chapter">目次</h2>
+<p><a href="pvin_zenyaku_complete.html">▶ 全文を1ファイルで読む（第1・2章）</a></p>
 <div class="tbl-wrap"><table>
 <tr><th>ファイル</th><th>収める論題</th></tr>
 {"".join(rows)}

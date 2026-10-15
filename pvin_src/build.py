@@ -80,7 +80,7 @@ def ja(lines):
     return ''.join(f'<p>{p.strip()}</p>' for p in paras if p.strip())
 
 
-def build(part):
+def parse(part, prefix=''):
     meta = {}
     out = []
     stack = []
@@ -123,7 +123,7 @@ def build(part):
             lv = len(m.group(1))
             close_to(lv)
             num, ttl, sk = m.group(2), m.group(3), (m.group(4) or '').strip()
-            nid = 'n' + num.replace('.', '-')
+            nid = prefix + 'n' + num.replace('.', '-')
             cls = 'node' + (f' lv{lv}' if lv <= 2 else '')
             sk_html = f' <span class="sk">{html.escape(sk)}</span>' if sk else ''
             out.append(f'<details class="{cls}" id="{nid}"><summary><span class="num">{num}</span>'
@@ -149,7 +149,37 @@ def build(part):
             cur['ja'].append(line)
     flush()
     close_to(1)
+    return meta, out, toc
 
+
+def build(part):
+    meta, out, toc = parse(part)
+    write_page(meta, '\n'.join(out), toc, f'pvin_zenyaku_{meta["id"]}.html')
+
+
+def build_complete(parts):
+    body = []
+    toc = []
+    for part in parts:
+        meta, out, t = parse(part, prefix=f'p{meta_id(part)}-')
+        body.append(f'<h2 class="chapter">{html.escape(meta.get("title", ""))}</h2>'
+                    f'<p class="chapter-sub">{html.escape(meta.get("sub", ""))}</p>')
+        body.extend(out)
+        toc.extend((nid, n, f'{meta.get("title", "").split("　")[0]}｜{ttl}') for nid, n, ttl in t)
+    meta = {'htitle': 'プラマーナ・ヴィニシュチャヤ全訳（第1・2章）',
+            'title': '第1章 直接知覚・第2章 自分のための推論',
+            'sub': '全文（1ファイル版）', 'nav': '<a href="pvin_index.html">分冊版の目次へ</a>'}
+    write_page(meta, '\n'.join(body), toc, 'pvin_zenyaku_complete.html')
+
+
+def meta_id(part):
+    for ln in part.read_text(encoding='utf-8').split('\n'):
+        if ln.startswith('=id '):
+            return ln[4:].strip()
+    return ''
+
+
+def write_page(meta, body, toc, fname):
     toc_html = ''.join(f'<li><a href="#{i}"><span class="n">{html.escape(n)}</span>{html.escape(t)}</a></li>'
                        for i, n, t in toc)
     nav = meta.get('nav', '')
@@ -175,7 +205,7 @@ def build(part):
   <div class="header-jp">{html.escape(meta.get("title", ""))}<br>{html.escape(meta.get("sub", ""))}</div>
 </div>
 <div class="pnav">{nav}</div>
-<nav class="toc"><h2>この部分の科段</h2><ol>{toc_html}</ol></nav>
+<nav class="toc"><h2>科段</h2><ol>{toc_html}</ol></nav>
 <div class="controls" id="controls">
   <span class="lbl">まとめて開く：</span>
   <button type="button" data-depth="1">第1階層のみ</button>
@@ -186,7 +216,7 @@ def build(part):
 </div>
 <div class="legend-tr"><span>本文（ダルマキールティ）</span><span>和訳</span></div>
 <div class="tree">
-{chr(10).join(out)}
+{body}
 </div>
 <div class="pnav">{nav}</div>
 <footer>ダルマキールティ『プラマーナ・ヴィニシュチャヤ』第1・2章 全訳　本文：PVin_text.txt（京都・ハーバード方式の入力テキストをデーヴァナーガリーに機械変換）。（k.N）は偈の番号。</footer>
@@ -214,11 +244,14 @@ def build(part):
 </body>
 </html>
 '''
-    dest = ROOT / f'pvin_zenyaku_{meta["id"]}.html'
+    dest = ROOT / fname
     dest.write_text(page, encoding='utf-8')
     print('wrote', dest.name, len(page))
 
 
 if __name__ == '__main__':
-    for p in sys.argv[1:]:
-        build(Path(p))
+    if sys.argv[1:2] == ['--complete']:
+        build_complete([Path(p) for p in sys.argv[2:]])
+    else:
+        for p in sys.argv[1:]:
+            build(Path(p))
