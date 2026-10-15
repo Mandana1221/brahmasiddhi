@@ -69,7 +69,7 @@ dict(
 dict(
   label="第223偈　愚かさと有身見とが過失の根本と説かれる理由",
   upto="sa tu kSINadoSo duranvayo yadupadezAd ayaM pratipadyeta /",
-  fixes=[("abhidhIyate ||", "abhidhIyate |"), ("prAdhAnye ekaika", "prAdhAnya ekaika")],
+  fixes=[("bhidhIyate ||", "bhidhIyate |"), ("prAdhAnye ekaika", "prAdhAnya ekaika")],
   kfull="moho nidAnaM doSANAmata evAbhidhIyate |\nsatkAyadRSTiranyatra tatprahANe prahANataH ||223||",
   tr="""<p class="ktr">【第223偈】まさにそれゆえ、愚かさ（<i>moha</i>）が過失の根本原因と説かれ、他のところでは有身見が[そう説かれる]。それが捨てられると、[過失が]捨てられるからである。</p>
 <p>［自注］[経典は]愚かさを過失の根本原因と言う。愚かでない者には過失が生じないからである。また他のところでは有身見を[根本原因と言う]。そしてこのこと[二通りの説示]は、もし[両者を別々に]主要なものとして示しているのであれば、[矛盾]であろう。多くのものから生じる過失が、[それぞれ]一つ[の原因]から生じることと矛盾するからである。また二つが主要であるなら、一つずつ示すことは十分な意味をもたない。[しかし実際には両者は同じものなので]どちらの仕方でも、一つを示すことに矛盾はない。そして主要であるとは、それ[過失]の質料因であることによる。それが捨てられると過失が捨てられるからである。</p>
