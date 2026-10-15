@@ -191,7 +191,7 @@ class Token:
 # verse lines that lack the leading tab in the e-text
 EXTRA_VERSE_LINES = {"03405", "03406"}
 # tab-indented lines that are really prose
-NONVERSE_LINES = {"13101", "13128"}
+NONVERSE_LINES = {"13101", "13128", "15521"}
 # first verse lines that end in '//' where a single danda is meant
 MIDVERSE_DANDA = {"11027", "11113", "11121", "11208", "11214", "11302", "11308",
                   "11405", "11415", "11503", "14415"}
