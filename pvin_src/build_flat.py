@@ -59,9 +59,9 @@ def parse(pid):
             cur = {'ref': m.group(2), 'ja': []}
             items.append((m.group(1), cur))
             continue
-        m = re.match(r'^([JNG])\s?(.*)$', line)
+        m = re.match(r'^([JNGS])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or 'ref' in cur):
-            if m.group(1) in 'NG':
+            if m.group(1) in 'NGS':
                 cur = {'ja': [m.group(2)]}
                 items.append((m.group(1), cur))
             else:
@@ -83,8 +83,16 @@ def mula(kind, d, uid, notes):
         ia = ''
         cls = 'mula'
     exp = ''
-    if notes:
-        exp = '<div class="exp"><span class="lbl">解説</span>' + ''.join(build.ja(n) for n in notes) + '</div>'
+    nn = [build.ja(t) for k, t in notes if k == 'N']
+    ss = [build.ja(t) for k, t in notes if k == 'S']
+    if nn or ss:
+        exp = '<div class="exp">'
+        if nn:
+            exp += '<span class="lbl">解説</span>' + ''.join(nn)
+        if ss:
+            exp += ('<div class="stk">' if nn else '<div class="stk first">') + \
+                   '<span class="lbl">Steinkellner の解釈</span>' + ''.join(ss) + '</div>'
+        exp += '</div>'
     return (f'<div class="{cls}" id="{uid}">\n  <span class="ref">{ref_label(d["ref"])}</span>\n'
             f'  <div class="src deva" lang="sa">{src}</div>{ia}\n'
             f'  <div class="tr">{build.ja(d["ja"])}</div>{exp}\n</div>')
@@ -134,12 +142,14 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 body.append(f'<{tag} class="sub-h"><span class="snum">{renum(d["num"], sec_no)}</span>{html.escape(d["ttl"])}{sk}</{tag}>')
             elif kind in 'LV':
                 notes = []
-                while i + 1 < len(items) and items[i + 1][0] == 'N':
-                    notes.append(items[i + 1][1]['ja'])
+                while i + 1 < len(items) and items[i + 1][0] in 'NS':
+                    notes.append((items[i + 1][0], items[i + 1][1]['ja']))
                     i += 1
                 body.append(mula(kind, d, f'u{pid}-{i}', notes))
             elif kind == 'N':
                 body.append(f'<div class="point"><span class="lbl">ノート</span>{build.ja(d["ja"])}</div>')
+            elif kind == 'S':
+                body.append(f'<div class="point stk-pt"><span class="lbl">Steinkellner の解釈</span>{build.ja(d["ja"])}</div>')
             elif kind == 'G':
                 body.append(f'<p>{" ".join(x.strip() for x in d["ja"])}</p>')
             i += 1
@@ -153,6 +163,12 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
         nav.append(f'<li><a href="pvin_taiyaku_2.html" class="chp">第2章へ →</a></li>')
     else:
         nav.insert(0, f'<li><a href="pvin_taiyaku_1.html" class="chp">← 第1章へ</a></li>')
+    stk_fact = stk_howto = ''
+    if chno == 2:
+        stk_fact = ('<div><dt>研究</dt><dd>E. Steinkellner のドイツ語訳注（1979）<br><small><i>Dharmakīrti\'s Pramāṇaviniścayaḥ, Zweites Kapitel: Svārthānumānam, Teil II: Übersetzung und Anmerkungen</i>。'
+                    'チベット訳からの全訳と詳しい注。典拠や反論者の特定、ダルマキールティが旧作を書き換えた箇所の指摘などを、各ブロックの「Steinkellner の解釈」欄に加えた</small></dd></div>')
+        stk_howto = ('<div><b>Steinkellner の解釈</b>解説欄の下段（解説がない箇所では単独）。（注10）は Steinkellner 1979 の注番号、「チベット訳5,1」などはその校訂本（1973）の頁・行。'
+                     '彼の読みに合わせて訳を改めた箇所はそう明記した</div>')
     page = f'''<!doctype html>
 <html lang="ja">
 <head>
@@ -174,6 +190,8 @@ h4.sub-h{{font-family:var(--f-display);font-size:1.02rem;font-weight:800;margin:
 .sub-h .sk{{font-family:var(--f-ia);font-size:.85rem;font-weight:400;color:var(--muted)}}
 .chapter-band{{text-align:center;padding-block:64px 24px}}
 .chapter-band .ch-title{{font-size:clamp(1.9rem,6vw,2.6rem);margin-top:.2em}}
+.mula .exp .stk.first{{margin-top:0;padding-top:0;border-top:0}}
+.point.stk-pt .lbl{{color:var(--accent)}}
 nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--accent);font-weight:700}}
 </style>
 </head>
@@ -203,6 +221,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
     <div><dt>著者</dt><dd>Dharmakīrti（法称）<br><small>7世紀頃の仏教論理学者。<i>Pramāṇavārttika</i>、<i>Nyāyabindu</i>、<i>Hetubindu</i> などの著者</small></dd></div>
     <div><dt>書名</dt><dd><i>Pramāṇaviniścaya</i>「認識手段の決択」<br><small>主著 <i>Pramāṇavārttika</i> の内容を、偈と散文で整理し直した書。全3章</small></dd></div>
     <div><dt>この章</dt><dd>第{chno}章　{name}<br><small>{facts}</small></dd></div>
+    {stk_fact}
     <div><dt>本文</dt><dd>提供された電子テキスト（Kyoto-Harvard 方式）<br><small>デーヴァナーガリーとローマ字は機械的に転写した。明らかな入力の誤り3か所のみ修正</small></dd></div>
   </dl>
 
@@ -212,6 +231,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
     <div><b>原文</b>デーヴァナーガリー。偈（金色の線）にはローマ字を添えた。<span class="kno">k.4</span> は偈の番号</div>
     <div><b>和訳</b>（　）は訳者の補い。（反論）（答え）は議論の話者の区別</div>
     <div><b>解説</b>ブロック下の灰色の欄。用語や論点の説明</div>
+    {stk_howto}
   </div>
 </section>
 
