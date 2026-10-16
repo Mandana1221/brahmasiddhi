@@ -59,9 +59,9 @@ def parse(pid):
             cur = {'ref': m.group(2), 'ja': []}
             items.append((m.group(1), cur))
             continue
-        m = re.match(r'^([JNGS])\s?(.*)$', line)
+        m = re.match(r'^([JNGSR])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or 'ref' in cur):
-            if m.group(1) in 'NGS':
+            if m.group(1) in 'NGSR':
                 cur = {'ja': [m.group(2)]}
                 items.append((m.group(1), cur))
             else:
@@ -84,14 +84,17 @@ def mula(kind, d, uid, notes):
         cls = 'mula'
     exp = ''
     nn = [build.ja(t) for k, t in notes if k == 'N']
-    ss = [build.ja(t) for k, t in notes if k == 'S']
-    if nn or ss:
+    if notes:
         exp = '<div class="exp">'
         if nn:
             exp += '<span class="lbl">解説</span>' + ''.join(nn)
-        if ss:
-            exp += ('<div class="stk">' if nn else '<div class="stk first">') + \
-                   '<span class="lbl">Steinkellner の解釈</span>' + ''.join(ss) + '</div>'
+        first = not nn
+        for sk in build.SCHOLARS:
+            ss = [build.ja(t) for k, t in notes if k == sk]
+            if ss:
+                exp += ('<div class="stk first">' if first else '<div class="stk">') + \
+                       f'<span class="lbl">{build.SCHOLARS[sk]}</span>' + ''.join(ss) + '</div>'
+                first = False
         exp += '</div>'
     return (f'<div class="{cls}" id="{uid}">\n  <span class="ref">{ref_label(d["ref"])}</span>\n'
             f'  <div class="src deva" lang="sa">{src}</div>{ia}\n'
@@ -142,14 +145,14 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 body.append(f'<{tag} class="sub-h"><span class="snum">{renum(d["num"], sec_no)}</span>{html.escape(d["ttl"])}{sk}</{tag}>')
             elif kind in 'LV':
                 notes = []
-                while i + 1 < len(items) and items[i + 1][0] in 'NS':
+                while i + 1 < len(items) and items[i + 1][0] in 'NSR':
                     notes.append((items[i + 1][0], items[i + 1][1]['ja']))
                     i += 1
                 body.append(mula(kind, d, f'u{pid}-{i}', notes))
             elif kind == 'N':
                 body.append(f'<div class="point"><span class="lbl">ノート</span>{build.ja(d["ja"])}</div>')
-            elif kind == 'S':
-                body.append(f'<div class="point stk-pt"><span class="lbl">Steinkellner の解釈</span>{build.ja(d["ja"])}</div>')
+            elif kind in build.SCHOLARS:
+                body.append(f'<div class="point stk-pt"><span class="lbl">{build.SCHOLARS[kind]}</span>{build.ja(d["ja"])}</div>')
             elif kind == 'G':
                 body.append(f'<p>{" ".join(x.strip() for x in d["ja"])}</p>')
             i += 1
@@ -164,6 +167,11 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
     else:
         nav.insert(0, f'<li><a href="pvin_taiyaku_1.html" class="chp">← 第1章へ</a></li>')
     stk_fact = stk_howto = ''
+    if chno == 1:
+        stk_fact = ('<div><dt>研究</dt><dd>T. Vetter のドイツ語訳（1966）<br><small><i>Dharmakīrti\'s Pramāṇaviniścayaḥ, 1. Kapitel: Pratyakṣam</i>。'
+                    'チベット訳の校訂・サンスクリット断片・独訳と、章全体の思想的位置づけを論じた序論をもつ。序論の議論分析と訳注の要点を、各ブロックの「Vetter の解釈」欄に加えた</small></dd></div>')
+        stk_howto = ('<div><b>Vetter の解釈</b>解説欄の下段（解説がない箇所では単独）。（注12）は Vetter 1966 の訳注番号、「序論」はその序論（7–28頁）。'
+                     '彼の読みに合わせて訳を改めた箇所はそう明記した</div>')
     if chno == 2:
         stk_fact = ('<div><dt>研究</dt><dd>E. Steinkellner のドイツ語訳注（1979）<br><small><i>Dharmakīrti\'s Pramāṇaviniścayaḥ, Zweites Kapitel: Svārthānumānam, Teil II: Übersetzung und Anmerkungen</i>。'
                     'チベット訳からの全訳と詳しい注。典拠や反論者の特定、ダルマキールティが旧作を書き換えた箇所の指摘などを、各ブロックの「Steinkellner の解釈」欄に加えた</small></dd></div>')

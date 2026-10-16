@@ -16,6 +16,7 @@ partXX.txt の書式（1 行 1 指示）:
   J 和訳                        直前の L / V の訳（複数行可、空行で段落）
   N ノート                      ノート
   S 注記                        Steinkellner（1979）の解釈
+  R 注記                        Vetter（1966）の解釈
   G 要旨                        節の要旨
 """
 import html
@@ -30,6 +31,7 @@ ROOT = Path(__file__).resolve().parent.parent
 TEXT = (ROOT / 'PVin_text.txt').read_text(encoding='utf-8').split('\n')
 CSS = (ROOT / 'pvin_src' / 'style.css.part').read_text(encoding='utf-8')
 
+SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈'}
 SENT = re.compile(r'(?<=[.?])\s+')
 REF = re.compile(r'^(\d+)(?::(\d+)(-(\d*))?)?(?:-(\d+)(?::(\d+))?)?$')
 
@@ -103,8 +105,8 @@ def parse(part, prefix=''):
                        f'<div class="sutra-jp">{ja(cur["ja"])}</div></div>')
         elif k == 'N':
             out.append(f'<div class="tnote"><span class="tnote-h">ノート</span>{ja(cur["ja"])}</div>')
-        elif k == 'S':
-            out.append(f'<div class="tnote stk"><span class="tnote-h">Steinkellner の解釈</span>{ja(cur["ja"])}</div>')
+        elif k in SCHOLARS:
+            out.append(f'<div class="tnote stk"><span class="tnote-h">{SCHOLARS[k]}</span>{ja(cur["ja"])}</div>')
         elif k == 'G':
             out.append(f'<p class="gist">{" ".join(x.strip() for x in cur["ja"])}</p>')
         cur = None
@@ -140,9 +142,9 @@ def parse(part, prefix=''):
             flush()
             cur = {'kind': m.group(1), 'ref': m.group(2), 'ja': []}
             continue
-        m = re.match(r'^([JNGS])\s?(.*)$', line)
+        m = re.match(r'^([JNGSR])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or cur['kind'] in 'LV'):
-            if m.group(1) in 'NGS':
+            if m.group(1) in 'NGSR':
                 flush()
                 cur = {'kind': m.group(1), 'ja': [m.group(2)]}
             else:
