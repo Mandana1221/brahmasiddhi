@@ -56,9 +56,10 @@ dict(
   cm="""<p><b>全体と部分</b>：厳密に言えば、主題（pakṣa）とは「基体＋所証の属性」の結合全体、たとえば「音声は無常である」という命題全体である。基体（音声）はその一部分にすぎない。偈が「pakṣa の属性」と言うのは、全体を表す語で部分（基体）を指した転用表現だ、というのである。</p>
 <p><b>反論の趣旨</b>：インドの意味論では、転用（<i>upacāra</i>）には目的（<i>prayojana</i>）が要るとされる。最初から「dharmin の属性」と言えば済むのに、わざわざ転用する理由がない、という反論である。</p>
 <p><b>答論の趣旨</b>：「dharmin の属性」とだけ言うと、どんな基体の属性でもよいことになる。「pakṣa」と言えば、論証で問題になっている当の基体（例では音声）の属性に限定できる。たとえば「音声は無常である、眼で見られるから」という論証では、「眼で見られること」は壺などの属性ではあっても音声の属性ではない。だから論証因から排除される（不成因 <i>asiddha</i> の例）。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.9 の自注では、「<i>anumeyo 'tra jijñāsitaviśeṣo dharmī</i>」（ここで推論対象とは、特定の性質を知ろうと望まれている基体である）と定義する。PVin は三相の第一を <i>anumeya</i> の語で表すので、転用（<i>upacāra</i>）の議論は必要ない。PVSV で転用論が必要になるのは、偈が「pakṣa」という語を用いたためである。</p>
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.9 の自注では、「<i>anumeyo 'tra jijñāsitaviśeṣo dharmī</i>」（ここで推論対象とは、特定の性質を知ろうと望まれている基体である）と定義する。PVin 第2章は三相の第一を <i>anumeya</i> の語で表すので、そこでは転用（<i>upacāra</i>）の議論は必要ない。PVSV で転用論が必要になるのは、偈が「pakṣa」という語を用いたためである。実際、<i>pakṣadharma</i> の語を用いる PVin 第3章（第33偈、43,4–6）では、同じ転用論が繰り返されている。</p>
 <p><b>本文校訂</b>：Steinkellner（2013, Anm.11）は、Gnoli 版・Malvania 版が写本に従って載せる理由句 <i>avayave samudāyopacārāt</i>（全体[を表す語]が部分に転用されているから）を削除すべきだとする。理由は三つある。チベット訳に対応がないこと、入念に書き直された PVin 3（43,4）の並行箇所にもないこと、そしてこの句がよく確認できるのは HB 1,6 の並行文になってからであることである。Karṇakagomin（PVSVṬ 12,19）ではこの句は注釈者の説明として現れ、Śākyabuddhi（PVṬ）では補足として示されるにすぎない。そこで Steinkellner は、注釈か HB に由来する欄外注が、両注釈者の見なかった写本系統に入り込んだものと推定する。ただし、転用（<i>upacāra</i>）による説明そのものは Dignāga の PS 3.10 とその自注にさかのぼる。したがって注の「全体と部分」の説明は、背景説明として残してよい。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.12）によれば、ここで反論者として登場するのは Dharmakīrti の師 Īśvarasena である。Karṇakagomin（PVSVṬ 12,21f）は、Īśvarasena の言葉として <i>dharmidharmo hetur ity etāvad vaktavyam, prayojanābhāvād anupacāraḥ</i>（「論証因は基体の属性である」とだけ言うべきであり、目的がないので転用ではない）を引用している。Īśvarasena は、Dignāga の <i>pakṣadharma</i> という語の曖昧さを除くために <i>dharmidharma</i> を提案したと考えられ、続く §2 の反論も彼に由来する可能性がある。Dharmakīrti は同じ論争を HB 1,6–2,2 でも繰り返している。Steinkellner は、Dignāga の語法から外れた師の提案を詳しく退けるこの箇所に、師の説明への不満が早くも表れていると見る。</p>""",
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.12）によれば、ここで反論者として登場するのは Dharmakīrti の師 Īśvarasena である。Karṇakagomin（PVSVṬ 12,21f）は、Īśvarasena の言葉として <i>dharmidharmo hetur ity etāvad vaktavyam, prayojanābhāvād anupacāraḥ</i>（「論証因は基体の属性である」とだけ言うべきであり、目的がないので転用ではない）を引用している。Īśvarasena は、Dignāga の <i>pakṣadharma</i> という語の曖昧さを除くために <i>dharmidharma</i> を提案したと考えられ、続く §2 の反論も彼に由来する可能性がある。Dharmakīrti は同じ論争を HB 1,6–2,2 でも繰り返している。Steinkellner は、Dignāga の語法から外れた師の提案を詳しく退けるこの箇所に、師の説明への不満が早くも表れていると見る。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.43,4–6）は、第33偈で <i>pakṣadharma</i> の語を用いたのを受けて、この段をほぼそのまま繰り返す。「目的がないので転用ではない」という反論と、「すべての基体の属性を否定するため」という答えは同文である。ただし PVin 3 にも理由句 <i>avayave samudāyopacārāt</i> はなく、また <i>tadupacārayogyadharmipratipattyartham</i> と、PVSV の <i>°dharmidharma°</i> より短い形で読む。</p>""",
 ),
 dict(
   label='自注 §2\u3000なぜ「dharmin」と明言するのか',
@@ -69,13 +70,15 @@ dict(
   cm="""<p><b>反論</b>：偈は「主題の属性」と言うが、「属性」と言えば何かの基体の属性に決まっている。文脈上いちばん近い基体は所証の基体なのだから、「pakṣa」という語は不要ではないか。</p>
 <p><b>答論</b>：近い基体は所証の基体だけではない。喩例（<i>dṛṣṭānta</i>、例：かまど）の基体も同じく文脈上近い。しかも偈の後半「その部分によって遍充されている」から、論証因が喩例に存在することはすでに含意されている。したがって、「どの基体の属性か」を確定するには、所証の基体を明言する必要がある。</p>
 <p><b>後半の一文（siddhe punaḥ …）</b>：難解な箇所である。もし所証の基体が含意によって<em>すでに</em>成立しているのなら、それを重ねて言葉にすることは、何か別の限定（<i>niyama</i>）を意図した発言だと疑われてしまう。その例として挙げられるのが三相の第三相である。②「同類にのみ存在する」と言えば ③ の異類からの排除はすでに成立しているのに、③「所証のないところには存在しない」と重ねて言うと、限定の意図があると疑われる。</p>
-<p class="pvin"><span class="tag">PVin</span>この喩えの背景は PVin 第2章 k.9 の自注に詳しい。そこでは「<i>tattulya evāstīti vyatireke siddhe 'sati nāstitābhidhānam … niyamārtham ity āha</i>」と、第三相の明言を「限定のため」と解する説を取り上げる。そして最終的に「<i>prayogadarśanārthatvād adoṣaḥ</i>」（論式の示し方を示すためなので過失ではない）と結論する。肯定的随伴か否定的随伴のどちらか一方を、遍充が確定した形で述べれば、もう一方は含意（<i>arthāpatti</i>）で理解される、という議論である。PVSV はこの議論を前提に、短く引き合いに出していると考えられる。</p>""",
+<p class="pvin"><span class="tag">PVin</span>この喩えの背景は PVin 第2章 k.9 の自注に詳しい。そこでは「<i>tattulya evāstīti vyatireke siddhe 'sati nāstitābhidhānam … niyamārtham ity āha</i>」と、第三相の明言を「限定のため」と解する説を取り上げる。そして最終的に「<i>prayogadarśanārthatvād adoṣaḥ</i>」（論式の示し方を示すためなので過失ではない）と結論する。肯定的随伴か否定的随伴のどちらか一方を、遍充が確定した形で述べれば、もう一方は含意（<i>arthāpatti</i>）で理解される、という議論である。PVSV はこの議論を前提に、短く引き合いに出していると考えられる。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.43,7–10）に並行文がある。反論と最初の答え（<i>dṛṣṭāntadharmiṇo 'pi pratyāsatteḥ</i>）は同文である。ただし PVSV の <i>tadaṃśavyāptyā</i> を、PVin は第33偈の言い方に合わせて <i>sapakṣe sattvavacanena</i>（同類に存在すると述べることによって）に替え、<i>dharmivacanāt</i> も <i>dharmidharmavacanāt</i> と読む。PVSV の「限定のためと疑われる」という喩え（2,4–6）は PVin 3 にはない。その代わりに「注釈で払うべきこの努力は、pakṣa と述べることで片づく」（<i>karaṇīyo 'yaṃ vyākhyāne yatnaḥ sa pakṣavacanena samāhitaḥ</i>）という一文がある。</p>""",
 ),
 dict(
   label='自注 §3',
   upto='pakSavacanam /',
   tr="""<p>また、含意の力によって意味が理解される場合でも、理解の煩雑さ（<i>pratipattigaurava</i>）を避けるために、「主題」という語を述べるのである。</p>""",
-  cm="""<p>前段の結論にあたる。仮に含意から理解できるとしても、聞き手に推理の手間をかけさせないように明言する、という言語表現上の経済性（いわゆる <i>lāghava</i> と <i>gaurava</i> の考え方）に訴えている。</p>""",
+  cm="""<p>前段の結論にあたる。仮に含意から理解できるとしても、聞き手に推理の手間をかけさせないように明言する、という言語表現上の経済性（いわゆる <i>lāghava</i> と <i>gaurava</i> の考え方）に訴えている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.43,11）は「<i>sāmarthyārthagatau pratipattigauravaṃ ca parihṛtaṃ bhavati</i>」と書く。PVSV の「…を避けるために pakṣa と述べる」（<i>°parihārārthaṃ ca pakṣavacanam</i>）を、「[pakṣa と述べることで]…も避けられる」という結果の文に改めたものである。内容は変わらない。</p>""",
 ),
 dict(
   label='自注 §4\u3000asādhāraṇa 過失の回避',
@@ -89,7 +92,8 @@ dict(
 <li><i>anyayogavyavaccheda</i>（他との結合の排除）：「Pārtha こそが弓取りだ」は、Arjuna 以外の人が（真の）弓取りであることを否定する。</li>
 </ul>
 <p>Dharmakīrti の不変化詞 <i>eva</i> の理論（三種の <i>vyavaccheda</i>。もう一つは <i>atyantāyogavyavaccheda</i>）は、PV 第4章（parārthānumāna）でも論じられる。<i>ākṣepsyāmaḥ</i>（後で論じよう）は、後の議論を予告したものである。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.9 の自注に、同じ反論と同じ答えがある。「<i>dharmiviśiṣṭasyānyatra vṛttivirodho … iti cet, na, ayogavyavacchedena viśeṣaṇāt</i>」。続く中間偈（<i>antaraśloka</i>）k.10–14 は、<i>eva</i> が排除するものを三種に分ける（k.10「<i>ayogaṃ yogam aparair atyantāyogam eva ca / vyavacchinatti</i>」）。k.12 では「<i>caitro dhanurdharaḥ</i>」「<i>pārtho dhanurdharaḥ</i>」「<i>nīlaṃ sarojam</i>」の三例を挙げる。PVSV が一行で済ませた論点が、PVin では体系的に展開されている。</p>""",
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.9 の自注に、同じ反論と同じ答えがある。「<i>dharmiviśiṣṭasyānyatra vṛttivirodho … iti cet, na, ayogavyavacchedena viśeṣaṇāt</i>」。続く中間偈（<i>antaraśloka</i>）k.10–14 は、<i>eva</i> が排除するものを三種に分ける（k.10「<i>ayogaṃ yogam aparair atyantāyogam eva ca / vyavacchinatti</i>」）。k.12 では「<i>caitro dhanurdharaḥ</i>」「<i>pārtho dhanurdharaḥ</i>」「<i>nīlaṃ sarojam</i>」の三例を挙げる。PVSV が一行で済ませた論点が、PVin では体系的に展開されている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.44,1–3）に同じ反論と答えがあり、例（<i>caitro dhanurdharaḥ</i>、<i>pārtho dhanurdharaḥ</i>）も同じである。違いは結びの語で、PVSV の「後で論じよう」（<i>ity ākṣepsyāmaḥ</i>）が、PVin 3 では「ほぼ述べた」（<i>ity uktaprāyam</i>）になっている。PVin 第2章の中間偈 k.10–14 で、すでに詳しく論じたことを指すのであろう。PVin 3 は後の 72,11 でも「<i>ayogavyavacchedena viśeṣaṇād ity uktam</i>」と、この箇所を参照している。</p>""",
 ),
 dict(
   label='自注 §5\u3000tadaṃśa の意味',
@@ -167,7 +171,8 @@ dict(
 <li>説明文：PVSV <i>buddhy<b>ākārakṛto</b></i>（知の形象が作った）／PVin <i>buddhi<b>parikalpito</b></i>（知によって構想された）。</li>
 </ul>
 <p>PVin はこのあと中間偈 k.29–31 を置き、「すべてのものは、自らの本性によって他から区別される（<i>vyāvṛtti</i>）。その区別に基づいて種々の類（<i>jātibheda</i>）が構想される」と説く。§8 の「属性の区別の構想（<i>dharmabhedaparikalpanā</i>）」を、いわゆるアポーハ（<i>apoha</i>）論によって基礎づけるものである。PVSV ではこの論点は後の箇所（第40偈以下）で論じられる。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.36）によれば、この引用の出典は、Dignāga の散逸した Hetumukha と推定されている（Frauwallner 1959）。より完全な形では <i>sarva evāyam anumānānumeyavyavahāro buddhyārūḍhena dharmadharmibhedena, na bahiḥ sadasattvam apekṣate</i>（推論と推論対象に関する営みはすべて、知に上った属性・基体の区別によるのであって、外界の有無には依存しない）として伝わる。広く見られる異読 <i>°nyāyena</i> は、短縮した引用の結びの語として二次的に生じたものだという。Dharmakīrti は、本質的結合（<i>svabhāvapratibandha</i>）という新しい考えを初めて示した直後にこの言葉を引いている。Steinkellner はそこに二つの意図を読む。一つは、自分の「新しい」論理学を Dignāga の権威に結びつけること、もう一つは、その論理学全体が概念（分別）の枠内で動くことを示すことである。</p>""",
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.36）によれば、この引用の出典は、Dignāga の散逸した Hetumukha と推定されている（Frauwallner 1959）。より完全な形では <i>sarva evāyam anumānānumeyavyavahāro buddhyārūḍhena dharmadharmibhedena, na bahiḥ sadasattvam apekṣate</i>（推論と推論対象に関する営みはすべて、知に上った属性・基体の区別によるのであって、外界の有無には依存しない）として伝わる。広く見られる異読 <i>°nyāyena</i> は、短縮した引用の結びの語として二次的に生じたものだという。Dharmakīrti は、本質的結合（<i>svabhāvapratibandha</i>）という新しい考えを初めて示した直後にこの言葉を引いている。Steinkellner はそこに二つの意図を読む。一つは、自分の「新しい」論理学を Dignāga の権威に結びつけること、もう一つは、その論理学全体が概念（分別）の枠内で動くことを示すことである。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.99,6–100,1）は、「属性と基体の区別がないなら所証と能証の区別もない」という §8 の反論を、「<i>uktam atra</i>（これについてはすでに述べた）」として PVin 第2章（＝本段）に送る。そして「推論と推論対象の営み（<i>anumānānumeyavyavahāra</i>）は、知の上で成立した区別に依拠して構想される」と、Dignāga の言葉を地の文で言い換える。また 126,2–3 では「知だけがこの関係を作り上げる、と<i>ヴァールッティカ</i>に述べた」（<i>kevalaṃ buddhir evaṃsambandham uparacayatīty uktaṃ vārttike</i>）と、PV を名指しで引き合いに出す（編者は本段と PV 1.61 を参照させる）。</p>""",
 ),
 dict(
   label='自注 §10\u3000結果因の結合',

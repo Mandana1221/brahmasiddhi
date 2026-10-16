@@ -111,7 +111,7 @@ dict(
 dict(
   label="自注　あらゆる否定は非知覚に基づく",
   upto="abhAvaM gamayati iti /",
-  fixes=[('viruddhasyApyanupalabdhyabhAvena', 'viruddhasyApyanupalabdhimantareNa'), ("yoranubhavasya", "yoranubhayasya"), ("tatrAnubhavasyA", "tatrAnubhayasyA")],
+  fixes=[('hyaparyantakAraNasya', 'hyavikalakAraNasya'), ('viruddhasyApyanupalabdhyabhAvena', 'viruddhasyApyanupalabdhimantareNa'), ("yoranubhavasya", "yoranubhayasya"), ("tatrAnubhavasyA", "tatrAnubhayasyA")],
   tr="""<p>およそいかなる否定も、すべて非知覚に基づく。すなわち、否定は二通りになされうる。ある[別の]ものの肯定によってか、否定によってかである。</p>
 <p>肯定による場合、肯定されるのは[否定対象と]矛盾するものか、矛盾しないものかである。矛盾しないものを肯定しても、共存が矛盾しないので、否定にはならない。矛盾するもの[を肯定する場合]も、非知覚がなければ矛盾は理解されない。なぜなら、欠けることのない原因をもって生じつつあるものが、他のものが存在するときには存在しなくなることから、[両者の]矛盾が理解されるのであり、それは非知覚によるからである。あるいは、矛盾とは、常住と無常のように、互いの知覚を排除しあうことに成り立つ特徴のことである。その場合にも、一方の知覚によって他方の非知覚が言われているにほかならない。さもなければ、[他方の]知覚が否定されていない以上、[他方の]非存在は成立しないからである。</p>
 <p>[否定による場合、]一方の否定によって他方の非存在を論証するときは、それはすでに非知覚にほかならない。否定は非知覚を本質とするからである。その場合にも、別のものの否定[によって論証するの]は、結果と原因の[否定]か、どちらでもないもの（<i>anubhaya</i>）の[否定]かである。そのうち、どちらでもないものについては、結びつき（<i>pratibandha</i>）がないので、それがないときには他方もないはずだ、ということがどうして言えようか。結果が知覚されないときにも、原因が必ず結果を伴うとは限らないので、[結果の非知覚から原因の]非存在がどうして[言えよう]か。それゆえ、原因の非知覚だけが[結果の]非存在を知らせるのである。</p>""",
@@ -133,7 +133,9 @@ dict(
 ② PVin は「<i>kāraṇāni tadvanti</i>」（中性複数）と読む。
 ③ PVin はこの後に、能力の妨げられていない原因の場合には結果の非存在から原因の非存在が言える（「<i>nehāpratibaddhasāmarthyāni dhūmakāraṇāni santi dhūmābhāvāt</i>」）など、詳しい補足をもつ。</p>
 <p><b>本文校訂</b>：Steinkellner（2013, Anm.80）によれば、5,12 の <i>anupalabdhyabhāvena</i> は Gnoli がチベット訳（<i>mi dmigs pa med par</i>）から復元した形である。写本Aにはこの文がなく、写本Bは大きく拡張された文を伝えるからである。しかし 5,9–21 はほとんどそのまま PVin 2 に取り込まれており、そこでは <i>viruddhasyāpy anupalabdhim antareṇa virodhāpratipattiḥ</i>（PVin 2 60,5f）となっている。これが本来の文言である。写本Bの余分な部分（<i>°niṣedhasya … kāryakāraṇayo°</i>）も、注記による拡張ではなく、5,17–19 からの目移りで紛れ込んだものだという。文意（「非知覚がなければ矛盾は理解されない」）は変わらない。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.81）は、ここに挙がる二種の矛盾、すなわち共存の矛盾（<i>sahabhāvavirodha</i>、後の <i>sahāvasthānavirodha</i>）と、互いの知覚の排除に成り立つ矛盾とを、NB 3.72–75 の定義と対照する。そして両者の違いを、Kellner に従って「事実上の両立不可能性」と「概念上の両立不可能性」の違いと解する。また Anm.82 によれば、ここで退けられる結果の非知覚（<i>kāryānupalabdhi</i>）は、PVin 2（61,1–8）では正しい非知覚の一種として認められる。PVin はそこで同じ文を問いの形で導入しており、その考えは本書の第7偈（完全な原因からの推論）ですでに準備されている。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.81）は、ここに挙がる二種の矛盾、すなわち共存の矛盾（<i>sahabhāvavirodha</i>、後の <i>sahāvasthānavirodha</i>）と、互いの知覚の排除に成り立つ矛盾とを、NB 3.72–75 の定義と対照する。そして両者の違いを、Kellner に従って「事実上の両立不可能性」と「概念上の両立不可能性」の違いと解する。また Anm.82 によれば、ここで退けられる結果の非知覚（<i>kāryānupalabdhi</i>）は、PVin 2（61,1–8）では正しい非知覚の一種として認められる。PVin はそこで同じ文を問いの形で導入しており、その考えは本書の第7偈（完全な原因からの推論）ですでに準備されている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.6,4–5）は、矛盾の二つの理解の仕方を「<i>ekasya bhāve 'vikalakāraṇasya prāgbhavato 'bhāvād virodhaḥ, parasparaparihārasthitalakṣaṇatayā vā</i>」と述べる。65,3–6 でも、同じ二種が第52偈前半とその注として現れる。どちらも <i>avikalakāraṇasya</i>（欠けることのない原因をもつ[もの]の）と読み、NB 3.73 とも一致する。訳もこの読みに従っているが、電子テキストの <i>aparyantakāraṇasya</i> には fixes の記載がないので、追加を検討すべきである。第二の定義は、PVSV の <i>anyonyopalabdhiparihāra°</i> に対し、PVin 3 では <i>upalabdhi</i> を欠く <i>paraspara-/anyonya-parihārasthitalakṣaṇatā</i> になっている。</p>
+<p><b>本文校訂</b>：e-text（Gnoli 5,13）の <i>aparyantakāraṇasya</i> を、PVin 第3章の並行文（Hugon/Tomabechi 2011, p.6,4）の <i>avikalakāraṇasya</i>（欠けることのない原因をもつ）に従って改める。訳はもともとこの意味で訳していた。</p>"""
 ),
 dict(
   label="自注　本性の非知覚",
@@ -200,16 +202,16 @@ dict(
   head="完全な原因からの推論（第7–11偈）",
   label="第7偈　完全な原因からの推論は本性因",
   upto="svabhAvabhUtA eva anumIyate /",
-  fixes=[("yathAsaMnihitAn", "yathA'saMnihitAn")],
-  tr="""<p>［問］では、完全な原因から結果の生起が推論される場合、それはどのようにして三種の論証因に含まれるのか。</p>
+    tr="""<p>［問］では、完全な原因から結果の生起が推論される場合、それはどのようにして三種の論証因に含まれるのか。</p>
 <p class="ktr">【第7偈】完全な原因によって推論される結果の生起は、他のものに依存しないので、本性[因]であると説かれている。</p>
-<p>［自注］これ[完全な原因]もまた、そこに現前していない他のものを必要としないので、[結果を生む力は]それだけに伴う、もの（<i>bhāva</i>）の本性である。なぜならその場合には、完全な原因から結果が生起する可能性だけが推論されるからである。完全な[原因]が結果を生み出す適性（<i>yogyatā</i>）をもつことを推論するからである。そして適性は原因の総体（<i>sāmagrī</i>）だけに伴うので、[総体の]本性であるものとして推論されるのである。</p>""",
+<p>［自注］これ[完全な原因]もまた、[そこに]集まっているとおりのもの以外の他のものを必要としないので、[結果を生む力は]それだけに伴う、もの（<i>bhāva</i>）の本性である。なぜならその場合には、完全な原因から結果が生起する可能性だけが推論されるからである。完全な[原因]が結果を生み出す適性（<i>yogyatā</i>）をもつことを推論するからである。そして適性は原因の総体（<i>sāmagrī</i>）だけに伴うので、[総体の]本性であるものとして推論されるのである。</p>""",
   cm="""<p>第2偈後半の自注で「原因から結果は推論できない」と述べた。では、「必要な条件がすべて揃った原因があるから、結果が生じるだろう」という推論はどうなるのか。三種の論証因のどれに当たるのか。</p>
 <p><b>答え</b>：これは本性因である。推論されるのは、結果そのものではなく、完全な原因の総体がもつ「結果を生み出す適性（<i>yogyatā</i>）」である。適性は総体そのものの本性で、ほかに何も要しない。だから「シンシャパー → 樹木」と同じ構造の本性因になる。</p>
 <p>ここで「可能性（<i>sambhava</i>）」と言っている点が大事である。結果が実際に生じたことまでは推論されない。この点は第8偈で説明される。</p>
-<p class="note">本文：<i>yathā 'saṃnihitān</i> と、avagraha を補って読む（「現前していないものに依存しないので」）。Steinkellner 2013 の訳は <i>yathāsaṃnihitān</i>（集められたとおりの[原因]以外には依存しない）と読む。</p>
-<p class="pvin"><span class="tag">PVin</span>第7偈に直接対応する偈は PVin 第2章に見当たらない。ただし PVin 第3章 83,10–84,11 に並行文がある（Steinkellner 2013, Anm.116）。完全な原因の総体（<i>sāmagrī</i>）と適性（<i>yogyatā</i>）の問題は、PVin では非知覚の段（k.32 自注「<i>sāmagrīpariṇāmāpekṣatvāt syād vyabhicāro 'pi</i>」）などで扱われている。</p>
+<p class="note">本文：以前は <i>yathā 'saṃnihitān</i> と avagraha を補って「現前していないものに依存しない」と読んでいた。Steinkellner 2013 の訳と PVin 第3章の並行文（Hugon/Tomabechi 版は <i>yathāsannihitān nānyam apekṣate</i> と avagraha なしで印刷する）に従い、Gnoli どおり <i>yathāsaṃnihitān</i>（集まっているとおりの[原因]以外には依存しない）と読むよう改めた。</p>
+<p class="pvin"><span class="tag">PVin</span>第7偈に直接対応する偈は PVin 第2章に見当たらないが、PVin 第3章では第63偈（82,7–8）としてそのまま採られ、自注も 82,9–83,1 にある。完全な原因の総体（<i>sāmagrī</i>）と適性（<i>yogyatā</i>）の問題は、PVin では非知覚の段（k.32 自注「<i>sāmagrīpariṇāmāpekṣatvāt syād vyabhicāro 'pi</i>」）などで扱われている。</p>
 <p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.95）によれば、6,22 から、三種の論証因の理論を補強する部分が始まる。そこでは、一見三種に収まらない論証因が実は三種に含まれること（6,22–8,15）、あるいは本当の似因であること（8,16–10,12）が示される。第7偈の、完全な原因から結果を推論する議論について、Steinkellner は一つの仮説を立てる。その動機は、原因から結果を推論できるかという論理上の問題よりも、菩薩の修行道の考えに含まれる「先取り的因果性」（proleptische Kausalität）に、論理学に根ざした理論的枠組みを与えることにあった、というものである。手本になったのは、Vārṣagaṇya の Ṣaṣṭitantra にある「前件をもつ（<i>pūrvavat</i>）推論」の定義であろう。そこにはすでに「欠けのない原因」（<i>kāraṇam anyūnam</i>）と「結果が将来生じること」（<i>bhaviṣyattvaṃ kāryasya</i>）という考えがある（原文は Jinendrabuddhi の PSṬ 2 110,8–10 に残る）。この「<i>kāryānumāna</i> 定理」は、後に Prajñākaragupta・Śaṅkaranandana・Kamalaśīla らによって、認識の正しさの根拠づけや一切知者の論証などのモデルとして応用された。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の第I巻の訳は、6,26 を「[先行する原因複合体によって]集められたとおりの[個々の原因]以外には、何ものにも依存しない」としている。これは <i>yathāsaṃnihitān</i>（avagraha なし）と読んだ訳であり、現在の訂正 <i>yathā 'saṃnihitān</i>（現前していない他のものを必要としない）とは読みが異なる。どちらでも趣旨（結果生起の可能性は、完全な原因の総体だけに伴う本性である）は変わらないが、校訂注で Steinkellner の読みに触れておくのがよい。また 6,27 の <i>tatra</i> について、Steinkellner（Anm.99）は Śākyabuddhi の解釈（「その[完全な原因複合体]において」）を採らず、Dharmottara と Iwata に従って「その[結果生起の推論の]場合には」と解する。現在の訳「その場合には」はこの解釈に合っている。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の第I巻の訳は、6,26 を「[先行する原因複合体によって]集められたとおりの[個々の原因]以外には、何ものにも依存しない」としている。これは <i>yathāsaṃnihitān</i>（avagraha なし）と読んだ訳であり、現在の訂正 <i>yathā 'saṃnihitān</i>（現前していない他のものを必要としない）とは読みが異なる。どちらでも趣旨（結果生起の可能性は、完全な原因の総体だけに伴う本性である）は変わらないが、校訂注で Steinkellner の読みに触れておくのがよい。また 6,27 の <i>tatra</i> について、Steinkellner（Anm.99）は Śākyabuddhi の解釈（「その[完全な原因複合体]において」）を採らず、Dharmottara と Iwata に従って「その[結果生起の推論の]場合には」と解する。現在の訳「その場合には」はこの解釈に合っている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.82,5–83,1）では、この偈が第63偈として導入の問いと自注ごと現れる。ただし PVin 3 は <i>samagreṇa</i> を <i>samarthena</i>（能力のある[原因]）と読む（写本C・チベット訳・PVinṬ による。ABD は PV と同じ <i>samagreṇa</i>）。自注は「<i>tatra hi kevalaṃ samagrāṇāṃ kāraṇānāṃ kāryotpādanayogyatānumīyate</i>」と簡略化されている。問題の箇所を編者は <i>yathāsannihitān nānyam apekṣata</i> と avagraha なしで印刷しており、Steinkellner の読み（<i>yathāsaṃnihitān</i>）と合う。</p>"""
 ),
 ]

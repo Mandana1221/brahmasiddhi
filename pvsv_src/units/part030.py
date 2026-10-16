@@ -28,7 +28,7 @@ dict(
   head="語の意味と非存在の論証：「原質は存在しない」（第205–212偈）",
   label="第205・206偈　語の意味は分別に立つ三種の属性",
   upto="tIrthAnantarIyapratyayeSu bhAvAt /",
-  fixes=[("naiSadoSaH", "naiSa doSaH"), ("svalakSaNaviSayAnAdi", "svalakSaNaviSayA anAdi"), ("zrotusca", "zrotuzca")],
+  fixes=[('tIrthAnantarIya', 'tIrthAntarIya'), ("naiSadoSaH", "naiSa doSaH"), ("svalakSaNaviSayAnAdi", "svalakSaNaviSayA anAdi"), ("zrotusca", "zrotuzca")],
   kfull="anAdivAsanodbhUtavikalpapariniSThitaH |\nzabdArthastrividho dharmo bhAvAbhAvobhayAzrayaH ||205||\ntasminbhAvAnupAdAne sAdhye'syAnupalambhanam |\ntathA heturna tasyaivAbhAvaH zabdaprayogataH ||206||",
   tr="""<p>［反論］では、「原質（<i>pradhāna</i>）などは存在しない。認識されないから」というこのことについて、そこではどうして非存在の言語活動の規定、あるいは存在の言語活動の否定があるのか。［問］どうして[それが]ないことがあろうか。［反論］その対象が否定されるなら、主題を表示する語は用いられないからであり、対象のない否定はありえないからである。［答論］これは過失ではない。なぜなら——</p>
 <p class="ktr">【第205偈】語の意味は、始まりのない潜在印象から生じた分別に立脚するものであり、存在・非存在・その両方に依拠する三種の属性である。</p>
@@ -42,7 +42,9 @@ dict(
 <p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.591）によれば、第205偈の「三種」とは、語の意味が、存在に依拠するもの、非存在に依拠するもの、両方に依拠するものの三種に分かれることである。両方に依拠するものの例として、Dharmakīrti 自身は第191偈の自注（Gnoli 96,7）で「有形でないこと」（<i>amūrtatva</i>）を、PVin 第3章では「認識対象であること」（<i>prameyatva</i>）を挙げる。Manorathanandin（PVV）が原質や主宰神などを例とするのは誤りであろう。また、第206偈で述べられる事情、すなわち原質のような語の意味が分別の外の存在をもたないが語の対象としては存在する、ということは三種すべてに当てはまるので、三分類の説明には使えない。</p>
 <p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.592）は、第206偈の <i>na tasyaiva abhāvaḥ</i> を「その[語の意味]自体は非存在ではない」と解する。根拠は、自注の「ここで、語の分別に現れるこの対象そのものが否定されるのではない」（Gnoli 106,17f）と Śākyabuddhi の説明である。分別に現れた原質という主題そのものは否定されず、否定されるのは、それが外界の実在に基づいていることだけである。Karṇakagomin（PVSVṬ 384,15f）は「その主題の非存在が論証されるのではない」と所証の側から説明し、Tillemans はこれに近い。いずれの解釈も、この句を論証因についての言明とは取っていない。</p>
 <p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.597）は注釈者（PVṬ, PVSVṬ）に従い、所有複合語 <i>bhāvābhāvobhayadharma</i> が指すのは分別（<i>vikalpa</i>）ではなく、第205偈と同じく語の意味（<i>śabdārtha</i>）だと解する（Yaita 1985b とは異なる）。実際、次の文ではこの語の意味が「主題」（<i>dharmin</i>）と呼ばれている。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.598）は、<i>tad atra dharmiṇi vyavasthitāḥ</i> の <i>atra</i> を、注釈者や Yaita のように <i>dharmiṇi</i> にかけるのではなく、Dignāga が NMu で示したサーンキヤ論者と仏教徒の論争を指すものと解する。注釈者自身も、<i>vyavasthitāḥ</i> を「論争の拠り所として立っている人々」（<i>vivādāśrayatvena sthitāḥ puruṣāḥ</i>）と説明している。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.598）は、<i>tad atra dharmiṇi vyavasthitāḥ</i> の <i>atra</i> を、注釈者や Yaita のように <i>dharmiṇi</i> にかけるのではなく、Dignāga が NMu で示したサーンキヤ論者と仏教徒の論争を指すものと解する。注釈者自身も、<i>vyavasthitāḥ</i> を「論争の拠り所として立っている人々」（<i>vivādāśrayatvena sthitāḥ puruṣāḥ</i>）と説明している。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.67,4–68,10）は、冒頭の反論「原質などは存在しない。認識されないから」（105,15–19）、本偈二つ（PVin 3.53–54）、自注（105,24–106,10）を続けて載せる。PVin は反論に「それ（語）が否定されるから」（<i>tasya pratiṣedhāt</i>）を加え、自注冒頭の <i>niveditam etat yathā</i> を省く。また <i>sa eva</i> を <i>sa ca</i>、<i>asamprāptaniruddhayor</i> を <i>asamprāptavinaṣṭayor</i> とする。e-text の <i>tīrthānantarīya°</i>（106,10）は、PVin の <i>tīrthāntarīya°</i>（異教徒の）が正しく、入力の誤りであろう。PVin は後に（125,10–11）「属性は存在・非存在・両方に依拠する三種である、と述べた」と本偈を指し、「認識対象であること」（<i>prameyatva</i>）が異類にも随伴しうることの根拠にしている。</p>
+<p><b>本文校訂</b>：e-text（Gnoli 106,10）の <i>tīrthānantarīya</i> は、PVin 第3章の並行文に従って <i>tīrthāntarīya</i>（他学派の）と読む。</p>"""
 ),
 dict(
   label="第207・208偈　要約偈：語の意味は知の上の対象",
@@ -57,7 +59,8 @@ dict(
 <li>過去や未来のもの（今は存在しない）についても語れないはずである。</li>
 <li>偽りの言葉というものがありえない（語はすべて実在を指すことになる）。</li>
 </ul>
-<p>実際にはこれらの語も使われるので、語の対象は「知の上の対象」（<i>bauddha artha</i>）、すなわち分別に現れる像である。</p>"""
+<p>実際にはこれらの語も使われるので、語の対象は「知の上の対象」（<i>bauddha artha</i>）、すなわち分別に現れる像である。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.68,11–69,6）は、両偈を PVSV と同じく「要約偈」（<i>saṅgrahaślokau</i>）として引き（PVin 3.55–56）、続く自注（106,15–19）もほぼ同文で載せる。違いはわずかで、<i>tathānupalambho 'sya dharmaḥ</i> の <i>asya</i> を欠くこと、<i>na punar atra</i> を <i>na tu punar</i> とすることくらいである。</p>"""
 ),
 dict(
   label="第209偈　語の意味そのものを否定すれば主題がなくなる",
@@ -78,7 +81,8 @@ dict(
 <p>［問］では、「構想されたもの［原質］の非認識が［その］属性である」と言われたこのことの意味は何か。</p>""",
   cm="""<p><b>実践的関心</b>：人が「存在するか、しないか」を問うのは、それが目的の実現に役立つかどうかを知りたいからである。たとえば寒い人は、「火」という語の意味ではなく、実際の火を求める。語の意味を考えても暖まらない。だから「原質は存在するか」という問いも、実在として目的の実現に役立つものがあるか、という問いである。</p>
 <p>去勢された男と恋する女の喩えは、Dharmakīrti の辛辣な比喩の一つとしてよく知られている。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.606）によれば、ここで引かれる Dignāga の言明 <i>kalpitasya anupalabdhir dharmaḥ</i> は『因明正理門論』（<i>Nyāyamukha</i>）§2.5 からの引用である。<i>kalpitasya</i> は <i>anupalabdhiḥ</i> にかかる目的語的属格であって、<i>dharmaḥ</i> にかかる「構想されたものの属性」ではない。これは構文上も明らかであり、K. 1992b や Y. 1985b の理解を退ける。したがって「［数論派によって］構想された［原質］の非認識が、［その］属性である」の意となる。なお Karṇakagomin（PVSVṬ 388,25; 389,10–13）は、この箇所を Uddyotakara らニヤーヤ学派の反論への答えとみる。Steinkellner は NV 324,21 の一節にも、これまで気づかれていなかった <i>Nyāyamukha</i> の引用があるとする（Anm.605）。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.606）によれば、ここで引かれる Dignāga の言明 <i>kalpitasya anupalabdhir dharmaḥ</i> は『因明正理門論』（<i>Nyāyamukha</i>）§2.5 からの引用である。<i>kalpitasya</i> は <i>anupalabdhiḥ</i> にかかる目的語的属格であって、<i>dharmaḥ</i> にかかる「構想されたものの属性」ではない。これは構文上も明らかであり、K. 1992b や Y. 1985b の理解を退ける。したがって「［数論派によって］構想された［原質］の非認識が、［その］属性である」の意となる。なお Karṇakagomin（PVSVṬ 388,25; 389,10–13）は、この箇所を Uddyotakara らニヤーヤ学派の反論への答えとみる。Steinkellner は NV 324,21 の一節にも、これまで気づかれていなかった <i>Nyāyamukha</i> の引用があるとする（Anm.605）。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.69,6–70,4）は、第209偈とその自注を飛ばし、「さらに」（<i>kiṃ ca</i>）に続けて第210偈を PVin 3.57 として引く。第211偈（去勢者の美醜の偈）は引かないが、自注（107,1–9）は去勢者の喩えまで含めてほぼ同文で載せる。小さな違いとして、PVin は「寒さの防止など」（<i>śītapratīkārādiḥ</i>）を <i>śītavinodanādiḥ</i> とし、<i>tad ayaṃ</i> を <i>tasmād ayaṃ</i> とする。続く「構想されたものの非認識が属性である、という言葉の意味は何か」という問い（107,9–10）も、PVin 70,4 に同文で見える。</p>"""
 ),
 dict(
   label="第212偈　構想されたものの属性とは",
@@ -88,6 +92,7 @@ dict(
 <p>［自注］分別の対象であるので、語の意味こそが「構想されたもの」である。それの属性とは、実在という拠り所が認識されないことである、というのが[師の]意図である。</p>""",
   cm="""<p><b>Dignāga の言明の解釈</b>：Dignāga は「構想されたもの（<i>kalpita</i>）の非認識が［その］属性である」と述べた（<i>kalpitasya</i> は <i>anupalabdhiḥ</i> にかかる。Steinkellner 2013, Anm.606）。Dharmakīrti はこれを、「語の意味（分別の対象）について、それが実在に基づいていないこと（実在として認識されないこと）が属性である」と解釈する。</p>
 <p><b>論理学者</b>（<i>nyāyavādin</i>）：PV では Dignāga を指す呼び名として用いられる。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.606）は、Dignāga の言明の <i>kalpitasya</i> を <i>anupalabdhiḥ</i> にかかる目的語的属格と解する。つまり「構想されたものの非認識が属性である」の意であり、「構想されたものの属性として非認識がある」ではない。本偈とその自注での Dharmakīrti の解釈（語の意味について、それが実在として認識されないことがその属性である）も、この構文に沿っている。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.606）は、Dignāga の言明の <i>kalpitasya</i> を <i>anupalabdhiḥ</i> にかかる目的語的属格と解する。つまり「構想されたものの非認識が属性である」の意であり、「構想されたものの属性として非認識がある」ではない。本偈とその自注での Dharmakīrti の解釈（語の意味について、それが実在として認識されないことがその属性である）も、この構文に沿っている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.70,5–6）は第212偈そのものは引かず、その自注（107,13–14）だけを載せる。自注の内容は、「構想の対象であるから語の意味こそが構想されたものであり、それが実在を拠り所としないこと（拠り所が認識されないこと）がその属性である」というものである。PVin は末尾を <i>ity ayam atrābhiprāyaḥ</i> とし、PVSV の <i>ity abhiprāyaḥ</i> に「ここでの」を加えている。この後 PVin は（70,7 以下）、存在性を論証因・所証とする問題（第187–191偈に相当）へ移る。</p>"""
 ),
 ]

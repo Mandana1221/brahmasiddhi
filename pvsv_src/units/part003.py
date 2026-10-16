@@ -13,8 +13,9 @@ dict(
 <li><b>適性</b>：総体が今もっている「生み出しうる」という性質である。これは総体そのものの本性で、ほかに何も要しない。各刹那の能力は、前の刹那の同類（<i>pūrvasajāti</i>）だけから生じるからである。</li>
 </ul>
 <p>刹那滅（<i>kṣaṇikatva</i>）を前提に、因果を「同類の刹那の連続」として捉える仏教認識論の考え方がよく表れている。</p>
-<p class="pvin"><span class="tag">PVin</span>第8偈に直接対応する偈は PVin 第2章に見当たらない。ただし PVin 第3章 83,10–84,11 に並行文がある（Steinkellner 2013, Anm.116）。非知覚の段（k.32 の自注）に「<i>sāmagrīpariṇāmāpekṣatvāt syād vyabhicāro 'pi</i>」という反論があり、同じ問題意識が見られる。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.103）は、「妨げ（<i>pratibandha</i>）が起こりうるから」原因からの結果の推論は不確定である、という本偈の論法の先例として、Dignāga の議論を挙げる。Dignāga は『集量論』自注（PSV ad PS 2.44’a, <i>pratibandhādisambhave</i>; PSṬ 2. 114,6）で、Nyāya 学派の「有前推論」（<i>pūrvavat</i>、原因から結果を推す推論）を、妨げなどがありうるので逸脱する（<i>vyabhicārin</i>）と批判している。Dharmakīrti はこれを受けつつ、推論できるのは結果を生む「適性」（<i>yogyatā</i>）までだ、と線を引き直したのである。</p>"""
+<p class="pvin"><span class="tag">PVin</span>第8偈に直接対応する偈は PVin 第2章に見当たらない。ただし PVin 第3章 83,1–7 に、偈を欠いた散文の並行文がある（Hugon/Tomabechi 2011 の頁・行。Steinkellner 2013, Anm.116 も参照）。非知覚の段（k.32 の自注）に「<i>sāmagrīpariṇāmāpekṣatvāt syād vyabhicāro 'pi</i>」という反論があり、同じ問題意識が見られる。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.103）は、「妨げ（<i>pratibandha</i>）が起こりうるから」原因からの結果の推論は不確定である、という本偈の論法の先例として、Dignāga の議論を挙げる。Dignāga は『集量論』自注（PSV ad PS 2.44’a, <i>pratibandhādisambhave</i>; PSṬ 2. 114,6）で、Nyāya 学派の「有前推論」（<i>pūrvavat</i>、原因から結果を推す推論）を、妨げなどがありうるので逸脱する（<i>vyabhicārin</i>）と批判している。Dharmakīrti はこれを受けつつ、推論できるのは結果を生む「適性」（<i>yogyatā</i>）までだ、と線を引き直したのである。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.83,1–7）は、問い「<i>kiṃ punaḥ kāraṇaṃ sāmagryāḥ kāryam eva nānumīyate</i>」に続けて、第8偈を置かずに「<i>yena</i>」で自注の文へ直接つなぐ。つまり偈の内容を散文だけで示している。文言にも小さな改変がある。PVSV の <i>na virudhyate anumānam</i> は <i>aviruddham</i> に、<i>kāryotpādanasamarthā iyaṃ</i> は <i>samartheyaṃ … kāryotpādane</i> になっている。また PVin 3 は <i>pūrvasvajātimātrahetutvāt</i>（自らの先行する同類だけを原因とするから）と読み、電子テキストの <i>pūrvasajāti°</i> より意味が明快である。</p>"""
 ),
 dict(
   label="第9偈　味から色を推論する",
@@ -23,7 +24,8 @@ dict(
 <p>［答］それも——</p>
 <p class="ktr">【第9偈】同じ総体に依存している色などが、[知覚に]現前していないのに理解されるのは、原因の属性を推論することによる。煙[から]燃料の変化[を推論する]ように。</p>""",
   cm="""<p><b>問題</b>：暗闇で果物を味わって、その色を推し量ることがある。味と色は、どちらがどちらの原因でも結果でもない。これは三種の論証因に収まらない第四の論証因ではないか。</p>
-<p><b>答え</b>：味と色は同じ原因の総体（<i>ekasāmagrī</i>）から生じる。味から、まずその原因（総体）を推論する。その総体の属性として、色をも推論する。煙から、燃えている燃料の変化（たとえば湿った薪が燃えていること）を推論するのと同じである。結局これは結果因の応用である（第10偈）。</p>"""
+<p><b>答え</b>：味と色は同じ原因の総体（<i>ekasāmagrī</i>）から生じる。味から、まずその原因（総体）を推論する。その総体の属性として、色をも推論する。煙から、燃えている燃料の変化（たとえば湿った薪が燃えていること）を推論するのと同じである。結局これは結果因の応用である（第10偈）。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.84,4–8）では、導入の問い（<i>yā tarhy akāryakāraṇabhūtenānyena rasādinā rūpādigatiḥ sā katham, sāpi</i>）と偈が第64偈として同文で現れる。注目すべきは、編者が第2句を <i>rūpāde rasato gatiḥ</i>（味から色などを理解する）と分かち書きしている点である。本書の <i>rūpāder asato gatiḥ</i>（現前していない色などの理解）と文字列は同じで、語の切り方だけが違う。文脈上どちらも成り立つので、注で別解として示すとよい。</p>"""
 ),
 dict(
   label="第10偈　同時・過去のものに限る",
@@ -43,8 +45,9 @@ dict(
 <p><b>未来には及ばない</b>：味の原因から「これから生じる色」を推論することはできない。原因から未来の結果は推論できない（第8偈）からである。推論できるのは、すでに生じている（同時の）色と、過去の色だけである。</p>
 <p><b>質料因と補助因</b>：質料因（<i>upādāna</i>）は、結果の素材となる同類の前刹那（色の前刹那が次の色の質料因）。補助因（<i>sahakārin</i>）は、それを助ける他の要素（味の前刹那も色の生起を助ける）。仏教の因果論の基本用語である。</p>
 <p class="note">本文：電子テキストの <i>atītaekaikālānāṃ</i> は <i>atītaikakālānāṃ</i>（過去のものと同時のものとの）と読む。</p>
-<p class="pvin"><span class="tag">PVin</span>第9・10偈の「同一総体」の議論は、PVin 第2章ではなく第3章（PVin 3. 85,8–87,2）に、例を増やした形で対応する（Steinkellner 2013, Anm.116）。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.104, 113, 116）によれば、この一連の箇所の並行文は PVin 第2章ではなく第3章にある。完全な原因からの推論（6,22–7,12、第7・8偈）は PVin 3. 83,10–84,11、不完全な原因からの推論（8,18–23、第11偈）は PVin 3. 85,1–7、同一総体からの推論や蟻・魚の前兆の例（7,12–8,15、第9・10偈と自注）は PVin 3. 85,8–87,2 に当たる（Iwata 1987:39）。PVin 3 の並行文は例が増えて内容も豊かである（Iwata 1991, 1993b）。Steinkellner はまた、味と色のように同時にあるものどうしは、同一性（<i>tādātmya</i>）でも直接の因果（<i>tadutpatti</i>）でもないので、原因の推論を介する間接的な推論になると説明する。</p>"""
+<p class="pvin"><span class="tag">PVin</span>第9・10偈の「同一総体」の議論は、PVin 第2章ではなく第3章（Hugon/Tomabechi 2011, 84,4–85,6）に対応し、その後に牛の角・水と容器などの例が加わる（Steinkellner 2013, Anm.116 も参照）。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.104, 113, 116）によれば、この一連の箇所の並行文は PVin 第2章ではなく第3章にある。完全な原因からの推論（6,22–7,12、第7・8偈）は PVin 3. 83,10–84,11、不完全な原因からの推論（8,18–23、第11偈）は PVin 3. 85,1–7、同一総体からの推論や蟻・魚の前兆の例（7,12–8,15、第9・10偈と自注）は PVin 3. 85,8–87,2 に当たる（Iwata 1987:39）。［ただし Hugon/Tomabechi 2011 版の頁・行では、それぞれ 82,5–83,7、83,8–84,3、84,4–85,6 以下に当たる。］PVin 3 の並行文は例が増えて内容も豊かである（Iwata 1991, 1993b）。Steinkellner はまた、味と色のように同時にあるものどうしは、同一性（<i>tādātmya</i>）でも直接の因果（<i>tadutpatti</i>）でもないので、原因の推論を介する間接的な推論になると説明する。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.84,9–85,3）は、自注（7,16–19）をほぼ同文で受け継ぐ。PV 1.10 の偈の部分（<i>śaktipravṛttyā na vinā rasaḥ, sa evānyakāraṇam</i>）は、「<i>svakāraṇasya phalotpādanaṃ praty ābhimukhyena vinā na rasaḥ. tad eva ca rūpopādānahetūnāṃ pravṛttikāraṇam</i>」と散文に溶かし込んでいる。後半も「<i>tatrāpy atītaikakālānāṃ gatiḥ, nānāgatānāṃ vyabhicārāt. tasmād iyam api kāryaliṅgajā</i>」と散文になっている。PVin 3 も <i>atītaikakāla°</i> と読み、本単元の訂正を支持する。</p>"""
 ),
 dict(
   label="自注　他の論証因はない",
@@ -53,7 +56,8 @@ dict(
   tr="""<p>それゆえ、[三種以外の]他の論証因で[所証を]知らせるものはない。本質的に結合していないものには、不可離の限定がないからである。</p>
 <p>これによって、蟻が[巣から]出ていくことや魚の変化などから雨などを推論することも説明された。その場合にも、[大気などの]元素（<i>bhūta</i>）の転変こそが雨の原因であり、[同時に]蟻などの騒ぎなどの原因でもあるからである。</p>""",
   cm="""<p>蟻の行列が雨の前兆になるのは、蟻が雨の原因だからでも結果だからでもない。湿気などの元素の変化が、雨の原因であり、同時に蟻の騒ぎの原因でもある。蟻の騒ぎから元素の変化（共通の原因）を推論し、そこから雨を推論するのである。第9偈と同じ構造である。</p>
-<p>ただし、共通の原因から未来の雨を推論するのは、厳密には適性（<i>yogyatā</i>）の推論にとどまる（第7・8偈）。ここでは前兆による推論も三種の枠内で説明できることを示すのが主眼である。</p>"""
+<p>ただし、共通の原因から未来の雨を推論するのは、厳密には適性（<i>yogyatā</i>）の推論にとどまる（第7・8偈）。ここでは前兆による推論も三種の枠内で説明できることを示すのが主眼である。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.85,4–5）は、蟻・魚の前兆の例を「<i>… varṣādyanumānaṃ vyākhyātam</i>」と受け、「<i>bhūtapariṇāma eva kaścid varṣahetuḥ</i>」と <i>kaścid</i> を加える。一方、結論の文「他の論証因はない」は、PVin 3 では牛の角や水と容器などの例をすべて検討した後の 90,1–3 に移されている。そこでは「<i>tan na trividhād dhetor anyo gamako 'sti</i>」と「三種の因以外に」が明示される。PVSV とは文の順序が逆である。</p>"""
 ),
 dict(
   label="第11偈　不完全な原因からの推論",
@@ -63,7 +67,8 @@ dict(
   cm="""<p><b>śeṣavat</b>：本来は Nyāyasūtra 1.1.5 の三種の推論（<i>pūrvavat</i>・<i>śeṣavat</i>・<i>sāmānyatodṛṣṭa</i>）の一つである。Dharmakīrti はこの語を、否定的随伴が確定していない誤った推論の名として用いる。「（論証因が）異類に存在しないことが確かめられていない、残りの部分（<i>śeṣa</i>）をもつ」と解される。</p>
 <p><b>身体から貪欲</b>：「身体・感官・知性があるから、この人には貪欲がある」という推論である。仏教では、貪欲は身体があるだけでは生じない。我執（<i>satkāyadṛṣṭi</i>）と非理作意（真実にかなわない思考）が必要である。身体などは貪欲の原因の一部にすぎず、不完全な原因から結果は推論できない。これは、解脱者（離貪者）も身体をもつ、という仏教の立場を守る議論でもある。</p>
 <p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.116）によれば、第11・12偈の例は、Mīmāṃsā 学派が一切知者（<i>sarvajña</i>）の存在を否定するために挙げた論証から取られている。Kumārila『頌評釈』（ŚV, codanā 132）は「認識対象であることなど」（<i>prameyatvādi</i>）を理由に挙げ、『大注』（<i>Bṛhaṭṭīkā</i>、TS 3156 に引用）はさらに長い理由のリストを示し、Kamalaśīla は「話者であること・人であること」（<i>vaktṛtva, puruṣatva</i>）を補う（TSP 997,18）。本偈の「身体・感官・知性があるから貪欲がある」も、このリストの一部と見られる。ただし Taber（2011a）によれば、第11・12偈を Kumārila への直接の反論と断定することはできず、Mīmāṃsā 一般の立場を念頭に置いたものと考えるのがよい。</p>
-<p class="stk"><span class="tag">Steinkellner</span>注釈者（Śākyabuddhi、Karṇakagomin）は、この推論が「残余をもつ」理由を「反対の場合（所証がない場合）に[論証因を]否定する認識手段がないから」（<i>viparyaye bādhakapramāṇābhāvāt</i>, PVSVṬ 51,17）と説明する。Steinkellner（2013, Anm.126）は、この説明は論理的には正しいが、ここでは時代錯誤（anachronistisch）だと言う。否定的随伴をこのような「反対の場合を否定する認識手段」によって確保する方法は、Dharmakīrti が後に『因一滴論』（HB 4,5）と『論諍の理論』（VN 6,5f.）で初めて定式化したものだからである。とはいえ注釈者は、その方法がどの文脈から育ってきたかをよく感じ取っていた、と Steinkellner は評価している。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>注釈者（Śākyabuddhi、Karṇakagomin）は、この推論が「残余をもつ」理由を「反対の場合（所証がない場合）に[論証因を]否定する認識手段がないから」（<i>viparyaye bādhakapramāṇābhāvāt</i>, PVSVṬ 51,17）と説明する。Steinkellner（2013, Anm.126）は、この説明は論理的には正しいが、ここでは時代錯誤（anachronistisch）だと言う。否定的随伴をこのような「反対の場合を否定する認識手段」によって確保する方法は、Dharmakīrti が後に『因一滴論』（HB 4,5）と『論諍の理論』（VN 6,5f.）で初めて定式化したものだからである。とはいえ注釈者は、その方法がどの文脈から育ってきたかをよく感じ取っていた、と Steinkellner は評価している。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.83,8–84,3）に並行文があるが、第11偈そのものはなく、散文だけで、しかも第9偈の議論（84,4 以下）より前に置かれている。PVin 3 は「<i>iti na tataḥ kāryānumānam</i>」と結論を明示する。また、貪欲などの根拠として「<i>ahaṃ mameti cāpaśyato 'nunayapratighābhāvāt</i>」（「我」「我がもの」と見ない者には愛着も反感もないから）を補う。結びは「<i>śeṣavad etad vyabhicāri liṅgam</i>」で、PVSV の「疑いが生じる」をはっきり逸脱因と言い切っている。</p>"""
 ),
 dict(
   label="第12偈　言葉から貪欲を推論する誤り",
@@ -85,7 +90,8 @@ dict(
 <li>有漏の（煩悩に汚された）存在を対象とする、</li>
 <li>心の執着。</li>
 </ul>
-<p>悲などは、このような顛倒なしにも生じる。この点は後の箇所（第2章 pramāṇasiddhi の議論など）で論じられる、という予告である。</p>"""
+<p>悲などは、このような顛倒なしにも生じる。この点は後の箇所（第2章 pramāṇasiddhi の議論など）で論じられる、という予告である。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.109,3–8）に手直しした並行文がある。<i>sa eva rāga iti cet, iṣṭatvān na kiṃcid bādhitaṃ syāt</i> は <i>iṣṭatvād adoṣaḥ</i> に縮められている。貪欲の定義の <i>cetaso 'bhiṣvaṅgam</i> は <i>abhūtaguṇābhinandanam</i>（ない徳性を喜ぶこと）に替わり、瞋（<i>dveṣa</i>）と痴（<i>moha</i>）の定義が加わる。特に、PVSV の「後で示そう」（<i>iti nivedayiṣyāmaḥ</i>）が、PVin 3 では「<i>iti vyākhyātaṃ vārttike</i>」（ヴァールッティカで説明した）となっている。PV 第2章（悲の議論）を指すと考えられ、PV が PVin に先行することを示す証拠である。</p>"""
 ),
 dict(
   label="自注　離貪者も語る",
@@ -101,7 +107,8 @@ dict(
 <li>離貪者は自分のための目的はなくても、他者の利益（<i>parārtha</i>）のために語る。その動機は悲である。</li>
 <li>悲を「一種の貪欲」と呼ぶのは構わない。しかし悲は顛倒（<i>viparyāsa</i>）から生じないので、煩悩としての過失ではない。</li>
 </ol>
-<p class="stk"><span class="tag">Steinkellner</span>「それ（悲）こそが貪欲だ」「認めよう」（<i>iṣṭam</i>）というやりとりをもとに、Dunne（1996）と Franco（2004）は、Dharmakīrti が「悲は貪欲である」、つまり仏陀にも貪欲があると認めた、と解釈した。Steinkellner（2013, Anm.127, 141）は、Pecchia、Taber、Iwata、Eltschinger らの研究によってこの解釈は根拠のないものとして退けられた、とする。ここで認められているのは、悲を「貪欲」と名づけること（<i>karuṇā rāga iti nāmakaraṇam</i>, PVSVṬ 52,26）だけである。PVin 3. 110,2–3 は「名前は禁じない。しかし本性は異なる」（<i>iṣṭam. na nāma nivāryate. rūpaṃ tu bhinnam</i>）と、この点をもっとはっきり述べている。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>「それ（悲）こそが貪欲だ」「認めよう」（<i>iṣṭam</i>）というやりとりをもとに、Dunne（1996）と Franco（2004）は、Dharmakīrti が「悲は貪欲である」、つまり仏陀にも貪欲があると認めた、と解釈した。Steinkellner（2013, Anm.127, 141）は、Pecchia、Taber、Iwata、Eltschinger らの研究によってこの解釈は根拠のないものとして退けられた、とする。ここで認められているのは、悲を「貪欲」と名づけること（<i>karuṇā rāga iti nāmakaraṇam</i>, PVSVṬ 52,26）だけである。PVin 3. 110,2–3 は「名前は禁じない。しかし本性は異なる」（<i>iṣṭam. na nāma nivāryate. rūpaṃ tu bhinnam</i>）と、この点をもっとはっきり述べている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.109,8–110,3）は、話者の例（<i>tatra yathā rakto bravīti …</i>）から「<i>karuṇayāpi vṛtteḥ</i>」まで、ほぼ同文である（PVSV の <i>apratipattiḥ</i> は <i>apratītiḥ</i>）。「<i>iṣṭam</i>」の後には「<i>na nāma nivāryate. rūpaṃ tu bhinnam</i>」と、さらに「<i>aśubhābhinandinaḥ pratisandhinibandhanāt</i>」（不浄を喜ぶ[貪欲]は再生の原因となるから）が加わる。結びも「<i>ata evāviparyāsodbhavā sā na doṣaḥ</i>」と、悲が過失でない理由を明確にしている。</p>"""
 ),
 dict(
   label="自注　悲の生起と離貪者の行為",
@@ -113,7 +120,8 @@ dict(
   cm="""<p><b>慈の三種</b>：仏教では、慈（悲）を所縁によって三つに分ける。衆生を所縁とするもの（<i>sattvālambana</i>）、法を所縁とするもの（<i>dharmālambana</i>）、所縁のないもの（<i>anālambana</i>）である。後二者は我執なしに起こる慈悲である。「衆生・法など」はこの区別を念頭に置いている。</p>
 <p><b>反論</b>：行為の結果とは自分にとっての結果のことである。自分の目的をもたない離貪者が、他者の目的を行為の動機とするのは顛倒ではないか。</p>
 <p><b>答論</b>：結果とは「望まれているもの」のことである。悲をもつ人にとっては、他者の利益が望まれた結果である。実在しないもの（我など）を付託していないので、その欲求は煩悩ではない。</p>
-<p><b>本文校訂</b>：Gnoli は Ms.B と Karṇakagomin（PVSVṬ 53,21）に従って <i>aviparyāsāt</i>（顛倒がないから）と読む。Steinkellner（2013, vol. I 校訂注12; Anm.146）はチベット訳、Śākyabuddhi の注（PVṬt 30a1）、PVin の並行文（PVin 3. 110,7）によって否定辞のない <i>viparyāsāt</i>（顛倒によるから）と読む。そうすると反論は「悲をもつ者の[他者のための]企ても結果のないものであり、顛倒に基づく」となる。離貪者には自分の目的（<i>svārtha</i>）がないのに、他者の目的を行為の動機とみなすこと自体が顛倒だ、という趣旨である。だから答論は「他者の利益こそが結果として望まれている」と応じる。両読は avagraha の書き落としから生じたもので、決定的ではない、と Steinkellner は付け加えている。</p>"""
+<p><b>本文校訂</b>：Gnoli は Ms.B と Karṇakagomin（PVSVṬ 53,21）に従って <i>aviparyāsāt</i>（顛倒がないから）と読む。Steinkellner（2013, vol. I 校訂注12; Anm.146）はチベット訳、Śākyabuddhi の注（PVṬt 30a1）、PVin の並行文（PVin 3. 110,7）によって否定辞のない <i>viparyāsāt</i>（顛倒によるから）と読む。そうすると反論は「悲をもつ者の[他者のための]企ても結果のないものであり、顛倒に基づく」となる。離貪者には自分の目的（<i>svārtha</i>）がないのに、他者の目的を行為の動機とみなすこと自体が顛倒だ、という趣旨である。だから答論は「他者の利益こそが結果として望まれている」と応じる。両読は avagraha の書き落としから生じたもので、決定的ではない、と Steinkellner は付け加えている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.110,3–8）に並行文がある。PVSV の「<i>sattvadharmādyālambanā maitryādaya iṣyante</i>」は、PVin 3 では「<i>dharmālambanādayo maitryādayaḥ sūtre deśitāḥ</i>」（経に説かれている）と、典拠を経典に求める形になっている。結論部は「<i>parārthasyaiva phalatveneṣṭatvāt, tallakṣaṇatvāc ca phalasya</i>」で、PVSV の <i>icchālakṣaṇatvāt</i> とは理由句の言い方が異なる。末尾の <i>sarvathābhūtāsamāropān nirdoṣaḥ</i> は PVin 3 にない（<i>viparyāsāt</i> の読みについては上の校訂注を参照）。</p>"""
 ),
 dict(
   label="自注　自分から他人への推論の誤り",
@@ -129,7 +137,8 @@ dict(
 </ul>
 <p><b>tadanyena doṣavattvasādhane</b>：貪欲とは別のもの（語ろうとする意欲や悲）を「過失」として論証するのなら構わない、という意味である（Steinkellner 2013, Anm.150）。</p>
 <p class="stk"><span class="tag">Steinkellner</span><i>tadanyena doṣavattvasādhane na kiṃcid aniṣṭam</i> について、Steinkellner（2013, Anm.150）は <i>tad</i> を「貪欲など」と取る。つまり「[言葉から]離貪者に、貪欲とは別のもの（たとえば語ろうとする意欲や悲）として過失があることを論証するのなら、何も不都合はない」と解する。これは、悲や語ろうとする意欲を「貪欲」と呼びたいなら反対しない、という先の譲歩（9,4; 9,12）を受けたものである。続く文は逆接で、このような論証の限界を示す。我々の訳の「それ[言葉]以外のものによって」は、この解釈と異なる。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013）は <i>ananyānumāne iha avyabhicāra iti ko niścayaḥ</i> を反論と答論に分けず、一つの問いとして訳す。「[貪欲と]別のものを推論するのでない場合に、ここで逸脱がないという、どんな確定があろうか」。<i>ananya</i> は「自分と異ならない」ではなく、「貪欲と別でない」（貪欲そのもの）を推論することを指す。また 10,2 の <i>tadanumāne</i> の <i>tad</i> は、貪欲そのものではなく「貪欲を生む適性」（<i>rāgotpādanayogyatā</i>）を指す（Anm.153）。Steinkellner によれば、ここで Dharmakīrti は第7偈の「適性」の推論モデルと第9・10偈の間接推論を持ち出し、Mīmāṃsā の論証の最後の逃げ道をふさいでいる（皮肉な修辞の頂点）。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013）は <i>ananyānumāne iha avyabhicāra iti ko niścayaḥ</i> を反論と答論に分けず、一つの問いとして訳す。「[貪欲と]別のものを推論するのでない場合に、ここで逸脱がないという、どんな確定があろうか」。<i>ananya</i> は「自分と異ならない」ではなく、「貪欲と別でない」（貪欲そのもの）を推論することを指す。また 10,2 の <i>tadanumāne</i> の <i>tad</i> は、貪欲そのものではなく「貪欲を生む適性」（<i>rāgotpādanayogyatā</i>）を指す（Anm.153）。Steinkellner によれば、ここで Dharmakīrti は第7偈の「適性」の推論モデルと第9・10偈の間接推論を持ち出し、Mīmāṃsā の論証の最後の逃げ道をふさいでいる（皮肉な修辞の頂点）。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.110,9–111,11）は、この段を大きく増補している。<i>ananyānumāne</i> は、編者が PVSV に従って立てた校訂読みである（写本は <i>°numānam</i>）。PVSV の <i>ko niścayaḥ</i> は <i>kuto niścayaḥ</i> となる。<i>karaṇaguṇavaktukāmate vacanam anumāpayet</i> の前後には、「自分の例から他人を推論する」という反論への応答などが挿入されている。10,2 は「<i>rāgotpattiyogyatārahite … vyatirekāsiddher na kāryakāraṇatāsiddhiḥ</i>」と書き換えられ、10,3–4 の理由も「<i>svabhāvaguṇasya śaktāv upacārāt</i>」（本性の性質を能力に転用しているから）に替わっている。PVSV の <i>tadanyena doṣavattvasādhane na kiṃcid aniṣṭam</i>（9,19–20）は PVin 3 にない。</p>"""
 ),
 dict(
   label="自注　異類に見られないことは論証因にならない",
@@ -141,7 +150,8 @@ dict(
 <p><b>結論</b>：貪欲を論証したいなら、貪欲の本当の原因（我見と非理作意）を論証因にすべきである。その場合、言葉はもはや論証に何の役割も果たさない。</p>
 <p class="note">本文：<i>anyathādarśanāt</i> は「別様に見られることから」（<i>anyathā darśanāt</i>）と読んだ。電子テキストは <i>anyathā adarśanāt</i> と分けている。</p>
 <p class="stk"><span class="tag">Steinkellner</span>「不可離な」（<i>nāntarīyaka</i>）結果という語について、Steinkellner（2013, Anm.159）は Uddyotakara『正理評釈』の定義「ある対象が別の対象なしには存在しないとき、それは不可離である」（<i>yo ’rtho yam artham antareṇa na bhavati, sa nāntarīyakaḥ</i>, NV 161,7f.）を挙げる。アーマラカ（<i>āmalakī</i>、Emblica officinalis）の例について Steinkellner（Anm.161）は、木に乳を注ぐと実の味が変わるという記録は見つからなかった、と述べる。実そのものに乳を加えて甘くする、と理解することもできるとし、Śāntarakṣita に帰せられる『真実成就』（<i>Tattvasiddhi</i>）の「地などから生じたアーマラカの実は渋い味に感じられるが、乳を注ぐなどの別の原因が加わると、同じ実が甘いと知られる」という並行例を挙げている。</p>
-<p class="stk"><span class="tag">Steinkellner</span><i>ātmadarśanāyoniśomanaskāreṇa</i> をチベット訳は並列複合語（我見と非理作意）と解し、Śākyabuddhi と Karṇakagomin もその解釈を許す。しかし Steinkellner（2013, Anm.163）は第224偈などを参照して、「我見という非理作意」（我を見ることにある誤った思考）と同格に訳している。Dharmakīrti はあらゆる煩悩の根を我見（<i>satkāyadṛṣṭi</i>）に還元するからである（第222・223偈）。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span><i>ātmadarśanāyoniśomanaskāreṇa</i> をチベット訳は並列複合語（我見と非理作意）と解し、Śākyabuddhi と Karṇakagomin もその解釈を許す。しかし Steinkellner（2013, Anm.163）は第224偈などを参照して、「我見という非理作意」（我を見ることにある誤った思考）と同格に訳している。Dharmakīrti はあらゆる煩悩の根を我見（<i>satkāyadṛṣṭi</i>）に還元するからである（第222・223偈）。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.111,12–112,6）は、アーマラカの例も含めてほぼ同文である。ただし <i>sarvatrābhāvam</i> が <i>sarvābhāvam</i> に、<i>deśakālasaṃskārabhedena</i> が <i>deśakālabhedena</i> になっている。結論の「<i>tasmād vipakṣe 'dṛṣṭir ahetuḥ</i>」は「<i>tasmān nāsty api vipakṣe 'dṛṣṭimātreṇa vyāvṛttir asandigdhā</i>」に書き換えられ、言葉を、異類からの排除が疑わしい不定因（<i>anaikāntika</i>）の例として分類し直している。</p>"""
 ),
 dict(
   label="第13偈　鍋の米の喩え",

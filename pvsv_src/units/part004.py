@@ -79,7 +79,8 @@ dict(
 <li>我と呼吸のあいだに本質的結合が証明されていないので、否定的随伴は確定しない。</li>
 </ol>
 <p class="note">本文：電子テキストの <i>ātmanonivṛtty-</i> は <i>ātmano nivṛtty-</i> と区切る。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章（k.68 の後の散文）にほぼ同文がある。PVin は「<i>nirātmakānāṃ ghaṭādīnāṃ dṛṣṭādṛṣṭānāṃ prāṇādyabhāvena vyāpteḥ</i>」と、遍充の観点から言い換えている。</p>"""
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章（k.68 の後の散文）にほぼ同文がある。PVin は「<i>nirātmakānāṃ ghaṭādīnāṃ dṛṣṭādṛṣṭānāṃ prāṇādyabhāvena vyāpteḥ</i>」と、遍充の観点から言い換えている。</p>
+<p class="pvin"><span class="tag">PVin 3</span>PVin 第3章（Hugon/Tomabechi 2011, p.118,12–13）は、「生きた身体が我をもたないなら、気息などをもたないことになる」という論証を「<i>yad apy āha</i>」として再び取り上げる。そして、我をもたないものとの因果関係が成立しないので、この論証は成り立たないと退ける（編者は PV 4.213 と本段 13,2–3 を参照させる）。121,11 の「<i>na cāsann ātmā, sattāsādhanavṛtteḥ</i>」も、13,6–9 の議論と比べられる（cf.）。いずれも文言の一致ではなく、内容上の並行である。</p>"""
 ),
 dict(
   label="第18偈第4句　不成立の分類の適用は不要",
