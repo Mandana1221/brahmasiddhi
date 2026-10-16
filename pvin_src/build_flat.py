@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PVin 全訳を、Hetubindu 対訳と同じ 1 カラムの読み物スタイル（アコーディオンなし）で出力する。
 
-入力はアコーディオン版と同じ pvin_src/partXX.txt。出力は pvin_taiyaku.html（第1・2章を 1 ファイルに）。
+入力はアコーディオン版と同じ pvin_src/partXX.txt。出力は章ごとに pvin_taiyaku_1.html（第1章）と pvin_taiyaku_2.html（第2章）。
   # 見出し     → 節（§番号つきの大見出し）
   ## / ###     → 小見出し
   G 要旨       → 節の冒頭の導入文
@@ -19,9 +19,15 @@ import kh  # noqa: E402
 
 ROOT = build.ROOT
 CSS = (ROOT / 'pvin_src' / 'flat_style.css.part').read_text(encoding='utf-8')
-PARTS = ['01a', '01b', '01c', '02a', '02b', '02c']
-CHAPTERS = {'01a': ('第1章', '直接知覚', 'pratyakṣapariccheda'),
-            '02a': ('第2章', '自分のための推論', 'svārthānumānapariccheda')}
+# (章番号, 章名, サンスクリット名, part, 導入文, 「まず30秒で」の内容)
+CHAPTERS = [
+    (1, '直接知覚', 'pratyakṣapariccheda', ['01a', '01b', '01c'],
+     '正しい認識（認識手段）は<strong>直接知覚と推論の二つだけ</strong>である。第1章では、そのうち直接知覚を「<strong>分別を離れ、錯誤のない</strong>」知と定義し、感官の知に言葉が入りこまないことを論証したうえで、意による知覚・自己認識・ヨーガ行者の知覚、そして認識手段と結果の関係、唯識の立場へと進みます。',
+     '分別を離れた知、意による知覚、自己認識、ヨーガ行者の知覚、手段と結果、唯識'),
+    (2, '自分のための推論', 'svārthānumānapariccheda', ['02a', '02b', '02c'],
+     '第2章では、<strong>三相をそなえた徴表</strong>による推論を論じます。推論は錯誤でありながら正しい認識であること、徴表は<strong>自性・結果・非認識</strong>の三種だけであること、そして自性因の例として刹那滅を、結果因の例として煙と火を詳しく検討します。',
+     '三相、三種の徴表、非認識、聖典批判、刹那滅論証、結果因'),
+]
 
 
 def ref_label(ref):
@@ -84,20 +90,13 @@ def mula(kind, d, uid, notes):
             f'  <div class="tr">{build.ja(d["ja"])}</div>{exp}\n</div>')
 
 
-def main():
+def build_chapter(chno, name, sk_name, parts, lead, facts):
     nav = []
     maprows = []
     body = []
     sec_no = 0
-    for pid in PARTS:
+    for pid in parts:
         items = parse(pid)
-        if pid in CHAPTERS:
-            ch, name, sk = CHAPTERS[pid]
-            cid = 'ch' + pid[:2]
-            nav.append(f'<li><a href="#{cid}" class="chp">{ch}</a></li>')
-            maprows.append(f'<tr class="grp"><td colspan="3"><a href="#{cid}">{ch}　{name}</a>　<i>{sk}</i></td></tr>')
-            body.append(f'<section id="{cid}" class="wrap chapter-band"><div class="eyebrow">{ch}</div>'
-                        f'<h2 class="ch-title">{name}</h2><p class="muted"><i>{sk}</i></p></section>')
         i = 0
         open_sec = False
         while i < len(items):
@@ -147,12 +146,19 @@ def main():
         if open_sec:
             body.append('</section>')
 
+    other = 2 if chno == 1 else 1
+    other_name = CHAPTERS[other - 1][1]
+    other_link = f'<a href="pvin_taiyaku_{other}.html">第{other}章「{other_name}」</a>'
+    if chno == 1:
+        nav.append(f'<li><a href="pvin_taiyaku_2.html" class="chp">第2章へ →</a></li>')
+    else:
+        nav.insert(0, f'<li><a href="pvin_taiyaku_1.html" class="chp">← 第1章へ</a></li>')
     page = f'''<!doctype html>
 <html lang="ja">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<title>Pramāṇaviniścaya 対訳</title>
+<title>Pramāṇaviniścaya 対訳 第{chno}章</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@600;800&family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Noto+Serif+Devanagari:wght@400;600&display=swap">
@@ -184,10 +190,10 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
   <div class="eyebrow">インド仏教論理学を読む</div>
   <h1>Pramāṇaviniścaya</h1>
   <p class="deva-title" lang="sa">प्रमाणविनिश्चयः</p>
-  <p class="sub">Dharmakīrti『量決択』第1・2章を、原文・和訳・解説でテキスト順に読む</p>
-  <span class="sample">対訳　第1章「直接知覚」・第2章「自分のための推論」全文</span>
-  <p>正しい認識（認識手段）は<strong>直接知覚と推論の二つだけ</strong>である――Dharmakīrti はこの立場から、第1章で「分別を離れ、錯誤のない」直接知覚を論じ、第2章で三相をそなえた徴表による推論と、<strong>自性・結果・非認識</strong>の三種の徴表を論じます。</p>
-  <p>このページでは、デーヴァナーガリーの原文と和訳を対照させ、必要な箇所に解説を添えました。</p>
+  <p class="sub">Dharmakīrti『量決択』第{chno}章「{name}」（<i>{sk_name}</i>）を、原文・和訳・解説でテキスト順に読む</p>
+  <span class="sample">対訳　第{chno}章「{name}」全文</span>
+  <p>{lead}</p>
+  <p>このページでは、デーヴァナーガリーの原文と和訳を対照させ、必要な箇所に解説を添えました。{other_link}は別のページにあります。</p>
 </header>
 
 <main>
@@ -196,8 +202,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
   <dl class="facts">
     <div><dt>著者</dt><dd>Dharmakīrti（法称）<br><small>7世紀頃の仏教論理学者。<i>Pramāṇavārttika</i>、<i>Nyāyabindu</i>、<i>Hetubindu</i> などの著者</small></dd></div>
     <div><dt>書名</dt><dd><i>Pramāṇaviniścaya</i>「認識手段の決択」<br><small>主著 <i>Pramāṇavārttika</i> の内容を、偈と散文で整理し直した書。全3章</small></dd></div>
-    <div><dt>第1章</dt><dd>直接知覚（<i>pratyakṣa</i>）<br><small>分別を離れた知、意による知覚、自己認識、ヨーガ行者の知覚、手段と結果、唯識</small></dd></div>
-    <div><dt>第2章</dt><dd>自分のための推論（<i>svārthānumāna</i>）<br><small>三相、三種の徴表、非認識、聖典批判、刹那滅論証、結果因</small></dd></div>
+    <div><dt>この章</dt><dd>第{chno}章　{name}<br><small>{facts}</small></dd></div>
     <div><dt>本文</dt><dd>提供された電子テキスト（Kyoto-Harvard 方式）<br><small>デーヴァナーガリーとローマ字は機械的に転写した。明らかな入力の誤り3か所のみ修正</small></dd></div>
   </dl>
 
@@ -211,7 +216,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 </section>
 
 <section id="map" class="wrap">
-  <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">テキストの順に{sec_no}節に分けた</span></div>
+  <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">第{chno}章をテキストの順に{sec_no}節に分けた</span></div>
   <div class="tbl">
     <table>
       <thead><tr><th>節</th><th>見出し</th><th>行</th></tr></thead>
@@ -226,15 +231,17 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 
 <footer class="wrap">
   <p><strong>テキストについて</strong>　原文は提供された <i>Pramāṇaviniścaya</i> 第1・2章の電子テキスト（Kyoto-Harvard 方式）をデーヴァナーガリーに機械的に転写したもの。第1章第1偈など、テキストに欠落があるらしい箇所は解説で注記した。</p>
-  <p>和訳は試訳であり、正確な読みは校訂本（Steinkellner 2007）で確認されたい。同じ訳文の科段（アコーディオン）版は <a href="pvin_index.html">pvin_index.html</a> から読める。</p>
+  <p>和訳は試訳であり、正確な読みは校訂本（Steinkellner 2007）で確認されたい。同じ訳文の科段（アコーディオン）版は <a href="pvin_index.html">pvin_index.html</a> から読める。{other_link}へ。</p>
 </footer>
 </main>
 </body>
 </html>
 '''
-    (ROOT / 'pvin_taiyaku.html').write_text(page, encoding='utf-8')
-    print('wrote pvin_taiyaku.html', len(page), 'sections:', sec_no)
+    fname = f'pvin_taiyaku_{chno}.html'
+    (ROOT / fname).write_text(page, encoding='utf-8')
+    print('wrote', fname, len(page), 'sections:', sec_no)
 
 
 if __name__ == '__main__':
-    main()
+    for c in CHAPTERS:
+        build_chapter(*c)

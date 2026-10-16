@@ -53,7 +53,7 @@ def main():
 </section>
 <section>
 <h2 class="chapter">目次</h2>
-<p><a href="pvin_zenyaku_complete.html">▶ 全文を1ファイルで読む（第1・2章）</a><br><a href="pvin_taiyaku.html">▶ 読み物スタイル（Hetubindu 対訳と同じ形式）で読む</a></p>
+<p><a href="pvin_zenyaku_complete.html">▶ 全文を1ファイルで読む（第1・2章）</a><br>▶ 読み物スタイル（Hetubindu 対訳と同じ形式）：<a href="pvin_taiyaku_1.html">第1章</a>／<a href="pvin_taiyaku_2.html">第2章</a></p>
 <div class="tbl-wrap"><table>
 <tr><th>ファイル</th><th>収める論題</th></tr>
 {"".join(rows)}
