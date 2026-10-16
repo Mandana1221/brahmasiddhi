@@ -299,4 +299,5 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 
 if __name__ == '__main__':
     for c in CHAPTERS:
-        build_chapter(*c)
+        if all((ROOT / 'pvin_src' / f'part{pid}.txt').exists() for pid in c[3]):
+            build_chapter(*c)
