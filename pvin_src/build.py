@@ -28,7 +28,26 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import kh  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
-TEXT = (ROOT / 'PVin_text.txt').read_text(encoding='utf-8').split('\n')
+TEXT = []
+LOC = []        # 行ごとの校訂本の頁・行（第3章のみ。"12,3"）
+
+
+def set_text(name='PVin_text.txt'):
+    """本文ファイルを切り替える。行頭の "頁,行<TAB>" は LOC に分ける。"""
+    global TEXT, LOC
+    TEXT, LOC = [], []
+    for ln in (ROOT / name).read_text(encoding='utf-8').split('\n'):
+        loc, tab, body = ln.partition('\t')
+        TEXT.append(body if tab else ln)
+        LOC.append(loc if tab else '')
+
+
+def loc(ref):
+    """ref の最初の行の校訂本の頁・行（なければ空）。"""
+    return LOC[int(REF.match(ref).group(1)) - 1]
+
+
+set_text()
 CSS = (ROOT / 'pvin_src' / 'style.css.part').read_text(encoding='utf-8')
 
 SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈'}
@@ -84,6 +103,7 @@ def ja(lines):
 
 
 def parse(part, prefix=''):
+    set_text()
     meta = {}
     out = []
     stack = []
@@ -121,6 +141,8 @@ def parse(part, prefix=''):
         if line.startswith('='):
             k, _, v = line[1:].partition(' ')
             meta[k] = v.strip()
+            if k == 'src':
+                set_text(v.strip())
             continue
         m = re.match(r'^(#+)\s+(\S+)\s*\|\s*([^|]*?)\s*(?:\|\s*(.*))?$', line)
         if m:

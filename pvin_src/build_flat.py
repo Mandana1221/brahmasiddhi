@@ -29,9 +29,25 @@ CHAPTERS = [
      '三相、三種の徴表、非認識、聖典批判、刹那滅論証、結果因'),
 ]
 
+TEXTINFO = {
+    1: {'src': '提供された電子テキスト（Kyoto-Harvard 方式）<br><small>デーヴァナーガリーとローマ字は機械的に転写した。明らかな入力の誤り3か所のみ修正</small>',
+        'num': '各ブロック左上の <span class="ia">14.1–4</span> は電子テキストの行番号（.の後は行内の文番号）。節見出しの <span class="pg">14–26</span> はその節の範囲',
+        'col': '行',
+        'foot': '原文は提供された <i>Pramāṇaviniścaya</i> 第1・2章の電子テキスト（Kyoto-Harvard 方式）をデーヴァナーガリーに機械的に転写したもの。第1章第1偈など、テキストに欠落があるらしい箇所は解説で注記した。',
+        'ed': 'Steinkellner 2007'},
+    3: {'src': 'Hugon &amp; Tomabechi 校訂本（2011）<br><small>校訂本の頁画像から書き起こした。偈番号・節番号は校訂本に従う。写本の異読や記号は省いた</small>',
+        'num': '各ブロック左上の <span class="ia">p.12,3</span> は校訂本の頁・行（そのブロックの始まり）。節見出しの <span class="pg">pp.1–10</span> はその節の頁範囲',
+        'col': '頁',
+        'foot': '原文は P. Hugon &amp; T. Tomabechi, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapter 3</i> (Beijing–Vienna 2011) の本文を頁画像から書き起こしたもの。書き起こしの誤りがありうるので、必ず校訂本で確認されたい。節の区分と見出しは同書の Analysis（pp.139–162）による。',
+        'ed': 'Hugon &amp; Tomabechi 2011'},
+}
+
 
 def ref_label(ref):
-    """'14:1-4' → '14.1–4'、'18-19' → '18–19'。"""
+    """'14:1-4' → '14.1–4'、'18-19' → '18–19'。第3章は校訂本の頁・行（'p.12,3'）。"""
+    loc = build.loc(ref)
+    if loc:
+        return 'p.' + loc
     return ref.replace(':', '.').replace('-', '–')
 
 
@@ -44,9 +60,12 @@ def parse(pid):
     """part ファイルを [(kind, data)] の列にする。"""
     items = []
     cur = None
+    build.set_text()
     for raw in (ROOT / 'pvin_src' / f'part{pid}.txt').read_text(encoding='utf-8').split('\n'):
         line = raw.rstrip()
         if line.startswith('='):
+            if line.startswith('=src '):
+                build.set_text(line[5:].strip())
             continue
         m = re.match(r'^(#+)\s+(\S+)\s*\|\s*([^|]*?)\s*(?:\|\s*(.*))?$', line)
         if m:
@@ -125,6 +144,9 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                         refs.append(int(re.match(r'\d+', items[j][1]['ref']).group()))
                     j += 1
                 rng = f'{min(refs)}–{max(refs)}' if refs and min(refs) != max(refs) else (str(refs[0]) if refs else '')
+                if refs and build.LOC[min(refs) - 1]:          # 第3章は校訂本の頁で示す
+                    p0, p1 = (build.LOC[x - 1].split(',')[0] for x in (min(refs), max(refs)))
+                    rng = f'pp.{p0}–{p1}' if p0 != p1 else f'p.{p0}'
                 gist = ''
                 if i + 1 < len(items) and items[i + 1][0] == 'G':
                     gist = ' '.join(x.strip() for x in items[i + 1][1]['ja'])
@@ -159,13 +181,13 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
         if open_sec:
             body.append('</section>')
 
-    other = 2 if chno == 1 else 1
-    other_name = CHAPTERS[other - 1][1]
-    other_link = f'<a href="pvin_taiyaku_{other}.html">第{other}章「{other_name}」</a>'
-    if chno == 1:
-        nav.append(f'<li><a href="pvin_taiyaku_2.html" class="chp">第2章へ →</a></li>')
-    else:
-        nav.insert(0, f'<li><a href="pvin_taiyaku_1.html" class="chp">← 第1章へ</a></li>')
+    others = [c for c in CHAPTERS if c[0] != chno]
+    other_link = '・'.join(f'<a href="pvin_taiyaku_{c[0]}.html">第{c[0]}章「{c[1]}」</a>' for c in others)
+    if any(c[0] == chno - 1 for c in CHAPTERS):
+        nav.insert(0, f'<li><a href="pvin_taiyaku_{chno - 1}.html" class="chp">← 第{chno - 1}章へ</a></li>')
+    if any(c[0] == chno + 1 for c in CHAPTERS):
+        nav.append(f'<li><a href="pvin_taiyaku_{chno + 1}.html" class="chp">第{chno + 1}章へ →</a></li>')
+    tx = TEXTINFO[3 if chno == 3 else 1]
     stk_fact = stk_howto = ''
     if chno == 1:
         stk_fact = ('<div><dt>研究</dt><dd>T. Vetter のドイツ語訳（1966）<br><small><i>Dharmakīrti\'s Pramāṇaviniścayaḥ, 1. Kapitel: Pratyakṣam</i>。'
@@ -230,12 +252,12 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
     <div><dt>書名</dt><dd><i>Pramāṇaviniścaya</i>「認識手段の決択」<br><small>主著 <i>Pramāṇavārttika</i> の内容を、偈と散文で整理し直した書。全3章</small></dd></div>
     <div><dt>この章</dt><dd>第{chno}章　{name}<br><small>{facts}</small></dd></div>
     {stk_fact}
-    <div><dt>本文</dt><dd>提供された電子テキスト（Kyoto-Harvard 方式）<br><small>デーヴァナーガリーとローマ字は機械的に転写した。明らかな入力の誤り3か所のみ修正</small></dd></div>
+    <div><dt>本文</dt><dd>{tx['src']}</dd></div>
   </dl>
 
   <h3>このページの読み方</h3>
   <div class="howto">
-    <div><b>番号</b>各ブロック左上の <span class="ia">14.1–4</span> は電子テキストの行番号（.の後は行内の文番号）。節見出しの <span class="pg">14–26</span> はその節の範囲</div>
+    <div><b>番号</b>{tx['num']}</div>
     <div><b>原文</b>デーヴァナーガリー。偈（金色の線）にはローマ字を添えた。<span class="kno">k.4</span> は偈の番号</div>
     <div><b>和訳</b>（　）は訳者の補い。（反論）（答え）は議論の話者の区別</div>
     <div><b>解説</b>ブロック下の灰色の欄。用語や論点の説明</div>
@@ -247,7 +269,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
   <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">第{chno}章をテキストの順に{sec_no}節に分けた</span></div>
   <div class="tbl">
     <table>
-      <thead><tr><th>節</th><th>見出し</th><th>行</th></tr></thead>
+      <thead><tr><th>節</th><th>見出し</th><th>{tx['col']}</th></tr></thead>
       <tbody>
 {chr(10).join(maprows)}
       </tbody>
@@ -258,8 +280,8 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 {chr(10).join(body)}
 
 <footer class="wrap">
-  <p><strong>テキストについて</strong>　原文は提供された <i>Pramāṇaviniścaya</i> 第1・2章の電子テキスト（Kyoto-Harvard 方式）をデーヴァナーガリーに機械的に転写したもの。第1章第1偈など、テキストに欠落があるらしい箇所は解説で注記した。</p>
-  <p>和訳は試訳であり、正確な読みは校訂本（Steinkellner 2007）で確認されたい。同じ訳文の科段（アコーディオン）版は <a href="pvin_index.html">pvin_index.html</a> から読める。{other_link}へ。</p>
+  <p><strong>テキストについて</strong>　{tx['foot']}</p>
+  <p>和訳は試訳であり、正確な読みは校訂本（{tx['ed']}）で確認されたい。同じ訳文の科段（アコーディオン）版は <a href="pvin_index.html">pvin_index.html</a> から読める。{other_link}へ。</p>
 </footer>
 </main>
 </body>
