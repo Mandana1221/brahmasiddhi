@@ -6,7 +6,7 @@ dict(
   upto="sapakSavipakSayor api /",
   tr="""<p class="ktr">【第15偈】それゆえ[師ディグナーガ]は、論証因の三相すべてについて確定（<i>niścaya</i>）を説いた。不成立（<i>asiddha</i>）、反対の意味をもつもの（<i>viparītārtha</i>）、逸脱するもの（<i>vyabhicārin</i>）という対立者を[排除するため]である。</p>
 <p>［自注］なぜなら、[本質的]結合がなければ、肯定的随伴と否定的随伴の確定はないからである。それゆえ[師は]まさにそれ[結合]を示そうとして、「確定」と言ったのである。</p>
-<p>そのうち、肯定的随伴の確定によって、相違[因]とその仲間が排除される。否定的随伴の[確定によって]、不定[因]と、その仲間である「残余をもつもの」などが[排除される]。「両者に」という[語]によって、一方にだけ成立しているものが否定される。「よく成立した」という語によって、同類と異類について疑わしい二つのもの、すなわち「残余をもつもの」と不共のもの（<i>asādhāraṇa</i>）も[否定される]。</p>""",
+<p>そのうち、肯定的随伴の確定によって、相違[因]とその仲間が排除される。否定的随伴の[確定によって]、不定[因]と、その仲間である「残余をもつもの」などが[排除される]。「両者に」という[語]によって、一方にだけ成立しているものが否定される。「よく成立した」という語によって、[それぞれ異類について、あるいは]同類と異類の両方について疑わしい二つのもの、すなわち「残余をもつもの」と不共のもの（<i>asādhāraṇa</i>）も[否定される]。</p>""",
   cm="""<p><b>tena</b>（彼によって）：注釈の伝統に従い、師 Dignāga を指すと解した。Dignāga は論証因の三相が確定されていなければならないと説いた。Dharmakīrti はこの「確定」を、三種の擬似的論証因それぞれに対応させる。</p>
 <table class="mini">
 <tr><th>確定される相</th><th>排除される擬似的論証因</th></tr>
@@ -15,7 +15,9 @@ dict(
 <tr><td>否定的随伴</td><td>不定因（<i>anaikāntika</i>）、「残余をもつもの」など</td></tr>
 </table>
 <p><b>「両者に」「よく成立した」</b>：自注が注釈している Dignāga の文言である。PVin の並行文により、それが「<i>prasiddhas tu dvayor api sādhanam</i>」（しかし両者[立論者と対論者]にとってよく成立したものが論証因である）であることが分かる。「両者に」は、一方の当事者にしか認められていない論証因を排除する。「よく成立した」は、同類・異類への存在が疑わしい論証因（「残余をもつもの」と不共因）を排除する。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.67 と同文で、自注もほぼ同じである。ただし PVin は、注釈対象の Dignāga の文「<i>prasiddhas tu dvayor api sādhanam</i>」を明示して引く。また「<i>vyatirekaniścayena</i>」「<i>ekaprasiddhapratiṣedhaḥ</i>」と読む。PVSV は引用を省いているので、PVin の並行文がなければ文意をとりにくい箇所である。</p>"""
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.67 と同文で、自注もほぼ同じである。ただし PVin は、注釈対象の Dignāga の文「<i>prasiddhas tu dvayor api sādhanam</i>」を明示して引く。また「<i>vyatirekaniścayena</i>」「<i>ekaprasiddhapratiṣedhaḥ</i>」と読む。PVSV は引用を省いているので、PVin の並行文がなければ文意をとりにくい箇所である。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.172）によれば、自注が注釈する Dignāga の文言「しかし両者にとってよく成立したものが論証因である」（<i>prasiddhas tu dvayor api sādhanam</i>）の出典は PS 3.12bc’ である。Watanabe（2011）は、PS では主題所属性だけに関わる <i>prasiddha</i> を、Dharmakīrti が『正理門論』の「不成立の適用」（<i>asiddhiyojanā</i>、13,12f.）によって他の二相にも及ぼした、と指摘している。Steinkellner（Anm.179）は Śākyabuddhi の分析表を示し、この自注に重複があることを指摘する。「残余をもつもの」が、否定的随伴の確定によっても「よく成立した」の語によっても排除されることになっているからである。Dharmakīrti は PVin 2. 93,6 で、否定的随伴の確定が排除するものを不定因だけに限り、この重複を解消した。こうして「よく成立した」＝「確定した」（<i>niścita</i>）という語の重みが増している。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013）の訳では、「よく成立した」の語で排除されるのは「（それぞれ）異類について、あるいは同類・異類の両方について疑わしい」二つ、すなわち「残余をもつもの」と不共のものである。「残余をもつもの」は同類には存在し、異類についてだけ疑わしい（Śākyabuddhi, PVṬt 34a2; Karṇakagomin, PVSVṬ 58,15f.）。<i>sapakṣavipakṣayor api</i> の <i>api</i> はこの点で不正確で、PVin の並行文（PVin 2. 93,8）では <i>api</i> が削られている（Anm.178）。</p>"""
 ),
 dict(
   label="第16偈　異類例の陳述と「不見」",
@@ -30,7 +32,8 @@ dict(
 <p><b>論旨</b>：Dignāga は、論証では同類例と異類例の両方を述べるべきだとした。異類例を述べる目的が「異類に論証因が見られないこと」を知らせるだけなら、その陳述は不要である。不見は観察がないことにすぎず、言われなくても聞き手にはすでに成り立っているからである。異類例の陳述に意味があるのは、本質的結合に基づいて否定的随伴を<em>確定</em>させるからである。</p>
 <p><b>想起の反論</b>：肯定的随伴の例（かまどに火と煙がある）は、聞き手に過去の観察を思い出させる役に立つ。しかし不見は「思い出す」べき内容をもたない。</p>
 <p class="pvin"><span class="tag">PVin</span>PVin 第2章では、第16偈の内容が偈の形をとらず散文で述べられる（「<i>asaty api pratibandhe 'darśanamātreṇa vyatireke yad āha … yadi tena vipakṣe 'darśanaṃ khyāpyate, tad anukte 'pi gamyate</i>」）。PVSV の偈は、この散文を韻文化したものとも見られる。異読は次のとおり。PVin「<i>smṛtir vācā 'darśane</i>」「<i>smaraṇārthaṃ vacanam</i>」／PVSV「<i>smaraṇādhānam</i>」。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の分析では、第16偈から第20偈前後（Gnoli 11,5–15,8）は、全体として Īśvarasena の「単なる不見」（<i>adarśanamātra</i>）説の論駁にあてられる。Īśvarasena は Dharmakīrti の師で、Dignāga『集量論』の注釈を書いた人物である。Steinkellner によれば、Dignāga 自身も『集量論』第5章（アポーハ論）で同じ <i>adarśanamātra</i> の考えを述べているが、Dharmakīrti はそのことには触れず、師の説として一貫して批判している。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の分析では、第16偈から第20偈前後（Gnoli 11,5–15,8）は、全体として Īśvarasena の「単なる不見」（<i>adarśanamātra</i>）説の論駁にあてられる。Īśvarasena は Dharmakīrti の師で、Dignāga『集量論』の注釈を書いた人物である。Steinkellner によれば、Dignāga 自身も『集量論』第5章（アポーハ論）で同じ <i>adarśanamātra</i> の考えを述べているが、Dharmakīrti はそのことには触れず、師の説として一貫して批判している。</p>
+<p class="stk"><span class="tag">Steinkellner</span>自注に引かれる師の言葉「まず、相違[因]と不定[因]を対立者として両者を述べるべきである、というのがこの道理である」は、Dignāga『正理門論』（NMuK § 5.4）からの引用である（Steinkellner 2013, Anm.181）。Ms.B はこの後に「同類例の陳述は相違[因]を対立者とする」（<i>sādharmyavacanaṃ viruddhapratipakṣeṇa</i>）を補う。しかしチベット訳と PVin 2. 93,10f. にはこの句がなく、Gnoli が採らなかったのは正しい（Anm.182）。Dharmakīrti は引用のうち異類例の陳述の部分だけを自分の論に用いる。だから <i>vaidharmyavacanam anaikāntikapratipakṣeṇa</i> は、統語上、次の偈の第3句（<i>yady adṛṣṭiphalaṃ</i>）につながる。</p>"""
 ),
 dict(
   label="第17偈　「ない」と言うだけでは「ない」ことにならない",
@@ -57,7 +60,8 @@ dict(
   cm="""<p><b>論旨</b>：不見説を採ると、「残余をもつもの」がなぜ誤りなのか説明できない。果実の例で、まだ食べていない果実全部を主題に取り込めば、主題の外では「熟していないのに同じ色・同じ枝」という事例は見つからない。不見説では、これで否定的随伴が成り立つことになってしまう。</p>
 <p><b>「ある人々」の説</b>：誤りの原因を「後で知覚によって覆される可能性」に求める説である。Dharmakīrti は退ける。可能性だけで疑うなら、すべての推論が疑わしくなる。否定するのは実際に働いた認識手段だけである。</p>
 <p><b>Dharmakīrti の答え</b>：否定的随伴は確定されていなければならない。不見はある場所での非存在を示すだけで、本質的結合のないものについて「どこにもない」ことは示せない。この疑いの残存こそが「残余をもつもの」の誤りである。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.68 の後の散文とほぼ同文である。PVin は果実の例の主題化を「<i>upayuktavyatiriktapakṣīkaraṇe</i>」（食べたもの以外を主題とする場合）と言う。また「<i>tathābhāve niścayam apekṣate</i>」と読む。偈の形ではなく散文で、半偈「<i>yady adṛṣṭyā nivṛttiḥ syāc cheṣavad vyabhicāri kim</i>」を織り込んでいる。</p>"""
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.68 の後の散文とほぼ同文である。PVin は果実の例の主題化を「<i>upayuktavyatiriktapakṣīkaraṇe</i>」（食べたもの以外を主題とする場合）と言う。また「<i>tathābhāve niścayam apekṣate</i>」と読む。偈の形ではなく散文で、半偈「<i>yady adṛṣṭyā nivṛttiḥ syāc cheṣavad vyabhicāri kim</i>」を織り込んでいる。</p>
+<p class="stk"><span class="tag">Steinkellner</span>「知覚による否定の疑いが逸脱である」と言う「ある人々」（<i>kecit</i>）は、Steinkellner（2013, Anm.200）によれば Īśvarasena である。11,5 以下の反論のうち、Īśvarasena の説とはっきり分かるのはこの箇所だけである（Anm.180）。ただし Śākyabuddhi はここで彼の名を挙げていない。この逸脱の定義は、Īśvarasena の「六相をもつ論証因」（<i>ṣaḍlakṣaṇo hetuḥ</i>）説の第4相「対象が知覚によって否定されていないこと」（<i>abādhitaviṣayatva</i>）と結びついている（Anm.201; HB § d.1 参照）。「主題とされた対象には[その疑いが]ない」という答えは、熟していることや味という所証が知覚できず、推論でしか知られないからである（Anm.202）。</p>"""
 ),
 dict(
   label="第18偈第3句　否定的随伴のみの論証因",
@@ -86,6 +90,7 @@ dict(
 <p>［答論］そうではない。[師は]「しかし、両者に確定したことを述べるものこそが[論証・論駁である]」などと述べているからである。それゆえ[師は]、非知覚においても疑いのために[論証因が異類から]退かないと考えて、それ[非知覚による否定的随伴]を否定して述べたのである。</p>""",
   cm="""<p><b>asiddhiyojanā</b>：主題所属性について立てられた不成立の分類（両者にとって不成立、一方にとって不成立、疑わしいもの、など）を、第二相・第三相（同類・異類への存在・非存在）にも適用しようという提案である。対論者はこれを Dignāga の文言「適宜に例を挙げるべし」から導こうとした。</p>
 <p><b>Dharmakīrti の批判</b>：不見説に立つと、第二・第三相について「疑わしい」場合を区別する基準がなくなる。不見はそれだけで否定的随伴を成立させてしまうからである。だから不成立の分類を適用しても意味がない。Dignāga 自身は「両者に確定したもの」だけを論証因と認めており、非知覚では疑いが残ることを知っていた、と論じる。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章（k.68 の後の散文）にほぼ同文がある（「<i>yāpy asiddhiyojanā - tathā sapakṣe sann asann ity evamādiṣv api yathāyogam udāhāryam iti, sāpi na vācyā …</i>」）。</p>"""
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章（k.68 の後の散文）にほぼ同文がある（「<i>yāpy asiddhiyojanā - tathā sapakṣe sann asann ity evamādiṣv api yathāyogam udāhāryam iti, sāpi na vācyā …</i>」）。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.212–217）によれば、ここで引かれる Dignāga の文言はいずれも『正理門論』に由来する。「同様に、同類に存在するか存在しないかなど[の場合]においても、適宜に例を挙げるべきである」は NMuK § 2.4 断片1、「しかし、両者に確定したことを述べるものこそが…」は同断片2（全文は 153,19f. に引かれる）である。その前段（NMuK § 2.2–2.3）で Dignāga は、論証因は「立論者・対論者の両者に確定した主題の属性」（<i>pakṣadharmo vādiprativādiniścito gṛhyate</i>）でなければならないとし、不成立を四種に分けている。この不成立の分類を第二・第三相にも適用することが <i>asiddhiyojanā</i> である（Watanabe 2011 参照）。対論者の言う「適宜に」（<i>yathāyogam</i>）は、「必ず」ではなく「必要に応じて」の意味に取られている（Anm.216）。</p>"""
 ),
 ]

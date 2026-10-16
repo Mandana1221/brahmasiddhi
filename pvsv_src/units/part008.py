@@ -4,6 +4,7 @@ dict(
   head="アポーハ論（1）：区別による概念の成立（第40–47偈）",
   label="第40–42偈　事物は区別によって多くの属性をもつ",
   upto="tena bhinnA vyavasthitiH //42//",
+  fixes=[('svabhAvaparabhAvAbhyAM', 'sabhAvaparabhAvAbhyAM')],
   tr="""<p>［反論］それなら、作られたものであるものこそが無常なものである[ことになる]。区別がないからである。[そうすると]論証因は主張命題の意味の一部（<i>pratijñārthaikadeśa</i>）であることになろう。</p>
 <p>［答論］この過失はない。なぜなら——</p>
 <p class="ktr">【第40偈】すべての事物は、本性上、それぞれ自らの本性に安住しているので、同類のものからも他類のものからも退くこと（<i>vyāvṛtti</i>）を分けもっている。それゆえ——</p>
@@ -19,7 +20,9 @@ dict(
 </ul>
 <p>これが Dignāga に始まるアポーハ（<i>apoha</i>、他者の排除）論である。言葉と概念は、実在する普遍を指すのではない。「それ以外のものからの区別」を指す。第40偈から長い議論が始まる。</p>
 <p class="pvin"><span class="tag">PVin</span>第40–42偈は PVin 第2章 k.29–31（中間偈）と同文である。PVin では、Dignāga の言葉「<i>sarva evāyam anumānānumeyavyavahāro buddhyārūḍhena …</i>」の引用（PVSV 2,22–3,3 に当たる）の直後に置かれている。つまり PVin では、§8「属性の区別の構想」（1,19 以下）の根拠として、この三偈がすぐに示される。PVSV では同じ論点が、ここまで先送りされている。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の分析では、ここから第185偈まで（Gnoli 24,16–93,5）がアポーハに関する長い余論である。本性因では論証因が主張の内容の一部になってしまう、という非難に答えるために置かれている（VI.1b β「帰謬による結合の確定」に付属）。Steinkellner の独訳はこの部分を含まず、内容の要約は Frauwallner の論文（1932–35）に譲っている。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の分析では、ここから第185偈まで（Gnoli 24,16–93,5）がアポーハに関する長い余論である。本性因では論証因が主張の内容の一部になってしまう、という非難に答えるために置かれている（VI.1b β「帰謬による結合の確定」に付属）。Steinkellner の独訳はこの部分を含まず、内容の要約は Frauwallner の論文（1932–35）に譲っている。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.393）によれば、注釈者は反論の「主張命題の意味の一部」（<i>pratijñārthaikadeśa</i>）を、Nyāya の用語（NSū 1.1.33 <i>pakṣanirdeśaḥ pratijñā</i>）を意識した表現と解する。しかし、主張の意味を基体と属性の総体とみる点は、PS 3.10a（<i>samudāyārthasādhyatvāt</i>）に拠っている。内容的には 2,21 の反論の繰り返しであり、そこでは apoha 論への参照だけで済ませていた。アポーハ余論の結び（93,3–5）はこの問題に戻り、「本性こそが所証・能証であっても、所証と能証は混同されない。それゆえ論証因は主張の意味の一部ではない」と述べる。Karṇakagomin はこの三偈を次のようにまとめる。第40偈は属性の構想の種子、第41偈は属性の構想の仕方を述べ、第42偈は主張の一部であるという過失を退ける（Anm.397）。</p>
+<p><b>本文校訂</b>：Steinkellner（2013, Anm.395）は、第40偈の <i>svabhāvaparabhāvābhyām</i> を <i>sabhāvaparabhāvābhyām</i>（同類のものと他類のもの）に訂正することを提案する。サンスクリットの写本・注釈はすべて <i>svabhāva</i>° と読む。しかし文脈上必要なのは「同じ種類のもの」の意であり、Dharmakīrti 自身も自注 25,14 でこれを <i>sajātīya</i> と言い換えている。<i>svabhāva</i> という語にこの意味はない。チベット訳 <i>mthun dṅos</i> は *<i>sabhāva</i> に対応し、Śākyabuddhi もこの珍しい語をわざわざ説明している。本訳の「同類のものからも他類のものからも」はすでにこの意味で訳しているので、本文を訂正すれば訳と整合する。</p>"""
 ),
 dict(
   label="自注　普遍の否定",

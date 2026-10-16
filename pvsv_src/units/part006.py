@@ -4,9 +4,9 @@ dict(
   head="本質的結合と喩例の役割（第23–28偈）",
   label="第23偈　本質的結合による退去",
   upto="svabhAvapratibandhAd eva nivRttiH /",
-  fixes=[("parityajyakathaM", "parityajya kathaM")],
-  kfull="tasmAttanmAtrasambandhaH svabhAvo bhAvameva vA |\nnivartayetkAraNaM vA kAryamavyabhicArataH ||23||",
-  tr="""<p class="ktr">【第23偈】それゆえ、そのもの[の存在]だけに結びついた本性が[退くとき]、そのもの自体を退かせる。あるいは原因が[退くとき]、結果を[退かせる]。[両者は]逸脱しないからである。</p>
+  fixes=[('tasmAttanmAtrasambandhaH', 'tasmAttanmAtrasambaddhaH'), ("parityajyakathaM", "parityajya kathaM")],
+  kfull="tasmAttanmAtrasambaddhaH svabhAvo bhAvameva vA |\nnivartayetkAraNaM vA kAryamavyabhicArataH ||23||",
+  tr="""<p class="ktr">【第23偈】それゆえ、そのもの[の存在]だけに結びついた本性こそが、[自ら退くとき]そのものを退かせる。あるいは原因が[退くとき]、結果を[退かせる]。[両者は]逸脱しないからである。</p>
 <p>［自注］たとえば、樹木[であること]が[退けば]シンシャパーを[退かせる]ように。枝などをもつ特定のものだけが、そのように[シンシャパーとして]知られているからである。それ[樹木性]はそれ[シンシャパー]の本性である。自らの本性を捨てて、どうしてそのものが存在しえようか。本性こそがそのものの存在だからである。このように、それ[シンシャパー]は本質的結合によって[樹木性から]逸脱しない。</p>
 <p><b>あるいは原因が結果を[退かせる]。逸脱しないからである</b>。原因が退けば結果を退かせる。さもなければ、それはそれの結果ではないことになろう。成立した因果関係が[結果の]本性を限定するのである。このように、二通りいずれにおいても、退去は本質的結合によってのみある。</p>""",
   cm="""<p>否定（退去 <i>nivṛtti</i>）の論証も、本質的結合に基づく。</p>
@@ -15,7 +15,10 @@ dict(
 <li><b>因果の場合</b>：火がなければ煙はない。煙は火から生じるという本性をもつからである（原因の非知覚）。</li>
 </ul>
 <p>14,2 以下で批判した「不見による否定」に対する、Dharmakīrti 自身の答えである。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.69 と同文である。自注もほぼ同じで、PVin は「<i>svabhāvaṃ ca parityajya</i>」（<i>svaṃ</i> なし）、「<i>ataḥ kāryakāraṇabhāvo 'pi svabhāvaṃ niyamayati</i>」と読む。</p>"""
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.69 と同文である。自注もほぼ同じで、PVin は「<i>svabhāvaṃ ca parityajya</i>」（<i>svaṃ</i> なし）、「<i>ataḥ kāryakāraṇabhāvo 'pi svabhāvaṃ niyamayati</i>」と読む。</p>
+<p><b>本文校訂</b>：Steinkellner（2013, Anm.273; vol. I 校訂注24）は、Gnoli（Ms.A?）の <i>tanmātrasambandhaḥ</i> を <i>tanmātrasambaddhaḥ</i>（そのものの存在だけに結びついた）と読む。Ms.B、PVin 2. 99,6、Dharmottara の PVinṬ 写本、HBṬ 9,23、PVSVṬ と PVV の写本、チベット訳（<i>ʾbrel paʾi</i>）がいずれも <i>ddha</i> を示すからである。<i>°sambandhaḥ</i> を <i>svabhāvaḥ</i> にかかる所有複合語と取ることも不可能ではない。しかし <i>ndha</i> と <i>ddha</i> は字形がよく似ていて誤読が起こりやすく、<i>°sambaddhaḥ</i> のほうが明らかによい読みである。なお偈の kfull（<i>tasmAttanmAtrasambandhaH</i>）も同様に改める。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.272）によれば、偈の <i>bhāvam eva</i> の <i>eva</i> は、韻律の都合でここに置かれているだけで、意味の上では <i>svabhāvaḥ</i> にかかる。問われているのは、異類における論証因の非存在を確実に知らせる根拠が何かだからである。Śaṅkaranandana（PVṬī 131b6）と、PVin 2.69 に対する Dharmottara の注（<i>bhinnakrama evaśabdaḥ, svabhāva eva bhāvaṃ … nivarttayet</i>）も同じように解している。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.274–278）は、第23偈の <i>svabhāva</i>・<i>bhāva</i>（および <i>kāraṇa</i>・<i>kārya</i>）を、まず実在の側面として読むべきだとする。それらが推論では論証因や所証という概念として用いられる。偈の <i>svabhāva</i> は所証（樹木）、<i>bhāva</i> は論証因として挙げられたもの（シンシャパー）であり、注釈者もそう言い換えている（PVSVṬ 74,27–75,15）。「樹木がシンシャパーを退かせる」は、「樹木性が退けばシンシャパー性も退く」の簡略な言い方である。この関係は、包摂されるもの（シンシャパー）から包摂するもの（樹木）への一方向だけで成り立つ。だから同一性（<i>tādātmya</i>）は「すべての樹木がシンシャパーだ」ということを意味しない（Iwata 2003:71f.）。また偈末の「逸脱しないから」（<i>avyabhicārataḥ</i>）は、<i>vā … vā</i> で一つにまとめられた両方の場合にかかる。Śākyabuddhi と Karṇakagomin はこれを結果の場合だけに取るが、Manorathanandin（PVV 296,8–10）は両方に取る（Anm.279）。我々の訳「[両者は]逸脱しないからである」は Steinkellner の解釈に合っている。</p>"""
 ),
 dict(
   label="第24・25偈　馬と牛の喩え",
@@ -27,15 +30,17 @@ dict(
   cm="""<p>本質的結合のない二つのもの（馬の所有と牛の所有）のあいだでは、一方の有無から他方の有無は何も言えない。第24偈は否定的随伴について、第25偈は肯定的随伴について、同じことを言っている。</p>
 <p><b>二つの喩例の役割</b>：同類例と異類例は、論証因と所証のあいだの本質的結合（不可離関係）を示すためにある。単に「一緒に見られた」「別々に見られなかった」という観察の記録ではない。この点が第26–28偈の主題になる。</p>
 <p class="note">本文校訂：電子テキストの <i>gamatā</i> は <i>gomatā</i>（牛をもつ者）の誤り。PVin も <i>gomatā</i> と読む。</p>
-<p class="pvin"><span class="tag">PVin</span>第24・25偈は PVin 第2章 k.70・71（中間偈 <i>antaraślokau</i>）と同文である。続く散文「<i>tasmāt svabhāvapratibandhād eva hetuḥ sādhyaṃ gamayati. sa ca tadbhāvalakṣaṇas tadutpattilakṣaṇo vā. sa evāvinābhāvo dṛṣṭāntābhyāṃ pradarśyate</i>」も同文である。</p>"""
+<p class="pvin"><span class="tag">PVin</span>第24・25偈は PVin 第2章 k.70・71（中間偈 <i>antaraślokau</i>）と同文である。続く散文「<i>tasmāt svabhāvapratibandhād eva hetuḥ sādhyaṃ gamayati. sa ca tadbhāvalakṣaṇas tadutpattilakṣaṇo vā. sa evāvinābhāvo dṛṣṭāntābhyāṃ pradarśyate</i>」も同文である。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.281）によれば、Dharmakīrti はここでも本質的結合（<i>svabhāvapratibandha</i>）を定義せず、それが二種類あることを思い出させているだけである。「それであること」（<i>tadbhāva</i>）は、論証因の本性が実在としては所証の本性でもあること（同一性）を言う。「それから生じること」（<i>tadutpatti</i>）は、別々の実在のあいだの因果関係を言う。第一の関係には <i>tādātmya</i> のほうが多く使われるので、<i>°lakṣaṇa</i> は固定した名称（“bears the name”）ではなく「特徴とする」と訳すべきだという。続く「まさにそれが不可離関係（<i>avinābhāva</i>）である」で、Dharmakīrti は実在の根拠（本質的結合）から概念の水準（論理的な不可離関係）へ話を移している。注釈者の言い換え「不可離関係と呼ばれるもの」（<i>avinābhāvākhyaḥ</i>, PVSVṬ 76,12f.）の <i>°ākhya</i> も、この移行を示している（Anm.283–284）。</p>"""
 ),
 dict(
   label="第26偈　異類例に基体は要らない",
   upto="na iti vacanAd api tadgateH //26//",
-  tr="""<p class="ktr">【第26偈】それゆえ、異類の喩例においては、ここで[喩例の]基体（<i>āśraya</i>）は必ずしも求められない。「それ[所証]がないところでは、それ[論証因]はない」という言葉だけからでも、その[否定的随伴の]理解があるからである。</p>""",
+  tr="""<p class="ktr">【第26偈】それゆえ、異類の喩例においては、ここで[喩例の]基体（<i>āśraya</i>）は必ずしも求められない。「そして、それ[異類]がないときには、それ[論証因]は[そこに]ない」という[師の]言葉だけからでも、その[否定的随伴の]理解があるからである。</p>""",
   cm="""<p><b>問題の背景</b>：「音声は無常である。作られたものだから」という論証の異類例として、普通は「虚空のように」（常住で、作られていないもの）を挙げる。しかし、仏教徒のように虚空などの常住な実在を認めない立場では、異類例の「基体」がないことになる。</p>
-<p><b>Dharmakīrti の答え</b>：喩例の役割は本質的結合を示すことである。それが示されていれば、「無常でないところには、作られたものはない」と言うだけで否定的随伴は理解される。具体的な基体（虚空など）が実在する必要はない。</p>
-<p class="pvin"><span class="tag">PVin</span>PVin 第2章では偈がない。散文で「<i>ata eva vaidharmyadṛṣṭānte 'vaśyam ihāśrayo neṣṭaḥ</i>」と、同じ趣旨が述べられる。</p>"""
+<p><b>Dharmakīrti の答え</b>：喩例の役割は本質的結合を示すことである。Dignāga 自身、「異類（虚空など）が[対論者にとって]存在しないなら、論証因もそこには存在しない」と述べて、否定的随伴が理解されるとしていた（『正理門論』）。具体的な基体（虚空など）が実在する必要はない。</p>
+<p class="pvin"><span class="tag">PVin</span>PVin 第2章では偈がない。散文で「<i>ata eva vaidharmyadṛṣṭānte 'vaśyam ihāśrayo neṣṭaḥ</i>」と、同じ趣旨が述べられる。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.286–287）によれば、第26偈後半の「<i>tadabhāve ca tan na</i>」は、Dignāga『正理門論』（NMuK § 3.4）のわずかに変えた引用である。<i>tad</i> は、Śākyabuddhi・Karṇakagomin（PVSVṬ 76,21）の言うような所証ではない。Katsura（1978）が正しく見たように、異類（<i>vipakṣa</i>）を指す。つまり「異類の実例が[一方の論者にとって]存在しないなら、論証因もそこには存在しない」という意味で、これによって否定的随伴が知られる。また偈の <i>iha</i> は、注釈者の言う「本性因・結果因の場合に」ではなく、「Dignāga に連なるこの伝統において」の意味である（Anm.285）。異類例に実在の基体を要しないという主張は、Dignāga の第三相に対する Uddyotakara の論難（NV 52,17f.）への応答にさかのぼる（Anm.289）。</p>"""
 ),
 dict(
   label="第27偈前半　喩例は同一性・因果を示す",
@@ -51,18 +56,21 @@ dict(
   cm="""<p><b>同一性の示し方</b>：壺は作られたもの（原因から生じたもの）であり、同時に無常である。無常性は、壺を生み出した原因がそのまま与えたもので、後から別の原因（たとえば棒で叩くこと）によって付け加わるのではない。これが「刹那滅論証」の要点で、仏教では「滅びに原因は要らない」（<i>vināśasyāhetukatva</i>）と言う。だから作られたものであることと無常性は同一の本性である。</p>
 <p><b>因果の示し方</b>：火と煙のように別個のものの場合は、「火があるときにのみ煙がある」ことを喩例（かまど）で示す。</p>
 <p><b>結論</b>：結合が示されれば、否定的随伴は「本性・原因なしにはありえない」ことから自動的に成立する。異類例に具体的な基体は要らない。</p>
-<p class="note">本文：電子テキスト <i>kṣaṇasthitodharmā</i> は <i>kṣaṇasthitidharmā</i>（刹那的に存続する性質をもつ）と読んだ（暫定的な訂正）。</p>
+<p class="note">本文：電子テキスト <i>kṣaṇasthitodharmā</i> は <i>kṣaṇasthitidharmā</i>（刹那的に存続する性質をもつ）と読む（Steinkellner 2013 の訳も同じ読みに基づく）。</p>
 <p class="pvin"><span class="tag">PVin</span>PVin 第2章（k.71 の後の散文）にほぼ同文がある（「<i>dṛṣṭānte hi sādhyadharmasya tadbhāvas tanmātrānubandhena khyāpyate. yaḥ kṛtakasvabhāvaṃ janayati, so 'nityaṃ svabhāvaṃ santaṃ janayatīti pramāṇaṃ dṛṣṭāntenopadarśyate …</i>」）。ただし PVin には偈の文句がなく、「<i>anyathaikadharmasadbhāvāt …</i>」（疑いが残る）と「<i>svakāraṇād eva kṛtakas …</i>」（刹那滅の説明）の二文もない。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2004「The early Dharmakīrti on the purpose of examples」）はこの前後（Gnoli 17–19）を取り上げ、付録で英訳している。初期の Dharmakīrti にとって喩例の役割は、遍充の根拠である本質的結合（同一性・因果関係）を示すことにあり、それをすでに知っている者には論証因だけを述べれば足りる（第27偈後半）。喩例を論式の独立した支分とする Dignāga 以前の見方からの転換点とされる。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2004「The early Dharmakīrti on the purpose of examples」）はこの前後（Gnoli 17–19）を取り上げ、付録で英訳している。初期の Dharmakīrti にとって喩例の役割は、遍充の根拠である本質的結合（同一性・因果関係）を示すことにあり、それをすでに知っている者には論証因だけを述べれば足りる（第27偈後半）。喩例を論式の独立した支分とする Dignāga 以前の見方からの転換点とされる。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013）の訳は、18,3 を「刹那のあいだだけ存続する性質をもつ」と訳しており、<i>kṣaṇasthitidharmā</i> の読みを前提としている（Gnoli と異なるとの校訂注もない）。電子テキストの <i>kṣaṇasthitodharmā</i> は単なる誤植とみてよい。また Steinkellner（Anm.292, 294）によれば、「作られたものは自らの原因からのみ滅びるものとして生じる」という認識は、のちの二つの刹那滅論証の段（PVSV 98,4–100,24 と 141,17–150,5）で立証される。「他[の原因]からそれ[滅び]が生じることは否定される」も、そこで展開される「滅びは他の原因によらない」という議論（<i>vināśitvānumāna</i>、98,7–9）を先取りしている。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Karṇakagomin（PVSVṬ 78,11f.）は、ここで（Kumārila）Bhaṭṭa と Uddyotakara に帰せられる一偈を引く。Steinkellner（2013, Anm.297）によれば、この偈は Kumārila の『大注』に由来し（Yoshimizu の言う「肯定的・否定的随伴断片」）、『正理評釈』には見当たらない。偈は「所証がないときに論証因がないことは、努力してもあらゆるところで知ることはできない」と述べる。Dharmakīrti もこの見方自体は共有している。しかし二種の本質的結合に基づけば、否定的随伴は基体なしにも成立する。この点で、Kumārila の偈の帰結は退けられたことになる。</p>"""
 ),
 dict(
   label="第27偈後半　知っている者には論証因だけでよい",
   upto="AzrayaM pratikSipti sma /",
   fixes=[("manyamAnAzrayaM", "manyamAna AzrayaM"), ("pratikSipti sma", "pratikSipati sma")],
-  tr="""<p>しかし、[同一性・原因であることが]すでに成立している人々には——<b>知っている者には、論証因だけを述べるべきである</b>。喩例が述べられる目的である事柄がすでに成立しているなら、その場合、それ[喩例]を述べて何になろうか。それ[結合]を示す場合にも、異類の喩例の基体によって何になろうか——と考えて、[師は]基体[の必要]を退けたのである。</p>""",
+  tr="""<p>しかし、[同一性・原因であることが]すでに成立している人々には——<b>知っている者には、論証因だけを述べるべきである</b>。喩例が述べられる目的である事柄がすでに成立しているなら、その場合、それ[喩例]を述べて何になろうか。それ[喩例]を[知らない者に]示す場合にも、異類の喩例の基体によって何になろうか——と考えて、[師は]基体[の必要]を退けたのである。</p>""",
   cm="""<p><b>論証因だけでよい</b>：喩例は、結合を知らない人に示すための補助である。すでに結合を知っている人には、「音声は無常である。作られたものだから」と論証因だけを言えば十分である。この考え方は、他者のための推論（<i>parārthānumāna</i>）の論式から喩例を独立の支分として外す、Dharmakīrti 独自の立場につながる（PV 第4章、HB などを参照）。</p>
 <p><b>師（Dignāga）が基体を退けた</b>：Dignāga も、異類例には必ずしも基体（実在する事例）が要らないとした。Dharmakīrti はその理由を、喩例が結合を示すためのものだからだ、と説明している。</p>
-<p class="note">本文：電子テキスト <i>pratikṣipti sma</i> は <i>pratikṣipati sma</i>（退けた）の誤りとみる。</p>"""
+<p class="note">本文：電子テキスト <i>pratikṣipti sma</i> は <i>pratikṣipati sma</i>（退けた）の誤りとみる。</p>
+<p class="stk"><span class="tag">Steinkellner</span>「[師は]基体[の必要]を退けた」について、Śākyabuddhi と Karṇakagomin（PVSVṬ 78,21–24）は『正理門論』（NMu 4 の散文末尾、NMuK § 3.4。PSV ad PS 3.20d にも取り込まれる）から二つの文を引く。「では、対論者が常住な虚空などを認めない場合、どうして常住なものから作られたものであることが退いていると[言えるのか]」（<i>yadā tarhy ākāśādikaṃ nityaṃ nābhyupaiti prativādī, tadā kathaṃ nityāt kṛtakatvasya vyatirekaḥ</i>）。そして「その場合には疑いそのものがない。それら[虚空など]が存在しないので、そこには[論証因が]存在しないからである」（<i>tadā sandeha eva nāsti tadabhāvāt tatrāvṛtteḥ</i>）（Steinkellner 2013, Anm.299）。なお Steinkellner は <i>tatpradarśane 'pi</i> の <i>tat</i> を、結合ではなく喩例（を知らない人に示す場合）と取っている。</p>"""
 ),
 dict(
   label="第28偈　一方を述べれば他方は含意される",
@@ -73,16 +81,19 @@ dict(
 <p>同様に、「それがないときにはない」と言われると、まさにそこから、同一性を知る者には、「これはこれの本性である。だからそれがないときにはないのだ。そうでなければ理にかなわないから」というように、その本性であることの理解によって、肯定的随伴の想起が生じる。</p>""",
   cm="""<p><b>Dignāga の言葉</b>：「<i>arthāpattyā vānyatareṇobhayapradarśanāt</i>」（あるいは含意によって、一方で両方が示されるから）。論式では肯定的随伴と否定的随伴の両方を言う必要はなく、一方を言えばよい、という趣旨である。</p>
 <p><b>Dharmakīrti の解釈</b>：一方から他方が含意されるのは、喩例によって本質的結合が示されているからである。単なる共存の観察なら、「A があるところに B がある」から「B がないところに A がない」は出てこない。同一性・因果があるから、肯定的随伴と否定的随伴は表裏一体になる。</p>
-<p class="pvin"><span class="tag">PVin</span>第28偈そのものは PVin 第2章にない。ただし、k.9 の自注で同じ Dignāga の言葉が「<i>tathā hy āha - arthāpattyā vānyatareṇobhayapradarśanād iti</i>」と引かれる。そこでは、肯定・否定の随伴は別々の相であるが一つの文で示しうる（<i>prayogasamāsa</i> であって <i>rūpasamāsa</i> ではない）と論じられている。</p>"""
+<p class="pvin"><span class="tag">PVin</span>第28偈そのものは PVin 第2章にない。ただし、k.9 の自注で同じ Dignāga の言葉が「<i>tathā hy āha - arthāpattyā vānyatareṇobhayapradarśanād iti</i>」と引かれる。そこでは、肯定・否定の随伴は別々の相であるが一つの文で示しうる（<i>prayogasamāsa</i> であって <i>rūpasamāsa</i> ではない）と論じられている。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.302–303）によれば、Dharmakīrti が引く師の言葉「<i>arthāpattyā vānyatareṇobhayapradarśanāt</i>」は、Dignāga の <i>Nyāyamukha</i> §5.4 の一節である（Tucci 1930 の断片(6)。PSV の PS 4.5 にも並行文がある）。Dignāga 自身は、二つの喩例の一方を述べれば足りる場合を認めながらも、PS 4.5d では結局両方を述べるべきだと結論している。Dharmakīrti はこの結論には触れず、「一方で足りる」という <i>Nyāyamukha</i> の見解だけを取り上げる。そしてその前提に本質的結合の承認がある、と読み込む。<i>manyamāna</i>（～と考えて）という語は、これが Dignāga の言葉に対する目的をもった解釈であることを示している、と Steinkellner は見る。</p>
+<p class="stk"><span class="tag">Steinkellner</span>本文の「認識手段によって見られている」（<i>pramāṇadṛṣṭaḥ</i>）がどの認識手段なのか、Dharmakīrti は述べていない。Steinkellner（2013, Anm.305）は、これを知覚とする Gillon/Hayes（2008）の解釈を退ける。「シンシャパー」「樹木」という名は、事物のある側面に言語共同体が与えたものであり、目に見えるものではないからである。初期の Dharmakīrti において同一性を知る手段は、語の用法が世間で知られていること（<i>prasiddhi</i>）だけである。そのうえで、遍充する属性（「枝などをもつこと」）がなければ樹木はなく、したがってシンシャパーもない、という否定的な認識によって肯定的な結合が確かめられる。この考えは後に HB で「反対の場合に否定する認識手段」（<i>viparyaye bādhakapramāṇa</i>）として定式化される。</p>"""
 ),
 dict(
   label="自注　火と煙の場合",
   upto="anyathA hi tadabhAve kiM na bhaved iti /",
   tr="""<p>同様に、「煙のあるところには火がある」と言われると、[次のことが理解される。]煙は火の結果である。それゆえ、煙があるところには必ず火がある。さもなければ、別のものがそれ[火]に随伴する必然性はないので、そのもの[煙]は[火から]独立していることになろう。そうであれば、それ[火]がなくても[煙の]本性が欠けることはないので、[煙が]なくなることはないであろう。</p>
-<p>しかし、結果があるときには必ず原因がある。なぜなら、別のものが存在するときに[そこに自らの]本性を付与すること、これこそが原因の原因たるゆえんだからである。結果もまた、それ[原因]があるときにのみ存在する。そしてそれは煙にも当てはまる。それゆえ、肯定的随伴によって「煙は[火の]結果である」と、それの結果であることが肯定された[人]には、含意によって「火がなければ煙はない」と、否定的随伴の理解が生じる。</p>
+<p>しかし、結果があるときには必ず原因がある。なぜなら、別のものが存在するときに、[自らの]本性をもってそのそば近くにあること（<i>upadhāna</i>）、これこそが原因の原因たるゆえんだからである。結果もまた、それ[原因]があるときにのみ存在する。そしてそれは煙にも当てはまる。それゆえ、肯定的随伴によって「煙は[火の]結果である」と、それの結果であることが肯定された[人]には、含意によって「火がなければ煙はない」と、否定的随伴の理解が生じる。</p>
 <p>同様に、「火がないところに煙はない」と言われると、含意によって「煙には必ず火がある」と、肯定的随伴の理解[が生じる]。さもなければ、どうしてそれ[火]がないときにそれ[煙]がないことがあろうか。</p>""",
   cm="""<p>因果関係の場合も同じ構造である。「煙は火の結果である」と分かっていれば、肯定的随伴（煙があれば火がある）から否定的随伴（火がなければ煙はない）が、またその逆が、含意によって理解される。</p>
-<p><b>原因の定義</b>：「別のものが存在するときに、そこに自らの本性を付与すること（<i>svabhāvopadhāna</i>）」が原因であることだ、という規定は注目に値する。結果は、原因から本性を与えられて初めて存在する。だから原因なしにはありえない。</p>"""
+<p><b>原因の定義</b>：「別のものが存在するときに、そこに自らの本性を付与すること（<i>svabhāvopadhāna</i>）」が原因であることだ、という規定は注目に値する。結果は、原因から本性を与えられて初めて存在する。だから原因なしにはありえない。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.310）は、原因の定義 <i>arthāntarabhāve svabhāvopadhānam</i> の <i>upadhāna</i> を「近くにあること」と解する。Karṇakagomin はこれを <i>pratyupasthāna</i> と言い換え、159,16 の並行句（<i>na hi yo yasya sattopadhānaṃ nopekṣate, sa tasya hetuḥ</i>）では <i>sannidhāna</i> と言い換えている。つまりこの語は、原因と結果が共にあること（肯定的随伴 <i>anvaya</i>）の側面を強調するものである。この原因・結果の定義は、『関係の考察』（<i>Sambandhaparīkṣā</i>）第16偈「<i>bhāve bhāvini tadbhāvo bhāva eva ca bhāvitā</i>」と内容的にほぼ一致する（Anm.311, 331）。ただし本書の定義には時間的な前後関係が含まれていない。これに従うなら、注解の「原因から本性を与えられて初めて存在する」という説明も修正が必要である。</p>"""
 ),
 dict(
   label="自注　「聞かれること」の反論と結論",
@@ -93,6 +104,7 @@ dict(
 <p>それゆえ、喩例によって、まさに述べたとおりの本質的結合が示されるのである。一方が存在するときに他方が成立するということのために、そして、それがないときには[他方は]ありえないということのために。</p>""",
   cm="""<p><b>反論の意図</b>：「聞かれること」（第19偈）について、「常住なものがないところにも、無常なものがないところにも、聴覚の認識はない」と言えるなら、聞かれることは否定的随伴をもつことになる。そうすると含意によって肯定的随伴も成り立つのではないか、という反論と解した。</p>
 <p><b>答論</b>：聞かれることが「ない」と言われるのは、その存在が確定されていないからにすぎない。非存在が確定されているわけではない。だから常住・無常のどちらについても疑いが残る（不共の不定因）。本質的結合がなければ、肯定的随伴も否定的随伴も、どちらからどちらも導けない。</p>
-<p>この段で、喩例論（第23–28偈）が締めくくられる。喩例の役割は本質的結合を示すことに尽きる。</p>"""
+<p>この段で、喩例論（第23–28偈）が締めくくられる。喩例の役割は本質的結合を示すことに尽きる。</p>
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.312–313）によれば、反論にいう聴覚の認識（<i>śravaṇajñāna</i>）は、ここでは音声の属性としてではなく、音声の結果として取り上げられている。それは、所証の基体である音声以外では、常住なものにも無常なものにもないからである。答論で Dharmakīrti は、「ない」という言明を二種に区別している。一つは、本質的結合の知に基づいて確定された「ない」である。もう一つは、単なる不見（<i>adṛṣṭimātra</i>）の結果にすぎず、論理的な確実性を与えない「ない」である。PV 4.207a–c'（<i>adṛṣṭimātram ādāya kevalaṃ vyatirekitā uktā</i>）も同じ趣旨を述べている（Tani 1990 参照）。</p>"""
 ),
 ]
