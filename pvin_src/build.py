@@ -193,8 +193,8 @@ def build_complete(parts):
                     f'<p class="chapter-sub">{html.escape(meta.get("sub", ""))}</p>')
         body.extend(out)
         toc.extend((nid, n, f'{meta.get("title", "").split("　")[0]}｜{ttl}') for nid, n, ttl in t)
-    meta = {'htitle': 'プラマーナ・ヴィニシュチャヤ全訳（第1・2章）',
-            'title': '第1章 直接知覚・第2章 自分のための推論',
+    meta = {'htitle': 'プラマーナ・ヴィニシュチャヤ全訳（第1–3章）',
+            'title': '第1章 直接知覚・第2章 自分のための推論・第3章 他人のための推論',
             'sub': '全文（1ファイル版）', 'nav': '<a href="pvin_index.html">分冊版の目次へ</a>'}
     write_page(meta, '\n'.join(body), toc, 'pvin_zenyaku_complete.html')
 
@@ -247,7 +247,7 @@ def write_page(meta, body, toc, fname):
 {body}
 </div>
 <div class="pnav">{nav}</div>
-<footer>ダルマキールティ『プラマーナ・ヴィニシュチャヤ』第1・2章 全訳　本文：PVin_text.txt（京都・ハーバード方式の入力テキストをデーヴァナーガリーに機械変換）。（k.N）は偈の番号。</footer>
+<footer>ダルマキールティ『プラマーナ・ヴィニシュチャヤ』第1–3章 全訳　本文：第1・2章は PVin_text.txt（京都・ハーバード方式の入力テキストをデーヴァナーガリーに機械変換）、第3章は Hugon &amp; Tomabechi 校訂本（2011）からの書き起こし。（k.N）は偈の番号。</footer>
 <script>
 (function () {{
   var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));

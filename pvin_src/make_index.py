@@ -17,11 +17,25 @@ PARTS = [
 ]
 
 
+def part3():
+    """第3章の part ファイルの =title・=sub から目次の行を作る。"""
+    out = []
+    for f in sorted((ROOT / 'pvin_src').glob('part03*.txt')):
+        meta = dict(ln[1:].partition(' ')[::2] for ln in f.read_text(encoding='utf-8').split('\n') if ln.startswith('='))
+        title = meta.get('title', '').replace('　', ' ').replace('（その', '（').replace('）', '）')
+        sub = meta.get('sub', '')
+        out.append((meta['id'], title, sub))
+    return out
+
+
 def main():
     rows = []
     for pid, ch, rng, cont in PARTS:
         link = f'<a href="pvin_zenyaku_{pid}.html">{html.escape(ch)}</a>'
         rows.append(f'<tr><td>{link}<br><small>本文 {rng} 行</small></td><td>{html.escape(cont)}</td></tr>')
+    for pid, ch, sub in part3():
+        link = f'<a href="pvin_zenyaku_{pid}.html">{html.escape(ch)}</a>'
+        rows.append(f'<tr><td>{link}</td><td>{html.escape(sub)}</td></tr>')
     page = f'''<!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -36,11 +50,11 @@ def main():
   <div class="header-devanagari">प्रमाणविनिश्चयः</div>
   <h1>プラマーナ・ヴィニシュチャヤ　全訳</h1>
   <div class="header-sub">Dharmakīrti, Pramāṇaviniścaya · Japanese Translation</div>
-  <div class="header-jp">ダルマキールティ『プラマーナ・ヴィニシュチャヤ（量決択）』第1・2章<br>サンスクリット原文・日本語訳対照（科段つき）</div>
+  <div class="header-jp">ダルマキールティ『プラマーナ・ヴィニシュチャヤ（量決択）』第1–3章<br>サンスクリット原文・日本語訳対照（科段つき）</div>
 </div>
 <section>
 <h2 class="chapter">この全訳について</h2>
-<p>ダルマキールティ（法称、7世紀）の『プラマーナ・ヴィニシュチャヤ』は、主著『プラマーナ・ヴァールッティカ』の内容を、偈と散文の注を組み合わせて整理し直した認識論・論理学の書である。全3章のうち、ここでは第1章「直接知覚」と第2章「自分のための推論」を訳す。</p>
+<p>ダルマキールティ（法称、7世紀）の『プラマーナ・ヴィニシュチャヤ』は、主著『プラマーナ・ヴァールッティカ』の内容を、偈と散文の注を組み合わせて整理し直した認識論・論理学の書である。ここでは全3章、第1章「直接知覚」・第2章「自分のための推論」・第3章「他人のための推論」を訳す。</p>
 <div class="tbl-wrap"><table>
   <tr><th>要素</th><th>内容</th></tr>
   <tr><td>科段</td><td>議論の流れに沿って訳者が区切った。▸ をクリックすると開く。</td></tr>
@@ -49,17 +63,17 @@ def main():
   <tr><td>（　）・ノート</td><td>（　）は訳者の補い。（反論）（答え）は議論の話者の区別。ノートは理解のための説明。</td></tr>
 </table></div>
 <div class="note"><div class="note-title">底本とおことわり</div>
-本文は京都・ハーバード方式で入力されたテキスト（PVin_text.txt）を機械的にデーヴァナーガリーとローマ字に変換したもの。明らかな入力の誤り（kalpanāpoḍham、mūḍhaṃ、aniścitāyām）だけを直した。第1章第1偈などテキストに欠落があるらしい箇所は、ノートで注記した。</div>
+本文は京都・ハーバード方式で入力されたテキスト（PVin_text.txt）を機械的にデーヴァナーガリーとローマ字に変換したもの。明らかな入力の誤り（kalpanāpoḍham、mūḍhaṃ、aniścitāyām）だけを直した。第1章第1偈などテキストに欠落があるらしい箇所は、ノートで注記した。<br>第3章の本文は Hugon &amp; Tomabechi 校訂本（2011）の頁画像から書き起こしたもので、書き起こしの誤りがありうる。番号は校訂本の頁・行。</div>
 </section>
 <section>
 <h2 class="chapter">目次</h2>
-<p><a href="pvin_zenyaku_complete.html">▶ 全文を1ファイルで読む（第1・2章）</a><br>▶ 読み物スタイル（Hetubindu 対訳と同じ形式）：<a href="pvin_taiyaku_1.html">第1章</a>／<a href="pvin_taiyaku_2.html">第2章</a></p>
+<p><a href="pvin_zenyaku_complete.html">▶ 全文を1ファイルで読む（第1–3章）</a><br>▶ 読み物スタイル（Hetubindu 対訳と同じ形式）：<a href="pvin_taiyaku_1.html">第1章</a>／<a href="pvin_taiyaku_2.html">第2章</a>／<a href="pvin_taiyaku_3.html">第3章</a></p>
 <div class="tbl-wrap"><table>
 <tr><th>ファイル</th><th>収める論題</th></tr>
 {"".join(rows)}
 </table></div>
 </section>
-<footer>ダルマキールティ『プラマーナ・ヴィニシュチャヤ』第1・2章 全訳</footer>
+<footer>ダルマキールティ『プラマーナ・ヴィニシュチャヤ』第1–3章 全訳</footer>
 </body>
 </html>
 '''

@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """PVin 全訳を、Hetubindu 対訳と同じ 1 カラムの読み物スタイル（アコーディオンなし）で出力する。
 
-入力はアコーディオン版と同じ pvin_src/partXX.txt。出力は章ごとに pvin_taiyaku_1.html（第1章）と pvin_taiyaku_2.html（第2章）。
+入力はアコーディオン版と同じ pvin_src/partXX.txt。出力は章ごとに pvin_taiyaku_1.html（第1章）と pvin_taiyaku_2.html（第2章）・pvin_taiyaku_3.html（第3章）。
   # 見出し     → 節（§番号つきの大見出し）
   ## / ###     → 小見出し
   G 要旨       → 節の冒頭の導入文
@@ -27,6 +27,9 @@ CHAPTERS = [
     (2, '自分のための推論', 'svārthānumānapariccheda', ['02a', '02b', '02c'],
      '第2章では、<strong>三相をそなえた徴表</strong>による推論を論じます。推論は錯誤でありながら正しい認識であること、徴表は<strong>自性・結果・非認識</strong>の三種だけであること、そして自性因の例として刹那滅を、結果因の例として煙と火を詳しく検討します。',
      '三相、三種の徴表、非認識、聖典批判、刹那滅論証、結果因'),
+    (3, '他人のための推論', 'parārthānumānapariccheda', ['03a', '03b', '03c', '03d', '03e', '03f', '03g', '03h'],
+     '第3章では、<strong>言葉によって他人に理解させる推論</strong>を論じます。ディグナーガの定義「自分が見た対象を明らかにすること」の解説から始まり、<strong>主張（宗）</strong>の条件、<strong>理由（因）</strong>の分類（九句因）、<strong>似因</strong>（誤った理由）、<strong>喩例</strong>、そして<strong>論破</strong>へと、討論の作法を順に検討します。',
+     '他人のための推論の定義、主張の条件、九句因と三種の正しい理由、似因、喩例、論破'),
 ]
 
 TEXTINFO = {
@@ -52,7 +55,9 @@ def ref_label(ref):
 
 
 def renum(num, sec_no):
-    """part ファイル内の科段番号 '3.1.2' の先頭を通し節番号に置き換える。"""
+    """part ファイル内の科段番号 '3.1.2' の先頭を通し節番号に置き換える。第3章（I.2.1 など校訂本の番号）はそのまま。"""
+    if re.match(r'[IVX]+(\.|$)', num):
+        return num
     return '.'.join([str(sec_no)] + num.split('.')[1:])
 
 
