@@ -90,10 +90,17 @@ def render_sa(lines):
 
 
 def render_verse(lines, fn):
+    """偈の行を <br> でつなぐ。本文の行頭 "~" は偈の間に入った地の文、">" は字下げする偈の続き。"""
     out = []
     for ln in lines:
-        t = html.escape(fn(ln, '\x01{}\x02'))
-        out.append(t.replace('\x01', '<span class="kno">').replace('\x02', '</span>'))
+        cls = {'~': 'vprose', '>': 'vind'}.get(ln[:1])
+        if cls:
+            ln = ln[1:]
+        t = fn(ln, '\x01{}\x02')
+        if fn is kh.iast:                                  # ローマ字では行末の daṇḍa を | に
+            t = re.sub(r'\.(\s*(?:\x01[^\x02]*\x02)?)\s*$', r' |\1', t)
+        t = html.escape(t).replace('\x01', '<span class="kno">').replace('\x02', '</span>')
+        out.append(f'<span class="{cls}">{t}</span>' if cls else t)
     return '<br>'.join(out)
 
 
