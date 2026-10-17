@@ -33,10 +33,10 @@ CHAPTERS = [
 ]
 
 TEXTINFO = {
-    1: {'src': 'Steinkellner 校訂本（2007）<br><small>E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。Steinkellner の訂正表（2018）を反映した</small>',
+    1: {'src': 'Steinkellner 校訂本（2007）<br><small>E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。Steinkellner の訂正表（2008・2018）を反映した</small>',
         'num': '',
         'col': '',
-        'foot': '原典：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。訂正表：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited 2007 (STTAR 2): Further and Last Corrigenda and Addenda</i> (November 2018) を本文に反映した。',
+        'foot': '原典：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。訂正表：E. Steinkellner, „Miszellen zur erkenntnistheoretisch-logischen Schule des Buddhismus X: Corrigenda 2 et addenda to Dharmakīrti\'s Pramāṇaviniścaya. Chapters 1 and 2.“ <i>WZKS</i> 51 (2007–2008), 207–208；E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited 2007 (STTAR 2): Further and Last Corrigenda and Addenda</i> (November 2018) を本文に反映した。',
         'ed': 'Steinkellner 2007'},
     3: {'src': 'Hugon &amp; Tomabechi 校訂本（2011）<br><small>校訂本の頁画像から書き起こした。偈番号・節番号は校訂本に従う。写本の異読や記号は省いた</small>',
         'num': '各ブロック左上の <span class="ia">p.12,3</span> は校訂本の頁・行（そのブロックの始まり）。節見出しの <span class="pg">pp.1–10</span> はその節の頁範囲',
