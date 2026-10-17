@@ -63,7 +63,7 @@ def main():
   <tr><td>（　）・ノート</td><td>（　）は訳者の補い。（反論）（答え）は議論の話者の区別。ノートは理解のための説明。</td></tr>
 </table></div>
 <div class="note"><div class="note-title">底本とおことわり</div>
-原典（第1・2章）：E. Steinkellner, <i>Dharmakīrti's Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna: China Tibetology Publishing House / Austrian Academy of Sciences Press, 2007。<br>同校訂本の電子テキスト（PVin_text.txt、京都・ハーバード方式）を機械的にデーヴァナーガリーとローマ字に変換し、Steinkellner の訂正表 <i>Further and Last Corrigenda and Addenda</i>（2018年11月）の本文訂正を反映した。ほかに明らかな入力の誤り（kalpanāpoḍham、mūḍhaṃ、aniścitāyām）を直した。第1章第1偈などテキストに欠落があるらしい箇所は、ノートで注記した。<br>第3章の本文は Hugon &amp; Tomabechi 校訂本（2011）の頁画像から書き起こしたもので、書き起こしの誤りがありうる。番号は校訂本の頁・行。</div>
+原典（第1・2章）：E. Steinkellner, <i>Dharmakīrti's Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna: China Tibetology Publishing House / Austrian Academy of Sciences Press, 2007。<br>Steinkellner の訂正表 <i>Further and Last Corrigenda and Addenda</i>（2018年11月）の本文訂正を反映した。ほかに明らかな誤字（kalpanāpoḍham、mūḍhaṃ、aniścitāyām）を直した。<br>第3章の本文は Hugon &amp; Tomabechi 校訂本（2011）の頁画像から書き起こしたもので、書き起こしの誤りがありうる。番号は校訂本の頁・行。</div>
 </section>
 <section>
 <h2 class="chapter">目次</h2>

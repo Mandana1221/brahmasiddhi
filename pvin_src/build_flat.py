@@ -33,10 +33,10 @@ CHAPTERS = [
 ]
 
 TEXTINFO = {
-    1: {'src': 'Steinkellner 校訂本（2007）<br><small>E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。電子テキスト（Kyoto-Harvard 方式）をデーヴァナーガリーとローマ字に機械的に転写し、Steinkellner の訂正表（2018）を反映した</small>',
+    1: {'src': 'Steinkellner 校訂本（2007）<br><small>E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。Steinkellner の訂正表（2018）を反映した</small>',
         'num': '各ブロック左上の <span class="ia">14.1–4</span> は電子テキストの行番号（.の後は行内の文番号）。節見出しの <span class="pg">14–26</span> はその節の範囲',
         'col': '行',
-        'foot': '原典：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。訂正表：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited 2007 (STTAR 2): Further and Last Corrigenda and Addenda</i> (November 2018) を本文に反映した。本文は同校訂本の電子テキスト（Kyoto-Harvard 方式）をデーヴァナーガリーに機械的に転写したもの。第1章第1偈など、テキストに欠落があるらしい箇所は解説で注記した。',
+        'foot': '原典：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。訂正表：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited 2007 (STTAR 2): Further and Last Corrigenda and Addenda</i> (November 2018) を本文に反映した。',
         'ed': 'Steinkellner 2007'},
     3: {'src': 'Hugon &amp; Tomabechi 校訂本（2011）<br><small>校訂本の頁画像から書き起こした。偈番号・節番号は校訂本に従う。写本の異読や記号は省いた</small>',
         'num': '各ブロック左上の <span class="ia">p.12,3</span> は校訂本の頁・行（そのブロックの始まり）。節見出しの <span class="pg">pp.1–10</span> はその節の頁範囲',

@@ -254,7 +254,7 @@ def write_page(meta, body, toc, fname):
 {body}
 </div>
 <div class="pnav">{nav}</div>
-<footer>ダルマキールティ『プラマーナ・ヴィニシュチャヤ』第1–3章 全訳　原典：第1・2章は E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (STTAR 2) Beijing–Vienna 2007（電子テキストを機械変換し、Steinkellner の訂正表 2018 を反映）、第3章は Hugon &amp; Tomabechi 校訂本（2011）からの書き起こし。（k.N）は偈の番号。</footer>
+<footer>ダルマキールティ『プラマーナ・ヴィニシュチャヤ』第1–3章 全訳　原典：第1・2章は E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (STTAR 2) Beijing–Vienna 2007（Steinkellner の訂正表 2018 を反映）、第3章は Hugon &amp; Tomabechi 校訂本（2011）からの書き起こし。（k.N）は偈の番号。</footer>
 <script>
 (function () {{
   var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
