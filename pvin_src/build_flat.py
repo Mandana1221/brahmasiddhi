@@ -5,7 +5,7 @@
   # 見出し     → 節（§番号つきの大見出し）
   ## / ###     → 小見出し
   G 要旨       → 節の冒頭の導入文
-  L / V        → 原文ブロック（V は偈。ローマ字を添える）
+  L / V        → 原文ブロック（V は偈）
   N ノート     → 直前の原文ブロックの「解説」欄。原文ブロックの直後でなければ囲み
 """
 import html
@@ -34,8 +34,8 @@ CHAPTERS = [
 
 TEXTINFO = {
     1: {'src': 'Steinkellner 校訂本（2007）<br><small>E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。Steinkellner の訂正表（2018）を反映した</small>',
-        'num': '各ブロック左上の <span class="ia">14.1–4</span> は電子テキストの行番号（.の後は行内の文番号）。節見出しの <span class="pg">14–26</span> はその節の範囲',
-        'col': '行',
+        'num': '',
+        'col': '',
         'foot': '原典：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited.</i> (Sanskrit Texts from the Tibetan Autonomous Region 2) Beijing–Vienna 2007。訂正表：E. Steinkellner, <i>Dharmakīrti\'s Pramāṇaviniścaya, Chapters 1 and 2. Critically edited 2007 (STTAR 2): Further and Last Corrigenda and Addenda</i> (November 2018) を本文に反映した。',
         'ed': 'Steinkellner 2007'},
     3: {'src': 'Hugon &amp; Tomabechi 校訂本（2011）<br><small>校訂本の頁画像から書き起こした。偈番号・節番号は校訂本に従う。写本の異読や記号は省いた</small>',
@@ -100,7 +100,7 @@ def mula(kind, d, uid, notes):
     lines = build.src(d['ref'])
     if kind == 'V':
         src = build.render_verse(lines, kh.dev)
-        ia = f'<div class="src ia vi">{build.render_verse(lines, kh.iast)}</div>'
+        ia = ''
         cls = 'mula sutra'
     else:
         src = build.render_sa(lines)
@@ -120,7 +120,8 @@ def mula(kind, d, uid, notes):
                        f'<span class="lbl">{build.SCHOLARS[sk]}</span>' + ''.join(ss) + '</div>'
                 first = False
         exp += '</div>'
-    return (f'<div class="{cls}" id="{uid}">\n  <span class="ref">{ref_label(d["ref"])}</span>\n'
+    ref = f'<span class="ref">{ref_label(d["ref"])}</span>' if build.loc(d['ref']) else ''   # 第1・2章は番号を出さない
+    return (f'<div class="{cls}" id="{uid}">\n  {ref}\n'
             f'  <div class="src deva" lang="sa">{src}</div>{ia}\n'
             f'  <div class="tr">{build.ja(d["ja"])}</div>{exp}\n</div>')
 
@@ -148,7 +149,7 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                     if items[j][0] in 'LV':
                         refs.append(int(re.match(r'\d+', items[j][1]['ref']).group()))
                     j += 1
-                rng = f'{min(refs)}–{max(refs)}' if refs and min(refs) != max(refs) else (str(refs[0]) if refs else '')
+                rng = ''
                 if refs and build.LOC[min(refs) - 1]:          # 第3章は校訂本の頁で示す
                     p0, p1 = (build.LOC[x - 1].split(',')[0] for x in (min(refs), max(refs)))
                     rng = f'pp.{p0}–{p1}' if p0 != p1 else f'p.{p0}'
@@ -159,10 +160,11 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 short = d['ttl'] if len(d['ttl']) <= 12 else d['ttl'][:11] + '…'
                 nav.append(f'<li><a href="#{sid}"><b>{sec_no}</b>{html.escape(short)}</a></li>')
                 maprows.append(f'<tr><td class="num">§{sec_no}</td><td class="k"><a href="#{sid}">{html.escape(d["ttl"])}</a>'
-                               f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td><td class="num">{rng}</td></tr>')
+                               f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td>' + (f'<td class="num">{rng}</td>' if rng else '') + '</tr>')
                 body.append(f'<section id="{sid}" class="wrap">\n  <div class="sec-head"><span class="sec-no">{sec_no}</span>'
-                            f'<h2>{html.escape(d["ttl"])}</h2><span class="sub"><span class="pg">{rng}</span>'
-                            f'<i>{html.escape(d["sk"])}</i></span></div>')
+                            f'<h2>{html.escape(d["ttl"])}</h2><span class="sub">'
+                            + (f'<span class="pg">{rng}</span>' if rng else '')
+                            + f'<i>{html.escape(d["sk"])}</i></span></div>')
                 if gist:
                     body.append(f'<p>{gist}</p>')
                 open_sec = True
@@ -262,8 +264,8 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 
   <h3>このページの読み方</h3>
   <div class="howto">
-    <div><b>番号</b>{tx['num']}</div>
-    <div><b>原文</b>デーヴァナーガリー。偈（金色の線）にはローマ字を添えた。<span class="kno">k.4</span> は偈の番号</div>
+    {f"<div><b>番号</b>{tx['num']}</div>" if tx['num'] else ''}
+    <div><b>原文</b>デーヴァナーガリー。偈は金色の線のブロック。<span class="kno">k.4</span> は偈の番号</div>
     <div><b>和訳</b>（　）は訳者の補い。（反論）（答え）は議論の話者の区別</div>
     <div><b>解説</b>ブロック下の灰色の欄。用語や論点の説明</div>
     {stk_howto}
@@ -274,7 +276,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
   <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">第{chno}章をテキストの順に{sec_no}節に分けた</span></div>
   <div class="tbl">
     <table>
-      <thead><tr><th>節</th><th>見出し</th><th>{tx['col']}</th></tr></thead>
+      <thead><tr><th>節</th><th>見出し</th>{f"<th>{tx['col']}</th>" if tx['col'] else ''}</tr></thead>
       <tbody>
 {chr(10).join(maprows)}
       </tbody>

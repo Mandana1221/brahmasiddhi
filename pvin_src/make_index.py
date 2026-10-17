@@ -32,7 +32,7 @@ def main():
     rows = []
     for pid, ch, rng, cont in PARTS:
         link = f'<a href="pvin_zenyaku_{pid}.html">{html.escape(ch)}</a>'
-        rows.append(f'<tr><td>{link}<br><small>本文 {rng} 行</small></td><td>{html.escape(cont)}</td></tr>')
+        rows.append(f'<tr><td>{link}</td><td>{html.escape(cont)}</td></tr>')
     for pid, ch, sub in part3():
         link = f'<a href="pvin_zenyaku_{pid}.html">{html.escape(ch)}</a>'
         rows.append(f'<tr><td>{link}</td><td>{html.escape(sub)}</td></tr>')
@@ -58,7 +58,7 @@ def main():
 <div class="tbl-wrap"><table>
   <tr><th>要素</th><th>内容</th></tr>
   <tr><td>科段</td><td>議論の流れに沿って訳者が区切った。▸ をクリックすると開く。</td></tr>
-  <tr><td>偈のカード</td><td>デーヴァナーガリー・ローマ字（IAST）・和訳。偈の一部だけが散文の間に置かれている場合も、その部分をカードにした。</td></tr>
+  <tr><td>偈のカード</td><td>デーヴァナーガリー・和訳。偈の一部だけが散文の間に置かれている場合も、その部分をカードにした。</td></tr>
   <tr><td>左右の対訳</td><td>左にダルマキールティの本文（デーヴァナーガリー）、右に和訳。スマホでは上下に並ぶ。</td></tr>
   <tr><td>（　）・ノート</td><td>（　）は訳者の補い。（反論）（答え）は議論の話者の区別。ノートは理解のための説明。</td></tr>
 </table></div>

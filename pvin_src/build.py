@@ -12,7 +12,7 @@ partXX.txt の書式（1 行 1 指示）:
   # 1 | 見出し | skt            第1階層（# の数＝階層）
   L 12-18                      本文の行番号（PVin_text.txt）。散文として左右対訳に
   L 123:1-4                    行 123 の第 1〜4 文（「. 」で区切った文番号）。123:5- は第 5 文から行末まで
-  V 20-23                      偈のカード（ローマ字付き）。行番号の指定は L と同じ
+  V 20-23                      偈のカード。行番号の指定は L と同じ
   J 和訳                        直前の L / V の訳（複数行可、空行で段落）
   N ノート                      ノート
   S 注記                        Steinkellner（1979）の解釈
@@ -128,7 +128,6 @@ def parse(part, prefix=''):
         elif k == 'V':
             lines = src(cur['ref'])
             out.append(f'<div class="sutra"><div class="sutra-text">{render_verse(lines, kh.dev)}</div>'
-                       f'<div class="sutra-iast">{render_verse(lines, kh.iast)}</div>'
                        f'<div class="sutra-jp">{ja(cur["ja"])}</div></div>')
         elif k == 'N':
             out.append(f'<div class="tnote"><span class="tnote-h">ノート</span>{ja(cur["ja"])}</div>')
