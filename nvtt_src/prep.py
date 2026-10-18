@@ -19,7 +19,10 @@ for ln in body:
         if out and out[-1] != '':
             out.append('')
         continue
-    if s.startswith('nys_') or s.startswith('#'):
+    if s.startswith('#'):          # GRETIL の出典注記（# yogabhāṣye # など）は空行に
+        out.append('')
+        continue
+    if s.startswith('nys_'):
         out.append(s)
         continue
     s = re.sub(r'(?<=[^\s/])/(?=[^\s/])', 'ñ', s)   # GRETIL では ñ が / になっている箇所がある
@@ -27,5 +30,14 @@ for ln in body:
         piece = piece.strip()
         if piece:
             out.append(piece)
+# 訂正表（corrections.txt）を当てる
+for cl in (ROOT / 'nvtt_src' / 'corrections.txt').read_text(encoding='utf-8').split('\n'):
+    if not cl.strip() or cl.startswith('#'):
+        continue
+    no, old, new = cl.split('\t')
+    i = int(no) - 1
+    if old not in out[i]:
+        sys.exit(f'訂正できない: {no} {old}')
+    out[i] = out[i].replace(old, new, 1)
 (ROOT / 'NVTT_text.txt').write_text('\n'.join(out).strip() + '\n', encoding='utf-8')
 print(len(out), 'lines')
