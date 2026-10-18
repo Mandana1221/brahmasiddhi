@@ -46,11 +46,6 @@ def render_sa(txt):
     return html.escape(deva(txt)).replace('\n', '<br>')
 
 
-def iast(txt):
-    t = txt.replace('//', '||').replace('/', '|')
-    return html.escape(t).replace('\n', '<br>')
-
-
 def ja(lines):
     paras = '\n'.join(lines).strip().split('\n\n')
     return ''.join(f'<p>{p.strip()}</p>' for p in paras if p.strip())
@@ -77,7 +72,6 @@ def build(part):
             else:
                 raw = join(items, verse=True)
                 out.append(f'<div class="sutra"><div class="sutra-text">{render_sa(raw)}</div>'
-                           f'<div class="sutra-iast">{iast(raw)}</div>'
                            f'<div class="sutra-jp">{ja(cur["ja"])}</div></div>')
         elif k == 'N':
             out.append(f'<div class="tnote"><span class="tnote-h">ノート</span>{ja(cur["ja"])}</div>')
