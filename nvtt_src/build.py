@@ -43,7 +43,12 @@ def deva(txt):
 
 
 def render_sa(txt):
-    return html.escape(deva(txt)).replace('\n', '<br>')
+    """[p. N] を頁の印にして、本文をデーヴァナーガリーで示す。"""
+    parts = re.split(r'\[p\. (\d+)\]', txt)
+    out = html.escape(deva(parts[0]))
+    for k in range(1, len(parts), 2):
+        out += f'<span class="pg">p.{parts[k]}</span>' + html.escape(deva(parts[k + 1]))
+    return out.replace('\n', '<br>')
 
 
 def ja(lines):
@@ -168,7 +173,7 @@ def build(part):
 {chr(10).join(out)}
 </div>
 <div class="pnav">{nav}</div>
-<footer>ヴァーチャスパティ・ミシュラ『ニヤーヤ・ヴァールッティカ・タートパリヤ・ティーカー』全訳　本文：GRETIL 電子テキスト（Sansknet Project 入力、A. Thakur 校訂本〔1996〕と照合）のローマ字本文をデーヴァナーガリーに転写して示す。電子テキストに頁番号はない。</footer>
+<footer>ヴァーチャスパティ・ミシュラ『ニヤーヤ・ヴァールッティカ・タートパリヤ・ティーカー』全訳　本文：GRETIL 電子テキスト（Sansknet Project 入力、A. Thakur 校訂本〔1996〕と照合）のローマ字本文をデーヴァナーガリーに転写して示す。頁番号（p.1 など）は Thakur 校訂本の頁で、刊本の OCR と照合して入れた。</footer>
 <script>
 (function () {{
   var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
