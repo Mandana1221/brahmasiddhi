@@ -31,13 +31,17 @@ for ln in body:
         if piece:
             out.append(piece)
 # 訂正表（corrections.txt）を当てる
+bad = []
 for cl in (ROOT / 'nvtt_src' / 'corrections.txt').read_text(encoding='utf-8').split('\n'):
     if not cl.strip() or cl.startswith('#'):
         continue
     no, old, new = cl.split('\t')
     i = int(no) - 1
     if old not in out[i]:
-        sys.exit(f'訂正できない: {no} {old}')
+        bad.append(f'{no} {old}')
+        continue
     out[i] = out[i].replace(old, new, 1)
+if bad:
+    sys.exit('訂正できない:\n' + '\n'.join(bad))
 (ROOT / 'NVTT_text.txt').write_text('\n'.join(out).strip() + '\n', encoding='utf-8')
 print(len(out), 'lines')
