@@ -123,7 +123,10 @@ def main(full, extra):
     # 行の中に [p. N] を差し込む（行番号は変えない）
     out = []
     for li, l in enumerate(lines):
+        m = re.match(r'nys_\S+:\s*', l)
         for ci, n in sorted(ins.get(li, []), reverse=True):
+            if m:                  # スートラ番号の中には入れず、本文の頭に置く
+                ci = max(ci, m.end())
             l = l[:ci] + f'[p. {n}]' + l[ci:]
         out.append(l)
     (ROOT / 'NVTT_text.txt').write_text('\n'.join(out), encoding='utf-8')
