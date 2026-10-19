@@ -37,6 +37,9 @@ for cl in (ROOT / 'nvtt_src' / 'corrections.txt').read_text(encoding='utf-8').sp
         continue
     no, old, new = cl.split('\t')
     i = int(no) - 1
+    if old == '*':                 # 行ごと削除（GRETIL の重複行など）
+        out[i] = ''
+        continue
     if old not in out[i]:
         bad.append(f'{no} {old}')
         continue
