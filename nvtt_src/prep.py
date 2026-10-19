@@ -41,8 +41,18 @@ for cl in (ROOT / 'nvtt_src' / 'corrections.txt').read_text(encoding='utf-8').sp
         out[i] = ''
         continue
     if old not in out[i]:
-        bad.append(f'{no} {old}')
-        continue
+        # 連声で語頭・語末の a が前後の音と融合している場合は、その a を外して当てる
+        o2, n2 = old, new
+        if o2.startswith('a') and n2.startswith('a'):
+            o2, n2 = o2[1:], n2[1:]
+        if o2 not in out[i] and o2.endswith('a') and n2.endswith('a'):
+            o2, n2 = o2[:-1], n2[:-1]
+        if o2 not in out[i] and old.endswith('a') and new.endswith('a'):
+            o2, n2 = old[:-1], new[:-1]
+        if o2 not in out[i]:
+            bad.append(f'{no} {old}')
+            continue
+        old, new = o2, n2
     out[i] = out[i].replace(old, new, 1)
 if bad:
     sys.exit('訂正できない:\n' + '\n'.join(bad))
