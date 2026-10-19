@@ -25,6 +25,7 @@ for ln in body:
     if s.startswith('nys_'):
         out.append(s)
         continue
+    s = re.sub(r'#[^#\n]*#\s*', '', s)      # 行中の出典注記（# muṇḍaka 2/2/8 # など）を外す
     s = re.sub(r'(?<=[^\s/])/(?=[^\s/])', 'ñ', s)   # GRETIL では ñ が / になっている箇所がある
     for piece in re.findall(r'.*?(?://|/|$)', s):
         piece = piece.strip()
