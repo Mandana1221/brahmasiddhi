@@ -53,7 +53,7 @@ def render_sa(txt):
 
 def ja(lines):
     paras = '\n'.join(lines).strip().split('\n\n')
-    return ''.join(f'<p>{p.strip()}</p>' for p in paras if p.strip())
+    return ''.join(f'<p>{p.strip().replace(chr(10), "<br>")}</p>' for p in paras if p.strip())
 
 
 def build(part):

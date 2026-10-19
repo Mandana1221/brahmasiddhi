@@ -41,6 +41,12 @@ for cl in (ROOT / 'nvtt_src' / 'corrections.txt').read_text(encoding='utf-8').sp
     if old == '*':                 # 行ごと削除（GRETIL の重複行など）
         out[i] = ''
         continue
+    if old == '+':                 # 空行に本文を補う（GRETIL の欠落を刊本 OCR から補う）
+        if out[i].strip():
+            bad.append(f'{no} + (空行ではない)')
+            continue
+        out[i] = new
+        continue
     if old not in out[i]:
         # 連声で語頭・語末の a が前後の音と融合している場合は、その a を外して当てる
         o2, n2 = old, new
