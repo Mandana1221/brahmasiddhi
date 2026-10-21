@@ -26,6 +26,8 @@ for ln in body:
         out.append(s)
         continue
     s = re.sub(r'#[^#\n]*#\s*', '', s)      # 行中の出典注記（# muṇḍaka 2/2/8 # など）を外す
+    s = re.sub(r'\(\s*\d+\s*/\s*\d+\s*\)\s*', '', s)   # 『評釈』刊本の頁・行の参照（(181/4) など）を外す
+    s = re.sub(r'\s*\(sū\.\s*\d+\)', '', s)   # (sū. 6) などの注記を外す
     s = re.sub(r'(?<=[^\s/])/(?=[^\s/])', 'ñ', s)   # GRETIL では ñ が / になっている箇所がある
     for piece in re.findall(r'.*?(?://|/|$)', s):
         piece = piece.strip()
