@@ -62,6 +62,7 @@ def build(part):
     out = []
     stack = []          # open levels
     cur = None          # current block: dict(kind, lines/a,b, ja=[])
+    pending = []        # 次のブロックに回す頁の印
     toc = []
 
     def flush():
@@ -70,7 +71,12 @@ def build(part):
             return
         k = cur['kind']
         if k in 'LV':
-            items = src_lines(cur['a'], cur['b'])
+            items = pending + src_lines(cur['a'], cur['b'])
+            pending.clear()
+            if k == 'L' and not cur['ja'] and not re.sub(r'\[p\. \d+\]', '', join(items)).strip():
+                pending.extend(items)       # 頁の印だけのブロックは、次のブロックの頭に回す
+                cur = None
+                return
             if k == 'L':
                 out.append(f'<div class="seg"><div class="seg-sa dev">{render_sa(join(items))}</div>'
                            f'<div class="seg-ja">{ja(cur["ja"])}</div></div>')
