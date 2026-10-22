@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ニヤーヤ・バーシュヤ全訳 7b</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  /* 論敵ごとの色 */
+  --c-self: #8B4A2B;
+  --c-mim: #3F6A8A;
+  --c-sam: #7A5C99;
+  --c-bud: #A0782A;
+  --c-car: #4F7A4A;
+  --c-gen: #7E7265;
+  --c-vai: #2F7F7A;
+  --on-c: #FFFFFF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --c-self: #C47A54;
+    --c-mim: #6E9CC0;
+    --c-sam: #A98BC7;
+    --c-bud: #C9A55A;
+    --c-car: #86B07F;
+    --c-gen: #9A8F83;
+    --c-vai: #6FB8B2;
+    --on-c: #1E1D1B;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --c-self: #C47A54;
+  --c-mim: #6E9CC0;
+  --c-sam: #A98BC7;
+  --c-bud: #C9A55A;
+  --c-car: #86B07F;
+  --c-gen: #9A8F83;
+  --c-vai: #6FB8B2;
+  --on-c: #1E1D1B;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+a { color: var(--accent); }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin: 0.8rem 0; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.c, th.c { text-align: center; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no { color: var(--it-color); font-weight: 600; }
+
+/* kārikā card (LSK の sutra カードと同じ形) */
+.sutra { background: var(--card-bg); border: 1px solid var(--rule-light); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem 0.9rem; margin: 1rem 0; }
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; line-height: 1.7; overflow-wrap: anywhere; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; overflow-wrap: anywhere; }
+.sutra-jp { font-size: 0.95rem; }
+
+/* ===== 科段アコーディオン ===== */
+.controls { position: sticky; top: 0; z-index: 5; background: var(--ground); border-bottom: 1px solid var(--rule-light); padding: 0.6rem 0; margin: 1rem 0 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.controls .lbl { font-size: 0.8rem; color: var(--muted); margin-right: 0.2rem; }
+.controls button { font-family: 'Shippori Mincho', serif; font-size: 0.85rem; background: var(--card-bg); color: var(--accent); border: 1px solid var(--rule); border-radius: 999px; padding: 0.15rem 0.8rem; cursor: pointer; }
+.controls button:hover, .controls button:focus-visible { border-color: var(--accent); }
+
+details.node { border-left: 2px solid var(--rule-light); margin: 0.25rem 0 0.25rem 0; }
+details.node > summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: auto 1fr auto; gap: 0.2rem 0.6rem; align-items: baseline;
+  padding: 0.35rem 0.5rem 0.35rem 0.6rem; border-radius: 0 4px 4px 0;
+}
+details.node > summary::-webkit-details-marker { display: none; }
+details.node > summary:hover { background: var(--note-bg); }
+details.node > summary::before {
+  content: "▸"; color: var(--accent-soft); font-size: 0.8rem; grid-column: 1; grid-row: 1;
+  transition: transform 0.15s; display: inline-block; width: 0.8rem;
+}
+details.node[open] > summary::before { transform: rotate(90deg); }
+details.node > summary .num { grid-column: 1; grid-row: 1; margin-left: 1.1rem; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1.02rem; white-space: nowrap; }
+details.node > summary .ttl { grid-column: 2; }
+details.node > summary .ttl .sk { font-size: 0.85rem; color: var(--ink-soft); }
+details.node > summary .refs { grid-column: 3; display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: flex-end; }
+.ref { font-size: 0.72rem; border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.35rem; color: var(--muted); white-space: nowrap; line-height: 1.6; font-family: 'Shippori Mincho', serif; }
+.ref.k { border-color: var(--accent-soft); color: var(--accent); }
+.ref.opp { color: var(--on-c); border: none; }
+.opp.mim { background: var(--c-mim); } .opp.sam { background: var(--c-sam); } .opp.bud { background: var(--c-bud); }
+.opp.car { background: var(--c-car); } .opp.self { background: var(--c-self); } .opp.gen { background: var(--c-gen); }
+details.node > .body { padding: 0.1rem 0 0.4rem 1.2rem; }
+details.node > .body > p.gist { font-size: 0.95rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; }
+details.node > .body > p.gist::before { content: "要旨　"; font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; }
+details.node.lv1 { border-left: 4px solid var(--accent); background: var(--card-bg); border-radius: 4px; margin: 0.8rem 0; padding: 0.2rem 0.4rem 0.4rem 0; }
+details.node.lv1 > summary .num { font-size: 1.25rem; }
+details.node.lv1 > summary .ttl { font-weight: 600; font-size: 1.08rem; }
+details.node.lv2 > summary .ttl { font-weight: 600; }
+details.node.leaf > summary::before { content: "·"; transform: none !important; }
+@media (max-width: 560px) {
+  details.node > summary { grid-template-columns: auto 1fr; }
+  details.node > summary .refs { grid-column: 2; justify-content: flex-start; }
+  details.node > .body { padding-left: 0.7rem; }
+}
+
+/* ===== 図：五つの異論 → 五つのスタバカ ===== */
+.flow { display: grid; grid-template-columns: 1fr 2.2rem 1fr; gap: 0.5rem 0; align-items: stretch; margin: 1.2rem 0 1.6rem; }
+.flow .q, .flow .a { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.5rem 0.75rem; font-size: 0.9rem; line-height: 1.6; background: var(--card-bg); }
+.flow .q { border-left: 4px solid var(--it-color); }
+.flow .a { border-left: 4px solid var(--ok-color); }
+.flow .q b, .flow .a b { display: block; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.flow .arr { display: flex; align-items: center; justify-content: center; color: var(--accent-soft); font-size: 1.2rem; }
+.flow .head { font-size: 0.8rem; color: var(--ink-soft); font-weight: 600; text-align: center; letter-spacing: 0.1em; }
+@media (max-width: 560px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow .arr { transform: rotate(90deg); height: 1.4rem; }
+  .flow .head.h2, .flow .head.h3 { display: none; }
+}
+
+/* ===== 図：段落マップ（[1]–[80] の帯グラフ） ===== */
+.map { display: flex; width: 100%; height: 2.4rem; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-light); margin: 0.8rem 0 0.3rem; }
+.map > a { display: flex; align-items: center; justify-content: center; color: var(--on-c); font-size: 0.72rem; text-decoration: none; border-right: 1px solid var(--ground); font-family: 'Cormorant Garamond', serif; font-weight: 600; min-width: 0; overflow: hidden; }
+.map > a:hover { filter: brightness(1.12); }
+.map-scale { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.6rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1rem; }
+.legend span::before { content: ""; display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: -0.05rem; background: var(--sw); }
+
+/* ===== 図：五つの理由 → 結論 ===== */
+.reasons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; margin: 1rem 0 0; }
+.reasons div { background: var(--point-bg); border-radius: 4px; padding: 0.45rem 0.5rem; text-align: center; font-size: 0.85rem; line-height: 1.5; }
+.reasons div .no-r { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1rem; }
+.reasons div .iast { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+.converge { text-align: center; color: var(--accent-soft); font-size: 1.1rem; line-height: 1.2; margin: 0.2rem 0; }
+.concl { border: 2px solid var(--accent); border-radius: 6px; text-align: center; padding: 0.5rem; font-weight: 600; margin-bottom: 1rem; }
+.concl .dev { display: block; font-weight: 400; font-size: 1.05rem; }
+@media (max-width: 560px) { .reasons { grid-template-columns: repeat(2, 1fr); } }
+
+/* ===== 図：論敵の位置づけ ===== */
+.opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.opp-card { border-radius: 4px; padding: 0.6rem 0.7rem; background: var(--card-bg); border: 1px solid var(--rule-light); border-top: 5px solid var(--sw); font-size: 0.88rem; line-height: 1.6; }
+.opp-card b { display: block; font-size: 0.95rem; }
+.opp-card .where { font-size: 0.78rem; color: var(--muted); }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+.tentative { font-size: 0.72rem; color: var(--it-color); border: 1px dashed var(--it-color); border-radius: 3px; padding: 0 0.3rem; margin-left: 0.3rem; white-space: nowrap; }
+
+.opp.vai { background: var(--c-vai); }
+.reasons.r3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 560px) { .reasons.r3 { grid-template-columns: 1fr; } }
+h3.cap { margin-top: 0.6rem; }
+details.fold { border: 1px solid var(--rule-light); border-radius: 4px; background: var(--card-bg); padding: 0.4rem 0.8rem; margin: 1rem 0; }
+details.fold > summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 0.92rem; }
+.pm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.pm { display: block; text-decoration: none; color: var(--ink); background: var(--card-bg); border: 1px solid var(--rule-light); border-left: 4px solid var(--ok-color); border-radius: 4px; padding: 0.5rem 0.75rem; font-size: 0.88rem; line-height: 1.6; }
+.pm:hover { border-color: var(--accent); }
+.pm b { display: block; color: var(--accent); font-size: 1rem; }
+.pm .iast { display: block; color: var(--ink-soft); }
+.pm .sec { display: block; font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+.stats { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.35rem 0.8rem; align-items: center; margin: 1rem 0 0.4rem; font-size: 0.85rem; }
+.stats .lab a { text-decoration: none; }
+.stats .bars { display: flex; flex-direction: column; gap: 3px; }
+.stats .bar { height: 0.95rem; border-radius: 2px; color: var(--on-c); font-size: 0.7rem; line-height: 0.95rem; padding-left: 0.35rem; white-space: nowrap; }
+.stats .bar.p { background: var(--accent); }
+.stats .bar.k { background: var(--accent-soft); }
+section.stabaka { border-top: 1px solid var(--rule); margin-top: 3rem; }
+
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1.2rem; padding: 0.7rem 0 0.8rem; border-bottom: 1px dashed var(--rule-light); position: relative; }
+.seg-sa { font-size: 1.04rem; line-height: 1.9; overflow-wrap: anywhere; }
+.seg-ja { font-size: 0.98rem; line-height: 1.95; }
+.tnote { background: var(--note-bg); border-radius: 4px; padding: 0.55rem 0.9rem 0.6rem; margin: 0.4rem 0 0.9rem; font-size: 0.88rem; line-height: 1.85; }
+.tnote-h { font-weight: 600; color: var(--accent); font-size: 0.78rem; letter-spacing: 0.1em; }
+.tnote ol { padding-left: 1.3rem; }
+.tnote b { color: var(--ink); }
+.legend-tr { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1.2rem; font-size: 0.8rem; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; margin: 1rem 0 0.2rem; }
+.toc-tr a { text-decoration: none; }
+@media (max-width: 640px) {
+  .seg, .legend-tr { grid-template-columns: 1fr; }
+  .legend-tr span:last-child { display: none; }
+  .seg-ja { padding-left: 0.6rem; border-left: 3px solid var(--rule-light); }
+}
+</style>
+
+<style>
+.pg { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: var(--muted); border: 1px solid var(--rule-light); border-radius: 3px; padding: 0 0.3rem; margin: 0 0.2rem; white-space: nowrap; }
+.seg-ja p, .sutra-jp p, .tnote p { margin-bottom: 0.5rem; }
+.xref { font-size: 0.85rem; margin: 0.4rem 0 0.8rem; padding: 0.35rem 0.7rem; border-left: 3px solid #5B4A9E; background: rgba(91,74,158,0.07); }
+.xref-h { color: #5B4A9E; font-weight: 600; margin-right: 0.6rem; }
+.pnav { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.9rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-devanagari">न्यायभाष्यम्</div>
+  <h1>ニヤーヤ・バーシュヤ　全訳</h1>
+  <div class="header-sub">Vātsyāyana, Nyāyabhāṣya · Japanese Translation</div>
+  <div class="header-jp">第4章第1日課（2）　果報・苦・解脱の吟味<br>刊本 p.241–257　スートラ4.1.44–4.1.68の注（第4章第1日課の終わりまで）</div>
+</div>
+<div class="pnav"><a href="nbh_zenyaku_07a.html">← 前へ（活動・過失・再生と諸学派の見解）</a><span></span><a href="nbh_zenyaku_08.html">次へ（第4章第2日課） →</a></div>
+<nav class="toc"><h2>この部分の科段</h2><ol><li><a href="#n44"><span class="n">44</span>第44スートラ：果報はすぐか後か</a></li><li><a href="#n45"><span class="n">45</span>第45スートラ：すぐではない</a></li><li><a href="#n46"><span class="n">46</span>第46スートラ：原因が滅するので後では生じない</a></li><li><a href="#n47"><span class="n">47</span>第47スートラ：木の実のように</a></li><li><a href="#n48"><span class="n">48</span>第48スートラ：生じる前は無でも有でも有無でもない</a></li><li><a href="#n49"><span class="n">49</span>第49スートラ：生じる前は確かに無である</a></li><li><a href="#n50"><span class="n">50</span>第50スートラ：その無は知によって確立している</a></li><li><a href="#n51"><span class="n">51</span>第51スートラ：基体が異なるので木の実の例は論証因ではない</a></li><li><a href="#n52"><span class="n">52</span>第52スートラ：喜びはアートマンに依るので否定されない</a></li><li><a href="#n53"><span class="n">53</span>第53スートラ：息子などが果報と説かれる</a></li><li><a href="#n54"><span class="n">54</span>第54スートラ：それらとの関係から果報が生じるので比喩的に果報と呼ぶ</a></li><li><a href="#n55"><span class="n">55</span>第55スートラ：生まれはすべて苦である</a></li><li><a href="#n56"><span class="n">56</span>第56スートラ：その間に楽も生じる</a></li><li><a href="#n57"><span class="n">57</span>第57スートラ：苦痛がやまないので求めることの過失がある</a></li><li><a href="#n58"><span class="n">58</span>第58スートラ：苦の変形を楽と思い込むので</a></li><li><a href="#n59"><span class="n">59</span>第59スートラ：負債・煩悩・活動が続くので解脱はない</a></li><li><a href="#n60"><span class="n">60</span>第60スートラ：比喩的な語による再説</a></li><li><a href="#n61"><span class="n">61</span>第61スートラ：アートマンに〔火を〕置き移すので否定されない</a></li><li><a href="#n62"><span class="n">62</span>第62スートラ：器の積み上げで終わることが成り立たない</a></li><li><a href="#n63"><span class="n">63</span>第63スートラ：熟睡で夢を見ないときのように</a></li><li><a href="#n64"><span class="n">64</span>第64スートラ：煩悩を捨てた者の活動は再生に結びつかない</a></li><li><a href="#n65"><span class="n">65</span>第65スートラ：煩悩の連続は本性的である</a></li><li><a href="#n66"><span class="n">66</span>第66スートラ：生起前の無のように</a></li><li><a href="#n67"><span class="n">67</span>第67スートラ：原子の黒色が無常であるように</a></li><li><a href="#n68"><span class="n">68</span>第68スートラ：貪欲などは思惑を原因とするので</a></li></ol></nav>
+<div class="controls" id="controls">
+  <span class="lbl">まとめて開く：</span>
+  <button type="button" data-depth="1">第1階層のみ</button>
+  <button type="button" data-depth="2">第2階層まで</button>
+  <button type="button" data-depth="3">第3階層まで</button>
+  <button type="button" data-depth="9">すべて開く</button>
+  <button type="button" data-depth="0">すべて閉じる</button>
+</div>
+<div class="legend-tr"><span>本文（ヴァーツヤーヤナ）</span><span>和訳</span></div>
+<div class="tree">
+<details class="node lv1" id="n44"><summary><span class="num">44</span><span class="ttl">第44スートラ：果報はすぐか後か <span class="sk">NS 4.1.44</span></span></summary><div class="body">
+<p class="gist">再生を吟味したので次は果報。「炊く」「乳を搾る」の果報（飯・乳）はすぐ生じ、「耕す」「種をまく」の果報（収穫）は後で生じる。「天界を望む者はアグニホートラ祭を行うべし」という行為の果報について、どちらかという疑いがある。</p>
+<details class="node lv2" id="n44-0"><summary><span class="num">44.0</span><span class="ttl">第44スートラ <span class="sk">NS 4.1.44</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">परीक्षितः प्रेत्यभावः प्रेत्यभावानन्तरं फलम्, तस्मिन्</div><div class="seg-ja"><p>「果報の吟味の論題」。</p><p>再生は吟味された。再生の次は果報である。それについて――</p></div></div>
+<div class="sutra"><div class="sutra-text">सद्यः कालान्तरे च फलनिष्पत्तेः संशयः ॥</div><div class="sutra-jp"><p>果報はすぐにも、別の時にも生じるので、疑いがある。</p></div></div>
+</div></details>
+<details class="node lv2" id="n44-1"><summary><span class="num">44.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.241</span>पचति दोग्धीति सद्यः फलमोदनपयसी, कर्षति वपतीति कालान्तरे फलं शस्याधिगमः। अस्ति चेयं क्रिया अग्निहोत्रं जुहुयात् स्वर्गकाम इति। एतस्याः फले संशयः ॥४४॥</div><div class="seg-ja"><p>「炊く」「乳を搾る」の果報である飯と乳とはすぐに〔生じ〕、「耕す」「種をまく」の果報である穀物の獲得は別の時に〔生じる〕。そして「天界を望む者はアグニホートラを献供すべし」というこの行為がある。この〔行為の〕果報について疑いがある。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n45"><summary><span class="num">45</span><span class="ttl">第45スートラ：すぐではない <span class="sk">NS 4.1.45</span></span></summary><div class="body">
+<p class="gist">果報は天界と聞かれ、それはこの身体が壊れた後に生じる。村などを望む者の祭式の果報のようにすぐではない。</p>
+<details class="node lv2" id="n45-0"><summary><span class="num">45.0</span><span class="ttl">第45スートラ <span class="sk">NS 4.1.45</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">न सद्यः कालान्तरोपभोग्यत्वात् ॥</div><div class="sutra-jp"><p>すぐにではない。別の時に享受されるものだからである。</p></div></div>
+</div></details>
+<details class="node lv2" id="n45-1"><summary><span class="num">45.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">स्वर्गः फलं श्रूयते। स च भिन्नेऽस्मिन् देहे परं देहभेदादुत्पद्यत इति। न सद्यः, यथा ग्रामादिकामानामारम्भफलमिति ॥४५॥</div><div class="seg-ja"><p>果報は天界であると聞かれる。そしてそれは、この身体が壊れたとき、身体の消滅の後に生じる、と。村などを望む者たちの〔祭式の〕着手の果報のように、すぐにではない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n46"><summary><span class="num">46</span><span class="ttl">第46スートラ：原因が滅するので後では生じない <span class="sk">NS 4.1.46</span></span></summary><div class="body">
+<p class="gist">反論：行為が滅したら、原因なしに行為の果報は生じない。滅した原因からは何も生じない。</p>
+<details class="node lv2" id="n46-0"><summary><span class="num">46.0</span><span class="ttl">第46スートラ <span class="sk">NS 4.1.46</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">कालान्तरेणानिष्पत्तिर्हेतुविनाशात् ॥</div><div class="sutra-jp"><p>〔反論〕原因が滅するので、別の時には生じない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n46-1"><summary><span class="num">46.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">प्रध्वस्तायां प्रवृत्तौ प्रवृत्तिफलं न कारणमन्तरेणोत्पत्तुमर्हति। न खलु वै विनष्टात् कारणात् किञ्चिदुत्पद्यत इति ॥४६॥</div><div class="seg-ja"><p>活動が滅したとき、活動の果報が原因なしに生じることはできない。実に滅した原因からは何も生じない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n47"><summary><span class="num">47</span><span class="ttl">第47スートラ：木の実のように <span class="sk">NS 4.1.47</span></span></summary><div class="body">
+<p class="gist">答：果報が生じる前に、木の実のようにそれ（中間のもの）がある。実を望む者が根に水をやるなどの世話をすると、それが消えても、地と水の要素が集められ内部の火で熟して液体を生み、木に行きわたって葉などや実を生む。同様に、活動によって法・非法という潜在力が生じ、他の補助原因に助けられて後に果報を生む。</p>
+<details class="node lv2" id="n47-0"><summary><span class="num">47.0</span><span class="ttl">第47スートラ <span class="sk">NS 4.1.47</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">प्राङ्निष्पत्तेर्वृक्षफलवत् तत् स्यात् ॥</div><div class="sutra-jp"><p>〔答論〕生じる前に、木の実のように、それ（中間のもの）があるであろう。</p></div></div>
+</div></details>
+<details class="node lv2" id="n47-1"><summary><span class="num">47.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">यथा फलार्थिना वृक्षमूलसेकादि परिकर्म क्रियते, तस्मिंश्च प्रध्वस्ते पृथिवीधातुरब्धातुश्च संगृहीत आन्तरेण तेजसा पच्यमानो रसद्रव्यं निर्वर्तयति। स द्रव्यभूतो <span class="pg">p.242</span>रसो वृक्षानुगतः पाकविशिष्टो व्यूहविशेषे सन्निविशमानः पर्णादिकं फलं निर्वर्तयति । एवं परिषेकादिकर्म चार्थवत् । न च विनष्टात् कारणात् फलनिष्पत्तिः । तथा प्रवृत्त्या संस्कारो धर्माधर्मलक्षणो जन्यते, स जातो निमित्तान्तरानुगृहीतः कालान्तरेण फलं निष्पादयतीति । उक्तं चैतत्— पूर्वकृतफलानुबन्धात् तदुत्पत्तिः [ ३।२।६० ] इति ॥४७॥</div><div class="seg-ja"><p>果実を望む者によって、木の根に水を注ぐなどの世話がなされる。そしてそれが消えたとき、地の要素と水の要素とが集められ、内部の熱によって熟されて、液状の物質を作り出す。その物質となった液汁が木に行きわたり、熟成によって特別なものとなり、特別な配置に入って、葉などと果実とを作り出す。こうして水を注ぐなどの行為も意味をもつ。そして滅した原因から果報が生じるのではない。同様に、活動によって法と非法を特徴とする潜在力が生み出され、それが生じて他の補助原因に助けられ、別の時に果報を生じさせるのである、と。またこのことは「前に行ったことの果報が結びついているので、それが生じる」〔3.2.60〕と述べられた、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n48"><summary><span class="num">48</span><span class="ttl">第48スートラ：生じる前は無でも有でも有無でもない <span class="sk">NS 4.1.48</span></span></summary><div class="body">
+<p class="gist">では生じる前の果報は何か。無ではない。質料因が限定されているから（すべてがすべての原因ではない）。有でもない。存在するものの生起は成り立たない。有無でもない。有と無は互いに相反し矛盾するので一つにならない。</p>
+<details class="node lv2" id="n48-0"><summary><span class="num">48.0</span><span class="ttl">第48スートラ <span class="sk">NS 4.1.48</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">तदिदं प्राङ्निष्पत्तेर्निष्पद्यमानम्—</div><div class="seg-ja"><p>では、生じる前に生じつつあるこれ（果報）は――</p></div></div>
+<div class="sutra"><div class="sutra-text">नासन्न सन्न सदसत्सदसतोर्वैधर्म्यात् ॥</div><div class="sutra-jp"><p>〔反論〕無ではなく、有ではなく、有無でもない。有と無とは性質が相反するからである。</p></div></div>
+</div></details>
+<details class="node lv2" id="n48-1"><summary><span class="num">48.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">प्राङ्निष्पत्तेर्निष्पत्तिधर्मकं नासत् उपादाननियमात् । कस्यचिदुत्पत्तये किञ्चिदुपादेयम्, न सर्वं सर्वस्येत्यसद्भावे समाने कारणनियमो नोपपद्यत इति । न सत्, प्रागुत्पत्तेर्विद्यमानस्योत्पत्तिरनुपपन्नेति । न सदसत्, सदसतोर्वैधर्म्यात् । सदित्यर्थाभ्यनुज्ञा, असदिति अर्थप्रतिषेधः । एतयोर्व्याघातो वैधर्म्यं व्याघातादव्यतिरेकानुपपत्तिरिति ॥४८॥</div><div class="seg-ja"><p>生じる前の、生起を性質とするものは無ではない。質料因が限定されているからである。何かを生じさせるためには何かが取られるべきであって、すべてがすべての〔質料因である〕のではない。それで、無であることが等しいならば、原因の限定は成り立たない、と。有でもない。生じる前に存在しているものの生起は成り立たない、と。有無でもない。有と無とは性質が相反するからである。「有」とは対象の承認であり、「無」とは対象の否定である。この両者の矛盾が性質の相反であり、矛盾するので無区別は成り立たない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n49"><summary><span class="num">49</span><span class="ttl">第49スートラ：生じる前は確かに無である <span class="sk">NS 4.1.49</span></span></summary><div class="body">
+<p class="gist">答：生じる前の、生起を性質とするものは確かに無である。生起と消滅が見られるから。</p>
+<details class="node lv2" id="n49-0"><summary><span class="num">49.0</span><span class="ttl">第49スートラ <span class="sk">NS 4.1.49</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">प्रागुत्पत्तेरुत्पत्तिधर्मकमसदित्यद्धा । कस्मात्? उत्पादव्ययदर्शनात् ॥</div><div class="sutra-jp"><p>〔答論〕生じる前の、生起を性質とするものは、確かに無である。なぜか。生起と消滅が見られるからである。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n50"><summary><span class="num">50</span><span class="ttl">第50スートラ：その無は知によって確立している <span class="sk">NS 4.1.50</span></span></summary><div class="body">
+<p class="gist">「生じる前の結果は質料因が限定されるので無ではない」と言われた。答：「これはこれを生じさせる能力があり、すべてではない」と、生じる前の結果は限定された原因をもつものとして知によって確立している。生起の決まりが見られるから。それで質料因の限定は成り立つ。結果が存在するなら生じる前の生起などありえない。</p>
+<details class="node lv2" id="n50-0"><summary><span class="num">50.0</span><span class="ttl">第50スートラ <span class="sk">NS 4.1.50</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.243</span> यत् पुनरुक्तं प्रागुत्पत्तेः कार्यं नासदुपादाननियमादिति—</div><div class="seg-ja"><p>また、「生じる前の結果は無ではない。質料因が限定されているから」と言われたが――</p></div></div>
+<div class="sutra"><div class="sutra-text">बुद्धिसिद्धं तु तदसत् ॥</div><div class="sutra-jp"><p>しかしその無は、知によって確立している。</p></div></div>
+</div></details>
+<details class="node lv2" id="n50-1"><summary><span class="num">50.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">इदमस्योत्पत्तये समर्थं न सर्वमिति प्रागुत्पत्तेर्नियतकारणं कार्यं बुद्ध्या सिद्धमुत्पत्तिनियमदर्शनात् । तस्मादुपादाननियमोपपत्तिः सति तु कार्ये प्रागुत्पत्तेरुत्पत्तिरेव नास्तीति ॥५०॥</div><div class="seg-ja"><p>「これはこれを生じさせることができるのであって、すべてが〔できるの〕ではない」と、生じる前の結果は、限定された原因をもつものとして、知によって確立している。生起の決まりが見られるからである。それゆえ質料因の限定は成り立つ。しかし結果が存在するのであれば、生じる前の生起はまったくない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n51"><summary><span class="num">51</span><span class="ttl">第51スートラ：基体が異なるので木の実の例は論証因ではない <span class="sk">NS 4.1.51</span></span></summary><div class="body">
+<p class="gist">反論：根に水をやる世話と実は両方とも木を基体とする。しかし行為はこの身体に、果報はあの世にあるので、基体が異なり、木の実の例は論証因にならない。</p>
+<details class="node lv2" id="n51-0"><summary><span class="num">51.0</span><span class="ttl">第51スートラ <span class="sk">NS 4.1.51</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">आश्रयव्यतिरेकाद् वृक्षफलोत्पत्तिवदित्यहेतुः ॥</div><div class="sutra-jp"><p>〔反論〕基体が異なるので、「木の実の生起のように」というのは論証因ではない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n51-1"><summary><span class="num">51.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">मूलसेकादिपरिकर्म फलं चोभयं वृक्षाश्रयम् । कर्म चेह शरीरे । फलं चामुत्रेत्याश्रयव्यतिरेकादहेतुरिति ॥५१॥</div><div class="seg-ja"><p>根に水を注ぐなどの世話と果実との両方は、木を基体とする。しかしここでは、行為はこの身体において〔なされ〕、果報はあの世において〔ある〕。それで基体が異なるので、論証因ではない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n52"><summary><span class="num">52</span><span class="ttl">第52スートラ：喜びはアートマンに依るので否定されない <span class="sk">NS 4.1.52</span></span></summary><div class="body">
+<p class="gist">答：喜び（果報）はアートマンに知覚されるのでアートマンを基体とする。法と呼ばれる行為もアートマンの性質なので同じ基体をもつ。基体が異なることはない。</p>
+<details class="node lv2" id="n52-0"><summary><span class="num">52.0</span><span class="ttl">第52スートラ <span class="sk">NS 4.1.52</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">प्रीतेरात्माश्रयत्वादप्रतिषेधः ॥</div><div class="sutra-jp"><p>〔答論〕喜びはアートマンを基体とするので、否定されない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n52-1"><summary><span class="num">52.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">प्रीतिरात्मप्रत्यक्षत्वादात्माश्रया । तदाश्रयमेव कर्म धर्मसंज्ञितम्, धर्मस्यात्मगुणत्वात् । तस्मादाश्रयव्यतिरेकानुपपत्तिरिति ॥५२॥ <span class="pg">p.244</span></div><div class="seg-ja"><p>喜びは、アートマンに知覚されるのでアートマンを基体とする。法と呼ばれる行為も、まさにそれを基体とする。法はアートマンの性質だからである。それゆえ基体が異なることは成り立たない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n53"><summary><span class="num">53</span><span class="ttl">第53スートラ：息子などが果報と説かれる <span class="sk">NS 4.1.53</span></span></summary><div class="body">
+<p class="gist">反論：「村を望む者は祭式すべし」「息子を望む者は祭式すべし」と、息子・妻・家畜・衣服・黄金・食物などが果報と説かれ、喜びではない。</p>
+<details class="node lv2" id="n53-0"><summary><span class="num">53.0</span><span class="ttl">第53スートラ <span class="sk">NS 4.1.53</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">न पुत्रस्त्रीपशुपरिच्छदहिरण्यान्नादिफलनिर्देशात् ॥</div><div class="sutra-jp"><p>〔反論〕そうではない。息子・妻・家畜・衣服・黄金・食物などが果報として説かれるからである。</p></div></div>
+</div></details>
+<details class="node lv2" id="n53-1"><summary><span class="num">53.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">पुत्रादि फलं निर्दिश्यते, न प्रीतिः। ग्रामकामो यजेत, पुत्रकामो यजेतेति। तत्र यदुक्तं प्रीतिः फलमित्येतदयुक्तमिति ॥५३॥</div><div class="seg-ja"><p>息子などが果報として説かれるのであって、喜びではない。「村を望む者は祭式を行うべし」「息子を望む者は祭式を行うべし」と。それで、「喜びが果報である」と言われたこと、これは不合理である、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n54"><summary><span class="num">54</span><span class="ttl">第54スートラ：それらとの関係から果報が生じるので比喩的に果報と呼ぶ <span class="sk">NS 4.1.54</span></span></summary><div class="body">
+<p class="gist">答：息子などとの関係から喜びという果報が生じるので、息子などを果報のように言う比喩的用法である。「食物は生命である」と言うのと同じ。</p>
+<details class="node lv2" id="n54-0"><summary><span class="num">54.0</span><span class="ttl">第54スートラ <span class="sk">NS 4.1.54</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">तत्सम्बन्धात् फलनिष्पत्तेस्तेषु फलवदुपचारः ॥</div><div class="sutra-jp"><p>〔答論〕それらとの関係から果報が生じるので、それらについて果報であるかのように比喩的に言われる。</p></div></div>
+</div></details>
+<details class="node lv2" id="n54-1"><summary><span class="num">54.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">पुत्रादिसम्बन्धात् फलं प्रीतिलक्षणमुत्पद्यत इति पुत्रादिषु फलवदुपचारः। यथात्र प्राणशब्दः &#x27;अन्नं वै प्राणाः&#x27; [द्रः महाभारत १३।६३।२५] इति ॥५४॥ ॥फलपरीक्षाप्रकरणम्॥</div><div class="seg-ja"><p>息子などとの関係から喜びを特徴とする果報が生じるので、息子などについて果報であるかのように比喩的に言われるのである。ちょうど「食物は実に生命である」〔マハーバーラタ参照〕というときの「生命」という語のように、と。</p><p>以上、「果報の吟味の論題」。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n55"><summary><span class="num">55</span><span class="ttl">第55スートラ：生まれはすべて苦である <span class="sk">NS 4.1.55</span></span></summary><div class="body">
+<p class="gist">果報の次に苦が挙げられ、「苦は苦痛を特徴とする」（1.1.21）と言われた。これは各自が感じる楽の否定ではない。誰もが証人である楽は否定できない。生死の連続を経験して苦に厭いた人が苦を捨てるために、苦の想いを修習するよう教えるのである。生類のあらゆる群、あらゆる生まれの場所、すべての再生は苦痛と結びついている。苦痛には下・中・上があり、地獄の者は上、動物は中、人間は下、神々と離欲者はさらに下。こう見る人には楽とその手段にも苦の想いが定まり、どの世界にも喜びを感じない想いが生じ、渇愛が断たれ、すべての苦から解放される。毒の混じった乳を毒と見て取らない人が死の苦を受けないように。</p>
+<details class="node lv2" id="n55-0"><summary><span class="num">55.0</span><span class="ttl">第55スートラ <span class="sk">NS 4.1.55</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">फलानन्तरं दुःखमुदिष्टम् । उक्तं च बाधनालक्षणं दुःखम् [ १।१।२१ ] इति। तत् किमिदं प्रत्यात्मवेदनीयस्य सर्वजन्तुप्रत्यक्षस्य सुखस्य प्रत्याख्यानमाहोस्विदन्यः कल्प इति? अन्य इत्याह। कथम्? न वै सर्वलोकसाक्षिकं सुखं <span class="pg">p.245</span>शक्यं प्रत्याख्यातुम्। अयं तु जन्ममरणप्रबन्धानुभवनिमित्ताद् दुःखान्निर्विण्णस्य दुःखं जिहासतो दुःखसंज्ञाभावनोपदेशो दुःखहानार्थ इति। कया युक्त्या? सर्वे खलु सत्त्वनिकायाः सर्वाण्युपपत्तिस्थानानि सर्वः पुनर्भवो बाधनानुषक्तो दुःखसहचर्याद् बाधनालक्षणं दुःखमित्युक्तमृषिभिः, दुःखसंज्ञाभावनमुपदिश्यते। अत्र च हेतुरापादीयते—</div><div class="seg-ja"><p>「苦の吟味の論題」。</p><p>果報の次に苦が挙げられた。そして「苦は苦痛を特徴とする」〔1.1.21〕と言われた。では、これは各自に感受され、すべての生き物に知覚される楽を否定することなのか、それとも別の趣旨なのか、と。別のものである、と言う。どのようにか。実に、すべての世間が証人である楽を否定することはできない。そうではなくこれは、生と死の連続の経験を原因とする苦に厭いて、苦を捨てたいと望む人に、苦を捨てるために、苦の想いを修習するよう教えることである、と。どのような道理によってか。生類のすべての群、すべての生まれの場所、すべての再生は苦痛と結びついている。苦と伴うので、「苦は苦痛を特徴とする」と聖仙たちによって言われ、苦の想いを修習することが教えられるのである。そしてここで論証因が示される――</p></div></div>
+<div class="sutra"><div class="sutra-text">विविधबाधनायोगाद् दुःखमेव जन्मोत्पत्तिः ॥</div><div class="sutra-jp"><p>さまざまな苦痛と結びつくので、生まれの生起はまさに苦である。</p></div></div>
+</div></details>
+<details class="node lv2" id="n55-1"><summary><span class="num">55.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">जन्म जायत इति शरीरेन्द्रियबुद्धयः। शरीरादीनां संस्थानविशिष्टानां प्रादुर्भाव उत्पत्तिः। विविधा च बाधना हीना मध्यमा उत्कृष्टा चेति। उत्कृष्टा नारकिणाम्, तिरश्चां तु मध्यमा, मनुष्याणां हीना, देवानां हीनतरा वीतरागाणाञ्च। एवं सर्वमुत्पत्तिस्थानं विविधबाधनानुषक्तं पश्यतः सुखे च सुखसाधनेषु च शरीरेन्द्रियबुद्धिषु दुःखसंज्ञा व्यवतिष्ठते। दुःखसंज्ञाव्यवस्थानाच्च सर्वलोकेष्वनभिरतिसंज्ञा भवति। सर्वलोकेष्वनभिरतिसंज्ञामुपासीनस्य सर्वलोकविषया तृष्णा विच्छिद्यते। तृष्णाप्रहाणात् सर्वदुःखाद् विमुच्यत इति। यथा विषयोगात् पयो विषमिव बुध्यमानो नोपादत्ते, अनुपाददानो मरणदुःखं नाप्नोतीति ॥५५॥</div><div class="seg-ja"><p>生まれとは、生じるもの、すなわち身体・感官・知である。形態によって特別なものとなった身体などが現れることが生起である。そして苦痛はさまざまであり、下・中・上がある。上は地獄の者たちの、中は動物たちの、下は人間たちの、さらに下は神々と離欲者たちのものである。このように、すべての生まれの場所がさまざまな苦痛と結びついていると見る人には、楽にも、楽の手段である身体・感官・知にも、苦の想いが定まる。そして苦の想いが定まることによって、すべての世界に対して喜ばない想いが生じる。すべての世界に対して喜ばない想いを修める人には、すべての世界を対象とする渇愛が断たれる。渇愛を捨てることによって、すべての苦から解放される、と。ちょうど、毒が混じっているために乳を毒のようなものと知る人が、それを取らず、取らないので死の苦を得ないように、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n56"><summary><span class="num">56</span><span class="ttl">第56スートラ：その間に楽も生じる <span class="sk">NS 4.1.56</span></span></summary><div class="body">
+<p class="gist">苦を挙げることは楽の否定ではない。苦痛の合間に、身体ある者には各自が感受する楽が生じ、それは否定できない。</p>
+<details class="node lv2" id="n56-0"><summary><span class="num">56.0</span><span class="ttl">第56スートラ <span class="sk">NS 4.1.56</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">दुःखोद्देशस्तु न सुखस्य प्रत्याख्यानम्। कस्मात्?</div><div class="seg-ja"><p>しかし苦を挙げることは楽の否定ではない。なぜか――</p></div></div>
+<div class="sutra"><div class="sutra-text">न, सुखस्याप्यन्तरालनिष्पत्तेः ॥</div><div class="sutra-jp"><p>〔楽の否定では〕ない。楽もまた合間に生じるからである。</p></div></div>
+</div></details>
+<details class="node lv2" id="n56-1"><summary><span class="num">56.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.246</span>न खल्वयं दुःखोद्देशः सुखस्य प्रत्याख्यानम्। कस्मात्? सुखस्याप्यन्तरालनिष्पत्तेः। निष्पद्यते खलु बाधनान्तरालेषु सुखं प्रत्यात्मवेदनीयं शरीरिणाम्। तदशक्यं प्रत्याख्यातुमिति ॥५६॥</div><div class="seg-ja"><p>実にこの苦を挙げることは楽の否定ではない。なぜか。楽もまた合間に生じるからである。実に苦痛の合間に、身体ある者たちに各自が感受する楽が生じる。それは否定することができない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n57"><summary><span class="num">57</span><span class="ttl">第57スートラ：苦痛がやまないので求めることの過失がある <span class="sk">NS 4.1.57</span></span></summary><div class="body">
+<p class="gist">楽を感受しても苦痛はやまない。求めること（対象を得ようとする渇愛）の過失があるから。求めたものが得られない、得ても失う、少ししか得られない、多くの障害を伴って得られる。そこからさまざまな心の苦しみが生じる。それで苦の想いの修習が教えられる。生まれが苦なのは楽がないからではない。「欲を望む者の欲が満たされると、すぐ別の欲が彼を苦しめる」「海に囲まれた牛馬つきの大地を得ても、財を求める者はその財で満足しない。財を望む者にどんな楽があろう」。</p>
+<details class="node lv2" id="n57-0"><summary><span class="num">57.0</span><span class="ttl">第57スートラ <span class="sk">NS 4.1.57</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अथापि</div><div class="seg-ja"><p>さらにまた――</p></div></div>
+<div class="sutra"><div class="sutra-text">बाधनानिवृत्तेर्वेदनतः पर्येषणदोषप्रतिषेधः ॥</div><div class="sutra-jp"><p>〔楽を〕感受しても苦痛はやまないので、求めることの過失によって〔楽は〕否定される。</p></div></div>
+</div></details>
+<details class="node lv2" id="n57-1"><summary><span class="num">57.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">सुखस्य, दुःखोद्देशेनेति प्रकरणात्। पर्येषणं प्रार्थना, विषयार्जनतृष्णा। पर्येषणस्य दोषो यदयं वेदमानः प्रार्थयते। तच्चास्य प्रार्थितं न सम्पद्यते, सम्पद्य वा विपद्यते, न्यूनं वा सम्पद्यते, बहुप्रत्यनीकं वा सम्पद्यत इति। एतस्मात् पर्येषणदोषान्नानाविधो मानसः सन्तापो भवति। एवं वेदयतः पर्येषणदोषाद् बाधनाया अनिवृत्तिः। बाधनानिवृत्तेर्दुःखसंज्ञाभावनमुपदिश्यते। अनेन कारणेन दुःखं जन्म, न सुखाभावादिति। अथाप्येतद् अनुक्तम्। कामं कामयमानस्य यदा कामः समृध्यति। अथैनमपरः कामः क्षिप्रमेव प्रबाधते ॥ [द्रः महाभारतम् (सामीक्षिकं संस्करणम्) १३।९४।३०] अपि चेदुदनेमि समन्ताद् भूमिमिमां लभते सगवाश्वाम्। न स तेन धनेन धनैषी तृप्यति किं नु सुखं धनकामे ॥ इति ॥५७॥ <span class="pg">p.247</span></div><div class="seg-ja"><p>「楽の〔否定〕」、「苦を挙げることによって」というのは文脈から〔補われる〕。求めることとは願望、すなわち対象を得ようとする渇愛である。求めることの過失とは、この人が感受しつつ願うことである。そしてその人の願ったことは成就しない、あるいは成就しても失われる、あるいは不十分に成就する、あるいは多くの障害を伴って成就する、と。この求めることの過失から、さまざまな心の苦しみが生じる。このように感受する人には、求めることの過失によって苦痛がやまない。苦痛がやまないので、苦の想いの修習が教えられるのである。この理由によって生まれは苦なのであって、楽がないからではない、と。</p><p>さらにまた、このことも言われている。</p><p>「欲を欲する者の欲が満たされるとき、ただちに別の欲が彼を苦しめる」〔マハーバーラタ参照〕。</p><p>「たとえ海に囲まれたこの大地を、牛と馬とともに得たとしても、財を求める者はその財によって満足しない。財を望む者にどうして楽があろうか」と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n58"><summary><span class="num">58</span><span class="ttl">第58スートラ：苦の変形を楽と思い込むので <span class="sk">NS 4.1.58</span></span></summary><div class="body">
+<p class="gist">楽の感受にとどまる人は楽を最高の人生目的と思い、楽を得れば目的を果たすと考える。誤った思惑から楽とその手段に執着し、楽のために努める。努める者には生・老・病・死・嫌なものとの結合・好きなものとの別離・望んだものが得られないことによる多くの苦が生じるが、その苦の変形を楽と思い込む。苦は楽の一部で、苦を経ずに楽は得られないので、「これも楽だ」と楽の想いに智慧を損なわれ、「生まれよ、死ね」と走り回って輪廻を越えない。その楽の想いの対治として苦の想いの修習が教えられる。苦と結びつくので生まれは苦なのであって、楽がないからではない。「苦である」でなく「まさに苦である」と言うのは、楽がないことを示すためではなく、生まれを抑えるためである。</p>
+<details class="node lv2" id="n58-0"><summary><span class="num">58.0</span><span class="ttl">第58スートラ <span class="sk">NS 4.1.58</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">दुःखविकल्पे सुखाभिमानाच्च ॥</div><div class="sutra-jp"><p>また、苦の変形について楽と思い込むからである。</p></div></div>
+</div></details>
+<details class="node lv2" id="n58-1"><summary><span class="num">58.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">दुःखसंज्ञाभावनोपदेशः क्रियते। अयं च खलु सुखसंवेदने व्यवस्थितः। सुखं परमपुरुषार्थं मन्यते। न सुखादन्यन्निश्रेयसमस्ति, सुखे प्राप्ते चरितार्थः कृतकरणीयो भवतीति। मिथ्यासङ्कल्पात् सुखे तत्साधनेषु च विषयेषु संरज्यते। संरक्तः सुखाय घटते। घटमानस्यास्य जन्मजराव्याधिप्रायणानिष्टसंप्रयोगेष्टविप्रयोगप्रार्थितानुपपत्तिनिमित्तमनेकविधं यावद् दुःखमुत्पद्यते, तत् दुःखविकल्पं सुखमित्यभिमन्यते। सुखाङ्गभूतं दुःखम्। न दुःखमनासाद्य शक्यं सुखमवाप्तुम्। तादर्थ्यात् सुखमेवेदमिति सुखसंज्ञोपहतप्रज्ञो ‘जायस्व म्रियस्व’ [द्रः छान्दोग्योपनिषत् ५।१०।८] इति संधावतीति संसारं नातिवर्तते। तदस्याः सुखसंज्ञायाः प्रतिपक्षो दुःखसंज्ञाभावनमुपदिश्यते। दुःखानुषङ्गाद् दुःखं जन्मेति, न सुखस्याभावात्।</div><div class="seg-ja"><p>苦の想いを修習する教えがなされる。そしてこの人は楽の感受にとどまっている。楽を最高の人生目的と考える。「楽以外に至福はない。楽が得られれば、目的を果たし、なすべきことをなした者となる」と。誤った思惑から、楽とその手段である対象とに執着する。執着して楽のために努める。努めるこの人に、生・老・病・死、好ましくないものとの結合、好ましいものとの別離、望んだものが得られないことを原因とする多種多様な苦が生じるかぎり、その苦の変形を「楽である」と思い込む。苦は楽の一部である。苦を経ずに楽を得ることはできない。そのためにある以上「これも楽にほかならない」と、楽の想いによって智慧を損なわれた者は、「生まれよ、死ね」〔チャーンドーギヤ・ウパニシャッド5.10.8参照〕と走り回り、輪廻を越えない。それでこの楽の想いの対治として、苦の想いの修習が教えられるのである。苦と結びつくので生まれは苦であるのであって、楽がないからではない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n58-2"><summary><span class="num">58.2</span><span class="ttl">「まさに」の意味 <span class="sk">eva</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">यद्येवम्, कस्माद् दुःखं जन्मेति नोच्यते? सोऽयमेवं वाच्ये यदेवमाह दुःखमेव जन्मेति, तेन सुखाभावं ज्ञापयतीति जन्मविनिग्रहार्थीयो वै खल्वयमेव शब्दः। कथम्? न दुःखं जन्म स्वरूपतः, किंतु दुःखोपचारात्, एवं सुखमपीति। एतदनेनैव निर्वर्त्यते, न तु दुःखमेव जन्मेति ॥५८॥ ॥दुःखपरीक्षाप्रकरणम्॥</div><div class="seg-ja"><p>「もしそうであるならば、なぜ『生まれは苦である』と言わないのか」〔と問うならば〕――そのように言うべきところで、この人が「生まれはまさに苦である」と言うのは、それによって楽がないことを知らせるのではない。この「まさに」という語は、実に生まれを抑えるためのものである。どのようにか。生まれはそれ自体として苦なのではなく、苦の比喩的用法によって〔苦である〕。楽もまた同様である、と。このことはまさにこれによって成し遂げられるのであって、〔楽がないという意味で〕「生まれはまさに苦である」のではない、と。</p><p>以上、「苦の吟味の論題」。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n59"><summary><span class="num">59</span><span class="ttl">第59スートラ：負債・煩悩・活動が続くので解脱はない <span class="sk">NS 4.1.59</span></span></summary><div class="body">
+<p class="gist">苦の次は解脱だが、それが否定される。負債が続くので解脱はない。「ブラーフマナは三つの負債を負って生まれる。梵行によって聖仙に、祭式によって神々に、子によって祖霊に」。その負債は老いるまで自分の行為と結びつく。「アグニホートラと新月満月祭は老死に至るまでの祭会である。老いによってか死によってのみ解放される」。だから解脱を実践する時がない。煩悩が続くので解脱はない。煩悩に縛られて死に、生まれる。活動が続くので解脱はない。生まれてから死ぬまで言葉・知・身体による着手から解放されない。それで1.1.2の解脱は成り立たない。</p>
+<details class="node lv2" id="n59-0"><summary><span class="num">59.0</span><span class="ttl">第59スートラ <span class="sk">NS 4.1.59</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.248</span> दुःखोद्देशानन्तरमपवर्गः, स प्रत्याख्यायते—</div><div class="seg-ja"><p>「解脱の吟味の論題」。</p><p>苦を挙げた次に解脱がある。それが否定される――</p></div></div>
+<div class="sutra"><div class="sutra-text">ऋणक्लेशप्रवृत्त्यनुबन्धादपवर्गाभावः ॥</div><div class="sutra-jp"><p>〔反論〕負債・煩悩・活動が続くので、解脱はない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n59-1"><summary><span class="num">59.1</span><span class="ttl">負債の継続 <span class="sk">ṛṇānubandha</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">ऋणानुबन्धात् नास्त्यपवर्गः। जायमानो ह वै ब्राह्मणस्त्रिभिरृणैरृणवान् जायते, ब्रह्मचर्येण ऋषिभ्यो यज्ञेन देवेभ्यः प्रजया पितृभ्यः [तैत्तिरीयसंहिता (आनन्दाश्रम) खण्ड १, पृः ४२] इति ऋणानि, तेषामनुबन्धः आजरसं स्वकर्मभिः सम्बन्धः, कर्मसम्बन्धवचनात्— जरामर्यं वा एतत् सत्रं यदग्निहोत्रं दर्शपूर्णमासौ चेति। जरया ह वा एष तस्मात् सत्राद् विमुच्यते, मृत्युना ह वेति [द्रः शबरभाष्यम्, २.४.५] ऋणानुबन्धादपवर्गानुष्ठानकालो नास्तीत्यपवर्गाभावः।</div><div class="seg-ja"><p>負債が続くので解脱はない。「ブラーフマナは生まれるとき、三つの負債を負って生まれる。梵行によって聖仙たちに、祭式によって神々に、子孫によって祖霊たちに〔負う〕」〔タイッティリーヤ・サンヒター参照〕というのが負債である。その継続とは、老いるまで自分の行為と結びつくことである。行為との結びつきが言われているからである――「アグニホートラと新月満月祭とは、老いと死に至るまでの祭会である。老いによってか、死によってのみ、この祭会から解放される」〔シャバラ注参照〕と。負債が続くので解脱を実践する時がない。それで解脱はない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n59-2"><summary><span class="num">59.2</span><span class="ttl">煩悩と活動の継続 <span class="sk">kleśānubandha, pravṛttyanubandha</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">क्लेशानुबन्धात् नास्त्यपवर्गः। क्लेशानुबद्ध एवायं म्रियते, क्लेशानुबद्धो जायते, नास्य क्लेशानुबन्धविच्छेदो गृह्यत इति। प्रवृत्त्यनुबन्धात् नास्त्यपवर्गः। जन्मप्रभृत्ययं यावत् प्रायणं वाग्बुद्धिशरीरारम्भेणाविमुक्तो गृह्यते। तत्र यदुक्तम्— दुःखजन्मप्रवृत्तिदोषमिथ्याज्ञानानामुत्तरोत्तरापाये तदनन्तरापायादपवर्गः [ १।१।२ ] इति तदुपपन्नमिति ॥५९॥</div><div class="seg-ja"><p>煩悩が続くので解脱はない。この人は煩悩に縛られたまま死に、煩悩に縛られて生まれる。この人の煩悩の継続が断たれることは把握されない、と。</p><p>活動が続くので解脱はない。この人は生まれてから死ぬまで、言葉・知・身体による着手から解放されないことが把握される。それで、「苦・生・活動・過失・誤った知のそれぞれ後のものがなくなるとき、その直前のものがなくなるので、解脱がある」〔1.1.2〕と言われたこと、それは成り立たない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n60"><summary><span class="num">60</span><span class="ttl">第60スートラ：比喩的な語による再説 <span class="sk">NS 4.1.60</span></span></summary><div class="body">
+<p class="gist">答：「負債」は本来の意味ではない。一方が返すべきものを与え他方が受け取る場合に本来の意味だが、ここではそうでないので「負債のような負債」という比喩的な語。行為を怠れば負債を返さない者のように非難され、行えば返した者のように称賛される。「生まれる」も比喩で、家長になることを指す。母から生まれた子は望みも能力もないので行為の資格がない。また、この祭会は果報を望む者に対するもので、望みがやめば行う必要はない。「老いによって」とは人生の第四期、出家の時期のこと。家長の書（ブラーフマナ）は自分の領域で直接規定するだけで他のアーシュラマを否定しない。リグ・ヴェーダやブラーフマナも解脱を説く（「行為によらず、子によらず、財によらず、放棄によって不死を得た」「この人を知って死を超える、他に道はない」「三つの法の幹」「欲のない者は生気が出て行かず、梵となって梵に入る」）。「四つの神の道」という四住期の聖句があるので、アーシュラマが一つだけということは成り立たない。</p>
+<details class="node lv2" id="n60-0"><summary><span class="num">60.0</span><span class="ttl">第60スートラ <span class="sk">NS 4.1.60</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.249</span> अत्राभिधीयते। यत् तावद् ऋणानुबन्धादिति ऋणैरिव ऋणैरिति—</div><div class="seg-ja"><p>これに対して言われる。まず、「負債が続くので」と言われたが、「負債によって」とは「負債のようなものによって」ということである――</p></div></div>
+<div class="sutra"><div class="sutra-text">प्रधानशब्दानुपपत्तेर्गुणशब्देनानुवादो निन्दाप्रशंसोपपत्तेः ॥</div><div class="sutra-jp"><p>〔答論〕本来の意味の語としては成り立たないので、比喩的な語による再説である。非難と称賛が成り立つから。</p></div></div>
+</div></details>
+<details class="node lv2" id="n60-1"><summary><span class="num">60.1</span><span class="ttl">負債は比喩 <span class="sk">guṇaśabda</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">ऋणैरिति नायं प्रधानशब्दः। यत्र खल्वेकः प्रत्यादेयं ददाति द्वितीयश्च प्रतिदेयं गृह्णाति, तत्रास्य दृष्टत्वात् प्रधानमृणशब्दः। न चैतदिहोपपद्यते। प्रधानशब्दानुपपत्तेः। गुणशब्देनायमनुवादः। ऋणैरिव ऋणैरिति। अप्रयुक्तोपमं चैतद् यथाग्निमाणवक इति। अन्यत्र दृष्टश्चायमृणशब्द इह प्रयुज्यते। यथाग्निशब्दो माणवके। कथं गुणशब्देनानुवादः? निन्दाप्रशंसोपपत्तेः। कर्मलोपे ऋणीव ऋणादानान्निन्द्यते। कर्मानुष्ठाने च ऋणीव ऋणदानात् प्रशस्यते। स एवोपमार्थ इति।</div><div class="seg-ja"><p>「負債によって」というこれは、本来の意味の語ではない。ある人が返されるべきものを与え、別の人が返すべきものを受け取る場合に、そこでこれが見られるので、「負債」という語は本来の意味である。しかしこのことはここでは成り立たない。本来の意味の語としては成り立たないので、これは比喩的な語による再説である。「負債のような負債によって」と。そしてこれは、「火なる少年」のように、比喩〔を表す語〕が用いられていない比喩である。他の所で見られるこの「負債」という語がここで用いられている。「火」という語が少年に〔用いられる〕ように。</p><p>どのようにして比喩的な語による再説なのか。非難と称賛が成り立つからである。行為を怠れば、負債を負う者が負債を返さないことによってのように非難される。また行為を実行すれば、負債を負う者が負債を返すことによってのように称賛される。それこそが比喩の意味である、と。</p></div></div>
+</div></details>
+<details class="node lv2" id="n60-2"><summary><span class="num">60.2</span><span class="ttl">「生まれる」も比喩 <span class="sk">jāyamāna</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">जायमान इति च गुणशब्दो विपर्ययेऽनधिकारात्। जायमानो ह वै ब्राह्मण इति च गुणशब्दो गृहस्थः सम्पद्यमानो जायमान इति। यदयं गृहस्थो जायते, तदा कर्मभिरधिक्रियते, मातृतो जायमानस्यानधिकारात्। यदा तु मातृतो जायते कुमारको न तदा कर्मभिरधिक्रियते, अर्थिनः शक्तस्य चाधिकारात्। अर्थिनः कर्मभिरधिकारः, कर्मविधौ कामसंयोगस्मृतेः। अग्निहोत्रं जुहुयात् स्वर्गकामः इत्येवमादि। शक्तस्य प्रवृत्तिसम्भवादिति। शक्तस्य च कर्मभिरधिकारः प्रवृत्तिसम्भवात्। शक्तः खलु विहिते कर्मणि प्रवर्तते नेतर इति। उभयाभावस्तु प्रधानशब्दार्थे, मातृतो जायमाने कुमारके उभयमर्थिता शक्तिश्च न भवतीति।</div><div class="seg-ja"><p>また「生まれる」というのも比喩的な語である。その逆の場合には資格がないからである。「ブラーフマナは生まれるとき」というのも、家長になるときに「生まれる」というのであって、比喩的な語である。この人が家長として生まれるとき、そのとき行為の資格を得るのである。母から生まれる者には資格がないからである。母から子どもが生まれるとき、そのとき行為の資格はない。望む者、能力ある者に資格があるからである。望む者に行為の資格がある。行為の規定において欲求との結びつきが伝承されているからである。「天界を望む者はアグニホートラを献供すべし」などのように。能力ある者には活動が可能だからである、と。能力ある者に行為の資格がある。活動が可能だからである。実に能力ある者が規定された行為に従事するのであって、他の者ではない、と。しかし本来の意味の語とする場合には両方がない。母から生まれる子どもには、望むことと能力との両方がない、と。</p></div></div>
+</div></details>
+<details class="node lv2" id="n60-3"><summary><span class="num">60.3</span><span class="ttl">子どもに教えることはない <span class="sk">upadeśaviṣaya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.250</span>न भिद्यते च लौकिकाद् वाक्याद् वैदिकं वाक्यं प्रेक्षापूर्वकारिपुरुषप्रणीतत्वेन । तत्र लौकिकस्तावदपरीक्षकोऽपि न जायमानं कुमारकमेवं ब्रूयाद् अधीष्व यजस्व ब्रह्मचर्यं चरेति । कुत एवम् ऋषिरुपपन्नानवद्यवादी उपदेशार्थेन प्रयुक्त उपदिशतीति । न खलु वै नर्तकोऽन्धेषु प्रवर्तते, न गायको बधिरेष्विति । उपदिष्टार्थविज्ञानं चोपदेशविषयः । यश्चोपदिष्टमर्थं विजानाति तं प्रत्युपदेशः क्रियते, न चैतदस्ति जायमानकुमारक इति । गार्हस्थ्यलिङ्गं च मन्त्रब्राह्मणं कर्माभिवदति । यच्च मन्त्रब्राह्मणं कर्माभिवदति, तत् पत्नीसम्बन्धादिना गार्हस्थ्यलिङ्गेनोपपन्नम् । तस्माद् गृहस्थोऽयं जायमानोऽभिधीयत इति ।</div><div class="seg-ja"><p>またヴェーダの文は、熟慮して行為する人によって作られたものである点で、世間の文と異ならない。まず世間の人は、吟味しない者であっても、生まれたばかりの子どもに「学べ、祭式せよ、梵行を行え」とは言わないであろう。まして、適切で非の打ちどころのないことを語る聖仙が、教えの目的のために用いられて〔そのように〕教えることがどうしてあろうか。実に踊り手は盲人たちの前で踊らず、歌い手は聾者たちの前で歌わない、と。そして教えられた意味を理解することが、教えの対象〔の条件〕である。教えられた意味を理解する者、その者に対して教えがなされるのであって、生まれたばかりの子どもにはこのことはない、と。またマントラとブラーフマナは、家長の標識をもつ行為を説く。マントラとブラーフマナが説く行為は、妻との関係などの家長の標識によって成り立っている。それゆえ、この「生まれる者」とは家長が言われているのである、と。</p></div></div>
+</div></details>
+<details class="node lv2" id="n60-4"><summary><span class="num">60.4</span><span class="ttl">果報を望むかぎり <span class="sk">phalārthitva</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अर्थित्वस्य चाविपरिणामे जरामर्यवादोपपत्तिः । यावच्चास्य फलेनार्थित्वं न विपरिणमते न निवर्तते तावदनेन कर्मानुष्ठेयमित्युपपद्यते । जरामर्यवादस्तं प्रतीति । जरया ह वेत्यायुषस्तुरीयस्य चतुर्थस्य प्रव्रज्यायुक्तस्य वचनम् । जरया ह वा एष एतस्मात् विमुच्यत इति । आयुषस्तुरीयं चतुर्थं प्रव्रज्यायुक्तं जरेत्युच्यते । तत्र हि प्रव्रज्या विधीयते । अत्यन्तसंयोगे जरया ह वेत्यनर्थकम् अशक्तो विमुच्यत इत्येतदपि नोपपद्यते । स्वयमशक्तस्य बाह्यां शक्तिमाह, अन्तेवासी वा जुहुयाद् ब्रह्मणा स परिक्रीतः । क्षीरहोता वा जुहुयाद् धनेन स परिक्रीत इति । अथापि विहितं वाऽनूद्येत, कामाद् वार्थः परिकल्पेत? विहितानुवचनं न्याय्यमिति ।</div><div class="seg-ja"><p>果報を望むことが変わらないかぎり、「老死に至るまで」という説が成り立つ。またこの人の果報への望みが変わらず、やまないかぎり、この人はその行為を行うべきである、ということが成り立つ。「老死に至るまで」という説は、その人に対してである、と。「あるいは老いによって」とは、人生の第四の段階、出家と結びつく〔段階〕についての言葉である。「老いによってのみ、この祭会から解放される」と。人生の第四の、出家と結びつく〔段階〕が「老い」と言われるのである。そこでは出家が規定されるからである。もし〔祭会と人生が〕最後まで結びつくのであれば、「あるいは老いによって」というのは無意味である。「能力を失った者が解放される」ということも成り立たない。自分では能力のない者について外の能力を述べている。「あるいは弟子が献供すべし。彼は梵（ヴェーダ）によって雇われている。あるいは乳の献供者が献供すべし。彼は財によって雇われている」と。さらにまた、規定されたことが再説されるのか、それとも欲するままに意味が想定されるのか。規定されたことの再説が理にかなっている、と。</p></div></div>
+</div></details>
+<details class="node lv2" id="n60-5"><summary><span class="num">60.5</span><span class="ttl">家長は負債ある者のように <span class="sk">ṛṇavān iva</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">ऋणवानिवास्वतन्त्रो गृहस्थः कर्मसु प्रवर्तत इत्युपपन्नं वाक्यस्य सामर्थ्यम् । फलस्य साधनानि प्रयत्नविषयो न फलम् । तानि हि सम्पन्नानि फलाय कल्पन्ते । विहितं च जायमानम् । विधीयते च जायमानम् । तेन यः सम्बध्यते सोऽयं जायमान इति ।</div><div class="seg-ja"><p>負債ある者のように自由でない家長が行為に従事する、というのが文の意味として成り立つ。果報の手段が努力の対象であって、果報〔そのもの〕ではない。それらが成就すれば果報をもたらすのである。また「生まれる者」は規定されたもの〔の主体〕であり、生まれる者に規定される。それと結びつく者、それがこの「生まれる者」である、と。</p></div></div>
+</div></details>
+<details class="node lv2" id="n60-6"><summary><span class="num">60.6</span><span class="ttl">他のアーシュラマの否定はない <span class="sk">āśramāntara</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">प्रत्यक्षविधानाभावादिति चेत्—न, प्रतिषेधस्यापि प्रत्यक्षविधानाभावादिति । प्रत्यक्षतो विधीयते गार्हस्थ्यं ब्राह्मणेन, यदि चाश्रमान्तरमभविष्यत्, तदपि व्यधास्यत <span class="pg">p.251</span>प्रत्यक्षः। प्रत्यक्षविधानाभावात् नास्त्याश्रमान्तरमिति। न, प्रतिषेधस्यापि प्रत्यक्षतो विधानाभावात्। न, प्रतिषेधोऽपि वै ब्राह्मणेन प्रत्यक्षतो विधीयते। न सन्त्याश्रमान्तराणि, एक एव गृहस्थाश्रम इति प्रतिषेधस्य प्रत्यक्षतोऽश्रवणादयुक्तमेतदिति। अधिकाराच्च विधानं विद्यान्तरवत्। यथा शास्त्रान्तराणि स्वे स्वेऽधिकारे प्रत्यक्षतो विधायकानि, नार्थान्तराभावात्, एवमिदं ब्राह्मणं गृहस्थशास्त्रं स्वेऽधिकारे प्रत्यक्षतो विधायकं नाश्रमान्तराणामभावादिति।</div><div class="seg-ja"><p>「直接の規定がないから」と言うならば――そうではない。否定にも直接の規定がないからである。〔反論〕ブラーフマナによって家長の生活が直接規定されている。もし他のアーシュラマがあるならば、それも直接規定したであろう。直接の規定がないので、他のアーシュラマはない、と。〔答〕そうではない。否定にも直接の規定がないからである。否定もまたブラーフマナによって直接規定されてはいない。「他のアーシュラマはない。家長のアーシュラマだけが一つある」という否定が直接聞かれないので、これは不合理である、と。</p><p>また資格によって規定があるのは、他の学問の場合と同様である。他の論書が、それぞれ自分の資格〔の領域〕において直接規定するものであって、他の対象がないからではないように、この家長の書であるブラーフマナも、自分の資格〔の領域〕において直接規定するものであって、他のアーシュラマがないから〔規定しない〕のではない、と。</p></div></div>
+</div></details>
+<details class="node lv2" id="n60-7"><summary><span class="num">60.7</span><span class="ttl">ヴェーダは解脱を説く <span class="sk">ṛgbrāhmaṇa</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">ऋग्ब्राह्मणं चापवर्गाभिधाय्यभिधीयते। ऋचश्च ब्राह्मणानि चापवर्गाभिवादीनि भवन्ति। ऋचश्च तावत्— कर्मभिर्मृत्युमृषयो निषेदुः प्रजावन्तो द्रविणमिच्छमानाः। अथापरे ऋषयो मनीषिणः परं कर्मभ्योऽमृतत्वमानशुः॥ [ ] न कर्मणा न प्रजया धनेन त्यागेनैकेऽमृतत्वमानशुः। परेण नाकं निहितं गुहायां विभ्राजते यद्यतयो विशन्ति॥ [तैत्तिरीयारण्यके ३।१२।७] वेदाहमेतं पुरुषं महान्तमादित्यवर्णं तमसः परस्तात्। तमेव विदित्वाऽतिमृत्युमेति नान्यः पन्था विद्यतेऽयनाय॥ [वाजसनेयी संहिता ३।१८, श्वेताश्वतरोपनिषत् ३।८] अथ ब्राह्मणानि— त्रयो धर्मस्कन्धा यज्ञोऽध्ययनं दानमिति। प्रथमः तप एव द्वितीयो ब्रह्मचार्याचार्यकुलवासी तृतीयोऽत्यन्तमात्मानमाचार्यकुलेऽवसादयन् सर्व एवैते पुण्यलोका भवन्ति। ब्रह्मसंस्थोऽमृतत्वमेति॥ [छान्दोग्योपनिषत् २।२३।१] <span class="pg">p.252</span>एतमेव प्रव्राजिनो लोकमिच्छन्तः प्रव्रजन्ति। [बृहदारण्यकोपनिषत् ४।४।२२] अथो खल्वाहुः काममय एवायं पुरुष इति। स यथाकामो भवति, तत् क्रतुर्भवति यत्क्रतुर्भवति तत् कर्म कुरुते। यत् कर्म कुरुते तदभिसम्पद्यते॥ [बृहदारण्यकोपनिषत् ४।४।५] इति कर्मभिः संसरणमुक्त्वा प्रकृतमन्यदुपदिशन्ति— इति नु कामयमानोऽथाकामयमानो योऽकामो निष्काम आत्मकाम आप्तकामो न तस्य प्राणा उत्क्रामन्ति इहैव समवलीयन्ते ब्रह्मैव सन् ब्रह्माप्येति इति। [द्रः बृहदारण्यकोपनिषत् ४।४।६] तत्र यदुक्तमृणानुबन्धादपवर्गाभाव इत्येतदयुक्तमिति। ये चत्वारः पथयो देवयानाः [तैत्तिरीयसंहिता ५।७।२।३] इति च चातुराश्रम्यश्रुतेरैकाश्रम्यानुपपत्तिः॥६०॥</div><div class="seg-ja"><p>またリグ・ヴェーダの詩句とブラーフマナとが、解脱を説くものとして言われる。リグ・ヴェーダの詩句とブラーフマナとは解脱を説くものである。まず詩句は――</p><p>「行為によって聖仙たちは死に就いた。子孫をもち財を望みながら。しかし思慮ある他の聖仙たちは、行為を超えた不死を得た」。</p><p>「行為によらず、子孫によらず、財によらず、ある者たちは放棄によって不死を得た。天の彼方に、洞窟に隠されて輝くもの、そこに修行者たちは入る」〔タイッティリーヤ・アーラニヤカ〕。</p><p>「私はこの偉大な人（プルシャ）を知る。太陽の色をもち、闇の彼方にある者を。まさにこの者を知って死を超える。行くべき他の道はない」〔ヴァージャサネーイ・サンヒター、シュヴェーターシュヴァタラ・ウパニシャッド〕。</p><p>次にブラーフマナは――「法の幹は三つある。祭式・学習・布施が第一である。苦行こそが第二である。師の家に住む梵行者が第三であり、師の家で自分をきわめて疲れさせる者である。これらはみな、功徳ある世界の者となる。梵にとどまる者は不死に至る」〔チャーンドーギヤ・ウパニシャッド2.23.1〕。</p><p>「まさにこの世界を望んで、出家者たちは出家する」〔ブリハッドアーラニヤカ・ウパニシャッド4.4.22〕。</p><p>「また人々は言う。この人はまさに欲からなる、と。その欲のとおりに意図があり、その意図のとおりに行為をなす。なした行為のとおりのものとなる」〔同4.4.5〕と、行為による輪廻を述べてから、本題とは別のことを教える――「以上が欲する者についてである。次に欲しない者は――欲がなく、欲を離れ、欲がアートマンであり、欲を満たした者、その者の生気は出て行かない。まさにここで溶け入る。梵そのものとなって梵に入る」〔同4.4.6参照〕と。それで、「負債が続くので解脱はない」と言われたこと、これは不合理である、と。</p><p>また「四つの道が神々に至る」〔タイッティリーヤ・サンヒター〕という、四つのアーシュラマについての天啓があるので、アーシュラマが一つだけであることは成り立たない。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n61"><summary><span class="num">61</span><span class="ttl">第61スートラ：アートマンに〔火を〕置き移すので否定されない <span class="sk">NS 4.1.61</span></span></summary><div class="body">
+<p class="gist">「老死に至るまでの祭会」は果報を望む者に対するもの。「プラジャーパティへの祭を行い、そこで全財産を献じ、火を自分の中に置き移して、ブラーフマナは出家すべし」と聞かれる。子孫・財・世界への欲求から離れ、果報への望みがやんだ者に火の置き移しが規定される。ヤージュニャヴァルキヤも「私はこの場所から出家しようとしている」と言って出家した。</p>
+<details class="node lv2" id="n61-0"><summary><span class="num">61.0</span><span class="ttl">第61スートラ <span class="sk">NS 4.1.61</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">फलार्थिनश्चेदं ब्राह्मणम्— जरामर्यं वा एतत् सत्रं यदग्निहोत्रं दर्शपूर्णमासौ च इति। कथम्?</div><div class="seg-ja"><p>また「アグニホートラと新月満月祭とは老死に至るまでの祭会である」というこのブラーフマナは、果報を望む者に対するものである。どのようにか――</p></div></div>
+<div class="sutra"><div class="sutra-text">समारोपणादात्मन्यप्रतिषेधः ॥</div><div class="sutra-jp"><p>〔祭火を〕アートマンに置き移すので、〔解脱は〕否定されない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n61-1"><summary><span class="num">61.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">‘प्राजापत्यामिष्टिं निरूप्य तस्यां सर्ववेदसं हुत्वा आत्मन्यग्नीन् समारोप्य ब्राह्मणः प्रव्रजेत्’ [ ] इति श्रूयते। तेन विजानीमः प्रजावित्तलोकैषणाभ्यो व्युत्थितस्य निवृत्ते फलार्थित्वे समारोपणं विधीयत इति। एवं च ब्राह्मणानि— अन्यद्वृत्तमुपाकरिष्यन् मैत्रेयीति होवाच याज्ञवल्क्यः प्रव्रजिष्यन् वा अरे अहमस्मात् स्थानादस्मि। हन्त तेऽनया कात्यायन्याऽन्तं करवाणीति। [बृहदारण्यकोपनिषत् ४।५।२] <span class="pg">p.253</span>अथापि उक्तानुशासनाऽसि मैत्रेय्येतावदरे खल्वमृतमिति होक्त्वा याज्ञवल्क्यः प्रवव्राजेति। [द्रः बृहदारण्यकोपनिषत् ४।५।१५] इति ॥६१॥</div><div class="seg-ja"><p>「プラジャーパティへの祭を行い、そこで全財産を献供し、祭火を自らのうちに置き移して、ブラーフマナは出家すべし」と聞かれる。それによってわれわれは、子孫・財・世界への欲求から離れ、果報への望みがやんだ者に、〔祭火の〕置き移しが規定されることを知る、と。またブラーフマナもこのとおりである。「ヤージュニャヴァルキヤは、別の生き方を始めようとして言った。『マイトレーイーよ、私はこの場所から出家しようとしている。さあ、おまえとこのカーティヤーヤニーとのあいだを決着させよう』」〔ブリハッドアーラニヤカ・ウパニシャッド4.5.2〕。また「『おまえは教えを受けた。マイトレーイーよ、これだけが実に不死である』と言って、ヤージュニャヴァルキヤは出家した」〔同4.5.15参照〕と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n62"><summary><span class="num">62</span><span class="ttl">第62スートラ：器の積み上げで終わることが成り立たない <span class="sk">NS 4.1.62</span></span></summary><div class="body">
+<p class="gist">老死に至る行為を区別なく考えると、すべての人の行為が「器の積み上げ」（死後の火葬で祭具を遺体に積むこと）で終わることになり、欲求からの離脱が説かれないはずだが、「昔の賢者たちは子孫を望まなかった…息子・財・世界への欲求から離れて托鉢の生活をした」と説かれる。また史伝・プラーナ・法典が四住期を規定するので、一つのアーシュラマは成り立たない。それらはブラーフマナによって第五のヴェーダとして権威を認められている。法典が権威でなければ生類の営みが失われ世界が崩れる。マントラ・ブラーフマナと史伝・プラーナ・法典は見る者・説く者が同じで、対象領域が異なる（祭式、世間の出来事、世間の営みの規定）ので、感官のようにそれぞれの領域で権威である。</p>
+<details class="node lv2" id="n62-0"><summary><span class="num">62.0</span><span class="ttl">第62スートラ <span class="sk">NS 4.1.62</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">पात्रचयान्तानुपपत्तेश्च फलाभावः ॥</div><div class="sutra-jp"><p>また、器の積み上げで終わることが成り立たないので、果報は〔区別なく促すものでは〕ない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n62-1"><summary><span class="num">62.1</span><span class="ttl">欲求からの離脱 <span class="sk">eṣaṇāvyutthāna</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">जरामर्ये च कर्मण्यविशेषेण कल्प्यमाने सर्वस्य पात्रचयान्तानि कर्माणीति प्रसज्यते। तत्रैषणाव्युत्थानं न श्रूयेत। एतद्ध स्म वै तत् पूर्वे विद्वांसः प्रजां न कामयन्ते किं प्रजया करिष्यामो येषां नोऽयमात्माऽयं लोक इति ते ह स्म पुत्रैषणायाश्च वित्तैषणायाश्च लोकैषणायाश्च व्युत्थायाथ भिक्षाचर्यं चरन्ति [बृहदारण्यकोपनिषत् ४।४।२२] इति। एषणाभ्यश्च व्युत्थितस्य पात्रचयान्तानि कर्माणि नोपपद्यन्त इति नाविशेषेण कर्तुः प्रयोजकं फलं भवतीति।</div><div class="seg-ja"><p>老死に至る行為が区別なく想定されるならば、すべての人の行為が器の積み上げで終わるものであることになる。そうであれば欲求からの離脱は聞かれないはずである。〔しかし聞かれる〕「実にまさにこのことを昔の賢者たちは知っていた。彼らは子孫を望まなかった。『このアートマンがわれわれの世界であるのに、子孫によって何をしようか』と。彼らは息子への欲求、財への欲求、世界への欲求から離れて、托鉢の生活を送った」〔ブリハッドアーラニヤカ・ウパニシャッド4.4.22〕と。そして欲求から離れた者には、器の積み上げで終わる行為は成り立たない。それで果報が区別なく行為者を促すものとなるのではない、と。</p></div></div>
+</div></details>
+<details class="node lv2" id="n62-2"><summary><span class="num">62.2</span><span class="ttl">史伝・プラーナ・法典の権威 <span class="sk">itihāsapurāṇadharmaśāstra</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">चातुराश्रम्यविधानाच्चेतिहासपुराणधर्मशास्त्रेष्वैकाश्रम्यानुपपत्तिः। तदप्रमाणमिति चेत्—न, प्रमाणेन प्रामाण्याभ्यनुज्ञानात्। प्रमाणेन खलु ब्राह्मणेनेतिहासपुराणस्य प्रामाण्यमभ्यनुज्ञायते— ते वा खल्वेते अथर्वाङ्गिरस एतदितिहासपुराणमभ्यवदन्नितिहासपुराणं पञ्चमं वेदानां वेद इति। [द्रः छान्दोग्योपनिषत् ३।४।२] <span class="pg">p.254</span>तस्मादयुक्तमेतदप्रामाण्यमिति। अप्रामाण्ये च धर्मशास्त्रस्य प्राणभृतां व्यवहारलोपाल्लोकोच्छेदप्रसङ्गः। द्रष्टृप्रवक्तृसामान्याच्चाप्रामाण्यानुपपत्तिः। य एव मन्त्रब्राह्मणस्य द्रष्टारः प्रवक्तारश्च ते खल्वितिहासपुराणस्य धर्मशास्त्रस्य चेति। विषयव्यवस्थानाच्च यथाविषयं प्रामाण्यम्। अन्यो मन्त्रब्राह्मणस्य विषयोऽन्यश्चेतिहासपुराणधर्मशास्त्राणामिति। यज्ञो मन्त्रब्राह्मणस्य, लोकवृत्तमितिहासपुराणस्य लोकव्यवहारव्यवस्थानं धर्मशास्त्रस्य विषयः। तत्रैकेन न सर्वं व्यवस्थाप्यत इति यथाविषयमेतानि प्रमाणानीन्द्रियादिवदिति॥६२॥</div><div class="seg-ja"><p>また史伝・プラーナ・法典において四つのアーシュラマが規定されているので、アーシュラマが一つだけであることは成り立たない。「それは権威ではない」と言うならば――そうではない。認識手段によって権威が認められているからである。実に認識手段であるブラーフマナによって、史伝・プラーナの権威が認められている。「これらアタルヴァ・アーンギラサたちがこの史伝・プラーナを説いた。史伝・プラーナはヴェーダのうちの第五のヴェーダである」〔チャーンドーギヤ・ウパニシャッド3.4.2参照〕と。それゆえ、これが権威でないというのは不合理である、と。また法典が権威でないならば、生き物たちの営みが失われるので、世界が崩壊することになる。また見る者と説く者が共通であるので、権威でないことは成り立たない。マントラとブラーフマナを見た者、説いた者、その人々こそが、史伝・プラーナと法典の〔見る者・説く者〕でもある、と。また対象領域が確定しているので、それぞれの領域に応じて権威がある。マントラとブラーフマナの対象は別であり、史伝・プラーナ・法典の対象は別である、と。祭式がマントラとブラーフマナの対象であり、世間の出来事が史伝・プラーナの対象であり、世間の営みの確定が法典の対象である。そこで、一つによってすべてが確定されるのではないので、これらは感官などのように、それぞれの領域に応じて認識手段である、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n63"><summary><span class="num">63</span><span class="ttl">第63スートラ：熟睡で夢を見ないときのように <span class="sk">NS 4.1.63</span></span></summary><div class="body">
+<p class="gist">「煩悩の継続が断たれないから」に答える。熟睡して夢を見ないとき、貪欲などの継続も楽苦などの継続も断たれる。解脱も同様。梵を知る者たちは解放されたアートマンの姿をこう例示する。</p>
+<details class="node lv2" id="n63-0"><summary><span class="num">63.0</span><span class="ttl">第63スートラ <span class="sk">NS 4.1.63</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">यत् पुनरेतत् क्लेशानुबन्धस्याविच्छेदादिति, अत्रोच्यते—</div><div class="seg-ja"><p>また「煩悩の継続が断たれないから」と言われたこれについては、こう言われる――</p></div></div>
+<div class="sutra"><div class="sutra-text">सुषुप्तस्य स्वप्नादर्शने क्लेशाभाववदपवर्गः ॥</div><div class="sutra-jp"><p>熟睡した者が夢を見ないときに煩悩がないように、解脱がある。</p></div></div>
+</div></details>
+<details class="node lv2" id="n63-1"><summary><span class="num">63.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">यथा सुषुप्तस्य खलु स्वप्नादर्शने रागाद्यनुबन्धः सुखदुःखाद्यनुबन्धश्च विच्छिद्यते, तथापवर्गेऽपीति। एतच्च ब्रह्मविदो मुक्तस्यात्मनो रूपमुदाहरन्तीति॥६३॥</div><div class="seg-ja"><p>熟睡した者が夢を見ないときには、貪欲などの継続も、楽苦などの継続も断たれるように、解脱においても〔同様である〕、と。また梵を知る者たちは、解放されたアートマンの姿をこのように例示する、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n64"><summary><span class="num">64</span><span class="ttl">第64スートラ：煩悩を捨てた者の活動は再生に結びつかない <span class="sk">NS 4.1.64</span></span></summary><div class="body">
+<p class="gist">「活動が続くから」に答える。貪欲・嫌悪・迷妄が尽きた者の活動は、あっても再生への結合のためではない。再生とは前の生が終わったときの再び生まれることで、それは渇愛によって作られる。渇愛が捨てられれば再生がなく、これが解脱。行為が無意味になるのではない。行為の果報の経験は否定されず、すべての前の行為は最後の生で熟す。</p>
+<details class="node lv2" id="n64-0"><summary><span class="num">64.0</span><span class="ttl">第64スートラ <span class="sk">NS 4.1.64</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">यदपि प्रवृत्त्यनुबन्धादिति—</div><div class="seg-ja"><p>また「活動が続くから」と言われたことについても――</p></div></div>
+<div class="sutra"><div class="sutra-text">न प्रवृत्तिः प्रतिसन्धानाय हीनक्लेशस्य ॥</div><div class="sutra-jp"><p>煩悩を捨てた者の活動は、〔再生への〕結合のためではない。</p></div></div>
+</div></details>
+<details class="node lv2" id="n64-1"><summary><span class="num">64.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">प्रक्षीणेषु रागद्वेषमोहेषु सती प्रवृत्तिर्न प्रतिसन्धानाय। प्रतिसन्धिस्तु <span class="pg">p.255</span>पूर्वजन्मनि वृत्तौ पुनर्जन्म । एतच्च जन्म तृष्णाकारितम्। तस्यां प्रहीणायां पूर्वजन्माभावे पुनर्जन्माभावोऽप्रतिसन्धानमपवर्ग इति । कर्मवैफल्यप्रसङ्ग इति चेत् — न, कर्मविपाकप्रतिसंवेदनस्याप्रत्याख्यानात् । पूर्वजन्मनि वृत्तौ पुनर्जन्म न भवतीत्युच्यते, न तु कर्मविपाकप्रतिसंवेदनं प्रत्याख्यायते । सर्वाणि पूर्वकर्माणि ह्यन्त्ये जन्मनि विपच्यन्त इति ॥६४॥</div><div class="seg-ja"><p>貪欲・嫌悪・迷妄が尽きたとき、活動はあっても結合のためではない。結合とは、前の生が終わったときの再生である。そしてこの生は渇愛によって作られる。それ（渇愛）が捨てられたとき、前の生がなくなれば再生がない。これが結合のないこと、解脱である、と。「行為が無駄になってしまう」と言うならば――そうではない。行為の果報の経験は否定されないからである。前の生が終わったときに再生が起こらない、と言われるのであって、行為の果報の経験が否定されるのではない。実にすべての前の行為は最後の生において熟すのである、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n65"><summary><span class="num">65</span><span class="ttl">第65スートラ：煩悩の連続は本性的である <span class="sk">NS 4.1.65</span></span></summary><div class="body">
+<p class="gist">反論：煩悩の継続は断たれない。煩悩の連続は無始で本性的であり、無始のものは断てない。</p>
+<details class="node lv2" id="n65-0"><summary><span class="num">65.0</span><span class="ttl">第65スートラ <span class="sk">NS 4.1.65</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">न, क्लेशसन्ततेः स्वाभाविकत्वात् ॥</div><div class="sutra-jp"><p>〔反論〕そうではない。煩悩の連続は本性的だからである。</p></div></div>
+</div></details>
+<details class="node lv2" id="n65-1"><summary><span class="num">65.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">नोपपद्यते क्लेशानुबन्धविच्छेदः । कस्मात् ? क्लेशसन्ततेः स्वाभाविकत्वात् । अनादिरियं क्लेशसन्ततिः । न चानादिः शक्य उच्छेत्तुमिति ॥६५॥</div><div class="seg-ja"><p>煩悩の継続が断たれることは成り立たない。なぜか。煩悩の連続は本性的だからである。この煩悩の連続は無始である。そして無始のものは断つことができない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n66"><summary><span class="num">66</span><span class="ttl">第66スートラ：生起前の無のように <span class="sk">NS 4.1.66</span></span></summary><div class="body">
+<p class="gist">ある者の解答：生起以前の無は無始だが、生じた有によってやめられるので無常である。同様に本性的な煩悩の連続も無常である。</p>
+<details class="node lv2" id="n66-0"><summary><span class="num">66.0</span><span class="ttl">第66スートラ <span class="sk">NS 4.1.66</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अत्र कश्चित् परीहारमाह—</div><div class="seg-ja"><p>これについてある者が解答を述べる――</p></div></div>
+<div class="sutra"><div class="sutra-text">प्रागुत्पत्तेरभावानित्यत्ववत् स्वाभाविकेऽप्यनित्यत्वम् ॥</div><div class="sutra-jp"><p>生起以前の無が無常であるように、本性的なものにも無常性がある。</p></div></div>
+</div></details>
+<details class="node lv2" id="n66-1"><summary><span class="num">66.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">यथानादिः प्रागुत्पत्तेरभाव उत्पन्नेन भावेन निवर्त्यत इत्यनित्यः, एवं स्वाभाविकी क्लेशसन्ततिरनित्येति ॥६६॥ <span class="pg">p.256</span></div><div class="seg-ja"><p>生起以前の無は無始であるが、生じた有によってやめられるので無常である。同じように、本性的な煩悩の連続も無常である、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n67"><summary><span class="num">67</span><span class="ttl">第67スートラ：原子の黒色が無常であるように <span class="sk">NS 4.1.67</span></span></summary><div class="body">
+<p class="gist">別の者の解答：原子の黒色は無始だが火との結合で無常であるように、煩悩の連続もそうである。しかし常住・無常は存在するものの性質で、無について言うのは比喩。また「原子の黒色は無始」には論証因がなく、生起しない性質のものが無常だという根拠はない。</p>
+<details class="node lv2" id="n67-0"><summary><span class="num">67.0</span><span class="ttl">第67スートラ <span class="sk">NS 4.1.67</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अपर आह—</div><div class="seg-ja"><p>別の者が言う――</p></div></div>
+<div class="sutra"><div class="sutra-text">अणुश्यामतानित्यत्ववद्वा ॥</div><div class="sutra-jp"><p>あるいは、原子の黒色が無常であるように。</p></div></div>
+</div></details>
+<details class="node lv2" id="n67-1"><summary><span class="num">67.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">यथानादिरणुश्यामता, अथ चाग्निसंयोगादनित्या, तथा क्लेशसन्ततिरपीति। सतः खलु धर्मो नित्यत्वमनित्यत्वं च। तत्त्वं भावे तत्त्वाभावे भाक्तमिति। अनादिरणुश्यामतेति हेत्वभावादयुक्तम्। अनुत्पत्तिधर्मकमनित्यमिति नात्र हेतुरस्तीति ॥६७॥</div><div class="seg-ja"><p>原子の黒色は無始であるが、しかも火との結合によって無常であるように、煩悩の連続もまた〔無常である〕、と。〔しかし〕常住性と無常性とは存在するものの性質である。それは有においては本来の意味であり、有でないものにおいては比喩的である、と。また「原子の黒色は無始である」というのは、論証因がないので不合理である。生起しない性質のものが無常である、ということには、ここで論証因がない、と。</p></div></div>
+</div></details>
+</div></details>
+<details class="node lv1" id="n68"><summary><span class="num">68</span><span class="ttl">第68スートラ：貪欲などは思惑を原因とするので <span class="sk">NS 4.1.68</span></span></summary><div class="body">
+<p class="gist">正しい解答：貪欲などは誤った思惑を原因とし、また業と相互を原因とする。心を染める・怒らせる・迷わせる誤った思惑から貪欲・嫌悪・迷妄が生じ、生類の群を作る業が決まった貪欲などを生む（ある群は貪欲が多く、ある群は怒りが多い）。貪欲などは相互にも原因となる。真理の知によってすべての誤った思惑が生じなくなり、原因が生じなければ結果も生じないので、貪欲などはまったく生じなくなる。煩悩の連続が無始だというのも不合理。身体などすべての内的なものは無始の連続ではたらき、真理の知以外に初めて生じるものはない。生起しないものが消滅するとは主張しない。生類の群を作る業は、真理の知による誤った思惑の除去によって貪欲などの原因とならず、楽苦の感受という果報だけをもたらす。</p>
+<details class="node lv2" id="n68-0"><summary><span class="num">68.0</span><span class="ttl">第68スートラ <span class="sk">NS 4.1.68</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अयं तु समाधिः—</div><div class="seg-ja"><p>しかしこれが解答である――</p></div></div>
+<div class="sutra"><div class="sutra-text">न, सङ्कल्पनिमित्तत्वाच्च रागादीनाम् ॥</div><div class="sutra-jp"><p>〔煩悩は断たれうる〕。また貪欲などは思惑を原因とするからである。</p></div></div>
+</div></details>
+<details class="node lv2" id="n68-1"><summary><span class="num">68.1</span><span class="ttl">注 <span class="sk">bhāṣya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">कर्मनिमित्तत्वादितरेतरनिमित्तत्वाच्चेति समुच्चयः। मिथ्यासङ्कल्पेभ्यो रञ्जनीयकोपनीयमोहनीयेभ्यो रागद्वेषमोहा उत्पद्यन्ते, कर्म च सत्त्वनिकायनिर्वर्तकं नैयमिकान् रागद्वेषमोहान् निर्वर्तयति, नियमदर्शनात्। दृश्यते च सत्त्वनिकायो हि कश्चिद् रागबहुलः कश्चित् क्रोधबहुलः, कश्चिन्मोहबहुल इति। इतरेतरनिमित्ता च रागादीनामुत्पत्तिः। मूढो रज्यति मूढः कुप्यति रक्तो मुह्यति कुपितो मुह्यति रक्तः कुप्यतीति। सर्वमिथ्यासङ्कल्पानां च तत्त्वज्ञानादनुत्पत्तिः। कारणानुत्पत्तौ च कार्य<span class="pg">p.257</span>स्यानुत्पत्तेरिति रागादीनामत्यन्तमनुत्पत्तिरिति। अनादिश्च क्लेशसन्ततिरित्ययुक्तम्। सर्व एवामी खल्वाध्यात्मिका भावा अनादिना प्रबन्धेन प्रवर्तन्ते शरीरादयः। न जात्वत्र कश्चिदनुत्पन्नपूर्वः प्रथमत उत्पद्यतेऽन्यत्र तत्त्वज्ञानात्। न चैवं सत्यनुत्पत्तिधर्मकं व्ययधर्मकं किञ्चित् प्रतिज्ञायत इति। कर्म च सत्त्वनिकायनिर्वर्तकं तत्त्वज्ञानकृतान्मिथ्यासङ्कल्पविघातान्न रागाद्युत्पत्तिनिमित्तं भवति, सुखदुःखसंवित्तफलं तु भवतीति॥६८॥ ॥अपवर्गपरीक्षाप्रकरणम्॥ ॥अवसितं सभाष्ये न्यायदर्शने चतुर्थाध्यायस्य प्रथमाह्निकम्॥</div><div class="seg-ja"><p>〔「また」は〕業を原因とすること、互いを原因とすることをもあわせる。心を染める・怒らせる・迷わせる誤った思惑から、貪欲・嫌悪・迷妄が生じる。また生類の群を作り出す業は、決まった貪欲・嫌悪・迷妄を作り出す。決まりが見られるからである。実に、ある生類の群は貪欲が多く、ある群は怒りが多く、ある群は迷妄が多い、と見られる。また貪欲などの生起は互いを原因とする。迷った者は貪り、迷った者は怒り、貪る者は迷い、怒る者は迷い、貪る者は怒る、と。そして真理の知によって、すべての誤った思惑は生じなくなる。原因が生じなければ結果も生じないので、貪欲などはまったく生じない、と。</p><p>また「煩悩の連続は無始である」というのは不合理である。これら内的なものはすべて、身体などは、無始の連続によってはたらく。ここでは、真理の知のほかには、以前に生じたことのないものが初めて生じるということは決してない。そしてこうであれば、生起しない性質で消滅する性質のものを何か主張するのではない、と。また生類の群を作り出す業は、真理の知によってなされた誤った思惑の破壊によって、貪欲などの生起の原因とはならず、楽苦の感受という果報〔をもたらすもの〕にはなるのである、と。</p><p>以上、「解脱の吟味の論題」。</p><p>注解をともなうニヤーヤ学説において、第4章第1日課が終わった。</p></div></div>
+</div></details>
+</div></details>
+</div>
+<div class="pnav"><a href="nbh_zenyaku_07a.html">← 前へ（活動・過失・再生と諸学派の見解）</a><span></span><a href="nbh_zenyaku_08.html">次へ（第4章第2日課） →</a></div>
+<footer>ヴァーツヤーヤナ『ニヤーヤ・バーシュヤ』全訳　本文：A. Thakur 校訂『Gautamīyanyāyadarśana with Bhāṣya of Vātsyāyana』（1997）の OCR による（脚注の異読は省いた）。頁番号（p.1 など）とスートラ番号は同書による。</footer>
+<script>
+(function () {
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
+  function depth(el) { var d = 0, p = el; while (p) { if (p.matches && p.matches('details.node')) d++; p = p.parentElement; } return d; }
+  all.forEach(function (el) { el.dataset.depth = depth(el); });
+  document.getElementById('controls').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-depth]'); if (!b) return;
+    var n = parseInt(b.dataset.depth, 10);
+    all.forEach(function (el) { el.open = parseInt(el.dataset.depth, 10) < n; });
+  });
+  function openTo(t) { var p = t; while (p) { if (p.matches && p.matches('details')) p.open = true; p = p.parentElement; } t.scrollIntoView({ block: 'start' }); }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if (!t || !t.matches('details.node')) return; e.preventDefault(); openTo(t);
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {}
+    });
+  });
+  if (location.hash.length > 1) { var t0 = document.getElementById(location.hash.slice(1)); if (t0 && t0.matches('details.node')) openTo(t0); }
+})();
+</script>
+</body>
+</html>
