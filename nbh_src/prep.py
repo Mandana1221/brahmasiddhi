@@ -67,6 +67,7 @@ def norm(t):
     # OCR で崩れたスートラの印：「॥१॥ २॥१३॥」「॥४१॥ ४१॥」→「॥१।२।१३॥」「॥४।१।४१॥」
     t = re.sub(r'॥\s*([०-९])\s*॥\s*([०-९])\s*॥\s*([०-९]+)\s*॥', r'॥\1।\2।\3॥', t)
     t = re.sub(r'॥\s*([०-९])([०-९])\s*॥\s*([०-९]+)\s*॥', r'॥\1।\2।\3॥', t)
+    t = re.sub(r'॥\s*([०-९])\s*॥\s*([०-९])\s*।\s*([०-९]+)\s*॥', r'॥\1।\2।\3॥', t)      # 「॥१॥ १।५॥」
     # 脚注番号：語に付いた数字（॥…॥ や [ … ] の参照は残す）
     t = re.sub(rf'(?<=[{DEVA}ऽ])[०-९]+(?=[\s।॥,;?—\-)]|$)', '', t)
     t = re.sub(rf'(?<=[\s(—])[०-९]+(?=[{DEVA}])', '', t)
@@ -243,10 +244,13 @@ def emit_text(seg):
                 out.append(pm.group(1))
             out.append('@ [' + re.sub(r'\s+', ' ', pm.group(2)).strip() + ']')
             para = pm.group(3).strip()
+        # 段落の途中の対応頁の注記「[वा पृः …]」も別の行に（前の「[सूत」などの柱の残りは落とす）
+        para = re.sub(r'(?:\[सूत्?र?\s*)?\[\s*(वा\s*पृ[^\]]*)\]',
+                      lambda m: '\n@ [' + re.sub(r'\s+', ' ', m.group(1)).strip() + ']\n', para)
         para = re.sub(r'\[\s*([^\]\[]*प्रकरणम्)\s*\]', lambda m: '\n@@ ' + m.group(1).replace('-', '') + '\n', para)
         for chunk in para.split('\n'):
             chunk = chunk.strip()
-            if chunk.startswith('@@ '):
+            if chunk.startswith('@'):
                 out.append(chunk)
                 continue
             # 参照「[ १ । १ । ४१ ]」の中の । では切らない
