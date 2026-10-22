@@ -62,6 +62,7 @@ def clean_page(text):
 
 def norm(t):
     t = re.sub(rf'(?<=[{DEVA}]):', 'ः', t)                  # 「:」の visarga
+    t = re.sub(r'[⁰¹²³⁴⁵⁶⁷⁸⁹]+', '', t)                      # 上付きの脚注番号
     t = t.replace('।।', '॥').replace('||', '॥').replace('॰', '०')
     t = re.sub(r'॥\s*([०-९]+)\s*।\s*([०-९]+)\s*।\s*([०-९]+)\s*॥', r'॥\1।\2।\3॥', t)
     # OCR で崩れたスートラの印：「॥१॥ २॥१३॥」「॥४१॥ ४१॥」→「॥१।२।१३॥」「॥४।१।४१॥」
@@ -258,8 +259,10 @@ def emit_text(seg):
                 continue
             # 参照「[ १ । १ । ४१ ]」の中の । では切らない
             chunk = re.sub(r'\[[^\]\[]*\]', lambda m: re.sub(r'\s*।\s*', '\x01', m.group()), chunk)
-            for piece in re.findall(r'.*?(?:॥[^॥]*॥|।|\?|$)', chunk):
+            for piece in re.findall(r'.*?(?:॥[^॥।?]*॥|॥|।|\?|$)', chunk):
                 piece = piece.strip().replace('\x01', '।')
+                if piece in ('।', '॥') and out and out[-1]:
+                    continue                    # 印だけの切れ端は落とす（前の行が既に印で終わる）
                 if piece:
                     out.append(piece)
         out.append('')
