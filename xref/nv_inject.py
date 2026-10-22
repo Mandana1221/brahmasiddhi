@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-"""NV（ヴァールッティカ）対訳ページを nv/ に写し、各ブロックの解説欄に
-NVTT（ヴァーチャスパティ）・NVTP（ウダヤナ）の関連箇所を加える。
+"""NV（ヴァールッティカ）対訳ページを nv/ に写し、スートラ番号を Thakur 版に揃え（xref/thakur.py）、
+各ブロックの解説欄に NVTT（ヴァーチャスパティ）・NVTP（ウダヤナ）の関連箇所を加える。
 
   python3 xref/nv_inject.py NV対訳のディレクトリ
 
@@ -9,12 +9,12 @@ NVTT（ヴァーチャスパティ）・NVTP（ウダヤナ）の関連箇所を
 """
 import html
 import re
-import shutil
 import sys
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 import links  # noqa: E402
+import thakur  # noqa: E402
 from xmap import sutras  # noqa: E402
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -33,7 +33,7 @@ def close_of(t, i):
     raise ValueError('unclosed div')
 
 
-def box(ss, d=0):
+def box(ss):
     rows = []
     for key, name in (('nvtt', 'ヴァーチャスパティの注釈（NVTT 全訳）'), ('nvtp', 'ウダヤナの注釈（NVTP 全訳）')):
         it = links.sec_items(ss, key)
@@ -43,34 +43,28 @@ def box(ss, d=0):
         else:
             a = '<span class="muted">この箇所への注釈はない</span>'
         rows.append(f'<p>{name}：{a}</p>')
-    note = ''
-    if d:
-        note = (f'<p class="muted">このブロックのスートラ番号はヒンディー訳の数え方で、Thakur 版（NVTT・NVTP の番号）'
-                f'では {html.escape(links.span(ss))} にあたる。</p>')
-    return (f'<div class="xr"><span class="lbl">関連箇所（Thakur 版スートラ {html.escape(links.span(ss))}）</span>' + note
+    return (f'<div class="xr"><span class="lbl">関連箇所（スートラ {html.escape(links.span(ss))}）</span>'
             + ''.join(rows) + '</div>')
 
 
 def inject(src):
-    t = src.read_text(encoding='utf-8')
+    t = thakur.convert_html(src.read_text(encoding='utf-8'), src.name)   # スートラ番号を Thakur 版に
     t = t.replace('</style>', CSS + '\n</style>', 1)
     out, pos = [], 0
     for m in re.finditer(r'<div class="mula[^"]*" id="u\d+">\s*<span class="ref">([^<]*)</span>', t):
         ref = html.unescape(m.group(1))
         if 'NS' not in ref:
             continue
-        uid = re.search(r'id="(u\d+)"', m.group(0)).group(1)
-        d = links.SHIFT.get(f'{src.name}#{uid}', 0)
-        ss = [f'{x.rsplit(".", 1)[0]}.{int(x.rsplit(".", 1)[1]) + d}' for x in sutras(ref.split('NS', 1)[1])]
+        ss = sutras(ref.split('NS', 1)[1])
         end = close_of(t, m.start())
         blk = t[m.start():end]
         k = blk.find('<div class="exp">')
         if k >= 0:
             at = close_of(t, m.start() + k)
-            piece = box(ss, d)
+            piece = box(ss)
         else:
             at = end
-            piece = f'<div class="exp">{box(ss, d)}</div>'
+            piece = f'<div class="exp">{box(ss)}</div>'
         out.append(t[pos:at])
         out.append(piece)
         pos = at
@@ -84,7 +78,7 @@ def main():
     n = 0
     for f in sorted(src.glob('nyayavarttika-*.html')):
         if f.name == 'nyayavarttika-index.html':
-            shutil.copyfile(f, OUT / f.name)
+            (OUT / f.name).write_text(thakur.convert_html(f.read_text(encoding='utf-8'), f.name), encoding='utf-8')
             continue
         (OUT / f.name).write_text(inject(f), encoding='utf-8')
         n += 1

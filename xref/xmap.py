@@ -4,19 +4,22 @@
 
   python3 xref/xmap.py NV対訳のディレクトリ   →  xref/xmap.json
 
-NV は nyayavarttika-N-taiyaku.html の各ブロック（id="uN"）の「NS a.b.c(–d)」、
+NV は nyayavarttika-N-taiyaku.html の各ブロック（id="uN"）の「NS a.b.c(–d)」（ヒンディー訳の番号の
+ページは xref/thakur.py で Thakur 版の番号に直す）、
 NVTT は nvtt_src/partXX.txt の「NS …」、NVTP は nvtp_src/partXX.txt の「sūtra …」から読む。
 """
-import difflib
 import html
 import json
 import re
 import sys
 from pathlib import Path
 
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import thakur  # noqa: E402
+
 ROOT = Path(__file__).resolve().parent.parent
 HEAD = re.compile(r'^(#+)\s+(\S+)\s*\|\s*([^|]*?)\s*(?:\|\s*(.*))?$')
-RANGE = re.compile(r'([1-5])\.([12])\.(\d+)(?:\s*[–-]\s*(?:[1-5]\.[12]\.)?(\d+))?')
+RANGE = re.compile(r'([1-5])\.([12])\.(\d+)(付)?(?:\s*[–-]\s*(?:[1-5]\.[12]\.)?(\d+))?')
 
 
 def sutras(tag):
@@ -24,7 +27,10 @@ def sutras(tag):
     out = []
     for m in RANGE.finditer(tag):
         a, b, c = m.group(1), m.group(2), int(m.group(3))
-        d = int(m.group(4)) if m.group(4) else c
+        if m.group(4):                 # 付スートラ（Thakur 版でスートラに数えない文。例：2.1.32付）
+            out.append(f'{a}.{b}.{c}付')
+            continue
+        d = int(m.group(5)) if m.group(5) else c
         out += [f'{a}.{b}.{n}' for n in range(c, max(c, d) + 1)]
     return out
 
@@ -57,58 +63,13 @@ def parts(src, prefix, key):
     return res
 
 
-DIG = str.maketrans('०१२३४५६७८९', '0123456789')
-SUTRA = re.compile(r'([^॥]{3,}?)॥\s*([०-९]+)।([०-९]+)।([०-९]+)\s*॥')
-
-
-def norm(s):
-    return re.sub(r'[^a-zāīūṛṝḷṅñṭḍṇśṣṃḥ]', '', s.lower().replace('ṁ', 'ṃ'))
-
-
-def nys_texts():
-    """NVTT_text.txt のスートラ行（Thakur 版の番号）。"""
-    out = {}
-    for ln in (ROOT / 'NVTT_text.txt').read_text(encoding='utf-8').split('\n'):
-        m = re.match(r'nys_(\d),(\d)\.(\d+):\s*(.*)', ln)
-        if m:
-            out.setdefault(f'{m[1]}.{m[2]}.{m[3]}', norm(re.sub(r'\[p\. \d+\]', '', m[4])))
-    return out
-
-
-def offset(src, nys):
-    """NV のブロックに引かれたスートラ本文を Thakur 版のスートラと照合し、番号のずれを返す。
-    NV 対訳は一部（2.1.20–69, 2.2.44–69, 3.1.39–73）をヒンディー訳の番号で数えているため。"""
-    from indic_transliteration import sanscript
-    votes = {}
-    for m in SUTRA.finditer(re.sub(r'<[^>]*>', ' ', src)):
-        a, b, c = (m[i].translate(DIG) for i in (2, 3, 4))
-        txt = norm(sanscript.transliterate(m[1], sanscript.DEVANAGARI, sanscript.IAST))
-        best = (0, 0)
-        for d in range(-3, 4):
-            k = f'{a}.{b}.{int(c) + d}'
-            if k in nys:
-                r = difflib.SequenceMatcher(None, txt[-len(nys[k]) - 5:], nys[k]).ratio()
-                best = max(best, (r, d), key=lambda x: x[0])
-        if best[0] >= 0.8:
-            votes[best[1]] = votes.get(best[1], 0) + 1
-    return max(votes, key=votes.get) if votes else None
-
-
-# 本文照合で決まらないブロック。NV 13 の「क्वचिन्निवृत्तिदर्शनात्…」（ヒンディー訳の 2.1.20）は
-# Thakur 版ではスートラに数えられないので、直前の 2.1.19 に含める。
-OVERRIDE = {('nyayavarttika-13-taiyaku.html', 'u16'): -1}
-
-
-def shift(ss, d):
-    return [f'{s.rsplit(".", 1)[0]}.{int(s.rsplit(".", 1)[1]) + d}' for s in ss]
-
-
 def nv(nvdir):
-    nys = nys_texts()
+    """NV 対訳の各ブロックのスートラ（Thakur 版の番号に直して）。"""
     res = {}
     for f in sorted(Path(nvdir).glob('nyayavarttika-*-taiyaku.html'), key=lambda x: int(x.name.split('-')[1])):
         t = f.read_text(encoding='utf-8')
-        sec, sno, d = '', '', 0
+        sec, sno = '', ''
+        hindi = thakur.page_no(f.name) in thakur.HINDI_PAGES
         pat = (r'<span class="sec-no">([^<]*)</span><h2>(.*?)</h2>|<div class="mula[^"]*" id="(u\d+)">\s*'
                r'<span class="ref">([^<]*)</span>\s*<div class="src[^"]*"[^>]*>(.*?)</div>')
         for m in re.finditer(pat, t, re.S):
@@ -118,11 +79,10 @@ def nv(nvdir):
             uid, ref = m.group(3), html.unescape(m.group(4))
             if 'NS' not in ref:
                 continue
-            o = offset(m.group(5), nys)
-            d = d if o is None else o      # 照合できないブロックは直前のブロックのずれを引き継ぐ
-            d = OVERRIDE.get((f.name, uid), d)
-            ss = shift(sutras(ref.split('NS', 1)[1]), d)
-            ent = {'file': f.name, 'id': uid, 'sec': sno, 'title': sec, 'ref': ref.strip(), 'shift': d}
+            if hindi:
+                ref, sec = thakur.conv_lat(ref), thakur.conv_lat(sec)
+            ss = sutras(ref.split('NS', 1)[1])
+            ent = {'file': f.name, 'id': uid, 'sec': sno, 'title': sec, 'ref': ref.strip()}
             for s in ss:
                 res.setdefault(s, []).append(ent)
     return res
@@ -132,8 +92,12 @@ def main():
     nvmap = nv(sys.argv[1])
     tt = parts('nvtt_src', 'nvtt', ('NS',))
     tp = parts('nvtp_src', 'nvtp', ('NS', 'sūtra'))
-    keys = sorted(set(nvmap) | set(tt) | set(tp), key=lambda s: tuple(int(x) for x in s.split('.')))
+    keys = sorted(set(nvmap) | set(tt) | set(tp), key=lambda s: tuple(int(x.rstrip('付')) for x in s.split('.')) + (s.endswith('付'),))
     out = {k: {'nv': nvmap.get(k, []), 'nvtt': tt.get(k), 'nvtp': tp.get(k)} for k in keys}
+    for k, v in out.items():           # 付スートラは、対応がなければ本スートラの節に
+        if k.endswith('付'):
+            for t in ('nvtt', 'nvtp'):
+                v[t] = v[t] or out.get(k[:-1], {}).get(t)
     (ROOT / 'xref' / 'xmap.json').write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
     print(len(keys), 'sūtras;',
           'nv', sum(1 for v in out.values() if v['nv']),
