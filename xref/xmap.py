@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""NV（ヴァールッティカ対訳）・NVTT（タートパリヤ・ティーカー全訳）・NVTP（パリシュッディ全訳）の
+"""NBh（バーシュヤ全訳）・NV（ヴァールッティカ対訳）・NVTT（タートパリヤ・ティーカー全訳）・NVTP（パリシュッディ全訳）の
 対応表をスートラ番号で作る。
 
   python3 xref/xmap.py NV対訳のディレクトリ   →  xref/xmap.json
 
 NV は nyayavarttika-N-taiyaku.html の各ブロック（id="uN"）の「NS a.b.c(–d)」（ヒンディー訳の番号の
 ページは xref/thakur.py で Thakur 版の番号に直す）、
-NVTT は nvtt_src/partXX.txt の「NS …」、NVTP は nvtp_src/partXX.txt の「sūtra …」から読む。
+NBh・NVTT は nbh_src・nvtt_src の partXX.txt の「NS …」、NVTP は nvtp_src/partXX.txt の「sūtra …」から読む。
 """
 import html
 import json
@@ -92,14 +92,16 @@ def main():
     nvmap = nv(sys.argv[1])
     tt = parts('nvtt_src', 'nvtt', ('NS',))
     tp = parts('nvtp_src', 'nvtp', ('NS', 'sūtra'))
-    keys = sorted(set(nvmap) | set(tt) | set(tp), key=lambda s: tuple(int(x.rstrip('付')) for x in s.split('.')) + (s.endswith('付'),))
-    out = {k: {'nv': nvmap.get(k, []), 'nvtt': tt.get(k), 'nvtp': tp.get(k)} for k in keys}
+    nb = parts('nbh_src', 'nbh', ('NS',))
+    keys = sorted(set(nvmap) | set(tt) | set(tp) | set(nb), key=lambda s: tuple(int(x.rstrip('付')) for x in s.split('.')) + (s.endswith('付'),))
+    out = {k: {'nbh': nb.get(k), 'nv': nvmap.get(k, []), 'nvtt': tt.get(k), 'nvtp': tp.get(k)} for k in keys}
     for k, v in out.items():           # 付スートラは、対応がなければ本スートラの節に
         if k.endswith('付'):
-            for t in ('nvtt', 'nvtp'):
+            for t in ('nbh', 'nvtt', 'nvtp'):
                 v[t] = v[t] or out.get(k[:-1], {}).get(t)
     (ROOT / 'xref' / 'xmap.json').write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
     print(len(keys), 'sūtras;',
+          'nbh', sum(1 for v in out.values() if v['nbh']),
           'nv', sum(1 for v in out.values() if v['nv']),
           'nvtt', sum(1 for v in out.values() if v['nvtt']),
           'nvtp', sum(1 for v in out.values() if v['nvtp']))

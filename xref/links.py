@@ -1,4 +1,4 @@
-"""xref/xmap.json（xref/xmap.py が作る対応表）から、NV・NVTT・NVTP 相互の関連箇所リンクを作る。"""
+"""xref/xmap.json（xref/xmap.py が作る対応表）から、NBh・NV・NVTT・NVTP 相互の関連箇所リンクを作る。"""
 import html
 import json
 from pathlib import Path
@@ -8,10 +8,10 @@ _P = ROOT / 'xref' / 'xmap.json'
 MAP = json.loads(_P.read_text(encoding='utf-8')) if _P.exists() else {}
 
 # 各ページの節（file#id）が受け持つスートラ
-OWN = {'nvtt': {}, 'nvtp': {}}
+OWN = {'nbh': {}, 'nvtt': {}, 'nvtp': {}}
 for _s, _v in MAP.items():
-    for _k in ('nvtt', 'nvtp'):
-        if _v[_k]:
+    for _k in OWN:
+        if _v.get(_k):
             OWN[_k].setdefault(f'{_v[_k]["file"]}#{_v[_k]["id"]}', []).append(_s)
 
 
@@ -47,7 +47,7 @@ def sec_items(ss, key):
 
 
 def sec_label(e, key):
-    name = 'NVTT 全訳' if key == 'nvtt' else 'NVTP 全訳'
+    name = {'nbh': 'NBh 全訳', 'nvtt': 'NVTT 全訳', 'nvtp': 'NVTP 全訳'}[key]
     return f'{name} {e["num"]} {e["title"]}'
 
 
@@ -60,8 +60,8 @@ def links(items, label):
 
 
 def rows(ss, keys):
-    """keys の順に（'nv' / 'nvtt' / 'nvtp'）関連箇所の行を作る。"""
-    head = {'nv': 'ヴァールッティカ', 'nvtt': 'ヴァーチャスパティの注釈', 'nvtp': 'ウダヤナの注釈'}
+    """keys の順に（'nbh' / 'nv' / 'nvtt' / 'nvtp'）関連箇所の行を作る。"""
+    head = {'nbh': 'ヴァーツヤーヤナの注解', 'nv': 'ヴァールッティカ', 'nvtt': 'ヴァーチャスパティの注釈', 'nvtp': 'ウダヤナの注釈'}
     out = []
     for k in keys:
         it = nv_items(ss) if k == 'nv' else sec_items(ss, k)
@@ -73,6 +73,6 @@ def rows(ss, keys):
 
 def for_section(page, nid, keys):
     """全訳ページ page の節 nid が受け持つスートラについて、関連箇所の行を作る。"""
-    key = 'nvtt' if page.startswith('nvtt') else 'nvtp'
+    key = page.split('_', 1)[0]
     ss = OWN[key].get(f'{page}#{nid}')
     return rows(ss, keys) if ss else ''

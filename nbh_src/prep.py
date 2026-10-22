@@ -70,7 +70,11 @@ def norm(t):
     # 脚注番号：語に付いた数字（॥…॥ や [ … ] の参照は残す）
     t = re.sub(rf'(?<=[{DEVA}ऽ])[०-९]+(?=[\s।॥,;?—\-)]|$)', '', t)
     t = re.sub(rf'(?<=[\s(—])[०-९]+(?=[{DEVA}])', '', t)
-    return re.sub(r'(?m)^[०-९]+(?=[अ-ह])', '', t)
+    t = re.sub(r'(?m)^[०-९]+(?=[अ-ह])', '', t)
+    # 行の途中に残った行番号（「प्रियं ५ स्वाध्यायं」「देहेन्द्रिय- २० बुद्धि」「२] 20」）
+    t = re.sub(r'-\s+(?:५|१०|१५|२०|२५|३०)\s+(?=\S)', '-', t)
+    t = re.sub(r'(?<=[^\s\[।०-९])\s+(?:५|१०|१५|२०|२५|३०|5|10|15|20|25|30)(?=\s+[^\s\]।०-९]|\s*$)', '', t, flags=re.M)
+    return t
 
 
 def join(lines):
@@ -244,8 +248,10 @@ def emit_text(seg):
             if chunk.startswith('@@ '):
                 out.append(chunk)
                 continue
+            # 参照「[ १ । १ । ४१ ]」の中の । では切らない
+            chunk = re.sub(r'\[[^\]\[]*\]', lambda m: re.sub(r'\s*।\s*', '\x01', m.group()), chunk)
             for piece in re.findall(r'.*?(?:॥[^॥]*॥|।|\?|$)', chunk):
-                piece = piece.strip()
+                piece = piece.strip().replace('\x01', '।')
                 if piece:
                     out.append(piece)
         out.append('')
