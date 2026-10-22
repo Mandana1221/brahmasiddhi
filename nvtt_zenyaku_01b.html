@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>タートパリヤ・ティーカー全訳 1-2</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8;
+  --ink: #2A2520;
+  --ink-soft: #5A4D42;
+  --accent: #8B4A2B;
+  --accent-soft: #C47A54;
+  --rule: #C9C1B4;
+  --rule-light: #DCD5CA;
+  --muted: #7E7265;
+  --note-bg: #EDE8DF;
+  --card-bg: #FAF7F1;
+  --point-bg: #F3E6DA;
+  --it-color: #B0413E;
+  --ok-color: #4F6B3A;
+  /* 論敵ごとの色 */
+  --c-self: #8B4A2B;
+  --c-mim: #3F6A8A;
+  --c-sam: #7A5C99;
+  --c-bud: #A0782A;
+  --c-car: #4F7A4A;
+  --c-gen: #7E7265;
+  --c-vai: #2F7F7A;
+  --on-c: #FFFFFF;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B;
+    --ink: #DDD8D0;
+    --ink-soft: #A89E92;
+    --accent: #C47A54;
+    --accent-soft: #D4956C;
+    --rule: #3E3A34;
+    --rule-light: #322E2A;
+    --muted: #8A7F73;
+    --note-bg: #27251F;
+    --card-bg: #23211E;
+    --point-bg: #2E2620;
+    --it-color: #E07A6F;
+    --ok-color: #9DBB82;
+    --c-self: #C47A54;
+    --c-mim: #6E9CC0;
+    --c-sam: #A98BC7;
+    --c-bud: #C9A55A;
+    --c-car: #86B07F;
+    --c-gen: #9A8F83;
+    --c-vai: #6FB8B2;
+    --on-c: #1E1D1B;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B;
+  --ink: #DDD8D0;
+  --ink-soft: #A89E92;
+  --accent: #C47A54;
+  --accent-soft: #D4956C;
+  --rule: #3E3A34;
+  --rule-light: #322E2A;
+  --muted: #8A7F73;
+  --note-bg: #27251F;
+  --card-bg: #23211E;
+  --point-bg: #2E2620;
+  --it-color: #E07A6F;
+  --ok-color: #9DBB82;
+  --c-self: #C47A54;
+  --c-mim: #6E9CC0;
+  --c-sam: #A98BC7;
+  --c-bud: #C9A55A;
+  --c-car: #86B07F;
+  --c-gen: #9A8F83;
+  --c-vai: #6FB8B2;
+  --on-c: #1E1D1B;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  background: var(--ground);
+  color: var(--ink);
+  font-family: 'Shippori Mincho', 'Noto Serif Devanagari', serif;
+  font-size: 1.05rem;
+  line-height: 1.95;
+  padding: 3rem 1rem 5rem;
+  max-width: 860px;
+  margin: 0 auto;
+  -webkit-font-smoothing: antialiased;
+}
+.dev { font-family: 'Noto Serif Devanagari', serif; }
+.iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.08em; }
+a { color: var(--accent); }
+
+/* header */
+.header { text-align: center; padding-bottom: 2.5rem; margin-bottom: 2rem; border-bottom: 1px solid var(--rule); }
+.header-devanagari { font-family: 'Noto Serif Devanagari', serif; font-size: 1.5rem; font-weight: 600; margin-bottom: 0.3rem; }
+.header h1 { font-family: 'Shippori Mincho', serif; font-weight: 600; font-size: 1.75rem; letter-spacing: 0.08em; color: var(--accent); }
+.header-sub { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-style: italic; color: var(--ink-soft); }
+.header-jp { font-size: 0.88rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+/* toc */
+.toc { margin-bottom: 2.5rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .section-label { font-size: 0.85rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.12em; margin-bottom: 0.8rem; }
+.toc ol { list-style: none; }
+.toc a { color: var(--accent); text-decoration: none; display: flex; gap: 0.7rem; padding: 0.35rem 0; border-bottom: 1px solid var(--rule-light); font-size: 0.95rem; }
+.toc a:hover { color: var(--accent-soft); }
+.toc .n { color: var(--muted); min-width: 3.2rem; font-size: 0.85rem; }
+
+h2.chapter { font-size: 1.35rem; font-weight: 600; color: var(--accent); margin: 3.5rem 0 0.4rem; letter-spacing: 0.05em; }
+.chapter-sub { color: var(--ink-soft); font-size: 0.92rem; margin-bottom: 1.5rem; }
+h3 { font-size: 1.08rem; font-weight: 600; margin: 2rem 0 0.6rem; }
+p { margin-bottom: 1rem; }
+
+.note { background: var(--note-bg); border-radius: 4px; padding: 0.9rem 1.1rem; margin: 1.2rem 0; font-size: 0.95rem; }
+.note-title { font-weight: 600; color: var(--accent); font-size: 0.88rem; margin-bottom: 0.3rem; letter-spacing: 0.06em; }
+.point { background: var(--point-bg); border-radius: 4px; padding: 0.7rem 0.9rem; margin: 0.8rem 0; font-size: 0.97rem; }
+.point::before { content: "★ ポイント　"; color: var(--accent); font-weight: 600; font-size: 0.85rem; }
+
+/* tables */
+.tbl-wrap { overflow-x: auto; margin: 1rem 0 1.4rem; }
+table { border-collapse: collapse; width: 100%; font-size: 0.93rem; }
+th, td { border: 1px solid var(--rule-light); padding: 0.4rem 0.6rem; text-align: left; vertical-align: top; }
+th { background: var(--note-bg); font-weight: 600; font-size: 0.85rem; color: var(--ink-soft); }
+td .dev { font-size: 1.05rem; }
+td.c, th.c { text-align: center; white-space: nowrap; }
+.yes { color: var(--ok-color); font-weight: 600; }
+.no { color: var(--it-color); font-weight: 600; }
+
+/* kārikā card (LSK の sutra カードと同じ形) */
+.sutra { background: var(--card-bg); border: 1px solid var(--rule-light); border-left: 4px solid var(--accent); border-radius: 4px; padding: 1rem 1.2rem 0.9rem; margin: 1rem 0; }
+.sutra-head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0.4rem 0.9rem; margin-bottom: 0.2rem; }
+.sutra-num { font-size: 0.78rem; color: var(--muted); border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.45rem; white-space: nowrap; }
+.sutra-text { font-family: 'Noto Serif Devanagari', serif; font-size: 1.2rem; font-weight: 600; line-height: 1.7; overflow-wrap: anywhere; }
+.sutra-iast { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: 1.05rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; overflow-wrap: anywhere; }
+.sutra-jp { font-size: 0.95rem; }
+
+/* ===== 科段アコーディオン ===== */
+.controls { position: sticky; top: 0; z-index: 5; background: var(--ground); border-bottom: 1px solid var(--rule-light); padding: 0.6rem 0; margin: 1rem 0 1.2rem; display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center; }
+.controls .lbl { font-size: 0.8rem; color: var(--muted); margin-right: 0.2rem; }
+.controls button { font-family: 'Shippori Mincho', serif; font-size: 0.85rem; background: var(--card-bg); color: var(--accent); border: 1px solid var(--rule); border-radius: 999px; padding: 0.15rem 0.8rem; cursor: pointer; }
+.controls button:hover, .controls button:focus-visible { border-color: var(--accent); }
+
+details.node { border-left: 2px solid var(--rule-light); margin: 0.25rem 0 0.25rem 0; }
+details.node > summary {
+  list-style: none; cursor: pointer;
+  display: grid; grid-template-columns: auto 1fr auto; gap: 0.2rem 0.6rem; align-items: baseline;
+  padding: 0.35rem 0.5rem 0.35rem 0.6rem; border-radius: 0 4px 4px 0;
+}
+details.node > summary::-webkit-details-marker { display: none; }
+details.node > summary:hover { background: var(--note-bg); }
+details.node > summary::before {
+  content: "▸"; color: var(--accent-soft); font-size: 0.8rem; grid-column: 1; grid-row: 1;
+  transition: transform 0.15s; display: inline-block; width: 0.8rem;
+}
+details.node[open] > summary::before { transform: rotate(90deg); }
+details.node > summary .num { grid-column: 1; grid-row: 1; margin-left: 1.1rem; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1.02rem; white-space: nowrap; }
+details.node > summary .ttl { grid-column: 2; }
+details.node > summary .ttl .sk { font-size: 0.85rem; color: var(--ink-soft); }
+details.node > summary .refs { grid-column: 3; display: flex; gap: 0.25rem; flex-wrap: wrap; justify-content: flex-end; }
+.ref { font-size: 0.72rem; border: 1px solid var(--rule); border-radius: 3px; padding: 0 0.35rem; color: var(--muted); white-space: nowrap; line-height: 1.6; font-family: 'Shippori Mincho', serif; }
+.ref.k { border-color: var(--accent-soft); color: var(--accent); }
+.ref.opp { color: var(--on-c); border: none; }
+.opp.mim { background: var(--c-mim); } .opp.sam { background: var(--c-sam); } .opp.bud { background: var(--c-bud); }
+.opp.car { background: var(--c-car); } .opp.self { background: var(--c-self); } .opp.gen { background: var(--c-gen); }
+details.node > .body { padding: 0.1rem 0 0.4rem 1.2rem; }
+details.node > .body > p.gist { font-size: 0.95rem; color: var(--ink-soft); margin: 0.2rem 0 0.5rem; }
+details.node > .body > p.gist::before { content: "要旨　"; font-size: 0.75rem; color: var(--accent); font-weight: 600; letter-spacing: 0.1em; }
+details.node.lv1 { border-left: 4px solid var(--accent); background: var(--card-bg); border-radius: 4px; margin: 0.8rem 0; padding: 0.2rem 0.4rem 0.4rem 0; }
+details.node.lv1 > summary .num { font-size: 1.25rem; }
+details.node.lv1 > summary .ttl { font-weight: 600; font-size: 1.08rem; }
+details.node.lv2 > summary .ttl { font-weight: 600; }
+details.node.leaf > summary::before { content: "·"; transform: none !important; }
+@media (max-width: 560px) {
+  details.node > summary { grid-template-columns: auto 1fr; }
+  details.node > summary .refs { grid-column: 2; justify-content: flex-start; }
+  details.node > .body { padding-left: 0.7rem; }
+}
+
+/* ===== 図：五つの異論 → 五つのスタバカ ===== */
+.flow { display: grid; grid-template-columns: 1fr 2.2rem 1fr; gap: 0.5rem 0; align-items: stretch; margin: 1.2rem 0 1.6rem; }
+.flow .q, .flow .a { border: 1px solid var(--rule-light); border-radius: 4px; padding: 0.5rem 0.75rem; font-size: 0.9rem; line-height: 1.6; background: var(--card-bg); }
+.flow .q { border-left: 4px solid var(--it-color); }
+.flow .a { border-left: 4px solid var(--ok-color); }
+.flow .q b, .flow .a b { display: block; font-size: 0.78rem; letter-spacing: 0.08em; color: var(--muted); font-weight: 600; }
+.flow .arr { display: flex; align-items: center; justify-content: center; color: var(--accent-soft); font-size: 1.2rem; }
+.flow .head { font-size: 0.8rem; color: var(--ink-soft); font-weight: 600; text-align: center; letter-spacing: 0.1em; }
+@media (max-width: 560px) {
+  .flow { grid-template-columns: 1fr; }
+  .flow .arr { transform: rotate(90deg); height: 1.4rem; }
+  .flow .head.h2, .flow .head.h3 { display: none; }
+}
+
+/* ===== 図：段落マップ（[1]–[80] の帯グラフ） ===== */
+.map { display: flex; width: 100%; height: 2.4rem; border-radius: 4px; overflow: hidden; border: 1px solid var(--rule-light); margin: 0.8rem 0 0.3rem; }
+.map > a { display: flex; align-items: center; justify-content: center; color: var(--on-c); font-size: 0.72rem; text-decoration: none; border-right: 1px solid var(--ground); font-family: 'Cormorant Garamond', serif; font-weight: 600; min-width: 0; overflow: hidden; }
+.map > a:hover { filter: brightness(1.12); }
+.map-scale { display: flex; justify-content: space-between; font-size: 0.72rem; color: var(--muted); margin-bottom: 0.6rem; }
+.legend { display: flex; flex-wrap: wrap; gap: 0.3rem 1rem; font-size: 0.82rem; color: var(--ink-soft); margin-bottom: 1rem; }
+.legend span::before { content: ""; display: inline-block; width: 0.75rem; height: 0.75rem; border-radius: 2px; margin-right: 0.35rem; vertical-align: -0.05rem; background: var(--sw); }
+
+/* ===== 図：五つの理由 → 結論 ===== */
+.reasons { display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.4rem; margin: 1rem 0 0; }
+.reasons div { background: var(--point-bg); border-radius: 4px; padding: 0.45rem 0.5rem; text-align: center; font-size: 0.85rem; line-height: 1.5; }
+.reasons div .no-r { display: block; font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--accent); font-size: 1rem; }
+.reasons div .iast { display: block; font-size: 0.9rem; color: var(--ink-soft); }
+.converge { text-align: center; color: var(--accent-soft); font-size: 1.1rem; line-height: 1.2; margin: 0.2rem 0; }
+.concl { border: 2px solid var(--accent); border-radius: 6px; text-align: center; padding: 0.5rem; font-weight: 600; margin-bottom: 1rem; }
+.concl .dev { display: block; font-weight: 400; font-size: 1.05rem; }
+@media (max-width: 560px) { .reasons { grid-template-columns: repeat(2, 1fr); } }
+
+/* ===== 図：論敵の位置づけ ===== */
+.opp-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.opp-card { border-radius: 4px; padding: 0.6rem 0.7rem; background: var(--card-bg); border: 1px solid var(--rule-light); border-top: 5px solid var(--sw); font-size: 0.88rem; line-height: 1.6; }
+.opp-card b { display: block; font-size: 0.95rem; }
+.opp-card .where { font-size: 0.78rem; color: var(--muted); }
+
+footer { margin-top: 4rem; padding-top: 1.5rem; border-top: 1px solid var(--rule); font-size: 0.85rem; color: var(--ink-soft); }
+.tentative { font-size: 0.72rem; color: var(--it-color); border: 1px dashed var(--it-color); border-radius: 3px; padding: 0 0.3rem; margin-left: 0.3rem; white-space: nowrap; }
+
+.opp.vai { background: var(--c-vai); }
+.reasons.r3 { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 560px) { .reasons.r3 { grid-template-columns: 1fr; } }
+h3.cap { margin-top: 0.6rem; }
+details.fold { border: 1px solid var(--rule-light); border-radius: 4px; background: var(--card-bg); padding: 0.4rem 0.8rem; margin: 1rem 0; }
+details.fold > summary { cursor: pointer; color: var(--accent); font-weight: 600; font-size: 0.92rem; }
+.pm-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.5rem; margin: 1rem 0; }
+.pm { display: block; text-decoration: none; color: var(--ink); background: var(--card-bg); border: 1px solid var(--rule-light); border-left: 4px solid var(--ok-color); border-radius: 4px; padding: 0.5rem 0.75rem; font-size: 0.88rem; line-height: 1.6; }
+.pm:hover { border-color: var(--accent); }
+.pm b { display: block; color: var(--accent); font-size: 1rem; }
+.pm .iast { display: block; color: var(--ink-soft); }
+.pm .sec { display: block; font-size: 0.75rem; color: var(--muted); margin-top: 0.2rem; }
+.stats { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.35rem 0.8rem; align-items: center; margin: 1rem 0 0.4rem; font-size: 0.85rem; }
+.stats .lab a { text-decoration: none; }
+.stats .bars { display: flex; flex-direction: column; gap: 3px; }
+.stats .bar { height: 0.95rem; border-radius: 2px; color: var(--on-c); font-size: 0.7rem; line-height: 0.95rem; padding-left: 0.35rem; white-space: nowrap; }
+.stats .bar.p { background: var(--accent); }
+.stats .bar.k { background: var(--accent-soft); }
+section.stabaka { border-top: 1px solid var(--rule); margin-top: 3rem; }
+
+.seg { display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1.2rem; padding: 0.7rem 0 0.8rem; border-bottom: 1px dashed var(--rule-light); position: relative; }
+.seg-sa { font-size: 1.04rem; line-height: 1.9; overflow-wrap: anywhere; }
+.seg-ja { font-size: 0.98rem; line-height: 1.95; }
+.tnote { background: var(--note-bg); border-radius: 4px; padding: 0.55rem 0.9rem 0.6rem; margin: 0.4rem 0 0.9rem; font-size: 0.88rem; line-height: 1.85; }
+.tnote-h { font-weight: 600; color: var(--accent); font-size: 0.78rem; letter-spacing: 0.1em; }
+.tnote ol { padding-left: 1.3rem; }
+.tnote b { color: var(--ink); }
+.legend-tr { display: grid; grid-template-columns: 1fr 1fr; gap: 0.3rem 1.2rem; font-size: 0.8rem; color: var(--muted); border-bottom: 1px solid var(--rule); padding-bottom: 0.3rem; margin: 1rem 0 0.2rem; }
+.toc-tr a { text-decoration: none; }
+@media (max-width: 640px) {
+  .seg, .legend-tr { grid-template-columns: 1fr; }
+  .legend-tr span:last-child { display: none; }
+  .seg-ja { padding-left: 0.6rem; border-left: 3px solid var(--rule-light); }
+}
+</style>
+
+<style>
+.pg { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: var(--muted); border: 1px solid var(--rule-light); border-radius: 3px; padding: 0 0.3rem; margin: 0 0.2rem; white-space: nowrap; }
+.seg-ja p, .sutra-jp p, .tnote p { margin-bottom: 0.5rem; }
+.xref { font-size: 0.85rem; margin: 0.4rem 0 0.8rem; padding: 0.35rem 0.7rem; border-left: 3px solid #5B4A9E; background: rgba(91,74,158,0.07); }
+.xref-h { color: #5B4A9E; font-weight: 600; margin-right: 0.6rem; }
+.pnav { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.9rem; margin: 1rem 0; }
+</style>
+</head>
+<body>
+<div class="header">
+  <div class="header-devanagari">न्यायवार्त्तिकतात्पर्यटीका</div>
+  <h1>タートパリヤ・ティーカー　全訳</h1>
+  <div class="header-sub">Vācaspatimiśra, Nyāyavārttikatātparyaṭīkā · Japanese Translation</div>
+  <div class="header-jp">第1章第1日課（2）<br>刊本 p.59–77　スートラ1.1.2の注（全）</div>
+</div>
+<div class="pnav"><a href="nvtt_zenyaku_01a.html">← 前へ（スートラ1.1.1）</a><span></span><a href="nvtt_zenyaku_01c.html">次へ（スートラ1.1.3） →</a></div>
+<nav class="toc"><h2>この部分の科段</h2><ol><li><a href="#n2"><span class="n">2</span>第2スートラ：解脱の順序</a></li></ol></nav>
+<div class="controls" id="controls">
+  <span class="lbl">まとめて開く：</span>
+  <button type="button" data-depth="1">第1階層のみ</button>
+  <button type="button" data-depth="2">第2階層まで</button>
+  <button type="button" data-depth="3">第3階層まで</button>
+  <button type="button" data-depth="9">すべて開く</button>
+  <button type="button" data-depth="0">すべて閉じる</button>
+</div>
+<div class="legend-tr"><span>本文（ヴァーチャスパティ）</span><span>和訳</span></div>
+<div class="tree">
+<details class="node lv1" id="n2"><summary><span class="num">2</span><span class="ttl">第2スートラ：解脱の順序 <span class="sk">NS 1.1.2</span></span></summary><div class="body">
+<p class="gist">前主張は「真実の知の直後に解脱があるなら、学問を説く者がいなくなる」と論難する。答えは、至福に低いもの（生前解脱）と高いもの（すべての苦の止滅）の二つがあることを示す。続いて、スートラを二つに分ける説を退け、アートマンについての誤った知を手がかりに、錯誤の五つの説（自己顕現・非存在顕現・説明不可能なものの顕現・無顕現・他様顕現）を検討して他様顕現説を擁護する。最後に、真実の知が誤った知を否定する仕組み、離欲、法・非法の止滅、楽と苦の切り離せなさを論じる。 </p>
+<details class="node lv2" id="n2-0"><summary><span class="num">2.0</span><span class="ttl">第2スートラ <span class="sk">NS 1.1.2</span></span></summary><div class="body">
+<div class="sutra"><div class="sutra-text">दुःखजन्मप्रवृत्तिदोषमिथ्याज्ञानानामुत्तरोत्तरापाये तदनन्तराभावादपवर्गः ॥</div><div class="sutra-jp"><p>苦・誕生・活動・過失・誤った知が、後のものから順に除かれるとき、その直前のものがなくなるので、解脱がある。</p></div></div>
+</div></details>
+<details class="node lv2" id="n2-1"><summary><span class="num">2.1</span><span class="ttl">前主張：真実の知の直後に解脱はない <span class="sk">pūrvapakṣa</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">तदेवं प्रथमसूत्रेण शास्त्रस्याभिधेयप्रयोजनसंबन्धान् दर्शयता पदार्थाः प्रमाणादय उद्दिष्टाः । तेषां च लक्षणमुक्त्वा तत्परीक्षा वर्तयिष्यते, अपरीक्ष्य तत्त्वज्ञाननिर्णयायोगात् । न चानिर्णीतप्रयोजनसंबन्धानां प्रमाणादीनां लक्षणपरीक्षयोरवसरः । न च प्रयोजनसंबन्धनिर्णयः परीक्षां विनेति तत्परीक्षार्थं द्वितीयं सूत्रम् । तत्र प्रयोजनाभिधानस्य <span class="pg">p.60</span>द्वैविध्यात् संशयः । द्विविधं हि प्रयोजनाभिधानं ग्रन्थकृतां दृष्टं समीचीनमसमीचीनं च, यथा वातिकादिप्रयोजनाभिधानम् आयुर्वेदादिप्रयोजनाभिधानं च । तस्मादभिधानसामान्याद् उभयथादर्शनाच्च संशयः । तत्रोत्सूत्रेण प्रयोजनाभिसंबन्धप्रतिपादनपरं पूर्वपक्षभाष्यम् — तत् खलु वै निःश्रेयसमित्यादि । तद् विभजते — न तत्त्वपरिज्ञानादपवर्गः । कुतः? उभयथादोषात् । तदत्यन्तविमोक्षलक्षणोऽपवर्गो निःश्रेयसम् । तच्चेत् तत्त्वज्ञानानन्तरम्, सम्प्रदायोच्छेदो वातपुत्रीयता च शास्त्रस्य स्याताम् । तस्मान्न तत्त्वज्ञानानन्तरं निःश्रेयसम् । तथा सति प्रमाणादितत्त्वज्ञानान्निःश्रेयसमिति । मिथ्या । न चान्यन्निःश्रेयसम् इत्यभिमानः पूर्वपक्षवादिन इति ॥</div><div class="seg-ja"><p>このように、第一スートラによって学問の対象・目的・関係を示しつつ、認識手段などの事柄が列挙された。そしてそれらの定義を述べて、その吟味が行われるであろう。吟味しなければ真実の知を確定することはできないからである。そして目的と関係が確定されていない認識手段などについては、定義と吟味の機会はない。そして目的と関係の確定は吟味なしにはないので、その吟味のために第二スートラがある。</p><p>そこで、目的を述べることには二種類あるので疑いがある。というのは、著作者たちが目的を述べることには、正しいものと正しくないものとの二種類が見られる。たとえば、いかさま師などの目的の表明と、アーユルヴェーダなどの目的の表明のように。それゆえ、述べることが共通であり、両方の場合が見られるので、疑いがある。</p><p>そこで、スートラを離れて、目的との関係を示すことを目的とする前主張の注釈文――「その至福は」など。それを区分する――「真実を完全に知ることから解脱があるのではない」と。なぜか。どちらにしても過失があるからである。それ（苦）の究極的な離脱を特徴とする解脱が至福である。もしそれが真実の知の直後にあるなら、伝統が断たれることになり、また学問がいかさま師のものとなるであろう。それゆえ、至福は真実の知の直後にはない。そうであれば、「認識手段などの真実の知から至福がある」というのは偽りである。そして別の至福はない、というのが前主張論者の思い込みである。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>真実を知った者がすぐに解脱するなら、学問を説く師がいなくなり（伝統が断たれる）、学問を書いた者は真実を知らない者だったことになる（いかさま師の学問）、という論難。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-47-1">NVTP 全訳 1.47.1 何を吟味するのか：関係の吟味 →</a></div>
+</div></details>
+<details class="node lv2" id="n2-2"><summary><span class="num">2.2</span><span class="ttl">答え：至福には高低の二種がある <span class="sk">parāpara</span></span></summary><div class="body">
+<details class="node" id="n2-2-1"><summary><span class="num">2.2.1</span><span class="ttl">聞く・考える・瞑想する・直証する <span class="sk">catasraḥ pratipattayaḥ</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अत्रेदं सिद्धान्तसूत्रमुपतिष्ठते — दुःखजन्मेति । तस्य तात्पर्यमभिधायावतारयति — न प्रयोजनानभिसंबन्धः । कुतः? निःश्रेयसस्य परापरभेदात् । चतस्रो हि प्रतिपत्तयः प्रमेये आत्मादौ । प्रथमा तावदागमात् यामाचक्षते श्रवणमिति । द्वितीया तु श्रुतस्य परीक्ष्य न्यायेन व्यवस्थापनम्, यामाहुर्मननमिति । सा चान्वीक्षिक्यामायत्ता । आन्वीक्षिकी च संशयादितत्त्वज्ञापनं प्रमाणतत्त्वज्ञापनायोपादत्ते । प्रमाणतत्त्वज्ञापनं च हेयोपादेयभेदव्यवस्थितप्रमेयतत्त्वपरिज्ञापनाय । तत्राप्याद्यन्तवर्जितदशवर्गज्ञापनमाद्यन्तयोः एवात्मापवर्गयोरुपादेययोस्तत्त्वज्ञानस्योपकरोति । न चायमान्वीक्षिकीविद्यावधृतप्रमेयतत्त्वोऽपि परितुष्यति, पूर्ववदेवात्मादिगतविपर्ययवासनानुवृत्तेः । नो खलु दिङ्मूढः सहस्रेणाप्यनुमानैर्विपर्ययसंस्कारमपनयति । तत्त्वसाक्षात्कारस्तु विपर्ययसंस्कारान्निवर्तयति । तज्जनिता च वासना विपर्ययवासनामिति लोकसिद्धम् । तस्मादात्मादिसाक्षात्कारवतीं चतुर्थीं प्रतीतिमशेषतद्गोचरवासनाविपर्यासशमनीमर्थयमानेनादरनैरन्तर्याभ्यां ध्यानचिन्तादिशब्दवाच्या तृतीया प्रतीतिः साक्षात्कारफला दीर्घकालमुपासनीया ।</div><div class="seg-ja"><p>ここで次の定説のスートラが立ち現れる――「苦・誕生」と。その趣旨を述べて導入する――「目的との関係がないのではない」と。なぜか。至福には高いものと低いものの区別があるからである。</p><p>というのは、アートマンなどの認識対象については四つの理解がある。第一はまず聖典からのもので、これを「聞くこと（シュラヴァナ）」と呼ぶ。第二は、聞いたものを吟味して論理によって確立することで、これを「考えること（マナナ）」と言う。そしてそれは探究学に依存する。そして探究学は、疑いなどの真実を知らせることを、認識手段の真実を知らせるために取り上げる。そして認識手段の真実を知らせることは、捨てるべきもの・取るべきものの区別によって定まった認識対象の真実を完全に知らせるためである。そこでも、始めと終わりを除く十の組を知らせることは、始めと終わり、すなわち取るべきものであるアートマンと解脱の真実の知に役立つ。</p><p>しかし、探究学という学問によって認識対象の真実を確定した者も満足しない。前と同様に、アートマンなどについての誤りの潜在印象が続くからである。方角を取り違えた者は、千の推論によっても誤りの潜在印象を除くことはない。他方、真実の直証は誤りの潜在印象を退ける。そしてそれから生じた潜在印象が誤りの潜在印象を〔断つ〕ことは、世間で知られている。それゆえ、アートマンなどの直証をもつ第四の理解、すなわちその対象についての潜在印象と誤りをすべて鎮めるものを求める者は、「瞑想」「思念」などの語で表される、直証を結果とする第三の理解を、尊重と途切れなさとをもって長い時間にわたって修めるべきである。</p></div></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-48-1">NVTP 全訳 1.48.1 文の意味の知だけでは解脱しない：ヴェーダーンタ批判 →</a></div>
+</div></details>
+<details class="node" id="n2-2-2"><summary><span class="num">2.2.2</span><span class="ttl">生きながらの解脱者と、享受されていない業 <span class="sk">jīvanmukta</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.61</span>अथ परिनिष्पन्नध्यानोपायः साक्षात्कारवतीं प्रतिपद्य चतुर्थीं प्रतीतिं निर्मुक्तसकलक्लेशजालः अप्रवर्तमानो धर्माधर्मसाधनेषु निरुद्धानागतधर्माधर्मप्रबन्धोत्पादो भूतेन्द्रियविजयी प्रज्ञाज्योतिर्जीवन्नेव मुक्त इत्युच्यते । न चैवमवस्थो वीतरागोऽपि सहसैव देहादिभिः वियुज्यते, प्रागुपात्तस्य धर्माधर्मप्रचयस्याभुक्तस्य भुज्यमानस्य चाप्रक्षीणत्वात् । न च प्रायश्चित्तेनेवात्मज्ञानेनादत्तफलान्येव कर्माणि क्षीयन्त इति युक्तम्, नाभुक्तं क्षीयते कर्म । इति स्मृतेः । अत्यन्तसुखदुःखसंविज्ञानविरोधस्य कर्मणामवधारणात् । औत्सर्गिकस्य क्वचित् प्रायश्चित्तादौ विशेषवचनेनापवादात् । क्षीयन्ते चास्य कर्माणि । इति श्रुतेः । योगर्द्धिवशाद् युगपदुत्पादितानेकविधदेहोपभोगेनाप्युपपत्तेः ॥</div><div class="seg-ja"><p>さて、瞑想という手段を完成した者は、直証をもつ第四の理解を得て、あらゆる煩悩の網から解き放たれ、法・非法の手段に向かって行動せず、未来の法・非法の連続が生じるのを止め、元素と感官を制し、知恵の光をもって、生きながらにして解脱した者と言われる。</p><p>しかし、このような状態の者は、欲を離れていても、すぐに身体などから離れるのではない。以前に得た法・非法の蓄積で、まだ享受されていないもの、享受されつつあるものが尽きていないからである。また、贖罪によるように、アートマンの知によって、まだ結果を与えていない業が尽きる、と言うのも正しくない。「享受されない業は尽きない」という伝承があるからである。業は究極的には楽・苦の経験〔によってのみ消えるもの〕と確定されているからである。〔そして〕一般原則は、ある場合には、贖罪などについての特別な言葉によって例外とされるからである。「そしてその者の業は尽きる」という天啓〔聖典〕も、ヨーガの神通力によって同時に作り出した多くの種類の身体で享受することによって成り立つからである。</p></div></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-48-2">NVTP 全訳 1.48.2 至福の二種：直接とらえる者も身体をもつ →</a></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-49-1">NVTP 全訳 1.49.1 伝承と推論：聖典の解釈 →</a></div>
+</div></details>
+<details class="node" id="n2-2-3"><summary><span class="num">2.2.3</span><span class="ttl">多くの身体で同時に享受する；低い至福と高い至福 <span class="sk">yogarddhi</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">तावदेवास्य चिरं यावन्न विमोक्ष्येऽथ सम्पत्स्ये । इति चाभुक्तोपभज्यमानफलकर्मप्रक्षयावधित्वदर्शनम् । योगर्द्धिवशाच्चानियतविपाककालान्यपि दीर्घकालफलान्यपि कर्माणि पिण्डीकृत्य भूतेन्द्रियविजयितया युगपदेव भुङ्क्ते । अचिन्त्यो हि समाधिप्रभाव इत्युक्तम् । न चाचिन्त्यत्वाद् विनैवोपभोगेन कर्माशयान् प्रक्षयिष्यतीति युक्तम्, दृष्टानुसारेण कथञ्चिदुपपत्तौ अत्यन्तादृष्टकल्पनाया अयोगात् । तस्मादुत्पन्नतत्त्वसाक्षात्कारस्य दोषाभावात् प्रवृत्त्युपरमे योऽनागतापूर्वानुत्पादस्तदपरं निःश्रेयसम् । तच्च तत्त्वसाक्षात्कारानन्तरं भवति । तादृशश्च मुनिस्तत्त्वज्ञानवान् शास्त्रस्य प्रणेतेति न वातपुत्रीयं शास्त्रमिति । परं तु निःश्रेयसं योगर्द्धिप्रभवसम्पदा युगपदुपभोगेनोपात्तकर्माशयस्य क्षयात् सर्वदुःखोपरम इत्युपपन्नं निःश्रेयसद्वैविध्यमिति भावः ॥</div><div class="seg-ja"><p>「その者にとっては、解き放たれない間だけ〔の遅れ〕がある。そのとき〔真実と〕一つになる」〔と天啓は言う〕。これも、まだ享受されていない、享受されつつある結果をもつ業が尽きるまでを限度とすることを示している。</p><p>そしてヨーガの神通力によって、熟す時が定まらない業や、長い時を経て結果を生む業も、ひとまとめにして、元素と感官を制していることによって同時に享受する。三昧の力は考えも及ばない、と述べた。また、考えも及ばないのだから享受なしに業の蓄積を尽くすであろう、と言うのも正しくない。見られることに従って何らかの仕方で成り立つときに、まったく見られないことを想定するのは適切でないからである。</p><p>それゆえ、真実の直証が生じた者には過失がないので、行動が止んだとき、未来の新得力が生じないこと、それが低い至福である。そしてそれは真実の直証の直後にある。そしてそのような聖仙が真実の知をもち、学問の作者であるので、学問はいかさま師のものではない。他方、高い至福とは、ヨーガの神通力から生じる豊かさによって同時に享受することで、すでに得た業の蓄積が尽きることによる、すべての苦の止滅である。というので、至福の二種類は成り立つ、という趣旨である。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>「享受されない業は尽きない」は伝承書（スムリティ）、「そしてその者の業は尽きる」は『ムンダカ・ウパニシャッド』、「その者にとっては〜」は『チャーンドーギヤ・ウパニシャッド』からの引用（GRETIL の注記による）。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-49-2">NVTP 全訳 1.49.2 ヨーガの神通力：多くの身体で一度に享受する →</a></div>
+</div></details>
+<details class="node" id="n2-2-4"><summary><span class="num">2.2.4</span><span class="ttl">執着せず嫌わずに享受する <span class="sk">saṃharṣa, āyāsa</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.62</span>तदेतद् दर्शयति — यत्तावदिति । तत्त्वसाक्षात्कारः तत्त्वज्ञानम् । संहर्षः सुखम् । आयासो दुःखम् । तत्रानागताभ्यां तावत् प्रवृत्त्यभावादनुत्पादादेवमुच्यते । विद्यमानकारणे अपि सुखदुःखेऽसक्तोऽद्विष्टश्च भुञ्जनो न सुखदुःखतया मनुते । न ह्यस्ति संभवो न तत्र तृप्यति तच्च तस्य सुखम्, न च तद् द्वेष्टि तच्च तस्य दुःखमिति ।</div><div class="seg-ja"><p>これを示す――「まず〜ものは」と。真実の知とは真実の直証である。「喜び」とは楽である。「苦労」とは苦である。そこで、未来の二つ（楽と苦）については、行動がないので生じないことによって、このように言われる。原因がある楽と苦も、執着せず嫌わずに享受する者は、楽・苦として考えない。<br>というのは、〔執着の〕生じる余地がない。それはその者にとって楽であっても、そこで満足することはなく、それはその者にとって苦であっても、それを嫌うことはない、ということである。</p></div></div>
+</div></details>
+<details class="node" id="n2-2-5"><summary><span class="num">2.2.5</span><span class="ttl">高い至福は順を追って生じる <span class="sk">krameṇa</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">स्यादेतत् भवत्वेतदपरं निःश्रेयसम् । प्रकृते तु किमायातमित्यत आह — अयं शास्त्रार्थः । अर्थशब्दो निमित्ते । अपरं निःश्रेयसं शास्त्रस्य निमित्तम् । अथ अपरनिःश्रेयसोत्पादसमय एव परनिःश्रेयसोत्पादोऽपि कस्मान्न भवतीत्याह — परं तु निःश्रेयसं तत्त्वज्ञानात् क्रमेण भवति । नो खलूत्पन्नतत्त्वसाक्षात्कारः समुच्छिन्नवासनाविपर्यासज्ञानस्तत्कार्यदोषतत्कार्यप्रवृत्तीनां निवृत्त्यै प्रयतते, कारणनिवृत्त्यैवायत्नलभ्यत्वात् कार्यनिवृत्तेः । न हि कफोद्भवज्वरप्रशमनाय कफनिवृत्तौ सत्यां यत्नान्तरमातिष्ठते, तत एव तत्सिद्धेः । परं तु निःश्रेयसं न तावद् भवति, यावदुपभोगादुपात्तकर्माशयप्रचयो न क्षीयते । तस्मात् तत्त्वसाक्षात्काराधानप्रयत्नात्परस्तदुपभोगप्रयत्न आस्थेयः । तथा च न तुल्यकाल उत्पादः परापरयोर्निःश्रेयसयोः । तदिदमुक्तम् — क्रमेणेति ॥</div><div class="seg-ja"><p>こう言うかもしれない――これは低い至福だとしよう。しかし当面の問題にとって何が帰結するのか、と。それで言う――「これが学問の目的である」と。「目的（アルタ）」という語は〔ここでは〕根拠という意味である。低い至福が学問の根拠である。</p><p>では、低い至福が生じるまさにその時に、高い至福もなぜ生じないのか。それで言う――「しかし高い至福は、真実の知から順を追って生じる」と。真実を直証し、潜在印象とともに誤った知を断ち切った者は、その結果である過失や、その結果である行動を止めるために努力することはない。原因が止むことによって、結果の止滅は努力なしに得られるからである。たとえば、粘液から生じた熱を鎮めるのに、粘液が止んだならば、さらに別の努力をすることはない。それだけで熱の鎮静が成り立つからである。</p><p>しかし高い至福は、すでに得た業の蓄積が享受によって尽きないうちは、生じない。それゆえ、真実の直証を得るための努力の後に、その〔業の〕享受のための努力をしなければならない。そういうわけで、高い至福と低い至福とが同時に生じるのではない。そこでこう言われた――「順を追って」と。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>原因（誤った知）が止めば結果（過失・行動）は自然に止む。しかし過去の業の蓄積は、享受によって尽きるのを待たなければならない。そのため、真実の直証（低い至福）と完全な解脱（高い至福）の間には時間の差がある。</p></div>
+</div></details>
+</div></details>
+<details class="node lv2" id="n2-3"><summary><span class="num">2.3</span><span class="ttl">スートラ1.1.2の趣旨 <span class="sk">NS 1.1.2</span></span></summary><div class="body">
+<div class="xref xref-nv"><span class="xref-h">ヴァールッティカ</span><a href="nv/nyayavarttika-1-taiyaku.html#u85">NV対訳 1 §14 第二スートラと二種類の至福（p.21 · NS 1.1.2）</a></div><div class="xref xref-nvtp"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-47">NVTP 全訳 1.47 第二スートラ：解脱の順序</a></div>
+<details class="node" id="n2-3-1"><summary><span class="num">2.3.1</span><span class="ttl">スートラの導入：断滅の順序を示す <span class="sk">kramapratipādana</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">तदेवमर्थगतिं परिशोध्य सूत्रमवतारयति — क्रमेति । यद्यप्यपरस्मिन्नपि निःश्रेयसे मिथ्याज्ञानदोषप्रवृत्तीनामपि समुच्छेदक्रमोऽस्ति, तथापि जन्मदुःखोच्छेदक्रमो नास्ति, पूर्वोपात्तस्य कर्माशयप्रचयस्य तादवस्थ्यात् । तस्मात् जन्मदुःखोच्छेदक्रमसमभिव्याहृतो मिथ्याज्ञानाद्युच्छेदक्रमः परस्यैव निःश्रेयसस्य शास्त्रप्रयोजनस्य । तत्प्रतिपादनमर्थः प्रयोजनं यस्य तत् तथोक्तम् । इदं चावान्तरप्रयोजनम् । प्रधानप्रयोजनमग्रे वक्ष्यति ॥</div><div class="seg-ja"><p>このように〔ヴァールッティカの〕意味の筋道を整えてから、スートラを導入する――「順序を〜」と。低い至福においても、誤った知・過失・行動の断滅の順序はあるけれども、誕生と苦の断滅の順序はない。以前に得た業の蓄積がそのまま残っているからである。それゆえ、誕生と苦の断滅の順序と並べて語られる、誤った知などの断滅の順序は、学問の目的である高い至福だけのものである。それを示すことを目的とするもの、それがそのように言われた〔このスートラ〕である。そしてこれは中間の目的である。主要な目的は先で述べるであろう。</p></div></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-50">NVTP 全訳 1.50 第二スートラの文の構造 →</a></div>
+</div></details>
+<details class="node" id="n2-3-2"><summary><span class="num">2.3.2</span><span class="ttl">スートラを二つに分けるべきか <span class="sk">yogavibhāga</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अत्र केचित् योगविभागमिच्छन्ति । कारणोच्छेदात् कार्योच्छेदोऽभिमतः । न चासौ दुःखादीनां मिथ्याज्ञानान्तानामप्रदर्शिते कार्यकारणभावे सिध्यति । तस्माद् <span class="pg">p.63</span>दुःखजन्मप्रवृत्तिदोषमिथ्याज्ञानानामित्येको योगः । अत्र किल समासादेतेषामितरेतरयोगः अवगम्यते । स च योग्यतया कार्यकारणभावः । कार्येण कारणं युक्तम्, कारणेन च कार्यमिति । अतः सिद्धे कार्यकारणभावे उत्तरोत्तरापाये तदनन्तराभावादपवर्ग इत्यनेन योगेन कारणोच्छेदक्रमेण कार्योच्छेदक्रमप्रतिपादनेनापवर्गः प्रतिपाद्यते । अत्र चोत्तरत्वं पाठापेक्षया कारणस्य । तदनन्तरत्वं च कार्यस्याव्यवहितादिपाठापेक्षया । मिथ्याज्ञाने कारणे तत्कार्याः दोषाः । एवं शेषेष्वपि योज्यम् । तमिमं सूत्रविभागममृष्यमाणो वार्त्तिककृद् आह — इदं सूत्रम् । एकवचनेन भेदं व्यावर्तयति । न हि समुच्छेदक्रमप्रतिपादनेनापवर्गपरतयैकवाक्यत्वे संभवति वाक्यभेदो न्याय्यः । एकनिवृत्त्या अन्यनिवृत्त्यैव कार्यकारणभाव आक्षिप्त इति नासौ सूत्रे दर्शनीयः । न ह्यर्थाक्षिप्तं सूत्रकारा दर्शयन्ति । तदिदं सूत्रग्रहणप्रयोजनम् । तथा हि — - स्वल्पाक्षरमसन्दिग्धं सारवद् विश्वतोमुखम् । अस्तोभमनवद्यं च सूत्रं सूत्रविदो विदुः ॥ इति । अस्तोभमनधिकम्, अर्थलभ्यप्रदर्शने त्वधिकं भवेदिति । तत्सूचनात् सूत्रं स्यात् ।</div><div class="seg-ja"><p>ここで、ある人々はスートラを分けること（ヨーガ・ヴィバーガ）を望む。〔その説はこうである。〕原因の断滅から結果の断滅がある、と認められている。そしてそれは、苦から誤った知に至るものの間の結果・原因の関係が示されていなければ成り立たない。それゆえ、「苦・誕生・行動・過失・誤った知の」というのが一つのスートラである。ここでは、複合語から、これらが互いに結びついていること（相互結合）が理解されるという。そしてそれは、適合性によって、結果・原因の関係である。結果には原因が結びつき、原因には結果が結びつく、と。それゆえ、結果・原因の関係が成立したうえで、「後のものが除かれるとき、その直前のものがなくなることから、解脱がある」というもう一つのスートラによって、原因の断滅の順序による結果の断滅の順序を示すことで、解脱が示される。そしてここで「後のもの」とは、読む順序に関して原因のことであり、「その直前のもの」とは、読む順序で間に何も挟まないことなどに関して結果のことである。誤った知が原因であれば、その結果が過失である。残りについても同様に当てはめるべきである。</p><p>このスートラの分割を認めずに、ヴァールッティカの作者は言う――「このスートラは」と。単数形によって分割を退けている。というのは、断滅の順序を示すことによって解脱を目的とする一つの文でありうるときに、文を分けるのは理にかなわない。一つが止むことによってだけ他が止む、ということによって結果・原因の関係は〔すでに〕含意されているので、それをスートラで示す必要はない。スートラの作者たちは、意味から含意されることを〔わざわざ〕示さないからである。これが「スートラ」という語を用いる目的である。すなわち――<br>　字数少なく、疑いなく、要を得て、あらゆる方面に向かい、<br>　無駄な語なく、非の打ちどころのないもの、それをスートラを知る者たちはスートラと知る。<br>と言われる。「無駄な語なく」とは過剰でないことである。意味から得られることを示すならば、過剰になってしまうであろう、ということである。それを示唆する（スーチャナ）ことからスートラなのであろう。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>反対者は、スートラ1.1.2を「苦・誕生・行動・過失・誤った知の」（結果と原因の関係を示す部分）と、「後のものが除かれるとき〜解脱がある」（断滅の順序を示す部分）の二つに分けようとする。ヴァーチャスパティは、因果関係は断滅の順序からおのずとわかるので、スートラは一つの文として読むべきだとする。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-51-1">NVTP 全訳 1.51.1「無駄な語がない」スートラ；類似の知覚 →</a></div>
+</div></details>
+</div></details>
+<details class="node lv2" id="n2-4"><summary><span class="num">2.4</span><span class="ttl">誤った知とは何か <span class="sk">mithyājñāna</span></span></summary><div class="body">
+<details class="node" id="n2-4-1"><summary><span class="num">2.4.1</span><span class="ttl">スートラの趣旨と語の解説 <span class="sk">etatsaṃbandhena, padārthas tu</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">तथा ह्याहुः, लघूनि सूचितार्थानि स्वल्पाक्षरपदानि च । सर्वतः सारभूतानि सूत्राण्याहुर्मनीषिणः ॥ इति । इतरेतरयोगेनापि कार्यकारणभावः सूचनीय एव । स वरमेकनिवृत्त्यान्यनिवृत्त्यैव सूच्यतामेकवाक्यतानुरोधायेति । परमतात्पर्यमस्याह — एतत्संबन्धेनैवेति । शास्त्रस्य निःश्रेयसाधिगमलक्षणेन प्रयोजनेन यः संबन्धः पूर्वमाक्षिप्तः, तत्समाधानेनार्थेनार्थवदेतत् सूत्रम् । संबन्धपदेन विषयवाचिना विषयिसमाधानं लक्षयति । तदेवं सूत्रतात्पर्यं व्याख्यायावयवव्याख्यानमवतारयति — पदार्थस्त्विति । <span class="pg">p.64</span>यद्यपि सामभेदादौ हलशकटादौ च मिथ्याज्ञानमनेकप्रकारं संभवति, तथापि न तत् संसारहेतुर् अपि त्वात्मादिद्वादशविधप्रमेयविशेषविषयमिति सूत्रस्थं मिथ्याज्ञानं विशिनष्टि — तत्रेति । तदेतेन आत्माद्यपवर्गपर्यन्त इत्यादि भाष्यमवतारितम् । तदेतदाक्षिपति — को वृत्त्यर्थ इति । न खलु यथा कुण्डे बदरं पटे वा शौक्ल्यं, एवं प्रमेये मिथ्याज्ञानं वर्तते, तस्य ज्ञातृसमवेतत्वादित्यर्थः । उत्तरम् — विषयार्थः । यावदुक्तं भवति प्रमेयविषयं मिथ्याज्ञानमिति, तावदुक्तं भवति प्रमेये वर्तत इति । विषयत्वं चाग्रे निवेदयिष्यते । अनेकप्रकारमित्युक्तम् । तदाह — तत्रायं भेदः । तत्रात्मनि तावत् प्रधाने प्रमेये नास्तीति कथं पुनरेतन्मिथ्याज्ञानमित्यत आह — आत्मा तावदिति । अत्र शङ्कते — तस्यानुपपत्तिः । कुतः? सदसतोः सारूप्याभावादिति । सर्वत्र हि रजतोदकादिविभ्रमेषु शुक्तिरजतयोर्वा मरुमरीचिसलिलयोर्वा सारूप्यमेव निमित्तं प्रतीमः । न हि जातु रूपं रसादिषु हस्तिनं वा मशकादिष्वारोपयन्ति । असदृशेऽपि श्वेते पीतभ्रमः, मधुरे च तिक्तभ्रमः, पीतः शङ्खस्तिक्तो गुड इति च दृश्यत इति चेत् — न, तत्रापि सारूप्यसंभवात् । तथा हि बहिर्निर्गच्छदत्यच्छनयनरश्मिसंपृक्तपित्तगतं पीतिमानमाश्रयरहितम्, शङ्खं च दोषाच्छादितसितिमानमनुभवन् पीतगुणस्य च तदसंबन्धमननुभवंस्तदसंबन्धाग्रहेण पीतचिरबिल्वादिसामानाधिकरण्येन सारूप्यात् शङ्खः पीत इति विपर्यस्यति । एवं त्वगिन्द्रियोपनीतं गुडद्रव्यमनुभूयमानमाधुर्यमनुभवन् रसनाग्रवर्तिनश्च पित्तस्य स्वभावजाततिक्तस्य तिक्तत्वमनुभवन् तदाश्रयं च पित्तमननुभवन् संबन्धाग्रहसारूप्यात् तिक्तनिम्बसामानाधिकरण्येन तिक्तो गुड इति विपर्यस्यति । अतिशीघ्रतया चैष क्रमो न लक्ष्यते ।</div><div class="seg-ja"><p>すなわち〔人々は〕言う――<br>　短く、意味を示唆し、字数と語の少ないもの、<br>　あらゆる点で精髄であるもの、それを賢者たちはスートラと言う。<br>と。相互結合によっても、結果・原因の関係は示唆されるべきものでしかない。それならば、一つの文であることに従うために、「一つが止むことによってだけ他が止む」ということによって示唆されるほうがよい、というのである。</p><p>このスートラの究極の趣旨を述べる――「これとの関係によってのみ」と。学問が、至福の獲得という目的との間にもつ関係が、先に疑問視された。その解決という意味によって、このスートラは意味をもつ。対象を表す「関係」という語によって、その対象をもつもの〔すなわち関係についての疑問〕の解決を表している。</p><p>このようにスートラの趣旨を解説して、語ごとの解説を導入する――「しかし語の意味は」と。宝石の区別などや、鋤・車などについても、誤った知は多くの種類がありうる。けれども、それは輪廻の原因ではなく、むしろアートマンなど十二種の特定の認識対象を対象とするもの〔が輪廻の原因〕である。というので、スートラにある誤った知を限定する――「そこで」と。これによって「アートマンから解脱までについて」などという注釈（バーシャ）が導入された。</p><p>これを問題にする――「〔「について」という〕処格の意味は何か」と。たとえば鉢にナツメが、布に白さがあるように、認識対象に誤った知があるのではない。それ（誤った知）は知る者に内属するからである、という意味である。答え――「対象という意味である」。認識対象を対象とする誤った知と言えば、認識対象にある〔誤った知〕と言ったことになる。そして対象であることは、先で説明するであろう。</p><p>「多くの種類」と言われた。それを述べる――「そこでこの区別は」と。そこでまず主要な認識対象であるアートマンについて、「ない」という〔誤った知〕があるとして、どうしてこれが誤った知なのか。それで言う――「まずアートマンは」と。</p><p>ここで疑問を向ける――「それは成り立たない」と。なぜか。存在するものと存在しないものとの間には類似がないから、と。というのは、銀や水などのあらゆる錯誤において、真珠貝と銀の類似、あるいは蜃気楼の光線と水の類似こそが原因である、とわれわれは理解している。決して人は、色を味などに、象を蚊などに重ね合わせることはない。</p><p>似ていない白いものに黄色という錯誤があり、甘いものに苦いという錯誤がある――「ほら貝が黄色い」「黒糖が苦い」というように見られる、と言うならば、そうではない。そこでも類似がありうるからである。すなわち、〔人は〕外へ出ていくきわめて澄んだ眼の光線に混じった胆汁にある黄色さを、拠り所のないものとして経験し、また〔眼の〕過失によって白さが覆われたほら貝を経験しつつ、黄色という性質がそれ（ほら貝）と結びついていないことは経験しない。その非結合を把握しないので、黄色いチラビルヴァの実などと同じ基体にあることによって、類似から「ほら貝が黄色い」と誤るのである。同様に、触覚によってもたらされた黒糖という実体を経験し、その甘さを経験しつつ、舌先にある胆汁の、本性として生じた苦さを経験し、しかもその拠り所である胆汁は経験しない。それで、結合を把握しないことと類似とから、苦いニンバ（ニーム）と同じ基体にあることによって、「黒糖が苦い」と誤るのである。そして、きわめて速いので、この順序は気づかれない。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>1522行と1527行の本文（「iti / astobham…」から「…kramo na lakṣyate」まで）は GRETIL の電子テキストに欠けているため、刊本（p.63–64）から補った。</p></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>黄疸などで胆汁が眼の光線に混じると、胆汁の黄色だけが見え、それがほら貝に属していないことが把握されない。そのため「黄色いもの」との類似によって「ほら貝が黄色い」と誤る。黒糖が苦く感じられる場合も同じ仕組みで説明される。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-51">NVTP 全訳 1.51 錯誤の構造：類似とは何か →</a></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-51-2">NVTP 全訳 1.51.2 ほら貝が黄色く見える錯誤の分析 →</a></div>
+</div></details>
+<details class="node" id="n2-4-2"><summary><span class="num">2.4.2</span><span class="ttl">錯誤があれば必ず類似がある <span class="sk">yatra bhramas tatra sārūpyam</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">न च ब्रूमो यत्र सारूप्यं तत्र भ्रम इति, येनातिप्रसक्तिश्चोद्येत, अपि तु यत्र भ्रमस्तत्रावश्यं कथञ्चित् सारूप्यमिति । एवं द्विचन्द्रदिङ्मोहालातचक्रादिष्वपि किञ्चित् कथञ्चित् सारूप्यमूहनीयम् । न च <span class="pg">p.65</span>सदसतोरत्यन्तविलक्षणयोः सारूप्यमस्ति । तत् कथमात्मनि नास्तितारोप इत्याक्षेपः ॥</div><div class="seg-ja"><p>またわれわれは、類似があるところに錯誤がある、と言うのではない。そう言うなら、過大適用が非難されるであろう。そうではなく、錯誤があるところには必ず何らかの仕方で何らかの類似がある、と言うのである。同様に、二つの月、方角の取り違え、火の輪などにおいても、何らかの類似を何らかの仕方で推し量るべきである。しかし、存在するものと存在しないものという、まったく相異なる二つのものの間には類似はない。それならば、どうしてアートマンに非存在を重ね合わせることがあろうか――というのが疑問である。</p></div></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-51-3">NVTP 全訳 1.51.3 錯誤の種類ごとの類似 →</a></div>
+</div></details>
+<details class="node" id="n2-4-3"><summary><span class="num">2.4.3</span><span class="ttl">答え：性質を重ね合わせる <span class="sk">kriyāguṇa</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">समाधत्ते — न, प्रमाणगम्यतोपपत्तेः । आक्षेपं विभजते — न हि सदसती इति । समाधानं विभजते — तच्च नैवमिति । यदि सदसतोः समानत्वं नास्ति, तर्हि भेदः । तथा च कस्य कुत्रारोप इत्यत आह — क्रियागुणेति । सोऽयमसद्धर्मान् क्रियागुणरहितत्वादीन् सत्यात्मनि समारोप्य असत्तया विपर्यस्यति — नास्त्यात्मेति, न त्वात्मानं सर्वतोऽभ्यर्हिततमं यं पश्यन् तत्रासौ स्निह्यति, स्नेहाच्च तदुपकाराय घटते । एवं तत्परिपन्थिनं द्वेष्टि । द्वेषाच्च तदपकाराय घटते । ततश्च कर्माशयम् आचिनोति । ततो जन्म । ततश्च दुःखमिति ।</div><div class="seg-ja"><p>解決する――「そうではない。認識手段によって知られるものとして成り立つからである」と。疑問を区分する――「というのは、存在と非存在は〜ない」と。解決を区分する――「そしてそれはそうではない」と。もし存在するものと存在しないものとに共通性がないならば、両者は別である。そうであれば、何が何に重ね合わされるのか。それで言う――「動作・性質〔をもたないこと〕」と。</p><p>この人は、動作や性質をもたないことなど、存在しないものの性質を、存在するアートマンに重ね合わせて、「アートマンはない」と非存在として誤るのである。しかし〔この人は〕アートマンを、あらゆるものの中で最も尊いもの――それを見るならば、人はそれを愛し、愛からそれを益するために努めるようなもの――として〔見ることは〕ない。同様に〔人は〕その〔アートマンの〕敵を嫌い、嫌うことからそれを害するために努める。そしてそこから業の蓄積を積み、そこから誕生があり、そこから苦がある。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>アートマンを最も尊いものと見れば、それへの愛着が生じ、愛着と嫌悪から行動・業・誕生・苦が続く。次の段落では、仏教徒がこの点をとらえて「それならアートマンを正しく知らないほうがよい」と反論する。</p></div>
+</div></details>
+<details class="node" id="n2-4-4"><summary><span class="num">2.4.4</span><span class="ttl">仏教徒の反論：アートマンを知らないほうがよい <span class="sk">nairātmya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">एवमात्मनस्तादृशस्य मा भूत् तत्त्वज्ञानम् । अस्तु नास्तितासमारोप एव तावद् यतो न प्रवर्तते । यथाहुः, सुखी भवेयं दुःखी वा मा भूवमिति तृष्यतः । यैवाहमितिधीः सैव सहजं सत्त्वदर्शनम् ॥ अत्रोच्यते । यद्यपि रागादिनिवृत्तिहेतुर्नैरात्म्यदर्शनम्, तथापि नास्ति कर्म, नास्ति कर्मफलमिति दृष्टेः परमं निदानम् । एवं प्रेत्यभावाभावज्ञानस्य च । तथा च दुःखहेतोर्हेयवर्गस्याभावात् तद्धानायानेन घटितव्यम् । न चाघटमानो हेयं हातुमर्हति । सोऽयं वृश्चिकभिया पलायमान आशीविषमुखे निपतितः । सेयमास्तिक्यायात्मास्तितोपासनीया । अभ्यर्हितता चात्मनोऽत्यन्तदुःखनिवृत्तावुपपद्यते । अयमेव चास्योपकारो यदात्यन्तिकदुःखशमनम्, सुखाधाने त्वस्य तदनुषङ्गिदुःखाधानादपकारप्रसङ्गात् । न हि जातु कश्चिच्चेतनः सुखमाप्स्यामीति मधुविषसम्पृक्तमन्नमुपभुङ्क्ते । तस्मान्नैरात्म्यदृष्टिः प्रयत्नेनोच्छेत्तव्या प्रेक्षावतेति सिद्धम् ॥</div><div class="seg-ja"><p>〔反論〕そうであれば、そのようなアートマンについての真実の知はないほうがよい。むしろ非存在の重ね合わせこそあればよい。それによって〔人は〕行動しないのだから。〔仏教徒たちが〕言うように――<br>　「私は楽になりたい、苦にはなりたくない」と渇望する者にとって、<br>　「私」という観念こそが、生まれつきの実体視である。<br>と。</p><p>これに対して言う。無我の見方は、貪りなどが止む原因であるとしても、それでも「業はない、業の果報はない」という見方の究極の根源である。死後に生まれることはないという知についても同様である。そうすると、苦の原因である捨てるべきものの部類が〔その者にとっては〕ないのだから、それを捨てるために、どうしてこの者が努めることがあろうか。そして努めない者は、捨てるべきものを捨てることはできない。この者は、サソリを恐れて逃げて、毒蛇の口に落ちたのである。それゆえ、〔業と来世が〕あると認める立場（アースティキヤ）のために、アートマンがあることを尊重して保たなければならない。</p><p>そして、アートマンが尊いということは、苦が究極的に止むことにおいて成り立つ。そしてこれこそが、アートマンへの益、すなわち苦の究極的な鎮静である。アートマンに楽をもたらすことは、それに付きまとう苦をもたらすので、かえって害になってしまうからである。意識ある者が「楽を得よう」として、蜜と毒の混じった食物を食べることは決してない。それゆえ、思慮ある者は無我の見方を努めて断つべきである、ということが確立した。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>引用の詩はダルマキールティ『プラマーナ・ヴァールッティカ』からのもの。「私」という観念があるかぎり渇望が生じるので、無我を見ることが解脱の道だ、という仏教側の主張。ヴァーチャスパティは、無我の見方は業と来世の否定につながり、かえって苦の原因を捨てる努力をなくしてしまう、と批判する。</p></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>1551行の本文（「atrocyate」から「…upāsanīyā」まで）は GRETIL に欠けているため、刊本（p.65）から補った。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-52-1">NVTP 全訳 1.52.1 ダルマキールティの説とヴェーダーンタの反論 →</a></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-52-2">NVTP 全訳 1.52.2 ニヤーヤの批判：無我の見方は貪りを止めない →</a></div>
+</div></details>
+<details class="node" id="n2-4-5"><summary><span class="num">2.4.5</span><span class="ttl">身体などを「私」とみなす誤り <span class="sk">ahaṅkāra</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अपरमपि संसारहेतुं मिथ्यादर्शनमाह — एवमनात्मनीति । पृच्छति — किं पुनरिति । उत्तरम् — अहङ्कारेति । विशेषमाह — इच्छादीति । पुनः पृच्छति — कथं <span class="pg">p.66</span>पुनरिति । उत्तरम् — शरीरेति । उपसंहरति — एवमिति । सामान्यधर्मोऽहङ्कारास्पदत्वम् । विशेषधर्म इच्छाद्याधारता । तां खल्वयं शरीरादिष्वारोप्य एत एवाहमिति शरीरादिष्वात्मभावमारोपयति ॥</div><div class="seg-ja"><p>輪廻の原因である別の誤った見方も述べる――「同様に、アートマンでないものについて」と。問う――「では何が」と。答え――「自我意識」と。特別な点を述べる――「欲求など」と。さらに問う――「どのように」と。答え――「身体」と。まとめる――「このように」と。</p><p>共通の性質とは、「私」という意識の拠り所であることである。特別な性質とは、欲求などの基体であることである。この者は、それ（欲求などの基体であること）を身体などに重ね合わせて、「これらこそが私だ」と、身体などにアートマンであることを重ね合わせるのである。</p></div></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-52-4">NVTP 全訳 1.52.4 身体に行為者であることを重ね合わせる →</a></div>
+</div></details>
+</div></details>
+<details class="node lv2" id="n2-5"><summary><span class="num">2.5</span><span class="ttl">錯誤とは何か <span class="sk">khyāti</span></span></summary><div class="body">
+<details class="node" id="n2-5-1"><summary><span class="num">2.5.1</span><span class="ttl">錯誤についての五つの説 <span class="sk">vipratipatti</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">एवं सिद्धं कृत्वा विपर्ययं सर्वमुक्तम् । संप्रति सन्दिहानो विपर्ययस्वरूपं पृच्छति — कः पुनरयं विपर्ययः? परीक्षकाणां विप्रतिपत्तेः संशयः । केचित् स्वाकारबाह्यत्वविषयं ज्ञानं विपर्यय इत्याचक्षते । अन्येऽसद्विषयं ज्ञानम् । अन्ये त्वनिर्वचनीयमेव ज्ञानम् । अपरे त्वग्रहणमेव । अन्यथाख्यातिं तु वृद्धाः । उत्तरम् — अतस्मिंस्तदिति प्रत्ययः ॥</div><div class="seg-ja"><p>このように〔アートマンなどについての誤りを〕確立されたものとして、誤り全般を述べた。今、疑いをもって誤りの本質を問う――「では、この誤りとは何か」と。吟味する者たちの見解が分かれているので、疑いがある。</p><p>ある人々は、自分の形を外にあるものとして対象とする知が誤りだと言う。他の人々は、存在しないものを対象とする知〔が誤り〕だと言う。また他の人々は、説明不可能な〔ものを対象とする〕知〔が誤り〕だと言う。さらに他の人々は、把握しないことこそ〔が誤り〕だと言う。しかし長老たちは、別様に現れること（他様顕現）〔が誤り〕だと言う。答え――「それでないものに対する、それだという認識である」と。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>五つの説は、順に、自己顕現説（仏教の唯識派）、非存在顕現説（仏教の中観派）、説明不可能なものの顕現説（ヴェーダーンタ）、無顕現説（ミーマーンサー学派のプラバーカラ派）、他様顕現説（ニヤーヤ）にあたる。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-53">NVTP 全訳 1.53 錯誤論：他様顕現説の擁護 →</a></div>
+</div></details>
+<details class="node" id="n2-5-2"><summary><span class="num">2.5.2</span><span class="ttl">自己顕現説の批判 <span class="sk">ātmakhyāti</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">इदमत्राकूतम् — न तावत् स्वाकारं रजतादि बाह्यतया आलम्बन्ते विभ्रमाः । तथा हि ज्ञानाकारत्वं रजतादेरनुभवाद् व्यवस्थाप्येत, अनुमानाद् वा? अनुभवोऽपि रजतप्रत्ययो वा स्याद्, बाधकप्रत्ययो वा? न तावद् रजतप्रत्ययः । स हीदमनहङ्कारास्पदं रजतमादर्शयति, न त्वान्तरम् । अहमिति हि तदा स्यात्, प्रतिपत्तुः प्रत्ययादव्यतिरेकात् । भ्रान्तं हि ज्ञानं स्वाकारमेव बाह्यतया आलम्बते । तथा चानहङ्कारास्पदमस्य विषयो ज्ञानाकारोऽपि, ज्ञानाकारता पुनरस्य बाधकज्ञानप्रवेदनीयेति चेत्? हन्त चक्षुषी निमील्य वैतालिकपक्षपातं परित्यज्यालोचयत्वायुष्मान् किं पुरोवर्तिद्रव्याकारतामात्रं प्रतिषेधति रजतस्य, आहोस्वित् ज्ञानाकारतामप्यस्यादर्शयति बाधकप्रत्ययः? तत्र ज्ञानाकारतोपदर्शनव्यापारं बाधकप्रत्ययस्य ब्रूवाणः श्लाघनीयप्रज्ञो देवानांप्रियः । पुरोवर्तित्वनिषेधादर्थात् ज्ञानाकारतासिद्धिरिति चेत्? तन्निषेधो वणिग्वीथ्यादावुपलब्धस्य रजतस्य व्यवस्थापने हेतुः । आन्तरत्वं त्वस्यानुपलब्धचरं कुतस्त्यम्? न चानुमानमत्र प्रभवतीति चतुर्थे निवेदयिष्यते ॥</div><div class="seg-ja"><p>ここでの趣旨はこうである。まず、錯誤は、銀などという自分の形を外にあるものとして対象とするのではない。というのは、銀などが知の形であることは、経験によって確定されるのか、推論によってか。経験だとしても、銀の認識によってか、否定する認識によってか。まず銀の認識ではない。それは銀を「これ」という、「私」の拠り所でないものとして示すのであって、内的なものとしてではない。〔内的なものなら〕そのときは「私」と〔現れる〕であろう。認識する者は認識と別ではないからである。</p><p>〔反論〕錯誤した知は、自分の形をこそ外にあるものとして対象とする。そうであれば、その対象は、知の形であっても「私」の拠り所ではない。しかしそれが知の形であることは、否定する知によって知られるべきである、と言うなら――さあ、目を閉じて、ヴァイターリカたちへの肩入れを捨てて、君よ、考えてみたまえ。否定する認識は、銀が目の前の実体の形であることだけを否定するのか、それとも、それが知の形であることをも示すのか。そこで、否定する認識に知の形を示すはたらきがあると語る者は、賞賛すべき知恵をもったおめでたい人である。</p><p>目の前にあることが否定されるので、結果として知の形であることが成り立つ、と言うなら――その否定は、商人の通りなどで知覚された銀を〔そこにあるものと〕確定する理由になるだけである。しかし、一度も知覚されたことのない、銀が内的であることは、どこから来るのか。また推論もここでは力をもたないことは、第四〔章〕で述べるであろう。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>「ヴァイターリカ」は唯識派の仏教徒を揶揄した呼び名と考えられる。「おめでたい人」と訳した語（デーヴァーナーンプリヤ）は、皮肉をこめて愚か者を指す。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-53-1">NVTP 全訳 1.53.1 銀は知の内的な形ではない（自己顕現説批判） →</a></div>
+</div></details>
+<details class="node" id="n2-5-3"><summary><span class="num">2.5.3</span><span class="ttl">非存在顕現説と説明不可能なものの顕現説の批判 <span class="sk">asatkhyāti, anirvacanīyakhyāti</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.67</span>सन्तु तर्हि बाधकप्रत्ययानुरोधाद् असत्प्रकाशनशीला एव मिथ्याप्रत्ययाः । तथा हि बाधकं विज्ञानं नेदं रजतमिति रजतज्ञानगोचरस्यासत्त्वं गृह्णाति । न चासतो विषयभावो नोपपद्यते । न हि विषयत्वं नाम कारणत्वं येनासति न स्यात्, किं तु स्वकारणाधीनः सामर्थ्यातिशयः । स तादृशो ज्ञानस्य, येन सन्तमिवासन्तमपि गोचरयति । न च विषयसामर्थ्यमत्रोपयुज्यते, ज्ञानस्य सामर्थ्यादेव तद्भावसिद्धेः । अत एवासत्प्रकाशनसामर्थ्यमेव मिथ्याज्ञानानामविद्यात्वमनिर्वचनीयं केचिदास्थिषत । अत्रेदमालोचनीयम् — किमेतत् मिथ्याज्ञानमसत् सदात्मना गृह्णातीत्यसद्विषयमुपेयते? आहोस्वित् सदेव सदन्तरात्मना गृह्णाति सतश्च सदन्तरात्मत्वेन असत्त्वादसद्विषयमुच्यते? न तावत् पूर्वः कल्पः, रजतात्मना चेत् असदालम्बेत न सतीं शुक्तिकाम्, कथं पुनरसौ रजतार्थी शुक्तौ प्रवर्तते न पुना रजताभावे । कस्माच्चेदमिति पुरोवर्ति द्रव्यमङ्गुल्या निर्दिश्य तस्य रजतत्वं निषेधति नेदं रजतमिति, यदि तत्र न प्रसञ्जितं रजतत्वं पूर्वविज्ञानेन? अथ शुक्तिरेव रजतात्मना असतीति तदाकारतया तामालम्बमानं मिथ्याज्ञानमसदालम्बनमुच्यते? तत्रानुज्ञया वर्तामहे । न खल्वन्यथाख्यातिवादिनोऽपि सदन्तरं सदन्तरात्मना सदभ्युपगच्छन्ति । तथा सत्यन्यथेत्येव न स्यात् । यथाहुरन्यथाख्यातिवादिनः, तस्माद् यदन्यथा सन्तमन्यथा प्रतिपद्यते । तन्निरालम्बनं ज्ञानमभावालम्बनं च तत् ॥ इति । न च रजतात्मना पुरोवर्तिनो द्रव्यस्यानिर्वचनीयता, मिथ्याज्ञानसमये सत्त्वेन बाधकसमये चासत्त्वेन निर्वचनीयत्वात् । न चैवंभूतस्यासतः प्रथा नोपपद्यते, तस्य सदसद्भ्यामुपाख्येयत्वात् । यः पुनरद्वैतवादिनां प्रपञ्चो वैनाशिकानां वा सामान्यादि, नो बहिः, किं त्वलीकम्, तद्विषयं च ज्ञानं मिथ्याज्ञानमित्यपि न संभवति, तस्य <span class="pg">p.68</span>सर्वोपाख्यारहितस्य केनचित् सारूप्याभावात्, तत्कारणकत्वाच्च भ्रान्तेः, कारणाभावे कार्याभावस्य सुलभत्वात् । तस्मात् प्रपञ्चश्च सामान्यादि च वस्तुसती नासमीचीनविज्ञानगोचरौ । तद्बाधकं चोपरिष्टादपाकरिष्यते । तस्मान्नानिर्वचनीयख्यातिरपि ॥</div><div class="seg-ja"><p>〔反論〕それならば、否定する認識に従って、誤った認識は存在しないものを照らし出す性質のものだとしよう。すなわち、否定する知「これは銀ではない」は、銀の知の領域が存在しないことを把握する。そして存在しないものが対象であることは、成り立たないわけではない。というのは、対象であることとは原因であることではない。そうであれば存在しないものにはありえないであろうが。そうではなく、〔知が〕自らの原因によって得る特別な能力である。知には、存在するものと同じように存在しないものをも領域とするような、そういう能力がある。そしてここで対象の能力は必要ない。知の能力だけで、それ（対象であること）が成り立つからである。まさにそれゆえ、ある人々は、誤った知が存在しないものを照らし出す能力こそを、説明不可能な無明とみなした。</p><p>ここで考えるべきはこうである。この誤った知は、存在しないものを存在するものとして把握するので、存在しないものを対象とするとみなされるのか。それとも、存在するものを別の存在するものとして把握し、存在するものは別の存在するものとしてはないので、存在しないものを対象とすると言われるのか。まず前者の考えではない。もし〔誤った知が〕銀としての存在しないものを対象とし、存在する真珠貝を〔対象としない〕なら、どうしてこの銀を求める者は真珠貝に向かって行動し、銀がないところに向かって〔行動し〕ないのか。また、どうして目の前の実体を指で「これは」と指して、その銀であることを「これは銀ではない」と否定するのか――もし先の知によってそこに銀であることが結びつけられていないなら。</p><p>では、真珠貝こそが銀としては存在しないので、それ（銀）の形で真珠貝を対象とする誤った知が、存在しないものを対象とすると言われるのか。それならわれわれは同意する。他様顕現説の論者たちも、別の存在するものを別の存在するものとして存在すると認めるわけではない。そうであれば「別様に」ということがなくなってしまうからである。他様顕現説の論者たちが言うように――<br>　それゆえ、別様にあるものを別様に知るならば、<br>　その知は対象をもたず、非存在を対象とするものである。<br>と。</p><p>また、銀としての目の前の実体は、説明不可能なのではない。誤った知の時には存在するものとして、否定の時には存在しないものとして、説明できるからである。また、このような存在しないものが現れることが成り立たないわけでもない。それは存在・非存在によって語ることができるからである。しかし、不二論者たちの〔いう〕現象世界や、仏教徒たちの〔いう〕普遍などは、外にあるのではなく、まったくの虚偽である。そしてそれを対象とする知が誤った知である、ということも成り立たない。それはあらゆる言表を欠いているので、何ものとも類似をもたないからであり、錯誤は類似を原因とするからであり、原因がなければ結果がないことは容易にわかるからである。それゆえ、現象世界も普遍なども実在するものであって、正しくない知の領域ではない。それを否定する〔議論〕は、後で退けるであろう。それゆえ、説明不可能なものの顕現説も〔成り立た〕ない。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>引用の詩はクマーリラ『シュローカ・ヴァールッティカ』「無対象論」の章からのもの。</p></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>1600行の本文（「iti / na ca rajatātmanā」から「…kiṃ tvalīkam」まで）は GRETIL に欠けているため、刊本（p.67）から補った。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-53-2">NVTP 全訳 1.53.2 形のない知の説、プラバーカラ派 →</a></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-53-3">NVTP 全訳 1.53.3 説明不可能なものの顕現説（ヴェーダーンタ）の批判 →</a></div>
+</div></details>
+<details class="node" id="n2-5-4"><summary><span class="num">2.5.4</span><span class="ttl">前主張：すべての知は正しい（無顕現説） <span class="sk">akhyāti</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">स्यादेतत् । अन्यदन्यथा प्रकाशत इति संविद्विरुद्धम् । न तावत् सद्भावमात्रेणालम्बनत्वम् । तन्मात्रस्य सर्वप्रत्ययसाधारण्येन सर्वेऽर्थाः सर्वप्रत्ययविषया इति सर्वसर्वज्ञतापत्तिः । न च कारणत्वेनालम्बनत्वम्, रूपादिविज्ञानानां रूपादिवच्चक्षुराद्यपि कारणमिति चक्षुराद्यालम्बनत्वप्रसङ्गात् । अतीतानागतविषयत्वं च विज्ञानस्य न स्यात्, अतीतानागतयोरसत्त्वेनाकारणत्वात् । तस्मात् प्रतिभासमानमालम्बनम् । तथा च रजतप्रतिभासः शुक्तिकालम्बनमिति दुर्घटम् । अपि च चक्षुरादीनां समीचीनज्ञानोपजननसामर्थ्यमिति कथमेभ्यो मिथ्याज्ञानं भवितुमर्हति? न हि श्यामाकबीजं परिकर्मसहस्रेणापि कलमाङ्कुराय कल्पते । दोषसहाया लोचनादयो मिथ्याप्रत्ययमादधत इति चेत् — न दोषा हि कारणानां सामर्थ्यं निघ्नन्ति, न पुनः कार्यान्तरोपजननसामर्थ्यमादधति, न खलु भृष्टं कुटजबीजं न्यग्रोधधानायै कल्पते, किं तु न करोति कुटजधानाम् । अपि च स्वगोचरे व्यभिचारे विज्ञानानां सर्वत्रानाश्वासप्रसङ्गः । तस्मात् सर्वमेव विज्ञानं समीचीनमास्थेयम् । तथा हि रजतमिदमिति द्वे ज्ञाने स्मृत्यनुभवरूपे । तत्रेदमिति पुरोवर्तिद्रव्यमात्रग्रहणम्, दोषवशात् तद्गतस्य शुक्तिकात्वसामान्यविशेषस्याग्रहणात् । तावन्मात्रं च गृहीतं सदृशतया संस्कारोद्बोधक्रमेण रजते स्मृतिं जनयति । सा च गृहीतग्रहणस्वभावापि दोषवशात् गृहीततांशप्रमोषेण ग्रहणमात्रमवतिष्ठते । तथा च रजतस्मृतेः पुरोवर्तिमात्रग्रहणस्य च मिथः स्वरूपतश्च विषयतश्च भेदाग्रहणात् सन्निहितरजतविषयविज्ञानसारूप्येणेदं रजतमिति भिन्ने अपि ग्रहणस्मरणे अभेदव्यवहारं सामानाधिकरण्यव्यपदेशं च प्रवर्तयतः । क्वचित् पुनर्ग्रहणे एव मिथोऽगृहीतभेदे, <span class="pg">p.69</span>यथा पीतः शङ्ख इति । अत्र हि विनिर्यन्नयनरश्मिवर्तिनः पित्तद्रव्यस्य काचस्येवातिस्वच्छस्य पीतत्वं च गृह्यते । पित्तं तु न गृह्यते । शङ्खोऽपि दोषवशात् गुणरहितः स्वरूपमात्रेण गृह्यते । तदनयोर्गुणगुणिनोरसंसर्गाग्रहात् सारूप्यात् पीतचिरबिल्वफलप्रत्ययाविशेषेणाभेदव्यवहारः सामानाधिकरण्यव्यपदेशश्च, भेदाग्रहप्रसञ्जिताभेदव्यवहारबाधनाच्च नेदं रजतमिति विवेकप्रत्ययस्य बाधकत्वमप्युपपद्यते । तदुपपत्तौ च भ्रान्तत्वमपि लोकप्रसिद्धं सिद्धं भवति । तस्माद् यथार्थाः सर्वेऽपि भ्रमाः प्रत्ययत्वात् पटप्रत्ययवदिति प्राप्तम् ॥</div><div class="seg-ja"><p>〔反論〕こう言うかもしれない。あるものが別様に現れる、というのは経験と矛盾する。まず、単に存在することによって対象であるのではない。それだけなら、あらゆる認識に共通なので、すべての事物があらゆる認識の対象となり、すべての者が全知者となってしまう。また、原因であることによって対象であるのでもない。色などの知にとって、色などと同様に眼なども原因であるから、眼なども対象となってしまうからである。また、知が過去や未来を対象とすることもなくなるであろう。過去と未来は存在しないので原因ではないからである。それゆえ、現れるものが対象である。そうであれば、銀の現れが真珠貝を対象とする、というのは成り立ちがたい。</p><p>さらに、眼などには正しい知を生み出す能力がある。それならば、どうしてそれらから誤った知が生じえようか。シャーマーカ（雑穀）の種は、千回手入れをしても稲の芽にはならない。眼などは過失を伴って誤った認識をもたらす、と言うなら、そうではない。過失は原因の能力を損なうのであって、別の結果を生み出す能力をもたらすのではない。炒ったクタジャの種がニヤグローダ（ベンガルボダイジュ）の芽になることは決してない。ただクタジャの芽を生じないだけである。さらに、知が自分の領域について外れることがあるなら、あらゆる場合に〔知を〕信頼できなくなってしまう。</p><p>それゆえ、あらゆる知は正しいとみなすべきである。すなわち、「これは銀だ」には、想起と経験という二つの知がある。そのうち「これ」は、目の前の実体だけを把握することである。過失によって、そこにある真珠貝性という特殊な普遍が把握されないからである。そして、それだけが把握されると、類似によって潜在印象が呼び覚まされるという順序で、銀についての想起を生じる。そしてその想起は、〔以前に〕把握されたものを把握する本性をもつのに、過失によって「〔以前に〕把握された」という部分が失われるので、ただの把握としてとどまる。そうすると、銀の想起と、目の前のものだけの把握とが、本性の面でも対象の面でも互いの違いを把握されないので、近くにある銀を対象とする知と似ていることによって、「これは銀だ」と、別々の把握と想起でありながら、同一のものとしてのふるまいと、同じ基体にあるという言い表しを引き起こすのである。</p><p>また時には、二つの把握が互いに違いを把握されない場合もある。たとえば「ほら貝が黄色い」のように。ここでは、外に出ていく眼の光線にある、ガラスのようにきわめて澄んだ胆汁という実体の黄色さは把握されるが、胆汁は把握されない。ほら貝も、過失によって性質を欠いて、本体だけが把握される。そこで、この性質と性質をもつものとが結びついていないことが把握されないので、類似によって、黄色いチラビルヴァの実の認識と区別なく、同一のものとしてのふるまいと、同じ基体にあるという言い表しがある。そして、「これは銀ではない」という区別の認識は、違いを把握しないことによって引き起こされた同一としてのふるまいを退けるので、否定するものであることも成り立つ。そしてそれが成り立てば、世間で知られている「錯誤であること」も成り立つ。それゆえ、すべての錯誤も、認識であるから、布の認識と同様に、ありのままである――ということになる。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>プラバーカラ派の説では、「これは銀だ」は「これ」の知覚と「銀」の想起という二つの正しい知からなり、両者の違いが把握されないことが錯誤とよばれるにすぎない。誤った知そのものは存在しない、とする。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-53-2">NVTP 全訳 1.53.2 形のない知の説、プラバーカラ派 →</a></div>
+</div></details>
+<details class="node" id="n2-5-5"><summary><span class="num">2.5.5</span><span class="ttl">反論：銀を求める者はなぜ真珠貝に向かうのか <span class="sk">pravṛtti</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">एवं प्राप्तेऽभिधीयते — अस्ति तावद् रजतार्थिनो रजतमिति ज्ञाने सति पुरोवर्तिद्रव्यप्रवृत्तिः सामानाधिकरण्यव्यपदेशश्चेति सर्वजनीनम् । तत् किं ग्रहणस्मरणयोस्तद्गोचरयोश्च भेदाग्रहाद् भवतु, आहोस्विदभेदग्रहात्? न तावच्चेतनोऽज्ञानात् प्रवर्तते, अपि तु ज्ञानात् । पुरोवर्तिवस्तुग्रहणरजतज्ञानागृहीतभेदं स्वरूपतो विषयतो वा रजतार्थिनं पुरोवर्तिद्रव्ये प्रवर्तयतीति चेत्? हन्त भोः किमेतावता पुरोवर्तिवस्तुगोचरं ज्ञानं रजतगोचरं भवति, आहोस्वित् तन्मात्रगोचरमेव? यदि रजतगोचरं पुरोवर्तिरजततयागृह्णात्, कथं नान्यथाख्यातिः? अथ तन्मात्रगोचरम्, को भेदाग्रहस्योपयोगः? न हि वृक्षमात्रदर्शनं निश्चयेन शिंशपार्थिनं प्रवर्तयति, न हि तत्र शिंशपाज्ञानमस्ति । अस्ति त्विह रजतविज्ञानम्, अगृहीतभेदमिदमिति ज्ञानेनेति चेत्? ननु रजतविज्ञानं पुरोवर्तिनि द्रव्ये न वर्तते, पुरोवर्तिज्ञानं च न रजत इति तत्र पुरोवर्तिद्रव्यमात्रार्थी पुरोवर्तिनि प्रवर्तेत न रजतार्थी । एवं रजतार्थी यत्र क्वचन प्रवर्तेत न नियमेन पुरोवर्तिनि द्रव्ये । न हि तत्र तेन रजतत्वमवगतमिति । अथेदं रजतमिति द्वे ज्ञाने, भेदाग्रहादिदं रजतमित्येकज्ञानसदृशे, तेन तदुचितं व्यवहारं प्रवर्तयतः? यद्येवं तद्रजतम्, इयं शुक्तिरिति भेदावभासिविज्ञानव्यवहारमपि कस्मान्न प्रवर्तयतः? यथैव हि भेदाग्रहादभिन्नविज्ञानसादृश्यम्, एवमभेदाग्रहाद् भिन्नविज्ञानसादृश्यमपि । <span class="pg">p.70</span>सोऽयमुभयतो भेदाभेदग्रहसारूप्यात् प्रवृत्तिनिवृत्तिभ्यां युगपदाकृष्यमाणः प्रतिपत्ता कष्टां दशामावेशितः प्रज्ञाशालिभिरतिव्याख्यया ॥</div><div class="seg-ja"><p>このような〔前主張〕に対して言う。まず、銀を求める者に「銀だ」という知があるとき、目の前の実体に向かって行動し、同じ基体にあるという言い表しがある、ということは誰もが認める。では、それは、把握と想起、およびそれらの領域の違いを把握しないことからであるのか。それとも、同一であることを把握することからであるのか。まず、意識ある者は無知から行動するのではなく、知から行動する。</p><p>目の前のものの把握と銀の知とが、本性の面でも対象の面でも違いを把握されないまま、銀を求める者を目の前の実体に向かって行動させる、と言うなら――さあ、それによって、目の前のものを領域とする知が銀を領域とするものになるのか、それとも目の前のものだけを領域とするのか。もし銀を領域とし、目の前のものを銀として把握するのなら、どうして他様顕現でないのか。もし目の前のものだけを領域とするのなら、違いを把握しないことに何の役割があるのか。木だけを見ることは、シンシャパー樹を求める者を確実に行動させることはない。そこにシンシャパー樹の知はないからである。</p><p>〔反論〕しかしここには、「これ」という知と違いを把握されない銀の知がある、と言うなら――しかし、銀の知は目の前の実体に向かっていないし、目の前のものの知は銀に向かっていない。それなら、そこでは目の前の実体だけを求める者が目の前のものに向かって行動するのであって、銀を求める者ではない。こうして、銀を求める者はどこにでも行動するであろうが、決まって目の前の実体に向かうのではない。そこでは彼によって銀であることが知られていないからである。</p><p>では、「これ」と「銀だ」という二つの知が、違いを把握しないことによって「これは銀だ」という一つの知に似たものとなり、それによってそれにふさわしいふるまいを引き起こすのか。もしそうなら、「あれが銀で、これは真珠貝だ」という、違いを示す知のふるまいも、どうして引き起こさないのか。違いを把握しないことによって同一の知と似ているのとまったく同様に、同一性を把握しないことによって別々の知とも似ているのだから。こうしてこの認識者は、違いの把握と同一の把握の両方との類似によって、行動と停止とに同時に引っ張られ、知恵ある方々の行き過ぎた解説によって、ひどい状態に陥れられたのである。</p></div></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-53-4">NVTP 全訳 1.53.4 錯誤における行動の原因 →</a></div>
+</div></details>
+<details class="node" id="n2-5-6"><summary><span class="num">2.5.6</span><span class="ttl">結論：錯誤は目の前のものを別様に把握する <span class="sk">anyathākhyāti</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">स्यादेतत् । विपर्ययज्ञानोत्पादेऽपि शुक्तिरजतयोर्भेदाग्रहेऽस्य व्यापार आस्थेयः, अन्यथा गृहीतभेदानामपि विपर्ययोत्पादप्रसङ्गात् । तथा च शक्यं तत्रापि वक्तुम् — यथा भेदाग्रहाद् विपर्ययज्ञानोत्पाद एवमभेदाग्रहात् कस्मान्न समीचीनज्ञानोत्पाद इति । तत्र यस्तव परिहारः सोऽस्माकं व्यवहारव्यपदेशयोर्भविष्यतीति । यथाहुरख्यातिवादिनः — - येषामपि विपरीतख्यातिस्तेषामप्यज्ञानवासनानिबन्धनो भ्रम इति । मैवम्, ज्ञानहेतूनाम् अज्ञातरूपकार्यसंबन्धानां चक्षुरादीनां दर्शनात्, चेतनव्यवहाराणां त्वबुद्धिपूर्वकाणामप्रतीतेः बुद्धिपूर्वकत्वे तु विवेकाग्रह उपयुज्यते, न व्यवहारव्यपदेशयोरिति युक्तमुत्पश्यामः । यद्यविवेकग्रहोऽपि तत्परिपन्थी विद्यत इति कुतोऽन्यतरनिबन्धनो व्यवहारः? तस्मात् समारोप एव भेदाग्रह इति । तत् सिद्धम् एतद्विवादाध्यासितं रजतादिविज्ञानं पुरोवर्तिवस्तुविषयम्, रजतार्थिनस्तत्र नियमेन प्रवर्तकत्वात् । यद् यदर्थिनं नियमेन यत्र प्रवर्तयति तद्विज्ञानं तद्विषयम्, यथोभयसिद्धं समीचीनरजतविज्ञानम् । तथा चैतत्, तस्मात् तथा, यच्चोक्तम् — अनवभासमाना शुक्तिरनालम्बनमिति, तत्र किं शुक्तिकात्वस्य रजतमिति ज्ञानं प्रत्यनालम्बनत्वं साध्यते, आहोस्विद् द्रव्यमात्रस्य सितभास्वरस्य पुरोवर्तिनः? तत्र पूर्वस्मिन् कल्पे सिद्धसाधनम् । उत्तरस्मिन्ननवभासनमसिद्धम्, इदमिति पुरोवर्तिनो द्रव्यस्याङ्गुल्या निर्देशात् । दृष्टं च दुष्टानामपि कारणानामौत्सर्गिककार्यप्रतिबन्धेन कार्यान्तरोत्पादकत्वम् । तद् यथा, वेत्रबीजानां दावाग्निदग्धानां कदलीप्रकाण्डजनकत्वम्, भस्मकदुष्टस्य चौदर्यस्य तेजसो बहुतरान्नपानपाचकत्वम् । नेदं रजतमिति च प्रत्यक्षबाधकप्रत्ययादपहृतविषयम्, प्रत्ययत्वेन विभ्रमाणां <span class="pg">p.71</span>यथार्थत्वानुमानं नोदेतुमर्हति । यथा च प्रमाणाभासव्यभिचारेऽपि प्रमाणे आश्वासः, तथा प्रमाणतोऽर्थप्रतिपत्तौ इत्यत्रोपपादितम् । दिङ्मात्रमत्र दर्शितम् । प्रपञ्चस्तु तत्त्वसमीक्षायाम् अस्माभिः कृत इत्युपरम्यते ॥</div><div class="seg-ja"><p>〔反論〕こう言うかもしれない。〔あなたの説で〕誤った知が生じることにおいても、真珠貝と銀の違いを把握しないことにはたらきがあるとみなすべきである。そうでなければ、違いを把握した者たちにも誤りが生じてしまうからである。そうすると、そこでも言うことができる――違いを把握しないことから誤った知が生じるのとまったく同様に、同一性を把握しないことから、どうして正しい知が生じないのか、と。そこでのあなたの答えが、われわれにとって、ふるまいと言い表しについての〔答え〕となるであろう、と。無顕現説の論者たちが「誤った顕現を認める人々にとっても、錯誤は無知の潜在印象にもとづく」と言うように。</p><p>そうではない。知の原因である眼などは、その形や結果との関係が知られていなくても〔はたらく〕ことが見られるが、意識ある者のふるまいが知にもとづかないことは知られていない。〔ふるまいが〕知にもとづくのであれば、区別を把握しないことは〔知が生じることには〕役立つが、ふるまいと言い表しには役立たない――われわれはこれを正しいと見る。もし〔違いを把握しないことと並んで〕それと対立する非区別の把握もあるとするなら、どうしてふるまいが一方だけにもとづくのか。それゆえ、違いを把握しないこととは、重ね合わせにほかならない。</p><p>それゆえ、次のことが確立した。この論争の主題である銀などの知は、目の前のものを対象とする。銀を求める者を決まってそこに向かって行動させるからである。ある知が、何かを求める者を決まってどこかに向かって行動させるなら、その知はそれを対象とする。たとえば、両者が認める正しい銀の知のように。そしてこれもそうである。それゆえ、そうである。</p><p>また、「現れていない真珠貝は対象ではない」と言われたことについて。そこでは、真珠貝性が「銀だ」という知の対象でないことが証明されるのか、それとも白く輝く目の前の実体だけが〔対象でないことが証明されるのか〕。前者の考えでは、すでに成り立っていることの証明である。後者の考えでは、現れていないということが成り立たない。「これ」と、目の前の実体を指で指すからである。</p><p>また、損なわれた原因も、本来の結果を妨げられて、別の結果を生むことが見られる。たとえば、山火事で焼かれたヴェートラ（籐）の種がバナナの茎を生じたり、バスマカ病に損なわれた腹の火がより多くの飲食物を消化したりするように。また、〔錯誤は〕「これは銀ではない」という知覚による否定の認識によって対象を奪われているので、「認識であるから」という理由で錯誤がありのままであると推論することはできない。</p><p>また、似非の認識手段が外れることがあっても、認識手段をどうして信頼できるのかは、「認識手段によって対象を知るとき」という箇所で説明した。ここでは方向だけを示した。詳しくは、われわれが『タットヴァ・サミークシャー』で論じたので、ここでやめる。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>「バスマカ」は、消化の火が強くなりすぎて大量に食べてしまう病気。損なわれた原因がかえって別の結果を生む例として挙げられる。</p></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>「認識手段によって対象を知るとき」は『ニヤーヤ・バーシャ』冒頭の句で、その注釈箇所（本訳 第1章第1日課（1））を指す。『タットヴァ・サミークシャー』はヴァーチャスパティの著作（現存しない）。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-53-5">NVTP 全訳 1.53.5 不安、始まりのなさ、否定の本質 →</a></div>
+</div></details>
+</div></details>
+<details class="node lv2" id="n2-6"><summary><span class="num">2.6</span><span class="ttl">誤った知の断滅から解脱へ <span class="sk">apavarga</span></span></summary><div class="body">
+<details class="node" id="n2-6-1"><summary><span class="num">2.6.1</span><span class="ttl">残りの誤った知と、注釈者の順序 <span class="sk">śeṣam</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">तदेवमात्मनि मिथ्याज्ञानं व्याख्याय शरीरादिष्वेकादशसु मिथ्याज्ञानं भाष्य एव दर्शितम् । तत्तु स्पष्टत्वात् अस्माभिर्न व्युत्पादितमित्याशयवानाह — शेषमिति । तत्र शरीरादिषु मनःपर्यन्तेषु यथायोगं मिथ्याज्ञानं दुःखे सुखम् इत्यादिना अप्रतिहातव्यम् इत्यन्तेन भाष्येणोक्तम् । प्रवृत्त्यादिषु शृङ्गग्राहिकयोक्तं प्रवृत्तौ इत्यादिना रोचयेत् इत्यन्तेन भाष्येण । एवं मिथ्याज्ञानस्य स्वरूपं दर्शयित्वा मिथ्याज्ञानदोषप्रवृत्तिजन्मदुःखानां कार्यकारणभावो दोषादीनां स्वरूपं चोक्तम् एतस्मात् इत्यादिना ताप इत्यन्तेन भाष्येण । संप्रति मिथ्याज्ञानाद्युच्छेदादपवर्ग इति वक्ष्यति । तच्चायुक्तम्, सत्यपि तदुच्छेदे संसारतादवस्थ्यात् । न ह्यन्योच्छेदेऽन्यस्योच्छेदः । तथा च नापवर्ग इति वक्ष्यमाणमर्थमुपपादयितुमुक्तं भाष्यकृता, त इमे मिथ्याज्ञानादय इत्यादि । तद् वार्त्तिककारो व्याचष्टे — त इमे दुःखादय इति भाष्यकारोक्तक्रमाद् विपरीतक्रमाभिधानं वार्त्तिककृतः एवं सूत्रकारोक्तक्रमाद् विपरीतक्रमाभिधानं भाष्यकृतः । तद् दुःखादीनां मिथ्याज्ञानपूर्वकत्वेन मिथ्याज्ञानस्य दुःखादिपूर्वकत्वेनानादित्वं दर्शयितुम् ।</div><div class="seg-ja"><p>このように、アートマンについての誤った知を解説した。身体など〔残りの〕十一についての誤った知は、注釈（バーシャ）の中ですでに示されている。しかしそれは明らかなので、われわれは詳しく説明しなかった――という意図をもって言う――「残りは」と。そこで、身体から意までについての誤った知は、それぞれに応じて、「苦を楽と」から「捨て去るべきでない」までの注釈文で述べられた。行動などについては、一つ一つ取り上げて、「行動については」から「好むべきである」までの注釈文で〔述べられた〕。このように誤った知の本質を示したうえで、誤った知・過失・行動・誕生・苦の結果・原因の関係と、過失などの本質とが、「これから」から「苦悩」までの注釈文で述べられた。</p><p>今、〔注釈者は〕「誤った知などの断滅から解脱がある」と述べるであろう。しかしそれは正しくない〔という疑問がある〕。それらが断たれても、輪廻はそのまま残るからである。一つのものが断たれても、別のものが断たれるわけではない。そうであれば解脱はない――〔この疑問に対して〕これから述べる意味を確立するために、注釈者は「これら誤った知などは」などと言った。それをヴァールッティカの作者は「これら苦などは」と解説する。注釈者の述べた順序と逆の順序でヴァールッティカの作者が述べ、同様に、スートラの作者の述べた順序と逆の順序で注釈者が述べたのは、苦などは誤った知を先とし、誤った知は苦などを先とするので、〔この連鎖には〕始まりがないことを示すためである。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>スートラは「苦・誕生・行動・過失・誤った知」の順、注釈は「誤った知・過失…」の順、ヴァールッティカは再び「苦…」の順に挙げる。順序を入れ替えることで、どちらからでもたどれる循環、すなわち始まりのなさを示す、という解釈。</p></div>
+</div></details>
+<details class="node" id="n2-6-2"><summary><span class="num">2.6.2</span><span class="ttl">輪廻とは因果関係の連続である <span class="sk">saṃsāra</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">पृच्छति — कः पुनरिति । यद्येत एव संसारस्तर्हि सूत्रकारः प्रमेयसूत्रे कस्माद् दुःखादिभ्यः पृथक् प्रेत्यभावं संसारापरनामानमुपादत्ते? तस्मादेभ्योऽन्य एव संसार इति भावः । उत्तरम् — दुःखादीनामिति । नैषां स्वरूपमपि तु कार्यकारणभाव इत्यर्थः । क्रमव्यतिक्रमतात्पर्यमाह — स चानादिरिति । अत्र हेतुमाह — पूर्वापरेति । दुःखजन्मप्रवृत्तिदोषाः विषयत्वेन तावन्मिथ्याज्ञानस्य कारणम् । एवमसति जन्मनि मिथ्याज्ञानस्यानुत्पत्तेरविषयोऽपि जन्म मिथ्याज्ञानस्य कारणम् । एवं विना प्रवृत्तिं जन्माभावात् जन्मद्वारेण प्रवृत्तेरपि मिथ्याज्ञानकारणत्वम् । प्रवृत्तिद्वारेण च दोषाणाम्, तथा मिथ्याज्ञानाद् दोषाः, दोषेभ्यः प्रवृत्तिः, प्रवृत्तेर्जन्म, जन्मनो <span class="pg">p.72</span>दुःखम् । यद्यपि प्रवृत्तिरेव साक्षाद्दुःखहेतुः, तथाप्यनायतनस्य तस्यानुत्पत्तेरन्तरा जन्म करोति । अथ सैव दुःखमिति? अनादित्वाच्च नान्योन्याश्रयं चक्रकं वा बीजाङ्कुरसन्तानयोरिवेति ।</div><div class="seg-ja"><p>問う――「では何が」と。もしこれらこそが輪廻であるなら、スートラの作者は認識対象のスートラで、どうして苦などとは別に、輪廻の別名である「死後の生存」を取り上げたのか。それゆえ、輪廻はこれらとは別のものである、という趣旨である。答え――「苦などの」と。それらの本体ではなく、それらの結果・原因の関係が〔輪廻である〕、という意味である。</p><p>順序を入れ替えた趣旨を述べる――「そしてそれは始まりがない」と。ここで理由を述べる――「前と後」と。苦・誕生・行動・過失は、まず〔誤った知の〕対象であることによって、誤った知の原因である。同様に、誕生がなければ誤った知は生じないので、〔誤った知の〕対象ではないとしても、誕生は誤った知の原因である。同様に、行動なしには誕生がないので、誕生を介して行動も誤った知の原因である。また行動を介して過失も〔原因である〕。同様に、誤った知から過失が、過失から行動が、行動から誕生が、誕生から苦が〔生じる〕。行動こそが直接に苦の原因であるけれども、拠り所（身体）のない行動は生じないので、間に誕生をおくのである。あるいは、行動そのものが苦であるのか〔といえば、そうではない〕。そして始まりがないので、種子と芽の連続のように、相互依存や循環〔の過失〕はない。</p></div></div>
+</div></details>
+<details class="node" id="n2-6-3"><summary><span class="num">2.6.3</span><span class="ttl">真実の知はどのように誤った知を除くか <span class="sk">apāya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">संप्रति बीजापाय इव तज्जन्याङ्कुरप्रवाहनिवृत्तिः मिथ्याज्ञानापाये तज्जन्यदोषप्रवृत्तिजन्मदुःखमिथ्याज्ञानादिप्रवाहनिवृत्तिः, कारणनिवृत्तौ कार्यनिवृत्तेरिति कथनपरं भाष्यम् अनुभाष्याक्षिपति — यदा तु तत्त्वज्ञानादिति । अपायोऽपि तत्त्वज्ञानान्मिथ्याज्ञानस्य स्वरूपतो वा, विषयतो, वा फलतो वा स्यात्, न तावत् स्वरूपतः, तस्याशुतरविनाशिनः संस्काराद् वा ज्ञानान्तराद् वा अपायस्य तत्त्वज्ञानसाधारण्येन तस्यापि बाध्यत्वप्रसङ्गात् । नापि विषयतः, न हि शुक्तिकाज्ञानं रजतज्ञानस्य रजतविषयतामपहर्तुमुत्सहते जातं हि तद् रजतं विषयीकृत्य । यथाहुः गृहीत्वार्थं गताश्चौराः कस्तानाच्छेत्तुमर्हति । इति । नापि फलमपहरति, उपदर्शितो हि तेनार्थः, प्रवर्तितश्च तत्र पुरुषः । तदिदमुक्तम् — कथमपाय इति । उत्तरम् — समानविषय इति । यस्मिन्नेव हि पुरोवर्तिनि द्रव्ये पूर्वेण रजतत्वमासञ्जितं तत्रैवोत्तरं तद्विरुद्धं शुक्तिकात्वं धर्ममुपनयति । तथा च पूर्वस्य विज्ञानस्य मिथ्यात्वमादर्शयत्तज्जनितां प्रवृत्तिं विघटयत् फलमस्यापहरतीति भावः । न तु समानविषयतामात्रेण विरोधः, मा भूदेकस्मिन्नात्मनि नित्यत्वविभुत्वज्ञानयोर्विरोध इत्यत आह — यस्मादिति । तत्त्वमिथ्यात्वकथनेन मिथो विरुद्धधर्मप्रसञ्जनं सूचयति । नित्यत्वविभुत्वज्ञानयोस्तु समानविषययोरप्यविरुद्धधर्मोपस्थापकतया तत्त्वज्ञानत्वादित्यर्थः । कस्माद् विरोध इत्यत आह — वस्तुन इति । परस्पराभावधर्मिणोरेकत्र समवाये नेदं स्वाभाविकं नानात्वं क्वचिदपीत्यद्वैतप्रसङ्ग इति भावः । उपसंहरति — तस्मादिति ॥</div><div class="seg-ja"><p>今、種子がなくなれば、それから生じる芽の流れが止むように、誤った知がなくなれば、それから生じる過失・行動・誕生・苦・誤った知などの流れが止む。原因が止めば結果が止むからである――このことを述べる注釈文を、〔ヴァールッティカは〕引いて問題にする――「しかし真実の知から〜とき」と。真実の知によって誤った知がなくなるとしても、それは本体の面でか、対象の面でか、結果の面でか。まず本体の面ではない。それ（誤った知）はきわめて速やかに滅びるものであり、また潜在印象によって、あるいは別の知によってなくなることは真実の知にも共通なので、真実の知も否定されるものとなってしまうからである。また対象の面でもない。真珠貝の知は、銀の知が銀を対象とすることを奪うことはできない。それは銀を対象として、すでに生じたのだから。〔人々が〕言うように、「財物をつかんで去った盗賊たちから、誰がそれを奪い返せようか」と。また結果を奪うのでもない。それ（誤った知）によって対象はすでに示され、人はそこに向かって行動させられているのだから。それでこう言われた――「どのようにしてなくなるのか」と。</p><p>答え――「同じ対象を」と。前の知が銀であることを結びつけたまさにその目の前の実体に、後の知は、それと矛盾する真珠貝性という性質をもたらす。そうして、前の知が誤りであることを示し、それによって生じた行動を打ち壊すので、その結果を奪うのである、という趣旨である。</p><p>しかし、同じ対象をもつというだけで矛盾があるのではない。〔そうであれば〕一つのアートマンについての常住性の知と遍在性の知とが矛盾することになるが、そうではない――というので言う――「〜から」と。真実と誤りを述べることによって、互いに矛盾する性質をもたらすことを示唆している。他方、常住性の知と遍在性の知とは、同じ対象をもっていても、矛盾しない性質を示すので、〔ともに〕真実の知である、という意味である。なぜ矛盾があるのか、と言うので述べる――「事物の」と。互いの非存在である〔二つの〕性質が一つのところに内属するなら、本来の多様性はどこにもなくなり、不二論になってしまう、という趣旨である。まとめる――「それゆえ」と。</p></div></div>
+</div></details>
+<details class="node" id="n2-6-4"><summary><span class="num">2.6.4</span><span class="ttl">後の知が前の知を否定する <span class="sk">bādhya-bādhaka</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">अत्र देशयति — कथं पुनरिति । प्रथममुत्पन्नं मिथ्याज्ञानमनुपजातविरोधि, तेनापहृतविषयं पश्चात्तनं तत्त्वज्ञानमुदेतुमेव नोत्सहते, प्रागेव तु मिथ्याज्ञानं बाधितुमिति भावः । उत्तरम् — मिथ्याज्ञानस्येति । तत्र हि प्रथममुपजातेनानुप<span class="pg">p.73</span>जातविरोधिना ज्ञानेनोत्तरं बाध्यते, यत्र पूर्वापेक्षमुत्तरमुपजायते । तत् खलु पूर्वविरोधे न जायेत । अजातं सत् कथं पूर्वं बाधेत, यथा प्रत्यक्षादिविरुद्धमनुमानम्? इह तु द्वे अपि ज्ञाने दोषोपहतानुपहतेन्द्रियार्थसन्निकर्षजन्मनी परस्परानपेक्षे । तत्र पूर्वमनुपजातविरोधित्वात् किं बाधताम्, अनागतस्याप्राप्तत्वेन बाधितुमशक्यत्वात्, स्वकारणबलादासाद्यमानजन्मनश्चोत्पत्तिविरोधस्य चाशक्यत्वात्? तदेवमुत्पन्नमुत्तरमुपजातविरोधितया पूर्वबाधात्मकं सन्नानुपमृद्य पूर्वमुत्पत्तुमर्हतीति बाधते । तत्तु न पूर्वेण नाप्यन्येन केनचिदिति भवत्यर्थसहायम् । अर्थासहायं च मिथ्याज्ञानम् । तदनेन बाध्यत्वाबाध्यत्वे मिथ्याज्ञानतत्त्वज्ञानयोरुपलक्ष्येते । तदिदमन्यैरप्युक्तम् — - पूर्वात् परबलीयस्त्वं तत्र नाम प्रतीयताम् । अन्योन्यनिरपेक्षाणां यत्र जन्म धियां भवेत् ॥ इति । तथा चानुपजातविरोधित्वमत्र बाध्यत्वे हेतुः, उपजातविरोधित्वं च बाधकत्व इति । यदुपलक्षणार्थं ससहायत्वाभिधानं तज्जिज्ञासुः पृच्छति — कस्मात्? उत्तरम् — तथात्वेनेति । अनेनाबाध्यत्वं तत्त्वज्ञानस्योक्तमिति । न केवलमबाध्यत्वम्, दृढमूलत्वमपि तत्त्वज्ञानस्येत्याह — प्रमाणान्तरानुग्रहाच्च । अन्तरशब्दो विशेषवचनः । आत्मादितत्त्वज्ञानं हि फलं प्रमाणविशेषैरागमानुमानप्रत्यक्षैरनुगृह्यते । तस्माद् दृढमूलत्वात् तदपि तत्त्वज्ञानं मिथ्याज्ञानं निवर्तयतीत्यर्थः । एतदेव विभजते — आगमेति । एतदेव स्फोरयति — यदा हीति । आगममयेन हि ज्ञानेन प्रमेयं गृहीत्वा शास्त्रीयेण च न्यायविज्ञानेनानुमानापरनाम्ना व्यवस्थाप्य भावयतो यदात्ममनःसन्निकर्षाद् योगजधर्मसहायादुत्पद्यते तत्त्वविषयः साक्षात्कारः प्रत्यक्षफलम्, तत्र त्रयाणामपि प्रमाणानां प्रतिसन्धानम् अस्तीति दृढमूलत्वात् तेन मिथ्याज्ञानं बाध्यते ॥</div><div class="seg-ja"><p>ここで疑いを示す――「では、どのようにして」と。最初に生じた誤った知は、まだそれと矛盾するものが生じていない。それによって対象を奪われているので、後の真実の知は生じることさえできない。まして誤った知を否定することなどできない、という趣旨である。</p><p>答え――「誤った知の」と。最初に生じた、まだ矛盾するものが生じていない知によって後の知が否定されるのは、後の知が前の知に依存して生じる場合である。そのとき後の知は、前の知と矛盾するなら、生じないであろう。生じていないのに、どうして前の知を否定できようか。たとえば、知覚などと矛盾する推論のように。しかしここでは、二つの知はどちらも、過失に損なわれた感官と対象の接触と、損なわれていない感官と対象の接触とからそれぞれ生じたもので、互いに依存しない。そこで、前の知は、まだ矛盾するものが生じていないとしても、何を否定できようか。まだ来ていないものには届かないので否定することはできず、自らの原因の力によって生じようとしているものの生起を妨げることもできないからである。こうして、生じた後の知は、矛盾するものが生じたものとして前の知を否定する本性をもち、前の知を打ち壊さずには生じえないので、前の知を否定するのである。他方、後の知は、前の知によっても他の何によっても〔否定され〕ないので、対象を支えとしている。そして誤った知は対象の支えをもたない。それで、これによって、誤った知と真実の知について、否定されることと否定されないこととが示されている。これは他の人々も言っている――<br>　前のものより後のものが強いということは、<br>　互いに依存しない知が生じる場合に理解されるべきである。<br>と。そうして、ここでは、矛盾するものがまだ生じていないことが、否定されることの理由であり、矛盾するものが生じていることが、否定するものであることの理由である。</p><p>〔否定されないことを〕示すために〔真実の知が〕支えをもつと言ったので、それを知りたいと思って問う――「なぜか」と。答え――「そのとおりであることによって」と。これによって、真実の知が否定されないことが述べられた。否定されないだけでなく、真実の知は根が固いということも述べる――「また、他の認識手段の助けがあるから」と。「他の」という語は〔ここでは〕「特別な」という意味である。アートマンなどの真実の知という結果は、聖典・推論・知覚という特別な認識手段によって助けられる。それゆえ、根が固いので、その真実の知は誤った知を退ける、という意味である。</p><p>これを区分する――「聖典」と。これを明らかにする――「〜とき」と。聖典から成る知によって認識対象を把握し、推論の別名である、学問的な論理の知によって確定して、〔それを〕修習する者に、ヨーガから生じた功徳に助けられたアートマンと意の接触から、真実を対象とする直証、すなわち知覚という結果が生じる。そのときには、三つの認識手段すべてのつながりがあるので、根が固いことによって、それによって誤った知が否定されるのである。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>後に生じた知が前の知に依存して生じる場合（推論が知覚に依存する場合など）は、前の知が強い。互いに依存せず別々の原因から生じる場合（錯誤とその訂正）は、後の知が前の知を否定する。聞く（聖典）・考える（推論）・直証する（知覚）の三つがそろうことで、真実の知は揺るがないものになる。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-48-1">NVTP 全訳 1.48.1 文の意味の知だけでは解脱しない：ヴェーダーンタ批判 →</a></div>
+</div></details>
+<details class="node" id="n2-6-5"><summary><span class="num">2.6.5</span><span class="ttl">静慮の修習と潜在印象の分離 <span class="sk">dhyānabhāvanā</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev"><span class="pg">p.74</span>विषयं भावयतीति व्याचष्टे — समाहित इति । समाहितत्वेन चेतसो धारणां दर्शयति — अनन्यमना इति प्रत्याहारम्, चिन्तयतीति चेतसः तत्त्वविषयबुद्धिधारा, विपच्यमानत्वं ध्यानस्य, तत्त्वज्ञानस्य स्फुटाभत्वारम्भावस्था । ध्यानजनितभावना संस्कारो ध्यानभावना, तस्या विवेको मिथ्याज्ञानवासनायाः । पूर्वं हि मिथ्याज्ञानवासना तत्त्वज्ञानवासनाया बलवत्यासीत्, अथाभ्यासवशात् तुल्यबलाभवत्, अथेयमेव बलीयसी तत्त्वज्ञानवासनासंभिन्ना मिथ्याज्ञानवासनया सहानुवर्तते । संप्रति तु तत्त्वज्ञानवासनया अत्यन्तबलीयस्या समूलकाषं कषितत्वात् मिथ्याज्ञानवासनाया भवति विविक्ता तत्त्वज्ञानवासना तस्यामित्यर्थः ॥</div><div class="seg-ja"><p>「対象を修習する」を解説する――「心を集中して」と。「心を集中して」ということで、心の保持（ダーラナー）を示す。「他に心を向けずに」ということで制感（プラティヤーハーラ）を、「考える」ということで、心の、真実を対象とする知の流れ〔すなわち静慮〕を〔示す〕。静慮が熟すこととは、真実の知がはっきり現れはじめる段階〔すなわち三昧〕である。静慮から生じた修習、すなわち潜在印象が「静慮の修習」であり、その中での、誤った知の潜在印象からの分離〔が述べられる〕。</p><p>というのは、以前は、誤った知の潜在印象が真実の知の潜在印象より強かった。次に、繰り返しの力によって同じ強さになった。次に、こちら（真実の知の潜在印象）だけが強くなったが、なお、真実の知の潜在印象と入り混じった誤った知の潜在印象とともに続いていた。しかし今は、きわめて強くなった真実の知の潜在印象によって、誤った知の潜在印象が根こそぎにされたので、真実の知の潜在印象が〔誤った知の潜在印象から〕分離されたものとなる。その中で、という意味である。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>ヨーガの八支のうち、保持（ダーラナー）・制感（プラティヤーハーラ）・静慮（ディヤーナ）・三昧（サマーディ）を、ヴァールッティカの語句に当てはめている。</p></div>
+</div></details>
+<details class="node" id="n2-6-6"><summary><span class="num">2.6.6</span><span class="ttl">誤った知は再び生じない <span class="sk">punar anutpāda</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">नन्वनेन क्रमेण निवर्ततां मिथ्याज्ञानम्, निवृत्तं तु तत्त्वसाक्षात्कारसमयेऽपि कस्मात् पुनः स्ववासनावशान्न जायते? न खलु मिथ्याज्ञानवासना अनादिकालप्रवृत्ता आदिमता तत्त्वज्ञानेन तत्संस्कारेण वा शक्या निवर्तयितुमित्यत आह — निवृत्ते चेति । तावदेव पुंसां बुद्धयोऽस्थिरा भ्राम्यन्ति स्वोचितं च संस्कारजातमातन्वते, न यावद् भूतमर्थं साक्षात्कुर्वन्ति । अथ साक्षात्कृत्य तत्र स्थिरपदा भवन्ति, क्षिण्वन्ति च सवासनान् मिथ्याप्रत्ययान् । भूतार्थपक्षपातो हि बुद्धेः स्वभावः । यदाहुर्बाह्या अपि —  —  निरूपप्लवभूतार्थस्वभावस्य विपर्ययैः । न बाधो यत्नवत्त्वेऽपि बुद्धेस्तत्पक्षपाततः ॥ इति । तस्मात् मिथ्याज्ञानस्य न पुनरुत्पाद इति ॥</div><div class="seg-ja"><p>〔反論〕この順序で誤った知が止むとしよう。しかし、真実の直証の時に止んだ誤った知が、どうして自らの潜在印象の力によって再び生じないのか。始まりのない時から続いてきた誤った知の潜在印象を、始まりのある真実の知やその潜在印象によって止めることはできない――というので言う――「そして止んだとき」と。</p><p>人々の知は、ありのままの対象を直証しないうちは、不安定にさまよい、それにふさわしい潜在印象の群れを広げる。しかし〔ありのままの対象を〕直証すると、そこにしっかりと足場を定め、潜在印象とともに誤った認識を滅ぼす。ありのままの対象に味方することこそが知の本性だからである。外の人々（仏教徒）も言うように――<br>　汚れなく、ありのままの対象を本性とするものは、<br>　どれほど努めても、誤りによって否定されることはない。知がそれに味方するからである。<br>と。それゆえ、誤った知が再び生じることはない。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>引用の詩はダルマキールティ『プラマーナ・ヴァールッティカ』からのもの。論敵の仏教徒の言葉を、ここでは自説の支えとして用いている。</p></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>1737行の「iti /」は GRETIL に欠けているため、刊本（p.74）から補った。</p></div>
+</div></details>
+<details class="node" id="n2-6-7"><summary><span class="num">2.6.7</span><span class="ttl">離欲とは何か <span class="sk">vairāgya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">उक्तमेवार्थं स्मृतिदाढर्याय पृच्छति — कः पुनरिति । उक्तं स्मारयितुमुत्तरम् — सहेति । भवतु मिथ्याज्ञानस्य निवृत्तिः सवासनस्य, ततोऽपि किमित्यत आह — मिथ्या<span class="pg">p.75</span>ज्ञानेति । अत्र पृच्छति — ये तावदिति । उत्तरम् — तेषामपीति । वैराग्यस्वरूपं पृच्छति — किं पुनरिति । रागाभावो हि वैराग्यम् । न च तस्मादेव रागादीनामभाव इति भावः । उत्तरम् — भोगानभिष्वङ्गलक्षणमित्युक्तम् । विषयदोषपरिभावनापरिपाकात् खलु विषयपरित्यागेच्छा भवति । तया विरोधिगुणेन विषयतृष्णा च तत्परिपन्थिनि विद्वेषश्च तदधिकरणाश्चेर्ष्यादयो निवर्तन्ते । असक्तिर्विषयपरित्यागेच्छा, वशितया च स्वयमुपनतेषु विषयेषु माध्यस्थ्यदर्शनम् ।</div><div class="seg-ja"><p>すでに述べた意味を、記憶を確かにするために問う――「では何が」と。述べたことを思い出させるために答える――「〜とともに」と。潜在印象とともに誤った知が止むとしよう。それでも何になるのか、と言うので述べる――「誤った知の」と。</p><p>ここで問う――「まず〜ものは」と。答え――「それらについても」と。離欲の本質を問う――「では何が」と。というのは、貪りがないことが離欲である。そして、それだけから貪りなどがないことになるのではない、という趣旨である。答え――「享受に執着しないことを特徴とする、と言われた」と。対象の欠点を繰り返し思い描くことが熟すと、対象を捨てたいという欲求が生じる。それと対立する性質によって、対象への渇望も、それを妨げるものへの嫌悪も、それらに基づく妬みなども止む。「執着しないこと」とは、対象を捨てたいという欲求であり、また〔感官を〕制していることによって、自ずとやって来た対象に対して中立に見ることである。</p></div></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-49-2">NVTP 全訳 1.49.2 ヨーガの神通力：多くの身体で一度に享受する →</a></div>
+</div></details>
+<details class="node" id="n2-6-8"><summary><span class="num">2.6.8</span><span class="ttl">法と非法の止滅；寿命 <span class="sk">dharmādharma</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">दोषाभावे किं भवतीत्यत आह — दोषाभाव इति । पृच्छति — का पुनरियमिति । यदि हि जन्मनः प्रवृत्तिः कारणं स्यात्, ततो जन्मनिवृत्त्यै तन्निवृत्तिरर्थ्येत । न पुनरसौ क्षणिका सती आमुष्मिकाय जन्मने कल्पते । अतः किमर्थं निवर्त्यत इति भावः । विदिताभिप्राय उत्तरमाह — धर्माधर्मौ । कस्मात् पुनरुपचार इत्यत आह — जन्मसाधनत्वात् । एतद्विभजते — नास्मिन्निति । उपचारे प्रयोजनं दर्शयित्वा निमित्तमाह — धर्माधर्मयोस्त्विति । वर्तमानानागतयोरविशेषेण दोषापायात् निवृत्तिरुक्तेति भ्रान्त्या देशयति — यौ तावदनागताविति । परिहरति — न, अनागतयोरिति । अनागताभिप्रायमेतदित्यर्थः । यद्येवम्, वर्तमानयोः कुतः प्रक्षय इत्यत आह — वर्तमानयोरिति । अस्तु प्रवृत्तेरभावः,ततः किमित्यत आह — प्रवृत्त्यभाव इति । उक्तं विवेकमिहापि योजयति — अत्रापीति । वर्तमाननिवृत्तिहेतुं पृच्छति — अथेति । उत्तरम् — संस्कारेति । श्रुतिः, तावदेवास्य चिरं यावन्न विमोक्ष्येऽथ संपत्स्ये । इति । किं जन्माभावे सिध्यतीत्यत आह — जन्माभाव इति । अत्रैव वृद्धसंमतिमाह — एतच्च तदाहुरिति । तदेतच्चेति योजना । प्राणनस्य कालभेदावच्छेद आयुः ॥</div><div class="seg-ja"><p>過失がないとき何が起こるのか、と言うので述べる――「過失がないとき」と。問う――「ではこれは何か」と。もし行動が誕生の原因であるなら、誕生を止めるためにその止滅が求められるであろう。しかし、それ（行動）は刹那的なので、来世の誕生をもたらすことはできない。それなのになぜ止められるのか、という趣旨である。意図を知って答えを言う――「法と非法である」と。では、なぜ〔行動という〕比喩的な言い方をするのか、と言うので述べる――「誕生の手段であるから」と。これを区分する――「これにおいては〜ない」と。比喩的な言い方の目的を示したうえで、その根拠を述べる――「しかし法と非法の」と。</p><p>現在のものと未来のものについて区別なく、過失がなくなることから止滅が述べられた、と誤解して疑いを示す――「まず未来の〜ものは」と。答える――「そうではない、未来の〜について」と。これは未来のものを意図している、という意味である。もしそうなら、現在の〔法・非法〕はどうして尽きるのか、と言うので述べる――「現在の〜は」と。行動がないとしよう。それでどうなるのか、と言うので述べる――「行動がないとき」と。〔先に〕述べた区別をここにも当てはめる――「ここでも」と。</p><p>現在のものが止む原因を問う――「では」と。答え――「潜在印象」と。天啓に「その者にとっては、解き放たれない間だけ〔の遅れ〕がある。そのとき〔真実と〕一つになる」とある。誕生がないとき何が成り立つのか、と言うので述べる――「誕生がないとき」と。まさにこの点について長老たちの同意を述べる――「そしてこれを彼らは言う」と。「そしてこれを」と結びつけて読む。寿命とは、生命活動を時の区切りによって限ったものである。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>行動そのものは一瞬で消えるので、来世の誕生をもたらすのは、行動が残した法（功徳）と非法（罪過）である。スートラが「行動」と言うのは、法・非法を指す比喩的な言い方である。過失がなくなれば未来の法・非法は生じず、現在すでにある法・非法は享受によって尽きる。</p></div>
+<div class="xref"><span class="xref-h">ウダヤナの注釈</span><a href="nvtp_zenyaku_01b.html#n1-48-2">NVTP 全訳 1.48.2 至福の二種：直接とらえる者も身体をもつ →</a></div>
+</div></details>
+<details class="node" id="n2-6-9"><summary><span class="num">2.6.9</span><span class="ttl">大帰滅は解脱ではない <span class="sk">mahāpralaya</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">स्यादेतत्, महाप्रलयेऽपि मिथ्याज्ञानादिना दुःखान्तेनास्ति वियोग इति अत्रापि मुक्तिप्रसङ्ग इत्यत आह — सोऽयं मिथ्याज्ञानादिनेति । सर्वत इति तृतीयार्थे <span class="pg">p.76</span>तसिः सर्वेणेति । न च प्रलयावस्थायां सर्वेण वियोगः, कर्माविद्यावासनयोरविनाशात् । मुक्तौ तु तयोरपि विनाशः । कर्मवासना च सर्वकार्याणामुत्पादिका अवस्थापिका च । तन्निवृत्तौ शरीरादिवत् तत्त्वज्ञानसंस्कारस्यापि प्रलय इत्यशेषविशेषगुणविमुक्तो मुक्त इत्युच्यत इति सिद्धम् ॥</div><div class="seg-ja"><p>こう言うかもしれない。大帰滅（世界の消滅期）においても、誤った知から苦までのものとの分離がある。それならそこでも解脱になってしまう――というので言う――「この、誤った知などとの」と。「すべてから」とは、具格の意味で接尾辞 tas が用いられたもので、「すべてと」〔の分離〕という意味である。そして帰滅の状態では、すべてとの分離はない。業と無明の潜在印象が滅びていないからである。しかし解脱においては、それら二つも滅びる。そして業の潜在印象は、すべての結果を生み出し、また存続させるものである。それが止むと、身体などと同様に、真実の知の潜在印象も消滅する。それで、あらゆる特殊な性質から解き放たれた者が解脱者と言われる、ということが確立した。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>世界の消滅期には、人は身体などから離れているが、業と無明の潜在印象は残っていて、次の創造のときに再び生まれる。解脱では、それらの潜在印象までなくなる点が違う。</p></div>
+</div></details>
+<details class="node" id="n2-6-10"><summary><span class="num">2.6.10</span><span class="ttl">楽と苦は切り離せない <span class="sk">anuṣaṅga</span></span></summary><div class="body">
+<div class="seg"><div class="seg-sa dev">स्यादेतत् । तत्त्वज्ञानात् मिथ्याज्ञानापाय इत्युक्तम् । किं पुनस्तत्त्वज्ञानमित्यत उक्तं भाष्यकृता — तत्त्वज्ञानं त्विति । तदनुभाष्य सर्वेषां ज्ञानानां भाष्योक्तानामनुगतमेकं स्वरूपमाह — स्वरूपतस्त्विति । चोदयति — कस्मादिति । नो खल्वयं प्रेक्षावतां समाचारो यद् दुःखभिया सुखपरित्याग इति, अपि तु सुखं दुःखाद् विविच्य उपाददते दुःखं च वर्जयन्ति । न हि मृगाः सन्तीति शालयो नोप्यन्ते, भिक्षुकाः सन्तीति स्थाल्यो नाधिश्रीयन्त इति । उत्तरम् — विवेकहानस्येति । यद्यपि सुखदुःखे भिन्ने, तथाप्यनित्यत्वकृतकत्ववत् परस्परानुषक्ते इति न खलु सुखस्य केवलस्योपादानं दुःखस्य वा केवलस्य परिवर्जनं शक्यमित्यर्थः । कः पुनरयमनुषङ्गो यतो विवेकहानमशक्यमित्यत आह — अनुषङ्गोऽविनाभावः । तत्स्वरूपमाह — यत्रैकं सुखं वा दुःखं वा, तत्रेतरत् दुःखं वा सुखं वा । तदनेनानित्यत्वकृतकत्वयोरिव सुखदुःखयोरविनाभावो दर्शितः । न चाविनाभावो विना संबन्धादिति तत्सिद्धये संबन्धविकल्पानाह — समाननिमित्तता वा अनुषङ्गोऽविनाभावः, वाशब्दश्च वक्ष्यमाणसंबन्धान्तरापेक्षया, न तु पूर्वापेक्षया । अत्र च शरीराद्यपेक्षया समाननिमित्तता, न तु धर्माधर्मापेक्षया तयोरसाधारण्यादिति । मन्तव्यम् । तयोरविनाभावसिद्ध्यर्थं संबन्धान्तरम् आह — समानाधारता वा । अपरं संबन्धान्तरमाह — समानोपलभ्यता वा । मनोगोचरत्वमुभयोः । ततश्च सिद्धोऽविनाभावापरनामा अनुषङ्ग इति । यत्रैकं तत्रेतरदिति वा यत्र यस्मिन्निमित्ते <span class="pg">p.77</span>सतीति वा यत्राधार इति वा यत्रोपलब्धिसाधने सतीति व्याख्येयम् । इतिः सूत्रसमाप्तिं सूचयति ॥</div><div class="seg-ja"><p>こう言うかもしれない。真実の知から誤った知がなくなる、と言われた。では真実の知とは何か――というので注釈者は言った――「しかし真実の知は」と。それを引いて、注釈で述べられたすべての知に共通する一つの本質を述べる――「しかし本質の面では」と。</p><p>問いを向ける――「なぜか」と。苦を恐れて楽を捨てる、というのは思慮ある者たちのふるまいではない。そうではなく、〔彼らは〕楽を苦から区別して取り、苦は避けるのである。鹿がいるからといって稲を蒔かないことはなく、乞食がいるからといって鍋を火にかけないことはない、というように。</p><p>答え――「区別して捨てることが〜」と。楽と苦は別のものではあるけれども、無常であることと作られたものであることのように、互いに付きまとっているので、楽だけを取ること、あるいは苦だけを避けることはできない、という意味である。では、区別して捨てることができないというこの付きまといとは何か、と言うので述べる――「付きまといとは、離れてはないことである」と。その本質を述べる――「楽か苦か一方があるところには、他方の苦か楽がある」と。これによって、無常であることと作られたものであることのように、楽と苦が離れてはないことが示された。</p><p>そして、離れてはないことは関係なしにはないので、それを成り立たせるために関係の選択肢を述べる――「あるいは、同じ原因をもつことが付きまとい、すなわち離れてはないことである」と。「あるいは」という語は、これから述べる別の関係との関連で〔用いられたもの〕で、前のものとの関連ではない。そしてここで「同じ原因をもつ」というのは、身体などに関してであって、法・非法に関してではない。法と非法は〔楽と苦とに〕共通ではないからである――と考えるべきである。</p><p>それら二つが離れてはないことを成り立たせるために、別の関係を述べる――「あるいは、同じ拠り所をもつこと」と。さらに別の関係を述べる――「あるいは、同じものによって知覚されること」と。両者が意の領域であることである。そうして、「離れてはないこと」とも呼ばれる付きまといが成り立った。</p><p>「一方があるところに他方がある」は、「ある原因があるとき」とも、「ある拠り所に」とも、「ある知覚の手段があるとき」とも解説すべきである。「〜と」〔という語〕は、〔この〕スートラ〔の注〕の終わりを示している。</p></div></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>楽と苦は、同じ身体などから生じ、同じアートマンに宿り、同じ意によって知覚される。そのため楽だけを選び取ることはできず、苦を断つには楽もろとも断つほかない。「鹿がいても稲を蒔く」は、楽と苦を区別して楽だけを取ればよい、という反論者の言い分。</p></div>
+<div class="tnote"><span class="tnote-h">ノート</span><p>1796行と1800行は GRETIL の重複行のため除いた。</p></div>
+</div></details>
+</div></details>
+</div></details>
+</div>
+<div class="pnav"><a href="nvtt_zenyaku_01a.html">← 前へ（スートラ1.1.1）</a><span></span><a href="nvtt_zenyaku_01c.html">次へ（スートラ1.1.3） →</a></div>
+<footer>ヴァーチャスパティ・ミシュラ『ニヤーヤ・ヴァールッティカ・タートパリヤ・ティーカー』全訳　本文：GRETIL 電子テキスト（Sansknet Project 入力、A. Thakur 校訂本〔1996〕と照合）のローマ字本文をデーヴァナーガリーに転写して示す。頁番号（p.1 など）は Thakur 校訂本の頁で、刊本の OCR と照合して入れた。</footer>
+<script>
+(function () {
+  var all = Array.prototype.slice.call(document.querySelectorAll('details.node'));
+  function depth(el) { var d = 0, p = el; while (p) { if (p.matches && p.matches('details.node')) d++; p = p.parentElement; } return d; }
+  all.forEach(function (el) { el.dataset.depth = depth(el); });
+  document.getElementById('controls').addEventListener('click', function (e) {
+    var b = e.target.closest('button[data-depth]'); if (!b) return;
+    var n = parseInt(b.dataset.depth, 10);
+    all.forEach(function (el) { el.open = parseInt(el.dataset.depth, 10) < n; });
+  });
+  function openTo(t) { var p = t; while (p) { if (p.matches && p.matches('details')) p.open = true; p = p.parentElement; } t.scrollIntoView({ block: 'start' }); }
+  document.querySelectorAll('a[href^="#"]').forEach(function (a) {
+    a.addEventListener('click', function (e) {
+      var t = document.getElementById(a.getAttribute('href').slice(1));
+      if (!t || !t.matches('details.node')) return; e.preventDefault(); openTo(t);
+      try { history.replaceState(null, '', a.getAttribute('href')); } catch (_) {}
+    });
+  });
+  if (location.hash.length > 1) { var t0 = document.getElementById(location.hash.slice(1)); if (t0 && t0.matches('details.node')) openTo(t0); }
+})();
+</script>
+</body>
+</html>
