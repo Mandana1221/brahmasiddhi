@@ -64,6 +64,7 @@ def clean_page(text):
 def norm(t):
     t = re.sub(rf'(?<=[{DEVA}]):', 'ः', t)                  # 「:」の visarga
     t = re.sub(r'[⁰¹²³⁴⁵⁶⁷⁸⁹]+', '', t)                      # 上付きの脚注番号
+    t = t.replace('\u200c', '').replace('\u200d', '')        # ゼロ幅文字
     t = (t.replace('कम्ब्ल', 'कम्बल').replace('प्रातिलक्षण', 'प्राप्तिलक्षण')
          .replace('तीव्रमनद', 'तीव्रमन्द').replace('सत्व', 'सत्त्व'))    # OCR の癖
     t = t.replace('।।', '॥').replace('||', '॥').replace('॰', '०')
