@@ -23,7 +23,11 @@ from pathlib import Path
 
 from indic_transliteration import sanscript
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'xref'))
+import links  # noqa: E402  NV・NVTT・NVTP の関連箇所リンク
+
 ROOT = Path(__file__).resolve().parent.parent
+PREFIX = 'nvtp'
 TEXT = (ROOT / 'NVTP_text.txt').read_text(encoding='utf-8').split('\n')
 CSS = (ROOT / 'nvtp_src' / 'style.css.part').read_text(encoding='utf-8')
 
@@ -137,6 +141,9 @@ def build(part):
             sk_html = f' <span class="sk">{html.escape(sk)}</span>' if sk else ''
             out.append(f'<details class="{cls}" id="{nid}"><summary><span class="num">{num}</span>'
                        f'<span class="ttl">{html.escape(ttl)}{sk_html}</span></summary><div class="body">')
+            xr = links.for_section(f'{PREFIX}_zenyaku_{meta.get("id", "")}.html', nid, ['nv', 'nvtt'])
+            if xr:
+                out.append(xr)
             stack.append(lv)
             if lv == 1:
                 toc.append((nid, num, ttl))
@@ -173,6 +180,8 @@ def build(part):
 <style>
 .pg {{ font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; color: var(--muted); border: 1px solid var(--rule-light); border-radius: 3px; padding: 0 0.3rem; margin: 0 0.2rem; white-space: nowrap; }}
 .seg-ja p, .sutra-jp p, .tnote p {{ margin-bottom: 0.5rem; }}
+.xref {{ font-size: 0.85rem; margin: 0.4rem 0 0.8rem; padding: 0.35rem 0.7rem; border-left: 3px solid #5B4A9E; background: rgba(91,74,158,0.07); }}
+.xref-h {{ color: #5B4A9E; font-weight: 600; margin-right: 0.6rem; }}
 .pnav {{ display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.9rem; margin: 1rem 0; }}
 </style>
 </head>

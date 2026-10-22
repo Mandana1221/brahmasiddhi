@@ -13,7 +13,11 @@ from pathlib import Path
 
 from indic_transliteration import sanscript
 
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent / 'xref'))
+import links  # noqa: E402  NV・NVTT・NVTP の関連箇所リンク
+
 ROOT = Path(__file__).resolve().parent.parent
+PREFIX = 'nvtt'
 TEXT = (ROOT / 'NVTT_text.txt').read_text(encoding='utf-8').split('\n')
 CSS = (ROOT / 'nvtt_src' / 'style.css.part').read_text(encoding='utf-8')
 
@@ -110,6 +114,9 @@ def build(part):
             sk_html = f' <span class="sk">{html.escape(sk)}</span>' if sk else ''
             out.append(f'<details class="{cls}" id="{nid}"><summary><span class="num">{num}</span>'
                        f'<span class="ttl">{html.escape(ttl)}{sk_html}</span></summary><div class="body">')
+            xr = links.for_section(f'{PREFIX}_zenyaku_{meta.get("id", "")}.html', nid, ['nv', 'nvtp'])
+            if xr:
+                out.append(xr)
             stack.append(lv)
             if lv == 1:
                 toc.append((nid, num, ttl))
