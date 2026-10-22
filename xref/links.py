@@ -39,7 +39,11 @@ def nv_items(ss):
 
 def nv_label(e):
     n = e['file'].split('-')[1]
-    return f'NV対訳 {n} §{e["sec"]} {e["title"]}（{e["ref"]}）'
+    return f'NV対訳 {n} §{e["sec"]} {e["title"]}（{e["ref"]}{"、Thakur 版では1つ前" if e.get("shift") else ""}）'
+
+
+# NV の各ブロック（file#id）の番号のずれ
+SHIFT = {f'{e["file"]}#{e["id"]}': e.get('shift', 0) for v in MAP.values() for e in v['nv']}
 
 
 def sec_items(ss, key):

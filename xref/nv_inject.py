@@ -33,7 +33,7 @@ def close_of(t, i):
     raise ValueError('unclosed div')
 
 
-def box(ss):
+def box(ss, d=0):
     rows = []
     for key, name in (('nvtt', 'ヴァーチャスパティの注釈（NVTT 全訳）'), ('nvtp', 'ウダヤナの注釈（NVTP 全訳）')):
         it = links.sec_items(ss, key)
@@ -43,7 +43,11 @@ def box(ss):
         else:
             a = '<span class="muted">この箇所への注釈はない</span>'
         rows.append(f'<p>{name}：{a}</p>')
-    return (f'<div class="xr"><span class="lbl">関連箇所（スートラ {html.escape(links.span(ss))}）</span>'
+    note = ''
+    if d:
+        note = (f'<p class="muted">このブロックのスートラ番号はヒンディー訳の数え方で、Thakur 版（NVTT・NVTP の番号）'
+                f'では {html.escape(links.span(ss))} にあたる。</p>')
+    return (f'<div class="xr"><span class="lbl">関連箇所（Thakur 版スートラ {html.escape(links.span(ss))}）</span>' + note
             + ''.join(rows) + '</div>')
 
 
@@ -55,16 +59,18 @@ def inject(src):
         ref = html.unescape(m.group(1))
         if 'NS' not in ref:
             continue
-        ss = sutras(ref.split('NS', 1)[1])
+        uid = re.search(r'id="(u\d+)"', m.group(0)).group(1)
+        d = links.SHIFT.get(f'{src.name}#{uid}', 0)
+        ss = [f'{x.rsplit(".", 1)[0]}.{int(x.rsplit(".", 1)[1]) + d}' for x in sutras(ref.split('NS', 1)[1])]
         end = close_of(t, m.start())
         blk = t[m.start():end]
         k = blk.find('<div class="exp">')
         if k >= 0:
             at = close_of(t, m.start() + k)
-            piece = box(ss)
+            piece = box(ss, d)
         else:
             at = end
-            piece = f'<div class="exp">{box(ss)}</div>'
+            piece = f'<div class="exp">{box(ss, d)}</div>'
         out.append(t[pos:at])
         out.append(piece)
         pos = at

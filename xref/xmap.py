@@ -7,6 +7,7 @@
 NV は nyayavarttika-N-taiyaku.html の各ブロック（id="uN"）の「NS a.b.c(–d)」、
 NVTT は nvtt_src/partXX.txt の「NS …」、NVTP は nvtp_src/partXX.txt の「sūtra …」から読む。
 """
+import difflib
 import html
 import json
 import re
@@ -56,21 +57,73 @@ def parts(src, prefix, key):
     return res
 
 
+DIG = str.maketrans('०१२३४५६७८९', '0123456789')
+SUTRA = re.compile(r'([^॥]{3,}?)॥\s*([०-९]+)।([०-९]+)।([०-९]+)\s*॥')
+
+
+def norm(s):
+    return re.sub(r'[^a-zāīūṛṝḷṅñṭḍṇśṣṃḥ]', '', s.lower().replace('ṁ', 'ṃ'))
+
+
+def nys_texts():
+    """NVTT_text.txt のスートラ行（Thakur 版の番号）。"""
+    out = {}
+    for ln in (ROOT / 'NVTT_text.txt').read_text(encoding='utf-8').split('\n'):
+        m = re.match(r'nys_(\d),(\d)\.(\d+):\s*(.*)', ln)
+        if m:
+            out.setdefault(f'{m[1]}.{m[2]}.{m[3]}', norm(re.sub(r'\[p\. \d+\]', '', m[4])))
+    return out
+
+
+def offset(src, nys):
+    """NV のブロックに引かれたスートラ本文を Thakur 版のスートラと照合し、番号のずれを返す。
+    NV 対訳は一部（2.1.20–69, 2.2.44–69, 3.1.39–73）をヒンディー訳の番号で数えているため。"""
+    from indic_transliteration import sanscript
+    votes = {}
+    for m in SUTRA.finditer(re.sub(r'<[^>]*>', ' ', src)):
+        a, b, c = (m[i].translate(DIG) for i in (2, 3, 4))
+        txt = norm(sanscript.transliterate(m[1], sanscript.DEVANAGARI, sanscript.IAST))
+        best = (0, 0)
+        for d in range(-3, 4):
+            k = f'{a}.{b}.{int(c) + d}'
+            if k in nys:
+                r = difflib.SequenceMatcher(None, txt[-len(nys[k]) - 5:], nys[k]).ratio()
+                best = max(best, (r, d), key=lambda x: x[0])
+        if best[0] >= 0.8:
+            votes[best[1]] = votes.get(best[1], 0) + 1
+    return max(votes, key=votes.get) if votes else None
+
+
+# 本文照合で決まらないブロック。NV 13 の「क्वचिन्निवृत्तिदर्शनात्…」（ヒンディー訳の 2.1.20）は
+# Thakur 版ではスートラに数えられないので、直前の 2.1.19 に含める。
+OVERRIDE = {('nyayavarttika-13-taiyaku.html', 'u16'): -1}
+
+
+def shift(ss, d):
+    return [f'{s.rsplit(".", 1)[0]}.{int(s.rsplit(".", 1)[1]) + d}' for s in ss]
+
+
 def nv(nvdir):
+    nys = nys_texts()
     res = {}
     for f in sorted(Path(nvdir).glob('nyayavarttika-*-taiyaku.html'), key=lambda x: int(x.name.split('-')[1])):
         t = f.read_text(encoding='utf-8')
-        sec, sno = '', ''
-        pat = r'<span class="sec-no">([^<]*)</span><h2>(.*?)</h2>|<div class="mula[^"]*" id="(u\d+)">\s*<span class="ref">([^<]*)</span>'
-        for m in re.finditer(pat, t):
+        sec, sno, d = '', '', 0
+        pat = (r'<span class="sec-no">([^<]*)</span><h2>(.*?)</h2>|<div class="mula[^"]*" id="(u\d+)">\s*'
+               r'<span class="ref">([^<]*)</span>\s*<div class="src[^"]*"[^>]*>(.*?)</div>')
+        for m in re.finditer(pat, t, re.S):
             if m.group(2) is not None:
                 sno, sec = m.group(1), html.unescape(re.sub(r'<[^>]*>', '', m.group(2)))
                 continue
             uid, ref = m.group(3), html.unescape(m.group(4))
             if 'NS' not in ref:
                 continue
-            ent = {'file': f.name, 'id': uid, 'sec': sno, 'title': sec, 'ref': ref.strip()}
-            for s in sutras(ref.split('NS', 1)[1]):
+            o = offset(m.group(5), nys)
+            d = d if o is None else o      # 照合できないブロックは直前のブロックのずれを引き継ぐ
+            d = OVERRIDE.get((f.name, uid), d)
+            ss = shift(sutras(ref.split('NS', 1)[1]), d)
+            ent = {'file': f.name, 'id': uid, 'sec': sno, 'title': sec, 'ref': ref.strip(), 'shift': d}
+            for s in ss:
                 res.setdefault(s, []).append(ent)
     return res
 
