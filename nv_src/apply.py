@@ -63,7 +63,7 @@ def fill_block(body, gaps_in, key):
     for k in range(len(seps)):
         it = gaps_in.get(k, {})
         v = it.get(key, '')
-        if it.get('S', '') in ('', '=', '?') or not v:
+        if it.get('S', '') in ('', '=', '?') or not v or not it.get('J'):
             out.append(seps[k])
         else:
             out.append(' ' + v + ' ' if key == 'S' else v)
