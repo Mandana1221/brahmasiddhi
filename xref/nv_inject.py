@@ -22,6 +22,10 @@ OUT = ROOT / 'nv'
 CSS = ('.mula .exp .xr{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line);font-size:.92em}'
        '.mula .exp .xr .lbl{color:#5B4A9E}.mula .exp .xr p{margin:0 0 .3em}')
 
+SISTER = ('<p class="sub">関連：<a href="../nbh_index.html">ニヤーヤ・バーシュヤ全訳 目次</a>　／　'
+          '<a href="../nvtt_index.html">タートパリヤ・ティーカー全訳 目次</a>　／　'
+          '<a href="../nvtp_index.html">タートパリヤ・パリシュッディ全訳 目次</a></p>\n')
+
 
 def close_of(t, i):
     """t[i] で始まる <div …> に対応する </div> の位置。"""
@@ -35,7 +39,7 @@ def close_of(t, i):
 
 def box(ss):
     rows = []
-    for key, name in (('nvtt', 'ヴァーチャスパティの注釈（NVTT 全訳）'), ('nvtp', 'ウダヤナの注釈（NVTP 全訳）')):
+    for key, name in (('nbh', 'ヴァーツヤーヤナの注解（NBh 全訳）'), ('nvtt', 'ヴァーチャスパティの注釈（NVTT 全訳）'), ('nvtp', 'ウダヤナの注釈（NVTP 全訳）')):
         it = links.sec_items(ss, key)
         if it:
             a = '、'.join(f'<a href="../{html.escape(e["file"])}#{e["id"]}">{html.escape(e["num"])} '
@@ -78,7 +82,9 @@ def main():
     n = 0
     for f in sorted(src.glob('nyayavarttika-*.html')):
         if f.name == 'nyayavarttika-index.html':
-            (OUT / f.name).write_text(thakur.convert_html(f.read_text(encoding='utf-8'), f.name), encoding='utf-8')
+            t = thakur.convert_html(f.read_text(encoding='utf-8'), f.name)
+            t = t.replace('</header>', SISTER + '</header>', 1)
+            (OUT / f.name).write_text(t, encoding='utf-8')
             continue
         (OUT / f.name).write_text(inject(f), encoding='utf-8')
         n += 1

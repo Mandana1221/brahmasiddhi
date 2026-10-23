@@ -114,7 +114,7 @@ def build(part):
             sk_html = f' <span class="sk">{html.escape(sk)}</span>' if sk else ''
             out.append(f'<details class="{cls}" id="{nid}"><summary><span class="num">{num}</span>'
                        f'<span class="ttl">{html.escape(ttl)}{sk_html}</span></summary><div class="body">')
-            xr = links.for_section(f'{PREFIX}_zenyaku_{meta.get("id", "")}.html', nid, ['nv', 'nvtp'])
+            xr = links.for_section(f'{PREFIX}_zenyaku_{meta.get("id", "")}.html', nid, ['nbh', 'nv', 'nvtp'])
             if xr:
                 out.append(xr)
             stack.append(lv)
