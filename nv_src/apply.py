@@ -16,6 +16,15 @@ FILL = ROOT / 'nv_src' / 'fill'
 SRC_RE = re.compile(r'(<div class="src[^"]*"[^>]*>)(.*?)(</div>)', re.S)
 TR_RE = re.compile(r'(<div class="tr">)(.*?)(</div>)', re.S)
 GAP = re.compile(r'\s*(?:……|…)\s*')
+CLEAN = (ROOT / 'nv_src' / 'NV_clean.txt').read_text(encoding='utf-8')
+
+
+def tidy(t):
+    t = re.sub(r'\[p\. \d+\]', '', t)
+    t = re.sub(r'\s+', ' ', t)
+    t = re.sub(r'\s*([।॥?])\s*', r' \1 ', t)
+    t = re.sub(r'॥ ([०-९।]+) ॥', r'॥\1॥', t)
+    return re.sub(r'^[।॥?,\s]+', '', t.strip())
 
 
 def read_fill(p):
@@ -37,19 +46,34 @@ def read_fill(p):
             continue
         elif ln[:2] in ('S ', 'J ', 'A ', 'B ') or ln in ('S', 'J'):
             cur[ln[0]] = ln[2:].strip()
-        elif ln.startswith('F ') or ln.startswith('R '):
+        elif ln.startswith('O '):
+            # O 始まりの文字列<TAB>終わりの文字列：OCR 本文からその間（始まりを含み終わりを含まない）を S とする
+            a, _, b = ln[2:].partition('\t')
+            i = CLEAN.find(a)
+            j = CLEAN.find(b, i + len(a)) if i >= 0 else -1
+            if i < 0 or j < 0:
+                print(p.name, '見つからない O:', a[:20], b[:20])
+            else:
+                cur['S'] = tidy(CLEAN[i:j])
+        elif ln[:2] in ('F ', 'R ', 'X '):
             old, _, new = ln[2:].partition('\t')
-            cur['F'].append((old, new, ln[0] == 'R'))
+            cur['F'].append((old, new, ln[0]))
     for k, it in items.items():
         s = it.get('S', '')
         if s in ('', '=', '?'):
             if it.get('A') and s == '?':
                 it['S'] = it['A']
             continue
-        for old, new, every in it['F']:
+        for old, new, kind in it['F']:
+            if kind == 'X':  # 正規表現で一か所
+                s2 = re.sub(old, new, s, count=1)
+                if s2 == s:
+                    print(p.name, k, '直せない:', old)
+                s = s2
+                continue
             if old not in s:
                 print(p.name, k, '直せない:', old)
-            s = s.replace(old, new) if every else s.replace(old, new, 1)
+            s = s.replace(old, new) if kind == 'R' else s.replace(old, new, 1)
         s = (it.get('B', '') + ' ' + s.strip() + ' ' + it.get('A', '')).strip()
         it['S'] = re.sub(r'\s+', ' ', s)
     return items
