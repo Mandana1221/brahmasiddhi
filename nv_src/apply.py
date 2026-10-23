@@ -44,7 +44,7 @@ def read_fill(p):
             continue
         elif cur is None:
             continue
-        elif ln[:2] in ('S ', 'J ', 'A ', 'B ') or ln in ('S', 'J'):
+        elif ln[:2] in ('S ', 'J ', 'A ', 'B ', 'T ') or ln in ('S', 'J'):
             cur[ln[0]] = ln[2:].strip()
         elif ln.startswith('O '):
             # O 始まりの文字列<TAB>終わりの文字列：OCR 本文からその間（始まりを含み終わりを含まない）を S とする
@@ -89,8 +89,13 @@ def fill_block(body, gaps_in, key):
     parts = GAP.split(body)
     seps = GAP.findall(body)
     out = [parts[0]]
+    if key == 'J':
+        # 訳の省略の位置が原文と違うとき：T 行で訳の何番目の省略かを指定する
+        tmap = {}
+        for g, it in gaps_in.items():
+            tmap[int(it['T']) if 'T' in it else g] = it
     for k in range(len(seps)):
-        it = gaps_in.get(k, {})
+        it = tmap.get(k, {}) if key == 'J' else gaps_in.get(k, {})
         v = it.get(key, '')
         if it.get('S', '') in ('', '=', '?') or not v or not it.get('J'):
             out.append(seps[k])
@@ -123,7 +128,7 @@ def main():
                 continue
             ns, nt = len(GAP.findall(ms.group(2))), len(GAP.findall(mt.group(2)))
             filled = [k for k, v in gi.items() if v.get('S') not in ('', '=', '?', None) and v.get('J')]
-            if ns != nt and filled:
+            if ns != nt and filled and not any('T' in v for v in gi.values()):
                 print(f.name, 'block', bi, f'原文の省略 {ns} と訳の省略 {nt} が合わない'); bad += 1
             for k, v in gi.items():
                 if v.get('S') not in ('', '=', '?', None) and not v.get('J'):
