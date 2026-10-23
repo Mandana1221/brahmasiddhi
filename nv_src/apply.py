@@ -93,6 +93,8 @@ def fill_block(body, gaps_in, key):
         # 訳の省略の位置が原文と違うとき：T 行で訳の何番目の省略かを指定する
         tmap = {}
         for g, it in gaps_in.items():
+            if it.get('T', '').startswith('@'):
+                continue  # 訳に省略がない箇所：後で T の文字列の直後に入れる
             tmap[int(it['T']) if 'T' in it else g] = it
     for k in range(len(seps)):
         it = tmap.get(k, {}) if key == 'J' else gaps_in.get(k, {})
@@ -102,7 +104,16 @@ def fill_block(body, gaps_in, key):
         else:
             out.append(' ' + v + ' ' if key == 'S' else v)
         out.append(parts[k + 1])
-    return ''.join(out)
+    res = ''.join(out)
+    if key == 'J':
+        for it in gaps_in.values():
+            a = it.get('T', '')
+            if a.startswith('@') and it.get('J') and it.get('S', '') not in ('', '=', '?'):
+                if a[1:] in res:
+                    res = res.replace(a[1:], a[1:] + it['J'], 1)
+                else:
+                    print('T の目印が見つからない:', a[1:30])
+    return res
 
 
 def main():
