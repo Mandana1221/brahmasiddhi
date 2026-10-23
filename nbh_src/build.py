@@ -144,6 +144,13 @@ def build(part):
     toc_html = ''.join(f'<li><a href="#{i}"><span class="n">{html.escape(n)}</span>{html.escape(t)}</a></li>'
                        for i, n, t in toc)
     nav = meta.get('nav', '')
+    items = re.findall(r'<a [^>]*>.*?</a>|<span></span>', nav)
+    idx = '<a href="nbh_index.html">目次</a>'
+    if len(items) == 3:
+        items[1] = idx
+    elif len(items) == 2:
+        items.insert(1, idx)
+    nav = ''.join(items) if items else nav
     page = f'''<!DOCTYPE html>
 <html lang="ja">
 <head>
