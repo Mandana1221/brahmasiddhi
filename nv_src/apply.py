@@ -55,6 +55,8 @@ def read_fill(p):
                 print(p.name, '見つからない O:', a[:20], b[:20])
             else:
                 cur['S'] = tidy(CLEAN[i:j])
+        elif ln == 'Y':
+            cur['Y'] = True  # 番号つきの列挙の前で改行する
         elif ln[:2] in ('F ', 'R ', 'X '):
             old, _, new = ln[2:].partition('\t')
             cur['F'].append((old, new, ln[0]))
@@ -75,7 +77,10 @@ def read_fill(p):
                 print(p.name, k, '直せない:', old)
             s = s.replace(old, new) if kind == 'R' else s.replace(old, new, 1)
         s = (it.get('B', '') + ' ' + s.strip() + ' ' + it.get('A', '')).strip()
-        it['S'] = re.sub(r'\s+', ' ', s)
+        s = re.sub(r'\s+', ' ', s)
+        if it.get('Y'):
+            s = re.sub(r' (?=[०-९]{1,2}\. )', '<br>', s)
+        it['S'] = s
     return items
 
 
