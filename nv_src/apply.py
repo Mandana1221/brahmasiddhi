@@ -103,7 +103,7 @@ def fill_block(body, gaps_in, key):
             out.append(seps[k])
         else:
             if key == 'S' and v.startswith('+'):
-                out.append(v[1:])  # 刊本の略記（語の途中の「……」）は空白なしでつなぐ
+                out.append(v[1:].strip())  # 刊本の略記（語の途中の「……」）は空白なしでつなぐ
             else:
                 out.append(' ' + v + ' ' if key == 'S' else v)
         out.append(parts[k + 1])
