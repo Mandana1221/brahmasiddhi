@@ -5,7 +5,6 @@
   python3 nv_src/apply.py
 """
 import re
-import shutil
 import sys
 from pathlib import Path
 
@@ -119,6 +118,54 @@ def fill_block(body, gaps_in, key):
     return res
 
 
+# 補完したので、「抜粋した」「省略箇所」などと書いた解説を直す（原文・和訳の欄は対象外）
+NOTE_FIX = [
+    (r'Uddyotakara の答えは長く、細部は抜き出しにとどめましたが、要点は、', 'Uddyotakara の答えの要点は、'),
+    (r'ヒンディー訳所収の本文によって補うべき箇所ですが、ここでは抜き出しにとどめました。', 'OCR テキストによって全文を補いました。'),
+    (r'Thakur 版の抜粋で省いた', ''),
+    (r'(は、?)読みが定まらないので(?:訳していません|省略しました)', r'\1読みが定まりませんが、文脈から訳しました'),
+    (r'は趣旨が取りにくいので、省きました', 'は趣旨が取りにくいですが、文脈から訳しました'),
+    (r'は、読みが確かでないので省きました', 'は、読みが確かではありませんが、文脈から訳しました'),
+    (r'写本の異読も多いので、要点を抜き出しました。', '写本の異読も多いですが、全文を載せて訳しました。'),
+    (r'も読みが定まらないので省略しました', 'も読みが定まりませんが、文脈から訳しました'),
+    (r'省略した(?=[「箇部最冒物斑])', '補った'),
+    (r'省略箇所', '補った箇所'),
+]
+KEEP = re.compile(r'<div class="(?:src[^"]*|tr)"[^>]*>.*?</div>', re.S)
+
+
+def fix_notes(t):
+    out, pos = [], 0
+    for m in KEEP.finditer(t):
+        out.append(fix_text(t[pos:m.start()]))
+        out.append(m.group(0))
+        pos = m.end()
+    out.append(fix_text(t[pos:]))
+    return ''.join(out)
+
+
+ABRIDGED = re.compile(r'抜き出|抜粋|ほぼ全文|「……」で省略|全文を載せた（「……」')
+
+
+def fix_sentence(x):
+    if not ABRIDGED.search(x) or re.search('[\u0900-\u097F]', x):
+        return x
+    head = re.match(r'^\s*', x).group(0)
+    if x.rstrip().endswith('。'):
+        return head + ('原文は省略せずに全文を載せました。' if 'ました' in x else '原文は省略せずに全文を載せた。')
+    return head + '原文は省略せずに全文を載せた'
+
+
+def fix_text(s):
+    for a, b in NOTE_FIX:
+        s = re.sub(a, b, s)
+    # 文（「。」または タグで区切る）ごとに見る
+    parts = re.split(r'(<[^>]+>)', s)
+    for i in range(0, len(parts), 2):
+        parts[i] = ''.join(fix_sentence(x) for x in re.findall(r'[^。]*。|[^。]+$', parts[i]))
+    return ''.join(parts)
+
+
 def main():
     OUTD.mkdir(exist_ok=True)
     bad = 0
@@ -126,7 +173,7 @@ def main():
         n = f.name.split('-')[1]
         fp = FILL / f'{int(n):02d}.txt' if n.isdigit() else None
         if not fp or not fp.exists():
-            shutil.copy(f, OUTD / f.name)
+            (OUTD / f.name).write_text(fix_notes(f.read_text(encoding="utf-8")), encoding="utf-8")
             continue
         items = read_fill(fp)
         t = f.read_text(encoding='utf-8')
@@ -151,6 +198,7 @@ def main():
             reps.append((mt.start(2), mt.end(2), fill_block(mt.group(2), gi, 'J')))
         for a, b, v in sorted(reps, reverse=True):
             t = t[:a] + v + t[b:]
+        t = fix_notes(t)
         (OUTD / f.name).write_text(t, encoding='utf-8')
     if bad:
         sys.exit(1)
