@@ -171,6 +171,31 @@ def fix_text(s):
     return ''.join(parts)
 
 
+def add_extra(name, t):
+    """nv_src/extra_notes.py の研究ノートを、該当ブロックの解説欄の末尾に加える。"""
+    sys.path.insert(0, str(ROOT / 'nv_src'))
+    import extra_notes
+    added = False
+    for (page, uid), note in extra_notes.NOTES.items():
+        if page != name:
+            continue
+        i = t.find(f'id="{uid}"')
+        if i < 0:
+            print(name, uid, '研究ノートの場所が見つからない')
+            continue
+        j = t.find('<div class="mula"', i + 10)
+        j = len(t) if j < 0 else j
+        k = t.rfind('</div>\n</div>', i, j)
+        if k < 0:
+            print(name, uid, '解説欄の終わりが見つからない')
+            continue
+        t = t[:k] + note + t[k:]
+        added = True
+    if added:
+        t = t.replace('</style>', extra_notes.CSS + '</style>', 1)
+    return t
+
+
 def main():
     OUTD.mkdir(exist_ok=True)
     bad = 0
@@ -178,7 +203,7 @@ def main():
         n = f.name.split('-')[1]
         fp = FILL / f'{int(n):02d}.txt' if n.isdigit() else None
         if not fp or not fp.exists():
-            (OUTD / f.name).write_text(fix_notes(f.read_text(encoding="utf-8")), encoding="utf-8")
+            (OUTD / f.name).write_text(add_extra(f.name, fix_notes(f.read_text(encoding="utf-8"))), encoding="utf-8")
             continue
         items = read_fill(fp)
         t = f.read_text(encoding='utf-8')
@@ -203,7 +228,7 @@ def main():
             reps.append((mt.start(2), mt.end(2), fill_block(mt.group(2), gi, 'J')))
         for a, b, v in sorted(reps, reverse=True):
             t = t[:a] + v + t[b:]
-        t = fix_notes(t)
+        t = add_extra(f.name, fix_notes(t))
         (OUTD / f.name).write_text(t, encoding='utf-8')
     if bad:
         sys.exit(1)
