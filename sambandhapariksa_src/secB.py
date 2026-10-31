@@ -29,12 +29,12 @@ def sections(mula, dev, K):
       kind="vrtti",
       crit="<b>本文</b>　4 <i>ekena</i> n.e. T。5 <i>'rthadvayābhi°</i> rec.（SPVt <i>don gñis daṅ mṅon par</i>, PKM）: <i>. . . . yābhi°</i> Ms。<i>arthād</i> n.e. T。6 <i>upapadyate</i> em.（T <i>'thad na</i>）: <i>upalabhyate</i> Ms。21,3–10 は PKM 507,11–14 に並行（cf.）。4f <i>dviṣṭho … lakṣaṇam</i> は SVR 815,6–7 に並行（cf.）。"))
     s.append(mula("SPV 21,8–10",
-      "kasyacid bhāve bhāvo 'bhāve 'bhāvaḥ, tayor bhavator abhavatoś ca yau bhāvau 'bhāvau tāv upādhir viśeṣaṇaṃ yasya yogasya sambandhasyāsau bhāvābhāvopādhir yogaḥ kāryakāraṇatā yadi, na sarvaḥ sambandhaḥ,",
+      "kasyacid bhāve bhāvo 'bhāve 'bhāvaḥ, tayor bhavator abhavatoś ca yau bhāvāv abhāvau tāv upādhir viśeṣaṇaṃ yasya yogasya sambandhasyāsau bhāvābhāvopādhir yogaḥ kāryakāraṇatā yadi, na sarvaḥ sambandhaḥ,",
       "〔反論〕あるもの〔A〕があるとき〔B が〕あり、ないときにはない。それら二つが存在し、また存在しないときの二つの存在と二つの非存在、それらが限定（<i>upādhi</i>）すなわち限定要素（<i>viśeṣaṇa</i>）となっている結合すなわち関係、それが「存在・非存在を限定とする結合」である。もし〔そのような結合が〕因果関係であって、あらゆる関係が〔そうなのでは〕ない、とするなら、——",
       "<p>偈の後半は対論者の新しい提案である。関係一般ではなく因果関係に限って、それを存在・非存在によって限定された実在の結合（<i>yoga</i>）として立てる。A があるとき B があり、A がないとき B がない、という二組の存在・非存在が限定要素となり、この結合を数などから区別する。前段の「関係に固有の特徴がない」という批判に答える形になっている。</p>"
       "<p>文は次頁の <i>tadā</i>（第12偈 Vṛtti）に続く。「もし…なら、そのとき…」の構文で、偈の <i>yadi</i>（11d）と、Vṛtti が第12偈の冒頭に補う <i>tadā</i> が対応する。</p>",
       kind="vrtti",
-      crit="<b>本文</b>　8f <i>yau bhāvau &lt;'bhāvau&gt; tāv</i> em.（SPVt <i>yod pa daṅ med pa gaṅ yin pa de'i</i>）: <i>yau bhāvau tāv</i> Ms。9 <i>upādhir</i> em. : <i>upādhi°</i> Ms。10 <i>sambandhaḥ</i> n.e. T。"))
+      crit="<b>本文</b>　8f <i>yau bhāvāv &lt;abhāvau&gt; tāv</i> em.（SPVt <i>yod pa daṅ med pa gaṅ yin pa de'i</i>）: <i>yau bhāvau tāv</i> Ms。9 <i>bhāvāv abhāvau</i> は Eltschinger の提案（Steinkellner 2022 序文）により、刊本の <i>bhāvau 'bhāvau</i>（注記の <i>bhāvau &lt;'bhāvau&gt;</i> も）を連声の上で正したもの。9 <i>upādhir</i> em. : <i>upādhi°</i> Ms。10 <i>sambandhaḥ</i> n.e. T。"))
     s.append(mula("SP 5 / k.12", KB[12],
       "〔答論〕結合の限定であるそれら二つ〔存在と非存在〕こそが、ここで因果関係なのではないか。〔反論〕〔両者は〕別々であるから〔一つの語では表せない〕と言うなら、〔答論〕この語は、適用する者（<i>niyoktṛ</i>）に依拠しているではないか。",
       "", kind="sutra",
@@ -50,7 +50,8 @@ def sections(mula, dev, K):
       "bhedāc cet, syād etat – bhāve bhāvo 'bhāve 'bhāva iti bahavo 'bhidheyāḥ, kāryakāraṇateti caikārthābhidhāyinā śabdena vācyās tadviṣayā ayuktā iti bhāvābhāvau na kāryakāraṇateṣyate. nanv ayaṃ śabdo niyoktāraṃ puruṣaṃ samāśrita iti niyoktṛsamāśrayād yaṃ śabdam asau yathā prayuṅkte sa tathā prāhety anekatrāpy ekā śrutir ity aparihāra eva.",
       "「別々であるから」と言うなら、〔つまり〕こう言うかもしれない。「『あるときにあり、ないときにはない』というように、表示されるべきものは多数である。それらが、一つの対象を表示する『因果関係』という語によって、その〔語の〕対象として表示されるのは不適切である。それゆえ、存在・非存在は因果関係とは認められない」と。〔答論〕しかし、この語は適用する人（<i>niyoktṛ puruṣa</i>）に依拠している。適用する者に依拠しているので、その人がある語をどのように用いても、その〔語〕はそのとおりに言う。だから、多数のものについても一つの語がありうる。それゆえ〔その反論は〕まったく答えになっていない。",
       "<p>対論者の再反論は言語の側から来る。存在・非存在は少なくとも四つ（A の存在・非存在、B の存在・非存在）に分かれ、多数である。「因果関係」という単数の語には、それに対応する一つの対象がなければならない。だから語の対象は、存在・非存在とは別の一つのもの、つまり結合である、というのである。</p>"
-      "<p>答論は、語と対象の結びつきは語を適用する人に依る、と答える。語が一つであることは、対象が一つであることを保証しない。多数のものに一つの語を当てることは、使用者がそう用いれば成り立つ。語が実在の構造を写すのではなく、使用者の約定によって対象に当てられるという考え方は、第14–15偈で、「結果」などの語は簡便のための約定（<i>saṅketa</i>）である、という形で展開される。</p>",
+      "<p>答論は、語と対象の結びつきは語を適用する人に依る、と答える。語が一つであることは、対象が一つであることを保証しない。多数のものに一つの語を当てることは、使用者がそう用いれば成り立つ。語が実在の構造を写すのではなく、使用者の約定によって対象に当てられるという考え方は、第14–15偈で、「結果」などの語は簡便のための約定（<i>saṅketa</i>）である、という形で展開される。</p>"
+      "<p>末尾の <i>aparihāra eva</i> を、Steinkellner（2022, 試訳）は、一語を多数のものに当てることには何の難点もない、という意味に取る。本訳は <i>parihāra</i> を「〔論難への〕応答」と取った。対論者の「別々であるから」（12c）は第12偈前半の問いへの応答として出されたものであり、一語を多数のものに当てうる以上それは成り立たないので、まったく応答になっていない、と解するのである。いずれに取っても、一つの語が多数のものに当てられうるという論旨は変わらない。</p>",
       kind="vrtti",
       crit="<b>本文</b>　apparatus にこの部分の訂正の記載はない。9 <i>aparihāra</i> の途中で Ms は 6a に移る。"))
     tbl = '''<div class="tbl min"><table>
@@ -72,7 +73,7 @@ def sections(mula, dev, K):
       crit="<b>異読</b>　13d <i>vināpy ākhyātṛbhir</i> : <i>vinā vyākhyātṛbhir</i> PKM。第13偈は TŚV 149,20f; PKM 510,11f; SVR 816,1f に、第13–14偈は ĪPVV 1.199,18–21 に引用（Ci）。"))
     s.append(mula("SPV 23,3–7",
       "tasmāt tāv eva bhāvābhāvau kāryakāraṇatā yuktā. yasmāt paśyann ekaṃ kāraṇābhimatam upalabdhilakṣaṇaprāptasyādṛṣṭasya kāryākhyasya darśane sati yat paśyan dṛṣṭavāṃs tadadarśane saty apaśyan kāryābhimataṃ kāryam anvetīdam ato bhavatīti pratipadyate vināpy ākhyātṛbhir janaḥ, ata idaṃ bhavatīty ākhyātāram antareṇa janaḥ.",
-      "それゆえ、その存在と非存在こそが因果関係であるのが正しい。なぜなら、原因と見なされる一方を見ていて、知覚の条件を満たしていながら（<i>upalabdhilakṣaṇaprāpta</i>）〔それまで〕見えなかった、結果と呼ばれるものが見えるとき、また、見ていて〔すでに〕見たもの〔原因〕が見えないとき〔結果と見なされるものを〕見ないとき、人は、結果と見なされる「結果を理解する」、すなわち「これはあれから生じる」と知るからである。「説明する者がいなくても」、すなわち「これはあれから生じる」と説明する人なしに、人は〔そう知る〕。",
+      "それゆえ、その存在と非存在こそが因果関係であるのが正しい。なぜなら、原因と見なされる一方を見ていて、知覚の条件を満たしていながら（<i>upalabdhilakṣaṇaprāpta</i>）〔それまで〕見えなかった、結果と呼ばれるものが見えるとき、また、「その〔一方〕」すなわちそれを見ていて〔結果を〕見たところのもの〔原因〕が見えないとき、結果と見なされるものを見ないとき、人は「結果を理解する」、すなわち「これはあれから生じる」と知るからである。「説明する者がいなくても」、すなわち「これはあれから生じる」と説明する人なしに、人は〔そう知る〕。",
       "<p>偈は、因果関係がどのようにして知られるかを述べ、その知の内容が存在・非存在の観察以外のものではないことを示す。手順は三つに分かれる。(1) 原因と見なされる A を見る。そのとき、知覚可能でありながらまだ見えていなかった B が見えるようになる。(2) A が見えなくなると、B も見えない。(3) そこから「B は A から生じる」と知る。<i>upalabdhilakṣaṇaprāpta</i> の限定は、B が見えないことが単なる見落としではなく、B の非存在を示すための条件である。</p>"
       "<p>「説明する者がいなくても」は、因果の知が他人の教示や約定に由来するものではなく、観察から直接に生じることを言う。つまり、因果の知の内容は観察された存在・非存在そのものである。これが次の段（23,8–12）の論点になる。<i>yasmāt … pratipadyate</i> について、apparatus は PVSV 22,2–3 を挙げている。</p>",
       kind="vrtti",
@@ -138,7 +139,7 @@ def sections(mula, dev, K):
       crit="<b>本文</b>　5 <i>lokaḥ</i>（PKM, SVR）: <i>loka°</i> Ms。<i>iya&lt;n&gt;tīṃ</i> em.（SVR）: <i>iyatīṃ</i> Ms。<i>abhidhād</i> Ms : <i>abhidadhyād</i> PKM, SVR（Ms は <i>mā</i> にアオリストを続ける形、引用者は願望法）。全体は PKM 508,2–5; SVR 816,9–11 に並行（cf.）。"))
     s.append(mula("SP 5 / k.15", KB[15],
       "「それがあるときにあることから、それの結果であると理解される」と説かれるのも、それは約定の対象の言明である。ちょうど喉の垂れ肉（<i>sāsnā</i>）などから牛を理解するように。",
-      "", kind="sutra",
+      "<p>15c の <i>saṅketaviṣayākhyā</i> を、Steinkellner（2022, 試訳）は「約定の対象と呼ばれる」の意に取る（<i>-ākhyā</i> を複合語末の「名づけられた」と解する）。本訳は、Vṛtti がこれを <i>kāryakāraṇasaṅketaviṣayākhyānam</i> と言い換えていること（25,6f）から、<i>ākhyā</i> を言明（<i>ākhyāna</i>）の意に取った。因果の理解が約定の対象「である」のではなく、約定の対象を「言い表す」ものだとする方が、Vṛtti の <i>nārthabhedaḥ</i>（対象の違いではない）の論旨にも合う。Steinkellner も Vṛtti のこの箇所では言明・伝達の意に訳している。</p>", kind="sutra",
       crit="<b>異読</b>　15b <i>yāpy anuvarṇyate</i> : <i>yasya tu vartate</i> TŚV。第15偈は TŚV 149,22; PKM 510,15f; SVR 816,15f に引用（Ci）。"))
     s.append(mula("SPV 25,3–4",
       "nānyā 'nvayavyatirekābhyāṃ kāryakāraṇatā. nānyā cet, kathaṃ bhāvābhāvābhyāṃ sā prasādhyate.",
@@ -168,8 +169,8 @@ def sections(mula, dev, K):
     # ---------------- §13 k.16
     s = []
     s.append(mula("SP 6 / k.16", KB[16],
-      "生じるもの（<i>bhāvin</i>）があるとき、それ〔原因〕があること、そして、〔原因があるとき〕存在することこそが、生じるものであること（<i>bhāvitā</i>）である。〔このような〕原因であること・結果であることは、知覚と非知覚（<i>pratyakṣānupalambha</i>）によって確立される。",
-      "", kind="sutra",
+      "生じるもの（<i>bhāvin</i>）があるとき、それ〔原因〕があること、そして、〔それが〕あるときにのみ生じること（<i>bhāvitā</i>）が、原因であること・結果であることとして、知覚と非知覚（<i>pratyakṣānupalambha</i>）によって確立される。",
+      "<p>16b の <i>bhāva eva</i> は、主格 <i>bhāvaḥ eva</i> とも処格 <i>bhāve eva</i> とも連声上は読める。旧稿は主格に取り「存在することこそが生じるものであること」と訳したが、Steinkellner（2022, 試訳）に従って処格に取り、「〔それが〕あるときにのみ生じること」と改めた。Vṛtti の <i>kāraṇābhimatasya bhāva eva</i>（原因と見なされるものがあるときにのみ）は処格に取ると補いなしに読め、<i>bhāva evetīhāpy avadhāraṇam</i> も「あるときにのみ」という限定を 16a にも及ぼす意として自然に解けるからである。16cd も、二つの事態が原因性・結果性として確立される、という一続きの文に読む。</p>", kind="sutra",
       crit="<b>異読</b>　apparatus に異読の記載はない。第16偈は TŚV 149,22f; PKM 510,17f; SVR 816,20f に引用（Ci）。16ab について校訂者は ĪPK I 2.9ab を参照させる（cf.）。"))
     s.append(mula("SPV 26,3–6",
       "syād etat – bhāvābhāvayoḥ kāryakāraṇatve kāraṇatvaṃ kevalaṃ kāryatvañ cobhayagatabhāvābhāvāpekṣam. anyathā kathaṃ bhāvamātraṃ kāraṇaṃ kāryaṃ vā. na ca bhavator abhavatoś ca bhāvābhāvāv ubhayagatau kāryatvaṃ kāraṇatvaṃ vā. kāryakāraṇatā tu syād iti.",
@@ -184,9 +185,9 @@ def sections(mula, dev, K):
       kind="vrtti"))
     s.append(mula("SPV 26,9–13",
       "tathā hi bhāve bhāvini bhavanadharmiṇi bhāve tadbhāvaḥ kāraṇābhimatasya bhāvaḥ. bhāva evetīhāpy avadhāraṇam. anena vyatireka ākṣiptaḥ. kāraṇābhimatasya bhāva eva ca bhāvitā kāryābhimatasya kāryatvam iti prasiddhe pratyakṣānupalambhato hetuphalate. yata evaṃ bhāvābhāvāv eva kāryakāraṇatā, nānyā.",
-      "すなわち、「生じるものがあるとき」、つまり生起を属性とする（<i>bhavanadharmin</i>）存在があるとき、「それがあること」、すなわち原因と見なされるものがあること〔が原因であることである〕。ここでも「あることのみ」という限定（<i>avadhāraṇa</i>）がある。これによって否定的随伴（<i>vyatireka</i>）が含意される。「そして」原因と見なされるもの〔があるとき〕に「存在することこそが、生じるものであること」、すなわち結果と見なされるものの結果であることである。このように、原因であること・結果であることは「知覚と非知覚によって確立される」。このように、存在・非存在こそが因果関係であって、ほかのものではない。",
-      "<p>偈の前半は、前段の二つの定義を言い換えたものと読める。(a) 原因性：生じるもの（結果）があるとき、原因があること。(b) 結果性（<i>bhāvitā</i>）：原因があるとき、〔結果が〕存在すること。Vṛtti は (b) の <i>eva</i> を (a) にも及ぼす（<i>ihāpi</i>）。結果があるとき原因が必ずあるなら、原因がないとき結果はない。これが否定的随伴を含意する、という意味に訳した。</p>"
-      "<p>(b) の <i>kāraṇābhimatasya</i> は属格だが、<i>bhāve</i> を補って「原因と見なされるものがあるときに」と解した。原因・結果が「見なされるもの」（<i>abhimata</i>）と言われるのは、それが実在の性質ではなく、存在・非存在の観察に当てられた名前だからである（第14–15偈）。偈の後半は、この二つの事態が知覚と非知覚によって確立されることを言い、第13偈の手順を受ける。校訂者の分析 2.1.5.3（因果関係の成立）。</p>",
+      "すなわち、「生じるものがあるとき」、つまり生起を属性とする（<i>bhavanadharmin</i>）存在があるとき、「それがあること」、すなわち原因と見なされるものがあること〔が原因であることである〕。ここでも「あるときにのみ」という限定（<i>avadhāraṇa</i>）がはたらく。これによって否定的随伴（<i>vyatireka</i>）が含意される。「そして」原因と見なされるものが「あるときにのみ生じること」、すなわち結果と見なされるものの結果であること〔が結果であることである〕。このように、〔両者は〕「知覚と非知覚によって」原因であること・結果であることとして「確立される」。それゆえ、存在・非存在こそが因果関係であって、ほかのものではない。",
+      "<p>偈の前半は、前段の二つの定義を言い換えたものと読める。(a) 原因性：生じるもの（結果）があるとき、原因があること。(b) 結果性（<i>bhāvitā</i>）：原因があるときにのみ〔結果が〕生じること。Vṛtti は (b) の「のみ」（<i>eva</i>）の限定を (a) にも及ぼす（<i>ihāpi</i>）。結果があるとき原因が必ずあるなら、原因がないとき結果はない。これが否定的随伴を含意する、という意味に訳した。</p>"
+      "<p>(b) の <i>kāraṇābhimatasya bhāva eva</i> は <i>bhāve eva</i> の連声と取り、「原因と見なされるものがあるときにのみ」と解した（第16偈の解説参照）。原因・結果が「見なされるもの」（<i>abhimata</i>）と言われるのは、それが実在の性質ではなく、存在・非存在の観察に当てられた名前だからである（第14–15偈）。偈の後半は、この二つの事態が知覚と非知覚によって確立されることを言い、第13偈の手順を受ける。校訂者の分析 2.1.5.3（因果関係の成立）。</p>",
       kind="vrtti",
       crit="<b>本文</b>　10 <i>&lt;bhāvaḥ.&gt; bhāva evetīhāpy</i> em.（SPVt <i>yod pa'o // yod pa ñid do źes 'dir yaṅ</i>; T 17b4）: <i>bhāva eva itīhāpy°</i> Ms（最初の <i>bhāvaḥ.</i> は校訂者の補い）。13 <i>yata evaṃ</i> Ms : T <i>de ltar na</i>（PKM <i>tato</i>）。<i>eva</i>（PKM）: <i>eda</i> Ms。9–13 は PKM 508,10–14 に並行（cf.）。"))
     fig = '''<figure>
@@ -206,12 +207,12 @@ def sections(mula, dev, K):
     <text x="330" y="100" text-anchor="middle" font-size="11" class="s-muted">点線＝限定（viśeṣaṇa）</text>
     <rect x="40" y="114" width="250" height="78" rx="10" class="s-card st-line" stroke-width="1"/>
     <text x="165" y="138" text-anchor="middle" font-size="13.5" font-weight="700" class="s-ink">原因性 kāraṇatva</text>
-    <text x="165" y="158" text-anchor="middle" font-size="12" class="s-ink">B があるとき A がある（16a）</text>
+    <text x="165" y="158" text-anchor="middle" font-size="12" class="s-ink">結果 B があるとき A がある（16a）</text>
     <text x="165" y="178" text-anchor="middle" font-size="11.5" class="s-muted">「のみ」の限定 → 否定的随伴</text>
     <rect x="370" y="114" width="250" height="78" rx="10" class="s-card st-line" stroke-width="1"/>
     <text x="495" y="138" text-anchor="middle" font-size="13.5" font-weight="700" class="s-ink">結果性 bhāvitā</text>
-    <text x="495" y="158" text-anchor="middle" font-size="12" class="s-ink">A があるとき B がある（16b）</text>
-    <text x="495" y="178" text-anchor="middle" font-size="11.5" class="s-muted">bhāva eva</text>
+    <text x="495" y="158" text-anchor="middle" font-size="12" class="s-ink">A があるときにのみ B が生じる（16b）</text>
+    <text x="495" y="178" text-anchor="middle" font-size="11.5" class="s-muted">bhāva eva ＝ bhāve eva</text>
     <rect x="150" y="206" width="360" height="44" rx="10" class="s-anssoft"/>
     <text x="330" y="226" text-anchor="middle" font-size="13" font-weight="700" class="s-ans">存在・非存在こそが因果関係</text>
     <text x="330" y="243" text-anchor="middle" font-size="11.5" class="s-ink">知覚と非知覚によって確立される（16cd）</text>
@@ -233,9 +234,10 @@ def sections(mula, dev, K):
       "tenaitāvanmātratattvārthāḥ. etāvanmātraṃ bhāvābhāvau. tāv eva tattvaṃ bhūtaṃ yasyārthasyāsāv etāvanmātratattvaḥ. so 'rtho yeṣāṃ vikalpānāṃ ta etāvanmātratattvārthāḥ. kim. etāvanmātrabījāḥ kāryakāraṇagocarāḥ. te darśayanti ghaṭitān iva sambaddhān ivāsambaddhān arthān. evaṃ ghaṭanāc ca mithyārthāḥ.",
       "それゆえ「ただこれだけを真実の対象とする」。「ただこれだけ」とは存在・非存在である。その二つだけが真実、すなわち実在であるような対象、それが「ただこれだけを真実とする〔対象〕」である。それを対象とする分別が「ただこれだけを真実の対象とする」〔分別〕である。どういうことか。ただこれだけを種子とする（<i>etāvanmātrabīja</i>）、原因・結果を対象領域とする〔分別〕である。それらは、結合していない事物を「結合したかのように」、すなわち関係したかのように示す。そして、このように結合させるので「偽りの対象をもつ」。",
       "<p>第16偈までで、因果関係の実在的な内容は存在・非存在だけであることが示された。第17偈は、それにもかかわらず「A が B を生む」「A と B は因果的に結ばれている」と考える分別の身分を定める。分別は二つの面をもつ。一方で、その真実の対象は存在・非存在に尽きる。Vṛtti はこれを「ただこれだけを種子とする」と言い換え、分別が根拠のない虚構ではなく、観察された存在・非存在から生じていることを示す。他方で、分別は別々の事物を結合したかのように示すので、その現れ方において偽りの対象をもつ。</p>"
-      "<p>これは第5偈の「存在は自らに立ち、混ぜるのは分別である」と、第1偈 Vṛtti の「分別によって作られた関係は否定しない」を、因果関係の場合に適用したものである。校訂者の分析 2.1.5.3.2。</p>",
+      "<p>これは第5偈の「存在は自らに立ち、混ぜるのは分別である」と、第1偈 Vṛtti の「分別によって作られた関係は否定しない」を、因果関係の場合に適用したものである。校訂者の分析 2.1.5.3.2。</p>"
+      "<p>5 <i>kim. etāvanmātrabījāḥ</i> について、Eltschinger は <i>kim</i> を立てず、<i>etāvanmātratattvārthā etāvanmātrabījāḥ</i> と続けて読む（Steinkellner 2022 序文）。この読みでは「種子とする」が「真実の対象とする」の直接の言い換えになる。Steinkellner（2022, 試訳）自身は刊本どおり <i>kim</i> を残して問いの形に訳しており、本訳も刊本に従って、<i>kim</i> を偈の語の趣旨を問い直して言い換えを導く「どういうことか」と取った（25,9 <i>kim iva</i> 参照）。どちらの読みでも文意は変わらない。</p>",
       kind="vrtti",
-      crit="<b>本文</b>　4 <i>etāvanmātra°</i> n.e. T（T 18a7）。全体は PKM 508,14–17 に並行（cf.）。"))
+      crit="<b>本文</b>　4 <i>etāvanmātra°</i> n.e. T（T 18a7）。5 <i>ta etāvanmātratattvārthāḥ. kim. etāvanmātrabījāḥ</i> Ms, ed. : <i>ta etāvanmātratattvārthā etāvanmātrabījāḥ</i>（Eltschinger の提案（Steinkellner 2022 序文））。本訳は刊本に従う。全体は PKM 508,14–17 に並行（cf.）。"))
     s.append(mula("SP 6 / k.18", KB[18],
       "別であるなら、何の結合があろうか。別でないなら、因果関係もまた何であろうか。また、他のもの〔関係〕が存在することによって、離れている二つが、どうして結びついたものとなろうか。",
       "", kind="sutra",
@@ -243,9 +245,10 @@ def sections(mula, dev, K):
     s.append(mula("SPV 28,3–8",
       "kim abhūtaḥ sambandhaḥ pradarśyate tair yena mithyārthāḥ. evam etat. tathā hy atra dvayī kalpanā. sambadhyamānaḥ kāryakāraṇabhūto 'rtho bhinno 'bhinno vā syāt. yadi bhinnaḥ, bhinne kā ghaṭanā. naiva, svasvabhāvavyavasthiteḥ. athābhinnaḥ, abhinne kāryakāraṇatāpi kā. naiva, aniṣpannasya kartavyasya kāraṇād vyatiriktasyābhāvāt. kutaḥ punar dvayor ghaṭanā.",
       "〔問〕それら〔分別〕によって示されるのは実在でない関係であり、そのために〔それらは〕偽りの対象をもつのか。〔答〕そのとおりである。すなわち、ここには二つの選択肢がある。関係づけられる、原因・結果である事物は、別であるか別でないかのどちらかであろう。もし別であるなら、「別であるとき、何の結合があろうか」。まったくない。〔それぞれが〕自らの本性に確立しているからである。また、別でないなら、「別でないとき、因果関係もまた何であろうか」。まったくない。原因から区別される、まだ完成していない、作られるべき〔結果〕がないからである。ましてや、どうして二つのものの結合があろうか。",
-      "<p>第18偈は、分別が示す関係が実在でないことを、二者択一で確かめる。別であれば、各項は自らの本性に立っていて（第5偈 <i>svātmani sthitāḥ</i>）、結合の余地がない。別でなければ、原因と区別される結果、つまりまだ作られていない、これから作られるべきものがないので、因果関係が成り立たない。そもそも二つがないので、二つの結合も問題にならない。第2偈の「二か一か」（姿の融合の否定）と同じ型の論法を、因果関係に当てはめたものである。</p>",
+      "<p>第18偈は、分別が示す関係が実在でないことを、二者択一で確かめる。別であれば、各項は自らの本性に立っていて（第5偈 <i>svātmani sthitāḥ</i>）、結合の余地がない。別でなければ、原因と区別される結果、つまりまだ作られていない、これから作られるべきものがないので、因果関係が成り立たない。そもそも二つがないので、二つの結合も問題にならない。第2偈の「二か一か」（姿の融合の否定）と同じ型の論法を、因果関係に当てはめたものである。</p>"
+      "<p>冒頭の <i>kim</i> を、Steinkellner（2022, 試訳）は「なぜ」の疑問詞に取る。本訳は、直後の答え <i>evam etat</i>（そのとおりである）が是非を問う問いへの応答であることから、<i>kim</i> を疑問の小辞と取り、「…のか」と確かめる問いに訳した。答えはそのあと <i>tathā hi</i> 以下で、なぜ実在でないのかを二者択一で示す。</p>",
       kind="vrtti",
-      crit="<b>本文</b>　4f <i>°bhūto 'rtho</i> Ms : T は <i>yaṅ dag pa ma yin pa'i don</i>（実在でない対象）と訳す（T 18b5）。6 <i>athābhinnaḥ</i> em.（SVR 817,13; PKM）: <i>athābhinne</i> Ms。4–7 は PKM 508,18–20 に並行（cf.）。"))
+      crit="<b>本文</b>　4f <i>°bhūto 'rtho</i> Ms : T は <i>yaṅ dag pa ma yin pa'i don</i>（実在でない対象）と訳す（T 18b5）。6 <i>athābhinnaḥ</i> em.（SVR 817,13; PKM）: <i>athābhinne</i> Ms（刊本本文・注記の <i>athābhinnas</i> は Steinkellner 2022 序文の訂正により <i>athābhinnaḥ</i> とする）。4–7 は PKM 508,18–20 に並行（cf.）。"))
     fig = '''<figure>
   <div class="scroll">
   <svg viewBox="0 0 660 250" style="min-width:560px;width:100%" role="img" aria-label="第18偈の二者択一。原因と結果は別か別でないか。別なら結合がなく、別でないなら因果関係がない。第三の関係を立てても二つは結びつかない">
