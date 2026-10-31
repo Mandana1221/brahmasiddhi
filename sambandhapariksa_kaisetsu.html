@@ -1,0 +1,535 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>はじめての『関係の考察』</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@600;800&display=swap">
+<style>
+:root{
+  --bg:#f6f4ef;--card:#ffffff;--ink:#22252b;--muted:#5d6470;--line:#d9d4c8;
+  --accent:#1f6f78;--accent-soft:#e3f0f1;--gold:#a26a12;--gold-soft:#fbf1dc;
+  --west:#6a4c9c;--west-soft:#efe9f8;--warn:#b0413e;--warn-soft:#f9e6e5;
+  --f-body:"Zen Kaku Gothic New",system-ui,sans-serif;--f-head:"Shippori Mincho B1",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#17191d;--card:#20242a;--ink:#e9e6df;--muted:#a5abb5;--line:#3a3f47;
+  --accent:#6cc3cc;--accent-soft:#1d3436;--gold:#e0b25c;--gold-soft:#3a3020;
+  --west:#b49ce6;--west-soft:#2c2540;--warn:#e88a86;--warn-soft:#3d2423;}}
+:root[data-theme="dark"]{
+  --bg:#17191d;--card:#20242a;--ink:#e9e6df;--muted:#a5abb5;--line:#3a3f47;
+  --accent:#6cc3cc;--accent-soft:#1d3436;--gold:#e0b25c;--gold-soft:#3a3020;
+  --west:#b49ce6;--west-soft:#2c2540;--warn:#e88a86;--warn-soft:#3d2423;}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.9}
+.wrap{max-width:820px;margin:0 auto;padding:0 16px}
+header.hero{padding:56px 0 28px;border-bottom:1px solid var(--line)}
+.eyebrow{font-size:.8rem;letter-spacing:.15em;color:var(--accent);font-weight:700}
+h1{font-family:var(--f-head);font-size:clamp(1.7rem,5vw,2.4rem);line-height:1.35;margin:.3em 0 .2em}
+.lead{color:var(--muted)}
+h2{font-family:var(--f-head);font-size:1.55rem;margin:2.6em 0 .6em;padding-top:.4em;border-top:3px solid var(--accent)}
+h2 .no{color:var(--accent);margin-right:.4em}
+h3{font-size:1.12rem;margin:2em 0 .5em;color:var(--ink)}
+h3 .no{color:var(--accent);font-weight:700;margin-right:.4em}
+p{margin:.7em 0}
+.ref{display:inline-block;font-size:.78rem;color:var(--gold);background:var(--gold-soft);border-radius:6px;padding:0 8px;margin:0 2px;white-space:nowrap}
+.box{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:1.2em 0}
+.box .lbl{display:block;font-size:.78rem;font-weight:700;letter-spacing:.08em;margin-bottom:.2em}
+.point{border-left:5px solid var(--accent)}.point .lbl{color:var(--accent)}
+.west{border-left:5px solid var(--west);background:var(--west-soft)}.west .lbl{color:var(--west)}
+.q{border-left:5px solid var(--gold);background:var(--gold-soft)}.q .lbl{color:var(--gold)}
+.warn{border-left:5px solid var(--warn);background:var(--warn-soft)}.warn .lbl{color:var(--warn)}
+table{border-collapse:collapse;width:100%;font-size:.93rem;background:var(--card)}
+th,td{border:1px solid var(--line);padding:7px 10px;vertical-align:top;text-align:left}
+th{background:var(--accent-soft);font-weight:700}
+.tbl{overflow-x:auto;margin:1em 0}
+.tbl table{min-width:560px}
+figure{margin:1.4em 0;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px}
+figure svg{width:100%;height:auto;display:block}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:.4em;text-align:center}
+svg text{font-family:var(--f-body);fill:var(--ink)}
+svg .acc{fill:var(--accent)} svg .gold{fill:var(--gold)} svg .west{fill:var(--west)} svg .mut{fill:var(--muted)}
+svg .bx{fill:var(--card);stroke:var(--line);stroke-width:1.5}
+svg .bxa{fill:var(--accent-soft);stroke:var(--accent);stroke-width:1.5}
+svg .bxg{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.5}
+svg .bxw{fill:var(--west-soft);stroke:var(--west);stroke-width:1.5}
+svg .ln{stroke:var(--muted);stroke-width:1.8;fill:none}
+svg .lna{stroke:var(--accent);stroke-width:2.2;fill:none}
+svg .lng{stroke:var(--gold);stroke-width:2.2;fill:none}
+svg .dash{stroke-dasharray:5 4}
+ol.steps{padding-left:1.3em}ol.steps li{margin:.3em 0}
+nav.toc{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 18px;margin:1.5em 0}
+nav.toc a{color:var(--accent);text-decoration:none}
+nav.toc li{margin:.15em 0}
+.soon{color:var(--muted);font-size:.85rem}
+footer{color:var(--muted);font-size:.85rem;border-top:1px solid var(--line);margin-top:3em;padding:1.5em 0 3em}
+.pill{display:inline-block;border:1px solid var(--line);border-radius:999px;padding:0 10px;font-size:.8rem;margin:2px;background:var(--card)}
+</style>
+</head>
+<body>
+<header class="hero wrap">
+  <div class="eyebrow">大学1年生のためのインド哲学入門</div>
+  <h1>はじめての『関係の考察（サンバンダ・パリークシャー）』<br><small style="font-size:.6em">――ダルマキールティは、なぜ「関係」を認めなかったのか</small></h1>
+  <p class="lead">「AはBの原因である」「AはBの上にある」「AとBはくっついている」。わたしたちは毎日、ものとものとの<strong>関係</strong>について語っています。ところが、7世紀の仏教哲学者ダルマキールティは、こうした関係は<strong>世界の側には実在しない</strong>と主張しました。世界にあるのは、それぞれ自分だけで立っている個々のものだけで、それらを「関係」で結びつけているのは、わたしたちの頭の中の考え（分別）だ、というのです。『関係の考察』は、この大胆な主張を、わずか25の詩（偈）で論じた小さな本です。このページでは、弟子デーヴェーンドラブッディの注釈を手がかりに、議論の中身を図と表、西洋哲学との比較でたどります。</p>
+  <p class="lead" style="font-size:.88rem">　<span class="ref">第5偈</span> のような印は、25偈のうちのどの偈についての話かを示します。§の番号は、このページで内容に沿って分けた13の節の番号です。</p>
+</header>
+
+<main class="wrap">
+
+<nav class="toc">
+<strong>目次</strong>
+<ol>
+  <li><a href="#intro">この本を読む前に</a></li>
+  <li><a href="#map">全体の地図</a></li>
+  <li><a href="#p1">序：否定するのは「実在としての」関係（§1）</a></li>
+  <li><a href="#p2">関係の四つの定義をすべて退ける（§2–§5）</a></li>
+  <li><a href="#p3">ものを混ぜるのは心である（§6）</a></li>
+  <li><a href="#p4">因果関係も関係ではない（§7–§8）</a></li>
+  <li><a href="#p5">因果とは「あるとき・ないとき」のこと（§9–§10）</a></li>
+  <li><a href="#p6">考えは「結びついたかのように」見せる（§11）</a></li>
+  <li><a href="#p7">「くっつく」「内にある」の批判（§12）</a></li>
+  <li><a href="#p8">「ふさわしさ」と、一瞬ごとに生まれる世界（§13）</a></li>
+</ol>
+</nav>
+
+<!-- ============ intro ============ -->
+<h2 id="intro"><span class="no">0</span>この本を読む前に</h2>
+<div class="tbl"><table>
+<tr><th style="width:9em">著者</th><td>ダルマキールティ（法称、600–660年ごろ）。インド仏教の論理学・認識論の大成者。主著『プラマーナ・ヴァールッティカ（認識論評釈）』『プラマーナ・ヴィニシュチャヤ（認識の確定）』。</td></tr>
+<tr><th>書名</th><td>『サンバンダ・パリークシャー』＝「関係（サンバンダ）の考察（パリークシャー）」。本の最後に「ダルマキールティ師の作」と記される。</td></tr>
+<tr><th>分量</th><td>25偈だけの小品。主著のあとに書かれたと考えられている。</td></tr>
+<tr><th>注釈</th><td>弟子デーヴェーンドラブッディ（7世紀）の注釈（ヴリッティ）。偈の一語一語を説明し、反論と答えを補う。このページの説明はおもにこれによる。ほかにヴィニータデーヴァらのチベット語訳で残る注釈がある。</td></tr>
+<tr><th>テーマ</th><td>「関係」は世界の側に実在するのか。因果関係、「くっつくこと（結合）」「内にあること（内属）」などの関係を、一つずつ検討する。</td></tr>
+<tr><th>反響</th><td>短い本だが、ジャイナ教の論者（プラバーチャンドラなど）が繰り返し引用して反論し、カシミールのシヴァ派の哲学者ウトパラデーヴァは、これに答えて『関係の論証（サンバンダ・シッディ）』を書いた。</td></tr>
+<tr><th>研究</th><td>サンスクリット原典はながくチベット訳と引用でしか知られていなかったが、チベットで写本が見つかり、シュタインケルナー（Steinkellner）が2022年に注釈とともに校訂・英訳した。</td></tr>
+</table></div>
+
+<div class="box west"><span class="lbl">「関係は実在するか」は、西洋でも大問題だった</span>
+西洋哲学でも、関係の実在性は何度も論争になりました。ライプニッツは、関係は二つのものの性質から心が作り出す「観念的なもの」だと考えました。19世紀末のイギリスでは、ブラッドリーが「関係を実在とみなすと無限後退に陥る」と論じ、これに<strong>ラッセル</strong>が「関係は外的で実在的だ」と反論して、20世紀の分析哲学の出発点の一つになりました。ダルマキールティの立場は、この論争でいえば<strong>関係を実在として認めない側</strong>の、もっとも徹底したものの一つです。
+</div>
+
+<!-- ============ map ============ -->
+<h2 id="map"><span class="no">★</span>全体の地図</h2>
+<p>本は大きく二つの部分に分かれます。前半（第1–6偈）は、関係<strong>一般</strong>を否定します。関係とは何かという定義を四つ取り上げて一つずつ退け、「関係を作るのは心だ」と結論します。後半（第7–25偈）は、<strong>個別の</strong>関係を検討します。中心は因果関係（第7–18偈）で、そのあと、インドの自然哲学ヴァイシェーシカ学派が立てた「結合」「内属」などを批判し（第19–24偈）、最後に全体をまとめます（第25偈）。</p>
+
+<figure>
+<svg viewBox="0 0 760 360" role="img" aria-label="『関係の考察』の構成">
+  <rect class="bxa" x="10" y="10" width="740" height="52" rx="10"/>
+  <text x="380" y="33" text-anchor="middle" font-weight="700">序：否定するのは「実在としての」関係（§1）</text>
+  <text x="380" y="52" text-anchor="middle" font-size="12.5" class="mut">心が作る関係は否定しない</text>
+  <path class="ln" d="M380 62 V80 H195 V96"/><path class="ln" d="M380 80 H565 V96"/>
+  <rect class="bxg" x="10" y="96" width="370" height="64" rx="10"/>
+  <text x="195" y="122" text-anchor="middle" font-weight="700">第一部　関係一般の否定</text>
+  <text x="195" y="144" text-anchor="middle" font-size="12.5" class="mut">第1–6偈（§2–§6）</text>
+  <rect class="bxg" x="380" y="96" width="370" height="64" rx="10"/>
+  <text x="565" y="122" text-anchor="middle" font-weight="700">第二部　個別の関係の否定</text>
+  <text x="565" y="144" text-anchor="middle" font-size="12.5" class="mut">第7–25偈（§7–§13）</text>
+  <g font-size="12.5">
+  <rect class="bx" x="10" y="176" width="180" height="62" rx="9"/><text x="100" y="200" text-anchor="middle" font-weight="700">四つの定義の否定</text><text x="100" y="222" text-anchor="middle" class="mut">従属・融合・依存・第三項</text>
+  <rect class="bx" x="200" y="176" width="180" height="62" rx="9"/><text x="290" y="200" text-anchor="middle" font-weight="700">混ぜるのは心</text><text x="290" y="222" text-anchor="middle" class="mut">言葉は区別を伝える</text>
+  <rect class="bx" x="390" y="176" width="175" height="62" rx="9"/><text x="477" y="200" text-anchor="middle" font-weight="700">因果関係</text><text x="477" y="222" text-anchor="middle" class="mut">第7–18偈</text>
+  <rect class="bx" x="575" y="176" width="175" height="62" rx="9"/><text x="662" y="200" text-anchor="middle" font-weight="700">結合・内属など</text><text x="662" y="222" text-anchor="middle" class="mut">第19–24偈</text>
+  </g>
+  <path class="ln" d="M477 238 V262"/><path class="ln" d="M662 238 V262"/>
+  <rect class="bx" x="390" y="262" width="175" height="56" rx="9"/><text x="477" y="284" text-anchor="middle" font-size="12.5">関係ではない。</text><text x="477" y="304" text-anchor="middle" font-size="12.5">中身は「ある・ない」</text>
+  <rect class="bx" x="575" y="262" width="175" height="56" rx="9"/><text x="662" y="284" text-anchor="middle" font-size="12.5">助け合わないので</text><text x="662" y="304" text-anchor="middle" font-size="12.5">関係項ではない</text>
+  <rect class="bxw" x="10" y="326" width="740" height="30" rx="9"/><text x="380" y="346" text-anchor="middle" font-weight="700" font-size="13.5">総括：一瞬ごとに生まれるものの「本性の違い」だけがある（第25偈）</text>
+</svg>
+<figcaption>図1　『関係の考察』の構成。分け方はシュタインケルナーの分析による。</figcaption>
+</figure>
+
+<div class="tbl"><table>
+<tr><th>節</th><th>テーマ</th><th>偈</th></tr>
+<tr><td>§1</td><td>序：否定するのは「実在としての」関係</td><td><span class="ref">帰敬・第1偈注</span></td></tr>
+<tr><td>§2</td><td>関係＝「他に従属すること」の否定</td><td><span class="ref">第1偈</span></td></tr>
+<tr><td>§3</td><td>関係＝「溶け合うこと」「すき間がないこと」の否定</td><td><span class="ref">第2偈</span></td></tr>
+<tr><td>§4</td><td>関係＝「他に依存すること」の否定</td><td><span class="ref">第3偈</span></td></tr>
+<tr><td>§5</td><td>関係＝「第三のものによる結びつき」の否定と無限後退</td><td><span class="ref">第4偈</span></td></tr>
+<tr><td>§6</td><td>ものは混じり合わない。混ぜるのは心と言葉</td><td><span class="ref">第5–6偈</span></td></tr>
+<tr><td>§7</td><td>原因と結果は同時にない。だから因果は「二つにまたがる関係」ではない</td><td><span class="ref">第7–9偈</span></td></tr>
+<tr><td>§8</td><td>「共通の第三のもの」による因果も不可能（左右の角）</td><td><span class="ref">第10偈</span></td></tr>
+<tr><td>§9</td><td>因果とは「あるときにあり、ないときにない」ことそのもの</td><td><span class="ref">第11–15偈</span></td></tr>
+<tr><td>§10</td><td>因果は知覚と非知覚で確立される</td><td><span class="ref">第16偈</span></td></tr>
+<tr><td>§11</td><td>考えは、ばらばらのものを「結びついたかのように」見せる</td><td><span class="ref">第17–18偈</span></td></tr>
+<tr><td>§12</td><td>ヴァイシェーシカの「結合」「内属」の批判</td><td><span class="ref">第19–22偈</span></td></tr>
+<tr><td>§13</td><td>「ふさわしさ」の批判と総括</td><td><span class="ref">第23–25偈</span></td></tr>
+</table></div>
+
+<!-- ============ §1 ============ -->
+<h2 id="p1"><span class="no">§1</span>序：否定するのは「実在としての」関係</h2>
+<p class="soon"><span class="ref">帰敬</span> <span class="ref">第1偈の注の結び</span></p>
+<p>本は「欲を離れた方（仏陀）に帰命する」で始まります。注釈者デーヴェーンドラブッディは、すぐに本書の目的を一言で示します。「<strong>実在としての関係を退けるために</strong>」。</p>
+<p>ここで大事なのは、「実在としての」という限定です。ダルマキールティは「関係なんて言葉を使うな」と言っているのではありません。第1偈の注の最後で、注釈者ははっきりこう言います。</p>
+<div class="box point"><span class="lbl">ここが要点</span>
+否定するのは、<strong>世界の側に実在する</strong>関係だけである。<strong>心（分別）が作った関係</strong>は否定しない。それはもともと実在ではないからである。
+</div>
+<p>つまり本書は、「世界そのもの」と「わたしたちが世界について考えたり話したりするレベル」とを、はっきり分けています。仏教でいう<strong>二つの真理</strong>（究極の真理と、世間の約束ごととしての真理）の考え方です。「AはBの原因だ」と言うことは、日常の言葉づかいとしては正しい。でも、その「原因である」という関係が、AとBのほかに世界の中に<strong>もう一つのもの</strong>としてあるわけではない、というのです。</p>
+
+<div class="tbl"><table>
+<tr><th style="width:8em">レベル</th><th>何があるか</th><th>関係は？</th></tr>
+<tr><td>実在のレベル</td><td>一瞬ごとに生じては滅する、個々のもの（それぞれが自分だけで立っている）</td><td><strong>ない</strong></td></tr>
+<tr><td>心と言葉のレベル</td><td>概念・言葉・「原因」「結果」「上にある」などの関係</td><td><strong>ある</strong>（心が作ったものとして）</td></tr>
+</table></div>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：カントの「カテゴリー」</span>
+カントは『純粋理性批判』で、「原因と結果」は世界からそのまま受け取るものではなく、<strong>わたしたちの知性が経験を整理するための枠組み（カテゴリー）</strong>だと考えました。関係を心の側に置く点では、ダルマキールティと似ています。ただしカントにとって、カテゴリーはすべての人間に共通し、経験を成り立たせる必然的な形式です。ダルマキールティにとっての分別は、むしろ<strong>本当は別々のものを、ひとまとめにしてしまう誤った働き</strong>です。役に立つが、究極的には偽り、という位置づけなのです。
+</div>
+
+<!-- ============ §2–5 ============ -->
+<h2 id="p2"><span class="no">§2–5</span>関係の四つの定義をすべて退ける</h2>
+<p>第1偈から第4偈で、ダルマキールティは「関係とは〜である」という定義を四つ取り上げ、どれも実在の関係としては成り立たないことを示します。四つとも同じ型の議論、つまり<strong>二者択一（ジレンマ）</strong>を使っているのが特徴です。</p>
+
+<div class="tbl"><table>
+<tr><th>偈</th><th>関係の定義</th><th>二者択一</th><th>どちらを選んでもダメな理由</th></tr>
+<tr><td>第1偈</td><td>他に<strong>従属</strong>すること</td><td>そのものは、すでに成り立っているか、まだか</td><td>まだなら従属する主体がいない。すでになら従属する必要がない</td></tr>
+<tr><td>第2偈</td><td>二つが<strong>溶け合う</strong>こと</td><td>二つは別々か、一つか</td><td>別々なら溶け合っていない。一つなら関係するもう一方がない</td></tr>
+<tr><td>第3偈</td><td>他に<strong>依存</strong>すること</td><td>そのものは存在するか、しないか</td><td>存在しないものは依存できない。存在するものは何も必要としない</td></tr>
+<tr><td>第4偈</td><td><strong>第三のもの</strong>で結びつけられること</td><td>第三のものは二つと別か、別でないか</td><td>別でないなら結局二つだけ。別ならその結びつきがまた問題になり、無限後退</td></tr>
+</table></div>
+
+<h3><span class="no">§2</span>関係＝「他に従属すること」 <span class="ref">第1偈</span></h3>
+<p>最初の定義は「関係とは、あるものが他のものに<strong>従属している（依存している）</strong>ことだ」というものです。たとえば「子は親に依存している」というように。</p>
+<p>ダルマキールティは問います。その「従属しているもの」は、<strong>すでに成り立っている</strong>のか、<strong>まだ成り立っていない</strong>のか。</p>
+
+<figure>
+<svg viewBox="0 0 760 270" role="img" aria-label="第1偈の二者択一">
+  <rect class="bxa" x="210" y="10" width="340" height="52" rx="10"/>
+  <text x="380" y="33" text-anchor="middle" font-weight="700">関係＝ものXが他に従属していること</text>
+  <text x="380" y="52" text-anchor="middle" font-size="12.5" class="mut">では、X はどんな状態か？</text>
+  <path class="ln" d="M330 62 L190 98"/><path class="ln" d="M430 62 L570 98"/>
+  <rect class="bx" x="40" y="98" width="300" height="86" rx="10"/>
+  <text x="190" y="124" text-anchor="middle" font-weight="700">X はまだ成り立っていない</text>
+  <text x="190" y="148" text-anchor="middle" font-size="13">まだ存在しないもの＝何でもない</text>
+  <text x="190" y="170" text-anchor="middle" font-size="13" class="acc">→ 従属する主体がいない</text>
+  <rect class="bx" x="420" y="98" width="300" height="86" rx="10"/>
+  <text x="570" y="124" text-anchor="middle" font-weight="700">X はすでに成り立っている</text>
+  <text x="570" y="148" text-anchor="middle" font-size="13">自分の姿はもう完成している</text>
+  <text x="570" y="170" text-anchor="middle" font-size="13" class="acc">→ 何かに従属する必要がない</text>
+  <rect class="bxg" x="170" y="206" width="420" height="52" rx="10"/>
+  <text x="380" y="229" text-anchor="middle" font-weight="700">どちらでも「従属」は成り立たない</text>
+  <text x="380" y="248" text-anchor="middle" font-size="12.5" class="mut">「一部だけ未完成」と言っても、その部分に同じ問いが繰り返される</text>
+</svg>
+<figcaption>図2　第1偈の議論。「まだ」か「すでに」か、どちらを選んでも従属の余地がない。</figcaption>
+</figure>
+
+<p>反論者は「完成したものにも、どこか未完成の部分があって、その部分が他に依存しているのだ」と抜け道を探します。注釈者の答えは二つです。第一に、その「部分」についても「すでにか、まだか」の問いがそのまま繰り返されるだけです。第二に、一つのものが「完成した姿」と「未完成の姿」を<strong>同時に</strong>もつことはできません。正反対の性質をもつなら、それはもう別々のものだからです。</p>
+<p>この議論の背景には、ダルマキールティの存在論があります。ものは自分の原因から、<strong>完成した姿で、一瞬だけ</strong>生まれます。生まれる前は何もなく、生まれたときにはもう完成している。だから、そのものが「他に従属している」と言える瞬間が、どこにもないのです。</p>
+
+<h3><span class="no">§3</span>関係＝「溶け合うこと」「すき間がないこと」 <span class="ref">第2偈</span></h3>
+<p>次の定義は「関係とは、二つのものの<strong>姿が溶け合う</strong>ことだ」です。ここでの二者択一は「二か一か」です。二つのままなら溶け合っていませんし、本当に溶け合って一つになったなら、関係するもう一方がなくなります。関係は必ず<strong>二つのものにまたがる</strong>はずなので、一つになったら関係もなくなるのです。</p>
+<p>反論者は定義をゆるめて、「溶け合うとは、<strong>すき間がない</strong>（隣接している）ということだ」と言います。注釈者はこれを否定しません。ただし、「すき間がない」とは「あいだに何もない」ということ、つまり<strong>あるものの不在</strong>にすぎません。不在は実在のものではないので、実在の関係にもなりません。</p>
+
+<div class="box point"><span class="lbl">鋭い一手：くっついていても、離れていても同じ</span>
+もし「すき間がない」ことが関係なら、「すき間がある」こともなぜ関係と呼ばないのか。くっついていても離れていても、<strong>それぞれのもの自体には何の違いもない</strong>からです。もの自体に何の変化も生まないものを「実在の関係」と呼ぶ理由はない――これが注釈者の考え方です。
+</div>
+
+<figure>
+<svg viewBox="0 0 760 170" role="img" aria-label="隣接していても離れていても、それぞれのものは変わらない">
+  <text x="190" y="26" text-anchor="middle" font-weight="700">すき間がない</text>
+  <circle cx="160" cy="80" r="34" class="bxa"/><text x="160" y="86" text-anchor="middle" font-weight="700">A</text>
+  <circle cx="228" cy="80" r="34" class="bxg"/><text x="228" y="86" text-anchor="middle" font-weight="700">B</text>
+  <text x="570" y="26" text-anchor="middle" font-weight="700">すき間がある</text>
+  <circle cx="500" cy="80" r="34" class="bxa"/><text x="500" y="86" text-anchor="middle" font-weight="700">A</text>
+  <circle cx="640" cy="80" r="34" class="bxg"/><text x="640" y="86" text-anchor="middle" font-weight="700">B</text>
+  <text x="380" y="86" text-anchor="middle" font-size="22" class="mut">＝</text>
+  <text x="380" y="150" text-anchor="middle" font-size="13">A も B も、それぞれ自分の本性にとどまっているだけ。違うのは「あいだに何があるか」だけ</text>
+</svg>
+<figcaption>図3　第2偈の注の議論。隣接（すき間がないこと）は「あいだのものの不在」にすぎない。</figcaption>
+</figure>
+
+<h3><span class="no">§4</span>関係＝「他に依存すること」 <span class="ref">第3偈</span></h3>
+<p>三つ目の定義は「関係とは、あるものが他のものに<strong>依存する（当てにする）</strong>ことだ」です。内容は第1偈とほぼ同じで、注釈者も最後に「残りは第1偈と同じ」と言います。</p>
+<p>違うのは言葉づかいです。「依存する」「当てにする」は、何かを期待する心のはたらきを思わせる言葉です。ダルマキールティはこれを逆手にとって、存在するものは「<strong>何ものにも期待をもたない</strong>」と言います。存在しないものは期待することもできず、すでに存在するものは、自分の本性がすべて完成しているので、何も当てにする必要がない。</p>
+<p>この「完成したものは何も必要としない」という考えは、ダルマキールティの他の著作で、すべてのものが一瞬で滅びることの論証（刹那滅論）にも使われています。滅びることは、ものが生まれたときから持っている本性で、外からの原因を<strong>当てにしない</strong>、という議論です。依存されるのは「助けてくれるもの」だけで、何もしないものは当てにされない。この原理は、後半の因果関係の議論（第9偈）で再び使われます。</p>
+
+<h3><span class="no">§5</span>関係＝「第三のものによる結びつき」と無限後退 <span class="ref">第4偈</span></h3>
+<p>二つのものだけで関係を説明する案は、ここまでで尽きました。そこで反論者は、<strong>二つを結びつける第三のもの</strong>を立てます。注釈者は、その第三のものに三つの型を挙げます。</p>
+<div class="tbl"><table>
+<tr><th>第三のものの型</th><th>例</th><th>なぜダメか</th></tr>
+<tr><td>二つとは<strong>別</strong>のもの</td><td>ヴァイシェーシカ学派の「結合」（二つの実体にまたがる性質）</td><td>その第三のものと二つとの関係が、また問われる</td></tr>
+<tr><td>二つと<strong>別でない</strong>属性</td><td>関係項そのものの性質</td><td>結局、立っているのは二つだけ。関係を立てなかったのと同じ</td></tr>
+<tr><td>同とも別とも<strong>言えない</strong>実在</td><td>「言い表せない」第三項</td><td>実在であるかぎり、同か別かのどちらかを免れない</td></tr>
+</table></div>
+
+<figure>
+<svg viewBox="0 0 760 250" role="img" aria-label="第三のものによる結びつきは無限後退に陥る">
+  <circle cx="90" cy="170" r="32" class="bxa"/><text x="90" y="176" text-anchor="middle" font-weight="700">A</text>
+  <circle cx="670" cy="170" r="32" class="bxa"/><text x="670" y="176" text-anchor="middle" font-weight="700">B</text>
+  <rect class="bxg" x="335" y="146" width="90" height="48" rx="10"/><text x="380" y="176" text-anchor="middle" font-weight="700">R</text>
+  <path class="ln dash" d="M122 170 H335"/><path class="ln dash" d="M425 170 H638"/>
+  <rect class="bxw" x="190" y="70" width="76" height="40" rx="9"/><text x="228" y="96" text-anchor="middle" font-weight="700">R₁</text>
+  <rect class="bxw" x="494" y="70" width="76" height="40" rx="9"/><text x="532" y="96" text-anchor="middle" font-weight="700">R₂</text>
+  <path class="ln" d="M228 110 V166"/><path class="ln" d="M532 110 V166"/>
+  <text x="228" y="40" text-anchor="middle" font-size="13" class="mut">A と R を結ぶものは？</text>
+  <text x="532" y="40" text-anchor="middle" font-size="13" class="mut">R と B を結ぶものは？</text>
+  <text x="228" y="60" text-anchor="middle" font-size="13" class="west">さらに R₁₁ … と続く</text>
+  <text x="532" y="60" text-anchor="middle" font-size="13" class="west">さらに R₂₁ … と続く</text>
+  <text x="380" y="236" text-anchor="middle" font-size="13">どこかで「第三のものなしに結びつく」と認めるなら、最初の A と B にも第三のものは要らなかったことになる</text>
+</svg>
+<figcaption>図4　第4偈の無限後退。関係 R を A・B と並ぶ「もの」として立てると、R と A、R と B を結ぶ関係がさらに必要になる。</figcaption>
+</figure>
+
+<p>別のものとして第三項 R を立てると、こんどは「R と A」「R と B」がどう結びついているのかが問われます。そこにまた第三項が必要になり、これが限りなく続きます（無限後退）。どこかで「ここは第三項なしで結びつく」と止めるなら、最初の A と B のところで止めればよかったはずで、R は不要だったことになります。そして、二つだけで結びつく案は、すでに第1–3偈で退けられています。</p>
+<p>ここから偈は、「関係の観念もない」と結びます。注釈者はこれを「関係の知は、<strong>実在に即したものではない</strong>」と言い換えます。わたしたちが関係について考えていることは確かですが、その考えは、世界の側に対応するものをもっていないのです。</p>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：ブラッドリーの後退論</span>
+イギリスの哲学者ブラッドリーは『現象と実在』（1893年）で、まったく同じ形の議論をしました。「A と B を関係 R が結びつけるなら、R と A を結びつける関係がさらに必要になり、無限に続く。だから関係は実在ではなく、現象にすぎない」。<br>
+ダルマキールティとブラッドリーは、同じ論法を使いながら、行き着く先が正反対です。ブラッドリーは「関係が実在でないなら、ばらばらの個物も実在ではなく、本当にあるのは分割されない一つの全体（絶対者）だ」と考えました。ダルマキールティは「関係が実在でないなら、本当にあるのは<strong>ばらばらの個物だけ</strong>だ」と考えます。一元論と多元論、まったく逆の結論です。
+</div>
+
+<!-- ============ §6 ============ -->
+<h2 id="p3"><span class="no">§6</span>ものは混じり合わない。混ぜるのは心である</h2>
+<p class="soon"><span class="ref">第5偈</span> <span class="ref">第6偈</span></p>
+<p>第1–4偈の結論が、第5偈で一つの詩にまとめられます。本書でいちばん有名な偈です。</p>
+<div class="box point"><span class="lbl">第5偈の要点</span>
+関係項とされる二つのものも、関係とされる第三のものも、<strong>すべてそれぞれ自分自身において立っている</strong>。だから、ものはそれ自体としては混じり合っていない。それらを<strong>混ぜ合わせるのは分別（概念的な思考）</strong>である。
+</div>
+<p>では、なぜわたしたちは「AはBに依存している」と言ってしまうのでしょうか。注釈者によれば、分別は何らかのきっかけ（たとえば、Aが見えるとBが見えるという経験）があると、ものを「他に依存しているかのように」示しながら生じます。関係は、ものの側ではなく、<strong>思考の側で生まれる</strong>のです。</p>
+
+<p>第6偈は、この考えを言葉の問題に広げます。わたしたちは「壺を・作る」「陶工が」のように、<strong>行為</strong>（作る）と<strong>行為に関わる要素</strong>（作るもの・作られるもの・道具など）を表す言葉を組み合わせて話します。文法的に見ると、文はまさに「関係」の網の目です。</p>
+<p>ダルマキールティは、こうした言葉が使われるのは、世界に「行為と行為要素の関係」が実在するからではないと言います。言葉の目的は、<strong>ものの違いを知らせること</strong>、注釈者の言葉でいえば「<strong>他のものからの排除</strong>」を伝えることにあります。「陶工が」と言うのは、「陶工でないものではない」という区別を伝えるためであって、陶工と壺のあいだに実在の関係の糸が張られているからではありません。</p>
+
+<div class="tbl"><table>
+<tr><th style="width:9em"></th><th>ふつうの考え方</th><th>ダルマキールティ</th></tr>
+<tr><td>世界の側</td><td>もの＋もののあいだの関係</td><td>混じり合わない個々のものだけ</td></tr>
+<tr><td>心の側</td><td>世界の関係を写しとる</td><td>分別が、ばらばらのものを混ぜ合わせる</td></tr>
+<tr><td>言葉の側</td><td>関係を表す（「AがBを作る」）</td><td>ものの区別（他からの排除）を伝える道具</td></tr>
+</table></div>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：ヒュームの「観念の連合」</span>
+ヒュームは、わたしたちがものを結びつけて考えるのは、似ていること、時間や場所が近いこと、原因と結果の関係にあることによって、<strong>観念どうしが心の中で連合する</strong>からだと考えました。「結びつけるのは心だ」という点で、第5偈とよく似ています。ただしヒュームが心理学的な「習慣」を説明の中心に置くのに対し、ダルマキールティは、分別が「混ぜ合わせる」ことを、<strong>真実ではない（錯誤的な）認識</strong>として、認識論的にはっきり位置づけます。
+</div>
+
+<!-- ============ §7–8 ============ -->
+<h2 id="p4"><span class="no">§7–8</span>因果関係も関係ではない</h2>
+<p>後半は、もっとも重要な関係、<strong>因果関係</strong>の検討から始まります。「ほかの関係はともかく、原因と結果の関係くらいは実在するだろう」という反論者に、ダルマキールティは答えます。</p>
+
+<h3><span class="no">§7</span>原因と結果は同時にない <span class="ref">第7–9偈</span></h3>
+<p>第2偈で見たように、関係は<strong>二つのものに同時にまたがる</strong>ものでなければなりません。ところが原因と結果は、<strong>同時には存在しません</strong>。原因があるときには結果はまだなく、結果があるときには原因はもうない。ダルマキールティの考えでは、すべてのものは一瞬しか存在しないので、原因の瞬間と結果の瞬間は必ずずれています。</p>
+
+<figure>
+<svg viewBox="0 0 760 210" role="img" aria-label="原因と結果は同時に存在しない">
+  <path class="ln" d="M40 150 H720"/><text x="726" y="155" font-size="12" class="mut">時間</text>
+  <path class="ln" d="M150 145 V155"/><path class="ln" d="M380 145 V155"/><path class="ln" d="M610 145 V155"/>
+  <text x="150" y="176" text-anchor="middle" font-size="12.5" class="mut">瞬間 1</text>
+  <text x="380" y="176" text-anchor="middle" font-size="12.5" class="mut">瞬間 2</text>
+  <text x="610" y="176" text-anchor="middle" font-size="12.5" class="mut">瞬間 3</text>
+  <rect class="bxa" x="90" y="70" width="120" height="50" rx="10"/><text x="150" y="100" text-anchor="middle" font-weight="700">原因</text>
+  <rect class="bxg" x="320" y="70" width="120" height="50" rx="10"/><text x="380" y="100" text-anchor="middle" font-weight="700">結果</text>
+  <path class="ln dash" d="M210 95 H320"/>
+  <text x="265" y="60" text-anchor="middle" font-size="13" class="west">両方にまたがる「関係」の居場所は？</text>
+  <text x="380" y="200" text-anchor="middle" font-size="12.5">原因があるとき結果はなく、結果があるとき原因はない</text>
+</svg>
+<figcaption>図5　第7偈。関係が「二つに同時にまたがるもの」なら、時間的にずれた原因と結果のあいだには成り立たない。</figcaption>
+</figure>
+
+<p>注釈者は、ここで「同時に存在する二つの永続的なもの」を例に持ち出す反論も封じます。ダルマキールティにとって、一瞬で滅びないもの（永続するもの）は、何のはたらきもできないので、そもそも実在ではないからです。</p>
+<p>第8偈と第9偈は、さらに逃げ道をふさぎます。</p>
+<div class="tbl"><table>
+<tr><th>反論者の案</th><th>ダルマキールティの答え</th></tr>
+<tr><td>関係は、まず原因に、次に結果に、<strong>順番に</strong>存在する（第8偈）</td><td>原因にあるときは結果を気にかけていない。結果がなくても存在するものは、結果との関係ではない。一方にだけあるものは関係ではない</td></tr>
+<tr><td>一方に<strong>依存して</strong>、もう一方に存在する（第9偈）</td><td>依存されるのは「助けてくれるもの」だけである。だが、原因の時点で結果は存在せず、結果の時点で原因は存在しない。<strong>存在しないものは助けられない</strong></td></tr>
+</table></div>
+
+<h3><span class="no">§8</span>「共通の第三のもの」による因果：左右の角 <span class="ref">第10偈</span></h3>
+<p>最後の逃げ道は、第4偈と同じく「第三のもの」です。原因と結果が<strong>何か一つのものと共通に結びついている</strong>から因果関係がある、という案です。</p>
+<p>ダルマキールティの反例は印象的です。牛の<strong>左の角と右の角</strong>を考えよう。この二つは「二つであること」（数の二）という一つのものと共通に結びついている。それなら、左の角は右の角の原因だということになってしまう。もちろん誰もそうは認めない。だから「共通のものと結びついている」ことは、因果関係の根拠にはならない。</p>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：ヒュームの問い</span>
+ヒュームは「原因と結果のあいだに、目に見える『必然的な結びつき』など一度も見たことがない。見えるのは、Aのあとにいつも B が来ることだけだ」と論じました。ダルマキールティも、原因と結果のあいだに<strong>第三の実在的なつながり</strong>を立てることを拒否します。両者はここで同じ方向を向いています。では、関係でないとしたら、因果とはいったい何なのか。それが次の節の主題です。
+</div>
+
+<!-- ============ §9–10 ============ -->
+<h2 id="p5"><span class="no">§9–10</span>因果とは「あるとき・ないとき」のこと</h2>
+
+<h3><span class="no">§9</span>因果関係の中身は「ある・ない」 <span class="ref">第11–15偈</span></h3>
+<p>反論者は、因果関係を新しく定義し直します。「A があるときに B があり、A がないときに B がない。この<strong>ある・ない</strong>に限定された結びつきが因果関係だ」と（第11偈）。</p>
+<p>ダルマキールティの答えは、ここで一転して、半分は肯定です（第12偈）。</p>
+<div class="box point"><span class="lbl">ここが要点</span>
+それなら、その「<strong>あるときにある、ないときにない</strong>」ということ<strong>そのものが</strong>、因果関係ではないか。それとは別に「結びつき」を立てる必要はない。
+</div>
+<p>反論者は「『あるときにある』『ないときにない』は複数の事柄なのに、『因果関係』という<strong>一つの言葉</strong>で呼ぶのはおかしい」と食い下がります。答えは簡単です。言葉は<strong>使う人しだい</strong>です。人がある言葉をある使い方で使えば、その言葉はそういう意味になる。たくさんの事柄を一つの言葉でまとめて呼んでも、何の問題もありません。</p>
+
+<p>第13偈は、わたしたちが実際にどうやって因果を知るのかを描きます。</p>
+<figure>
+<svg viewBox="0 0 760 260" role="img" aria-label="原因と結果の知り方：見える・見えないの組み合わせ">
+  <g font-size="13">
+  <rect class="bx" x="20" y="20" width="230" height="100" rx="10"/>
+  <text x="135" y="44" text-anchor="middle" font-weight="700">① 火がないとき</text>
+  <text x="135" y="70" text-anchor="middle">火：見えない</text>
+  <text x="135" y="94" text-anchor="middle">煙：見えない</text>
+  <rect class="bxa" x="265" y="20" width="230" height="100" rx="10"/>
+  <text x="380" y="44" text-anchor="middle" font-weight="700">② 火を見ると</text>
+  <text x="380" y="70" text-anchor="middle">火：見える</text>
+  <text x="380" y="94" text-anchor="middle" class="acc" font-weight="700">煙：見えるようになる</text>
+  <rect class="bx" x="510" y="20" width="230" height="100" rx="10"/>
+  <text x="625" y="44" text-anchor="middle" font-weight="700">③ 火がなくなると</text>
+  <text x="625" y="70" text-anchor="middle">火：見えない</text>
+  <text x="625" y="94" text-anchor="middle" class="acc" font-weight="700">煙：見えなくなる</text>
+  </g>
+  <path class="lna" d="M250 70 H265"/><path class="lna" d="M495 70 H510"/>
+  <rect class="bxg" x="140" y="150" width="480" height="58" rx="10"/>
+  <text x="380" y="174" text-anchor="middle" font-weight="700">「煙は火から生じる」と分かる</text>
+  <text x="380" y="196" text-anchor="middle" font-size="12.5" class="mut">だれかに教えてもらわなくても（第13偈）</text>
+  <text x="380" y="240" text-anchor="middle" font-size="13">見えること（知覚）と見えないこと（非知覚）の組み合わせ以外に、因果の知の材料はない（第14偈）</text>
+</svg>
+<figcaption>図6　第13–14偈。因果の知は「見える・見えない」の系列から生じる。その系列の中身が「ある・ない」である。</figcaption>
+</figure>
+
+<p>ここで大事なのは「<strong>説明する人がいなくても</strong>」という一言です。因果の知は、だれかに教わった約束ごとではなく、経験の中で、見えたり見えなかったりすることから自然に生まれる。そして、そのときわたしたちが実際に知っているのは「ある・ない」のパターンだけで、それとは別の「因果関係」というものを見ているわけではありません。</p>
+<p>では、「結果」「原因」という言葉は何のためにあるのか。第14偈によれば、それは<strong>便利のため</strong>です。「Aがあるときに B があり、A がないときに B がない」と毎回長々と言わなくてすむように、人々が「結果」「原因」という短い言葉をあてがったのです。第15偈は、「AがあるときにBがあるから、BはAの結果だ」という説明も、言葉の<strong>約束ごとの対象</strong>を示しているだけだ、と付け加えます。のどの垂れ肉などの特徴を見て「これは牛だ」と言うのと同じで、新しい事実を発見しているのではなく、「牛」という呼び名をどこに使うかを示しているのです。</p>
+
+<h3><span class="no">§10</span>因果は知覚と非知覚で確立される <span class="ref">第16偈</span></h3>
+<p>第16偈は、本書の因果論の定式です。</p>
+<div class="box point"><span class="lbl">第16偈の要点</span>
+結果が生じるときに、原因がある。そして、原因があるときに<strong>のみ</strong>、結果が生じる。原因であること・結果であることは、この二つのことであり、それは<strong>知覚と非知覚によって確立される</strong>。
+</div>
+<p>注釈者は、ここで面白い問題を取り上げます。「ある・ない」は原因と結果の<strong>両方に</strong>ある。それなら、どちらが原因でどちらが結果か、区別できないのではないか。答えはこうです。<strong>後のものの「ある・ない」によって限定された、前のものの「ある・ない」</strong>が原因であることで、<strong>前のものの「ある・ない」によって限定された、後のものの「ある・ない」</strong>が結果であることである。向きの違いで原因と結果は区別されます。また「あるときに<strong>のみ</strong>」の「のみ」が、「原因がなければ結果もない」という否定の面を含んでいる、と注釈者は説明します。</p>
+
+<div class="tbl"><table>
+<tr><th>状況</th><th>原因（火）</th><th>結果（煙）</th><th>意味</th></tr>
+<tr><td>(a)</td><td>ある</td><td>ある</td><td>原因があるときに結果がある（肯定的な随伴）</td></tr>
+<tr><td>(b)</td><td>ない</td><td>ない</td><td>原因がないときに結果はない（否定的な随伴）＝「のみ」の意味</td></tr>
+<tr><td>(c)</td><td>ない</td><td>ある</td><td>これが起こらないことが、因果の条件</td></tr>
+</table></div>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：ミルの方法とルイスの反事実</span>
+19世紀のJ. S. ミルは、原因を見つける方法として、「一致法」（原因があるところに結果がある）と「差異法」（原因を取り除くと結果がなくなる）を定式化しました。第13・16偈の「見える・見えない」の組み合わせは、この二つを合わせたものによく似ています。<br>
+さらに20世紀の哲学者デイヴィッド・ルイスは、因果を「<strong>もし A がなかったら、B もなかっただろう</strong>」という反事実的な依存関係として分析しました。ダルマキールティの「原因があるときにのみ結果が生じる」も、この発想に近いものです。どちらも、原因と結果を結ぶ<strong>目に見えない糸</strong>を探すのをやめて、「ある・ない」のパターンで因果を語ろうとしている点が共通しています。
+</div>
+
+<!-- ============ §11 ============ -->
+<h2 id="p6"><span class="no">§11</span>考えは「結びついたかのように」見せる</h2>
+<p class="soon"><span class="ref">第17偈</span> <span class="ref">第18偈</span></p>
+<p>では、「AはBの原因だ」と考えるとき、その考え（分別）は何をしているのでしょうか。第17偈によれば、その考えが本当に頼りにしている材料は、<strong>「ある・ない」というただそれだけ</strong>です。注釈者は、それを考えの「<strong>種子</strong>」と呼びます。考えはこの材料から生まれながら、実際には結びついていない別々のものを、<strong>結びついたかのように</strong>示してしまう。だからその考えは「偽りの対象をもつ」と言われます。</p>
+
+<div class="box q"><span class="lbl">ポイント：「偽り」だが「役に立つ」</span>
+「偽りの対象をもつ」と言っても、因果の考えが無意味だというのではありません。その考えは、確かな「ある・ない」の経験にもとづいているので、それに従って行動すれば、火を求めて煙のほうへ行き、ちゃんと火にたどり着けます。ダルマキールティの認識論では、このように<strong>表しかたは間違っていても、実際に役に立つ（人を欺かない）</strong>知があるのです。
+</div>
+
+<p>第18偈は、因果関係についての最後のジレンマです。</p>
+<figure>
+<svg viewBox="0 0 760 230" role="img" aria-label="第18偈のジレンマ">
+  <rect class="bxa" x="230" y="10" width="300" height="48" rx="10"/>
+  <text x="380" y="40" text-anchor="middle" font-weight="700">原因と結果は、別のものか？</text>
+  <path class="ln" d="M330 58 L180 92"/><path class="ln" d="M430 58 L580 92"/>
+  <rect class="bx" x="30" y="92" width="300" height="80" rx="10"/>
+  <text x="180" y="118" text-anchor="middle" font-weight="700">別のものである</text>
+  <text x="180" y="142" text-anchor="middle" font-size="13">それぞれ自分の本性に確立している</text>
+  <text x="180" y="162" text-anchor="middle" font-size="13" class="acc">→ どこに「結びつき」があるのか</text>
+  <rect class="bx" x="430" y="92" width="300" height="80" rx="10"/>
+  <text x="580" y="118" text-anchor="middle" font-weight="700">別のものではない</text>
+  <text x="580" y="142" text-anchor="middle" font-size="13">原因から区別される結果がない</text>
+  <text x="580" y="162" text-anchor="middle" font-size="13" class="acc">→ 何が何の原因なのか</text>
+  <rect class="bxw" x="130" y="186" width="500" height="36" rx="10"/>
+  <text x="380" y="209" text-anchor="middle" font-size="13">第三の「関係」を立てても、別々の二つが結びつくことはない</text>
+</svg>
+<figcaption>図7　第18偈。別なら結びつかず、同じなら因果がない。第三のものを足しても、二つの本性が交わることはない。</figcaption>
+</figure>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：カントとの違い</span>
+カントにとって、「原因と結果」という枠組みは、経験を成り立たせる<strong>正しい</strong>知性の形式でした。ダルマキールティにとって、因果の考えは役に立つが、<strong>究極的には偽り</strong>です。両者とも「因果は心の側から来る」と言いますが、その心のはたらきを、カントは客観的知識の条件として肯定し、ダルマキールティは、真実をおおう分別として、一段低く位置づけるのです。
+</div>
+
+<!-- ============ §12 ============ -->
+<h2 id="p7"><span class="no">§12</span>「くっつく」「内にある」の批判</h2>
+<p class="soon"><span class="ref">第19–22偈</span></p>
+<p>後半の第二の部分は、インドの自然哲学<strong>ヴァイシェーシカ学派</strong>の関係論への批判です。ヴァイシェーシカは、世界を「実体」「性質」「運動」などのカテゴリーに分け、それらを結びつける関係として、次の二つを立てました。</p>
+<div class="tbl"><table>
+<tr><th style="width:9em">関係</th><th>意味</th><th>例</th></tr>
+<tr><td>結合</td><td>別々に存在しうる二つの実体が<strong>くっつく</strong>こと。ヴァイシェーシカでは「性質」の一つ</td><td>壺と床、手と本</td></tr>
+<tr><td>内属</td><td>切り離せないもののあいだの、<strong>内にある</strong>という関係。永遠で一つの実在とされる</td><td>布と白さ（性質）、壺と部分、牛と「牛であること」（普遍）</td></tr>
+</table></div>
+
+<p>第19偈は、これらの関係も、<strong>前半の一般的な議論ですでに否定された</strong>と言います。そのうえで新しい論点を加えます。関係項であるためには、<strong>互いに助け合う</strong>（一方が他方を生み出す）のでなければならない。ところが、布とその白さは、互いに相手を生み出しません。どちらも自分の姿がすでに成り立っているからです。だから、内属の関係項ではありえない。</p>
+
+<div class="tbl"><table>
+<tr><th>偈</th><th>反論者の案</th><th>ダルマキールティの答え</th></tr>
+<tr><td>第19偈</td><td>「支えるもの・支えられるもの」（器と中身）の関係がある</td><td>支えるとは結局「生み出す」こと。生み出し合わないものに支え合いはない</td></tr>
+<tr><td>第20偈</td><td>原因（部分）が結果（全体）を生み出すとき、内属がある</td><td>生み出す時点では結果はまだない。結果ができたときは原因はもうない。また、生み出すことで関係項になるなら、壺を作る<strong>陶工</strong>も壺に内属することになる</td></tr>
+<tr><td>第21偈</td><td>助け合わなくても内属はある</td><td>それなら<strong>全世界</strong>が互いに内属していることになる</td></tr>
+<tr><td>第22偈</td><td>二つのものは結合を生み出すから「結合したもの」である</td><td>結合は<strong>運動</strong>からも生じる。それなら運動も「結合したもの」になる。結合を「存続させる」から、という案も、すでに『認識論評釈』で論駁ずみ</td></tr>
+</table></div>
+
+<p>第20偈の「陶工」の反例が典型的です。生み出すことが関係の根拠なら、壺を生み出した陶工と壺のあいだにも「内にある」関係が成り立ってしまう。反論者の定義は広すぎるのです（インド論理学ではこれを「過大適用」と呼びます）。</p>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：アリストテレスの「基体のうちにある」</span>
+アリストテレスは『カテゴリー論』で、白さのような性質は、実体（たとえばソクラテス）の「<strong>うちにある</strong>」と言いました。性質は実体なしには存在できず、実体に依存している、というのです。ヴァイシェーシカの内属は、これにかなり近い考え方です。<br>
+ダルマキールティは、この「うちにある」という関係を、ものとものとのあいだの第三の実在として立てることを拒否します。彼にとって「白い布」とは、白い布という一つのもの（の瞬間）であって、布と白さという二つのものが、内属という糸でつながっているのではありません。
+</div>
+
+<!-- ============ §13 ============ -->
+<h2 id="p8"><span class="no">§13</span>「ふさわしさ」と、一瞬ごとに生まれる世界</h2>
+<p class="soon"><span class="ref">第23–25偈</span></p>
+<h3>「ふさわしさ」の議論 <span class="ref">第23–24偈</span></h3>
+<p>反論者は、こう言います。「くっついている二つも、離れている二つも、見た目は同じだ。それなのに、なぜ一方にだけ『くっついている』という知が生じるのか。それは、<strong>結合という実在がある</strong>からだ」。</p>
+<p>ダルマキールティは、問いを相手に返します。あなたの説でも、なぜ見た目の同じ二つの一方にだけ結合が生じるのか、説明が必要ではないか。「運動があったからだ」と言えば、「ではなぜそこに運動があったのか」と問いは続きます。結局、反論者も「そのものは、以前は結合の土台になるのに<strong>ふさわしくなかった</strong>が、あとで<strong>ふさわしいもの</strong>として生じた」と言わざるをえない。</p>
+
+<div class="box point"><span class="lbl">ここが要点（第24偈）</span>
+それなら、その「ふさわしさ」と呼ばれる<strong>ものの本性</strong>を、「離れている」「くっついている」「動いている」という言葉で表せばよい。それとは別に「結合」「分離」「運動」という<strong>実在</strong>を立てて、何の役に立つのか。
+</div>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：オッカムの剃刀</span>
+説明に必要のない存在を増やすな、という原則は、14世紀の哲学者の名前をとって「<strong>オッカムの剃刀</strong>」と呼ばれます。第24偈の「別の運動などが何の役に立とうか」は、まさにこの剃刀です。同じ現象を、ものの本性の違いだけで説明できるなら、「結合」「運動」という余計な実在は剃り落としてよい、というわけです。
+</div>
+
+<h3>総括：一瞬ごとに生まれるもの <span class="ref">第25偈</span></h3>
+<p>最後の偈は、本書全体の結論です。運動や結合が仮にあるとしても、「<strong>これの</strong>運動」「<strong>これの</strong>結合」という<strong>「〜の」という関係</strong>そのものが成り立たない（第1偈以下ですでに否定されている）。だから、それにもとづいて「これは動いている」「これはくっついている」と呼ぶ根拠もない。</p>
+<p>では、「動いている」「くっついている」とはどういうことか。答えは、<strong>一瞬ごとに生まれるもの</strong>が、そのたびごとに異なる条件から、異なる本性をもって生まれる、ということです。「くっついている」とは、二つのものが隣り合った場所に次々と生まれること。「動いている」とは、ものが少しずつ別の場所に次々と生まれること。<strong>本性の違い</strong>だけがあり、それをつなぐ関係はいらない。逆に、いつまでも変わらない一つの本性をもつものには、こうした説明はできません。</p>
+
+<figure>
+<svg viewBox="0 0 760 210" role="img" aria-label="運動は、別の場所に次々と生まれることとして説明される">
+  <text x="380" y="24" text-anchor="middle" font-weight="700">「ボールが転がる」とは？</text>
+  <path class="ln" d="M40 150 H720"/>
+  <g font-size="12.5">
+  <circle cx="110" cy="122" r="24" class="bxa"/><text x="110" y="127" text-anchor="middle">t1</text>
+  <circle cx="250" cy="122" r="24" class="bxa"/><text x="250" y="127" text-anchor="middle">t2</text>
+  <circle cx="390" cy="122" r="24" class="bxa"/><text x="390" y="127" text-anchor="middle">t3</text>
+  <circle cx="530" cy="122" r="24" class="bxa"/><text x="530" y="127" text-anchor="middle">t4</text>
+  <circle cx="670" cy="122" r="24" class="bxa"/><text x="670" y="127" text-anchor="middle">t5</text>
+  </g>
+  <path class="lng dash" d="M134 122 H226"/><path class="lng dash" d="M274 122 H366"/><path class="lng dash" d="M414 122 H506"/><path class="lng dash" d="M554 122 H646"/>
+  <text x="380" y="72" text-anchor="middle" font-size="13">同じボールが「動く」のではなく、一瞬ごとに少しずつ別の場所に、新しいボールが生まれる</text>
+  <text x="380" y="186" text-anchor="middle" font-size="13" class="mut">「運動」という別の実在は要らない。あるのは、一瞬ごとの本性の違いだけ</text>
+</svg>
+<figcaption>図8　第25偈の考え方。「動く」「くっつく」は、刹那ごとに生まれるものの本性の違いとして説明される。</figcaption>
+</figure>
+
+<p>注釈者は最後に、「こうして、あらゆる存在の本性は関係をもたない。寂静（シャーンティ）」と結びます。関係の網から解き放たれた世界の静けさを、仏教の言葉で言い表した結びです。</p>
+
+<div class="box west"><span class="lbl">西洋哲学と比べてみよう：映画のフィルムとホワイトヘッド</span>
+連続した運動が、実は一コマ一コマ別の静止画の連なりだという考えは、<strong>映画のフィルム</strong>にたとえるとわかりやすいでしょう。古代ギリシアのゼノンが「飛んでいる矢は、各瞬間には静止している」というパラドックスを示したのも、運動と瞬間の関係をめぐる問題でした。<br>
+20世紀のホワイトヘッドは、世界を持続する「もの」ではなく、次々と生起する「出来事」（現実的存在）の連なりとして描く<strong>過程の哲学</strong>を説きました。ダルマキールティの刹那滅の世界像は、この過程哲学と並べて論じられることがよくあります。ただしホワイトヘッドは、出来事どうしが互いを取り込む「抱握」という関係を世界の基本に置くので、関係を否定するダルマキールティとは、この点で大きく異なります。
+</div>
+
+<div class="box warn"><span class="lbl">『関係の考察』のまとめ</span>
+<ol class="steps">
+<li>否定するのは<strong>実在としての</strong>関係だけ。心と言葉が作る関係は否定しない（§1）。</li>
+<li>従属・融合・依存・第三のものによる結びつき。どの定義でも、<strong>実在の関係は成り立たない</strong>（§2–§5）。</li>
+<li>ものはそれぞれ自分だけで立っていて、混じり合わない。<strong>混ぜるのは分別</strong>（§6）。</li>
+<li>原因と結果は同時にないので、因果は「二つにまたがる関係」ではない（§7–§8）。</li>
+<li>因果の中身は「<strong>あるときにあり、ないときにない</strong>」ことそのもので、知覚と非知覚で確立される。「原因」「結果」は便利のための言葉（§9–§10）。</li>
+<li>因果の考えは、ばらばらのものを「<strong>結びついたかのように</strong>」見せる。偽りだが役に立つ（§11）。</li>
+<li>ヴァイシェーシカの「結合」「内属」も、助け合わないので関係ではない（§12）。</li>
+<li>あるのは、<strong>一瞬ごとに生まれるものの本性の違い</strong>だけ（§13）。</li>
+</ol>
+</div>
+
+<div class="box q"><span class="lbl">発展問題（レポートのヒント）</span>
+<ol class="steps">
+<li>第4偈の無限後退と、ブラッドリーの後退論。同じ論法から、なぜ一方は多元論、他方は一元論に行き着いたのだろうか。</li>
+<li>第13–16偈の因果論と、ヒュームの因果論。「必然的な結びつき」についての二人の考えを比べてみよう。ダルマキールティは、帰納の問題（なぜ未来も同じだと言えるのか）にどう答えるだろうか。</li>
+<li>「AはBの左にある」「AはBより大きい」のような関係も、ダルマキールティの考えで説明できるだろうか。説明できるとすれば、どのように言い換えることになるか。</li>
+<li>第25偈の「運動は、別の場所に次々と生まれること」という考えと、ゼノンの矢のパラドックス。ダルマキールティなら、ゼノンにどう答えるだろうか。</li>
+</ol>
+</div>
+
+</main>
+<footer class="wrap">
+<p><strong>典拠</strong>　E. Steinkellner (ed.), <i>Dharmakīrti's Sambandhaparīkṣā and Devendrabuddhi's Sambandhaparīkṣāvṛtti</i>, Beijing–Vienna 2022。E. Steinkellner, <i>Dharmakīrti's Investigation of Relation (Sambandhaparīkṣā) with Devendrabuddhi's Commentary</i>, a trial translation, 2022。節の分け方は Steinkellner の分析による。</p>
+<p>西洋哲学との比較は、理解の手がかりとして加えたもので、ダルマキールティ自身の議論ではありません。この解説はAI（Claude）の助けを借りて作成しました。</p>
+</footer>
+</body>
+</html>
