@@ -63,7 +63,8 @@ s0.append(mula("SP 3,1 / SPV 11,2",
   "namo vītarāgāya // vastubhūtaṃ sambandhaṃ nirākartum āha – pāratantryam ityādi.",
   "離欲者（<i>vītarāga</i>）に帰命する。——実在としての関係を退けるために、「従属とは…」云々と言う。",
   "<p>帰敬はカーリカー部の写本冒頭のもの。続く一文は Vṛtti の導入で、校訂者の分析では全体の目的（0. „the refutation of relation as real“, 11,2）に当たる。</p>"
-  "<p>否定の対象は <i>vastubhūta</i> な関係、つまり実在の側に立てられた関係に限定されている。第1偈 Vṛtti の結び <i>vikalpanirmitasyāpratiṣedhaḥ</i> と対をなし、本書全体が二諦的な枠組みで書かれていることを最初に示す。<i>sambandha</i> は分別によって構成され、言語活動（<i>vyavahāra</i>）で用いられるかぎりでは否定されない（第5–6偈）。</p>",
+  "<p>否定の対象は <i>vastubhūta</i> な関係、つまり実在の側に立てられた関係に限定されている。第1偈 Vṛtti の結び <i>vikalpanirmitasyāpratiṣedhaḥ</i> と対をなし、本書全体が二諦的な枠組みで書かれていることを最初に示す。<i>sambandha</i> は分別によって構成され、言語活動（<i>vyavahāra</i>）で用いられるかぎりでは否定されない（第5–6偈）。</p>"
+  "<p><b>並行箇所</b>（参照）：PVSV 70,3–5（PV 1.143 への注）は、内属・結合・同一基体への内属などの「事物の関係」（<i>vastusambandhāḥ</i>）は因果関係と別ではないと言う。PVin 3 87,6–8（III.3.4.2）も「事物の関係はすべて」（<i>sarva eva vastusambandhāḥ</i>）因果関係によって設定される（<i>vyavasthāpyante</i>）と結ぶ（PVSV 71,2–4 と同文）。PV・PVin は事物の関係を因果関係へ還元するところで止まる。これに対して本書は、第7偈以下でその因果関係もまた二項に立つ実在の関係ではないことを示す。PVin の <i>vyavasthāpyante</i> を言語慣習の次元での設定と読めば、両者は矛盾しない。</p>",
   crit="<b>本文</b>　<i>vastubhūtaṃ sambandhaṃ nirākartum</i> : <i>vastubhūta+ sambandha+ nirākartum</i> Ms（校訂者による補正）。"))
 sections.append(("s0", "0", "帰敬と目的", "SP 3 / SPV 11,2", "実在としての関係の否定という全体の目的", "".join(s0)))
 
@@ -77,7 +78,8 @@ s1.append(mula("SPV 11,4–7",
   "pāratantryaṃ parāyattatā. sā sambandhaḥ sambandhinaḥ siddhasyāsiddhasya vā bhavet. asiddhasyābhāvarūpatvān na vastubhūtaḥ sambandhaḥ. siddhe 'pi sambandhini kā paratantratā. naivety asambandhaḥ.",
   "「従属」とは他に依存していること（<i>parāyattatā</i>）である。関係であるそれは、すでに成立した関係項にあるか、成立していない関係項にあるかのどちらかであろう。成立していないものは非存在を本質とするので、〔その場合〕関係は実在ではない。成立した関係項についても、どんな従属があろうか。まったくない。だから無関係である。",
   "<p>論法は単純な両刀論法である。関係を「関係項 x が他に従属していること」と定義すると、その述定の主語 x は (a) 未成立か (b) 既成立かのどちらかである。(a) 未成立の x は <i>abhāvarūpa</i>、すなわち何ものでもないので、それに属性としての従属は帰属できない。(b) 既成立の x は、自らの存在のために他を必要としないので、従属する余地がない。</p>"
-  "<p>前提になっているのは、存在するものは自らの原因から完成した姿で生じる、という Dharmakīrti の存在論である。PVSV 第1章でも、生じた事物は「その状態について他に依存しない」（<i>jātasya tadbhāve 'nyānapekṣaṇāt</i>、PVSV 100,2）と言われ、消滅無因論の根拠になっていた。従属は生成の局面にしか場所をもたず、しかも生成の局面には従属の主語がまだない。この構図が第3偈と第7–9偈でも繰り返される。</p>",
+  "<p>前提になっているのは、存在するものは自らの原因から完成した姿で生じる、という Dharmakīrti の存在論である。PVSV 第1章でも、生じた事物は「その状態について他に依存しない」（<i>jātasya tadbhāve 'nyānapekṣaṇāt</i>、PVSV 100,2）と言われ、消滅無因論の根拠になっていた。従属は生成の局面にしか場所をもたず、しかも生成の局面には従属の主語がまだない。この構図が第3偈と第7–9偈でも繰り返される。</p>"
+  "<p><b>並行箇所</b>：PVSV 43,25–28（PV 1.75 への注）。語の限定（<i>upādhi</i>）と限定をもつものは、助けるもの・助けられるものとして同時にある、という反論に、Dharmakīrti は「完成したものには従属がなく…、完成していないものは自体が成立していない」（<i>niṣpannasya pāratantryābhāvāt … nāniṣpannasya svarūpāsiddheḥ</i>）と答える。そのうえで、従属は「分別によって付託されたもの」（<i>kalpanāropita</i>）として言語慣習に置かれる。本 Vṛtti と同じ両刀論法である。ただし PVSV では語の意味論の一局面にすぎなかった論点が、本書では関係一般の定義に対する否定として独立している。PV 1.237cd の「存在する実体がどうして他に依存するものであろうか」（<i>saddravyaṃ syāt parādhīnaṃ</i>）も同じ点を突く（第1–4偈のまとめを参照）。</p>",
   kind="vrtti",
   crit="<b>本文</b>　6 <i>naivety</i> : <i>nevety</i> Ms。冒頭 <i>pāratantryaṃ parāyattatā. sā sambandhaḥ … bhavet</i> は Bhāsarvajña, <i>Nyāyabhūṣaṇa</i> 503,13 に引用（Cie）。"))
 s1.append(mula("SPV 11,8–10",
@@ -92,7 +94,8 @@ s1.append(mula("SPV 11,10–12",
   "yata evaṃ na niṣpannasyetarasya vā pāratantryam, tasmāt sarvasya bhāvasya sambandho nāsti bhāvato vastutaḥ. vikalpanirmitasyāpratiṣedho 'vastutvāt.",
   "このように、完成したものにもそうでないものにも従属はないので、それゆえ、いかなる存在にも、<b>実在として</b>（<i>bhāvataḥ</i>）、すなわち実在の上で（<i>vastutaḥ</i>）関係はない。分別によって作られた〔関係〕は否定しない。〔それは〕実在ではないからである。",
   "<p>最後の一文が本書の射程を決める。否定されるのは実在の関係だけで、分別が構成する関係は、実在でないという理由で否定の対象にならない。否定とは、実在に何かがあるという主張を退けることだからである。この「分別による関係」の積極的な説明は第5偈（<i>tān miśrayati kalpanā</i>）と第6偈（言語の行為・行為者の語）で与えられる。</p>"
-  "<p>この一文は、PV 第1章が論証因の根拠として説く本質的結合（<i>svabhāvapratibandha</i>）との整合という問題にも答えている。結合は二項間の実在の関係ではない。結果の本性が原因の本性に依って生じている、という一項ごとの本性の事実を、分別が「関係」として構成したものにすぎない。第16偈の <i>bhāve bhāvini tadbhāvo bhāva eva ca bhāvitā</i> がその定式である。</p>",
+  "<p>この一文は、PV 第1章が論証因の根拠として説く本質的結合（<i>svabhāvapratibandha</i>）との整合という問題にも答えている。結合は二項間の実在の関係ではない。結果の本性が原因の本性に依って生じている、という一項ごとの本性の事実を、分別が「関係」として構成したものにすぎない。第16偈の <i>bhāve bhāvini tadbhāvo bhāva eva ca bhāvitā</i> がその定式である。</p>"
+  "<p><b>並行箇所</b>（対照）：PVSV 130,28–131,2（PV 1.251 への注）＝PVin 3 51,10–52,2（III.2.1.1.ii.a.1.3）。何もしない障害について、「「これはそれの〔障害〕である」という関係づけも分別によって作られたものにすぎず、事物を拠り所としない」（<i>vikalpanirmita eva syāt, na vastvāśrayaḥ</i>）と言う。語は本 Vṛtti の <i>vikalpanirmita</i> と一致するが、論の向きは逆である。そこでは、助け（<i>upakāra</i>）のない関係づけは分別の産物に落ちる、という帰謬として使われており、助けにもとづく関係づけには事物の拠り所があることが前提されている。本書は、その助けにもとづく因果関係も二項に立つ実在ではないとし（第7–9偈）、関係そのものを分別の側に置く。</p>",
   kind="vrtti",
   crit="<b>本文</b>　10 <i>°syetarasya</i> : <i>°syaitarasya</i> Ms。11f <i>nāsti bhāvato vastutaḥ</i> rec.（SPVt <i>yaṅ dag ñid du dṅos por med</i>）: <i>nāsti bhā . . . . . taḥ</i> Ms。12 <i>°nirmitasyāpratiṣedho</i> rec.（T <i>mi dgag</i>）: <i>°ni+mitasyā.r . . . . dho</i> Ms。<i>'vastutvāt</i> rec.（SPVt <i>dṅos po med pa'i phyir</i>）: <i>'va . . tvāt</i> Ms。最後の二文の大部分は写本の欠損をチベット訳から復元した読み。"))
 fig1 = '''<figure>
@@ -137,7 +140,8 @@ s2.append(mula("SPV 12,3–6",
   "rūpaśleṣo hi sambandhaḥ, na pāratantryam iti cet, tan na. dvitve sambandhinoḥ sva … sa svarūpaśleṣaḥ svabhāvaikātmyalakṣaṇaḥ kathaṃ bhavet. naiva bhavet. aikye 'pi tayoḥ sambandhinor abhāvāt kaḥ sambandhaḥ, dviṣṭhatvād asya.",
   "「関係とは姿の融合であって、従属ではない」と言うなら、そうではない。関係項が二つであるとき、〔それぞれが自らの姿をもっているのだから（欠損部、チベット訳による）〕、本性が一体であることを特徴とするその自らの姿の融合が、どうしてありえようか。決してありえない。〔逆に〕一体になったとしても、二つの関係項がなくなるので、どんな関係があろうか。これ（関係）は二つのものにあるからである。",
   "<p>第二の定義は、関係を二項の姿が溶け合うこととみなす。Vṛtti はこれを <i>svabhāvaikātmya</i>、すなわち本性の同一化と解し、二者択一にかける。二であれば融合はなく、一であれば関係項が二つないので関係はない。関係は定義上二項にある（<i>dviṣṭha</i>）からである。</p>"
-  "<p><i>dviṣṭha</i> という要件は、第7偈（因果関係は継起するので二項に同時に立たない）と第11偈（<i>dviṣṭho hi kaścit sambandhaḥ</i>）でも論の支点になる。本書は全体として、「関係は二項に同時に立つ実在でなければならない」という対論者の前提を逆手に取っている。</p>",
+  "<p><i>dviṣṭha</i> という要件は、第7偈（因果関係は継起するので二項に同時に立たない）と第11偈（<i>dviṣṭho hi kaścit sambandhaḥ</i>）でも論の支点になる。本書は全体として、「関係は二項に同時に立つ実在でなければならない」という対論者の前提を逆手に取っている。</p>"
+  "<p><b>並行箇所</b>：PVSV 118,27–119,5（PV 1.237 への注）。「結合（<i>śleṣa</i>）を特徴とする関係は、結合していない事物のあいだにはありえない」と言い、さらに「別の本性が存在することによって、他のものが結合したことになるわけではない」（<i>na hi svabhāvāntarasattayā anyaḥ śliṣṭo nāma</i>）と述べる。本偈の <i>rūpaśleṣa</i> 批判と同じ論点で、本性が別々であることを理由とする点（偈 2d <i>prakṛtibhinnānām</i>）も同じである。また PVSV 24,24f（PV 1.42 への注）の「〔存在は〕自らを他と混ぜない。〔混ぜれば〕それが他でないことになってしまうから」（<i>tasyāparatvaprasaṅgāt</i>）は、Vṛtti 12,5f の「一体になれば二つの関係項がなくなる」に当たる。</p>",
   kind="vrtti",
   crit="<b>本文</b>　3 <i>rūpaśleṣo hi sambandhaḥ</i> rec.（PKM 516,1; SPVt <i>ṅo bo 'dres pa 'brel pa yin gyi</i>）: 欠損 Ms。4 <i>sva . . . . .</i>：写本の欠損。SPVt は <i>'brel pa can gñis kyi ṅo bo yin na</i>（二つの関係項の姿であるなら）と訳しており、訳はこれで補った。5 <i>aikye 'pi</i> rec.（SPVt <i>gcig tu gyur na yaṅ</i>）: <i>ekya yi</i> Ms。5f <i>aikye … asya</i> は NKC 305,19–20 に並行（cf.）。"))
 s2.append(mula("SPV 12,7–11",
@@ -173,7 +177,8 @@ s3.append(mula("SPV 13,7–8",
   "saṃś ca sarvanirāśaṃsaḥ sarvasvabhāvabhāvānapekṣo bhāvaḥ katham apekṣate yenāpekṣā sambandhaḥ syāt. śeṣaṃ pāratantryavad vācyam.",
   "また、存在するなら、「いかなるものにも期待をもたない」、すなわち自らの本性のすべてがすでに生じているので〔何ものにも〕依存しない（<i>sarvasvabhāvabhāvānapekṣa</i>）存在が、どうして依存しようか。それによって依存が関係となるような〔依存が〕。残りは従属の場合と同様に述べるべきである。",
   "<p>Ms の複合語 <i>sarvasvabhāvasvabhāvānapekṣa</i> は解しにくい。校訂者は Ms の読みを採り、チベット訳 SPVt が <i>raṅ gi ṅo bo thams cad skyes pa (!) bltos pa med pa'i</i>（自らの姿のすべてが生じていて、依存しない）と訳していることを注記し、Vinītadeva の <i>Sambandhaparīkṣāṭīkā</i>（T）5a8–5b3 の説明を参照させている。Steinkellner（2022, 試訳）の序文は、二つ目の <i>svabhāva</i> を <i>bhāva</i> と改める Eltschinger の提案を記す。<i>°bhāva°</i> は SPVt の <i>skyes pa</i>（生じた）にそのまま対応し、校訂者が „(!)“ を付した齟齬が解ける。ここではこの提案を採り、「本性のすべてが生じていること（<i>sarvasvabhāvabhāva</i>）によって〔他に〕依存しない」と解した。既成立の存在には生じるべき部分が残っていない、という第1偈 Vṛtti の論点（11,8–10）の言い換えになる。</p>"
-  "<p>既成立の存在は何ものにも依存しない、というこの論点は、PVSV で消滅の原因を退けたときの論法と同じである。そこでは、何もしないもの（<i>akiṃcitkara</i>）は依存されない（<i>nāpekṣyate</i>）と言われていた（PVSV 100,13f、第196偈）。依存（<i>apekṣā</i>）が成り立つのは助けるもの（<i>upakārin</i>）に対してだけで、すでに完成したものを助けることはできない。本書第9偈（<i>upakārī hy apekṣyaḥ syāt</i>）でこの論点が因果関係に適用される。</p>",
+  "<p>既成立の存在は何ものにも依存しない、というこの論点は、PVSV で消滅の原因を退けたときの論法と同じである。そこでは、何もしないもの（<i>akiṃcitkara</i>）は依存されない（<i>nāpekṣyate</i>）と言われていた（PVSV 100,13f、第196偈）。依存（<i>apekṣā</i>）が成り立つのは助けるもの（<i>upakārin</i>）に対してだけで、すでに完成したものを助けることはできない。本書第9偈（<i>upakārī hy apekṣyaḥ syāt</i>）でこの論点が因果関係に適用される。</p>"
+  "<p><b>並行箇所</b>：PVSV 119,3（PV 1.237 への注）の「すでに成立して存在するものは、他に依存しない」（<i>na hi siddhaṃ sat param apekṣate</i>）は、本偈後半とその Vṛtti の要旨をほぼ一文で言う。PVSV はこれに「依存しない独立のものは関係ではない」（<i>nānapekṣaḥ svatantraḥ sambandhaḥ</i>）を続け、依存の不成立から関係の不成立を直接に導く。また、上に挙げた PVSV 100,11–13 の一節（<i>akiṃcitkaro nāpekṣyate</i>）は、PVin 2 §11.6（第56偈への自注）にほぼそのまま再録されている。</p>",
   kind="vrtti",
   crit="<b>本文</b>　7 <i>°nirāśaṃsaḥ</i> : <i>°nirāśa+saḥ</i> Ms。<i>sarvasvabhāvabhāvānapekṣo</i> em.（Eltschinger の提案（Steinkellner 2022 序文）; cf. SPVt <i>skyes pa</i>）: <i>sarvasvabhāvasvabhāvānapekṣo</i> Ms, ed.（校訂者は SPVt の訳に „(!)“ を付す）。"))
 sections.append(("s3", "3", "依存としての関係の否定", "k.3 / SPV 13,3–8", "関係＝他者の依存（parāpekṣā）", "".join(s3)))
@@ -193,7 +198,8 @@ s4.append(mula("SPV 14,3–9",
   "<li><b>言い表せないもの</b>（<i>avācya</i>）：関係項と同とも異とも言えない実在。</li></ul>"
   "<p>校訂本は <i>dharmeṇāvācyena vastubhūtena</i> と印刷し、<i>avācya</i> を「別でない属性」の限定と読ませるが、Steinkellner（2022, 試訳）の序文はこれを訂正して <i>°āvācyena vā</i> を em.（TŚV, T による）とし、試訳も三つの選択肢として訳す。ここでもこの訂正に従った。続く文が <i>avācya</i> を別・別でないの二者択一に回収する（<i>vastubhūtasyāvācyasyāpi …</i>）のも、それが独立の第三の選択肢として立てられていたからである。</p>"
   "<p>まず別でない場合を処理する。関係が項と別でないなら、立っているのは結局二つの項だけで、関係を立てなかったのと同じである（その場合の過失は第1–3偈で述べた）。また、二項がともにその一つの関係と別でないなら、二項どうしも同一になり、関係項の二性が失われる。「言い表せない」という逃げ道については、実在であるかぎり、同か異かの二者択一を免れないとして退ける。</p>"
-  "<p><i>avācya</i> な第三項を誰が説いたのかは、ここでは示されていない。同一・別異のどちらとも言えないとする立場は、Jaina の論者などに見られるが、ここでの同定は保留する。なお、第4偈とその Vṛtti は Jaina の Vidyānanda（TŚV 148,26）と Prabhācandra（PKM 505,27–29）に引用されている。</p>",
+  "<p><i>avācya</i> な第三項を誰が説いたのかは、ここでは示されていない。同一・別異のどちらとも言えないとする立場は、Jaina の論者などに見られるが、ここでの同定は保留する。なお、第4偈とその Vṛtti は Jaina の Vidyānanda（TŚV 148,26）と Prabhācandra（PKM 505,27–29）に引用されている。</p>"
+  "<p><b>並行箇所</b>：PVSV 147,1–2 および 148,4–5（PV 1.278ab への注）。消滅を事物と同とも別とも言えない（<i>avācya</i>）とする反論に対して、「自ら存在する本性は、同一か別異かという二者択一を越えない」（<i>vikalpadvayaṃ nātivartate tattvam anyattvam iti</i>）と答え、「実在としては、同一か別異かのいずれかに与るものでなければならない」（<i>vastutas tattvānyattvabhājā bhavitavyam</i>）と結ぶ。Vṛtti 14,8f の <i>vastubhūtasyāvācyasyāpi … °vikalpānatikramāt</i> と同じ原則である。PVSV はさらに、<i>avācyatā</i> といっても因果関係を別の語で言ったにすぎない、とも論じている（147,7f）。</p>",
   kind="vrtti",
   crit="<b>本文</b>　5 <i>°āvācyena vā</i> em.（TŚV, T; Steinkellner 2022 序文の訂正）: <i>°āvācyena</i> Ms, ed.。3f <i>sambandhinor</i> : <i>sambambinor</i> Ms。<i>ekābhisambandhād</i> : 一部判読不能 Ms。6 <i>sambandhinau</i> : <i>sambandhandhinau</i> Ms。<i>kalpitau</i> : <i>kalpito</i> Ms。9 <i>°vikalpānatikramāt</i> : <i>°vikalpanatikramāt</i> Ms。<i>sambandhī</i> : <i>sambandhā</i> Ms。<i>ekenārthāntareṇa … sambandhāt</i> は TŚV 148,26 に引用（Cie）。"))
 tbl4 = '''<div class="tbl min"><table>
@@ -208,7 +214,8 @@ s4.append(mula("SPV 14,9–14",
   "bhavatu vā sambandho 'rthāntaram anyo vā, tathā taddvayoḥ kaḥ sambandhaḥ, tenaikena dvayoḥ sambandhinoḥ kaḥ sambandhaḥ. naiva. yathā sambandhinor yathoktadoṣān na sambandhaḥ, tathā 'nenāpi sambandhinor asambandhaḥ. anyathā kevalayoḥ sambandhinoḥ sambandhe kaḥ pratiṣedha iti.",
   "あるいは、関係が別個のものであれ、もう一方〔の選択肢〕であれ、そうであっても「それと二つとのどんな関係か」、すなわち、その一つのものと二つの関係項とには、どんな関係があるのか。まったくない。関係項どうしに、上述の過失のゆえに関係がないのと同じく、これ（第三のもの）と関係項とにも関係はない。さもなければ、関係項二つだけの関係に、何の否定があろうか。",
   "<p>別個の第三項 R を立てた場合。R と a、R と b の間の関係は、a と b の間の関係と同じ問題を抱える。第1–3偈の論証は「二つの実在のあいだの関係」一般に対するものなので、a–R、R–b にもそのまま当てはまる。逆に、もし R が a・b と直接に関係しうるなら、a と b も直接に関係しうるはずで、R を立てる意味がなくなる（<i>anyathā … kaḥ pratiṣedhaḥ</i>）。</p>"
-  "<p>これは Vaiśeṣika の <i>saṃyoga</i> が、<i>guṇa</i> として実体に <i>samavāya</i> によって内属する、という二重構造への批判として読める。<i>samavāya</i> そのものの批判は第19–21偈で行われる。</p>",
+  "<p>これは Vaiśeṣika の <i>saṃyoga</i> が、<i>guṇa</i> として実体に <i>samavāya</i> によって内属する、という二重構造への批判として読める。<i>samavāya</i> そのものの批判は第19–21偈で行われる。</p>"
+  "<p><b>並行箇所</b>：PVSV 119,5–8（PV 1.237 への注）。「結合していないもの〔の関係〕によってではなく、結合したものによって〔二項が結合する〕としよう」という反論に、「それ自体がその二つと結合することが成立しないので、二つを結合させるはずのそれ自体が成立しない」（<i>tasyaiva tābhyāṃ śleṣāsiddheḥ</i>）と答える。第三項と二項との関係を改めて問う点で、本 Vṛtti と同じ構図である。PVSV はこれを過大適用（<i>atiprasaṅga</i>）として短く結ぶが、本書は第4偈でこれを無限遡及（<i>anavasthā</i>）として展開する。</p>",
   kind="vrtti",
   crit="<b>本文</b>　10 <i>tathā</i> : <i>tathā {dvai}</i> Ms。<i>bhavatu … asambandhaḥ</i> は PKM 505,27–29 に引用（Cie）。<i>yathā … 'nenāpi</i> は NKC 306,11 に並行（cf.）。"))
 fig4 = '''<figure>
@@ -246,7 +253,8 @@ s4.append(mula("SPV 14,20–23",
   "kvacid ekārthābhisambandham antareṇa sambandhakalpanāyāṃ prathamayor api sambandhinor ekārthasambandhāt sambandho mā bhūt. kevalayor api sambandhe doṣa uktaḥ. etena nairantaryāder dharmāntarakalpanāpi pratyuktā.",
   "〔遡及の〕どこかで、一つのものとの結合なしに関係を想定するなら、最初の二つの関係項についても、一つのものとの結合によって関係がある、ということはなくてよいことになる。そして、関係項二つだけの関係についても、過失はすでに述べた。これによって、間がないことなどを別の属性として想定することも退けられた。",
   "<p>遡及を止める手は、第三項なしの関係をどこかで認めることである。しかしそれを認めるなら、最初の a–b の段階でそうすればよく、第三項は不要になる。そして二項だけの関係はすでに第1–3偈で否定済みである。こうして第三項案は二つの角のどちらでも失敗する。</p>"
-  "<p>最後の一文は第2偈 Vṛtti の <i>nairantarya</i> に戻る。隣接を、関係項とは別の属性（<i>dharmāntara</i>）として実体化する案も、第三項案の一種として同じく退けられる。校訂者の分析ではここまでが「一般的な否定」の第1部（1.1–1.4）で、第5偈の要約へと続く。</p>",
+  "<p>最後の一文は第2偈 Vṛtti の <i>nairantarya</i> に戻る。隣接を、関係項とは別の属性（<i>dharmāntara</i>）として実体化する案も、第三項案の一種として同じく退けられる。校訂者の分析ではここまでが「一般的な否定」の第1部（1.1–1.4）で、第5偈の要約へと続く。</p>"
+  "<p><b>並行箇所</b>：PVSV 37,10–13（PV 1.67 への注）。複数の事物に共通の一つの能力（<i>śakti</i>）を立てる説が、次のように退けられる。能力が事物と別個なら、助けられないものに従属はない（<i>anupakāryasya pāratantryāyogāt</i>）。助けがあるなら、その助けをなす能力もまた別個になって無限遡及（<i>anavasthiti</i>）に陥る。そこで別でないと認めるなら、最初の能力についても同じことになる（<i>ādyāyām api prasaṅgaḥ</i>）。別個・助け・無限遡及・遡及を止めるなら最初の段階でも、という手順は、本偈 Vṛtti 14,9–23 の運びと対応する。PVin 2 §8.5 も、常住な語とその補助因の関係について、助けによる関係ならその助けとの関係が問われ、「同じ問いがあり、無限遡及となる」（<i>tulyaḥ paryanuyogo 'navasthā ca</i>）と言う。</p>",
   kind="vrtti",
   crit="<b>本文</b>　21 <i>kalpanāyāṃ prathamayor api sambandhinor</i> rec.（T <i>rtog na ni 'brel pa can daṅ po gñis la yaṅ</i>）: <i>ka . . . . . yor api sambandhinor</i> Ms。21f <i>°sambandhāt sambandho</i> rec.（SPVt <i>'brel pa'i phyir 'brel pa</i>）: 欠損 Ms。22f <i>nairantaryāder</i> : <i>nairanta{{ranta}}ryāder</i> Ms。"))
 sections.append(("s4", "4", "第三項による関係の否定", "k.4 / SPV 14,3–23", "関係＝一つのものとの結合（ekābhisambandha）、無限遡及", "".join(s4)))
@@ -263,7 +271,8 @@ summ = '''<section id="sum4" class="wrap">
   <tr><td class="num">4</td><td class="k">第三項との結合<span class="sm"><i>ekābhisambandha</i></span></td><td>第三項は関係項と別か別でないか</td><td>別でなければ二項に戻り、別なら無関係か無限遡及</td><td class="num">14,3–23</td></tr>
   </tbody></table></div>
   <div class="point"><span class="lbl">四つの論証に共通する前提</span>
-  <p>(1) 実在の関係は、二項に同時に属する（<i>dviṣṭha</i>）実在でなければならない。(2) 実在は自らの本性において完結している（<i>svātmani sthita</i>、第5偈）。(3) 実在であるものは、同か異かの二者択一を免れない。偈と Vṛtti はこの三つを対論者と共有できる前提として扱い、(1) と (2) が両立しないことを示す。関係の語と観念は、分別が作るものとして残される（11,12; 14,19f）。</p></div>
+  <p>(1) 実在の関係は、二項に同時に属する（<i>dviṣṭha</i>）実在でなければならない。(2) 実在は自らの本性において完結している（<i>svātmani sthita</i>、第5偈）。(3) 実在であるものは、同か異かの二者択一を免れない。偈と Vṛtti はこの三つを対論者と共有できる前提として扱い、(1) と (2) が両立しないことを示す。関係の語と観念は、分別が作るものとして残される（11,12; 14,19f）。</p>
+  <p><b>並行箇所</b>：PVSV 113,24f（PV 1.227 への注）に「混じり合わず、〔すでに〕成立したものには、いかなる関係もない。同一化してしまうからであり、また依存しないからである」（<i>nāmiśrāṇāṃ siddhānāṃ kaścit sambandho 'bhedaprasaṅgād anapekṣaṇāc ca</i>）とある。Steinkellner（2013: II 161, n. a）は、本書で関係を否定する理由がここにすでに挙げられていると指摘する。<i>abhedaprasaṅga</i> は第2偈に、<i>anapekṣaṇa</i> は第1・3偈に当たり、<i>amiśra</i> の語は第5偈と共通する。より詳しいのは PV 1.237 とその自注（PVSV 118,26–119,8）である。そこには、関係は分別が作る（<i>sambandhaḥ kalpanākṛtaḥ</i>）という結論、結合（<i>śleṣa</i>）の否定、既成立のものは依存しないという論点、結合した第三項による結合の否定が、本書とは異なる順序で短くまとめられている。第1–4偈は、PV 第1章で語と意味の関係を論じる中に置かれていたこの議論を、関係一般の吟味として独立させ、展開したものと見ることができる。</p></div>
 </section>'''
 
 # ------------------------------------------------------------------ agent sections

@@ -8,7 +8,7 @@ def sections(mula, dev, K):
     s.append(mula("SP 4 / k.5",
       "tau ca bhāvau tadanyaś ca sarve te svātmani sthitāḥ / ity amiśrāḥ svayaṃ bhāvās tān miśrayati kalpanā // 5",
       "その二つの存在も、それとは別のもの〔＝関係〕も、それらはすべて自らにおいて立っている（<i>svātmani sthita</i>）。このように、存在はそれ自体としては混じり合っていない（<i>amiśra</i>）。それらを混ぜ合わせるのは分別（<i>kalpanā</i>）である。",
-      "", kind="sutra",
+      "<p><b>並行箇所</b>：PVSV 24,24–25,13（PV 1.42 への注）。アポーハ論の文脈で、「すべての存在は自らの姿にとどまるもの（<i>svarūpasthitayaḥ</i>）であり、自らを他と混ぜない（<i>nātmānaṃ pareṇa miśrayanti</i>）」と言う。普遍を別個のものとして立てても、「それもまた自らに立っているので、他と混じらない」（<i>svātmani vyavasthānād amiśraṇam anyena</i>）と結ぶ。<i>svātmani</i>、<i>amiśra</i> という語彙まで本偈前半と一致する。その間に置かれた「知が〔それらを〕結び合わせつつ（<i>saṃsṛjantī</i>）、共通のものを対象とするかのように現れる」（25,7f）は、後半の <i>tān miśrayati kalpanā</i> に当たる。PVSV では普遍の否定のための議論であり、本書はそれを関係の否定に転用している。PVSV 113,24f の <i>nāmiśrāṇāṃ siddhānāṃ kaścit sambandhaḥ</i> については、第1–4偈のまとめを参照。</p>", kind="sutra",
       crit="<b>異読</b>　5c <i>miśrayati</i> Ms, ĪPVV 1.204,6 : <i>yojayati</i> SS, ĪPVV 1.195,24; 200,16。5c <i>bhāvās</i> : <i>bhavās</i> Ms。5d <i>tān</i> : <i>tan</i> TŚV。"
            "<b>引用</b>　偈全体 TŚV 148,34; PKM 506,7f; NKC 306,18f; SVR 813,20f。後半 <i>ity amiśrāḥ … kalpanā</i> は Utpaladeva の SS 5,1（ほか 3,23f; 11,9f）、NKC 309,10、ĪPVV 1.200,16–18 に引かれ、TR 71*,20f にも引用（Cie）。Śaiva 系の引用は <i>yojayati</i> と読む。"))
     s.append(mula("SPV 15,3–6",
@@ -22,7 +22,8 @@ def sections(mula, dev, K):
       "kathaṃ tarhy āyattarūpās tais taiḥ sambandhair vyapadiśyanta iti cet, na bhāvato 'sti kaścit sambandhaḥ. kevalaṃ tān bhāvān amiśrān api miśrayati kalpanā. sāpi parāyattarūpān iva kenacin nimittenopadarśayanty utpadyate.",
       "〔反論〕では、どうして〔存在は〕依存した姿をもつものとして、あれこれの関係によって言い表されるのか。〔答論〕実在としては、いかなる関係もない。ただ<b>それら</b>の存在を、混じり合っていないにもかかわらず、<b>分別が混ぜ合わせる</b>のである。その〔分別〕もまた、何らかの契機（<i>nimitta</i>）によって、〔存在を〕他に依存した姿をもつかのように示しつつ生じる。",
       "<p>反論は言語慣用に訴える。「a は b に依存する」「a は b の結果である」と私たちは現に語っている。答えは第1偈 Vṛtti の結び（11,12）と同じで、そうした言い方の根拠は実在の側にはなく、分別の側にある。分別は、別々の存在をあたかも互いに依存した姿のものとして示す。</p>"
-      "<p>最後の一文で、分別は「何らかの契機によって」生じるとされる。関係の分別にも生起の契機がある、という限定である。ただし、それが何であるかはここでは特定されない。校訂者はこの文について PVSV 34,26f、および PV 1.286 と PVSV 151,26–28 を参照させている。Ms と校訂本の <i>upadarśanty</i> は、Eltschinger の提案（Steinkellner 2022 序文）に従って <i>upadarśayanty</i>（<i>upadarśayantī</i> の連声形、「示しつつ」）と改めた。チベット訳は <i>mtshan ma 'ga' źig ston pa skye'o</i>。</p>",
+      "<p>最後の一文で、分別は「何らかの契機によって」生じるとされる。関係の分別にも生起の契機がある、という限定である。ただし、それが何であるかはここでは特定されない。校訂者はこの文について PVSV 34,26f、および PV 1.286 と PVSV 151,26–28 を参照させている。Ms と校訂本の <i>upadarśanty</i> は、Eltschinger の提案（Steinkellner 2022 序文）に従って <i>upadarśayanty</i>（<i>upadarśayantī</i> の連声形、「示しつつ」）と改めた。チベット訳は <i>mtshan ma 'ga' źig ston pa skye'o</i>。</p>"
+      "<p><b>並行箇所</b>：PVSV 146,23–25（PV 1.278ab への注）。「非存在が生じる」のような言語慣習について、「言語慣習を行う者たちこそが、何らかの文脈によって、これを作用をもつもののように付託して示す」（<i>vyāpāravad iva samāropya ādarśayanti prakaraṇena kenacit</i>）と言う。〈〜のように〉＋〈示す〉（<i>ā-/upa-darśay-</i>）＋〈何らかの〜によって〉という言い回しが、Vṛtti 15,8f の <i>parāyattarūpān iva kenacin nimittenopadarśayanty</i> とよく似ている。PVSV では示す主体が話者で、付託されるのが作用（<i>vyāpāra</i>）である。本書では主体が分別で、示されるのが依存した姿であり、この議論が第6偈の行為・行為要素の語の議論につながる。</p>",
       kind="vrtti",
       crit="<b>本文</b>　7 <i>'sti</i> : <i>sti</i> Ms。8 <i>tān bhāvān amiśrān</i> rec.（T <i>dṅos po de dag 'dres pa med</i>, cf. PKM 506,11f）: 欠損 Ms。<i>sāpi</i>（T 8b8 <i>de yaṅ</i>）: <i>sā . . . . .</i> Ms。9 <i>parāyattarūpān iva</i> rec.（SPVt <i>gźan la rag las pa'i ṅo bo lta bur</i>）: <i>. . . . yattarūpān iva</i> Ms。<i>upadarśayanty</i> em. E.（Steinkellner 2022 序文）: <i>upadarśanty</i> Ms, ed.。<i>kevalaṃ … utpadyate</i> について校訂者は PVSV 34,26f; PV 1.286 with PVSV 151,26–28 を挙げる（cf.）。"))
     fig3 = '''<figure>
@@ -75,6 +76,7 @@ def sections(mula, dev, K):
       "bhāvabhedapratītyartham. bhāvānāṃ bhedo 'nyāpohaḥ, tasya pratyāyanāya, na punar vastubhūtaḥ kriyākārakasambandho …",
       "<b>存在の差異を知らせるために</b>。存在の差異とは、他からの排除（<i>anyāpoha</i>）である。それを知らせるために〔結び合わされるのであって〕、実在としての行為と行為要素の関係が〔あるから〕ではない。",
       "<p>語の結合の目的が「存在の差異」の伝達と規定され、その差異が <i>anyāpoha</i> と言い換えられる。語が伝えるのは、対象が他のものから区別されていることであり、実在の関係そのものではない。ここでは Dharmakīrti の言語論、すなわちアポーハ論が前提になっている。動詞と名詞の結合も、関係の実在を示すのではなく、排除の組み合わせによって差異を伝える手段にとどまる。</p>"
+      "<p><b>並行箇所</b>：PVSV 25,13–16（PV 1.42 への注）。存在は本性上互いに別であり、「それぞれから別であるので、その差異を知らせるために配置された（<i>tadbhedapratyāyanāya kṛtasaṃniveśaiḥ</i>）語によって」、本性が一つであっても多くの属性をもつものとして理解される、と言う。差異（<i>bheda</i>）を知らせるために語を配置する（<i>saṃniveśa</i>）という定式は、本偈の <i>bhāvabhedapratītyartham</i> と、Vṛtti の <i>niveśyante</i>、<i>tasya pratyāyanāya</i> にそのまま対応する。PVSV は名詞的な属性語の多様性を説明するためにこれを用い、本書は行為と行為要素の語に適用する。</p>"
       "<p>文末の <i>sambandho</i> の後に、校訂本は「~ ~ ~」を印刷している。<i>-o</i> の連声形は後に語が続くことを示すが、校訂者は補っていない。チベット訳は <i>bya ba daṅ byed pa po'i 'brel pa dṅos su ni yod pa ma yin no</i>（行為と行為者の関係は実在としてはない）とする。訳はこれに従って〔　〕で補った。</p>",
       kind="vrtti",
       crit="<b>本文</b>　5 <i>°pratītyartham</i> rec.（SP 6c）: <i>°pratī . . . . m</i> Ms。7 <i>°sambandho</i> の後、校訂本「~ ~ ~」（補充なし。写本の欠損か記号かは OCR からは確定できない）。"))
@@ -101,7 +103,8 @@ def sections(mula, dev, K):
       "kāryakāraṇabhāvaḥ sambandhas tarhi setsyatīti cet, tan na, yasmāt kāryakāraṇabhāvo 'pi sambandhaḥ kathaṃ prasidhyati. naiva. kimbhūtaḥ. dviṣṭhaḥ. kiṅ kāraṇam. tayoḥ kāryakāraṇayor asahabhāvataḥ. tathā hi yadā kāraṇaṃ tadā na kāryaṃ, tatkāle vā na kāraṇaṃ, tulyakālaṃ kāryakāraṇānupapatteḥ.",
       "〔反論〕「それなら、因果関係が関係として成立するだろう」と言うなら、〔答論〕そうではない。なぜなら、<b>因果関係もまた</b>関係として<b>どうして成立しようか</b>。まったく〔成立し〕ない。どのようなものとして〔成立しないのか〕。<b>二項に立つもの</b>として。なぜか。<b>その二つ</b>、すなわち結果と原因とが<b>同時に存在しないので</b>。すなわち、原因があるときには結果はなく、あるいはその〔結果の〕時には原因はない。結果と原因が同時であることは成り立たないからである。",
       "<p>校訂者の分析では、ここから第二部「個別の否定」（第7–24偈）が始まり、第7–18偈が因果関係にあてられる（2.1）。対論者は、一般的な関係が否定されても、因果関係だけは実在の関係として残ると考える。仏教徒自身が因果を認めているので、この反論は自然である。</p>"
-      "<p>論証は、第2偈 Vṛtti 以来の要件「関係は二項に立つ」（<i>dviṣṭha</i>）にもとづく。二項に立つためには、二項が同時に存在しなければならない。ところが原因と結果は継起するので、どの時点にも一方しかない。「原因があるときには結果はなく…」の一文（17,6）は Bhāsarvajña, <i>Nyāyabhūṣaṇa</i> 503,11 に引かれている。</p>",
+      "<p>論証は、第2偈 Vṛtti 以来の要件「関係は二項に立つ」（<i>dviṣṭha</i>）にもとづく。二項に立つためには、二項が同時に存在しなければならない。ところが原因と結果は継起するので、どの時点にも一方しかない。「原因があるときには結果はなく…」の一文（17,6）は Bhāsarvajña, <i>Nyāyabhūṣaṇa</i> 503,11 に引かれている。</p>"
+      "<p><b>並行箇所</b>：PVSV 43,21–22（PV 1.75 への注）。語の限定を従属によって説明しようとする説に対して、「従属があるなら、生むもの・生まれるものの関係なので、〔両者は〕同時に存在しない」（<i>janyajanakabhāvāt saha anavasthiteḥ</i>）と言う。従属は因果関係であり、因果関係の二項は同時にない、という二段の推論は、第1偈の従属の定義から第7偈の <i>asahabhāva</i> への移行を一文に縮めたものに当たる。PVSV はそこから、二つの語が一つの限定を表示することはできない、と導く。本書が導くのは、二項に立つ関係はありえない、という結論である。</p>",
       kind="vrtti",
       crit="<b>本文</b>　4 <i>kathaṃ prasidhyati. naiva.</i> Eltschinger の提案（Steinkellner 2022 序文）: <i>katham, naiva, prasidhyati</i> Ms, ed.（偈の語順に合わせ、挿入句を後置する）。3 <i>tan na</i> : <i>tat na</i> Ms。4 <i>kāryakāraṇabhāvo</i> rec.（SPVt <i>rgyu daṅ 'bras bu'i dṅos po'i</i>）: <i>. . . . . ṇabhāvo</i> Ms。6 <i>kāryaṃ tatkāle</i> rec.（PKM, SVR）: <i>kārya+ . . kāle</i> Ms。7 <i>°kāraṇānupapatteḥ</i> : <i>°kāraṇān+papat+eḥ</i> Ms。<i>yadā kāraṇaṃ … na kāraṇam</i> は NBhūṣ 503,11 に引用（Cie）。第7偈 Vṛtti 全体（17,3–10）は PKM 506,21–26; SVR 814,6–10 に並行（cf.）。"))
     fig4 = '''<figure>
@@ -130,14 +133,16 @@ def sections(mula, dev, K):
       "非刹那的なものもまた非存在であるので、〔それらには〕因果関係も共存（<i>sahabhāva</i>）もない。それゆえ、非刹那論者（<i>akṣaṇikavādin</i>）の例を〔ここに〕持ち出すことも不適切である。したがって、同時に存在する二つの実在はなく、それによって関係が二つにわたって存在するということはありえない。",
       "<p>対論者は、原因と結果が同時に存在する例を、刹那滅を認めない論者の側から持ち出すことができる。Vṛtti はこれを入口で封じる。非刹那的な（持続する）ものは、そもそも実在しない（<i>abhāvatva</i>）。そのため、それらのあいだの因果も共存も問題にならない。前提にあるのは、実在するものは刹那的であるという Dharmakīrti の刹那滅論である。どのような例が想定されているかは、本文からは特定できない。</p>"
       "<p>これにより、第7偈の <i>asahabhāva</i> は経験的な観察ではなく、存在論的な主張になる。刹那的な実在のあいだでは、原因と結果は原理的に同時でありえない。同時に存在する二つの実在がないので、二項に立つ関係の場所もない。</p>"
-      "<p>最後の文の接続を、校訂本は Ms に従って <i>yato</i>（なぜなら）とし、Steinkellner（2022, 試訳）もそのまま理由文として訳す。同書序文は <i>ato</i>（したがって）と読む Eltschinger の提案を記しており、ここではこれを採った。非刹那的なものは実在しないので、同時に存在する二つの実在はない、という帰結の文になり、論の流れがより自然になる。</p>",
+      "<p>最後の文の接続を、校訂本は Ms に従って <i>yato</i>（なぜなら）とし、Steinkellner（2022, 試訳）もそのまま理由文として訳す。同書序文は <i>ato</i>（したがって）と読む Eltschinger の提案を記しており、ここではこれを採った。非刹那的なものは実在しないので、同時に存在する二つの実在はない、という帰結の文になり、論の流れがより自然になる。</p>"
+      "<p><b>並行箇所</b>：HB 19,8–12（刹那滅論証）。「非刹那的であれば事物でないことになってしまう」（<i>akṣaṇikatve 'vastutvaprasaṅgāt</i>）と言い、その根拠を「能力こそが存在の特質である」（<i>śaktir hi bhāvalakṣaṇam</i>）に求める。常住のものは継起的にも同時的にも作用できない、という論証である。Vṛtti の <i>akṣaṇikānām apy abhāvatvāt</i> は、この刹那滅論の結論を前提として一句で用いている。</p>",
       kind="vrtti",
       crit="<b>本文</b>　9 <i>ato na</i> Eltschinger の提案（Steinkellner 2022 序文）: <i>(y)ato na</i> Ms, ed.。7 <i>akṣaṇikānām</i> : <i>akṣaṇikā+ām</i> Ms。8 <i>°āharaṇam</i> : <i>°āhara . . m</i> Ms。8f <i>ayuktam</i> : <i>ayukta+</i> Ms。SPVt は <i>skad cig ma ma yin par smra bas brjod pa yaṅ rigs pa ma yin pa'i phyir</i>（非刹那論者が述べることも不合理なので）と訳す。"))
     s.append(mula("SPV 17,10–11",
       "adviṣṭhe ca bhāve sambandhatā katham. naiva. buddhyā vyākṛtya sambandho vikalpena nirmitaḥ syāt.",
       "<b>そして二項に立たない</b>存在に、<b>どうして関係であることがあろうか</b>。まったくない。知によって〔二項を〕区分して〔関係づけるなら〕、関係は分別によって作られたものとなろう。",
       "<p>偈の後半は、二項に立たないものは関係ではない、という要件を確認する。Vṛtti の最後の一文は第1偈・第5偈の結論を因果関係に当てはめる。原因と結果を結ぶのは知のはたらきであり、そうして立てられた関係は分別の産物である。<i>vyākṛtya</i> に対応するチベット訳は <i>blos sbrel te 'brel na ni</i>（知によって結びつけて関係づけるなら）。校訂者はここに <i>sbrel</i> を当てることに疑問符を付けている。</p>"
-      "<p>Steinkellner（2022, 試訳）は <i>buddhyā vyākṛtya</i> を <i>sambandhaḥ</i> にかけ、「知によって顕わにされた関係」は分別が作ったもの（„created by conceptual construction“）だろう、と一文に訳す。ここでは、チベット訳の条件文（<i>… 'brel na ni</i>）に従い、絶対分詞を「〔二項を〕区分して〔関係づけるなら〕」と補って訳した。どちらでも、知のはたらきで立てられた関係は分別の産物だ、という趣旨は同じである。</p>",
+      "<p>Steinkellner（2022, 試訳）は <i>buddhyā vyākṛtya</i> を <i>sambandhaḥ</i> にかけ、「知によって顕わにされた関係」は分別が作ったもの（„created by conceptual construction“）だろう、と一文に訳す。ここでは、チベット訳の条件文（<i>… 'brel na ni</i>）に従い、絶対分詞を「〔二項を〕区分して〔関係づけるなら〕」と補って訳した。どちらでも、知のはたらきで立てられた関係は分別の産物だ、という趣旨は同じである。</p>"
+      "<p><b>並行箇所</b>：PVSV 70,8–10（PV 1.143 への注）。同一の基体に内属するものどうしの関係について、「それゆえ、自らへの助けを通してのみ、他のものも知によって結び合わせて（<i>buddhyā saṃghaṭayya</i>）言い表される」と言う。知によって結び合わせるという点で、本 Vṛtti の <i>buddhyā vyākṛtya … vikalpena nirmitaḥ</i> に近い。ただし PVSV は、そこにある結びつきを因果関係による結びつき（<i>kāryakāraṇabhāvakṛta eva pratibandhaḥ</i>）として認めている。本書では、その因果関係も、二項に立つ関係としては分別が作ったものとされる。</p>",
       kind="vrtti",
       crit="<b>本文</b>　11 <i>vyākṛtya</i>：校訂者注「<i>sbrel</i>? for <i>vyākṛtya</i>」。11 校訂本の本文は <i>sambandho vikalpena nirmitaḥ</i> と印刷するが、注記は「<i>sambandho vikalpena miśritaḥ</i> rec.（cf. T <i>'brel na ni / rnam par rtog pas bskyed par 'gyur ro</i>）: <i>sambandha . . . . . miś+itaḥ</i> Ms」とする。Ms の残存字は <i>miśritaḥ</i>（第5偈 <i>miśrayati</i> と同語根）を支持し、T の <i>bskyed</i>（生じさせる）は <i>nirmita</i> に近い。OCR の三つの版はいずれも本文を <i>nirmitaḥ</i> とする。Steinkellner（2022, 試訳）は „created“ と訳し、本文 <i>nirmitaḥ</i> に従っている。同書序文の訂正表にもこの箇所はないので、印刷された本文 <i>nirmitaḥ</i> を校訂者の採る読みとみなし、注記の lemma <i>miśritaḥ</i> は不整合として残る（Ms の残存字 <i>miś+itaḥ</i> は <i>miśritaḥ</i> を示唆する）。訳は <i>nirmitaḥ</i> に従った。"))
     out.append(("s7", "7", "因果関係の否定 (1)：二項は同時にない", "k.7 / SPV 17,3–11", "asahabhāva のため dviṣṭha でない", "".join(s)))
@@ -161,7 +166,8 @@ def sections(mula, dev, K):
       "yo yasmin niḥspṛho na tasyāsau sambandho bhavaty ekavṛttimān, krameṇa kāryakāraṇabhāvī, tadabhāve 'pi bhāvāt, kāryakāraṇabhūtayoḥ parasparābhāve 'pi sambandhākhyasyārthasya sattākāraṇāt.",
       "あるものに関心をもたないものは、それの関係ではない。〔すなわち〕<b>一方にのみ存するもの</b>、つまり継起的に因果関係となるものは、〔関係ではない〕。<b>その〔他方〕がなくても存在するからである</b>。すなわち、原因と結果であるものが互いに他方を欠いていても、関係と呼ばれるものは存在するからである。",
       "<p>一般原則が示される。y に関心をもたない（y に依存しない）ものは、y の関係ではない。<i>ekavṛttimat</i> を Vṛtti は「継起的に因果関係となるもの」と言い換え、対論者の案そのものを指していることを明らかにする。</p>"
-      "<p>理由は、関係が他方の非存在のもとでも存在するという点にある。t₁ では結果がないのに関係は原因に存し、t₂ では原因がないのに関係は結果に存する。他方の存否と無関係に存在するものは、他方との関係とは言えない。関係であるためには、両項の存在に依存していなければならないからである。第9偈は、この依存を対論者が回復しようとする試みを扱う。</p>",
+      "<p>理由は、関係が他方の非存在のもとでも存在するという点にある。t₁ では結果がないのに関係は原因に存し、t₂ では原因がないのに関係は結果に存する。他方の存否と無関係に存在するものは、他方との関係とは言えない。関係であるためには、両項の存在に依存していなければならないからである。第9偈は、この依存を対論者が回復しようとする試みを扱う。</p>"
+      "<p><b>並行箇所</b>（参照）：PV 1.145b（<i>tadabhāve 'py avasthiteḥ</i>、PVSV 71,9）は、普遍の基体は普遍の生起も持続もなさないことを、基体がなくても普遍がとどまることから論じる。PVSV 3,11f（PV 1.3 への注＝PVin 2 §12.1）は、「それがなくても生じるものには、それから生じるという限定がない」（<i>tadabhāve bhavatas tadutpattiniyamābhāvāt</i>）と言う。他方がなくても存在するものは他方に依存しない、という本 Vṛtti 18,8–10 の判定基準と同じ型である。本書では、この基準が継起的に存すると想定された関係そのものに向けられている。</p>",
       kind="vrtti",
       crit="<b>本文</b>　7 <i>niḥspṛho</i> : <i>nispṛho</i> Ms。8 <i>'pi</i> : <i>pi</i> Ms。9 <i>'pi</i> : <i>pi</i> Ms。10 <i>sattākāraṇāt</i> : <i>satākāraṇāt</i> Ms。"))
     tbl8 = '''<div class="tbl min"><table>
@@ -186,7 +192,8 @@ def sections(mula, dev, K):
       "mā bhūd eṣa doṣa iti. yady apekṣya tayoḥ kāryakāraṇayor ekaṃ kāryaṃ kāraṇaṃ vānyatra kārye kāraṇe vāsau sambandhaḥ krameṇa pravartata iti saspṛhatvena dviṣṭha eveṣyate, tadā tenāpekṣyamāṇenopakāriṇā bhavitavyam. kiṅ kāraṇam. yata upakārī hy apekṣyaḥ syān nānyaḥ.",
       "この過失が生じないように、と〔考えて〕、<b>もし</b><b>その二つ</b>、すなわち結果と原因の<b>一方</b>、結果あるいは原因<b>に依存して</b>、<b>他方</b>、原因あるいは結果に、<b>それ</b>、すなわち関係が継起的に<b>存する</b>とし、こうして〔他方に〕関心をもつ（<i>saspṛha</i>）ことによって、まさに二項に立つものと認めるなら、そのときは、その依存されるものは助けるものでなければならない。なぜか。<b>依存されるものは助けるものでなければならない</b>からであり、他の〔助けないもの〕は〔依存されることは〕ない。",
       "<p>校訂者の分析 2.1.3。第8偈の難点は、継起的な関係が他方の項に依存しないことであった。対論者はそこで、関係は一方に存しながら他方に依存する（<i>saspṛha</i>）と修正する。たとえば結果に依存して原因に存する、あるいは原因に依存して結果に存する。こうすれば、関係は依存を通じて二項に立つ（<i>dviṣṭha</i>）ことになる。</p>"
-      "<p>Vṛtti はこれを、依存の一般条件によって退ける。依存されるもの（<i>apekṣya</i>）は、依存するものを助けるもの（<i>upakārin</i>）でなければならない。この原則は、第3偈 Vṛtti の解説で触れた PVSV の消滅無因論の論法と同じ型で、本書ではここで因果関係に適用される。</p>",
+      "<p>Vṛtti はこれを、依存の一般条件によって退ける。依存されるもの（<i>apekṣya</i>）は、依存するものを助けるもの（<i>upakārin</i>）でなければならない。この原則は、第3偈 Vṛtti の解説で触れた PVSV の消滅無因論の論法と同じ型で、本書ではここで因果関係に適用される。</p>"
+      "<p><b>並行箇所</b>：PV 1.279「もし何らかの結果があるなら、他のものが依存されもしよう。何もしない事物が、どうして何かに依存されようか」（<i>yad akiṃcitkaraṃ vastu kiṃ kenacid apekṣyate</i>）。本偈 9c <i>upakārī hy apekṣyaḥ syāt</i> の裏返しにあたる定式で、PVSV（148,14–16）は消滅の原因に適用する。PVSV 131,21（PV 1.252 への注）＝PVin 3 53,6（III.2.1.1.ii.a.2）は、常住の音声の補助因について「助けないものは依存されない」（<i>na hy anupakāry apekṣyate</i>）と、本偈とほぼ同じ文言を用いる。また PVSV 37,10f の <i>anupakāryasya pāratantryāyogāt</i> は、同じ原則を従属（第1偈）の側から言ったものである。</p>",
       kind="vrtti",
       crit="<b>本文</b>　3 <i>°kāraṇayor ekam</i> rec.（PKM, SVR）: <i>°kāraṇa . . . . .</i> Ms。4 <i>kārye</i> : <i>kārya</i> Ms。<i>kāryakāraṇayor … bhavitavyam</i> は PKM 519,24–520,1 に並行（cf.）。第9偈 Vṛtti 全体（19,3–8）は PKM 507,3–8; SVR 814,21–815,1 に並行（cf.）。"))
     s.append(mula("SPV 19,7–8",
@@ -240,7 +247,8 @@ def sections(mula, dev, K):
       "na ceṣyate, tadanyatrāpi mā bhūt. ādigrahaṇena paratvāparatvaviṣāṇatvādinā sambandhāt.",
       "〔左右の角の場合に因果性が〕認められないなら、それ以外の場合にも〔因果性は〕あってはならない。「など」という語によって、遠さ・近さ（<i>paratva</i>, <i>aparatva</i>）、角性（<i>viṣāṇatva</i>）などとの結合による〔場合が含まれる〕。",
       "<p>帰謬の形式。左右の角に因果性がないことは誰もが認める。<i>na ceṣyate</i> は、Steinkellner（2022, 試訳, n.6）に従い条件文に解した。SPVt は <i>de ltar mi 'dod na ni</i>、Vinītadeva の注釈（T 12b1）も <i>de ltar na mi 'dod na</i> と、いずれも「認めないなら」と訳す。共通の第三項と結合していることが同じなら、本来の原因と結果のあいだにも、それを根拠として因果性を認めることはできない。</p>"
-      "<p>「など」には、<i>paratva</i>・<i>aparatva</i>（Vaiśeṣika の性質）と、<i>viṣāṇatva</i>（角であること。二つの角に共通する普遍）が数えられている。性質であれ普遍であれ、二つのものに共通に関わる第三項はどれも因果性の根拠にならない、という一般化である。校訂者の分析はこれを「あらゆる種類の共通の属性によって関係することになる」とまとめている。</p>",
+      "<p>「など」には、<i>paratva</i>・<i>aparatva</i>（Vaiśeṣika の性質）と、<i>viṣāṇatva</i>（角であること。二つの角に共通する普遍）が数えられている。性質であれ普遍であれ、二つのものに共通に関わる第三項はどれも因果性の根拠にならない、という一般化である。校訂者の分析はこれを「あらゆる種類の共通の属性によって関係することになる」とまとめている。</p>"
+      "<p><b>並行箇所</b>：PVSV 25,3–6（PV 1.42 への注）。普遍を、多くのものと関係する別個のもの（<i>arthāntara</i>）とする説に対して、「それはそれらに共通のものではない。…二性・結合・生じた実体についても〔そうなって〕しまうから」（<i>dvitvādisaṃyogakāryadravyeṣv api prasaṅgāt</i>）と言い、「別の一つのものと関係していても、別々のものどうしが同じになるわけではない」と続ける。二つ以上のものに共通に関わる第三項の例として <i>dvitva</i> を持ち出し、帰謬に用いる手法は本偈と同じである。PVSV では、一つのものとの関係が「同じであること」（普遍）の根拠にならないことが示され、本書では因果性の根拠にならないことが示される。また PVSV 70,3–9（PV 1.143 への注）は、同一の基体に内属するもの（<i>ekārthasamavāyin</i>）どうしは互いに助けないので、その関係は一つのものからの助け、すなわち因果関係に帰着する、と言う。そこでも「一つのもの」との結合はそれ自体では関係の根拠にならないとされ、本偈の帰謬と方向が一致する。</p>",
       kind="vrtti"))
     tbl10 = '''<div class="tbl min"><table>
 <thead><tr><th>「一つのもの」の候補</th><th>Vaiśeṣika での位置</th><th>左右の角にも共通か</th><th>帰結</th></tr></thead>
