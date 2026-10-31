@@ -9,13 +9,13 @@ def sections(mula, dev, K):
     s.append(mula("SP 6 / k.19",
       "saṃyogisamavāyyādi sarvam etena cintitam / anyonyānupakārāc ca na sambandhī ca tādṛśaḥ // 19",
       "結合するもの（<i>saṃyogin</i>）・内属するもの（<i>samavāyin</i>）など、すべてはこれによって考察された。また、互いに助けない（<i>anupakāra</i>）ので、そのようなものは関係項ではない。",
-      "", kind="sutra",
+      "<p>Steinkellner（2022, 試訳）は二つの <i>ca</i> を「…もなく、…もない」と並列に取り、相互の助けがないことと、そのようなものが関係項でないこととを、ともに前半「これによって考察された」の理由として訳す。本訳は、奪格 <i>anyonyānupakārāt</i> を <i>na sambandhī</i> の理由と取った。Vṛtti は先に「まず、内属するものには関係項であることがない」（<i>samavāyinas tāvan na sambandhitā</i>）と主張を立て、<i>anupakārāt</i> に <i>kāraṇāt</i> を補って、それを理由として示しているからである（29,6–8）。</p>", kind="sutra",
       crit="<b>異読</b>　19c <i>°ānupakārāc ca</i> TŚV, PKM : <i>°ānupakārātma</i> SVR。SP 6 の偈本文は OCR 上 <i>°ānupakārāc can na</i> と読めるが、SPV 29 の偈と Vṛtti（29,7）に従い <i>ca na</i> とした。引用 Ci PKM 510,23f; SVR 817,17f。"))
     s.append(mula("SPV 29,3–5",
       "saṃyogisamavāyyādi. ādigrahaṇena svasvāmyādi. sarvam etenānantaroktena sāmānyena sambandhapratiṣedhakena granthena cintitaṃ na saṃyogādilakṣaṇo vastutaḥ sambandho 'stīti.",
       "「結合するもの・内属するものなど」。「など」の語によって、所有物と所有者〔の関係〕（<i>svasvāmin</i>）などが〔含まれる〕。〔それら〕「すべて」は、「これによって」、すなわち直前に述べた、関係を一般的に否定する論述によって、「考察された」。つまり、結合などを特徴とする関係は、実在としてはない、と。",
       "<p>校訂者の分析では、ここから第2部の後半（2.2「その他の関係の否定」、第19–25偈）に入る。因果関係（第7–18偈）に続いて、Vaiśeṣika の範疇である結合（<i>saṃyoga</i>）と内属（<i>samavāya</i>）が取り上げられ（2.2.1、第19–22偈）、さらに適合性（<i>yogyatā</i>）が検討される（2.2.2、第23–24偈）。</p>"
-      "<p>第19偈前半は、これらの関係に新しい論証を立てる必要はないと言う。<i>etena</i> を Vṛtti は「直前に述べた、関係を一般的に否定する論述」と解する。二つの実在のあいだの関係一般に対する論証が、結合・内属にもそのまま当てはまるという趣旨である。<i>ādi</i> に含められる <i>svasvāmin</i>（所有物と所有者）について、校訂者の分析は「Sāṅkhya の関係」とする（2.2.1.1）。Vṛtti 自身はその所属を述べていない。</p>",
+      "<p>第19偈前半は、これらの関係に新しい論証を立てる必要はないと言う。<i>etena</i> を Vṛtti は「直前に述べた、関係を一般的に否定する論述」と解する。二つの実在のあいだの関係一般に対する論証が、結合・内属にもそのまま当てはまるという趣旨である。<i>ādi</i> に含められる <i>svasvāmin</i>（所有物と所有者）について、校訂者の分析は「Sāṅkhya の関係」とする（2.2.1.1）。Vṛtti 自身はその所属を述べていない。Steinkellner（2022, 試訳）は <i>svasvāmin</i> を「主人と従者」の意に訳すが、本訳は <i>sva</i> を所有物と取った。</p>",
       kind="vrtti",
       crit="<b>本文</b>　5 <i>'stīti</i> : <i>stīti</i> Ms。3–5 は PKM 509,2–3 に並行（cf.）。"))
     s.append(mula("SPV 29,6–10",
@@ -24,7 +24,7 @@ def sections(mula, dev, K):
       "<p>第19偈後半の理由 <i>anyonyānupakārāt</i> を、Vṛtti は <i>ajanyajanakabhāvāt</i> と言い換える。「助けること」（<i>upakāra</i>）は、ここでは生じさせることと同じ意味で用いられている。論の順序は次のとおりである。関係とは依存であり（第3偈）、依存は助けるものに対してのみ成り立ち（第9偈 <i>upakārī hy apekṣyaḥ syāt</i>）、助けるとは生じさせることである。白さと布はどちらも自らの姿がすでに成立している（<i>svarūpasiddhi</i>）。だから一方が他方を生じさせることはなく、依存も関係もない。</p>"
       "<p>例が性質とその基体である実体になっているのは、内属の典型例だからである。<i>svarūpasiddheḥ</i> は第1偈の既成立のものの角（<i>siddhe kā paratantratā</i>）を、内属の二項に当てはめたものである。</p>",
       kind="vrtti",
-      crit="<b>本文</b>　6 <i>paṭe</i> em.（SPVt <i>snam bu</i>）: <i>ghaṭe</i> Ms。9 <i>upakāryaḥ</i> em.（T <i>phan gdags par bya ba</i>, T 20b3）: <i>kāryaḥ</i> Ms。7–9 <i>anayor … °bhūtaḥ</i> は PKM 509,4–5 に並行（cf.）。"))
+      crit="<b>本文</b>　6 <i>paṭe</i> em.（SPVt <i>snam bu</i>）: <i>ghaṭe</i> Ms。9 <i>upakāryaḥ</i> em.（T <i>phan gdags par bya ba</i>, T 20b3。T は Vinītadeva の『<i>Sambandhaparīkṣāṭīkā</i>』P 5735、Steinkellner 2022 の Ṭ）: <i>kāryaḥ</i> Ms。7–9 <i>anayor … °bhūtaḥ</i> は PKM 509,4–5 に並行（cf.）。"))
     s.append(mula("SPV 29,11–16",
       "ādhārādheyabhāvo 'pi nākāryakāraṇabhūtayoḥ, kāryakāraṇabhāve ca tadbhāvī doṣaḥ. kāryakāraṇabhāve saty ādhārādheyabhāvāt śuklapaṭayoḥ sambandhakalpanāpy asādhvī. tathā hi na tayor laukika ādhārādheyabhāvo 'sti. janyajanakalakṣaṇe cādhārādheyabhāve sāmānyatadvatoḥ parasparam anupakāryopakārakayoḥ samavāyalakṣaṇaḥ sambandho na syāt.",
       "支えるもの・支えられるものの関係（<i>ādhārādheyabhāva</i>）も、結果・原因でない二つにはない。また、結果・原因の関係があるなら、それ（因果関係）に伴う過失が〔及ぶ〕。結果・原因の関係があるとして、〔それにもとづく〕支えるもの・支えられるものの関係によって白いものと布とに関係を想定することも、正しくない。すなわち、その二つには、世間で〔言われる〕支えるもの・支えられるものの関係はない。また、支えるもの・支えられるものの関係が、生じられるもの・生じさせるものを特徴とするのなら、普遍（<i>sāmānya</i>）とそれをもつもの（<i>tadvat</i>）とは互いに助けられるもの・助けるものでないので、〔その間に〕内属を特徴とする関係はないことになろう。",
@@ -47,8 +47,8 @@ def sections(mula, dev, K):
     s = []
     s.append(mula("SP 6 / k.20",
       "janane 'pi hi kāryasya kenacit samavāyinā / samavāyī tadā nāsau na tato 'tiprasaṅgataḥ // 20",
-      "〔反論〕ある内属するものが結果を生じさせるのだとしても、〔答論〕そのとき、それは内属するものではない。〔また〕それ（生じさせること）によって〔関係項なの〕でもない。過大適用（<i>atiprasaṅga</i>）になるからである。",
-      "", kind="sutra",
+      "〔反論〕ある内属するものが結果を生じさせるのだとしても、〔答論〕そのとき、それは内属するものではない。〔また〕それ（生じさせること）によって〔内属するものなの〕でもない。過大適用（<i>atiprasaṅga</i>）になるからである。",
+      "<p>第4句 <i>na tato</i> に補う語は、以前の訳では「関係項」としていたが、「内属するもの」に改めた。Vṛtti が「あるいは、何らかの内属するものがあるとしてもよい。しかしそれによってではない」（<i>bhavatu vā kaścit samavāyī, na tu tato</i>, 30,8）と注しており、Steinkellner（2022, 試訳）も同じく <i>samavāyin</i> を補っている。</p>", kind="sutra",
       crit="<b>異読</b>　校訂本に異読の記載はない。カーリカー部の写本はこの偈で Ms 2b の葉が替わる。引用 Ci PKM 510,25f; SVR 818,1f。"))
     s.append(mula("SPV 30,3–7",
       "syād etad – asti kaścit samavāyī yo 'vayavirūpaṃ kāryākhyaṃ janayati. tena nānupakārād asambandhiteti. evañ janane 'pi hi kāryasya kenacit samavāyinābhyupagamyamāne nāsau samavāyī tadā, jananakāle janyasyāniṣpatter dvayor asamavāyāt, niṣpanne 'pi kārye kāraṇasya tirodhānāt, atirobhāve ca samavahitayor upakāryopakārakabhāvābhāvāt.",
@@ -59,19 +59,20 @@ def sections(mula, dev, K):
       crit="<b>本文</b>　4 <i>anupakārād</i> Ms : <i>phan par byed pa'i phyir</i>（＝<i>upakārāt</i>?）T。4 <i>'pi</i> : <i>pi</i> Ms。3–6 <i>asti … janyasyāniṣpatter</i> は PKM 509,6–9 と SVR 817,24f + 818,3f に並行（cf.）。"))
     s.append(mula("SPV 30,8–9",
       "bhavatu vā kaścit samavāyī, na tu tato jananāt kāraṇāt. kiṃ kāraṇam. atiprasaṅgataḥ, kumbhakārāder api ghaṭasya jananāt sambandhitāpatteḥ.",
-      "あるいは、何らかの内属するものがあるとしてもよい。しかし、「それによって」、すなわち生じさせることという理由によって、〔関係項なの〕ではない。なぜか。「過大適用になるからである」。陶工なども壺を生じさせるので、〔壺の〕関係項であることになってしまうからである。",
-      "<p>偈の後半 <i>na tato 'tiprasaṅgataḥ</i> の説明。内属するものがあることを仮に認めても、それが関係項である根拠を「生じさせること」に求めることはできない。生じさせることを根拠にすれば、壺を作る陶工も壺の関係項（内属するもの）になってしまう。生じさせる関係だけでは、内属するものとそうでないものを区別できないということである。</p>",
+      "あるいは、何らかの内属するものがあるとしてもよい。しかし、「それによって」、すなわち生じさせることという理由によって、〔内属するものなの〕ではない。なぜか。「過大適用になるからである」。陶工なども壺を生じさせるので、〔壺の〕関係項であることになってしまうからである。",
+      "<p>偈の後半 <i>na tato 'tiprasaṅgataḥ</i> の説明。内属するものがあることを仮に認めても、それが内属するもの、すなわち関係項である根拠を「生じさせること」に求めることはできない。生じさせることを根拠にすれば、壺を作る陶工も壺の関係項（内属するもの）になってしまう。生じさせる関係だけでは、内属するものとそうでないものを区別できないということである。</p>",
       kind="vrtti",
       crit="<b>本文</b>　9 <i>kumbhakārāder</i> Ms（SVR）: <i>°ādi</i> n.e. T（T 22a6）。<i>sambandhitā°</i> Ms : <i>de daṅ 'brel pa can du</i> T（T 22a6f）。9 <i>kumbhakārāder … jananāt</i> は SVR 818,4–5 に並行（cf.）。"))
     s.append(mula("SP 7 / k.21",
       "tayor anupakāre 'pi samavāye paratra vā / sambandho yadi viśvaṃ syāt samavāyi parasparam // 21",
       "もし、その二つが〔互いに〕助けないとしても、また内属において、あるいは他において〔助けがないとしても〕関係があるのなら、全世界が相互に内属するものとなってしまうであろう。",
       "", kind="sutra",
-      crit="<b>異読</b>　21a <i>'pi</i> : <i>pi</i> Ms。引用 Ci PKM 510,27f; SVR 818,6f（OCR では第21・22偈の引用の記号が一つずれているが、PKM の行の順から判断した）。"))
+      crit="<b>異読</b>　21a <i>'pi</i> : <i>pi</i> Ms。引用 Ci PKM 510,27f; SVR 818,6f（OCR では第21・22偈の引用の記号が一つずれているが、PKM の行の順から判断した）。21b 末の句読は、SPV 31,1 で校訂本が <i>vā //</i> と印字したのを <i>vā /</i> に改める（Steinkellner 2022 序文の訂正）。"))
     s.append(mula("SPV 31,3–7",
       "atha mā bhūd eṣa doṣa iti tayoḥ samavāyinoḥ parasparam anupakāre 'pi, tābhyāṃ sambandhibhyām anupakāre ca samavāye, nityatvāt tasya, tābhyāṃ samavāye ca paratra vā kvacid anupakāre 'pi, sambandho yadīṣyate, tadā viśvaṃ sarvaṃ jagat parasparāsambaddhaṃ samavāyi parasparam syāt.",
       "では、この過失が及ばないように、と〔考えて〕、「その二つ」すなわち内属する二つが互いに「助けないとしても」、またその二つの関係項によって内属が助けられないとしても——それ（内属）は常住だからである——、さらにその二つに対して内属が、「あるいは他において」何かが、助けないとしても、「関係がある」と認める「のなら」、そのときは「全世界」、すなわちあらゆる世界が、互いに結びついていないのに、「相互に内属するものとなってしまうであろう」。",
       "<p>第20偈で「助ける」角が退けられたので、対論者はもう一方の角を選ぶ。助けがまったくなくても内属は成り立つ、という立場である。Vṛtti は、偈の <i>tayoḥ</i>・<i>samavāye</i>・<i>paratra</i> を、成り立たない三つの助けとして読む。(1) 二つの関係項は互いに助けない。(2) 内属は常住なので、関係項は内属を助けない。(3) 内属も、他の何ものも、関係項を助けない。チベット訳 SPVt も（3）を「その二つも、内属も、他の何ものも助けない」と訳している。</p>"
+      "<p>Steinkellner（2022, 試訳）は、偈の <i>samavāye paratra vā</i> を助けの向かう先（「内属に対して、あるいは他のものに対して」）と解し、Vṛtti の（3）<i>tābhyāṃ samavāye ca paratra vā kvacid anupakāre</i> も、（2）と同じく <i>tābhyām</i> を具格の行為者と取って、「その二つが内属にも他の何ものにも助けを与えない」と訳す。この読みは（2）<i>tābhyāṃ … anupakāre ca samavāye</i> との並行を重んじたもので、文法的には自然である。ただしそれでは（3）は（2）に <i>paratra</i> を加えただけになる。本訳は SPVt に従い、（3）を内属や他のものの側から関係項への助けがない場合と取って、助けの三方向を区別する読みを保った。</p>"
       "<p>帰謬の形は第2偈 Vṛtti の <i>sāntaratā</i> の議論と同じである。関係項の側に何の違いも生じさせないものを関係と認めるなら、助け合っていないことは世界のどの二つについても同じように言えるので、すべてのものが互いに内属することになる。</p>",
       kind="vrtti",
       crit="<b>本文</b>　3 <i>atha mā bhūd eṣa doṣa iti</i> rec.（SPVt <i>skyon 'dir mi 'gyur bar bya ba'i phyir</i>; cf. Ms 5a3）: <i>a(tha mā) . . . . . doṣa iti</i> Ms。4 <i>'pi</i> : <i>pi</i> Ms。5 <i>sa&lt;ma&gt;vāye</i> em. : <i>savāye</i> Ms。5 <i>'pi</i> : <i>pi</i> Ms。3–7 <i>tayoḥ … syāt</i> は PKM 509,10–13 に並行（cf.）。"))
@@ -121,7 +122,8 @@ def sections(mula, dev, K):
     s.append(mula("SP 7 / k.22",
       "saṃyogajanane 'pīṣṭau tataḥ saṃyoginau na tau / karmādiyogitāpatteḥ sthitiś ca prativarṇitā // 22",
       "結合を生じさせることが認められるとしても、その二つは、それ（生じさせること）によって結合するものではない。運動（<i>karman</i>）なども結合するものとなってしまうからである。また、存続（<i>sthiti</i>）はすでに論駁されている。",
-      "", kind="sutra",
+      "<p>Steinkellner（2022, 試訳）は <i>iṣṭau</i> を <i>tau</i> にかかる過去分詞の両数主格と取り、「結合を生じさせるとしても、その二つはそれによって結合するものと認められはしない」の意に訳す。本訳は <i>iṣṭau</i> を <i>iṣṭi</i>（容認）の単数処格とし、<i>saṃyogajanane</i> と同格に「生じさせることが認められる場合にも」と読んだ。Vṛtti は <i>iṣṭau</i> を注せず、条件を <i>saṃyogitā yadi tayoḥ</i> と言い表すので（32,3f）、どちらの読みも排除されない。</p>"
+      "<p><i>prativarṇitā</i> を Steinkellner は語義どおり「詳しく説明された」と訳す。本訳は、Vṛtti が <i>pramāṇavārttike pratikṣiptā</i> と注すること（32,11）に従い、「論駁されている」と訳した。</p>", kind="sutra",
       crit="<b>異読</b>　22a <i>'pīṣṭau</i> : <i>pīṣṭau</i> Ms。22cd <i>karmādiyogitāpatteḥ sthitiś ca prativarṇitā</i> SP, PKM : <i>karmāder api saṃyogitā syāj jananāt tataḥ</i> SVR。引用 Ci PKM 510,29f; SVR 818,11f。"))
     s.append(mula("SPV 32,3–8",
       "api ca saṃyogasya kāryatvāt tābhyāṃ tajjananāt saṃyogitā yadi tayoḥ, tadaivaṃ saṃyogajanane 'pīṣṭau tataḥ saṃyogajananāt kāraṇān na tau saṃyoginau. kiṃ kāraṇam. karmādiyogitāpatteḥ. yadi saṃyogajananāt saṃyogī karmaṇo 'pi saṃyogitā syāt. tathā hy anyatarakarmaja ubhayakarmajaḥ saṃyoga iṣyate. ādigrahaṇena saṃyogasyāpi saṃyogitā syāt, yataḥ saṃyogajo 'pīṣyate 'sāv iti.",
@@ -133,7 +135,7 @@ def sections(mula, dev, K):
     s.append(mula("SPV 32,9–11",
       "na saṃyogajananāt saṃyogitā, kin tarhi, sthāpanād iti cet. tan na. sthitiś ca prativarṇitā, sthāpyasthāpakayor janyajanakabhāvān nānyā sthitir iti pramāṇavārttike pratikṣiptā.",
       "〔反論〕「結合を生じさせることによって結合するものであるのではない。では何によるか。〔結合を〕存続させること（<i>sthāpana</i>）による」と言うなら。〔答論〕そうではない。「また、存続はすでに論駁されている」。存続させられるもの・存続させるもののあいだには、生じられるもの・生じさせるものの関係があるのだから、〔それとは〕別の存続はない、と『<i>Pramāṇavārttika</i>』において退けられているのである。",
-      "<p>最後の逃げ道は、二つの実体は結合を生じさせるのではなく、存続させるのだ、という主張である。Vṛtti は、偈の <i>prativarṇitā</i> を <i>pramāṇavārttike pratikṣiptā</i> と注し、Dharmakīrti の主著を名指しで参照する。校訂者は PV 1.145 と PVSV 71,11–72,10 を挙げている。</p>"
+      "<p>最後の逃げ道は、二つの実体は結合を生じさせるのではなく、存続させるのだ、という主張である。Vṛtti は、偈の <i>prativarṇitā</i> を <i>pramāṇavārttike pratikṣiptā</i> と注し、Dharmakīrti の主著を名指しで参照する。校訂者は PV 1.145 と PVSV 71,11–72,10 を挙げている。Steinkellner（2022, 試訳, n.7）によれば、この箇所で Dharmakīrti は、個物が普遍を生じさせるのではなく自らのうちに存続させるから普遍の基体である、という説を退け、それによって語の指す事物への普遍の内属をも否定している（Frauwallner 1933: 69–71 を参照）。存続の議論は、もとは普遍の基体をめぐるものだったことになる。</p>"
       "<p>Vṛtti が要約する論点は、存続させることは生じさせることと別ではない、ということである。存続させられるものと存続させるものとの関係は、生じられるものと生じさせるものとの関係にほかならない。そうであれば、「存続させる」は「生じさせる」に帰着し、すぐ前の過大適用がそのまま及ぶ。この帰着は、存在は刹那ごとに生じ直すので、存続とは同類の後続刹那が生じることにすぎない、という前提に立っている。</p>",
       kind="vrtti",
       crit="<b>本文</b>　9–10 <i>na saṃyogajananāt … prativarṇitā</i> は TR 70*,3 に引用（Cie）。11 <i>pramāṇavārttike</i>：cf. PV 1.145 with PVSV 71,11–72,10（校訂者による同定）。"))
@@ -173,19 +175,20 @@ def sections(mula, dev, K):
       "tasmāt tvayaitad eva vaktavyam. tad vibhaktādirūpam ayogyaṃ prāk paścāt saṃyogādyāśraye yogyañ jāyate. kiṃ kāraṇam. yato nityasaṃyogādiyogayogyasvabhāvasya tadvaikalyavirodhataḥ, saṃyogādiyogavaikalyaṃ virudhyate. mayāpi caitad eva vaktavyam saṃyogādivarjitam.",
       "それゆえ、あなたはまさに次のことを言わなければならない。「分離しているものなどのその姿は、以前は不適合であり、後に、結合などの基体となることに適合したものとして生じる」と。なぜか。「常に」結合などとの結びつきに「適合する本性をもつものには、それを欠くことが矛盾する」から、すなわち、結合などとの結びつきを欠くことが矛盾するからである。そして私もまた、まさにこのことを、〔ただし〕結合などを除いて、言わなければならない。",
       "<p>第23偈はここで解かれる。対論者が問いの応酬から抜け出すには、事物の姿そのものが変わると認めるしかない。以前の姿は結合の基体になるのに不適合で、後に適合した姿が生じる。姿が変わらず、常に適合しているのなら、結合を欠く時があることと矛盾する（<i>tadvaikalyavirodhataḥ</i>）。</p>"
-      "<p>最後の一文が要点である。対論者もこの「適合した姿の生起」を認めざるをえない。そうであれば、仏教徒の側は同じことを、結合などの別個の実在を立てずに言えばよい（<i>saṃyogādivarjitam</i>）。結合の知を説明するのは、新たに生じた事物の本性そのものであり、結合という性質は説明に何も加えない。この結論が第24偈の <i>kim anyair gamanādibhiḥ</i> と、第25偈の刹那ごとに生じるものの本性の差異へと続く。</p>",
+      "<p>最後の一文が要点である。対論者もこの「適合した姿の生起」を認めざるをえない。そうであれば、仏教徒の側は同じことを、結合などの別個の実在を立てずに言えばよい（<i>saṃyogādivarjitam</i>）。結合の知を説明するのは、新たに生じた事物の本性そのものであり、結合という性質は説明に何も加えない。この結論が第24偈の <i>kim anyair gamanādibhiḥ</i> と、第25偈の刹那ごとに生じるものの本性の差異へと続く。</p>"
+      "<p>Steinkellner（2022, 試訳, n.8）は、適合性（<i>yogyatā</i>）の概念によって、語と意味の関係を適合性とする Bhartṛhari の考え方が念頭に置かれている可能性を指摘する（<i>Vākyapadīya</i> 3.3.29, 31; Houben 1995: 158, 243f）。ただし、ここで論じられているのは結合などの基体となる適合性であり、Vṛtti はその出典に触れていない。</p>",
       kind="vrtti",
       crit="<b>本文</b>　11 <i>saṃyog&lt;ād&gt;yāśraye</i> em.（SPVt <i>sbyor ba la sogs pa'i gnas</i>; T 25a2）: <i>saṃyogyāśraye</i> Ms。12 <i>nitya°</i> em. : <i>nityaṃ</i> Ms, TR, VR。10–12 <i>tasmāt … jāyate</i> は TR 70*,18–20、12–13 <i>yato … virodhataḥ</i> は TR 70*,21f に並行（cf.）。"))
     s.append(mula("SP 7 / k.24",
       "iti tadyogyatāvācyaḥ svabhāvo 'sya nirucyatām / vibhāgayogagatibhiḥ kim anyair gamanādibhiḥ // 24",
       "それゆえ、それへの適合性（<i>yogyatā</i>）と言い表される、このものの本性が、分離・結合・運動〔という語〕によって表現されればよい。別の〔実在としての〕運動などが、何の役に立とうか。",
-      "", kind="sutra",
-      crit="<b>異読</b>　24b <i>'sya</i> TR : <i>sya</i> Ms。24c <i>°gatibhiḥ</i> TR : <i>°jātibhiḥ</i> VR。"))
+      "<p>Eltschinger は SPV 34,1 で <i>tad yogyatāvācyaḥ</i> と分けて読むことを提案している（Steinkellner 2022 序文）。その場合 <i>tad</i> は「それゆえ」の副詞となる。Vṛtti の言い換え <i>tasmād yogyatāśabdavācyaḥ</i>（34,3）に <i>tad</i> に当たる前分がないことは、この提案に有利である。しかし Vṛtti の <i>tasmāt</i> は <i>iti</i> を承けるとも取れる。また複合語の <i>tad°</i> は、第23偈の「結合などの基体となること」を指すと自然に読める。そこで本訳は校訂本の複合語の読みを保った。Steinkellner（2022, 試訳）も「その適合性」と複合語のまま訳している。</p>", kind="sutra",
+      crit="<b>異読</b>　24a <i>tadyogyatāvācyaḥ</i> SP, SPV 34,1 : <i>tad yogyatāvācyaḥ</i> Eltschinger の提案（Steinkellner 2022 序文）。24b <i>'sya</i> TR : <i>sya</i> Ms。24c <i>°gatibhiḥ</i> TR : <i>°jātibhiḥ</i> VR。"))
     s.append(mula("SPV 34,3–6",
       "tasmād yogyatāśabdavācyaḥ svabhāvo 'syārthasya nirucyatām vibhāgayogagatibhiḥ saṃyogavibhāgakarmaśabdaiḥ. tadā kim aphalair anyair gamanādibhiḥ kalpitaiḥ. naiva kiñcit. ādigrahaṇāntare saṃyogavibhāgaparatvāparatvādibhiḥ.",
       "それゆえ、「適合性」という語で言い表される、この事物の本性が、「分離・結合・運動によって」、すなわち結合・分離・運動という語によって、「表現されればよい」。そうであれば、想定された、効果のない「別の運動など」が「何の役に立とうか」。何の役にも立たない。「など」の語の内には、結合・分離・遠さ（<i>paratva</i>）・近さ（<i>aparatva</i>）などが〔含まれる〕。",
       "<p>校訂者の分析 2.2.2.1.1。結合・分離・運動の語は捨てられず、事物の適合性という本性を言い表す語として残される。否定されるのは、その語に対応する別個の実在（<i>anyair … kalpitaiḥ</i>）だけである。語と知は残し、その対象を分別の構成物とする点で、第5–6偈（言語の行為・行為者の語）と同じ立場である。</p>"
-      "<p><i>gamanādibhiḥ</i> の <i>ādi</i> には、Vaiśeṣika が別個の性質として立てる結合・分離・遠さ・近さなどが含められる。チベット訳 SPVt は <i>paratva</i>・<i>aparatva</i> を <i>gźan daṅ gźan ma yin pa</i>（他と他でないこと）と訳している。</p>",
+      "<p><i>gamanādibhiḥ</i> の <i>ādi</i> には、Vaiśeṣika が別個の性質として立てる結合・分離・遠さ・近さなどが含められる。チベット訳 SPVt は <i>paratva</i>・<i>aparatva</i> を <i>gźan daṅ gźan ma yin pa</i>（他と他でないこと）と訳しており、Steinkellner（2022, 試訳）もこれと同じく「他であること・他でないこと」の意に訳す。本訳は、Vaiśeṣika の性質としての <i>paratva</i>・<i>aparatva</i>（時間的・空間的な遠さ・近さ）と取った。結合・分離と並べて挙げられているからである。</p>",
       kind="vrtti",
       crit="<b>本文</b>　3 <i>yogyatāśabdavācyaḥ</i>（T <i>ruṅ ba'i tshig brjod pa na</i>）: <i>yogyatā(śa){bde . .}(bda)vācyaḥ</i> Ms。5 <i>aphalair</i> : <i>apha(l)er</i> Ms。<i>anyair</i> : <i>anyer</i> Ms。5f <i>°grahaṇāntare saṃyoga°</i> rec.（SPVt <i>naṅ du sbyor ba</i>）: <i>°graha . . . . . ga°</i> Ms。3–5 <i>tasmād … gamanādibhiḥ</i> は TR 70*,28–30 に並行（cf.）。"))
     fig = '''<figure>
@@ -227,7 +230,7 @@ def sections(mula, dev, K):
     s.append(mula("SP 7 / k.25",
       "teṣu satsv api tasyeti sambandhasyāprasiddhitaḥ / yuktaḥ svabhāvabhedo 'yaṃ tat pratikṣaṇajanmanām // 25",
       "それら〔運動など〕が存在するとしても、「これの」という関係が成立しないので、それゆえ、刹那ごとに生じるもの（<i>pratikṣaṇajanman</i>）には、この本性の差異（<i>svabhāvabheda</i>）こそが妥当である。",
-      "", kind="sutra",
+      "<p>Steinkellner（2022, 試訳）は <i>aprasiddhitaḥ</i> を「一般に認められていない」の意に訳す。本訳は「成立しない」と訳した。Vṛtti がこの語を、関係はあらゆる仕方で否定されているので <i>sambandhāsiddheḥ</i>（35,5）と言い換えているからである。</p>", kind="sutra",
       crit="<b>異読</b>　25a <i>satsv api</i> TR : <i>satyepi</i> VR。偈の後にカーリカー部の奥書 <i>sambandhaparīkṣākārikā samāptā // // kṛtir ācāryadharmakīrtipādānām // //</i>（SP 7）がある。"))
     s.append(mula("SPV 35,3–7",
       "kutaḥ. yatas teṣu gamanādiṣu satsv api kalpiteṣu tasyeti sambandhasyāprasiddhitaḥ. pāratantryam ityādinā sarvathā sambandhasya niṣiddhatvāt, asya karma saṃyogo vibhāgo veti sambandhāsiddheḥ, kutas tannimitto vyapadeśaḥ. yathānyagataiḥ karmādibhir anyasambandhī na bhavaty asambandhāt, tadvad abhimatair api.",
@@ -237,12 +240,13 @@ def sections(mula, dev, K):
       kind="vrtti",
       crit="<b>本文</b>　3 <i>kalpiteṣu</i>：校訂本の印字（OCR 3回とも）は <i>kalpiteṣv tasyeti</i>。ここでは <i>kalpiteṣu</i> と読んだ。3 <i>tasyeti</i> : <i>tasyaiti</i> Ms。4 <i>°āprasiddhitaḥ</i> : <i>°āpraṣiddhitaḥ</i> Ms。4 <i>pāratantryam ityādinā</i>：Ms f. 2b4（第1偈 Vṛtti の冒頭）を参照（校訂者）。4–5 <i>pāratantryam … niṣiddhatvāt</i> は TR 70*,31–71*,1 に並行（cf.）。6–7 <i>kutas … asambandhāt</i> は TR 71*,1f に引用（Cie）。"))
     s.append(mula("SPV 35,7–12",
-      "yata evaṃ na karmādisambandhād gamanādayaḥ, tasmāt pratikṣaṇajanmanāṃ bhāvānāṃ nirantarotpattyādyāśrayair aparāparaiḥ pratyayaiḥ svabhāvabhedo 'yaṃ saṃyukto viyukto gacchatīty evamādir yuktaḥ, sasthiraikasvabhāvānāṃ yogādisambandhāsiddher iti na kaścid bhāvataḥ sambandhaḥ saṃyogādilakṣaṇaḥ.",
-      "このように、運動などとの関係によって「行く」など〔の呼称〕があるのではないので、「それゆえ、刹那ごとに生じる」存在には、間なく生じることなどのよりどころとなる、次々と異なる条件（<i>pratyaya</i>）によって、「結びついている」「離れている」「行く」などという「この本性の差異」こそが「妥当である」。常住で単一の本性をもつものには、結合などの関係は成立しないからである。こうして、結合などを特徴とする関係は、実在としては何もない。",
+      "yata evaṃ na karmādisambandhād gamanādayaḥ, tasmāt pratikṣaṇajanmanāṃ bhāvānāṃ nirantarotpattyādyāśrayair aparāparaiḥ pratyayaiḥ svabhāvabhedo 'yaṃ saṃyukto viyukto gacchatīty evamādir yukto na sthiraikasvabhāvānāṃ yogādisambandhāsiddher iti na kaścid bhāvataḥ sambandhaḥ saṃyogādilakṣaṇaḥ.",
+      "このように、運動などとの関係によって「行く」など〔の呼称〕があるのではないので、「それゆえ、刹那ごとに生じる」存在には、間なく生じることなどのよりどころとなる、次々と異なる条件（<i>pratyaya</i>）によって、「結びついている」「離れている」「行く」などという「この本性の差異」こそが「妥当である」。常住で単一の本性をもつものには〔妥当では〕ない。〔それらには〕結合などの関係が成立しないからである。こうして、結合などを特徴とする関係は、実在としては何もない。",
       "<p>第25偈後半の説明で、第2部の結論にあたる（校訂者の分析 (2.2)、35,3–11; 35,11–12）。存在は刹那ごとに、次々と異なる条件によって生じる。「結びついている」「離れている」「行く」は、別個の結合・分離・運動が事物に関係することではなく、そのつど生じる事物の本性が違うことを言う語である。第23偈 Vṛtti で対論者にも認めさせた「適合した姿の生起」が、ここで刹那滅の存在論の語で言い直されている。</p>"
-      "<p><i>nirantarotpattyādyāśraya</i> は、結合を「間なく（隣接して）生じること」として説明する語と解した（第2偈 Vṛtti の <i>nairantarya</i> を参照）。SPVt は <i>rgyun mi 'chad par skye ba'i gźi</i>（途切れずに生じることのよりどころ）と訳しており、連続の意味にも読める。<i>sasthiraika°</i> の <i>sa</i> は解しがたい。SPVt は <i>brtan pa gcig pu'i ṅo bo</i>（常住で単一の本性）とだけ訳しているので、訳はそれに従った。</p>",
+      "<p><i>nirantarotpattyādyāśraya</i> は、結合を「間なく（隣接して）生じること」として説明する語と解した（第2偈 Vṛtti の <i>nairantarya</i> を参照）。SPVt は <i>rgyun mi 'chad par skye ba'i gźi</i>（途切れずに生じることのよりどころ）と訳しており、連続の意味にも読める。Steinkellner（2022, 試訳）も「途切れない生起」の意に取る。Eltschinger は <i>ādi</i> を除いて <i>nirantarotpattyāśrayair</i> または <i>nirantarotpādyāśrayair</i> と読むことを提案している（Steinkellner 2022 序文）。しかし本訳の解釈では、<i>ādi</i> は分離（離れて生じること）・運動（別の場所に生じること）を含み、直後の「結びついている」「離れている」「行く」の三つに対応する。そこで写本の読みを保った。</p>"
+      "<p>以前の版は校訂本に従って <i>yuktaḥ, sasthiraika°</i> と読み、<i>sa</i> を解しがたいとしていた。ここでは Eltschinger の提案（Steinkellner 2022 序文）に従い、<i>yukto na sthiraika°</i> と読む。写本の <i>yukto sa°</i> は、<i>yuktaḥ</i> が有声音の前で取る形 <i>yukto</i> を示しており、続く文字がもとは <i>na</i> であったことを支持する。SPVt の「常住で単一の本性をもつものには」も否定の文脈に合う。これによって、刹那ごとに生じるものには本性の差異が妥当であり、常住のものには妥当でない、という対比がはっきりする。Steinkellner（2022, 試訳）もこの読みで訳している。</p>",
       kind="vrtti",
-      crit="<b>本文</b>　9 <i>aparā</i>(Ms 9b)<i>paraiḥ</i>：写本の葉替わり。10 <i>gacchatīty evamādir</i> em. (?) : <i>gacchatīty . . . . ādir</i> Ms。10 <i>yuktaḥ, sa°</i> : <i>yukto sa°</i> Ms。"))
+      crit="<b>本文</b>　9 <i>aparā</i>(Ms 9b)<i>paraiḥ</i>：写本の葉替わり。10 <i>gacchatīty evamādir</i> em. (?) : <i>gacchatīty . . . . ādir</i> Ms。10f <i>yukto na sthiraika°</i> Eltschinger の提案（Steinkellner 2022 序文）: <i>yuktaḥ, sasthiraika°</i> ed. : <i>yukto sasthiraika°</i> Ms。9 <i>nirantarotpattyādyāśrayair</i> Ms, ed. : <i>nirantarotpattyāśrayair</i> または <i>nirantarotpādyāśrayair</i> Eltschinger の提案（同）。"))
     s.append(mula("SPV 35,12–13",
       "ity asambandhāḥ sarvabhāvasvabhāvāḥ. śāntiḥ.",
       "このように、あらゆる存在の本性は、関係をもたない。寂静（<i>śānti</i>）。",
@@ -253,7 +257,7 @@ def sections(mula, dev, K):
     s.append(mula("SPV 35,14–15（奥書）",
       "sambandhaparīkṣāvṛttiḥ samāptā. kṛtir ācāryadevendrabuddheḥ. krauddha anvitasya pustakam.",
       "『<i>Sambandhaparīkṣāvṛtti</i>』終わる。師 Devendrabuddhi の作。<i>krauddhānvita</i>（?）の〔所有する〕写本。",
-      "<p>写本の奥書は注釈を Devendrabuddhi の作とする。一方、チベット訳 SPVt の奥書は「論者の獅子である師 Dharmakīrti の作」とする。校訂本は写本に従っており、このページもそれに従う（「テキストと注記の基礎」を参照）。</p>"
+      "<p>写本の奥書は注釈を Devendrabuddhi の作とする。一方、チベット訳 SPVt の奥書は「論者の獅子である師 Dharmakīrti の作」とする。校訂本は写本に従っており、Steinkellner（2022, 試訳）も Devendrabuddhi の作と訳す。このページもそれに従う（「テキストと注記の基礎」を参照）。</p>"
       "<p>最後の一句は写本の所有者か書写者を記したものと思われるが、<i>krauddha~anvita</i> の語義は不明で、校訂者も (?) を付している。</p>",
       kind="vrtti",
       crit="<b>本文</b>　14 <i>sambandhaparīkṣāvṛttiḥ samāptā</i> em.（OCR では Ms の読みが示されていない）: <i>sambandhaparīkṣāvṛttir vādisiṃhācāryadharmakīrtinā kṛtā samāptā</i> retr.（SPVt <i>'brel pa brtag pa źes bya ba'i 'grel pa smra ba'i seṅ ge slob dpon chos kyi grags pas mdzad pa rdzogs so</i>）。14f <i>krauddha~anvitasya</i> (?) : <i>kroddha~anvitasya</i> Ms（校訂本は <i>~</i> で連声しない形を示す。デーヴァナーガリーでは分けて表記した）。"))
