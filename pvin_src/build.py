@@ -50,7 +50,8 @@ def loc(ref):
 set_text()
 CSS = (ROOT / 'pvin_src' / 'style.css.part').read_text(encoding='utf-8')
 
-SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈'}
+SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈', 'P': 'PV III との関係'}
+SCHOLAR_CLASS = {'P': ' pv3'}   # 見出しの色を変える追加クラス
 SENT = re.compile(r'(?<=[.?])\s+')
 REF = re.compile(r'^(\d+)(?::(\d+)(-(\d*))?)?(?:-(\d+)(?::(\d+))?)?$')
 
@@ -131,8 +132,10 @@ def parse(part, prefix=''):
                        f'<div class="sutra-jp">{ja(cur["ja"])}</div></div>')
         elif k == 'N':
             out.append(f'<div class="tnote"><span class="tnote-h">ノート</span>{ja(cur["ja"])}</div>')
+        elif k == 'Q':
+            out.append(f'<div class="tnote stk pv3"><span class="tnote-h">PV III との対応</span>{ja(cur["ja"])}</div>')
         elif k in SCHOLARS:
-            out.append(f'<div class="tnote stk"><span class="tnote-h">{SCHOLARS[k]}</span>{ja(cur["ja"])}</div>')
+            out.append(f'<div class="tnote stk{SCHOLAR_CLASS.get(k, "")}"><span class="tnote-h">{SCHOLARS[k]}</span>{ja(cur["ja"])}</div>')
         elif k == 'G':
             out.append(f'<p class="gist">{" ".join(x.strip() for x in cur["ja"])}</p>')
         cur = None
@@ -170,9 +173,9 @@ def parse(part, prefix=''):
             flush()
             cur = {'kind': m.group(1), 'ref': m.group(2), 'ja': []}
             continue
-        m = re.match(r'^([JNGSR])\s?(.*)$', line)
+        m = re.match(r'^([JNGSRPQ])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or cur['kind'] in 'LV'):
-            if m.group(1) in 'NGSR':
+            if m.group(1) in 'NGSRPQ':
                 flush()
                 cur = {'kind': m.group(1), 'ja': [m.group(2)]}
             else:
@@ -228,6 +231,7 @@ def write_page(meta, body, toc, fname):
 .kno {{ font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; font-style: normal; font-weight: 600; color: var(--accent); border: 1px solid var(--accent-soft); border-radius: 3px; padding: 0 0.3rem; margin: 0 0.2rem; white-space: nowrap; }}
 .seg-ja p, .sutra-jp p, .tnote p {{ margin-bottom: 0.5rem; }}
 .tnote.stk {{ border-left: 3px solid var(--accent-soft); }}
+.tnote.stk.pv3 {{ border-left-color: #8a6d3b; }} .tnote.stk.pv3 .tnote-h {{ color: #8a6d3b; }}
 .pnav {{ display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.9rem; margin: 1rem 0; }}
 </style>
 </head>

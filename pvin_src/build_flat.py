@@ -46,6 +46,10 @@ TEXTINFO = {
 }
 
 
+# 第1章の各節に対応する PV III の偈（戸崎の番号）
+PV3MAP = ['—（PV II）', '1–122', '123–190, 288', '239–248', '249–280', '281–287', '288–300', '301–325', '326–366', '364–539']
+
+
 def ref_label(ref):
     """'14:1-4' → '14.1–4'、'18-19' → '18–19'。第3章は校訂本の頁・行（'p.12,3'）。"""
     loc = build.loc(ref)
@@ -83,9 +87,9 @@ def parse(pid):
             cur = {'ref': m.group(2), 'ja': []}
             items.append((m.group(1), cur))
             continue
-        m = re.match(r'^([JNGSR])\s?(.*)$', line)
+        m = re.match(r'^([JNGSRPQ])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or 'ref' in cur):
-            if m.group(1) in 'NGSR':
+            if m.group(1) in 'NGSRPQ':
                 cur = {'ja': [m.group(2)]}
                 items.append((m.group(1), cur))
             else:
@@ -116,7 +120,7 @@ def mula(kind, d, uid, notes):
         for sk in build.SCHOLARS:
             ss = [build.ja(t) for k, t in notes if k == sk]
             if ss:
-                exp += ('<div class="stk first">' if first else '<div class="stk">') + \
+                exp += f'<div class="stk{build.SCHOLAR_CLASS.get(sk, "")}{" first" if first else ""}">' + \
                        f'<span class="lbl">{build.SCHOLARS[sk]}</span>' + ''.join(ss) + '</div>'
                 first = False
         exp += '</div>'
@@ -133,7 +137,7 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
     sec_no = 0
     for pid in parts:
         items = parse(pid)
-        i = 0
+        i = pq = 0
         open_sec = False
         while i < len(items):
             kind, d = items[i]
@@ -160,7 +164,8 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 short = d['ttl'] if len(d['ttl']) <= 12 else d['ttl'][:11] + '…'
                 nav.append(f'<li><a href="#{sid}"><b>{sec_no}</b>{html.escape(short)}</a></li>')
                 maprows.append(f'<tr><td class="num">§{sec_no}</td><td class="k"><a href="#{sid}">{html.escape(d["ttl"])}</a>'
-                               f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td>' + (f'<td class="num">{rng}</td>' if rng else '') + '</tr>')
+                               f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td>' + (f'<td class="num">{rng}</td>' if rng else '')
+                               + (f'<td class="sm">{PV3MAP[sec_no - 1]}</td>' if chno == 1 else '') + '</tr>')
                 body.append(f'<section id="{sid}" class="wrap">\n  <div class="sec-head"><span class="sec-no">{sec_no}</span>'
                             f'<h2>{html.escape(d["ttl"])}</h2><span class="sub">'
                             + (f'<span class="pg">{rng}</span>' if rng else '')
@@ -174,14 +179,19 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 body.append(f'<{tag} class="sub-h"><span class="snum">{renum(d["num"], sec_no)}</span>{html.escape(d["ttl"])}{sk}</{tag}>')
             elif kind in 'LV':
                 notes = []
-                while i + 1 < len(items) and items[i + 1][0] in 'NSR':
+                while i + 1 < len(items) and items[i + 1][0] in 'NSRP':
                     notes.append((items[i + 1][0], items[i + 1][1]['ja']))
+                    if items[i + 1][0] == 'P':
+                        pq += 1                         # P/Q は追加行なので番号に数えない
                     i += 1
-                body.append(mula(kind, d, f'u{pid}-{i}', notes))
+                body.append(mula(kind, d, f'u{pid}-{i - pq}', notes))
             elif kind == 'N':
                 body.append(f'<div class="point"><span class="lbl">ノート</span>{build.ja(d["ja"])}</div>')
             elif kind in build.SCHOLARS:
                 body.append(f'<div class="point stk-pt"><span class="lbl">{build.SCHOLARS[kind]}</span>{build.ja(d["ja"])}</div>')
+            elif kind == 'Q':
+                pq += 1
+                body.append(f'<div class="point"><span class="lbl">PV III との対応</span>{build.ja(d["ja"])}</div>')
             elif kind == 'G':
                 body.append(f'<p>{" ".join(x.strip() for x in d["ja"])}</p>')
             i += 1
@@ -196,6 +206,13 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
         nav.append(f'<li><a href="pvin_taiyaku_{chno + 1}.html" class="chp">第{chno + 1}章へ →</a></li>')
     tx = TEXTINFO[3 if chno == 3 else 1]
     stk_fact = stk_howto = ''
+    pv3_fact = pv3_howto = pv3_section = ''
+    if chno == 1:     # PV III（知覚章）との関係
+        pv3_fact = ('\n  <div><dt>PV III</dt><dd>『Pramāṇavārttika』第3章（知覚章）との関係<br><small>第1章の偈の多くは PV III から取られ、散文も PV III の偈を言い換えた箇所が多い。'
+                    '各ブロックの「PV III との関係」欄に、平行する偈・異読・対応する議論と、戸崎 1979・1985、Franco–Notake 2014 などの関連情報を加えた。'
+                    'PV III の偈番号は戸崎の番号による（第343偈以降は電子テキストの番号と1–2ずれるので、必要に応じて併記した）</small></dd></div>')
+        pv3_howto = '<div><b>PV III との関係</b>解説欄の緑の見出しの段。PV III との平行句（同一・異読・改変）、PV III の対応する議論、注釈・研究からの関連情報</div>\n    '
+        pv3_section = (ROOT / 'pvin_src' / 'pv3_section_ch1.html').read_text(encoding='utf-8') + '\n\n'
     if chno == 1:
         stk_fact = ('<div><dt>研究</dt><dd>T. Vetter のドイツ語訳（1966）<br><small><i>Dharmakīrti\'s Pramāṇaviniścayaḥ, 1. Kapitel: Pratyakṣam</i>。'
                     'チベット訳の校訂・サンスクリット断片・独訳と、章全体の思想的位置づけを論じた序論をもつ。序論の議論分析と訳注の要点を、各ブロックの「Vetter の解釈」欄に加えた</small></dd></div>')
@@ -229,6 +246,8 @@ h4.sub-h{{font-family:var(--f-display);font-size:1.02rem;font-weight:800;margin:
 .chapter-band .ch-title{{font-size:clamp(1.9rem,6vw,2.6rem);margin-top:.2em}}
 .mula .exp .stk.first{{margin-top:0;padding-top:0;border-top:0}}
 .point.stk-pt .lbl{{color:var(--accent)}}
+.mula .exp .stk.pv3 .lbl{{color:var(--ans)}}
+.mula .exp .stk.pv3 p{{margin:0}}
 nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--accent);font-weight:700}}
 </style>
 </head>
@@ -259,12 +278,12 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
     <div><dt>書名</dt><dd><i>Pramāṇaviniścaya</i>「認識手段の決択」<br><small>主著 <i>Pramāṇavārttika</i> の内容を、偈と散文で整理し直した書。全3章</small></dd></div>
     <div><dt>この章</dt><dd>第{chno}章　{name}<br><small>{facts}</small></dd></div>
     {stk_fact}
-    <div><dt>本文</dt><dd>{tx['src']}</dd></div>
+    <div><dt>本文</dt><dd>{tx['src']}</dd></div>{pv3_fact}
   </dl>
 
   <h3>このページの読み方</h3>
   <div class="howto">
-    {f"<div><b>番号</b>{tx['num']}</div>" if tx['num'] else ''}
+    {pv3_howto}{f"<div><b>番号</b>{tx['num']}</div>" if tx['num'] else ''}
     <div><b>原文</b>デーヴァナーガリー。偈は金色の線のブロック。<span class="kno">k.4</span> は偈の番号</div>
     <div><b>和訳</b>（　）は訳者の補い。（反論）（答え）は議論の話者の区別</div>
     <div><b>解説</b>ブロック下の灰色の欄。用語や論点の説明</div>
@@ -273,10 +292,10 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 </section>
 
 <section id="map" class="wrap">
-  <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">第{chno}章をテキストの順に{sec_no}節に分けた</span></div>
+  <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">第{chno}章をテキストの順に{sec_no}節に分けた{'。右の列は PV III の対応する偈（戸崎の番号）' if chno == 1 else ''}</span></div>
   <div class="tbl">
     <table>
-      <thead><tr><th>節</th><th>見出し</th>{f"<th>{tx['col']}</th>" if tx['col'] else ''}</tr></thead>
+      <thead><tr><th>節</th><th>見出し</th>{f"<th>{tx['col']}</th>" if tx['col'] else ''}{'<th>PV III の対応箇所</th>' if chno == 1 else ''}</tr></thead>
       <tbody>
 {chr(10).join(maprows)}
       </tbody>
@@ -284,7 +303,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
   </div>
 </section>
 
-{chr(10).join(body)}
+{pv3_section}{chr(10).join(body)}
 
 <footer class="wrap">
   <p><strong>テキストについて</strong>　{tx['foot']}</p>
