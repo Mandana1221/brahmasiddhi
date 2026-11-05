@@ -50,8 +50,8 @@ def loc(ref):
 set_text()
 CSS = (ROOT / 'pvin_src' / 'style.css.part').read_text(encoding='utf-8')
 
-SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈', 'P': 'PV III との関係'}
-SCHOLAR_CLASS = {'P': ' pv3'}   # 見出しの色を変える追加クラス
+SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈', 'P': 'PV III との関係', 'W': 'PV I・PVSV との関係'}
+SCHOLAR_CLASS = {'P': ' pv3', 'W': ' pv3'}   # 見出しの色を変える追加クラス
 SENT = re.compile(r'(?<=[.?])\s+')
 REF = re.compile(r'^(\d+)(?::(\d+)(-(\d*))?)?(?:-(\d+)(?::(\d+))?)?$')
 
@@ -173,9 +173,9 @@ def parse(part, prefix=''):
             flush()
             cur = {'kind': m.group(1), 'ref': m.group(2), 'ja': []}
             continue
-        m = re.match(r'^([JNGSRPQ])\s?(.*)$', line)
+        m = re.match(r'^([JNGSRPQW])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or cur['kind'] in 'LV'):
-            if m.group(1) in 'NGSRPQ':
+            if m.group(1) in 'NGSRPQW':
                 flush()
                 cur = {'kind': m.group(1), 'ja': [m.group(2)]}
             else:

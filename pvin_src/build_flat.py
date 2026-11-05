@@ -87,9 +87,9 @@ def parse(pid):
             cur = {'ref': m.group(2), 'ja': []}
             items.append((m.group(1), cur))
             continue
-        m = re.match(r'^([JNGSRPQ])\s?(.*)$', line)
+        m = re.match(r'^([JNGSRPQW])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or 'ref' in cur):
-            if m.group(1) in 'NGSRPQ':
+            if m.group(1) in 'NGSRPQW':
                 cur = {'ja': [m.group(2)]}
                 items.append((m.group(1), cur))
             else:
@@ -98,6 +98,37 @@ def parse(pid):
         if cur is not None:
             cur['ja'].append(line)
     return items
+
+
+def pvsv_range(items, i):
+    """第2章の節（items[i] から次の大見出しまで）にある W 行から、PVSV の対応箇所を要約する"""
+    vs, pg = set(), []
+    j = i + 1
+    while j < len(items) and not (items[j][0] == 'H' and items[j][1]['lv'] == 1):
+        if items[j][0] == 'W':
+            head = re.match(r'<b>PVSV ([^<]*)</b>（Gnoli (\d+)', items[j][1]['ja'][0])
+            if head:
+                pg.append(int(head.group(2)))
+                for a, b in re.findall(r'(\d+)(?:[–・](\d+))?偈', head.group(1)):
+                    vs.update(range(int(a), int(b or a) + 1))
+        j += 1
+    if not pg:
+        return '—'
+    out, vs = [], sorted(vs)
+    for v in vs:                       # 連続する偈番号をまとめる
+        if out and out[-1][1] == v - 1:
+            out[-1][1] = v
+        else:
+            out.append([v, v])
+    k = '・'.join(f'{a}' if a == b else f'{a}–{b}' for a, b in out)
+    rs = []
+    for x in sorted(set(pg)):          # 近い頁（3頁以内）はまとめ、離れた頁は分けて示す
+        if rs and x - rs[-1][1] <= 3:
+            rs[-1][1] = x
+        else:
+            rs.append([x, x])
+    p = ', '.join(f'{a}' if a == b else f'{a}–{b}' for a, b in rs)
+    return (f'第{k}偈、' if k else '') + f'Gnoli p.{p}'
 
 
 def mula(kind, d, uid, notes):
@@ -165,7 +196,8 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 nav.append(f'<li><a href="#{sid}"><b>{sec_no}</b>{html.escape(short)}</a></li>')
                 maprows.append(f'<tr><td class="num">§{sec_no}</td><td class="k"><a href="#{sid}">{html.escape(d["ttl"])}</a>'
                                f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td>' + (f'<td class="num">{rng}</td>' if rng else '')
-                               + (f'<td class="sm">{PV3MAP[sec_no - 1]}</td>' if chno == 1 else '') + '</tr>')
+                               + (f'<td class="sm">{PV3MAP[sec_no - 1]}</td>' if chno == 1 else '')
+                               + (f'<td class="sm">{pvsv_range(items, i)}</td>' if chno == 2 else '') + '</tr>')
                 body.append(f'<section id="{sid}" class="wrap">\n  <div class="sec-head"><span class="sec-no">{sec_no}</span>'
                             f'<h2>{html.escape(d["ttl"])}</h2><span class="sub">'
                             + (f'<span class="pg">{rng}</span>' if rng else '')
@@ -179,9 +211,9 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 body.append(f'<{tag} class="sub-h"><span class="snum">{renum(d["num"], sec_no)}</span>{html.escape(d["ttl"])}{sk}</{tag}>')
             elif kind in 'LV':
                 notes = []
-                while i + 1 < len(items) and items[i + 1][0] in 'NSRP':
+                while i + 1 < len(items) and items[i + 1][0] in 'NSRPW':
                     notes.append((items[i + 1][0], items[i + 1][1]['ja']))
-                    if items[i + 1][0] == 'P':
+                    if items[i + 1][0] in 'PW':
                         pq += 1                         # P/Q は追加行なので番号に数えない
                     i += 1
                 body.append(mula(kind, d, f'u{pid}-{i - pq}', notes))
@@ -213,6 +245,11 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                     'PV III の偈番号は戸崎の番号による（第343偈以降は電子テキストの番号と1–2ずれるので、必要に応じて併記した）</small></dd></div>')
         pv3_howto = '<div><b>PV III との関係</b>解説欄の緑の見出しの段。PV III との平行句（同一・異読・改変）、PV III の対応する議論、注釈・研究からの関連情報</div>\n    '
         pv3_section = (ROOT / 'pvin_src' / 'pv3_section_ch1.html').read_text(encoding='utf-8') + '\n\n'
+    if chno == 2:     # PV I・PVSV との関係
+        pv3_fact = ('\n  <div><dt>PVSV</dt><dd>『Pramāṇavārttika』第1章とその自注（Svavṛtti）との関係<br><small>第2章の多くの偈と散文は PV I・PVSV と同文か、それを手直ししたもの。'
+                    '各ブロックの「PV I・PVSV との関係」欄に、PVSV の対応箇所（Gnoli 1960 の頁・行）、同文・異読・PVin での改変を示した。'
+                    'PVSV の偈番号は Gnoli の番号による。欄の文は PVSV の側から見て書かれている</small></dd></div>')
+        pv3_howto = '<div><b>PV I・PVSV との関係</b>解説欄の緑の見出しの段。PVSV の対応箇所（Gnoli の頁・行）と、同文・異読・改変の別</div>\n    '
     if chno == 1:
         stk_fact = ('<div><dt>研究</dt><dd>T. Vetter のドイツ語訳（1966）<br><small><i>Dharmakīrti\'s Pramāṇaviniścayaḥ, 1. Kapitel: Pratyakṣam</i>。'
                     'チベット訳の校訂・サンスクリット断片・独訳と、章全体の思想的位置づけを論じた序論をもつ。序論の議論分析と訳注の要点を、各ブロックの「Vetter の解釈」欄に加えた</small></dd></div>')
@@ -292,10 +329,10 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 </section>
 
 <section id="map" class="wrap">
-  <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">第{chno}章をテキストの順に{sec_no}節に分けた{'。右の列は PV III の対応する偈（戸崎の番号）' if chno == 1 else ''}</span></div>
+  <div class="sec-head"><h2 style="grid-column:1/-1">全体の地図</h2><span class="sub">第{chno}章をテキストの順に{sec_no}節に分けた{'。右の列は PV III の対応する偈（戸崎の番号）' if chno == 1 else ''}{'。右の列は PV I・PVSV の対応する偈と頁（Gnoli 1960）' if chno == 2 else ''}</span></div>
   <div class="tbl">
     <table>
-      <thead><tr><th>節</th><th>見出し</th>{f"<th>{tx['col']}</th>" if tx['col'] else ''}{'<th>PV III の対応箇所</th>' if chno == 1 else ''}</tr></thead>
+      <thead><tr><th>節</th><th>見出し</th>{f"<th>{tx['col']}</th>" if tx['col'] else ''}{'<th>PV III の対応箇所</th>' if chno == 1 else ''}{'<th>PV I・PVSV の対応箇所</th>' if chno == 2 else ''}</tr></thead>
       <tbody>
 {chr(10).join(maprows)}
       </tbody>
