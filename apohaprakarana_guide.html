@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>アポーハ論の読み方</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Old+Mincho:wght@500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif+Devanagari:wght@400;600&family=Noto+Serif:ital@1&display=swap">
+<style>
+/* Layout: one reading column; each section = 要点 + 図/表 + ポイント. Color encodes ontology: lapis = 実在(外界), slate = 知の中, ochre = でっちあげ */
+:root{
+  --paper:#F2F3EF; --ink:#1E2629; --ink-soft:#56615F; --rule:#C9CEC6; --panel:#E7EAE3;
+  --real:#2E5B86; --real-soft:#D7E2EC;
+  --mind:#6B7470; --mind-soft:#DDE0DB;
+  --fab:#A8711B; --fab-soft:#F0E1C4;
+  --neg:#8C2F39;
+  --f-display:'Zen Old Mincho','Hiragino Mincho ProN','Yu Mincho',serif;
+  --f-body:'Noto Sans JP','Hiragino Sans','Yu Gothic',sans-serif;
+  --f-dv:'Noto Serif Devanagari',serif;
+  --f-tib:'Noto Serif',Georgia,serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#171C1E; --ink:#E3E7E3; --ink-soft:#A3ADAA; --rule:#3A4442; --panel:#202729;
+  --real:#7FAEDB; --real-soft:#1F3347; --mind:#A9B1AD; --mind-soft:#2C3433;
+  --fab:#E0A84E; --fab-soft:#3D3020; --neg:#E2848D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#171C1E; --ink:#E3E7E3; --ink-soft:#A3ADAA; --rule:#3A4442; --panel:#202729;
+  --real:#7FAEDB; --real-soft:#1F3347; --mind:#A9B1AD; --mind-soft:#2C3433;
+  --fab:#E0A84E; --fab-soft:#3D3020; --neg:#E2848D; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.85;margin:0}
+.wrap{max-width:780px;margin:0 auto;padding-block:40px 80px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-display);text-wrap:balance;font-weight:700;line-height:1.4}
+h1{font-size:2.1rem;margin:0 0 .4rem}
+.lede{color:var(--ink-soft);margin:0 0 1.6rem}
+h2{font-size:1.45rem;margin:0;display:flex;gap:.6rem;align-items:baseline}
+h2 .sec{font-family:var(--f-body);font-size:.85rem;font-weight:700;color:var(--real);letter-spacing:.06em;flex:none}
+h3{font-size:1.1rem;margin:1.6rem 0 .5rem}
+section{padding-block:2.4rem;border-top:1px solid var(--rule)}
+p{margin:.6rem 0}
+.one{font-family:var(--f-display);font-size:1.1rem;margin:.6rem 0 1rem;padding-left:.9rem;border-left:3px solid var(--fab)}
+.real{color:var(--real);font-weight:700}.fab{color:var(--fab);font-weight:700}.mind{color:var(--mind);font-weight:700}.neg{color:var(--neg);font-weight:700}
+.tib{font-family:var(--f-tib);font-style:italic}
+.dv{font-family:var(--f-dv)}
+.ref{font-size:.78rem;color:var(--ink-soft);white-space:nowrap}
+.legend{display:flex;flex-wrap:wrap;gap:.5rem 1.2rem;font-size:.85rem;margin:.4rem 0 1.4rem}
+.legend span{display:inline-flex;align-items:center;gap:.4rem}
+.sw{width:14px;height:14px;border-radius:3px;display:inline-block;border:2px solid}
+.sw.r{background:var(--real-soft);border-color:var(--real)}.sw.m{background:var(--mind-soft);border-color:var(--mind)}.sw.f{background:var(--fab-soft);border-color:var(--fab)}
+nav.toc ol{list-style:none;padding:0;margin:0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.15rem 1.4rem}
+nav.toc a{color:var(--ink);text-decoration:none;display:grid;grid-template-columns:2.6rem 1fr;font-size:.93rem}
+nav.toc a:hover span:last-child,nav.toc a:focus-visible span:last-child{color:var(--real);text-decoration:underline}
+nav.toc .n{color:var(--real);font-weight:700}
+@media (max-width:560px){nav.toc ol{grid-template-columns:1fr}}
+.fig{margin:1.2rem 0;overflow-x:auto}
+.fig svg{display:block;width:100%;min-width:540px;height:auto}
+.cap{font-size:.82rem;color:var(--ink-soft);margin-top:.3rem}
+svg text{font-family:var(--f-body);fill:var(--ink)}
+svg .t-real{fill:var(--real)} svg .t-fab{fill:var(--fab)} svg .t-mind{fill:var(--mind)} svg .t-soft{fill:var(--ink-soft)} svg .t-neg{fill:var(--neg)}
+svg .b-real{fill:var(--real-soft);stroke:var(--real);stroke-width:2}
+svg .b-mind{fill:var(--mind-soft);stroke:var(--mind);stroke-width:2}
+svg .b-fab{fill:var(--fab-soft);stroke:var(--fab);stroke-width:2}
+svg .b-plain{fill:var(--paper);stroke:var(--rule);stroke-width:1.5}
+svg .ln{stroke:var(--ink-soft);stroke-width:1.6;fill:none}
+svg .ln-fab{stroke:var(--fab);stroke-width:2;fill:none;stroke-dasharray:6 4}
+svg .ln-real{stroke:var(--real);stroke-width:2;fill:none}
+svg .ln-neg{stroke:var(--neg);stroke-width:2.4;fill:none}
+svg .ah{fill:var(--ink-soft)} svg .ah-fab{fill:var(--fab)} svg .ah-real{fill:var(--real)}
+.tbl{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;font-size:.9rem;min-width:520px}
+th,td{border-bottom:1px solid var(--rule);padding:.5rem .6rem;text-align:left;vertical-align:top}
+th{font-weight:700;background:var(--panel);font-size:.82rem;letter-spacing:.03em}
+td .ok{color:var(--real);font-weight:700}td .ng{color:var(--neg);font-weight:700}
+.point{background:var(--panel);border-radius:6px;padding:.8rem 1rem;margin:1.2rem 0 0;font-size:.93rem}
+.point b:first-child{display:block;font-size:.78rem;letter-spacing:.08em;color:var(--fab);margin-bottom:.2rem}
+.qa{display:grid;grid-template-columns:2.2rem 1fr;gap:.3rem .6rem;margin:.8rem 0;font-size:.93rem}
+.qa .q,.qa .a{font-weight:700;font-size:.78rem;text-align:center;border-radius:4px;padding:.1rem 0;height:fit-content;color:var(--paper)}
+.qa .q{background:var(--mind)}.qa .a{background:var(--real)}
+.qa div:nth-child(even){min-width:0}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid var(--rule);color:var(--ink-soft);font-size:.92rem}
+blockquote .dv{color:var(--ink);font-size:1.02rem;display:block;margin-bottom:.3rem}
+footer{font-size:.82rem;color:var(--ink-soft);border-top:1px solid var(--rule);padding-top:1.4rem}
+a{color:var(--real)}
+:focus-visible{outline:2px solid var(--real);outline-offset:2px}
+</style>
+</head><body>
+
+<div class="wrap">
+<header>
+<h1>アポーハ論の読み方</h1>
+<p class="lede">Dharmottara（ダルモーッタラ、8世紀後半）『アポーハ・プラカラナ』（<span class="tib">gzhan sel ba</span>、他の排除の小論）を、本の順序どおり §0 から §13 まで、図と表で読み解きます。</p>
+
+<h3 style="margin-top:.8rem">この本が答える問い</h3>
+<p>「木」という語は、何を指しているのでしょうか。目の前の一本の木か、木一般という普遍か、それとも頭の中の木のイメージか。仏教論理学は「どれでもない」と答え、語の意味を<b>他の排除</b>（アポーハ <i>apoha</i>）で説明しました。「木」とは「木でないものではないもの」だ、という考えです。Dharmottara はこの説を突きつめ、語が指すのは<span class="fab">でっちあげられたもの</span>（<i>āropita</i>）であり、それは<b>知でも外界でもない、まったく存在しないもの</b>だ、と主張します。</p>
+
+<p style="margin-bottom:.2rem">すべての図で、次の色分けを使います。</p>
+<div class="legend">
+<span><i class="sw r"></i><span class="real">青</span>＝外界の実在（自相）</span>
+<span><i class="sw m"></i><span class="mind">灰</span>＝知の中にあるもの（形相・知そのもの）</span>
+<span><i class="sw f"></i><span class="fab">黄土</span>＝でっちあげられたもの（分別知の対象）</span>
+</div>
+
+<div class="fig" role="img" aria-label="全体像：知覚は外界を現れによってとらえ、分別知はでっちあげられたものを外界だと思い込む">
+<svg viewBox="0 0 720 300">
+<defs>
+<marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker>
+<marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah-fab"/></marker>
+</defs>
+<rect x="20" y="40" width="190" height="200" rx="10" class="b-real"/>
+<text x="115" y="72" text-anchor="middle" class="t-real" font-weight="700" font-size="16">外界</text>
+<text x="115" y="95" text-anchor="middle" class="t-real" font-size="13">自相（svalakṣaṇa）</text>
+<rect x="109" y="140" width="12" height="38" rx="2" class="b-real"/><circle cx="115" cy="130" r="26" class="b-real"/>
+<text x="115" y="215" text-anchor="middle" class="t-soft" font-size="12">一刹那ごとの個物</text>
+<rect x="270" y="40" width="430" height="230" rx="10" class="b-plain"/>
+<text x="290" y="64" class="t-soft" font-size="13" font-weight="700">心の中</text>
+<rect x="290" y="80" width="170" height="70" rx="8" class="b-mind"/>
+<text x="375" y="108" text-anchor="middle" class="t-mind" font-weight="700" font-size="14">直接知覚</text>
+<text x="375" y="130" text-anchor="middle" class="t-soft" font-size="12">現れによってとらえる</text>
+<rect x="290" y="175" width="170" height="80" rx="8" class="b-mind"/>
+<text x="375" y="200" text-anchor="middle" class="t-mind" font-weight="700" font-size="14">分別知（vikalpa）</text>
+<text x="375" y="221" text-anchor="middle" class="t-soft" font-size="12">中に「所取の形相」</text>
+<text x="375" y="240" text-anchor="middle" class="t-soft" font-size="12">確定によってとらえる</text>
+<rect x="510" y="150" width="170" height="105" rx="8" class="b-fab"/>
+<text x="595" y="180" text-anchor="middle" class="t-fab" font-weight="700" font-size="14">でっちあげられたもの</text>
+<text x="595" y="201" text-anchor="middle" class="t-fab" font-size="12">āropita</text>
+<text x="595" y="224" text-anchor="middle" class="t-soft" font-size="12">知でも外界でもない</text>
+<text x="595" y="242" text-anchor="middle" class="t-soft" font-size="12">＝語の対象</text>
+<path d="M210 115 L288 115" class="ln" marker-end="url(#a1)"/>
+<text x="249" y="106" text-anchor="middle" class="t-soft" font-size="11">原因</text>
+<path d="M375 150 L375 173" class="ln" marker-end="url(#a1)"/>
+<path d="M460 215 L508 205" class="ln" marker-end="url(#a1)"/>
+<text x="484" y="198" text-anchor="middle" class="t-soft" font-size="11">示す</text>
+<path d="M595 150 C595 30, 160 10, 150 38" class="ln-fab" marker-end="url(#a2)"/>
+<text x="420" y="14" text-anchor="middle" class="t-fab" font-size="12" font-weight="700">執着：「これが外界の木だ」と思い込む</text>
+</svg>
+<div class="cap">図0　この本全体の見取り図。分別知は外界の木を直接とらえず、でっちあげたものを外界だと思い込むことで、間接的に外界にかかわる。</div>
+</div>
+
+<nav class="toc" aria-label="目次">
+<h3>目次（本の構成）</h3>
+<ol>
+<li><a href="#s0"><span class="n">§0</span><span>序：帰敬偈</span></a></li>
+<li><a href="#s1"><span class="n">§1</span><span>語の対象は何か</span></a></li>
+<li><a href="#s2"><span class="n">§2</span><span>分別知の対象は実在ではない</span></a></li>
+<li><a href="#s3"><span class="n">§3</span><span>「執着」とは何か</span></a></li>
+<li><a href="#s4"><span class="n">§4</span><span>分別知は無明である</span></a></li>
+<li><a href="#s5"><span class="n">§5</span><span>「知の影像」説を退ける</span></a></li>
+<li><a href="#s6"><span class="n">§6</span><span>肯定ではなく排除である</span></a></li>
+<li><a href="#s7"><span class="n">§7</span><span>三つの論証</span></a></li>
+<li><a href="#s8"><span class="n">§8</span><span>排除の三項の難点</span></a></li>
+<li><a href="#s9"><span class="n">§9</span><span>「同じ」はどこから来るか</span></a></li>
+<li><a href="#s10"><span class="n">§10</span><span>apoha は単純否定</span></a></li>
+<li><a href="#s11"><span class="n">§11</span><span>四種の分別知</span></a></li>
+<li><a href="#s12"><span class="n">§12</span><span>結論：二つの apoha</span></a></li>
+<li><a href="#s13"><span class="n">§13</span><span>結び</span></a></li>
+</ol>
+</nav>
+
+<h3>まず押さえたい用語</h3>
+<div class="tbl"><table>
+<tr><th>訳語</th><th>原語</th><th>意味</th></tr>
+<tr><td>分別知</td><td><i>vikalpa</i> / <span class="tib">rnam par rtog pa</span></td><td>言葉と結びつく知。「これは木だ」と判断する心の働き。</td></tr>
+<tr><td>直接知覚</td><td><i>pratyakṣa</i> / <span class="tib">mngon sum</span></td><td>言葉を交えずに、目の前のものをそのまま見る知。</td></tr>
+<tr><td>自相</td><td><i>svalakṣaṇa</i> / <span class="tib">rang gi mtshan nyid</span></td><td>外界にある、一刹那だけの個別の実在。言葉では表せない。</td></tr>
+<tr><td>普遍</td><td><i>sāmānya</i> / <span class="tib">spyi</span></td><td>「木であること」のような共通性。仏教は実在と認めない。</td></tr>
+<tr><td>所取の形相</td><td><i>grāhyākāra</i> / <span class="tib">gzung ba'i rnam pa</span></td><td>知の中に浮かんでいる対象の姿。知の一部。</td></tr>
+<tr><td>でっちあげられたもの</td><td><i>āropita</i> / <span class="tib">sgro btags</span></td><td>分別知が実在のように見せる、実際には存在しないもの。</td></tr>
+<tr><td>執着</td><td><i>adhyavasāya</i> / <span class="tib">zhen pa</span></td><td>でっちあげたものを「外界のそれだ」と思い込むこと。</td></tr>
+<tr><td>確定</td><td><i>niścaya</i> / <span class="tib">nges pa</span></td><td>「これは〜だ」と決めること。分別知のとらえ方。</td></tr>
+<tr><td>自己認識</td><td><i>svasaṃvedana</i> / <span class="tib">rang rig pa</span></td><td>知が自分自身を直接知っていること。</td></tr>
+<tr><td>無明</td><td><i>avidyā</i> / <span class="tib">ma rig pa</span></td><td>真実を知らないこと。本書では分別知そのもの。</td></tr>
+</table></div>
+</header>
+
+<!-- §0 -->
+<section id="s0">
+<h2><span class="sec">§0</span>序：帰敬偈</h2>
+<p class="one">冒頭の偈が、本書の結論を先に言ってしまっている。</p>
+<p>この帰敬偈は珍しく梵文が残っています（『Nyāyamañjarīgranthibhaṅga』に引用）。</p>
+<blockquote>
+<span class="dv">बुद्ध्या कल्पिकया विविक्तमपरैर्यद्रूपमुल्लिख्यते बुद्धिर्नो न बहिर्यदेव च वदन्निस्तत्त्वमारोपितम्।</span>
+分別する知によって、他から切り離されたものとして描き出される姿――それは知でもなく、外界でもない。まさにそれを、実体のない、でっちあげられたもの、と語って…
+</blockquote>
+<p>偈の中の語句が、そのまま本文の論点になっています。</p>
+<div class="tbl"><table>
+<tr><th>偈の語句</th><th>言っていること</th><th>本文で論じる箇所</th></tr>
+<tr><td><span class="dv">विविक्तमपरैः</span>「他から切り離された」</td><td>語の対象は「他の排除」である</td><td>§6・§7・§10</td></tr>
+<tr><td><span class="dv">बुद्धिर्नो</span>「知ではない」</td><td>語の対象は知の中の形相ではない</td><td>§2.7・§5</td></tr>
+<tr><td><span class="dv">न बहिः</span>「外界ではない」</td><td>語の対象は外界の実在ではない</td><td>§2</td></tr>
+<tr><td><span class="dv">निस्तत्त्वमारोपितम्</span>「実体のない、でっちあげられたもの」</td><td>語の対象はまったく存在しない</td><td>§3.5・§4・§12</td></tr>
+</table></div>
+</section>
+
+<!-- §1 -->
+<section id="s1">
+<h2><span class="sec">§1</span>語の対象は何か</h2>
+<p class="one">語の対象 ＝ 分別知の対象。これが本書の基本命題。</p>
+<p>まず、語には対象が<b>ある</b>ことを確認します。語を聞いた人は、その対象に向かって行動するからです（「水」と聞けば水を取りに行く）。次に、語の対象の候補として、ニヤーヤ学派の「個物」と「形」（<i>ākṛti</i>）を退けます。</p>
+<p>そのうえで、語は話し手の分別知と聞き手の分別知にはさまれている、と指摘します。</p>
+<div class="fig" role="img" aria-label="話し手の分別知が語を生み、語が聞き手の分別知を生む">
+<svg viewBox="0 0 720 180">
+<defs><marker id="b1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect x="20" y="40" width="190" height="80" rx="10" class="b-mind"/>
+<text x="115" y="70" text-anchor="middle" class="t-mind" font-weight="700" font-size="15">話し手の分別知</text>
+<text x="115" y="95" text-anchor="middle" class="t-soft" font-size="12">語の原因（質料因 upādāna）</text>
+<rect x="290" y="55" width="140" height="50" rx="25" class="b-plain"/>
+<text x="360" y="86" text-anchor="middle" font-weight="700" font-size="17">「木」</text>
+<rect x="510" y="40" width="190" height="80" rx="10" class="b-mind"/>
+<text x="605" y="70" text-anchor="middle" class="t-mind" font-weight="700" font-size="15">聞き手の分別知</text>
+<text x="605" y="95" text-anchor="middle" class="t-soft" font-size="12">語の結果（kārya）</text>
+<path d="M210 80 L288 80" class="ln" marker-end="url(#b1)"/>
+<path d="M430 80 L508 80" class="ln" marker-end="url(#b1)"/>
+<rect x="250" y="135" width="220" height="36" rx="8" class="b-fab"/>
+<text x="360" y="159" text-anchor="middle" class="t-fab" font-weight="700" font-size="13">両方に共通する対象＝語の対象</text>
+<path d="M115 120 Q115 153 248 153" class="ln-fab"/><path d="M605 120 Q605 153 472 153" class="ln-fab"/>
+</svg>
+<div class="cap">図1　語は二つの分別知にはさまれている（§1.3）。だから語の対象は分別知の対象と同じになる。</div>
+</div>
+<div class="point"><b>ポイント</b>ここから先の問いは、すべて「では、分別知の対象とは何か」に置きかわります。</div>
+</section>
+
+<!-- §2 -->
+<section id="s2">
+<h2><span class="sec">§2</span>分別知の対象は実在ではない</h2>
+<p class="one">分別知は実在をとらえない。それでも「確定」することはできる。</p>
+<p>候補を一つずつ調べます。基準は「知の現れが、その事物のあるなしに従うかどうか」です（§2.1）。</p>
+<div class="tbl"><table>
+<tr><th>候補</th><th>存在するか</th><th>分別知の対象か</th><th>理由</th></tr>
+<tr><td>普遍</td><td><span class="ng">しない</span></td><td><span class="ng">いいえ</span></td><td>そもそも存在しない（§2.1）</td></tr>
+<tr><td><span class="real">自相</span>（外界）</td><td><span class="ok">する</span></td><td><span class="ng">いいえ</span></td><td>自相がなくても分別知は生じる。語と結びつくのは約束の時点のものだけ（§2.5）</td></tr>
+<tr><td><span class="mind">所取の形相</span>（知の中）</td><td><span class="ok">する</span></td><td><span class="ng">いいえ</span></td><td>自己認識の対象であって、確定されていない（§2.7）</td></tr>
+<tr><td><span class="fab">でっちあげられたもの</span></td><td><span class="ng">しない</span></td><td><span class="ok">はい</span></td><td>分別知はこれを確定する（§2.6）</td></tr>
+</table></div>
+<h3>知覚と分別知では「とらえる」の意味が違う</h3>
+<div class="tbl"><table>
+<tr><th></th><th>直接知覚</th><th>分別知</th></tr>
+<tr><td>とらえ方の基準</td><td>現れ（<i>pratibhāsa</i>）</td><td>確定（<i>niścaya</i>）</td></tr>
+<tr><td>対象との関係</td><td>自相のあるなしに従って現れる</td><td>自相のあるなしに従わない</td></tr>
+<tr><td>確定するか</td><td>何も確定しない</td><td>「これは火だ」と確定する</td></tr>
+<tr><td>対象</td><td><span class="real">自相</span></td><td><span class="fab">でっちあげられたもの</span></td></tr>
+</table></div>
+<h3>反論と答え</h3>
+<div class="qa">
+<span class="q">問</span><div>確定するのなら、確定される自相こそ対象では？（§2.3–2.4）</div>
+<span class="a">答</span><div>自相がなくても同じ分別知が生じる。しかも語と結びつくのは約束を交わした時点のものだけで、いま目の前の自相ではない（§2.5）。</div>
+<span class="q">問</span><div>事物を確定するのに自相を確定しないのは奇妙では？（§2.6）</div>
+<span class="a">答</span><div>分別知は自相として存在しないものに執着して、「事物を確定した」かのように生じるだけ。確定しているのは非実在である。</div>
+<span class="q">問</span><div>知の中の所取の形相が対象では？（§2.7）</div>
+<span class="a">答</span><div>所取の形相は自己認識が知るもので、分別知は自分自身を確定しない。</div>
+</div>
+</section>
+
+<!-- §3 -->
+<section id="s3">
+<h2><span class="sec">§3</span>「執着」とは何か</h2>
+<p class="one">Dharmakīrti の言う「執着」は、所取の形相とでっちあげを区別していない、という意味にすぎない。</p>
+<p>反論者は Dharmakīrti の言葉「分別知は、対象でない自分の現れを、対象だと執着して働く」を持ち出し、「自分の現れ（所取の形相）が分別知の対象だ」と言います。Dharmottara は「執着」の意味を四通りに分けて検討します。</p>
+<div class="tbl"><table>
+<tr><th>「執着」の意味</th><th>成り立たない理由</th></tr>
+<tr><td>とらえる（<i>grahaṇa</i>）</td><td>対象でないものを対象としてとらえる、というのは説明になっていない</td></tr>
+<tr><td>作る（<i>karaṇa</i>）</td><td>あるものを別のものの本性に作り変えることはできない</td></tr>
+<tr><td>結びつける（<i>yojana</i>）</td><td>結びつける相手の自相を、分別知はとらえていない</td></tr>
+<tr><td>でっちあげる（<i>āropa</i>）</td><td>先に経験して後で重ねるには二刹那かかるが、知は一刹那で滅する。同時なら、でっちあげたものは現れそのものではない</td></tr>
+</table></div>
+<p>この四つの選択肢は、後に Trilocana の議論にそのまま取り込まれ、梵文でも残っています（<span class="dv">किं ग्रहणम्, आहोस्वित् करणम्, उत योजना, अथ समारोपः</span>）。</p>
+<div class="fig" role="img" aria-label="把持の形相は区別されるが、所取の形相はでっちあげと区別されない">
+<svg viewBox="0 0 720 200">
+<rect x="20" y="30" width="680" height="150" rx="10" class="b-plain"/>
+<text x="40" y="54" class="t-soft" font-size="13" font-weight="700">分別知の中で感じられていること</text>
+<rect x="45" y="75" width="190" height="80" rx="8" class="b-mind"/>
+<text x="140" y="105" text-anchor="middle" class="t-mind" font-weight="700" font-size="14">把持の形相</text>
+<text x="140" y="128" text-anchor="middle" class="t-soft" font-size="12">「私が知っている」「心地よい」</text>
+<text x="140" y="145" text-anchor="middle" class="t-real" font-size="12" font-weight="700">→ 区別される</text>
+<rect x="300" y="75" width="380" height="80" rx="8" class="b-fab"/>
+<rect x="315" y="88" width="160" height="54" rx="6" class="b-mind" opacity=".85"/>
+<text x="395" y="120" text-anchor="middle" class="t-mind" font-weight="700" font-size="13">所取の形相</text>
+<text x="580" y="112" text-anchor="middle" class="t-fab" font-weight="700" font-size="13">でっちあげられた対象</text>
+<text x="580" y="134" text-anchor="middle" class="t-neg" font-size="12" font-weight="700">→ 区別されない</text>
+</svg>
+<div class="cap">図3　Dharmottara の解釈（§3.3）。「執着」とは、所取の形相がでっちあげと溶け合って区別されていない状態を指す。</div>
+</div>
+<div class="point"><b>ポイント</b>では、分別知が確定する対象は何なのか。答えは「何ものでもない」（§3.5）。知でも外界でもない、というのが Dharmottara の立場です。</div>
+</section>
+
+<!-- §4 -->
+<section id="s4">
+<h2><span class="sec">§4</span>分別知は無明である</h2>
+<p class="one">存在しないものを存在するかのように見せる。それが無明の本質であり、分別知の本質である。</p>
+<div class="tbl"><table>
+<tr><th>問い</th><th>Dharmottara の答え</th></tr>
+<tr><td>本体のないものが、なぜ本体があるように見えるのか</td><td>無明である分別知は、そういう本性をもっている（§4.1）</td></tr>
+<tr><td>その仕組みを説明し、たとえを示せ</td><td>経験の事実であって、たとえはない。青が青いのに似たものがいらないのと同じ（§4.2）</td></tr>
+<tr><td>なぜそれで認められるのか</td><td>否定するものがない、欺かない経験は認識手段だから（§4.3）</td></tr>
+</table></div>
+<div class="point"><b>ポイント</b>「分別知＝無明」という等式は、後で何度も使われます。分別知は無明なので自相をとらえられない（§8）、無明の潜在印象から存在しないものをとらえる（§11）。</div>
+</section>
+
+<!-- §5 -->
+<section id="s5">
+<h2><span class="sec">§5</span>「知の影像」説を退ける</h2>
+<p class="one">語の対象は知の中の像ではなく、外界として確定された、でっちあげられた火などである。</p>
+<p>ある論者は「知の影像（<i>buddhipratibimba</i>）こそが語の表示対象だ」と言います。Dharmottara は、§2・§3 の結論からこれを退けます。</p>
+<div class="tbl"><table>
+<tr><th></th><th><span class="mind">所取の形相（知の影像）</span></th><th><span class="fab">でっちあげられた火</span></th></tr>
+<tr><td>知る者</td><td>自己認識</td><td>分別知</td></tr>
+<tr><td>確定されるか</td><td>されない</td><td>外界として確定される</td></tr>
+<tr><td>語の対象か</td><td><span class="ng">いいえ</span></td><td><span class="ok">はい</span></td></tr>
+</table></div>
+<p>Dharmakīrti 自身もこの説を否定している、と Dharmottara は言い、その偈を引きます（<span class="dv">ज्ञानादव्यतिरिक्तं च कथमर्थान्तरं व्रजेत्</span>「知と別でないものが、どうして別の対象に向かえようか」）。</p>
+</section>
+
+<!-- §6 -->
+<section id="s6">
+<h2><span class="sec">§6</span>肯定ではなく排除である</h2>
+<p class="one">分別知の対象は「ある」とも「ない」とも結びつく。だから肯定的な実在ではなく、排除である。</p>
+<p>反論：でっちあげたものが語の対象なら、語の対象は肯定的なもの（<i>vidhi</i>）で、「他の排除」はそれに伴って後から分かるだけでは？（§6.1）</p>
+<p>答えの鍵は、「あるのか、ないのか」と問えるかどうかです。</p>
+<div class="fig" role="img" aria-label="水があるは問いが閉じている。木は、ある木とない木に分かれる">
+<svg viewBox="0 0 720 220">
+<defs><marker id="c1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect x="20" y="30" width="300" height="170" rx="10" class="b-real"/>
+<text x="170" y="58" text-anchor="middle" class="t-real" font-weight="700" font-size="15">見られた外界の水</text>
+<rect x="95" y="85" width="150" height="44" rx="22" class="b-plain"/>
+<text x="170" y="113" text-anchor="middle" font-weight="700" font-size="15">「水がある」</text>
+<text x="170" y="160" text-anchor="middle" class="t-soft" font-size="12">「あるのか、ないのか」と</text>
+<text x="170" y="178" text-anchor="middle" class="t-soft" font-size="12">問う余地がない</text>
+<rect x="380" y="30" width="320" height="170" rx="10" class="b-fab"/>
+<text x="540" y="58" text-anchor="middle" class="t-fab" font-weight="700" font-size="15">分別知の対象</text>
+<rect x="400" y="98" width="100" height="44" rx="22" class="b-plain"/>
+<text x="450" y="126" text-anchor="middle" font-weight="700" font-size="15">「木」</text>
+<path d="M500 112 L568 88" class="ln" marker-end="url(#c1)"/><path d="M500 128 L568 152" class="ln" marker-end="url(#c1)"/>
+<rect x="570" y="68" width="110" height="38" rx="19" class="b-plain"/><text x="625" y="93" text-anchor="middle" font-size="14">ある木</text>
+<rect x="570" y="134" width="110" height="38" rx="19" class="b-plain"/><text x="625" y="159" text-anchor="middle" font-size="14">ない木</text>
+</svg>
+<div class="cap">図6a　§6.2–6.3。外界は「ある」に決まっている。分別知の対象は「ある・ない」のどちらとも結びつくので、外界とは性質が違う。</div>
+</div>
+<p>では分別知は、見られた木の何をとらえているのか。木には二つの面があります（§6.5）。</p>
+<div class="fig" role="img" aria-label="木の肯定面と否定面。分別知は否定面だけに触れる">
+<svg viewBox="0 0 720 210">
+<rect x="20" y="20" width="400" height="170" rx="10" class="b-real"/>
+<text x="220" y="46" text-anchor="middle" class="t-real" font-weight="700" font-size="15">見られた木（外界）</text>
+<rect x="40" y="65" width="170" height="105" rx="8" class="b-plain"/>
+<text x="125" y="95" text-anchor="middle" font-weight="700" font-size="14">肯定面</text>
+<text x="125" y="120" text-anchor="middle" font-size="13">木が存在する</text>
+<text x="125" y="150" text-anchor="middle" class="t-neg" font-size="12" font-weight="700">分別知は触れられない</text>
+<rect x="230" y="65" width="170" height="105" rx="8" class="b-plain"/>
+<text x="315" y="95" text-anchor="middle" font-weight="700" font-size="14">否定面</text>
+<text x="315" y="120" text-anchor="middle" font-size="13">非木がない</text>
+<text x="315" y="138" text-anchor="middle" class="t-soft" font-size="11">（単純否定）</text>
+<rect x="480" y="55" width="220" height="115" rx="10" class="b-fab"/>
+<text x="590" y="85" text-anchor="middle" class="t-fab" font-weight="700" font-size="14">でっちあげられた木</text>
+<text x="590" y="110" text-anchor="middle" font-size="12">「非木の非存在」に</text>
+<text x="590" y="128" text-anchor="middle" font-size="12">行き着く木</text>
+<text x="590" y="152" class="t-dv" text-anchor="middle" font-size="12" style="font-family:var(--f-dv)">अवृक्षाभावनिष्ठं वृक्षम्</text>
+<path d="M400 118 L478 112" class="ln-fab"/>
+<text x="440" y="104" text-anchor="middle" class="t-fab" font-size="11">似ている</text>
+</svg>
+<div class="cap">図6b　§6.5。否定面は外界にも実際にあるので、でっちあげられた木は外界と性質が違うのに、外界のように見える。梵語は Sucarita『Kāśikā』2.3.2 の対応文から。</div>
+</div>
+<h3>縄と蛇のたとえ（§6.10–6.11）</h3>
+<p>「蛇がいる」「蛇はいない」という判断は、何についての判断でしょうか。</p>
+<div class="tbl"><table>
+<tr><th>候補</th><th>判断の対象か</th><th>理由</th></tr>
+<tr><td><span class="real">縄そのもの</span></td><td><span class="ng">いいえ</span></td><td>分別知に現れていない</td></tr>
+<tr><td><span class="mind">蛇の知・所取の形相</span></td><td><span class="ng">いいえ</span></td><td>それ自体は確かにあるので、否定しようがない</td></tr>
+<tr><td><span class="fab">でっちあげられた蛇</span>（それだけ）</td><td><span class="ng">いいえ</span></td><td>でっちあげとしては確かにある</td></tr>
+<tr><td><span class="fab">外界の蛇だと確定された</span>でっちあげ</td><td><span class="ok">はい</span></td><td>肯定も否定もこれについて下される</td></tr>
+</table></div>
+<div class="point"><b>ポイント</b>反論者は「肯定が先、排除は後」と考えました。Dharmottara は逆に、分別知はそもそも否定面（排除）にしか触れられない、と答えます。</div>
+</section>
+
+<!-- §7 -->
+<section id="s7">
+<h2><span class="sec">§7</span>三つの論証</h2>
+<p class="one">分別知の三つの性質は、どれも「排除」でしか説明できない。</p>
+<p>インド論理学の論証式の形で、分別知が apoha を対象とすることを三回示します。この部分は Sucarita の『Kāśikā』2.4.1–2.4.5 がほぼそのまま梵語で言い直しているので、議論の梵語の姿がよくわかります。</p>
+<div class="tbl"><table>
+<tr><th></th><th>分別知の性質</th><th>たとえ</th><th>なぜ排除が必要か</th></tr>
+<tr><td>①</td><td>存在・非存在に<b>共通</b>なものとしてとらえる</td><td>「瓶でない」と分かっても「あるかないか」は未定</td><td>共通にとらえる根拠は、排除のほかに見当たらない</td></tr>
+<tr><td>②</td><td>まったく違うものを<b>外界のように</b>とらえる</td><td>布と瓶は違うが「どちらも木でない」点で似る</td><td>違うものを似させるのは排除だけ</td></tr>
+<tr><td>③</td><td><b>限定</b>してとらえる</td><td>「これは瓶にほかならない」</td><td>「瓶以外ではない」と分かっていないと疑いが残る</td></tr>
+</table></div>
+<blockquote><span class="dv">अतो भावाभावसाधारणग्रहणादत्यन्तविसदृशस्य बाह्यत्वग्रहणान्नियतरूपावधारणाच्च तद्व्यावृत्तिनिष्ठा विकल्पाः शब्दाश्च।</span>だから、共通にとらえること、まったく似ていないものを外界としてとらえること、限定してとらえることから、分別知と語は排除に行き着くものである（Sucarita『Kāśikā』2.4.5。§7.4 に対応）。</blockquote>
+</section>
+
+<!-- §8 -->
+<section id="s8">
+<h2><span class="sec">§8</span>排除の三項の難点</h2>
+<p class="one">排除するのに、排除の三項を別々に意識する必要はない。</p>
+<div class="fig" role="img" aria-label="デーヴァダッタをヤジュニャダッタから区別するときの三項">
+<svg viewBox="0 0 720 170">
+<defs><marker id="d1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah-real"/></marker></defs>
+<rect x="30" y="40" width="190" height="70" rx="10" class="b-plain"/>
+<text x="125" y="70" text-anchor="middle" font-weight="700" font-size="15">デーヴァダッタ</text>
+<text x="125" y="93" text-anchor="middle" class="t-soft" font-size="12">① 排除されるもの</text>
+<rect x="500" y="40" width="190" height="70" rx="10" class="b-plain"/>
+<text x="595" y="70" text-anchor="middle" font-weight="700" font-size="15">ヤジュニャダッタ</text>
+<text x="595" y="93" text-anchor="middle" class="t-soft" font-size="12">② 排除の境界（avadhi）</text>
+<path d="M220 75 L498 75" class="ln-real" marker-end="url(#d1)"/>
+<text x="360" y="64" text-anchor="middle" class="t-real" font-size="13" font-weight="700">から区別される</text>
+<text x="360" y="100" text-anchor="middle" class="t-soft" font-size="12">③ 区別の根拠（理由）</text>
+<text x="360" y="148" text-anchor="middle" class="t-neg" font-size="13" font-weight="700">反論：排除するなら、この三つすべてを知っているはず（§8.1）</text>
+</svg>
+<div class="cap">図8　「三項」の反論。実在しない以上、分別知が三つをとらえることはできない、というのが反論者の主張。</div>
+</div>
+<p>Dharmottara は、相手（ニヤーヤ学派）の例を使って答えます（§8.3）。</p>
+<div class="tbl"><table>
+<tr><th></th><th>ニヤーヤ学派</th><th>Dharmottara</th></tr>
+<tr><td>言うこと</td><td>「普遍をそなえた個物を見ている」</td><td>「他から排除されたものをでっちあげている」</td></tr>
+<tr><td>実際に意識しているか</td><td>個物・普遍・限定関係を別々には意識していない</td><td>排除・境界・根拠を別々には意識していない</td></tr>
+<tr><td>そう言う根拠</td><td>それ以外に説明がつかない</td><td>共通・外界・限定（§7）がそれ以外に説明がつかない</td></tr>
+</table></div>
+</section>
+
+<!-- §9 -->
+<section id="s9">
+<h2><span class="sec">§9</span>「同じ」はどこから来るか</h2>
+<p class="one">別々の木を「同じ木」と思えるのは、見た直後の分別知が、それらを同時に区別なく執着するから。</p>
+<p>apoha 説では、同じ働きをするものがまとめられ、しない物から排除されます。では、まだ何の働きも見ていない木はどうなるのか。Dharmottara は、どの事物も少なくとも「それを見ること」（知覚）を結果として生んでいる、と答えます（§9.1）。</p>
+<div class="fig" role="img" aria-label="個物ごとに見ることは別々だが、直後の分別知が一つの対象に執着する">
+<svg viewBox="0 0 720 250">
+<defs><marker id="e1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<text x="20" y="30" class="t-soft" font-size="12" font-weight="700">個物</text>
+<text x="20" y="110" class="t-soft" font-size="12" font-weight="700">見ること</text>
+<g>
+<rect x="110" y="12" width="120" height="34" rx="6" class="b-real"/><text x="170" y="34" text-anchor="middle" class="t-real" font-size="13">木 A</text>
+<rect x="300" y="12" width="120" height="34" rx="6" class="b-real"/><text x="360" y="34" text-anchor="middle" class="t-real" font-size="13">木 B</text>
+<rect x="490" y="12" width="120" height="34" rx="6" class="b-real"/><text x="550" y="34" text-anchor="middle" class="t-real" font-size="13">木 C</text>
+<rect x="110" y="92" width="120" height="34" rx="6" class="b-mind"/><text x="170" y="114" text-anchor="middle" class="t-mind" font-size="13">見ること a</text>
+<rect x="300" y="92" width="120" height="34" rx="6" class="b-mind"/><text x="360" y="114" text-anchor="middle" class="t-mind" font-size="13">見ること b</text>
+<rect x="490" y="92" width="120" height="34" rx="6" class="b-mind"/><text x="550" y="114" text-anchor="middle" class="t-mind" font-size="13">見ること c</text>
+<path d="M170 46 L170 90" class="ln" marker-end="url(#e1)"/><path d="M360 46 L360 90" class="ln" marker-end="url(#e1)"/><path d="M550 46 L550 90" class="ln" marker-end="url(#e1)"/>
+</g>
+<rect x="190" y="170" width="340" height="62" rx="10" class="b-fab"/>
+<text x="360" y="196" text-anchor="middle" class="t-fab" font-weight="700" font-size="14">直後の分別知：同じ一つの対象「木」</text>
+<text x="360" y="218" text-anchor="middle" class="t-soft" font-size="12">個物と見ることを同時に「区別なし」と執着する</text>
+<path d="M170 126 L300 168" class="ln-fab"/><path d="M360 126 L360 168" class="ln-fab"/><path d="M550 126 L420 168" class="ln-fab"/>
+</svg>
+<div class="cap">図9　§9.2・§9.6・§9.8。木も見ることも一つ一つ別々。それでも分別知が一つの対象（でっちあげ）に執着するので「同じ」になる。</div>
+</div>
+<div class="tbl"><table>
+<tr><th>反論</th><th>答え</th></tr>
+<tr><td>「見ること」たちを一つにするには、さらに別の結果が要る。それも別々なら<b>無限遡及</b>になる（§9.3–9.4）</td><td>順番に一つにしていくのではない。見た直後の分別知が、個物と見ることを<b>同時に</b>一つと理解する（§9.6）</td></tr>
+<tr><td>分別知は自分たちが同じだと確かめられない（§9.5）</td><td>分別知たちが一つなのは、結果ではなく<b>対象が同じ</b>だから。その証拠が「前に見たあれだ」という再認識（§9.8）</td></tr>
+<tr><td>普遍がないなら、無数の個物に言葉の約束を設定できない</td><td>一つの個物で約束すれば、同じ分別知を生むすべての個物に及ぶ（§9.11）</td></tr>
+</table></div>
+</section>
+
+<!-- §10 -->
+<section id="s10">
+<h2><span class="sec">§10</span>apoha は単純否定</h2>
+<p class="one">「他の排除」の否定は、何かを立てる否定ではなく、ただ否定するだけの否定である。</p>
+<div class="tbl"><table>
+<tr><th></th><th>単純否定（<i>prasajyapratiṣedha</i>）<br><span class="tib">med par dgag pa</span></th><th>定立否定（<i>paryudāsa</i>）<br><span class="tib">ma yin par dgag pa</span></th></tr>
+<tr><td>やっていること</td><td>「〜がない」とだけ言う</td><td>「〜でないもの」として別の何かを立てる</td></tr>
+<tr><td>例</td><td>「ここに瓶はない」</td><td>「非瓶」と言って布などを指す</td></tr>
+<tr><td>apoha との関係</td><td><span class="ok">こちら</span>：語と分別知はこれに向かう</td><td><span class="ng">こちらではない</span></td></tr>
+</table></div>
+<p>Dharmottara は、師の Dharmakīrti も単純否定を考えていたことは疑いない、と述べます（§10.2）。本書で Dharmakīrti の名が出るのはここだけです。apoha を単純否定とはっきり規定したことが、Dharmottara の apoha 説の大きな特徴です。</p>
+</section>
+
+<!-- §11 -->
+<section id="s11">
+<h2><span class="sec">§11</span>四種の分別知</h2>
+<p class="one">見たことのないものの分別知も、どこかで「見ること」に支えられている。</p>
+<p>分別知には二つの源があります（§11.1）。</p>
+<div class="fig" role="img" aria-label="経験の潜在印象と無明の潜在印象が分別知の二面を生む">
+<svg viewBox="0 0 720 170">
+<defs><marker id="f1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah"/></marker></defs>
+<rect x="20" y="20" width="230" height="56" rx="8" class="b-real"/>
+<text x="135" y="45" text-anchor="middle" class="t-real" font-weight="700" font-size="14">経験の潜在印象</text>
+<text x="135" y="65" text-anchor="middle" class="t-soft" font-size="12">過去に実際に見たこと</text>
+<rect x="20" y="96" width="230" height="56" rx="8" class="b-fab"/>
+<text x="135" y="121" text-anchor="middle" class="t-fab" font-weight="700" font-size="14">無明の潜在印象</text>
+<text x="135" y="141" text-anchor="middle" class="t-soft" font-size="12">誤った知の習い</text>
+<rect x="420" y="20" width="280" height="56" rx="8" class="b-plain"/>
+<text x="560" y="53" text-anchor="middle" font-size="14">限定してとらえる（「これは木だ」）</text>
+<rect x="420" y="96" width="280" height="56" rx="8" class="b-plain"/>
+<text x="560" y="129" text-anchor="middle" font-size="14">存在しないものとしてとらえる</text>
+<path d="M250 48 L418 48" class="ln" marker-end="url(#f1)"/><path d="M250 124 L418 124" class="ln" marker-end="url(#f1)"/>
+</svg>
+<div class="cap">図11　分別知がでたらめにならないのは、経験の潜在印象に裏づけられているから（§11.1）。</div>
+</div>
+<p>反論者は、主宰神のように見たことのないものの分別知を挙げます。Dharmottara は分別知を四種に分け、どれも「見ること」に支えられていることを示します。</p>
+<div class="tbl"><table>
+<tr><th></th><th>基体（もの）</th><th>属性（性質）</th></tr>
+<tr><td><b>存在する</b></td><td>瓶・水など<br><span class="ref">水を見た経験。陽炎を水と見る錯覚、水のない所に水を思い描く想像も同じ（§11.4）</span></td><td>青さなど<br><span class="ref">「これは青だ／青でない」（§11.4）</span></td></tr>
+<tr><td><b>存在しない</b></td><td>主宰神など<br><span class="ref">見た青などから排除して作る。「一つの事物」として他の事物に似せる（§11.5）</span></td><td>常住性など<br><span class="ref">いま聞いている音そのものの性質として構想する（§11.6）</span></td></tr>
+</table></div>
+<p>非存在の分別知も同じです。「瓶がない」は、以前に見た瓶と、いま見ている瓶でないもの（空の床など）に支えられます（§11.7）。「主宰神はいない」は、主宰神の観念が似たものを見て作られている以上、それに支えられます（§11.8）。</p>
+</section>
+
+<!-- §12 -->
+<section id="s12">
+<h2><span class="sec">§12</span>結論：二つの apoha</h2>
+<p class="one">語が表示する apoha は二つ。でっちあげたものの「他の空」と、外界の「他の空」。</p>
+<div class="fig" role="img" aria-label="とらえられる apoha と執着される apoha">
+<svg viewBox="0 0 720 230">
+<defs><marker id="g1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" class="ah-fab"/></marker></defs>
+<rect x="280" y="10" width="160" height="44" rx="22" class="b-plain"/>
+<text x="360" y="38" text-anchor="middle" font-weight="700" font-size="16">語「木」</text>
+<rect x="30" y="90" width="300" height="120" rx="10" class="b-fab"/>
+<text x="180" y="118" text-anchor="middle" class="t-fab" font-weight="700" font-size="14">① 分別知の対象</text>
+<text x="180" y="142" text-anchor="middle" font-size="13">でっちあげた木が他を欠いていること</text>
+<text x="180" y="166" text-anchor="middle" class="t-soft" font-size="12">直接とらえられるもの（grāhya）</text>
+<text x="180" y="190" text-anchor="middle" class="t-soft" font-size="12">§10.1「とらえられるべきもの」</text>
+<rect x="390" y="90" width="300" height="120" rx="10" class="b-real"/>
+<text x="540" y="118" text-anchor="middle" class="t-real" font-weight="700" font-size="14">② 限定された本性</text>
+<text x="540" y="142" text-anchor="middle" font-size="13">外界の木が他を欠いていること</text>
+<text x="540" y="166" text-anchor="middle" class="t-soft" font-size="12">執着されるもの（adhyavaseya）</text>
+<text x="540" y="190" text-anchor="middle" class="t-soft" font-size="12">§10.1「確定されたもの」</text>
+<path d="M330 32 L180 88" class="ln"/><path d="M390 32 L540 88" class="ln"/>
+<path d="M330 150 L388 150" class="ln-fab" marker-end="url(#g1)"/>
+<text x="360" y="140" text-anchor="middle" class="t-fab" font-size="11">似ている</text>
+</svg>
+<div class="cap">図12　§12.6。どちらも他の排除であって実在ではない。外界も、分別知の対象である限りでは「他から排除されたもの」としてしか現れない（§12.1）。</div>
+</div>
+<p>だから語の対象は、勝義（究極の真実）においては存在しません（§12.3）。それでも、でっちあげたものを通して外界を理解し、人はそれに向かって行動できます。外界も「語の対象」と呼んでよいのはそのためです（§12.4）。</p>
+</section>
+
+<!-- §13 -->
+<section id="s13">
+<h2><span class="sec">§13</span>結び</h2>
+<p>最後の回向偈で、Dharmottara は「排除を分析して得た善によって、この世の人々の果てしない闇の流れを断てますように」と願います。ここで言う「闇」は無明のことと考えられ、§4 で分別知を無明と呼んだことと呼応しています。奥書によれば、チベット語訳はカシュミールのパンディタ Bhavyarāja と翻訳官ロデン・シェーラプ（1059–1109）によるものです。</p>
+<h3>全体をもう一度</h3>
+<div class="tbl"><table>
+<tr><th>段階</th><th>主張</th><th>節</th></tr>
+<tr><td>出発点</td><td>語の対象＝分別知の対象</td><td>§1</td></tr>
+<tr><td>否定</td><td>それは自相でも普遍でも知の中の形相でもない</td><td>§2・§3・§5</td></tr>
+<tr><td>正体</td><td>無明がでっちあげた、まったく存在しないもの</td><td>§3.5・§4</td></tr>
+<tr><td>性格</td><td>肯定ではなく他の排除。三つの論証で示す</td><td>§6・§7</td></tr>
+<tr><td>難点への答え</td><td>三項・同一性・約束の問題</td><td>§8・§9</td></tr>
+<tr><td>否定の種類</td><td>単純否定</td><td>§10</td></tr>
+<tr><td>補強</td><td>見たことのないものの分別知も「見ること」に支えられる</td><td>§11</td></tr>
+<tr><td>結論</td><td>表示される apoha は二つ。語の対象は勝義には存在しない</td><td>§12</td></tr>
+</table></div>
+</section>
+
+<footer>
+<p>この解説の節番号は、同じリポジトリの対訳（apohaprakarana_translation.html）の段落番号と対応しています。チベット語テキストはデルゲ版（Toh. 4250）。梵語の対応文は Kataoka Kei, "Sucaritamiśra's Critique of <i>Apoha</i>," 『東洋文化研究所紀要』165 (2014) によります。校訂と独訳は E. Frauwallner, "Beiträge zur Apohalehre II. Dharmottara," <i>WZKM</i> 44 (1937)。解説中の解釈は、対訳と同じく試案を含みます。</p>
+</footer>
+</div>
+</body></html>
