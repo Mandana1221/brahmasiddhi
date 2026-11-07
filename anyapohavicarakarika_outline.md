@@ -11,9 +11,9 @@
 - 題名：梵 *Anyāpohavicārakārikā*，蔵 *gzhan sel brtag pa'i tshig le'ur byas pa*
 - 帰敬：thams cad mkhyen pa la phyag 'tshal lo（一切智者に帰命）
 
-## Ⅰ. 言葉の対象は概念による付託（vv.1–7）
+## Ⅰ. 言葉の対象は概念によるでっちあげ（vv.1–7）
 - **1-1 総論**（v.1 *de phyir rang bzhin tha dad la*）
-  本性が別々のものでも，結果などが似ているのを見て，心が「一つ」と付託し，それによって言語活動が成り立つ。
+  本性が別々のものでも，結果などが似ているのを見て，心が「一つ」とでっちあげ，それによって言語活動が成り立つ。
 - **1-2 語の種類ごとの説明**（vv.2–7）
   - (1) 集合語（v.2 *gang dag rtag par dus gcig tu*）：同時に一つのはたらきをするもの。例：家・軍隊・森
   - (2) 類語（v.3 *gang dag dus dang rnam rtog gis*）：時を隔てても，概念の上で一つの結果をもたらすもの。例：楽・苦など
@@ -25,19 +25,19 @@
 ## Ⅱ. 言葉の対象は自相（個物）・感官の対象ではない（vv.8–19）
 - **2-1 問いと答え**（vv.8–9）
   - 問（v.8 *gal te sgra'i don rnam shes la*）：言葉による認識に自相が現れないなら，どうして自相を確定できるのか
-  - 答（v.9 *'di ltar bye brag don med cing*）：実際に役に立つのは個物で，個物の知覚が先にあるから「個物に付託する」と言うのであって，真実には錯誤である
+  - 答（v.9 *'di ltar bye brag don med cing*）：実際に役に立つのは個物で，個物の知覚が先にあるから「個物に対してでっちあげる」と言うのであって，真実には錯誤である
 - **2-2 感官の対象は言葉の対象ではない**（vv.10–12）
   - 理由①（v.10 *dbang don sgra yi don ma yin*）：対象がなくても現れ，別のものとして捉えられ，一・多の形をもたない
   - 理由②（v.11 *mngon sum gyis ni don gzugs gcig*）：知覚は単一の形を見るが，言葉が伴うと「行為者」などの多様な形で捉える
   - 理由③（v.12 *lce yi dbang pos gzhan du myang*）：舌で味わう甘さと「甘い」という言葉の内容は別。結論：感官の対象は言葉の領域ではない
-- **2-3 言葉が表すのは分別による付託**（v.13 *sgra yi don gsal byed pa ni*）
+- **2-3 言葉が表すのは分別によるでっちあげ**（v.13 *sgra yi don gsal byed pa ni*）
   ゆえに文法家も「話そうとする意図（brjod 'dod）によってはたらく」と認める
 - **2-4 反論「牛を見よ」への答え**（vv.14–16）
   - 反論（v.14 *gang du ba lang ltos zhes smra*）：「牛を見よ」と言うとき，言葉の認識は自相を見ることをめざす
   - 答①（v.15 *blta ba'i bya ba sbyor ba ni*）：「見る」の語は見ることが可能だと示し，聞き手に見たいという気持ちを起こすだけ
   - 答②（v.16 *'on te der ni don gyi gzugs*）：言葉が対象の形をはっきり示すなら，さらに見るべきものは何も残らないはず
-- **2-5 知覚と付託を混同する理由**（vv.17–19）
-  - v.17 *mthong bzhin du ni mi rnams kyis*：見ながら話すので，愚かで心の揺れる人は「見たもの」と「付託したもの」を区別しない
+- **2-5 知覚とでっちあげを混同する理由**（vv.17–19）
+  - v.17 *mthong bzhin du ni mi rnams kyis*：見ながら話すので，愚かで心の揺れる人は「見たもの」と「でっちあげたもの」を区別しない
   - v.18 *gnyis ka'i rnam par rtog pa la*：二つの分別に共通の対象があるなら別の形が現れるはず。一つの対象への執着から約定する
   - v.19 *brdas bsgos 'di ni ci zhig yin*：「これがそれだ」と分別が把握されない限り，約定は起こらない
 
@@ -78,8 +78,8 @@
   - v.41 *de phyir sgra don thams cad du*：言葉の意味はすべて錯誤で，約定は真実でない対象を示す
   - v.42 *don nyid log pa yin yang ni*：錯誤でも間接的に対象とつながっていれば欺かない（正夢・偽りの夢の喩え）
   - v.43 *nor bu rin chen 'od gnyis la*：宝石の光と灯火の光を宝石と思う喩え。錯誤である点は同じでも，目的達成の点で違う
-- **6-2 個物への付託と外界への執着**（vv.44–45）
-  - v.44 *gang phyir bye brag don byed cing*：個物が役に立ち先に見られるので，言葉の意味を個物に付託してはたらく
+- **6-2 個物に対するでっちあげと外界への執着**（vv.44–45）
+  - v.44 *gang phyir bye brag don byed cing*：個物が役に立ち先に見られるので，言葉の意味をでっちあげて個物に対してはたらく
   - v.45 *bye brag yongs su ma shes phyir*：区別がわからないので，人は言葉の意味を外界だと思い，外界を求めて動く
 - **6-3 肯定・否定は認識の形に対して**（vv.46–48）
   - v.46 *blo yis bstan pa'i ngo bo la*：話し手は認識が示す形に対して「有る・無い」を語る。外界に対してではない
@@ -110,7 +110,7 @@
   - v.63 *brdar 'dogs pa la rigs mi mthun*：約定では異類（rigs mi mthun）を断ち切って「まさにこれ」と示す。明確な確定に基づくから
   - v.64 *gzhan la yin na de lta na*：文の結果は排除であり，排除がなければ結果がない
   - v.65 *shing ni shing min rnam gcod do*：木は非木を排除するが，相互に依存するわけではない
-  - v.66 *sgra yi byed pa'i bye brag gis*：区別は言葉のはたらきによるもので，物の区別ではない。付託されたものを批判しても無意味
+  - v.66 *sgra yi byed pa'i bye brag gis*：区別は言葉のはたらきによるもので，物の区別ではない。でっちあげられたものを批判しても無意味
   - v.67 *shing min me yi ngo bo yi*：非木（火など）の排除は実在の区別によらないので，相互依存ではない
 
 ## Ⅹ. 言葉の意味と物の意味は別である（vv.68–70）
