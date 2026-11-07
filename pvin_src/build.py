@@ -50,8 +50,8 @@ def loc(ref):
 set_text()
 CSS = (ROOT / 'pvin_src' / 'style.css.part').read_text(encoding='utf-8')
 
-SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈', 'P': 'PV III との関係', 'W': 'PV I・PVSV との関係'}
-SCHOLAR_CLASS = {'P': ' pv3', 'W': ' pv3'}   # 見出しの色を変える追加クラス
+SCHOLARS = {'S': 'Steinkellner の解釈', 'R': 'Vetter の解釈', 'P': 'PV III との関係', 'W': 'PV I・PVSV との関係', 'T': '戸崎訳との対照（チベット訳にもとづく）'}
+SCHOLAR_CLASS = {'P': ' pv3', 'W': ' pv3', 'T': ' tz'}   # 見出しの色を変える追加クラス
 SENT = re.compile(r'(?<=[.?])\s+')
 REF = re.compile(r'^(\d+)(?::(\d+)(-(\d*))?)?(?:-(\d+)(?::(\d+))?)?$')
 
@@ -173,9 +173,9 @@ def parse(part, prefix=''):
             flush()
             cur = {'kind': m.group(1), 'ref': m.group(2), 'ja': []}
             continue
-        m = re.match(r'^([JNGSRPQW])\s?(.*)$', line)
+        m = re.match(r'^([JNGSRPQWT])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or cur['kind'] in 'LV'):
-            if m.group(1) in 'NGSRPQW':
+            if m.group(1) in 'NGSRPQWT':
                 flush()
                 cur = {'kind': m.group(1), 'ja': [m.group(2)]}
             else:
@@ -232,6 +232,7 @@ def write_page(meta, body, toc, fname):
 .seg-ja p, .sutra-jp p, .tnote p {{ margin-bottom: 0.5rem; }}
 .tnote.stk {{ border-left: 3px solid var(--accent-soft); }}
 .tnote.stk.pv3 {{ border-left-color: #8a6d3b; }} .tnote.stk.pv3 .tnote-h {{ color: #8a6d3b; }}
+.tnote.stk.tz {{ border-left-color: #6A4C9C; }} .tnote.stk.tz .tnote-h {{ color: #6A4C9C; }} .tnote.stk.tz p {{ margin-bottom: 0.4rem; }}
 .pnav {{ display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; font-size: 0.9rem; margin: 1rem 0; }}
 </style>
 </head>

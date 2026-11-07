@@ -87,9 +87,9 @@ def parse(pid):
             cur = {'ref': m.group(2), 'ja': []}
             items.append((m.group(1), cur))
             continue
-        m = re.match(r'^([JNGSRPQW])\s?(.*)$', line)
+        m = re.match(r'^([JNGSRPQWT])\s?(.*)$', line)
         if m and (cur is None or m.group(1) != 'J' or 'ref' in cur):
-            if m.group(1) in 'NGSRPQW':
+            if m.group(1) in 'NGSRPQWT':
                 cur = {'ja': [m.group(2)]}
                 items.append((m.group(1), cur))
             else:
@@ -211,9 +211,9 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 body.append(f'<{tag} class="sub-h"><span class="snum">{renum(d["num"], sec_no)}</span>{html.escape(d["ttl"])}{sk}</{tag}>')
             elif kind in 'LV':
                 notes = []
-                while i + 1 < len(items) and items[i + 1][0] in 'NSRPW':
+                while i + 1 < len(items) and items[i + 1][0] in 'NSRPWT':
                     notes.append((items[i + 1][0], items[i + 1][1]['ja']))
-                    if items[i + 1][0] in 'PW':
+                    if items[i + 1][0] in 'PWT':
                         pq += 1                         # P/Q は追加行なので番号に数えない
                     i += 1
                 body.append(mula(kind, d, f'u{pid}-{i - pq}', notes))
@@ -250,6 +250,12 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                     '各ブロックの「PV I・PVSV との関係」欄に、PVSV の対応箇所（Gnoli 1960 の頁・行）、同文・異読・PVin での改変を示した。'
                     'PVSV の偈番号は Gnoli の番号による。欄の文は PVSV の側から見て書かれている</small></dd></div>')
         pv3_howto = '<div><b>PV I・PVSV との関係</b>解説欄の緑の見出しの段。PVSV の対応箇所（Gnoli の頁・行）と、同文・異読・改変の別</div>\n    '
+    tz_note = tz_howto = ''
+    if chno == 1:     # 戸崎訳（1986–1993）との対照
+        src_dir = ROOT / 'pvin_src'
+        pv3_fact += '\n' + (src_dir / 'tosaki_fact_ch1.html').read_text(encoding='utf-8').rstrip('\n')
+        tz_howto = '\n' + (src_dir / 'tosaki_howto_ch1.html').read_text(encoding='utf-8').rstrip('\n')
+        tz_note = '\n' + (src_dir / 'tosaki_note_ch1.html').read_text(encoding='utf-8').rstrip('\n')
     if chno == 1:
         stk_fact = ('<div><dt>研究</dt><dd>T. Vetter のドイツ語訳（1966）<br><small><i>Dharmakīrti\'s Pramāṇaviniścayaḥ, 1. Kapitel: Pratyakṣam</i>。'
                     'チベット訳の校訂・サンスクリット断片・独訳と、章全体の思想的位置づけを論じた序論をもつ。序論の議論分析と訳注の要点を、各ブロックの「Vetter の解釈」欄に加えた</small></dd></div>')
@@ -285,6 +291,14 @@ h4.sub-h{{font-family:var(--f-display);font-size:1.02rem;font-weight:800;margin:
 .point.stk-pt .lbl{{color:var(--accent)}}
 .mula .exp .stk.pv3 .lbl{{color:var(--ans)}}
 .mula .exp .stk.pv3 p{{margin:0}}
+.mula .exp .stk.tz .lbl,.howto b.tzb{{color:var(--tz)}}
+.mula .exp .stk.tz p{{margin:0 0 .5em}}
+.mula .exp .stk.tz p:last-child{{margin-bottom:0}}
+.mula .exp .stk.tz b{{color:var(--tz);font-weight:700}}
+.tznote{{background:var(--card);border:1px solid var(--line);border-left:4px solid var(--tz);border-radius:10px;padding:12px 16px;margin-top:1.2em;font-size:.92rem;line-height:1.85}}
+.tznote h3{{margin-top:0;color:var(--tz);font-size:1.05rem}}
+.tznote ul{{margin:.3em 0 0;padding-left:1.2em}}
+.tznote li{{margin-bottom:.35em}}
 nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--accent);font-weight:700}}
 </style>
 </head>
@@ -324,8 +338,8 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
     <div><b>原文</b>デーヴァナーガリー。偈は金色の線のブロック。<span class="kno">k.4</span> は偈の番号</div>
     <div><b>和訳</b>（　）は訳者の補い。（反論）（答え）は議論の話者の区別</div>
     <div><b>解説</b>ブロック下の灰色の欄。用語や論点の説明</div>
-    {stk_howto}
-  </div>
+    {stk_howto}{tz_howto}
+  </div>{tz_note}
 </section>
 
 <section id="map" class="wrap">
