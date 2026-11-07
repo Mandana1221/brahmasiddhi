@@ -1,7 +1,7 @@
 # Anyāpohavicārakārikā（gzhan sel brtag pa'i tshig le'ur byas pa）目次・科段
 
 - 底本：アップロードされたテキスト（デルゲ版テンギュル D4246 系，Wylie 転写）
-- 著者：コロフォンでは slob dpon **dge srungs**（Kalyāṇarakṣita とされる）。※ Devendrabuddhi（lha dbang blo）ではない。
+- 著者：コロフォンでは slob dpon **dge srungs**（Śubhagupta とされる）。
 - 偈番号：7 音節 4 句を 1 偈として機械的に数えた私案（全 78 偈）。第 77–78 偈のみ長い韻律。
 - 冒頭が "de phyir"（それゆえ）で始まるので，前の議論を受けた書き出しになっている。
 
