@@ -97,17 +97,17 @@
 
 ## Ⅷ. 「所知（shes bya）」などの語にもアポーハは成り立つ（vv.56–59）
 - v.56 *shes bya min sogs las log pa*：「非所知」などからの排除が現れるので，「所知」などの語にも他の排除が成り立つ
-- v.57 *shes bya min pa'i sgra don gang*：「非所知」の意味が排除される（カディラ樹とパラーシャ樹の喩え）
+- v.57 *shes bya min pa'i sgra don gang*：「非所知」の意味が排除される（カディラ樹とシンシャパー樹の喩え）
 - 反論（v.58ab *'on te shes bya min don med*）：非所知の対象は存在しないのに，言葉はどうはたらくのか
 - 答え（v.58cd–59 *gal te shes bya med la de*）：存在しないものの否定も排除であり，その非存在を通じて論証因となる
 
 ## Ⅸ. 相互依存（anyonyāśraya）の過失への反論（vv.60–67）
-- **9-1 反論**（vv.60–62）
+- **9-1 反論**（vv.60–61ab）
   - v.60 *gzhan dngos rnam par bcad pa la*：他の物の排除に約定するなら，「木」と「非木」は相互依存になる
-  - v.61 *shing min ltos nas shing ma yin*：非木に依って木が，木に依って非木が成り立つ
-  - v.62 *de'i dngos min par bor nas su*：（それでは人が行動できない）
-- **9-2 答え**（vv.63–67）
-  - v.63 *brdar 'dogs pa la rigs mi mthun*：約定は矛盾しない。排除して「これだけ」と確定するのは明確な確定に基づく
+  - v.61ab *shing min ltos nas shing ma yin*：「木でない」は非木に，「非木でない」は木に依存する
+- **9-2 答え**（vv.61cd–67）
+  - v.61cd–62 *phan tshun rnam par dben pa yis*：「それ／それでないもの」の区別を知り，それでないものを除いて，人がそれに向かうように約定を設ける
+  - v.63 *brdar 'dogs pa la rigs mi mthun*：約定では異類（rigs mi mthun）を断ち切って「まさにこれ」と示す。明確な確定に基づくから
   - v.64 *gzhan la yin na de lta na*：文の結果は排除であり，排除がなければ結果がない
   - v.65 *shing ni shing min rnam gcod do*：木は非木を排除するが，相互に依存するわけではない
   - v.66 *sgra yi byed pa'i bye brag gis*：区別は言葉のはたらきによるもので，物の区別ではない。付託されたものを批判しても無意味
@@ -121,7 +121,7 @@
 ## Ⅺ. アポーハ批判への総括的反論（vv.71–73）
 - v.71 *'dis ni gzhan sel zhes bya la*：「牛などを理解するには別の語が必要」という批判は退けられる
 - v.72 *ldog pa dang ni log pa gnyis*：「排除」と「排除されたもの」が別か同じか，という批判への答え
-- v.73 *de la sogs pa gzhan sel la*：アポーハへの批判は足場を失う（喩え：mkhal la lcag gis rdob pa）
+- v.73 *de la sogs pa gzhan sel la*：アポーハへの批判は足場を失う（空を鞭で打つような，の喩え。mkhal は mkha' の誤りか）
 
 ## Ⅻ. 真実と世間の言語慣習（vv.74–76）
 - v.74 *'di ni kho na nyid bsam pa*：以上は真実の考察。世間の言語活動は自分の意図に従う
@@ -129,7 +129,7 @@
 - v.76 *kun mkhyen kho na'i don la ni*：一切智者も真実については象のように目を閉じ（gajanimīlikā），世間に合わせて教えを説く
 
 ## ⅩⅢ. 結論（vv.77–78，長い韻律）
-- v.77 *ka tam kar ko ta ka pa ta sogs*：カディラ・パラーシャなどの互いに異なる物を，心が一つにまとめて「木」と名づける
+- v.77 *ka tam kar ko ta ka pa ta sogs*：カダンバ・カルコータ・カピッタ（？）などの互いに異なる物を，心が一つにまとめて「木」と名づける
 - v.78 *gcig pa yin yang du mar yongs brtags nas*：一つの物も生・滅・住，色あり・色なしなど多く分けて別々の語を用いる。**ゆえに言葉は実在を語らない**
 
 ## 跋（コロフォン）
