@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>他者排除考 図解</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<style>
+:root {
+  --ground: #F4F0E8; --ink: #2A2520; --ink-soft: #5A4D42; --accent: #8B4A2B; --accent-soft: #C47A54;
+  --rule: #C9C1B4; --rule-light: #DCD5CA; --verse-num: #7E7265; --note-bg: #EDE8DF; --card: #FAF7F1;
+  --blue: #3E6A8A; --blue-bg: #E3ECF2; --green: #4D7A4A; --green-bg: #E5EEE2; --red: #A2463A; --red-bg: #F3E2DE;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --ground: #1E1D1B; --ink: #DDD8D0; --ink-soft: #A89E92; --accent: #D08A62; --accent-soft: #D4956C;
+    --rule: #3E3A34; --rule-light: #322E2A; --verse-num: #8A7F73; --note-bg: #27251F; --card: #24221F;
+    --blue: #8DB4D2; --blue-bg: #22303A; --green: #9CC596; --green-bg: #243024; --red: #E0948A; --red-bg: #3A2623;
+  }
+}
+:root[data-theme="dark"] {
+  --ground: #1E1D1B; --ink: #DDD8D0; --ink-soft: #A89E92; --accent: #D08A62; --accent-soft: #D4956C;
+  --rule: #3E3A34; --rule-light: #322E2A; --verse-num: #8A7F73; --note-bg: #27251F; --card: #24221F;
+  --blue: #8DB4D2; --blue-bg: #22303A; --green: #9CC596; --green-bg: #243024; --red: #E0948A; --red-bg: #3A2623;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { background: var(--ground); color: var(--ink); font-family: 'Noto Serif', 'Shippori Mincho', serif; line-height: 1.9; padding: 3rem 16px 5rem; }
+main { max-width: 860px; margin: 0 auto; }
+h1 { font-size: 1.75rem; line-height: 1.4; font-weight: 600; }
+.sub { color: var(--ink-soft); font-style: italic; margin: .3rem 0 2rem; }
+h2 { font-size: 1.3rem; color: var(--accent); margin: 3.5rem 0 1rem; padding-bottom: .35rem; border-bottom: 1px solid var(--rule); scroll-margin-top: 1rem; }
+h2 .no { display: inline-block; min-width: 2.4rem; }
+h2 .vv { font-size: .85rem; color: var(--verse-num); font-weight: 400; margin-left: .5rem; }
+h3 { font-size: 1.05rem; margin: 2rem 0 .6rem; }
+p { margin: .7rem 0; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+.point { background: var(--note-bg); border-left: 4px solid var(--accent); padding: .8rem 1rem; margin: 1.2rem 0; }
+.point b { color: var(--accent); }
+.verse-q { border-left: 3px solid var(--rule); padding: .2rem 0 .2rem .9rem; margin: 1rem 0; color: var(--ink-soft); font-size: .95rem; }
+.verse-q .src { display: block; font-size: .8rem; color: var(--verse-num); }
+.table-wrap { overflow-x: auto; margin: 1.2rem 0; }
+table { border-collapse: collapse; width: 100%; font-size: .92rem; background: var(--card); }
+th, td { border: 1px solid var(--rule-light); padding: .5rem .65rem; vertical-align: top; text-align: left; line-height: 1.7; }
+th { background: var(--note-bg); font-weight: 600; white-space: nowrap; }
+td.c, th.c { text-align: center; }
+figure { margin: 1.5rem 0; background: var(--card); border: 1px solid var(--rule-light); padding: 1rem; }
+.figscroll { overflow-x: auto; }
+@media (max-width: 600px) { .figscroll svg { min-width: 560px; } .figscroll::after { content: '← 横にスクロールできます →'; display: block; text-align: center; font-size: .75rem; color: var(--verse-num); } }
+figcaption { font-size: .85rem; color: var(--ink-soft); margin-top: .6rem; text-align: center; }
+svg { display: block; width: 100%; height: auto; font-family: 'Noto Serif', 'Shippori Mincho', serif; }
+svg text { fill: var(--ink); }
+svg .soft { fill: var(--ink-soft); }
+svg .acc { fill: var(--accent); }
+svg .ln { stroke: var(--ink-soft); fill: none; stroke-width: 1.5; }
+svg .ln-acc { stroke: var(--accent); fill: none; stroke-width: 2; }
+svg .ln-red { stroke: var(--red); fill: none; stroke-width: 2; }
+svg .dash { stroke-dasharray: 5 4; }
+svg .box { fill: var(--card); stroke: var(--rule); stroke-width: 1.5; }
+svg .box-b { fill: var(--blue-bg); stroke: var(--blue); stroke-width: 1.5; }
+svg .box-g { fill: var(--green-bg); stroke: var(--green); stroke-width: 1.5; }
+svg .box-r { fill: var(--red-bg); stroke: var(--red); stroke-width: 1.5; }
+svg .box-a { fill: var(--note-bg); stroke: var(--accent); stroke-width: 1.5; }
+svg .t-b { fill: var(--blue); } svg .t-g { fill: var(--green); } svg .t-r { fill: var(--red); }
+.map { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: .6rem; margin: 1.2rem 0; }
+.map a { display: block; background: var(--card); border: 1px solid var(--rule-light); border-top: 4px solid var(--c, var(--accent)); padding: .55rem .7rem; color: var(--ink); font-size: .88rem; line-height: 1.5; }
+.map a:hover { text-decoration: none; border-color: var(--accent); }
+.map .n { color: var(--accent); font-weight: 600; margin-right: .3rem; }
+.map .v { display: block; color: var(--verse-num); font-size: .78rem; }
+.legend { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; font-size: .82rem; color: var(--ink-soft); }
+.legend i { display: inline-block; width: .8rem; height: .8rem; margin-right: .3rem; vertical-align: -1px; }
+.bar { display: grid; grid-template-columns: 5.5rem 1fr 2.2rem; align-items: center; gap: .5rem; font-size: .82rem; margin: .25rem 0; }
+.bar .track { background: var(--rule-light); height: .8rem; }
+.bar .fill { background: var(--accent-soft); height: 100%; }
+.bar .num { color: var(--verse-num); text-align: right; }
+.dialog { margin: 1rem 0; display: grid; gap: .5rem; }
+.dialog div { padding: .55rem .8rem; border-radius: 6px; max-width: 92%; font-size: .93rem; }
+.dialog .q { background: var(--red-bg); border: 1px solid var(--red); justify-self: start; }
+.dialog .a { background: var(--green-bg); border: 1px solid var(--green); justify-self: end; }
+.dialog b { display: block; font-size: .78rem; }
+.dialog .q b { color: var(--red); } .dialog .a b { color: var(--green); }
+.foot { margin-top: 3rem; font-size: .85rem; color: var(--ink-soft); border-top: 1px solid var(--rule); padding-top: 1rem; }
+@media (max-width: 600px) { body { padding-top: 2rem; } h1 { font-size: 1.4rem; } th, td { padding: .4rem .45rem; font-size: .85rem; } figure { padding: .6rem; } }
+</style>
+</head>
+<body>
+<main>
+
+<h1>図解『他者排除考』<br>（Anyāpohavicārakārikā）</h1>
+<div class="sub">言葉は何を語っているのか――アポーハ（他者の排除）理論を，原典の順に読む</div>
+
+<p>このページは，チベット語訳だけが伝わる小さな韻文の論書『他者排除考』（gzhan sel brtag pa'i tshig le'ur byas pa，デルゲ版テンギュル D4246）の内容を，図と表を使って順番に紹介するものです。偈の番号は，別ページ「<a href="anyapohavicarakarika_outline.html">目次・科段・和訳</a>」の番号（全78偈）に合わせています。</p>
+
+<div class="point"><b>この本の一言まとめ：</b>言葉が直接さし示しているのは，外の世界にある個々の物そのものではない。心の中で「〜でないもの」を除いて作られた像（アポーハ）である。それでも言葉が役に立つのは，その像が間接的に現実の物とつながっているからだ。</div>
+
+<h2 id="intro"><span class="no">序</span>まず知っておきたいこと</h2>
+
+<h3>作者と時代</h3>
+<div class="table-wrap"><table>
+<tr><th>項目</th><th>内容</th></tr>
+<tr><td>書名</td><td>梵 <i>Anyāpohavicārakārikā</i>（アニャーポーハ・ヴィチャーラ・カーリカー）／蔵 <i>gzhan sel brtag pa'i tshig le'ur byas pa</i><br>直訳すると「他者の排除の考察，韻文の書」</td></tr>
+<tr><td>作者</td><td>奥付（コロフォン）には slob dpon dge srungs とある。Śubhagupta（シュバグプタ）とされる。</td></tr>
+<tr><td>学派</td><td>ディグナーガ・ダルマキールティに始まる仏教論理学・認識論の流れ</td></tr>
+<tr><td>形式</td><td>7音節×4句の韻文が76偈，最後に長い韻律の2偈。合計78偈（本ページの数え方）</td></tr>
+<tr><td>伝わり方</td><td>サンスクリット原典は伝わらず，チベット語訳のみ</td></tr>
+</table></div>
+
+<h3>「アポーハ」とは</h3>
+<p>インドの哲学者たちは，「『牛』という言葉は何を意味しているのか」という問題を長く議論してきました。代表的な二つの立場を比べると，次のようになります。</p>
+<div class="table-wrap"><table>
+<tr><th></th><th>実在論（ミーマーンサー学派・ニヤーヤ学派など）</th><th>仏教のアポーハ論</th></tr>
+<tr><td>「牛」が意味するもの</td><td>すべての牛に共通して<b>実在する</b>「牛性」（普遍）</td><td>「牛でないもの」を<b>除いた</b>ものとして，心が作った像</td></tr>
+<tr><td>普遍は実在するか</td><td>実在する</td><td>実在しない（実在するのは個々の瞬間的な物だけ）</td></tr>
+<tr><td>言葉と意味の結びつき</td><td>常住（永遠に決まっている）とする説もある</td><td>人が決めた約束事（約定）</td></tr>
+</table></div>
+<p>本書は仏教側の立場から，アポーハ論をまとめ直し，他学派からの批判に答えるものです。</p>
+
+<h3>全体の地図</h3>
+<p>本書は大きく13の部分に分けられます（区分は試案）。タイルをクリックすると，その解説に移ります。</p>
+<div class="legend"><span><i style="background:var(--blue)"></i>言葉の対象とは何か</span><span><i style="background:var(--accent)"></i>アポーハ理論の本体</span><span><i style="background:var(--red)"></i>反論への応答</span><span><i style="background:var(--green)"></i>まとめと結論</span></div>
+<nav class="map">
+<a href="#s1" style="--c:var(--blue)"><span class="n">Ⅰ</span>言葉の6種類と「付託」<span class="v">vv.1–7</span></a>
+<a href="#s2" style="--c:var(--blue)"><span class="n">Ⅱ</span>言葉は個物を捉えない<span class="v">vv.8–19</span></a>
+<a href="#s3" style="--c:var(--blue)"><span class="n">Ⅲ</span>言葉の対象は心の中の像<span class="v">vv.20–24</span></a>
+<a href="#s4" style="--c:var(--accent)"><span class="n">Ⅳ</span>排除としての意味<span class="v">vv.25–31</span></a>
+<a href="#s5" style="--c:var(--red)"><span class="n">Ⅴ</span>約定はどう覚えるか<span class="v">vv.32–40</span></a>
+<a href="#s6" style="--c:var(--accent)"><span class="n">Ⅵ</span>錯誤なのに役に立つ<span class="v">vv.41–51</span></a>
+<a href="#s7" style="--c:var(--accent)"><span class="n">Ⅶ</span>なぜ「他の排除」か<span class="v">vv.52–55</span></a>
+<a href="#s8" style="--c:var(--red)"><span class="n">Ⅷ</span>「知られるもの」の問題<span class="v">vv.56–59</span></a>
+<a href="#s9" style="--c:var(--red)"><span class="n">Ⅸ</span>相互依存の批判<span class="v">vv.60–67</span></a>
+<a href="#s10" style="--c:var(--accent)"><span class="n">Ⅹ</span>言葉の意味と物の意味<span class="v">vv.68–70</span></a>
+<a href="#s11" style="--c:var(--red)"><span class="n">Ⅺ</span>批判は空を打つ鞭<span class="v">vv.71–73</span></a>
+<a href="#s12" style="--c:var(--green)"><span class="n">Ⅻ</span>真実と世間の言葉<span class="v">vv.74–76</span></a>
+<a href="#s13" style="--c:var(--green)"><span class="n">ⅩⅢ</span>結論：言葉は実在を語らない<span class="v">vv.77–78</span></a>
+</nav>
+
+<h3>どの部分にどれだけ偈が使われているか</h3>
+<div>
+<div class="bar"><span>Ⅰ 語の種類</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="num">7</span></div>
+<div class="bar"><span>Ⅱ 個物でない</span><div class="track"><div class="fill" style="width:100%"></div></div><span class="num">12</span></div>
+<div class="bar"><span>Ⅲ 心の像</span><div class="track"><div class="fill" style="width:42%"></div></div><span class="num">5</span></div>
+<div class="bar"><span>Ⅳ 排除</span><div class="track"><div class="fill" style="width:58%"></div></div><span class="num">7</span></div>
+<div class="bar"><span>Ⅴ 約定</span><div class="track"><div class="fill" style="width:75%"></div></div><span class="num">9</span></div>
+<div class="bar"><span>Ⅵ 錯誤と効用</span><div class="track"><div class="fill" style="width:92%"></div></div><span class="num">11</span></div>
+<div class="bar"><span>Ⅶ 名の理由</span><div class="track"><div class="fill" style="width:33%"></div></div><span class="num">4</span></div>
+<div class="bar"><span>Ⅷ 所知</span><div class="track"><div class="fill" style="width:33%"></div></div><span class="num">4</span></div>
+<div class="bar"><span>Ⅸ 相互依存</span><div class="track"><div class="fill" style="width:67%"></div></div><span class="num">8</span></div>
+<div class="bar"><span>Ⅹ 語と物</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="num">3</span></div>
+<div class="bar"><span>Ⅺ 批判の退け</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="num">3</span></div>
+<div class="bar"><span>Ⅻ 真実と世間</span><div class="track"><div class="fill" style="width:25%"></div></div><span class="num">3</span></div>
+<div class="bar"><span>ⅩⅢ 結論</span><div class="track"><div class="fill" style="width:17%"></div></div><span class="num">2</span></div>
+</div>
+<p>「言葉の対象は個物ではない」（Ⅱ）と「錯誤なのに役に立つ」（Ⅵ）に，最も多くの偈が使われています。</p>
+
+<!-- ============ I ============ -->
+<h2 id="s1"><span class="no">Ⅰ</span>言葉の6種類と「付託」<span class="vv">vv.1–7</span></h2>
+<p>本書は「それゆえ（de phyir）」という言葉でいきなり始まります。最初に示されるのは，全体の土台になる考え方です。</p>
+<div class="verse-q">本性が互いに異なるものでも，結果などが同じであるのが見られるので，心がそれらを一つのものとして付託し，そのうえで言語活動がはたらく。<span class="src">第1偈（和訳）</span></div>
+<p>「付託（sgro btags）」とは，本当はないものを心がかぶせることです。たとえば，一本一本違う木を「木」という一つの言葉でまとめられるのは，どの木も（日陰を作る，薪になる等）似た結果をもたらすので，心が「同じもの」とみなしているからだ，というわけです。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 230" role="img" aria-label="別々の個物が心の付託で一つの言葉にまとめられる図">
+  <g>
+    <circle cx="70" cy="45" r="22" class="box-b"/><text x="70" y="50" text-anchor="middle" font-size="13">個物A</text>
+    <circle cx="70" cy="115" r="22" class="box-b"/><text x="70" y="120" text-anchor="middle" font-size="13">個物B</text>
+    <circle cx="70" cy="185" r="22" class="box-b"/><text x="70" y="190" text-anchor="middle" font-size="13">個物C</text>
+  </g>
+  <text x="70" y="225" text-anchor="middle" font-size="12" class="soft">本性はそれぞれ別</text>
+  <path d="M95 45 L205 105 M95 115 L205 115 M95 185 L205 125" class="ln"/>
+  <rect x="210" y="85" width="140" height="60" rx="6" class="box"/>
+  <text x="280" y="110" text-anchor="middle" font-size="13">似た結果が</text>
+  <text x="280" y="130" text-anchor="middle" font-size="13">見られる</text>
+  <path d="M350 115 L395 115" class="ln-acc"/><path d="M389 109 L397 115 L389 121" class="ln-acc"/>
+  <rect x="400" y="80" width="110" height="70" rx="6" class="box-a"/>
+  <text x="455" y="108" text-anchor="middle" font-size="14" class="acc">心が「一つ」</text>
+  <text x="455" y="130" text-anchor="middle" font-size="14" class="acc">と付託</text>
+  <path d="M510 115 L545 115" class="ln-acc"/><path d="M539 109 L547 115 L539 121" class="ln-acc"/>
+  <rect x="550" y="92" width="80" height="46" rx="23" class="box-g"/>
+  <text x="590" y="120" text-anchor="middle" font-size="15" class="t-g">「木」</text>
+</svg></div>
+<figcaption>図1　別々の個物が，心のはたらきによって一つの言葉にまとめられる（第1偈）</figcaption>
+</figure>
+
+<p>続く第2〜7偈では，この「まとめ方」の違いによって，言葉が6種類に分けられています。</p>
+<div class="table-wrap"><table>
+<tr><th>種類</th><th>何を一つにまとめるか</th><th>例（本文）</th><th class="c">偈</th></tr>
+<tr><td>① 集合の語</td><td>同時に集まって一つのはたらきをするもの</td><td>家・軍隊・森</td><td class="c">2</td></tr>
+<tr><td>② 類（jāti）の語</td><td>時を隔てても，分別の上で同じ結果をもたらすもの</td><td>楽・苦など</td><td class="c">3</td></tr>
+<tr><td>③ 相続の語</td><td>順々につながって生じるもの</td><td>流れ</td><td class="c">4</td></tr>
+<tr><td>④ 状態の語</td><td>一つのものを，心が部分（局面）に分けたもの</td><td>存続・生起・壊滅</td><td class="c">5</td></tr>
+<tr><td>⑤ 単一の物の語</td><td>一つしかない物（時間や部分の違いは無視される）</td><td>太陽・月・虚空</td><td class="c">6</td></tr>
+<tr><td>⑥ 有・無の語</td><td>外界に頼らず，心が構想したもの</td><td>「存在する」「存在しない」など</td><td class="c">7</td></tr>
+</table></div>
+<div class="point"><b>ポイント：</b>どの種類の言葉も，外の世界をそのまま写しているのではない。心がまとめたり分けたりしたものを語っている。</div>
+
+<!-- ============ II ============ -->
+<h2 id="s2"><span class="no">Ⅱ</span>言葉は個物そのものを捉えない<span class="vv">vv.8–19</span></h2>
+<p>仏教論理学では，認識の手段を二つに分けます。<b>知覚</b>（目で見るなど）と，言葉や推理のような<b>分別</b>（概念による認識）です。この部では，言葉がとらえているのは知覚がとらえる「個物そのもの」（自相，svalakṣaṇa）ではない，ということが論じられます。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 260" role="img" aria-label="知覚と言葉の認識の比較図">
+  <rect x="250" y="95" width="140" height="70" rx="8" class="box-b"/>
+  <text x="320" y="125" text-anchor="middle" font-size="15" class="t-b">個物（自相）</text>
+  <text x="320" y="147" text-anchor="middle" font-size="12" class="soft">例：目の前のこの牛</text>
+  <!-- left: perception -->
+  <rect x="20" y="20" width="180" height="70" rx="8" class="box-g"/>
+  <text x="110" y="48" text-anchor="middle" font-size="15" class="t-g">知覚</text>
+  <text x="110" y="70" text-anchor="middle" font-size="12">単一のありのままの姿</text>
+  <path d="M200 70 L250 110" class="ln-acc"/><path d="M241 110 L251 111 L247 101" class="ln-acc"/>
+  <text x="200" y="110" text-anchor="end" font-size="11" class="soft">直接とらえる</text>
+  <!-- right: word -->
+  <rect x="440" y="20" width="180" height="70" rx="8" class="box-r"/>
+  <text x="530" y="48" text-anchor="middle" font-size="15" class="t-r">言葉の認識</text>
+  <text x="530" y="70" text-anchor="middle" font-size="12">「行為者」「牛」など多様な形</text>
+  <path d="M440 70 L390 110" class="ln-red dash"/>
+  <text x="430" y="115" font-size="20" class="t-r">✕</text>
+  <text x="455" y="115" font-size="11" class="soft">届かない</text>
+  <!-- bottom -->
+  <rect x="440" y="180" width="180" height="60" rx="8" class="box-a"/>
+  <text x="530" y="205" text-anchor="middle" font-size="13" class="acc">分別が付託した像</text>
+  <text x="530" y="225" text-anchor="middle" font-size="12">（言葉の本当の対象）</text>
+  <path d="M530 90 L530 175" class="ln-acc"/><path d="M524 169 L530 177 L536 169" class="ln-acc"/>
+</svg></div>
+<figcaption>図2　知覚は個物を直接とらえるが，言葉の認識は分別が作った像をとらえる（第10〜13偈）</figcaption>
+</figure>
+
+<h3>感覚の対象が言葉の対象ではない理由（第10〜12偈）</h3>
+<div class="table-wrap"><table>
+<tr><th>理由</th><th>説明</th><th class="c">偈</th></tr>
+<tr><td>① 対象がなくても現れる</td><td>目の前に牛がいなくても，「牛」と聞けば牛の像が浮かぶ</td><td class="c">10</td></tr>
+<tr><td>② 別のものとしてとらえられる</td><td>見ているときの姿と，言葉で思い浮かべる姿は違う</td><td class="c">10</td></tr>
+<tr><td>③ 知覚は一つの姿，言葉は多様な姿</td><td>見るときは単一の姿だが，言葉が加わると「行為者」などいろいろな枠にはめてとらえる</td><td class="c">11</td></tr>
+<tr><td>④ 味わいと言葉は別</td><td>舌が味わう甘さと，「甘い」という言葉が伝える内容は同じではない</td><td class="c">12</td></tr>
+</table></div>
+
+<h3>「牛を見よ」という反論（第14〜16偈）</h3>
+<div class="dialog">
+<div class="q"><b>反論者</b>「牛を見よ」と言えば，人は実際に目でその牛を見る。だから言葉の認識は，個物そのものを目指しているのではないか。</div>
+<div class="a"><b>著者</b>「見よ」という言葉は，「見ることができるよ」と示して，聞き手に見たい気持ちを起こさせるだけだ。見るのは目（知覚）の仕事である。</div>
+<div class="a"><b>著者</b>もし言葉だけで牛の姿がはっきり分かるなら，「牛」と聞いた時点で，わざわざ見る必要はなくなるはずだ。</div>
+</div>
+
+<h3>なぜ人は混同するのか（第17〜19偈）</h3>
+<p>私たちはふだん，物を<b>見ながら</b>言葉を口にします。そのため，「見たもの」と「言葉でかぶせたもの」の区別がつかなくなります。本文は，そういう人を「愚かで心の揺れ動く人々」と呼んでいます。</p>
+
+<!-- ============ III ============ -->
+<h2 id="s3"><span class="no">Ⅲ</span>言葉の対象は「心の中の像」<span class="vv">vv.20–24</span></h2>
+<p>では，話し手と聞き手は何をやり取りしているのでしょうか。著者の答えは，「お互いの心に現れている，よく似た像」です。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 275" role="img" aria-label="話し手と聞き手の心の像と外界の関係図">
+  <rect x="20" y="30" width="170" height="110" rx="10" class="box"/>
+  <text x="105" y="55" text-anchor="middle" font-size="14">話し手の心</text>
+  <rect x="55" y="70" width="100" height="50" rx="25" class="box-a"/>
+  <text x="105" y="100" text-anchor="middle" font-size="13" class="acc">牛の像</text>
+  <rect x="450" y="30" width="170" height="110" rx="10" class="box"/>
+  <text x="535" y="55" text-anchor="middle" font-size="14">聞き手の心</text>
+  <rect x="485" y="70" width="100" height="50" rx="25" class="box-a"/>
+  <text x="535" y="100" text-anchor="middle" font-size="13" class="acc">牛の像</text>
+  <path d="M190 85 L450 85" class="ln-acc"/><path d="M443 79 L451 85 L443 91" class="ln-acc"/>
+  <rect x="270" y="65" width="100" height="36" rx="18" class="box-g"/>
+  <text x="320" y="89" text-anchor="middle" font-size="14" class="t-g">「牛」</text>
+  <text x="320" y="125" text-anchor="middle" font-size="12" class="soft">似た像が伝わる（第20・24偈）</text>
+  <rect x="200" y="180" width="240" height="50" rx="8" class="box-b dash"/>
+  <text x="320" y="210" text-anchor="middle" font-size="13" class="t-b">外界の牛（あってもなくても）</text>
+  <path d="M105 140 L200 195" class="ln dash"/><path d="M535 140 L440 195" class="ln dash"/>
+  <text x="320" y="258" text-anchor="middle" font-size="11" class="soft">心の像を外界の牛と同じだと思い込む（第21偈）</text>
+</svg></div>
+<figcaption>図3　言葉が運ぶのは心の中の像。それを外界の物と同じだと思い込むのは錯覚（第20〜24偈）</figcaption>
+</figure>
+
+<div class="table-wrap"><table>
+<tr><th>約定（言葉の取り決め）の対象の候補</th><th>可能か</th><th>理由</th><th class="c">偈</th></tr>
+<tr><td>個物（自相）</td><td class="c">✕</td><td>無限にあり，言葉では表しきれない</td><td class="c">22</td></tr>
+<tr><td>実在する普遍</td><td class="c">✕</td><td>実際に心に現れているのは像であって，普遍ではない</td><td class="c">22</td></tr>
+<tr><td>心の中の像（認識の対象）</td><td class="c">○</td><td>話し手にも聞き手にも現れ，共有できる</td><td class="c">23</td></tr>
+</table></div>
+<div class="point"><b>喩え（第21偈）：</b>眼病（timira）のある人には，空中に毛のようなものが見えます。本人はそれが外にあると思い込んでいます。同じように，人は自分の心に現れた像を，外界の物と同一だと思い込んでいるのです。</div>
+
+<!-- ============ IV ============ -->
+<h2 id="s4"><span class="no">Ⅳ</span>意味とは「排除」である<span class="vv">vv.25–31</span></h2>
+<p>ここで本書の中心となる考えが出てきます。心の中の像は，「〜でないもの」から区別されることで形が決まる，というのです。「牛」の意味は，「牛でないもの（馬・象・木・石…）」をすべて除いたところに成り立ちます。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 270" role="img" aria-label="牛でないものを排除して牛の意味が成り立つ図">
+  <rect x="20" y="20" width="600" height="230" rx="12" class="box-r"/>
+  <text x="40" y="45" font-size="14" class="t-r">「牛でないもの」</text>
+  <text x="70" y="90" font-size="13" class="soft">馬</text>
+  <text x="520" y="80" font-size="13" class="soft">象</text>
+  <text x="80" y="210" font-size="13" class="soft">木</text>
+  <text x="530" y="215" font-size="13" class="soft">石</text>
+  <text x="300" y="235" font-size="13" class="soft">水牛</text>
+  <ellipse cx="320" cy="135" rx="150" ry="75" class="box-a"/>
+  <text x="320" y="125" text-anchor="middle" font-size="16" class="acc">「牛」の意味</text>
+  <text x="320" y="150" text-anchor="middle" font-size="12">＝ 牛でないものから</text>
+  <text x="320" y="168" text-anchor="middle" font-size="12">排除されたもの</text>
+  <path d="M95 90 L175 120" class="ln-red"/><path d="M168 113 L178 121 L166 125" class="ln-red"/>
+  <path d="M515 85 L462 110" class="ln-red"/><path d="M466 103 L460 112 L471 112" class="ln-red"/>
+  <text x="120" y="80" font-size="11" class="t-r">除く</text>
+</svg></div>
+<figcaption>図4　アポーハ（他の排除）：「牛でないもの」を除くことで「牛」の意味が定まる（第25偈）</figcaption>
+</figure>
+
+<h3>排除の組み合わせで意味が細かくなる（第26〜27偈）</h3>
+<p>排除はいくつも重ねることができます。その組み合わせによって，「限定するもの」と「限定されるもの」の関係が生まれます。</p>
+<div class="table-wrap"><table>
+<tr><th>言葉</th><th>何を排除しているか</th><th>役割</th></tr>
+<tr><td>「青い」</td><td>青でないもの（黄・赤…）</td><td>限定するもの（形容）</td></tr>
+<tr><td>「蓮」</td><td>蓮でないもの（百合・岩…）</td><td>限定されるもの</td></tr>
+<tr><td>「青い蓮」</td><td>両方の排除が重なる</td><td>より狭い意味</td></tr>
+</table></div>
+<p class="verse-q" style="font-size:.85rem">※この表の「青い蓮」の例は，アポーハ論でよく使われる例を説明のために補ったもので，本書の本文にはありません。</p>
+
+<h3>「多くのものからの排除」への反論（第28〜31偈）</h3>
+<div class="dialog">
+<div class="q"><b>反論者</b>「牛でないもの」は無数にある。そんなにたくさんのものからの排除に，どうして「牛」という一つの言葉を当てられるのか。</div>
+<div class="a"><b>著者</b>よく考えていない反論だ。排除は青や黄のように一つずつ別々に心に現れるのではない。「すべてから排除されたもの」という<b>一つの像</b>として現れるのだ（第29・31偈）。</div>
+</div>
+
+<!-- ============ V ============ -->
+<h2 id="s5"><span class="no">Ⅴ</span>言葉の約束事はどう覚えるのか<span class="vv">vv.32–40</span></h2>
+<p>ここでは，言葉と意味の結びつきは永遠に決まっている，と考える学派（ミーマーンサー学派と思われます）との論争が扱われます。</p>
+<div class="dialog">
+<div class="q"><b>反論者</b>（第32〜33偈）子供は世界中の牛を全部見たわけではない。それなのに「牛」という言葉を使えるようになる。それは，言葉と「牛性」の結びつきが初めから永遠に決まっているからだ。</div>
+<div class="a"><b>著者</b>（第33偈）それは正しくない。子供は経験の積み重ねで，自分で約束事を確かめていくのだ。</div>
+</div>
+
+<h3>経験から約定を学ぶしくみ（第34〜35偈）</h3>
+<p>著者が示すのは，「随伴（anvaya）」と「排除（vyatireka）」という二つの観察です。</p>
+<div class="table-wrap"><table>
+<tr><th>観察</th><th>そのものが近くにある</th><th>そのものが近くにない</th><th>学ぶこと</th></tr>
+<tr><td>随伴（anvaya）</td><td class="c">「牛」と言われて分かる ○</td><td class="c">—</td><td>あるときは言葉が当てはまる</td></tr>
+<tr><td>排除（vyatireka）</td><td class="c">—</td><td class="c">「牛」が当てはまらない ✕</td><td>ないときは当てはまらない</td></tr>
+</table></div>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 150" role="img" aria-label="子供が約定を学ぶ流れ">
+  <rect x="10" y="45" width="130" height="60" rx="8" class="box-b"/>
+  <text x="75" y="70" text-anchor="middle" font-size="13">見る・聞く</text>
+  <text x="75" y="90" text-anchor="middle" font-size="11" class="soft">牛と「牛」の声</text>
+  <path d="M140 75 L175 75" class="ln-acc"/><path d="M169 69 L177 75 L169 81" class="ln-acc"/>
+  <rect x="180" y="45" width="130" height="60" rx="8" class="box-b"/>
+  <text x="245" y="70" text-anchor="middle" font-size="13">くり返し</text>
+  <text x="245" y="90" text-anchor="middle" font-size="11" class="soft">ある時・ない時</text>
+  <path d="M310 75 L345 75" class="ln-acc"/><path d="M339 69 L347 75 L339 81" class="ln-acc"/>
+  <rect x="350" y="45" width="130" height="60" rx="8" class="box-a"/>
+  <text x="415" y="70" text-anchor="middle" font-size="13" class="acc">約定を確定</text>
+  <text x="415" y="90" text-anchor="middle" font-size="11" class="soft">第34偈</text>
+  <path d="M480 75 L515 75" class="ln-acc"/><path d="M509 69 L517 75 L509 81" class="ln-acc"/>
+  <rect x="520" y="45" width="110" height="60" rx="8" class="box-g"/>
+  <text x="575" y="70" text-anchor="middle" font-size="13" class="t-g">言葉だけで</text>
+  <text x="575" y="90" text-anchor="middle" font-size="13" class="t-g">思い出せる</text>
+  <text x="575" y="130" text-anchor="middle" font-size="11" class="soft">煙→火のように（第39偈）</text>
+</svg></div>
+<figcaption>図5　約定（言葉の取り決め）は経験の積み重ねで身につく</figcaption>
+</figure>
+
+<div class="table-wrap"><table>
+<tr><th>トピック</th><th>本文の説明</th><th class="c">偈</th></tr>
+<tr><td>約定の種子</td><td>すべての人の心に約定の「種子」があり，心が熟したときに理解が生まれる</td><td class="c">36</td></tr>
+<tr><td>他人への伝達</td><td>自分で決めた約定を「しるし」として他人に示す</td><td class="c">37</td></tr>
+<tr><td>習熟した人</td><td>言葉を聞いただけで意味を思い出す。煙を見て火を思い出すのと同じ</td><td class="c">39</td></tr>
+<tr><td>見えないもの</td><td>「天界」のような見えないものは，見える特徴を示して名づける</td><td class="c">40</td></tr>
+</table></div>
+
+<!-- ============ VI ============ -->
+<h2 id="s6"><span class="no">Ⅵ</span>錯誤なのに役に立つ<span class="vv">vv.41–51</span></h2>
+<p>言葉が心の像しか語らないのなら，言葉による理解はすべて「錯誤」です。著者はそれをはっきり認めます（第41偈）。では，なぜ言葉を頼りに行動してもうまくいくのでしょうか。答えは，<b>間接的に現実とつながっている錯誤は，人を欺かない</b>，というものです（第42偈）。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 250" role="img" aria-label="宝石の光と灯火の光の喩えの図">
+  <text x="160" y="25" text-anchor="middle" font-size="14" class="t-g">ケース A：宝石の光</text>
+  <text x="480" y="25" text-anchor="middle" font-size="14" class="t-r">ケース B：灯火の光</text>
+  <line x1="320" y1="15" x2="320" y2="240" class="ln dash"/>
+  <!-- A -->
+  <circle cx="70" cy="110" r="22" class="box-a"/><text x="70" y="115" text-anchor="middle" font-size="12">人</text>
+  <ellipse cx="250" cy="110" rx="45" ry="28" class="box-b"/><text x="250" y="105" text-anchor="middle" font-size="12">宝石の</text><text x="250" y="122" text-anchor="middle" font-size="12">光</text>
+  <path d="M92 110 L200 110" class="ln-acc"/><path d="M194 104 L202 110 L194 116" class="ln-acc"/>
+  <text x="146" y="100" text-anchor="middle" font-size="11" class="soft">「宝石だ」</text>
+  <text x="160" y="175" text-anchor="middle" font-size="13">認識：誤り（光≠宝石）</text>
+  <text x="160" y="200" text-anchor="middle" font-size="13" class="t-g">結果：宝石が手に入る ○</text>
+  <!-- B -->
+  <circle cx="390" cy="110" r="22" class="box-a"/><text x="390" y="115" text-anchor="middle" font-size="12">人</text>
+  <ellipse cx="570" cy="110" rx="45" ry="28" class="box-r"/><text x="570" y="105" text-anchor="middle" font-size="12">灯火の</text><text x="570" y="122" text-anchor="middle" font-size="12">光</text>
+  <path d="M412 110 L520 110" class="ln-acc"/><path d="M514 104 L522 110 L514 116" class="ln-acc"/>
+  <text x="466" y="100" text-anchor="middle" font-size="11" class="soft">「宝石だ」</text>
+  <text x="480" y="175" text-anchor="middle" font-size="13">認識：誤り（光≠宝石）</text>
+  <text x="480" y="200" text-anchor="middle" font-size="13" class="t-r">結果：宝石はない ✕</text>
+</svg></div>
+<figcaption>図6　宝石の光と灯火の光（第43偈）。どちらも誤った認識だが，宝石の光は宝石とつながっているので，目的が達成される</figcaption>
+</figure>
+<p>この喩えはダルマキールティ『プラマーナ・ヴァールッティカ』にほぼ同じ文で出てきます。著者はそれを引用して，言葉による認識を「宝石の光」の側に位置づけています。</p>
+
+<div class="table-wrap"><table>
+<tr><th></th><th>言葉による理解</th><th>宝石の光を宝石と思う</th></tr>
+<tr><td>認識は正しいか</td><td>✕ 心の像を外界だと思い込んでいる</td><td>✕ 光を宝石だと思い込んでいる</td></tr>
+<tr><td>現実とのつながり</td><td>○ 像はもともと個物の知覚から生まれた</td><td>○ 光は宝石から出ている</td></tr>
+<tr><td>行動の結果</td><td>○ 実際の物にたどり着ける</td><td>○ 宝石にたどり着ける</td></tr>
+</table></div>
+
+<h3>同じ言葉でも人によって理解が違う理由（第46〜51偈）</h3>
+<div class="table-wrap"><table>
+<tr><th>現象</th><th>著者の説明</th><th class="c">偈</th></tr>
+<tr><td>言葉で「ある」「ない」と言える</td><td>肯定も否定も，心が示した像に対してなされている。外界に対してではない</td><td class="c">46</td></tr>
+<tr><td>同じ物が「一つ」にも「多」にも見える</td><td>受け取る側の条件しだい。近くの色に染まる水晶のように</td><td class="c">48</td></tr>
+<tr><td>学派ごとに解釈が違う</td><td>一つの物に対して，論師ごとに理解が分かれる</td><td class="c">49</td></tr>
+<tr><td>それでも会話が通じる</td><td>話し手と聞き手が同じ「錯誤の種子」（習慣）を共有しているから</td><td class="c">50–51</td></tr>
+</table></div>
+
+<!-- ============ VII ============ -->
+<h2 id="s7"><span class="no">Ⅶ</span>なぜ「他の排除」と呼ぶのか<span class="vv">vv.52–55</span></h2>
+<p>人は心の中の像を「普遍」や「特殊」だと思い込みます。しかし実際には，その像は「他のものから排除されたもの」という形で現れています。だから「他の排除（anyāpoha）」と呼ぶのだ，と著者は説明します（第53偈）。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 170" role="img" aria-label="言葉の結果として行動するかしないかが決まる図">
+  <rect x="20" y="55" width="150" height="60" rx="8" class="box-g"/>
+  <text x="95" y="82" text-anchor="middle" font-size="14" class="t-g">「水」と聞く</text>
+  <text x="95" y="102" text-anchor="middle" font-size="11" class="soft">これであってあれでない</text>
+  <path d="M170 85 L230 85" class="ln-acc"/><path d="M224 79 L232 85 L224 91" class="ln-acc"/>
+  <rect x="235" y="55" width="150" height="60" rx="8" class="box-a"/>
+  <text x="310" y="82" text-anchor="middle" font-size="13" class="acc">水でないものを</text>
+  <text x="310" y="102" text-anchor="middle" font-size="13" class="acc">断ち切る</text>
+  <path d="M385 75 L450 40" class="ln-acc"/><path d="M442 38 L452 39 L447 48" class="ln-acc"/>
+  <path d="M385 95 L450 130" class="ln-acc"/><path d="M447 122 L452 131 L442 132" class="ln-acc"/>
+  <rect x="455" y="12" width="170" height="50" rx="8" class="box-b"/>
+  <text x="540" y="42" text-anchor="middle" font-size="13">水へ向かう（pravṛtti）</text>
+  <rect x="455" y="108" width="170" height="50" rx="8" class="box-r"/>
+  <text x="540" y="138" text-anchor="middle" font-size="13">砂漠には向かわない</text>
+</svg></div>
+<figcaption>図7　言葉の結果は「向かう／向かわない」という行動（第54偈）。「水」の例は説明のために補ったもの</figcaption>
+</figure>
+<div class="point"><b>ポイント：</b>言葉の役目は，世界を「これ」と「それ以外」に切り分けることです。それによって行動の向きが決まります。つまり，物の一部分（ある一面）だけを示しているのです（第54偈）。</div>
+
+<!-- ============ VIII ============ -->
+<h2 id="s8"><span class="no">Ⅷ</span>「知られるもの」の問題<span class="vv">vv.56–59</span></h2>
+<p>アポーハ論にとって難しい問題があります。「知られるもの（所知，jñeya）」や「存在するもの」のように，<b>すべてを含む言葉</b>です。「知られないもの」は存在しないので，何を排除するのかが問題になります。</p>
+<div class="table-wrap"><table>
+<tr><th>段階</th><th>内容</th><th class="c">偈</th></tr>
+<tr><td>主張</td><td>「所知」も，人々には「非所知から排除されたもの」として現れている。だから所知にもアポーハは成り立つ</td><td class="c">56</td></tr>
+<tr><td>説明</td><td>「非所知」という言葉の意味が，「所知」と矛盾するので排除される。カディラ樹とシンシャパー樹のように</td><td class="c">57</td></tr>
+<tr><td>反論</td><td>非所知という対象は存在しない。存在しないものを排除するとはどういうことか</td><td class="c">58</td></tr>
+<tr><td>答え</td><td>存在しないなら，その「存在しないもの」自体が否定されている。存在しないものの否定も一種の排除であり，論証の根拠にもなる</td><td class="c">58–59</td></tr>
+</table></div>
+<p>ここで大事なのは，排除されるのは外界の「物」ではない，という点です。排除されるのは「非所知」という<b>言葉の意味（心の像）</b>なので，外界に対応物がなくてもかまわないのです。</p>
+
+<!-- ============ IX ============ -->
+<h2 id="s9"><span class="no">Ⅸ</span>「相互依存になる」という批判<span class="vv">vv.60–67</span></h2>
+<p>アポーハ論に対する有名な批判です。クマーリラ（ミーマーンサー学派）などの批判が念頭にあると考えられます。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 230" role="img" aria-label="木と非木の相互依存という批判の図">
+  <text x="160" y="22" text-anchor="middle" font-size="14" class="t-r">反論者の考え</text>
+  <ellipse cx="80" cy="110" rx="60" ry="32" class="box-b"/><text x="80" y="115" text-anchor="middle" font-size="14">木</text>
+  <ellipse cx="240" cy="110" rx="60" ry="32" class="box-r"/><text x="240" y="115" text-anchor="middle" font-size="14">非木</text>
+  <path d="M110 80 Q160 40 210 80" class="ln-red"/><path d="M201 77 L211 81 L208 71" class="ln-red"/>
+  <path d="M210 140 Q160 180 110 140" class="ln-red"/><path d="M119 143 L109 139 L112 149" class="ln-red"/>
+  <text x="160" y="45" text-anchor="middle" font-size="11" class="soft">木を知るには非木が必要</text>
+  <text x="160" y="190" text-anchor="middle" font-size="11" class="soft">非木を知るには木が必要</text>
+  <text x="160" y="215" text-anchor="middle" font-size="13" class="t-r">→ 堂々めぐりで何も決まらない</text>
+  <line x1="320" y1="15" x2="320" y2="225" class="ln dash"/>
+  <text x="480" y="22" text-anchor="middle" font-size="14" class="t-g">著者の答え</text>
+  <rect x="360" y="45" width="240" height="44" rx="8" class="box-a"/>
+  <text x="480" y="72" text-anchor="middle" font-size="13" class="acc">区別は言葉のはたらきによる</text>
+  <rect x="360" y="100" width="240" height="44" rx="8" class="box-g"/>
+  <text x="480" y="127" text-anchor="middle" font-size="13">実在どうしの依存ではない</text>
+  <rect x="360" y="155" width="240" height="44" rx="8" class="box-b"/>
+  <text x="480" y="182" text-anchor="middle" font-size="13">「非木」＝火など具体的な物</text>
+</svg></div>
+<figcaption>図8　「木と非木は互いに依存する」という批判（左）と，それへの答え（右）</figcaption>
+</figure>
+
+<div class="dialog">
+<div class="q"><b>反論者</b>（第60〜61偈前半）「木」が「非木の排除」なら，「木」を知るには「非木」を知っていなければならない。ところが「非木」を知るには「木」を知っていなければならない。これでは堂々めぐりだ。</div>
+<div class="a"><b>著者</b>（第61偈後半〜64偈）約定とは，「異なる種類のもの」を断ち切って「まさにこれ」と示すことだ。それは人をそこへ向かわせるためであり，はっきりした確定に基づいている。文の役目はもともと「排除」にある。</div>
+<div class="a"><b>著者</b>（第65〜67偈）ここで言う区別は言葉のはたらきによるもので，実在する物どうしの区別ではない。付託されたにすぎないものを批判しても意味がない。それに「非木」は，実際には火などの具体的な物として排除されるのだから，相互依存にはならない。</div>
+</div>
+
+<!-- ============ X ============ -->
+<h2 id="s10"><span class="no">Ⅹ</span>言葉の意味と物の意味は別<span class="vv">vv.68–70</span></h2>
+<div class="table-wrap"><table>
+<tr><th></th><th>物の意味（実在）</th><th>言葉の意味</th></tr>
+<tr><td>例</td><td>目の前の木（音を立てる，手触りがある…）</td><td>「木」という言葉が示す像</td></tr>
+<tr><td>文法的な性質</td><td>性・数・格などはない</td><td>性・数・格などが混じり合っている（第69偈）</td></tr>
+<tr><td>とらえ方</td><td>目によって明らかにされる</td><td>言葉によって「人」などとして示される</td></tr>
+<tr><td>両者の関係</td><td colspan="2" class="c">直接の結びつきはない（第68偈）</td></tr>
+</table></div>
+<p>第70偈では，個別の排除は「一つの本性」として理解される，とまとめられます。言葉の意味を「類（普遍）」と「特殊」にわざわざ分けて語る必要はない，ということです。</p>
+
+<!-- ============ XI ============ -->
+<h2 id="s11"><span class="no">Ⅺ</span>批判は「空を打つ鞭」<span class="vv">vv.71–73</span></h2>
+<div class="table-wrap"><table>
+<tr><th>他学派の批判</th><th>著者の応答</th><th class="c">偈</th></tr>
+<tr><td>「他の排除」が意味なら，牛そのものを理解させるには，さらに別の言葉が必要になる</td><td>これまでの説明で退けられた</td><td class="c">71</td></tr>
+<tr><td>「排除」と「排除されたもの」は別か同じか</td><td>別なら批判も当たるが，別ではない。だから別の言葉を想定する必要はない</td><td class="c">72</td></tr>
+<tr><td>そのほかの批判全般</td><td>どれも足場を得ない。空を鞭で打つようなものだ</td><td class="c">73</td></tr>
+</table></div>
+<div class="point"><b>喩え：</b>批判者は「アポーハ＝実在の何か」と思い込んで攻撃しています。しかしアポーハはもともと実在ではないので，攻撃は空を切るだけだ，というわけです。</div>
+
+<!-- ============ XII ============ -->
+<h2 id="s12"><span class="no">Ⅻ</span>真実の立場と世間の言葉<span class="vv">vv.74–76</span></h2>
+<p>ここまでの議論は「真実（kho na nyid）についての考察」でした。しかし日常の言葉づかいまで否定するわけではありません。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 200" role="img" aria-label="真実の立場と世間の言語慣習の二つの層の図">
+  <rect x="20" y="20" width="600" height="70" rx="10" class="box-a"/>
+  <text x="40" y="48" font-size="15" class="acc">真実の立場（第74偈）</text>
+  <text x="40" y="72" font-size="13">言葉は実在を語らない。意味は心の像，アポーハにすぎない</text>
+  <rect x="20" y="110" width="600" height="70" rx="10" class="box-g"/>
+  <text x="40" y="138" font-size="15" class="t-g">世間の言語慣習（第74〜75偈）</text>
+  <text x="40" y="162" font-size="13">人はそれぞれの意図に従い，理解されるとおりに言葉を使ってよい</text>
+  <path d="M600 90 L600 110" class="ln"/>
+</svg></div>
+<figcaption>図9　二つの層。真実の立場を知ったうえで，世間の言葉づかいに従う</figcaption>
+</figure>
+<div class="point"><b>象の目閉じ（gajanimīlikā，第76偈）：</b>象が目を細めて，見ていながら見ないふりをするように，一切智者（ブッダ）も真実を知りながら，世間の言葉に合わせて教えを説く。仏教の「二つの真理」（勝義と世俗）の考え方につながる喩えです。</div>
+
+<!-- ============ XIII ============ -->
+<h2 id="s13"><span class="no">ⅩⅢ</span>結論：言葉は実在を語らない<span class="vv">vv.77–78</span></h2>
+<p>最後の2偈は，長い韻律で全体をまとめています。2つの方向から，言葉と実在がずれていることが示されます。</p>
+
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 260" role="img" aria-label="多くの物を一つの言葉にまとめる場合と一つの物を多くの言葉に分ける場合の図">
+  <text x="160" y="22" text-anchor="middle" font-size="14" class="acc">第77偈：多 → 一</text>
+  <ellipse cx="55" cy="70" rx="44" ry="24" class="box-b"/><text x="55" y="75" text-anchor="middle" font-size="12">カダンバ</text>
+  <ellipse cx="55" cy="135" rx="44" ry="24" class="box-b"/><text x="55" y="140" text-anchor="middle" font-size="12">カルコータ</text>
+  <ellipse cx="55" cy="200" rx="44" ry="24" class="box-b"/><text x="55" y="205" text-anchor="middle" font-size="12">カピッタ</text>
+  <path d="M99 72 L200 130 M99 135 L200 135 M99 198 L200 140" class="ln"/>
+  <rect x="205" y="110" width="95" height="50" rx="25" class="box-g"/>
+  <text x="252" y="140" text-anchor="middle" font-size="14" class="t-g">「木」</text>
+  <text x="160" y="245" text-anchor="middle" font-size="11" class="soft">互いに違う木々を心が一つにまとめる</text>
+  <line x1="320" y1="15" x2="320" y2="250" class="ln dash"/>
+  <text x="480" y="22" text-anchor="middle" font-size="14" class="acc">第78偈：一 → 多</text>
+  <circle cx="380" cy="135" r="32" class="box-b"/><text x="380" y="132" text-anchor="middle" font-size="12">一つの</text><text x="380" y="148" text-anchor="middle" font-size="12">物</text>
+  <path d="M412 125 L500 55 M412 132 L500 105 M412 140 L500 160 M412 148 L500 210" class="ln"/>
+  <rect x="505" y="38" width="115" height="32" rx="16" class="box-g"/><text x="562" y="59" text-anchor="middle" font-size="12" class="t-g">「生じる」</text>
+  <rect x="505" y="89" width="115" height="32" rx="16" class="box-g"/><text x="562" y="110" text-anchor="middle" font-size="12" class="t-g">「滅する」</text>
+  <rect x="505" y="144" width="115" height="32" rx="16" class="box-g"/><text x="562" y="165" text-anchor="middle" font-size="12" class="t-g">「とどまる」</text>
+  <rect x="505" y="194" width="115" height="32" rx="16" class="box-g"/><text x="562" y="215" text-anchor="middle" font-size="12" class="t-g">「色形がある」</text>
+  <text x="480" y="245" text-anchor="middle" font-size="11" class="soft">一つの物を心が多くに分ける</text>
+</svg></div>
+<figcaption>図10　言葉と実在の数は一致しない。だから言葉は実在そのものを語ってはいない（第77〜78偈）。木の名前の比定は試案</figcaption>
+</figure>
+<div class="verse-q">……本性の異なる言葉を用いる。それゆえ，言葉は実在を語らないのである。<span class="src">第78偈（和訳）</span></div>
+
+<h2 id="review">全体のふりかえり</h2>
+<figure>
+<div class="figscroll"><svg viewBox="0 0 640 330" role="img" aria-label="議論の流れ全体の図">
+  <rect x="200" y="10" width="240" height="46" rx="8" class="box-b"/><text x="320" y="38" text-anchor="middle" font-size="13">Ⅰ〜Ⅲ　言葉の対象は心の像</text>
+  <path d="M320 56 L320 76" class="ln-acc"/><path d="M314 70 L320 78 L326 70" class="ln-acc"/>
+  <rect x="200" y="80" width="240" height="46" rx="8" class="box-a"/><text x="320" y="108" text-anchor="middle" font-size="13" class="acc">Ⅳ・Ⅶ　その像は「他の排除」</text>
+  <path d="M320 126 L320 146" class="ln-acc"/><path d="M314 140 L320 148 L326 140" class="ln-acc"/>
+  <rect x="200" y="150" width="240" height="46" rx="8" class="box-a"/><text x="320" y="178" text-anchor="middle" font-size="13" class="acc">Ⅵ・Ⅹ　錯誤だが役に立つ</text>
+  <path d="M320 196 L320 216" class="ln-acc"/><path d="M314 210 L320 218 L326 210" class="ln-acc"/>
+  <rect x="200" y="220" width="240" height="46" rx="8" class="box-g"/><text x="320" y="248" text-anchor="middle" font-size="13" class="t-g">Ⅻ　真実と世間の二層</text>
+  <path d="M320 266 L320 280" class="ln-acc"/><path d="M314 274 L320 282 L326 274" class="ln-acc"/>
+  <rect x="200" y="284" width="240" height="40" rx="20" class="box-g"/><text x="320" y="309" text-anchor="middle" font-size="13" class="t-g">ⅩⅢ　言葉は実在を語らない</text>
+  <rect x="10" y="95" width="160" height="150" rx="8" class="box-r"/>
+  <text x="90" y="120" text-anchor="middle" font-size="13" class="t-r">反論への応答</text>
+  <text x="90" y="148" text-anchor="middle" font-size="12">Ⅴ 関係は常住か</text>
+  <text x="90" y="172" text-anchor="middle" font-size="12">Ⅷ 所知の問題</text>
+  <text x="90" y="196" text-anchor="middle" font-size="12">Ⅸ 相互依存</text>
+  <text x="90" y="220" text-anchor="middle" font-size="12">Ⅺ その他の批判</text>
+  <path d="M170 170 L198 150" class="ln-red dash"/>
+  <rect x="470" y="95" width="160" height="150" rx="8" class="box"/>
+  <text x="550" y="120" text-anchor="middle" font-size="13">主な喩え</text>
+  <text x="550" y="148" text-anchor="middle" font-size="12">眼病者の見る毛（21）</text>
+  <text x="550" y="172" text-anchor="middle" font-size="12">煙と火（39）</text>
+  <text x="550" y="196" text-anchor="middle" font-size="12">宝石と灯火の光（43）</text>
+  <text x="550" y="220" text-anchor="middle" font-size="12">象の目閉じ（76）</text>
+</svg></div>
+<figcaption>図11　議論の流れ（中央）と，それを支える反論への応答（左）・喩え（右）</figcaption>
+</figure>
+
+<h3>用語集</h3>
+<div class="table-wrap"><table>
+<tr><th>用語</th><th>チベット語</th><th>サンスクリット</th><th>意味</th></tr>
+<tr><td>他の排除</td><td>gzhan sel</td><td>anyāpoha</td><td>「〜でないもの」を除くことで成り立つ言葉の意味</td></tr>
+<tr><td>自相</td><td>rang gi mtshan nyid</td><td>svalakṣaṇa</td><td>その物だけがもつ個別の姿。知覚の対象</td></tr>
+<tr><td>普遍</td><td>spyi</td><td>sāmānya</td><td>多くの物に共通するとされるもの（例：牛性）</td></tr>
+<tr><td>分別</td><td>rnam rtog</td><td>vikalpa</td><td>言葉や概念によって考える心のはたらき</td></tr>
+<tr><td>付託</td><td>sgro btags</td><td>āropa</td><td>実際にはないものを心がかぶせること</td></tr>
+<tr><td>約定</td><td>brda</td><td>saṅketa</td><td>言葉と意味の取り決め</td></tr>
+<tr><td>言語活動</td><td>tha snyad</td><td>vyavahāra</td><td>日常の言葉づかい・世間の慣習</td></tr>
+<tr><td>目的のはたらき</td><td>don byed</td><td>arthakriyā</td><td>物が実際に役に立つはたらき（水が渇きをいやす等）</td></tr>
+<tr><td>習気</td><td>bag chags</td><td>vāsanā</td><td>過去の経験が心に残した癖・潜在的な力</td></tr>
+<tr><td>随伴・排除</td><td>rjes 'gro・ldog pa</td><td>anvaya・vyatireka</td><td>「あればある」「なければない」という観察</td></tr>
+</table></div>
+
+<div class="foot">
+・本ページの区分・和訳・解釈は，チベット語訳テキストに基づく試案です。とくに第22・38・47・61〜62・68偈などは解釈が分かれる可能性があります。<br>
+・「青い蓮」「水」などの例は，理解を助けるために補ったもので，本書の本文にはありません。<br>
+・偈ごとの全文・還元サンスクリット・和訳は「<a href="anyapohavicarakarika_outline.html">目次・科段・和訳</a>」をご覧ください。
+</div>
+
+</main>
+</body>
+</html>
