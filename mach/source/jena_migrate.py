@@ -35,7 +35,7 @@ def read_ocr(n):
         m = re.match(r'^— (\d+) —$', s)
         if m:
             page = int(m.group(1)); pending_page = page; continue
-        if (not s or s.startswith('END_OF_PAGE') or re.match(r'^\d+\*?$', s)
+        if (not s or s.startswith('END_OF_PAGE') or s.startswith('OCR done') or re.match(r'^\d+\*?$', s)
                 or s.startswith('Mach, Analyse') or re.match(r'^\.?\s*[\dIl]{1,2}\.$', s)):
             continue
         fm = re.match(r'^Fig\. (\d+)\.?$', s)
@@ -214,6 +214,70 @@ def strip_src_markers(de):
     return ''.join(out)
 
 
+KEEP_HYPHEN_NEXT = {'und', 'oder', 'bis', 'als', 'sowie', 'resp.', 'bzw.', 'noch', 'wie'}
+
+
+def autofix(items, otoks, note_texts, log):
+    """Pre-pass: repair hyphenation debris in the old German and insert
+    passages that exist only in the Jena text."""
+    stoks, sref = [], []
+    for ii, it in enumerate(items):
+        if it[0] == 'pair':
+            for t in it[1].split():
+                stoks.append(t); sref.append(ii)
+    A = [norm(t) for t in otoks]
+    Ai = [i for i, t in enumerate(A) if t and not re.fullmatch(r'(\*|\d{1,2})\)', t)]
+    B = [norm(t) for t in stoks]
+    sm = difflib.SequenceMatcher(None, [A[i] for i in Ai], B, autojunk=False)
+    repl = {}           # source token index -> replacement string ('' = drop)
+    inserts = []        # (after_source_token_index, ocr text)
+    notes_flat = norm(' '.join(note_texts))
+    for op, a1, a2, b1, b2 in sm.get_opcodes():
+        if op == 'equal':
+            continue
+        oseg = [otoks[Ai[k]] for k in range(a1, a2)]
+        sseg = stoks[b1:b2]
+        ojoin, sjoin = norm(''.join(oseg)), norm(''.join(sseg))
+        # 1) hyphenation debris in the source ("ge-ringerem", "Vor- stellungen")
+        if (sseg and oseg and '\\' not in ojoin and '-' in sjoin
+                and sjoin.replace('-', '') == ojoin.replace('-', '')
+                and not any(t.endswith('-') and i + 1 < len(sseg) and sseg[i + 1] in KEEP_HYPHEN_NEXT
+                            for i, t in enumerate(sseg))):
+            for k in range(b1, b2):
+                repl[k] = ''
+            repl[b1] = ' '.join(oseg)
+            log.append('Silbentrennung behoben: „%s“ → „%s“' % (' '.join(sseg), ' '.join(oseg)))
+            continue
+        # 2) passage present only in Jena
+        if a2 - a1 >= 8 and (b2 - b1) <= 2 and '\\' not in ''.join(oseg):
+            text = ' '.join(oseg)
+            probe = norm(' '.join(oseg[: min(12, len(oseg))]))
+            if probe and probe in notes_flat:
+                log.append('Fußnotenüberlauf im OCR ignoriert: „%s …“' % text[:60]); continue
+            # keep the source tokens of a 'replace' (usually the paragraph's last word)
+            inserts.append((b1 - 1 if b1 > 0 else 0, text, b2 - b1))
+            log.append('FEHLTE in der alten Fassung, aus Jena eingefügt (%d Wörter): „%s …“' % (a2 - a1, text[:80]))
+    if not repl and not inserts:
+        return items
+    # rebuild items
+    per_item = {}
+    for j, t in enumerate(stoks):
+        r = repl.get(j, t)
+        if r:
+            per_item.setdefault(sref[j], []).append(r)
+    new_items, extra = [], {}
+    for after, text, nsrc in inserts:
+        ii = sref[after] if stoks else 0
+        extra.setdefault(ii, []).append(text)
+    for ii, it in enumerate(items):
+        if it[0] != 'pair':
+            new_items.append(it); continue
+        new_items.append(['pair', ' '.join(per_item.get(ii, [])), it[2]])
+        for text in extra.get(ii, []):
+            new_items.append(['pair', text, ['〔未訳〕']])
+    return new_items
+
+
 def migrate(n):
     title, otext, onotes, ofigs = read_ocr(n)
     otoks, opbs = tokenize_ocr(otext)
@@ -222,6 +286,8 @@ def migrate(n):
     for it in items:
         if it[0] == 'pair':
             it[1] = strip_src_markers(it[1])
+    fixlog = []
+    items = autofix(items, otoks, [s for _, s in onotes], fixlog)
 
     stoks, sref = [], []
     for ii, it in enumerate(items):
@@ -304,7 +370,7 @@ def migrate(n):
             used.add(best)
             sde, sjp = snotes[best]
             de = sde if br >= 0.9 else o
-            notes_out.append((de, sjp or '〔未訳〕'))
+            notes_out.append((de, re.sub(r'【[補移]】', '', sjp) or '〔未訳〕'))
             if norm(o).split() != norm(sde).split():
                 note_rep.append('- Anm. %d (S. %d, Ähnlichkeit %.2f)\n  OCR: %s\n  SRC: %s' % (idx, pg, br, o[:600], sde[:600]))
         else:
@@ -325,7 +391,7 @@ def migrate(n):
         if it[0] == 'sec':
             lines += ['§%d' % it[1], '']; continue
         de = ' '.join(new_tokens.get(ii, []))
-        jps = [re.sub(r'\s?[¹²³⁴⁵⁶⁷⁸⁹⁰]+⁾', '', j) for j in it[2]] or ['〔未訳〕']
+        jps = [re.sub(r'【[補移]】|\s?[¹²³⁴⁵⁶⁷⁸⁹⁰]+[⁾)）]', '', j) for j in it[2]] or ['〔未訳〕']
         for d, j in zip(split_de(de, jps), jps):
             refs = re.findall(r'\[\^(\d+)\]', d)
             lines += [d if d else '〔—〕', '', place_jp_refs(d, j, refs), '']
@@ -348,6 +414,7 @@ def migrate(n):
            'Absätze: %d | Anm. (OCR): %d | Verweise (OCR-Text, inkl. Titel): %d | alte Anm.: %d'
            % (n_par, len(onotes), n_refs, len(snotes))]
     rep += ['Struktur: ' + x for x in issues] + ['Position: ' + x for x in report_pos]
+    rep += ['Autofix: ' + x for x in fixlog]
     rep += ['', '## Textdifferenzen (OCR | Quelle)']
     for op, a1, a2, b1, b2 in ops:
         if op == 'equal':
