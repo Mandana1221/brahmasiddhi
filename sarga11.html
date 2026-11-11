@@ -1,6 +1,11 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Kirātārjunīya 対訳 第十一章</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Noto+Serif+Devanagari:wght@400;600&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap');
 
   :root {
     --bg: #faf8f3;
@@ -231,16 +236,78 @@
   .sarga-nav .nav-next {
     text-align: right;
   }
+
+  /* ---- 読みやすさ・文字切替（2026-11 改訂） ---- */
+  html { -webkit-text-size-adjust: 100%; }
+  body { max-width: 1000px; padding: 0 1.1rem 3rem; font-size: 16px; }
+  .topbar {
+    position: sticky; top: 0; z-index: 20;
+    display: flex; align-items: center; justify-content: space-between; gap: .75rem; flex-wrap: wrap;
+    margin: 0 -1.1rem 1.5rem; padding: .55rem 1.1rem;
+    background: var(--bg); border-bottom: 1px solid var(--border-light);
+    font-size: .85rem;
+  }
+  .topbar nav { display: flex; gap: 1.1rem; flex-wrap: wrap; }
+  .topbar a { color: var(--accent); text-decoration: none; }
+  .topbar a:hover { text-decoration: underline; }
+  .seg { display: inline-flex; border: 1px solid var(--border); border-radius: 6px; overflow: hidden; }
+  .seg button {
+    font: inherit; font-size: .8rem; line-height: 1.4; padding: .28rem .75rem;
+    background: transparent; color: var(--text-secondary); border: 0; cursor: pointer;
+  }
+  .seg button + button { border-left: 1px solid var(--border); }
+  .seg button[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+  .seg .dv { font-family: 'Noto Serif Devanagari', serif; }
+  button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  header { padding-top: 1rem; }
+  .sarga-header .sarga-summary { font-size: .9rem; line-height: 1.85; }
+  .verse-block { padding: 1.4rem 1.5rem 1.2rem; }
+  .parallel { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); gap: 2rem; }
+  header .subtitle, .sarga-header .sarga-summary { font-family: 'Gentium Book Plus', 'Noto Serif JP', serif; }
+  .sanskrit-text { font-size: 1.1rem; line-height: 1.7; overflow-wrap: anywhere; }
+  .sanskrit-text .pada { display: block; padding-left: 1.4em; text-indent: -1.4em; }
+  .sanskrit-text .pada:nth-child(even) { padding-left: 2.6em; }
+  .sanskrit-text .pada:nth-child(2) { margin-bottom: .45em; }
+  .dev { display: none; font-family: 'Noto Serif Devanagari', 'Gentium Book Plus', serif; }
+  :root[data-script="dev"] .dev { display: inline; }
+  :root[data-script="dev"] .iast { display: none; }
+  :root[data-script="dev"] .sanskrit-text { font-size: 1.16rem; line-height: 1.85; }
+  .japanese-text { font-size: 1rem; line-height: 1.95; }
+  .meter-label { text-align: left; margin-top: .55rem; font-size: .74rem; letter-spacing: .03em; color: var(--text-secondary); font-style: italic; }
+  .note-block { font-size: .86rem; line-height: 1.8; }
+  .colophon .colophon-sa { font-size: .95rem; color: var(--sanskrit); margin-bottom: .4rem; }
+  .colophon .colophon-ref { margin-top: .9rem; font-size: .74rem; }
+  @media (max-width: 640px) {
+    body { padding: 0 .9rem 2.5rem; }
+    .topbar { margin: 0 -.9rem 1.2rem; padding: .5rem .9rem; }
+    .verse-block { padding: 1.1rem 1rem 1rem; }
+    .parallel { grid-template-columns: 1fr; gap: .9rem; }
+    header h1 { font-size: 1.45rem; letter-spacing: .04em; }
+    .japanese-text { border-top: 1px dashed var(--border); padding-top: .8rem; }
+  }
+  @media print {
+    .topbar { display: none; }
+    .verse-block { break-inside: avoid; }
+  }
 </style>
+</head>
+<body>
+<div class="topbar">
+  <nav aria-label="サルガ間の移動"><a href="kiratarjuniya_toc.html">目次</a><a href="sarga10.html">← 第10サルガ</a><a href="sarga12.html">第12サルガ →</a></nav>
+  <div class="seg" role="group" aria-label="サンスクリットの文字">
+    <button type="button" data-set="iast" aria-pressed="true">IAST</button>
+    <button type="button" data-set="dev" class="dv" aria-pressed="false">देवनागरी</button>
+  </div>
+</div>
 
 <header>
-  <div class="subtitle-sanskrit">Kirātārjunīya</div>
+  <div class="subtitle-sanskrit"><span class="sa-line">kirātārjunīyam</span></div>
   <h1>キラータールジュニーヤ 対訳</h1>
-  <div class="subtitle">Bhāravi 作 ・ 第十一章</div>
+  <div class="subtitle">Bhāravi 作 ― サンスクリット（IAST／デーヴァナーガリー）・和訳</div>
 </header>
 
 <div class="sarga-header">
-  <h2>ekādaśaḥ sargaḥ — 第十一章</h2>
+  <h2><span class="sa-line">ekādaśaḥ sargaḥ</span> ― 第十一章</h2>
   <div class="sarga-summary">
     インドラが老仙人に変装してアルジュナの庵を訪れ、その苦行を称えつつ、武器を帯びる矛盾を指摘して解脱を勧める（1–36）。アルジュナは自らがクシャトリヤであり、一族の名誉回復こそが使命であると答える（37–79）。インドラは本来の姿を現し、シヴァの恩寵を得るよう命じて姿を消す（80–81）。韻律：アヌシュトゥブ（Anuṣṭubh）。第80偈はウパジャーティ（Upajāti）、第81偈はヴァサンタティラカー（Vasantatilakā）。
   </div>
@@ -252,7 +319,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">athāmarṣān nisargāc ca jitendriyatayā tayā<br>ājagāmāśramaṃ jiṣṇoḥ pratītaḥ pākaśāsanaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">athāmarṣān nisargāc ca</span>
+        <span class="pada">jitendriyatayā tayā /</span>
+        <span class="pada">ājagāmāśramaṃ jiṣṇoḥ</span>
+        <span class="pada">pratītaḥ pākaśāsanaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -268,7 +341,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">munirūpo 'nurūpeṇa sūnunā dadṛśe puraḥ<br>drāghīyasā vayotītaḥ pariklāntaḥ kilādhvanā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">munirūpo 'nurūpeṇa</span>
+        <span class="pada">sūnunā dadṛśe puraḥ /</span>
+        <span class="pada">drāghīyasā vayotītaḥ</span>
+        <span class="pada">pariklāntaḥ kilādhvanā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -284,7 +363,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">jaṭānāṃ kīrṇayā keśaiḥ saṃhatyā paritaḥ sitaiḥ<br>pṛktayendukarair ahnaḥ paryanta iva saṃdhyayā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">jaṭānāṃ kīrṇayā keśaiḥ</span>
+        <span class="pada">saṃhatyā paritaḥ sitaiḥ /</span>
+        <span class="pada">pṛktayendukarair ahnaḥ</span>
+        <span class="pada">paryanta iva saṃdhyayā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -299,7 +384,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">viśadabhrūyugacchannavalitāpāṅgalocanaḥ<br>prāleyāvatatimlānapalāśābja iva hradaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">viśadabhrūyugacchanna-</span>
+        <span class="pada">valitāpāṅgalocanaḥ /</span>
+        <span class="pada">prāleyāvatatimlāna-</span>
+        <span class="pada">palāśābja iva hradaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -314,7 +405,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">āsaktabharanīkāśair aṅgaiḥ parikṛśair api<br>adyūnaḥ sadgṛhiṇy eva prāyo yaṣṭyāvalambitaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">āsaktabharanīkāśair</span>
+        <span class="pada">aṅgaiḥ parikṛśair api /</span>
+        <span class="pada">adyūnaḥ sadgṛhiṇy eva</span>
+        <span class="pada">prāyo yaṣṭyāvalambitaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -330,7 +427,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">gūḍho 'pi vapuṣā rājan dhāmnā lokābhibhāvinā<br>aṃśumān iva tanvabhrapaṭalacchannavigrahaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">gūḍho 'pi vapuṣā rājan</span>
+        <span class="pada">dhāmnā lokābhibhāvinā /</span>
+        <span class="pada">aṃśumān iva tanvabhra-</span>
+        <span class="pada">paṭalacchannavigrahaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -345,7 +448,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">jaratīm api bibhrāṇas tanum aprākṛtākṛtiḥ<br>cakārākrāntalakṣmīkaḥ sasādhvasam ivāśrayam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">jaratīm api bibhrāṇas</span>
+        <span class="pada">tanum aprākṛtākṛtiḥ /</span>
+        <span class="pada">cakārākrāntalakṣmīkaḥ</span>
+        <span class="pada">sasādhvasam ivāśrayam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -360,7 +469,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">abhitas taṃ pṛthāsūnuḥ snehena paritastare<br>avijñāte 'pi bandhau hi balāt prahlādate manaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">abhitas taṃ pṛthāsūnuḥ</span>
+        <span class="pada">snehena paritastare /</span>
+        <span class="pada">avijñāte 'pi bandhau hi</span>
+        <span class="pada">balāt prahlādate manaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -375,7 +490,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">ātitheyīm athāsādya sutādapacitiṃ hariḥ<br>viśramya viṣṭare nāma vyājahāreti bhāratīm</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">ātitheyīm athāsādya</span>
+        <span class="pada">sutād apacitiṃ hariḥ /</span>
+        <span class="pada">viśramya viṣṭare nāma</span>
+        <span class="pada">vyājahāreti bhāratīm //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -392,7 +513,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">tvayā sādhu samārambhi nave vayasi yat tapaḥ<br>hriyate viṣayaiḥ prāyo varṣīyān api mādṛśaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">tvayā sādhu samārambhi</span>
+        <span class="pada">nave vayasi yat tapaḥ /</span>
+        <span class="pada">hriyate viṣayaiḥ prāyo</span>
+        <span class="pada">varṣīyān api mādṛśaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -408,7 +535,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">śreyasīṃ tava samprāptā guṇasampadam ākṛtiḥ<br>sulabhā ramyatā loke durlabhaṃ hi guṇārjanam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">śreyasīṃ tava samprāptā</span>
+        <span class="pada">guṇasampadam ākṛtiḥ /</span>
+        <span class="pada">sulabhā ramyatā loke</span>
+        <span class="pada">durlabhaṃ hi guṇārjanam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -424,7 +557,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">śaradambudharacchāyā gatvaryo yauvanaśriyaḥ<br>āpātaramyā viṣayāḥ paryantaparitāpinaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">śaradambudharacchāyā</span>
+        <span class="pada">gatvaryo yauvanaśriyaḥ /</span>
+        <span class="pada">āpātaramyā viṣayāḥ</span>
+        <span class="pada">paryantaparitāpinaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -440,7 +579,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">antakaḥ paryavasthātā janminaḥ saṃtatāpadaḥ<br>iti tyājye bhave bhavyo muktāv uttiṣṭhate manaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">antakaḥ paryavasthātā</span>
+        <span class="pada">janminaḥ saṃtatāpadaḥ /</span>
+        <span class="pada">iti tyājye bhave bhavyo</span>
+        <span class="pada">muktāv uttiṣṭhate manaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -456,7 +601,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">cittavān asi kalyāṇī yat tvāṃ matir upasthitā<br>viruddhaḥ kevalaṃ veṣaḥ saṃdehayati me manaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">cittavān asi kalyāṇī</span>
+        <span class="pada">yat tvāṃ matir upasthitā /</span>
+        <span class="pada">viruddhaḥ kevalaṃ veṣaḥ</span>
+        <span class="pada">saṃdehayati me manaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -472,7 +623,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">yuyutsuneva kavacaṃ kim āmuktam idaṃ tvayā<br>tapasvino hi vasate kevalājinavalkale</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">yuyutsuneva kavacaṃ</span>
+        <span class="pada">kim āmuktam idaṃ tvayā /</span>
+        <span class="pada">tapasvino hi vasate</span>
+        <span class="pada">kevalājinavalkale //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -488,7 +645,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">prapitsoḥ kiṃ ca te muktiṃ niḥspṛhasya kalevare<br>maheṣudhī dhanur bhīmaṃ bhūtānām anabhidruhaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">prapitsoḥ kiṃ ca te muktiṃ</span>
+        <span class="pada">niḥspṛhasya kalevare /</span>
+        <span class="pada">maheṣudhī dhanur bhīmaṃ</span>
+        <span class="pada">bhūtānām anabhidruhaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -504,7 +667,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">bhayaṃkaraḥ prāṇabhṛtāṃ mṛtyor bhuja ivāparaḥ<br>asis tava tapasthasya na samarthayate śamam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">bhayaṃkaraḥ prāṇabhṛtāṃ</span>
+        <span class="pada">mṛtyor bhuja ivāparaḥ /</span>
+        <span class="pada">asis tava tapasthasya</span>
+        <span class="pada">na samarthayate śamam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -520,7 +689,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">jayam atrabhavān nūnam arātiṣv abhilāṣukaḥ<br>krodhalakṣma kṣamāvantaḥ kvāyudhaṃ kva tapodhanāḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">jayam atrabhavān nūnam</span>
+        <span class="pada">arātiṣv abhilāṣukaḥ /</span>
+        <span class="pada">krodhalakṣma kṣamāvantaḥ</span>
+        <span class="pada">kvāyudhaṃ kva tapodhanāḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -536,7 +711,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">yaḥ karoti vadhodarkā niḥśreyasakarīḥ kriyāḥ<br>glānidoṣacchidaḥ svacchāḥ sa mūḍhaḥ paṅkayaty apaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">yaḥ karoti vadhodarkā</span>
+        <span class="pada">niḥśreyasakarīḥ kriyāḥ /</span>
+        <span class="pada">glānidoṣacchidaḥ svacchāḥ</span>
+        <span class="pada">sa mūḍhaḥ paṅkayaty apaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -552,7 +733,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">mūlaṃ doṣasya hiṃsāder arthakāmau sma mā puṣaḥ<br>tau hi tattvāvabodhasya durucchedāv upaplavau</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">mūlaṃ doṣasya hiṃsāder</span>
+        <span class="pada">arthakāmau sma mā puṣaḥ /</span>
+        <span class="pada">tau hi tattvāvabodhasya</span>
+        <span class="pada">durucchedāv upaplavau //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -568,7 +755,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">abhidroheṇa bhūtānām arjayan gatvarīḥ śriyaḥ<br>udanvān iva sindhūnām āpadām eti pātratām</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">abhidroheṇa bhūtānām</span>
+        <span class="pada">arjayan gatvarīḥ śriyaḥ /</span>
+        <span class="pada">udanvān iva sindhūnām</span>
+        <span class="pada">āpadām eti pātratām //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -584,7 +777,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">yā gamyāḥ satsahāyānāṃ yāsu khedo bhayaṃ yataḥ<br>tāsāṃ kiṃ yan na duḥkhāya vipadām iva sampadām</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">yā gamyāḥ satsahāyānāṃ</span>
+        <span class="pada">yāsu khedo bhayaṃ yataḥ /</span>
+        <span class="pada">tāsāṃ kiṃ yan na duḥkhāya</span>
+        <span class="pada">vipadām iva sampadām //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -600,7 +799,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">durāsadān arīn ugrān dhṛter viśvāsajanmanaḥ<br>bhogān bhogān ivāheyān adhyāsyāpan na durlabhā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">durāsadān arīn ugrān</span>
+        <span class="pada">dhṛter viśvāsajanmanaḥ /</span>
+        <span class="pada">bhogān bhogān ivāheyān</span>
+        <span class="pada">adhyāsyāpan na durlabhā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -617,7 +822,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">nāntarajñāḥ śriyo jātu priyair āsāṃ na bhūyate<br>āsaktās tāsv amī mūḍhā vāmaśīlā hi jantavaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">nāntarajñāḥ śriyo jātu</span>
+        <span class="pada">priyair āsāṃ na bhūyate /</span>
+        <span class="pada">āsaktās tāsv amī mūḍhā</span>
+        <span class="pada">vāmaśīlā hi jantavaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -633,7 +844,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">ko 'pavādaḥ stutipade yad aśīleṣu cañcalāḥ<br>sādhuvṛttān api kṣudrā vikṣipanty eva sampadaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">ko 'pavādaḥ stutipade</span>
+        <span class="pada">yad aśīleṣu cañcalāḥ /</span>
+        <span class="pada">sādhuvṛttān api kṣudrā</span>
+        <span class="pada">vikṣipanty eva sampadaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -649,7 +866,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">kṛtavān anyadeheṣu kartā ca vidhuraṃ manaḥ<br>apriyair iva saṃyogo viprayogaḥ priyaiḥ saha</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">kṛtavān anyadeheṣu</span>
+        <span class="pada">kartā ca vidhuraṃ manaḥ /</span>
+        <span class="pada">apriyair iva saṃyogo</span>
+        <span class="pada">viprayogaḥ priyaiḥ saha //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -666,7 +889,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">śūnyam ākīrṇatām eti tulyaṃ vyasanam utsavaiḥ<br>vipralambho 'pi lābhāya sati priyasamāgame</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">śūnyam ākīrṇatām eti</span>
+        <span class="pada">tulyaṃ vyasanam utsavaiḥ /</span>
+        <span class="pada">vipralambho 'pi lābhāya</span>
+        <span class="pada">sati priyasamāgame //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -682,7 +911,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">tadā ramyāṇy aramyāṇi priyāḥ śalyaṃ tadāsavaḥ<br>tadaikākī sabandhuḥ sann iṣṭena rahito yadā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">tadā ramyāṇy aramyāṇi</span>
+        <span class="pada">priyāḥ śalyaṃ tadāsavaḥ /</span>
+        <span class="pada">tadaikākī sabandhuḥ sann</span>
+        <span class="pada">iṣṭena rahito yadā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -698,7 +933,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">yuktaḥ pramādyasi hitād apetaḥ paritapyase<br>yadi neṣṭātmanaḥ pīḍā mā sañji bhavatā jane</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">yuktaḥ pramādyasi hitād</span>
+        <span class="pada">apetaḥ paritapyase /</span>
+        <span class="pada">yadi neṣṭātmanaḥ pīḍā</span>
+        <span class="pada">mā sañji bhavatā jane //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -714,7 +955,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">janmino 'sya sthitiṃ vidvāṃl lakṣmīm iva calācalām<br>bhavān mā sma vadhīn nyāyyaṃ nyāyādhārā hi sādhavaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">janmino 'sya sthitiṃ vidvāṃl</span>
+        <span class="pada">lakṣmīm iva calācalām /</span>
+        <span class="pada">bhavān mā sma vadhīn nyāyyaṃ</span>
+        <span class="pada">nyāyādhārā hi sādhavaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -730,7 +977,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">vijahīhi raṇotsāhaṃ mā tapaḥ sādhi nīnaśaḥ<br>ucchedaṃ janmanaḥ kartum edhi śāntas tapodhana</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">vijahīhi raṇotsāhaṃ</span>
+        <span class="pada">mā tapaḥ sādhi nīnaśaḥ /</span>
+        <span class="pada">ucchedaṃ janmanaḥ kartum</span>
+        <span class="pada">edhi śāntas tapodhana //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -746,7 +999,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">jīyantāṃ durjayā dehe ripavaś cakṣurādayaḥ<br>jiteṣu nanu loko 'yaṃ teṣu kṛtsnas tvayā jitaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">jīyantāṃ durjayā dehe</span>
+        <span class="pada">ripavaś cakṣurādayaḥ /</span>
+        <span class="pada">jiteṣu nanu loko 'yaṃ</span>
+        <span class="pada">teṣu kṛtsnas tvayā jitaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -762,7 +1021,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">paravān arthasaṃsiddhau nīcavṛttir apatrapaḥ<br>avidheyendriyaḥ puṃsāṃ gaur ivaitei vidheyatām</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">paravān arthasaṃsiddhau</span>
+        <span class="pada">nīcavṛttir apatrapaḥ /</span>
+        <span class="pada">avidheyendriyaḥ puṃsāṃ</span>
+        <span class="pada">gaur ivaiti vidheyatām //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -778,7 +1043,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">śvas tvayā sukhasaṃvittiḥ smaraṇīyādhunātanī<br>iti svapnopamān matvā kāmān mā gās tadaṅgatām</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">śvas tvayā sukhasaṃvittiḥ</span>
+        <span class="pada">smaraṇīyādhunātanī /</span>
+        <span class="pada">iti svapnopamān matvā</span>
+        <span class="pada">kāmān mā gās tadaṅgatām //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -794,7 +1065,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">śraddheyā vipralabdhāraḥ priyā vipriyakāriṇaḥ<br>sudustyajās tyajanto 'pi kāmāḥ kaṣṭā hi śatravaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">śraddheyā vipralabdhāraḥ</span>
+        <span class="pada">priyā vipriyakāriṇaḥ /</span>
+        <span class="pada">sudustyajās tyajanto 'pi</span>
+        <span class="pada">kāmāḥ kaṣṭā hi śatravaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -811,7 +1088,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">vivikte 'smin nage bhūyaḥ plāvite jahnukanyayā<br>pratyāsīdati muktis tvāṃ purā mā bhūr udāyudhaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">vivikte 'smin nage bhūyaḥ</span>
+        <span class="pada">plāvite jahnukanyayā /</span>
+        <span class="pada">pratyāsīdati muktis tvāṃ</span>
+        <span class="pada">purā mā bhūr udāyudhaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -826,7 +1109,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">vyāhṛtya marutāṃ patyāv iti vācam avasthite<br>vacaḥ praśrayagambhīram athovāca kapidhvajaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">vyāhṛtya marutāṃ patyāv</span>
+        <span class="pada">iti vācam avasthite /</span>
+        <span class="pada">vacaḥ praśrayagambhīram</span>
+        <span class="pada">athovāca kapidhvajaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -841,7 +1130,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">prasādaramyam ojasvi garīyo lāghavānvitam<br>sākāṅkṣam anupaskāraṃ viṣvaggati nirākulam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">prasādaramyam ojasvi</span>
+        <span class="pada">garīyo lāghavānvitam /</span>
+        <span class="pada">sākāṅkṣam anupaskāraṃ</span>
+        <span class="pada">viṣvaggati nirākulam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -857,7 +1152,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">nyāyanirṇītasāratvān nirapekṣam ivāgame<br>aprakampyatayānyeṣām āmnāyavacanopamam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">nyāyanirṇītasāratvān</span>
+        <span class="pada">nirapekṣam ivāgame /</span>
+        <span class="pada">aprakampyatayānyeṣām</span>
+        <span class="pada">āmnāyavacanopamam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -872,7 +1173,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">alaṅghyatvāj janair anyaiḥ kṣubhitodanvadūrjitam<br>audāryād arthasampatteḥ śāntaṃ cittam ṛṣer iva</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">alaṅghyatvāj janair anyaiḥ</span>
+        <span class="pada">kṣubhitodanvadūrjitam /</span>
+        <span class="pada">audāryād arthasampatteḥ</span>
+        <span class="pada">śāntaṃ cittam ṛṣer iva //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -887,11 +1194,19 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">idam īdṛgguṇopetaṃ labdhāvasarasādhanam<br>vyākuryāt kaḥ priyaṃ vākyaṃ yo vaktā nedṛgāśayaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">idam īdṛgguṇopetaṃ</span>
+        <span class="pada">labdhāvasarasādhanam /</span>
+        <span class="pada">vyākuryāt kaḥ priyaṃ vākyaṃ</span>
+        <span class="pada">yo vaktā nedṛgāśayaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
-      <div class="japanese-text">──このような美質を備え、時と手段を心得たこの喜ばしき言葉を、かかる深い識見を持たぬ者に誰が語りうるだろうか。</div>
+      <div class="japanese-text">
+        ――このような美質を備え、時宜と手段を心得たこの快い言葉を、かかる心ばえを持たぬ語り手の誰が、口にしえようか。
+      </div>
     </div>
   </div>
 </div>
@@ -903,7 +1218,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">na jñātaṃ tāta yatnasya paurvāparyam amuṣya te<br>śāsituṃ yena māṃ dharmaṃ munibhis tulyam icchasi</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">na jñātaṃ tāta yatnasya</span>
+        <span class="pada">paurvāparyam amuṣya te /</span>
+        <span class="pada">śāsituṃ yena māṃ dharmaṃ</span>
+        <span class="pada">munibhis tulyam icchasi //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -919,7 +1240,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">avijñātaprabandhasya vaco vācaspater iva<br>vrajaty aphalatām eva nayadruha ivehitam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">avijñātaprabandhasya</span>
+        <span class="pada">vaco vācaspater iva /</span>
+        <span class="pada">vrajaty aphalatām eva</span>
+        <span class="pada">nayadruha ivehitam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -935,7 +1262,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">śreyaso 'py asya te tāta vacaso nāsmi bhājanam<br>nabhasaḥ sphuṭatārasya rātrer iva viparyayaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">śreyaso 'py asya te tāta</span>
+        <span class="pada">vacaso nāsmi bhājanam /</span>
+        <span class="pada">nabhasaḥ sphuṭatārasya</span>
+        <span class="pada">rātrer iva viparyayaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -951,7 +1284,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">kṣatriyas tanayaḥ pāṇḍor ahaṃ pārtho dhanaṃjayaḥ<br>sthitaḥ prāstasya dāyādair bhrātur jyeṣṭhasya śāsane</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">kṣatriyas tanayaḥ pāṇḍor</span>
+        <span class="pada">ahaṃ pārtho dhanaṃjayaḥ /</span>
+        <span class="pada">sthitaḥ prāstasya dāyādair</span>
+        <span class="pada">bhrātur jyeṣṭhasya śāsane //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -968,7 +1307,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">kṛṣṇadvaipāyanādeśād bibharmi vratam īdṛśam<br>bhṛśam ārādhane yattaḥ svārādhyasya marutvataḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">kṛṣṇadvaipāyanādeśād</span>
+        <span class="pada">bibharmi vratam īdṛśam /</span>
+        <span class="pada">bhṛśam ārādhane yattaḥ</span>
+        <span class="pada">svārādhyasya marutvataḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -985,7 +1330,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">durakṣān dīvyatā rājñā rājyam ātmā vayaṃ vadhūḥ<br>nītāni paṇatāṃ nūnam īdṛśī bhavitavyatā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">durakṣān dīvyatā rājñā</span>
+        <span class="pada">rājyam ātmā vayaṃ vadhūḥ /</span>
+        <span class="pada">nītāni paṇatāṃ nūnam</span>
+        <span class="pada">īdṛśī bhavitavyatā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1001,7 +1352,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">tenānujasahāyena draupadyā ca mayā vinā<br>bhṛśam āyāmiyāmāsu yāminīṣv abhitapyate</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">tenānujasahāyena</span>
+        <span class="pada">draupadyā ca mayā vinā /</span>
+        <span class="pada">bhṛśam āyāmiyāmāsu</span>
+        <span class="pada">yāminīṣv abhitapyate //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1018,7 +1375,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">hṛtottarīyāṃ prasabhaṃ sabhāyām āgatahriyaḥ<br>marmacchidā no vacasā niratakṣann arātayaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">hṛtottarīyāṃ prasabhaṃ</span>
+        <span class="pada">sabhāyām āgatahriyaḥ /</span>
+        <span class="pada">marmacchidā no vacasā</span>
+        <span class="pada">niratakṣann arātayaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1034,11 +1397,19 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">upādhatta sapatneṣu kṛṣṇāyā gurusaṃnidhau<br>bhāvam ānayane satyāḥ satyaṃkāram ivāntakaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">upādhatta sapatneṣu</span>
+        <span class="pada">kṛṣṇāyā gurusaṃnidhau /</span>
+        <span class="pada">bhāvam ānayane satyāḥ</span>
+        <span class="pada">satyaṃkāram ivāntakaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
-      <div class="japanese-text">「貞淑なるクリシュナー（ドラウパディー）を長老たちの面前で引きずりゆくその行為において、死神は敵たちの心に、あたかも誓約のように決意を植えつけたのだ。」</div>
+      <div class="japanese-text">
+        「貞淑なるクリシュナー（ドラウパディー）が長老たちの面前に引き出されたとき、死神は敵たちの上に、あたかも手付けを置くように、その意を据えたのだ。」
+      </div>
     </div>
   </div>
   <div class="note-block">Cappellerは、死神がドゥルヨーダナたちに対し、やがて罰が下るという「保証金」（<em>satyaṃkāra</em>）を差し入れたかのようだと解釈する。</div>
@@ -1051,7 +1422,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">tām aikṣanta kṣaṇaṃ sabhyā duḥśāsanapuraḥsarām<br>abhisāyārkam āvṛttāṃ chāyām iva mahātaroḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">tām aikṣanta kṣaṇaṃ sabhyā</span>
+        <span class="pada">duḥśāsanapuraḥsarām /</span>
+        <span class="pada">abhisāyārkam āvṛttāṃ</span>
+        <span class="pada">chāyām iva mahātaroḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1068,7 +1445,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">ayathārthakriyārambhaiḥ patibhiḥ kiṃ tavekṣitaiḥ<br>arudhyetām itīvāsyā nayane bāṣpavāriṇe</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">ayathārthakriyārambhaiḥ</span>
+        <span class="pada">patibhiḥ kiṃ tavekṣitaiḥ /</span>
+        <span class="pada">arudhyetām itīvāsyā</span>
+        <span class="pada">nayane bāṣpavāriṇe //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1084,7 +1467,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">soḍhavān no daśām antyāṃ jyāyān eva guṇapriyaḥ<br>sulabho hi dviṣāṃ bhaṅgo durlabhā satsv avācyatā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">soḍhavān no daśām antyāṃ</span>
+        <span class="pada">jyāyān eva guṇapriyaḥ /</span>
+        <span class="pada">sulabho hi dviṣāṃ bhaṅgo</span>
+        <span class="pada">durlabhā satsv avācyatā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1101,7 +1490,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">sthityatikrāntibhīrūṇi svacchāny ākulitāny api<br>toyāni toyarāśīnāṃ manāṃsi ca manasvinām</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">sthityatikrāntibhīrūṇi</span>
+        <span class="pada">svacchāny ākulitāny api /</span>
+        <span class="pada">toyāni toyarāśīnāṃ</span>
+        <span class="pada">manāṃsi ca manasvinām //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1117,7 +1512,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">dhārtarāṣṭraiḥ saha prītir vairam asmāsv asūyata<br>asanmaitrī hi doṣāya kūlacchāyeva sevitā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">dhārtarāṣṭraiḥ saha prītir</span>
+        <span class="pada">vairam asmāsv asūyata /</span>
+        <span class="pada">asanmaitrī hi doṣāya</span>
+        <span class="pada">kūlacchāyeva sevitā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1133,7 +1534,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">apavādād abhītasya samasya guṇadoṣayoḥ<br>asadvṛtter ahovṛttaṃ durvibhāvaṃ vidher iva</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">apavādād abhītasya</span>
+        <span class="pada">samasya guṇadoṣayoḥ /</span>
+        <span class="pada">asadvṛtter ahovṛttaṃ</span>
+        <span class="pada">durvibhāvaṃ vidher iva //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1149,7 +1556,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">dhvaṃseta hṛdayaṃ sadyaḥ paribhūtasya me paraiḥ<br>yady amarṣaḥ pratīkāraṃ bhujālambaṃ na lambhayet</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">dhvaṃseta hṛdayaṃ sadyaḥ</span>
+        <span class="pada">paribhūtasya me paraiḥ /</span>
+        <span class="pada">yady amarṣaḥ pratīkāraṃ</span>
+        <span class="pada">bhujālambaṃ na lambhayet //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1165,7 +1578,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">avadhūyāribhir nītā hariṇais tulyavṛttitām<br>anyonyasyāpi jihrīmaḥ kiṃ punaḥ sahavāsinām</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">avadhūyāribhir nītā</span>
+        <span class="pada">hariṇais tulyavṛttitām /</span>
+        <span class="pada">anyonyasyāpi jihrīmaḥ</span>
+        <span class="pada">kiṃ punaḥ sahavāsinām //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1181,7 +1600,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">śaktivaikalyanamrasya niḥsāratvāl laghīyasaḥ<br>janmino mānahinasya tṛṇasya ca samā gatiḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">śaktivaikalyanamrasya</span>
+        <span class="pada">niḥsāratvāl laghīyasaḥ /</span>
+        <span class="pada">janmino mānahīnasya</span>
+        <span class="pada">tṛṇasya ca samā gatiḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1197,7 +1622,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">alaṅghyaṃ tat tad udvīkṣya yad yad uccair mahībhṛtām<br>priyatāṃ jyāyasīṃ mā gān mahatāṃ kena tuṅgatā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">alaṅghyaṃ tat tad udvīkṣya</span>
+        <span class="pada">yad yad uccair mahībhṛtām /</span>
+        <span class="pada">priyatāṃ jyāyasīṃ mā gān</span>
+        <span class="pada">mahatāṃ kena tuṅgatā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1213,7 +1644,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">tāvad āśrīyate lakṣmyā tāvad asya sthiraṃ yaśaḥ<br>puruṣas tāvad evāsau yāvan mānān na hīyate</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">tāvad āśrīyate lakṣmyā</span>
+        <span class="pada">tāvad asya sthiraṃ yaśaḥ /</span>
+        <span class="pada">puruṣas tāvad evāsau</span>
+        <span class="pada">yāvan mānān na hīyate //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1229,7 +1666,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">sa pumān arthavaj janmā yasya nāmni puraḥsthite<br>nānyām aṅgulim abhyeti saṃkhyāyām udyatāṅguliḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">sa pumān arthavaj janmā</span>
+        <span class="pada">yasya nāmni puraḥsthite /</span>
+        <span class="pada">nānyām aṅgulim abhyeti</span>
+        <span class="pada">saṃkhyāyām udyatāṅguliḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1246,7 +1689,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">durāsadavanajyāyān gamyas tuṅgo 'pi bhūdharaḥ<br>na jahāti mahaujaskaṃ mānaprāṃśum alaṅghyatā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">durāsadavanajyāyān</span>
+        <span class="pada">gamyas tuṅgo 'pi bhūdharaḥ /</span>
+        <span class="pada">na jahāti mahaujaskaṃ</span>
+        <span class="pada">mānaprāṃśum alaṅghyatā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1263,7 +1712,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">gurūn kurvanti te vaṃśyān anvarthā tair vasuṃdharā<br>yeṣāṃ yaśāṃsi śubhrāṇi hrepayantīndumaṇḍalam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">gurūn kurvanti te vaṃśyān</span>
+        <span class="pada">anvarthā tair vasuṃdharā /</span>
+        <span class="pada">yeṣāṃ yaśāṃsi śubhrāṇi</span>
+        <span class="pada">hrepayantīndumaṇḍalam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1279,7 +1734,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">udāharaṇam āśīḥṣu prathame te manasvinām<br>śuṣke 'śanir ivāmarṣo yair arātiṣu pātyate</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">udāharaṇam āśīḥṣu</span>
+        <span class="pada">prathame te manasvinām /</span>
+        <span class="pada">śuṣke 'śanir ivāmarṣo</span>
+        <span class="pada">yair arātiṣu pātyate //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1295,7 +1756,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">na sukhaṃ prārthaye nārtham udanvadvīcicañcalam<br>nānityatāśanes trasyan viviktaṃ brahmaṇaḥ padam</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">na sukhaṃ prārthaye nārtham</span>
+        <span class="pada">udanvadvīcicañcalam /</span>
+        <span class="pada">nānityatāśanes trasyan</span>
+        <span class="pada">viviktaṃ brahmaṇaḥ padam //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1311,7 +1778,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">pramārṣṭum ayaśaḥpaṅkam iccheyaṃ chadmanā kṛtam<br>vaidhavyatāpitārātivanitālocanāmbubhiḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">pramārṣṭum ayaśaḥpaṅkam</span>
+        <span class="pada">iccheyaṃ chadmanā kṛtam /</span>
+        <span class="pada">vaidhavyatāpitārāti-</span>
+        <span class="pada">vanitālocanāmbubhiḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1327,7 +1800,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">apahasye 'thavā sadbhiḥ pramādo vāstu me dhiyaḥ<br>asthānavihitāyāsaḥ kāmaṃ jihretu vā bhavān</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">apahasye 'thavā sadbhiḥ</span>
+        <span class="pada">pramādo vāstu me dhiyaḥ /</span>
+        <span class="pada">asthānavihitāyāsaḥ</span>
+        <span class="pada">kāmaṃ jihretu vā bhavān //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1343,7 +1822,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">vaṃśalakṣmīm anuddhṛtya samucchedena vidviṣām<br>nirvāṇam api manye 'ham antarāyaṃ jayaśriyaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">vaṃśalakṣmīm anuddhṛtya</span>
+        <span class="pada">samucchedena vidviṣām /</span>
+        <span class="pada">nirvāṇam api manye 'ham</span>
+        <span class="pada">antarāyaṃ jayaśriyaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1359,7 +1844,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">ajanmā puruṣas tāvad gatāsus tṛṇam eva vā<br>yāvan neṣubhir ādatte viluptam aribhir yaśaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">ajanmā puruṣas tāvad</span>
+        <span class="pada">gatāsus tṛṇam eva vā /</span>
+        <span class="pada">yāvan neṣubhir ādatte</span>
+        <span class="pada">viluptam aribhir yaśaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1375,7 +1866,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">anirjayena dviṣatāṃ yasyāmarṣaḥ praśāmyati<br>puruṣoktiḥ kathaṃ tasmin brūhi tvaṃ hi tapodhana</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">anirjayena dviṣatāṃ</span>
+        <span class="pada">yasyāmarṣaḥ praśāmyati /</span>
+        <span class="pada">puruṣoktiḥ kathaṃ tasmin</span>
+        <span class="pada">brūhi tvaṃ hi tapodhana //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1391,7 +1888,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">kṛtaṃ puruṣaśabdena jātimātrāvalambinā<br>yo 'ṅgīkṛtaguṇaiḥ ślāghyaḥ savismayam udāhṛtaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">kṛtaṃ puruṣaśabdena</span>
+        <span class="pada">jātimātrāvalambinā /</span>
+        <span class="pada">yo 'ṅgīkṛtaguṇaiḥ ślāghyaḥ</span>
+        <span class="pada">savismayam udāhṛtaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1407,7 +1910,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">grasamānam ivaujāṃsi sadasā gauraveritam<br>nāma yasyābhinandanti dviṣo 'pi sa pumān pumān</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">grasamānam ivaujāṃsi</span>
+        <span class="pada">sadasā gauraveritam /</span>
+        <span class="pada">nāma yasyābhinandanti</span>
+        <span class="pada">dviṣo 'pi sa pumān pumān //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1424,7 +1933,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">yathāpratijñaṃ dviṣatāṃ yudhi praticikīrṣayā<br>mamaivādhyeti nṛpatis tṛṣyann iva jalāñjaleḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">yathāpratijñaṃ dviṣatāṃ</span>
+        <span class="pada">yudhi praticikīrṣayā /</span>
+        <span class="pada">mamaivādhyeti nṛpatis</span>
+        <span class="pada">tṛṣyann iva jalāñjaleḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1440,7 +1955,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">sa vaṃśasyāvadātasya śaśāṅkasyeva lāñchanam<br>kṛcchreṣu vyarthayā yatra bhūyate bhartur ājñayā</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">sa vaṃśasyāvadātasya</span>
+        <span class="pada">śaśāṅkasyeva lāñchanam /</span>
+        <span class="pada">kṛcchreṣu vyarthayā yatra</span>
+        <span class="pada">bhūyate bhartur ājñayā //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1456,7 +1977,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">kathaṃ vādīyatām arvāṅ munitā dharmarodhinī<br>āśramānukramaḥ pūrvaiḥ smaryate na vyatikramaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">kathaṃ vādīyatām arvāṅ</span>
+        <span class="pada">munitā dharmarodhinī /</span>
+        <span class="pada">āśramānukramaḥ pūrvaiḥ</span>
+        <span class="pada">smaryate na vyatikramaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1473,7 +2000,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">āsaktā dhūr iyaṃ rūḍhā jananī dūragā ca me<br>tiraskaroti svātantryaṃ jyāyāṃś cācāravān nṛpaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">āsaktā dhūr iyaṃ rūḍhā</span>
+        <span class="pada">jananī dūragā ca me /</span>
+        <span class="pada">tiraskaroti svātantryaṃ</span>
+        <span class="pada">jyāyāṃś cācāravān nṛpaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1489,7 +2022,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">svadharmam anurundhante nātikramam arātibhiḥ<br>palāyante kṛtadhvaṃsā nāhavān mānaśālinaḥ</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">svadharmam anurundhante</span>
+        <span class="pada">nātikramam arātibhiḥ /</span>
+        <span class="pada">palāyante kṛtadhvaṃsā</span>
+        <span class="pada">nāhavān mānaśālinaḥ //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1505,7 +2044,13 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">vicchinnābhravilāyaṃ vā vilīye nagamūrdhani<br>ārādhya vā sahasrākṣam ayaśaḥśalyam uddhare</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">vicchinnābhravilāyaṃ vā</span>
+        <span class="pada">vilīye nagamūrdhani /</span>
+        <span class="pada">ārādhya vā sahasrākṣam</span>
+        <span class="pada">ayaśaḥśalyam uddhare //</span>
+      </div>
+      <div class="meter-label">Anuṣṭubh</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
@@ -1520,14 +2065,19 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">ity uktavantaṃ parirabhya dorbhyāṃ tanūjam āviṣkṛtadivyamūrtiḥ<br>aghopaghātaṃ maghavā vibhūtyai bhavodbhavārādhanam ādideśa</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">ity uktavantaṃ parirabhya dorbhyāṃ</span>
+        <span class="pada">tanūjam āviṣkṛtadivyamūrtiḥ /</span>
+        <span class="pada">aghopaghātaṃ maghavā vibhūtyai</span>
+        <span class="pada">bhavodbhavārādhanam ādideśa //</span>
+      </div>
+      <div class="meter-label">Upajāti</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
       <div class="japanese-text">かく語った息子を両腕で抱きしめ、インドラは神々しい本来の姿を現し、繁栄のために、罪を滅ぼすシヴァの礼拝を命じた。</div>
     </div>
   </div>
-  <div class="meter-label">Upajāti</div>
 </div>
 
 <!-- Verse 81 -->
@@ -1537,17 +2087,78 @@
   <div class="parallel">
     <div>
       <div class="col-label">Sanskrit</div>
-      <div class="sanskrit-text">prīte pinākini mayā saha lokapālair lokatraye 'pi vihitāprativāryavīryaḥ<br>lakṣmīṃ samutsukayitāsi bhṛśaṃ pareṣām uccārya vācam iti tena tirobabhūve</div>
+      <div class="sanskrit-text" lang="sa-Latn">
+        <span class="pada">prīte pinākini mayā saha lokapālair</span>
+        <span class="pada">lokatraye 'pi vihitāprativāryavīryaḥ /</span>
+        <span class="pada">lakṣmīṃ samutsukayitāsi bhṛśaṃ pareṣām</span>
+        <span class="pada">uccārya vācam iti tena tirobabhūve //</span>
+      </div>
+      <div class="meter-label">Vasantatilakā</div>
     </div>
     <div>
       <div class="col-label">和訳</div>
       <div class="japanese-text">「弓を持つ神（シヴァ）が喜んだならば、我と世界の守護者たちから、三界においても阻み得ぬ力を与えられ、汝は敵の幸運をことごとく己のものとするであろう。」──こう告げて、インドラは姿を消した。</div>
     </div>
   </div>
-  <div class="meter-label">Vasantatilakā</div>
+</div>
+<div class="colophon">
+  <div class="colophon-sa"><span class="sa-line">iti bhāravikṛtau mahākāvye kirātārjunīye ekādaśaḥ sargaḥ //</span></div>
+  <div>バーラヴィ作『キラータールジュニーヤ』第十一章 終</div>
+  <div class="colophon-ref">底本：GRETIL（H. Isaacson 入力、Mallinātha 注準拠テクスト）。韻律・語形から明らかな入力誤りは訂正した。<br>
+  参照：C. Cappeller 独訳（HOS 15, 1912）／Mallinātha 注 Ghaṇṭāpatha（Durgāprasād・Parab 校訂本、Nirṇaya-Sāgar Press、1895年第3版）</div>
 </div>
 <div class="sarga-nav">
   <div class="nav-prev"><a href="sarga10.html">← 第10サルガ</a></div>
   <div class="nav-center"><a href="kiratarjuniya_toc.html">目次</a></div>
   <div class="nav-next"><a href="sarga12.html">第12サルガ →</a></div>
 </div>
+
+<script>
+function iast2dev(src){
+  var V={'a':'अ','ā':'आ','i':'इ','ī':'ई','u':'उ','ū':'ऊ','ṛ':'ऋ','ṝ':'ॠ','ḷ':'ऌ','e':'ए','ai':'ऐ','o':'ओ','au':'औ'};
+  var M={'a':'','ā':'ा','i':'ि','ī':'ी','u':'ु','ū':'ू','ṛ':'ृ','ṝ':'ॄ','ḷ':'ॢ','e':'े','ai':'ै','o':'ो','au':'ौ'};
+  var C={'k':'क','kh':'ख','g':'ग','gh':'घ','ṅ':'ङ','c':'च','ch':'छ','j':'ज','jh':'झ','ñ':'ञ','ṭ':'ट','ṭh':'ठ','ḍ':'ड','ḍh':'ढ','ṇ':'ण','t':'त','th':'थ','d':'द','dh':'ध','n':'न','p':'प','ph':'फ','b':'ब','bh':'भ','m':'म','y':'य','r':'र','l':'ल','v':'व','ś':'श','ṣ':'ष','s':'स','h':'ह'};
+  var s=src.normalize('NFC').toLowerCase().replace(/ṁ/g,'ṃ').replace(/[’‘]/g,"'")
+    .replace(/\s+'/g,"'").replace(/([kgcjñṭḍṇtdnpbmyrlvśṣsh]) +(?=[a-zāīūṛṝḷeoṅñṭḍṇśṣ])/g,'$1')
+    .replace(/\s*\/\/\s*/g,' ॥').replace(/\s*\/\s*/g,' ।');
+  var out='',i=0;
+  function tok(t){var two=s.substr(i,2);if(t[two]!==undefined)return two;var one=s.charAt(i);return t[one]!==undefined?one:null;}
+  while(i<s.length){
+    var c=tok(C);
+    if(c){out+=C[c];i+=c.length;var v=tok(M);
+      if(v){out+=M[v];i+=v.length;}else out+='्';
+      continue;}
+    var v2=tok(V);
+    if(v2){out+=V[v2];i+=v2.length;continue;}
+    var ch=s.charAt(i);
+    if(ch==='ṃ')out+='ं';else if(ch==='ḥ')out+='ः';else if(ch==="'")out+='ऽ';else out+=ch;
+    i++;
+  }
+  return out;
+}
+(function(){
+  var root=document.documentElement,built=false;
+  function build(){
+    if(built)return;built=true;
+    document.querySelectorAll('.pada, .sa-line').forEach(function(el){
+      var t=el.textContent.trim();
+      el.textContent='';
+      var a=document.createElement('span');a.className='iast';a.textContent=t;
+      var b=document.createElement('span');b.className='dev';b.lang='sa-Deva';b.textContent=iast2dev(t);
+      el.appendChild(a);el.appendChild(b);
+    });
+  }
+  var btns=document.querySelectorAll('.seg button');
+  function set(m){
+    if(m==='dev')build();
+    root.setAttribute('data-script',m);
+    btns.forEach(function(x){x.setAttribute('aria-pressed',String(x.getAttribute('data-set')===m));});
+    try{localStorage.setItem('kir-script',m);}catch(e){}
+  }
+  btns.forEach(function(x){x.addEventListener('click',function(){set(x.getAttribute('data-set'));});});
+  var saved=null;try{saved=localStorage.getItem('kir-script');}catch(e){}
+  if(saved==='dev')set('dev');
+})();
+</script>
+</body>
+</html>
