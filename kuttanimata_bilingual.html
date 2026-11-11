@@ -6,7 +6,7 @@
 <title>Kuṭṭanīmata 対訳</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
 <style>
 :root {
   --ground: #F6F2EA;
@@ -41,12 +41,18 @@ header { text-align: center; padding-bottom: 2rem; border-bottom: 1px solid var(
 header h1 { font-family: 'Noto Serif', serif; font-weight: 600; font-size: 1.9rem; color: var(--accent); letter-spacing: .02em; text-wrap: balance; }
 header .jp-title { font-size: 1.1rem; margin-top: .2rem; }
 header .meta { font-size: .85rem; color: var(--ink-soft); margin-top: .6rem; }
-.theme-btn {
-  position: absolute; top: .8rem; right: .8rem; z-index: 10;
+.tools { position: absolute; top: .8rem; right: .8rem; z-index: 10; display: flex; gap: .5rem; }
+.tools button {
   font: inherit; font-size: .8rem; color: var(--ink-soft); background: var(--panel);
   border: 1px solid var(--rule); border-radius: 4px; padding: .25rem .6rem; cursor: pointer;
 }
-.theme-btn:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.seg { display: flex; }
+.seg button { border-radius: 0; }
+.seg button:first-child { border-radius: 4px 0 0 4px; }
+.seg button + button { border-left: none; border-radius: 0 4px 4px 0; }
+.seg button[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: var(--ground); }
+.seg .dv { font-family: 'Noto Serif Devanagari', serif; }
+.tools button:focus-visible, a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 details.toc { margin-bottom: 2.5rem; border: 1px solid var(--rule); background: var(--panel); border-radius: 4px; }
 details.toc summary { cursor: pointer; padding: .7rem 1rem; font-weight: 600; font-size: .95rem; letter-spacing: .1em; }
 .toc ol { list-style: none; padding: 0 1rem .8rem; columns: 2; column-gap: 2rem; }
@@ -72,6 +78,10 @@ h2.section .sec-jp { order: -1; }
   font-variant-numeric: tabular-nums; text-align: right; padding-top: .25rem;
 }
 .vn:hover { color: var(--accent); }
+.dev { display: none; font-family: 'Noto Serif Devanagari', 'Noto Serif', serif; font-style: normal; }
+:root[data-script="dev"] .dev { display: inline; }
+:root[data-script="dev"] .iast { display: none; }
+:root[data-script="dev"] .sa { font-size: 1.1rem; line-height: 2; }
 .sa { font-family: 'Noto Serif', serif; font-size: 1.02rem; line-height: 1.85; color: var(--ink); }
 .sa .half { display: block; padding-left: 1.5em; text-indent: -1.5em; overflow-wrap: anywhere; }
 .ja { font-size: 1rem; line-height: 1.95; border-left: 1px solid var(--rule); padding-left: 1.75rem; }
@@ -87,18 +97,24 @@ footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule
   .sa { font-size: .98rem; }
 }
 @media print {
-  .theme-btn, details.toc, .back-top { display: none; }
+  .tools, details.toc, .back-top { display: none; }
   .verse { break-inside: avoid; }
 }
 </style>
 </head>
 <body>
-<button class="theme-btn" type="button" id="themeBtn" aria-label="表示テーマを切り替える">明暗</button>
+<div class="tools">
+  <div class="seg" role="group" aria-label="サンスクリットの文字">
+    <button type="button" data-set="iast" aria-pressed="true">IAST</button>
+    <button type="button" data-set="dev" class="dv" aria-pressed="false">देवनागरी</button>
+  </div>
+  <button type="button" id="themeBtn" aria-label="表示テーマを切り替える">明暗</button>
+</div>
 <div class="wrap">
 <header id="top">
   <h1>Kuṭṭanīmata</h1>
   <div class="jp-title">遣手婆の教え 対照版</div>
-  <div class="meta">Dāmodaragupta 作 ・ IAST 翻字と日本語訳 ・ 全1059詩節（Dezső &amp; Goodall 校訂本に基づく）</div>
+  <div class="meta">Dāmodaragupta 作 ・ サンスクリット原文（IAST／デーヴァナーガリー）と日本語訳 ・ 全1059詩節（Dezső &amp; Goodall 校訂本に基づく）</div>
 </header>
 <details class="toc" open>
 <summary>目次</summary>
@@ -1217,6 +1233,51 @@ footer { margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--rule
     var n=cur==='dark'?'light':'dark';r.setAttribute('data-theme',n);
     try{localStorage.setItem('kutt-theme',n);}catch(e){}
   });
+})();
+function iast2dev(src){
+  var V={'a':'अ','ā':'आ','i':'इ','ī':'ई','u':'उ','ū':'ऊ','ṛ':'ऋ','ṝ':'ॠ','ḷ':'ऌ','e':'ए','ai':'ऐ','o':'ओ','au':'औ'};
+  var M={'a':'','ā':'ा','i':'ि','ī':'ी','u':'ु','ū':'ू','ṛ':'ृ','ṝ':'ॄ','ḷ':'ॢ','e':'े','ai':'ै','o':'ो','au':'ौ'};
+  var C={'k':'क','kh':'ख','g':'ग','gh':'घ','ṅ':'ङ','c':'च','ch':'छ','j':'ज','jh':'झ','ñ':'ञ','ṭ':'ट','ṭh':'ठ','ḍ':'ड','ḍh':'ढ','ṇ':'ण','t':'त','th':'थ','d':'द','dh':'ध','n':'न','p':'प','ph':'फ','b':'ब','bh':'भ','m':'म','y':'य','r':'र','l':'ल','v':'व','ś':'श','ṣ':'ष','s':'स','h':'ह'};
+  var s=src.normalize('NFC').toLowerCase().replace(/-/g,'').replace(/[’‘]/g,"'").replace(/\s+'/g,"'").replace(/([kgcjñṭḍṇtdnpbmyrlvśṣsh]) +(?=[a-zāīūṛṝḷeoṅñṭḍṇśṣ])/g,'$1'),out='',i=0;
+  function tok(tbl){var two=s.substr(i,2);if(tbl[two]!==undefined)return two;var one=s.charAt(i);return tbl[one]!==undefined?one:null;}
+  while(i<s.length){
+    var c=tok(C);
+    if(c){out+=C[c];i+=c.length;var v=tok(M);
+      if(v){out+=M[v];i+=v.length;} else out+='्';
+      continue;}
+    var v2=tok(V);
+    if(v2){out+=V[v2];i+=v2.length;continue;}
+    var ch=s.charAt(i);
+    if(ch==='ṃ')out+='ं';else if(ch==='ḥ')out+='ः';else if(ch==="'")out+='ऽ';
+    else if(ch==='|'){if(s.charAt(i+1)==='|'){out+='॥';i++;}else out+='।';}
+    else out+=ch;
+    i++;
+  }
+  return out;
+}
+
+(function(){
+  var r=document.documentElement,done=false;
+  function build(){
+    if(done)return;done=true;
+    document.querySelectorAll('.sa .half').forEach(function(el){
+      var t=el.textContent,d=iast2dev(t);
+      el.innerHTML='';
+      var a=document.createElement('span');a.className='iast';a.textContent=t;
+      var b=document.createElement('span');b.className='dev';b.lang='sa-Deva';b.textContent=d;
+      el.appendChild(a);el.appendChild(b);
+    });
+  }
+  var btns=document.querySelectorAll('.seg button');
+  function set(m){
+    if(m==='dev')build();
+    r.setAttribute('data-script',m);
+    btns.forEach(function(x){x.setAttribute('aria-pressed',String(x.getAttribute('data-set')===m));});
+    try{localStorage.setItem('kutt-script',m);}catch(e){}
+  }
+  btns.forEach(function(x){x.addEventListener('click',function(){set(x.getAttribute('data-set'));});});
+  var saved=null;try{saved=localStorage.getItem('kutt-script');}catch(e){}
+  if(saved==='dev')set('dev');
 })();
 </script>
 </body>
