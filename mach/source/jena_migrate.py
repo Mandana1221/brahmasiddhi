@@ -252,7 +252,8 @@ def autofix(items, otoks, note_texts, log):
         if a2 - a1 >= 8 and (b2 - b1) <= 2 and '\\' not in ''.join(oseg):
             text = ' '.join(oseg)
             probe = norm(' '.join(oseg[: min(12, len(oseg))]))
-            if probe and probe in notes_flat:
+            probe2 = norm(' '.join(oseg[1: min(13, len(oseg))]))
+            if probe and (probe in notes_flat or probe2 in notes_flat):
                 log.append('Fußnotenüberlauf im OCR ignoriert: „%s …“' % text[:60]); continue
             # keep the source tokens of a 'replace' (usually the paragraph's last word)
             inserts.append((b1 - 1 if b1 > 0 else 0, text, b2 - b1))
@@ -287,7 +288,8 @@ def migrate(n):
         if it[0] == 'pair':
             it[1] = strip_src_markers(it[1])
     fixlog = []
-    items = autofix(items, otoks, [s for _, s in onotes], fixlog)
+    src_all = [it[1] for it in items if it[0] == 'pair'] + [d for d, _ in snotes]
+    items = autofix(items, otoks, [s for _, s in onotes] + src_all, fixlog)
 
     stoks, sref = [], []
     for ii, it in enumerate(items):
@@ -369,7 +371,7 @@ def migrate(n):
         if best is not None and br >= 0.55:
             used.add(best)
             sde, sjp = snotes[best]
-            de = sde if br >= 0.9 else o
+            de = sde if (br >= 0.9 or len(sde) >= len(o)) else o
             notes_out.append((de, re.sub(r'【[補移]】', '', sjp) or '〔未訳〕'))
             if norm(o).split() != norm(sde).split():
                 note_rep.append('- Anm. %d (S. %d, Ähnlichkeit %.2f)\n  OCR: %s\n  SRC: %s' % (idx, pg, br, o[:600], sde[:600]))
