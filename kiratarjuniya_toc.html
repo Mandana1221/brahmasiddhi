@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Kirātārjunīya 目次</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&display=swap');
+
+  :root {
+    --bg: #faf8f3;
+    --bg-card: #f3efe7;
+    --bg-accent: #edeae2;
+    --text: #2c2418;
+    --text-secondary: #6b5d4d;
+    --accent: #8b4513;
+    --accent-light: #c4956a;
+    --border: #d4c9b8;
+    --border-light: #e6dfd2;
+    --sanskrit: #3a1f00;
+    --number-bg: #8b4513;
+    --number-text: #faf8f3;
+    --link: #6e3610;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1a1612;
+      --bg-card: #231e18;
+      --bg-accent: #2a241d;
+      --text: #e0d6c8;
+      --text-secondary: #a0927f;
+      --accent: #c4956a;
+      --accent-light: #8b6840;
+      --border: #3d352a;
+      --border-light: #2f2920;
+      --sanskrit: #e8d4b8;
+      --number-bg: #c4956a;
+      --number-text: #1a1612;
+      --link: #d4a87a;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1a1612;
+    --bg-card: #231e18;
+    --bg-accent: #2a241d;
+    --text: #e0d6c8;
+    --text-secondary: #a0927f;
+    --accent: #c4956a;
+    --accent-light: #8b6840;
+    --border: #3d352a;
+    --border-light: #2f2920;
+    --sanskrit: #e8d4b8;
+    --number-bg: #c4956a;
+    --number-text: #1a1612;
+    --link: #d4a87a;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Noto Serif JP', 'Hiragino Mincho ProN', serif;
+    line-height: 1.9;
+    padding: 2rem 1rem;
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    padding: 2.5rem 1rem 1.8rem;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 2rem;
+  }
+
+  header h1 {
+    font-family: 'Gentium Book Plus', 'Noto Serif JP', serif;
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    margin-bottom: 0.2rem;
+  }
+
+  header .subtitle-jp {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.06em;
+    margin-bottom: 0.6rem;
+  }
+
+  header .meta {
+    font-family: 'Gentium Book Plus', serif;
+    font-size: 0.82rem;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .overview {
+    padding: 1.2rem 1.4rem;
+    background: var(--bg-card);
+    border-radius: 4px;
+    margin-bottom: 2.2rem;
+    font-size: 0.88rem;
+    line-height: 2;
+    color: var(--text);
+  }
+
+  .overview strong {
+    color: var(--accent);
+  }
+
+  .stats {
+    display: flex;
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 2.2rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  .stat {
+    text-align: center;
+    min-width: 90px;
+  }
+
+  .stat-number {
+    font-family: 'Gentium Book Plus', serif;
+    font-size: 1.6rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stat-label {
+    font-size: 0.68rem;
+    color: var(--text-secondary);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .toc-section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: var(--accent);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    margin-bottom: 0.8rem;
+    padding-left: 0.2rem;
+  }
+
+  .sarga-entry {
+    display: grid;
+    grid-template-columns: 2.4rem 1fr;
+    gap: 0.8rem;
+    padding: 1rem 1rem 1rem 0.4rem;
+    border-bottom: 1px solid var(--border-light);
+    align-items: start;
+  }
+
+  .sarga-entry:last-child {
+    border-bottom: none;
+  }
+
+  .sarga-num {
+    font-family: 'Gentium Book Plus', serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--number-text);
+    background: var(--number-bg);
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0.1rem;
+    flex-shrink: 0;
+  }
+
+  .sarga-body {}
+
+  .sarga-title-row {
+    display: flex;
+    align-items: baseline;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 0.2rem;
+  }
+
+  .sarga-title-sanskrit {
+    font-family: 'Gentium Book Plus', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--sanskrit);
+  }
+
+  .sarga-title-jp {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--accent);
+  }
+
+  .sarga-verse-count {
+    font-family: 'Gentium Book Plus', serif;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .sarga-synopsis {
+    font-size: 0.84rem;
+    color: var(--text);
+    line-height: 1.85;
+    margin-top: 0.15rem;
+  }
+
+  .sarga-meter {
+    font-family: 'Gentium Book Plus', serif;
+    font-size: 0.72rem;
+    color: var(--text-secondary);
+    font-style: italic;
+    margin-top: 0.25rem;
+  }
+
+  .section-divider {
+    text-align: center;
+    margin: 1.8rem 0 1rem;
+    color: var(--accent);
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+  }
+
+  .section-divider::before,
+  .section-divider::after {
+    content: '';
+    display: inline-block;
+    width: 2rem;
+    height: 1px;
+    background: var(--border);
+    vertical-align: middle;
+    margin: 0 0.8rem;
+  }
+
+  footer {
+    margin-top: 2.5rem;
+    padding-top: 1.2rem;
+    border-top: 2px solid var(--accent);
+    text-align: center;
+    font-size: 0.78rem;
+    color: var(--text-secondary);
+    line-height: 1.8;
+  }
+
+  footer .ref {
+    font-family: 'Gentium Book Plus', 'Noto Serif JP', serif;
+    font-size: 0.75rem;
+    margin-top: 0.6rem;
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 1rem 0.5rem; }
+    header h1 { font-size: 1.6rem; }
+    .stats { gap: 0.8rem; }
+    .sarga-entry { grid-template-columns: 2rem 1fr; gap: 0.5rem; padding: 0.8rem 0.5rem 0.8rem 0.2rem; }
+    .sarga-num { width: 1.7rem; height: 1.7rem; font-size: 0.7rem; }
+    .sarga-title-row { flex-direction: column; gap: 0.1rem; }
+  }
+
+  a.sarga-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+  }
+  a.sarga-link:hover .sarga-entry {
+    background: var(--bg-accent);
+    transition: background 0.15s ease;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Kirātārjunīya</h1>
+  <div class="subtitle-jp">キラータールジュニーヤ 対訳 目次</div>
+  <div class="meta">Bhāravi · Sanskrit–Japanese Parallel Text<br>Cappeller独訳（1912）・Mallinātha注（Durgāprasād・Parab校訂本、Nirṇaya-Sāgar Press、1895年第3版）参照</div>
+</header>
+
+<div class="stats">
+  <div class="stat">
+    <div class="stat-number">18</div>
+    <div class="stat-label">章 Sargas</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">1,040</div>
+    <div class="stat-label">偈 Verses</div>
+  </div>
+  <div class="stat">
+    <div class="stat-number">24</div>
+    <div class="stat-label">韻律 Meters</div>
+  </div>
+</div>
+
+<div class="overview">
+  <strong>作品概要</strong>　バーラヴィ（Bhāravi, 6世紀頃）作の大叙事詩（<em>mahākāvya</em>）。マハーバーラタ第三巻「森の巻」（Vanaparvan）のキラータ説話に基づく。流刑中のパーンダヴァ五兄弟の第三子アルジュナが、ヒマラヤの山中でシヴァ神の恩寵と最強の武器パーシュパタを得るまでを全18章にわたって描く。前半は政治・倫理の議論、中盤は自然描写とシヴァの出現、後半はアルジュナとキラータ（山岳民の姿をとったシヴァ）の壮絶な戦闘と、シヴァの顕現に至る。
+</div>
+
+<div class="toc-section-label">前半 — 議論と出発</div>
+
+<a class="sarga-link" href="sarga01.html">
+<div class="sarga-entry">
+  <div class="sarga-num">1</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Prathamaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">密偵の報告とドラウパディーの激励</span>
+      <span class="sarga-verse-count">46偈</span>
+    </div>
+    <div class="sarga-synopsis">ユディシュティラが遣わした森の民の密偵が帰還し、ドゥルヨーダナの巧みな統治を報告する（1–25）。ドラウパディーは王の忍従を責め、速やかな開戦を促す（26–46）。</div>
+    <div class="sarga-meter">Vaṃśastha（1–44） → Puṣpitāgrā → Mālinī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga02.html">
+<div class="sarga-entry">
+  <div class="sarga-num">2</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Dvitīyaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">ビーマの進言とユディシュティラの応答</span>
+      <span class="sarga-verse-count">59偈</span>
+    </div>
+    <div class="sarga-synopsis">ビーマがドラウパディーに同調して即時の行動を説く（1–24）。ユディシュティラは忍耐と時宜を説き、慎重な方策の利を論じる（25–53）。そこへヴィヤーサが来訪する（54–59）。</div>
+    <div class="sarga-meter">Vaitālīya（1–56） → Upajāti → Puṣpitāgrā → Vasantatilakā</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga03.html">
+<div class="sarga-entry">
+  <div class="sarga-num">3</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Tṛtīyaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">ヴィヤーサの勧告とアルジュナの出発</span>
+      <span class="sarga-verse-count">60偈</span>
+    </div>
+    <div class="sarga-synopsis">ユディシュティラがヴィヤーサを迎える（1–9）。ヴィヤーサは敵の強大さを説き、アルジュナに秘法を授けて、インドラの恩寵を得るための苦行を命じる（10–29）。ヤクシャを案内役に、ドラウパディーの言葉に送られてアルジュナは旅立つ（30–60）。</div>
+    <div class="sarga-meter">Upajāti（1–55） → Vaṃśastha → Vaitālīya（57–59） → Mālinī</div>
+  </div>
+</div>
+</a>
+
+<div class="section-divider">中盤 — 道行き・苦行・天女の誘惑</div>
+
+<a class="sarga-link" href="sarga04.html">
+<div class="sarga-entry">
+  <div class="sarga-num">4</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Caturthaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">秋の道行き</span>
+      <span class="sarga-verse-count">38偈</span>
+    </div>
+    <div class="sarga-synopsis">北へ向かうアルジュナが目にする秋の田園――稲田、牛の群れ、牧人と牧女の暮らし（1–19）。ヤクシャが秋の美を讃える（20–36）。遠くにヒマーラヤが姿を現す（37–38）。</div>
+    <div class="sarga-meter">Vaṃśastha（1–36） → Puṣpitāgrā → Mālinī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga05.html">
+<div class="sarga-entry">
+  <div class="sarga-num">5</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Pañcamaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">ヒマーラヤとインドラキーラ山</span>
+      <span class="sarga-verse-count">52偈</span>
+    </div>
+    <div class="sarga-synopsis">ヒマーラヤの壮大な姿（1–16）。ヤクシャがその神秘とシヴァ・パールヴァティーとの縁を語り、インドラキーラ山での苦行を勧めて去る（17–52）。16種の韻律を次々に用いる技巧の章。</div>
+    <div class="sarga-meter">Drutavilambita（1–16）ほか全16種の韻律（詩節ごとに変化）</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga06.html">
+<div class="sarga-entry">
+  <div class="sarga-num">6</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Ṣaṣṭhaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">苦行の始まりと天女の派遣</span>
+      <span class="sarga-verse-count">47偈</span>
+    </div>
+    <div class="sarga-synopsis">アルジュナがインドラキーラ山に登り（1–18）、苦行に励む（19–28）。グヒヤカたちがインドラに報告し（29–37）、インドラは誓戒の堅さを試すためアプサラスたちを遣わす（38–47）。</div>
+    <div class="sarga-meter">Pramitākṣarā（1–45） → Vasantatilakā → Mālinī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga07.html">
+<div class="sarga-entry">
+  <div class="sarga-num">7</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Saptamaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">天女たちの行軍</span>
+      <span class="sarga-verse-count">40偈</span>
+    </div>
+    <div class="sarga-synopsis">天女とガンダルヴァの一行が空を行き（1–19）、山上に降りて陣を敷く（20–29）。神々の象の水浴と休息（30–40）。</div>
+    <div class="sarga-meter">Praharṣiṇī（1–39） → Vasantatilakā</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga08.html">
+<div class="sarga-entry">
+  <div class="sarga-num">8</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Aṣṭamaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">花摘みと水遊び</span>
+      <span class="sarga-verse-count">57偈</span>
+    </div>
+    <div class="sarga-synopsis">天女たちの森の散策と花摘み（1–26）。天の河（ガンガー）での水遊び（27–57）。</div>
+    <div class="sarga-meter">Vaṃśastha（1–54） → Vasantatilakā（55–57）</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga09.html">
+<div class="sarga-entry">
+  <div class="sarga-num">9</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Navamaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">夕暮れ・月の出・酒宴</span>
+      <span class="sarga-verse-count">78偈</span>
+    </div>
+    <div class="sarga-synopsis">日没（1–16）、月の出（17–33）、天女とガンダルヴァの愛の夜と酒宴（34–75）、そして夜明け（76–78）。</div>
+    <div class="sarga-meter">Svāgatā（1–73） → Vasantatilakā（74–77） → Mālinī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga10.html">
+<div class="sarga-entry">
+  <div class="sarga-num">10</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Daśamaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">六季の出現と誘惑の失敗</span>
+      <span class="sarga-verse-count">63偈</span>
+    </div>
+    <div class="sarga-synopsis">天女たちがアルジュナの庵に赴く（1–18）。六つの季節が一斉に現れて彼女たちを助ける（19–36）。しかしあらゆる誘惑も英雄を動かせず、天女たちは帰ってゆく（37–63）。</div>
+    <div class="sarga-meter">Puṣpitāgrā（1–62） → Śikhariṇī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga11.html">
+<div class="sarga-entry">
+  <div class="sarga-num">11</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Ekādaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">老仙に化したインドラとの問答</span>
+      <span class="sarga-verse-count">81偈</span>
+    </div>
+    <div class="sarga-synopsis">インドラが老仙人の姿で訪れ、武器を帯びた苦行の矛盾を指摘して解脱を勧める（1–36）。アルジュナはクシャトリヤとしての使命と一族の名誉の回復を語る（37–79）。インドラは正体を現し、シヴァを礼拝するよう命じる（80–81）。</div>
+    <div class="sarga-meter">Anuṣṭubh（1–79） → Upajāti → Vasantatilakā</div>
+  </div>
+</div>
+</a>
+
+<div class="section-divider">後半 — 戦闘と顕現</div>
+
+<a class="sarga-link" href="sarga12.html">
+<div class="sarga-entry">
+  <div class="sarga-num">12</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Dvādaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">キラータに化したシヴァ</span>
+      <span class="sarga-verse-count">54偈</span>
+    </div>
+    <div class="sarga-synopsis">アルジュナの苦行の威力に怯えた聖仙たちがシヴァに訴える（1–31）。シヴァはアルジュナの本性と、猪に化けた魔物ムーカの企てを明かし（32–39）、キラータの王に扮して軍勢を率い、アルジュナの庵に迫る（40–54）。</div>
+    <div class="sarga-meter">Udgatā（1–53） → Praharṣiṇī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga13.html">
+<div class="sarga-entry">
+  <div class="sarga-num">13</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Trayodaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">猪の射殺と使者の口上</span>
+      <span class="sarga-verse-count">71偈</span>
+    </div>
+    <div class="sarga-synopsis">突進する猪に疑念を抱いたアルジュナとシヴァが同時に矢を放ち、猪を倒す（1–34）。キラータの使者が現れ、矢の返還を求める長い口上を述べる（35–71）。</div>
+    <div class="sarga-meter">Aupacchandasika（1–34） → Rathoddhatā（35–70） → Vasantatilakā</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga14.html">
+<div class="sarga-entry">
+  <div class="sarga-num">14</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Caturdaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">アルジュナの返答と軍勢の進撃</span>
+      <span class="sarga-verse-count">65偈</span>
+    </div>
+    <div class="sarga-synopsis">アルジュナが使者の要求を退ける（1–25）。使者が戻り（26）、シヴァの軍勢が攻めかかるが、アルジュナはこれを撃退する（27–65）。</div>
+    <div class="sarga-meter">Vaṃśastha（1–63） → Drutavilambita → Mālinī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga15.html">
+<div class="sarga-entry">
+  <div class="sarga-num">15</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Pañcadaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">スカンダの叱咤と弓の戦い</span>
+      <span class="sarga-verse-count">53偈</span>
+    </div>
+    <div class="sarga-synopsis">敗走するガナたちをスカンダが叱咤し、シヴァが制止する（1–33）。シヴァとアルジュナの弓の戦い（34–53）。字並べ・音戯（チトラ）の詩節を多く含む技巧の章。</div>
+    <div class="sarga-meter">Anuṣṭubh（1–46） → Vaitālīya（47–48） → Upajāti（49–50） → Vaṃśastha（51–52） → Vasantatilakā</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga16.html">
+<div class="sarga-entry">
+  <div class="sarga-num">16</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Ṣoḍaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">疑念とアストラの応酬</span>
+      <span class="sarga-verse-count">64偈</span>
+    </div>
+    <div class="sarga-synopsis">アルジュナはキラータの正体を疑う（1–24）。催眠・蛇・火の天上の武器（アストラ）を次々に放つが、シヴァは光輝・ガルダ・水の武器でことごとく封じる（25–64）。</div>
+    <div class="sarga-meter">Upajāti（1–54） → Vaṃśastha（55–61） → Mālinī（62–63） → Vasantatilakā</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga17.html">
+<div class="sarga-entry">
+  <div class="sarga-num">17</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Saptadaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">弓・剣・石・樹木の戦い</span>
+      <span class="sarga-verse-count">64偈</span>
+    </div>
+    <div class="sarga-synopsis">アルジュナは弓を取り直すが矢を使い果たし、剣に持ち替えるもそれも折られ、石や樹木を投げつけ、ついに拳で殴りかかる。シヴァは父が幼子の無作法を許すようにすべてを受け止める。</div>
+    <div class="sarga-meter">Upajāti（1–59） → Vaṃśastha → Praharṣiṇī（61–63） → Mālinī</div>
+  </div>
+</div>
+</a>
+
+<a class="sarga-link" href="sarga18.html">
+<div class="sarga-entry">
+  <div class="sarga-num">18</div>
+  <div class="sarga-body">
+    <div class="sarga-title-row">
+      <span class="sarga-title-sanskrit">Aṣṭādaśaḥ Sargaḥ</span>
+      <span class="sarga-title-jp">拳闘・シヴァの顕現・パーシュパタの授与</span>
+      <span class="sarga-verse-count">48偈</span>
+    </div>
+    <div class="sarga-synopsis">シヴァとアルジュナが素手で殴り合い、組み合って格闘する。シヴァがアルジュナを胸に抱きしめて真の姿を顕す。アルジュナは讃歌（stuti）でシヴァの宇宙的本質を讃え、戦いの力を願う。シヴァはラウドラ武器（パーシュパタ）を授け、世界の守護者たちも様々な武器を授ける。アルジュナは帰還し、兄ユディシュティラに礼拝する。</div>
+    <div class="sarga-meter">Drutavilambita（1–12）ほか全16種の韻律（詩節ごとに変化）</div>
+  </div>
+</div>
+</a>
+
+<footer>
+  <div>Kirātārjunīya 対訳 全18章完</div>
+  <div class="ref">
+    底本：GRETIL Sanskrit IAST Text<br>
+    参照：C. Cappeller, <em>Bhāravi's Gedicht Kirātārjunīya</em> (1912)<br>
+    参照：Mallinātha, <em>Ghaṇṭāpatha</em>（Durgāprasād・Parab校訂本、Nirṇaya-Sāgar Press、1895年第3版）
+  </div>
+</footer>
+</body>
+</html>
