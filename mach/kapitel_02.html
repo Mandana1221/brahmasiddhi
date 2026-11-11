@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第Ⅱ章 先入見について</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+JP:wght@400;600&display=swap">
+<style>
+:root {
+  --paper:#fbf8f1; --ink:#2b2721; --muted:#7a7266; --rule:#ddd3bd;
+  --de:#8b6f2e; --de-bg:#f6f0e2; --jp:#5a7a99; --jp-bg:#eef3f7;
+  --note-bg:#f4efe4; --bar:#fbf8f1ee; --hl:#f3e2b0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#1c1a17; --ink:#e3ded4; --muted:#9d958a; --rule:#3a352d;
+    --de:#cfa95c; --de-bg:#26221b; --jp:#8fb0cf; --jp-bg:#1f242a;
+    --note-bg:#23201b; --bar:#1c1a17ee; --hl:#4a3f22;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#1c1a17; --ink:#e3ded4; --muted:#9d958a; --rule:#3a352d;
+  --de:#cfa95c; --de-bg:#26221b; --jp:#8fb0cf; --jp-bg:#1f242a;
+  --note-bg:#23201b; --bar:#1c1a17ee; --hl:#4a3f22;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:4.5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+body { margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif; line-height:1.9; }
+a { color:inherit; }
+:focus-visible { outline:2px solid var(--de); outline-offset:2px; }
+[lang="de"] { font-family:"EB Garamond","Garamond","Times New Roman",serif; hyphens:auto; }
+
+.bar { position:sticky; top:0; z-index:5; background:var(--bar); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--rule); }
+.bar-in { max-width:78rem; margin:0 auto; padding:.5rem 1rem; display:flex; gap:1rem; align-items:center; flex-wrap:wrap; font-size:.82rem; }
+.bar .ch { text-decoration:none; font-weight:600; letter-spacing:.06em; white-space:nowrap; }
+.seg { display:inline-flex; border:1px solid var(--rule); border-radius:999px; overflow:hidden; }
+.seg button { font:inherit; background:none; color:var(--muted); border:0; padding:.2rem .8rem; cursor:pointer; }
+.seg button[aria-pressed="true"] { background:var(--de); color:var(--paper); }
+.secnav { display:flex; gap:.15rem; overflow-x:auto; margin-left:auto; scrollbar-width:none; }
+.secnav a { text-decoration:none; color:var(--muted); padding:.1rem .45rem; border-radius:4px; white-space:nowrap; }
+.secnav a:hover { color:var(--de); background:var(--de-bg); }
+
+header.title { max-width:78rem; margin:0 auto; padding:3rem 1rem 1.5rem; text-align:center; }
+.kicker { font-size:.8rem; letter-spacing:.3em; color:var(--muted); }
+h1 { margin:.4rem 0 .2rem; font-size:2rem; font-weight:600; letter-spacing:.15em; }
+h1 + .de-title { font-size:1.35rem; font-style:italic; color:var(--de); }
+h1 sup a { font-size:.55em; color:var(--de); text-decoration:none; }
+.source { margin-top:1rem; font-size:.78rem; color:var(--muted); }
+.title .notes { max-width:60rem; margin:1.2rem auto 0; text-align:left; }
+
+main { max-width:78rem; margin:0 auto; padding:0 1rem 4rem; }
+h2.sec { font-size:1rem; font-weight:600; color:var(--de); letter-spacing:.12em;
+  margin:3rem 0 .6rem; padding-bottom:.3rem; border-bottom:1px solid var(--rule); }
+h2.sec a { text-decoration:none; }
+
+.row { display:grid; grid-template-columns:4.2rem 1fr 1fr; column-gap:1.6rem;
+  padding:1rem 0; border-bottom:1px dotted var(--rule); }
+.row:target { background:linear-gradient(90deg,var(--hl),transparent 70%); }
+.mg { font-size:.72rem; color:var(--muted); display:flex; flex-direction:column; gap:.1rem; padding-top:.3rem;
+  font-variant-numeric:tabular-nums; }
+.pid { font-weight:600; color:var(--de); text-decoration:none; font-size:.8rem; }
+.pg { display:flex; flex-direction:column; }
+.row > p { margin:0; }
+.row > .de { font-size:1.08rem; line-height:1.75; text-align:justify; }
+.row > .jp { font-size:.95rem; text-align:justify; }
+.pb { display:inline-block; font-family:"Noto Serif JP",serif; font-size:.62rem; line-height:1;
+  color:var(--de); border:1px solid var(--de); border-radius:3px; padding:.08rem .25rem; margin:0 .15rem;
+  vertical-align:.25em; opacity:.8; }
+.pb::before { content:"S. "; }
+a.fr { font-size:.68em; vertical-align:super; line-height:0; text-decoration:none; color:var(--de);
+  font-weight:600; padding:0 .1em; font-family:"Noto Serif JP",serif; }
+.jp a.fr { color:var(--jp); }
+a.zref { color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px; }
+a.zref:hover { color:var(--accent, inherit); }
+
+.notes { grid-column:2 / 4; list-style:none; margin:.8rem 0 0; padding:.6rem .9rem; background:var(--note-bg);
+  border-radius:4px; display:grid; gap:.5rem; font-size:.8rem; line-height:1.65; }
+.notes li { display:grid; grid-template-columns:1.8rem 1fr 1fr; column-gap:1.2rem; }
+.notes li:target { outline:2px solid var(--hl); outline-offset:3px; }
+.notes .nn { color:var(--de); font-weight:600; }
+.notes p { margin:0; }
+.notes .de { font-size:.92rem; }
+
+.fig { grid-column:1/-1; margin:1rem 0 1rem 5.8rem; padding:.8rem 1rem; border:1px dashed var(--de);
+  border-radius:4px; display:flex; flex-wrap:wrap; gap:.3rem 1.5rem; font-size:.82rem; color:var(--muted); }
+.missing { color:var(--muted); font-style:italic; }
+.fig em { font-style:normal; margin-left:auto; font-size:.72rem; }
+
+body.only-de .row > .jp, body.only-de .notes .jp, body.only-jp .row > .de, body.only-jp .notes .de { display:none; }
+body.only-de .row, body.only-jp .row { grid-template-columns:4.2rem minmax(0,44rem); }
+body.only-de .notes li, body.only-jp .notes li { grid-template-columns:1.8rem 1fr; }
+body.only-de .notes, body.only-jp .notes { grid-column:2; }
+body.no-notes .row .notes { display:none; }
+
+details.corr { max-width:78rem; margin:2rem auto; padding:0 1rem; font-size:.85rem; }
+details.corr summary { cursor:pointer; color:var(--de); font-weight:600; }
+.corr .tw { overflow-x:auto; }
+.corr table { border-collapse:collapse; margin:.8rem 0; min-width:32rem; }
+.corr td, .corr th { border-bottom:1px solid var(--rule); padding:.3rem .8rem; text-align:left; vertical-align:top; }
+.corr th { color:var(--muted); font-weight:400; font-size:.75rem; }
+.corr ul { padding-left:1.2rem; }
+.pager { max-width:78rem; margin:0 auto; padding:1.5rem 1rem 3rem; display:flex; justify-content:space-between;
+  border-top:1px solid var(--rule); font-size:.85rem; }
+.pager a { color:var(--de); text-decoration:none; }
+
+@media (max-width: 760px) {
+  .row, body.only-de .row, body.only-jp .row { grid-template-columns:1fr; row-gap:.6rem; }
+  .mg { flex-direction:row; gap:.8rem; padding:0; }
+  .pg { flex-direction:row; gap:.5rem; }
+  .row > .jp { padding-top:.6rem; border-top:1px solid var(--rule); }
+  .notes, body.only-de .notes, body.only-jp .notes { grid-column:1; }
+  .notes li { grid-template-columns:1.6rem 1fr; }
+  .notes li .jp { grid-column:2; margin-top:.3rem; }
+  .fig { margin-left:0; }
+  .secnav { margin-left:0; width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <a class="ch" href="index.html" title="目次">第Ⅱ章</a>
+  <span class="seg" role="group" aria-label="表示言語">
+    <button type="button" data-v="both" aria-pressed="true">対訳</button>
+    <button type="button" data-v="only-de" aria-pressed="false">独</button>
+    <button type="button" data-v="only-jp" aria-pressed="false">日</button>
+  </span>
+  <span class="seg" role="group" aria-label="注">
+    <button type="button" data-n="show" aria-pressed="true">注あり</button>
+    <button type="button" data-n="no-notes" aria-pressed="false">注なし</button>
+  </span>
+  <nav class="secnav" aria-label="節"><a href="#s1">§1</a><a href="#s2">§2</a><a href="#s3">§3</a><a href="#s4">§4</a></nav>
+</div></div>
+
+<header class="title">
+  <div class="kicker">KAPITEL II · 第Ⅱ章</div>
+  <h1>先入見について</h1>
+  <div class="de-title" lang="de">Über vorgefaßte Meinungen</div>
+  <div class="source">底本：E. Mach, <i lang="de">Die Analyse der Empfindungen</i>, 9. Aufl., Jena: G. Fischer 1922, S. 31–37　｜　本文中の <span class="pb">201</span> は底本の改頁位置</div>
+  
+</header>
+
+<main>
+<h2 class="sec" id="s1"><a href="#s1">§ 1</a></h2>
+<article class="row" id="p1.1">
+  <aside class="mg"><a class="pid" href="#p1.1">1.1</a><span class="pg"><span>S.&nbsp;31</span></span></aside>
+  <p class="de" lang="de">Der Physiker hat oft Gelegenheit zu sehen, wie sehr die Erkenntnis eines Gebietes dadurch gehemmt werden kann, daß anstatt der vorurteilslosen Untersuchung desselben an sich die auf einem andern Gebiet gefaßten Ansichten auf dasselbe übertragen werden. Weit bedeutender ist die Störung, welche durch solche Übertragung vorgefaßter Meinungen aus dem Gebiet der Physik in jenes der Psychologie entsteht. Erläutern wir dies durch einige Beispiele.</p>
+  <p class="jp" lang="ja">物理学者はしばしば、ある領域の認識が、その領域自体の偏見のない探究の代わりに、別の領域で得られた見解をそこに無批判に持ち込むことによって、いかに妨げられうるかを目にする機会がある。しかし、物理学の分野から心理学の分野への先入見の移入によって生じる混乱は、はるかに重大である。いくつかの例で説明しよう。</p>
+  
+</article>
+<article class="row" id="p1.2">
+  <aside class="mg"><a class="pid" href="#p1.2">1.2</a><span class="pg"><span>S.&nbsp;31</span></span></aside>
+  <p class="de" lang="de">Ein Physiker beobachtet das verkehrte Netzhautbild an einem ausgeschnittenen Auge und stellt sich die Frage, wie es kommt, daß ein Punkt, der im Raume unten liegt, sich auf der Netzhaut oben abbildet. Diese Frage beantwortet er durch dioptrische Untersuchungen. Wenn nun dieselbe Frage, welche im Gebiete der Physik vollkommen berechtigt ist, in die Psychologie übertragen wird, erzeugt sie nur Unklarheiten. Die Frage, warum wir die verkehrten Netzhautbilder aufrecht sehen, hat als psychologisches Problem keinen Sinn. Die Lichtempfindungen der einzelnen Netzhautstellen sind von Anbeginn mit Raumempfindungen verknüpft, und wir nennen die Orte, welche den unten gelegenen Stellen der Netzhaut entsprechen, „oben". Dem empfindenden Subjekt kann sich eine solche Frage gar nicht ergeben.</p>
+  <p class="jp" lang="ja">ある物理学者が、摘出された眼球の網膜上の倒立像を観察し、「空間で下にある点が、なぜ網膜の上に結像するのか」と問う。この問いに彼は屈折光学の研究によって答える。ところが、この問い——物理学の領域では完全に正当なもの——を心理学に持ち込むと、混乱しか生まない。「倒立した網膜像があるのに、なぜ我々は正立して見えるのか」という問いは、心理学的問題としては意味をなさない。個々の網膜部位の光の感覚は、はじめから空間感覚と結びついており、網膜の下側に対応する場所を我々は「上」と呼ぶのである。感じる主体にとっては、そのような問いはそもそも生じえない。</p>
+  
+</article>
+<article class="row" id="p1.3">
+  <aside class="mg"><a class="pid" href="#p1.3">1.3</a><span class="pg"><span>S.&nbsp;31</span><span>S.&nbsp;32</span></span></aside>
+  <p class="de" lang="de">Ebenso verhält es sich mit der bekannten Theorie der Projektion nach außen. Es ist die Aufgabe des Physikers, den leuchtenden Objektpunkt zu dem Bildpunkt auf der Netzhaut in der <span class="pb" title="Jena 1922, S. 32">32</span>Verlängerung des durch den Bildpunkt und den Kreuzungspunkt des Auges gezogenen Strahles zu suchen. Für das empfindende Subjekt existiert ein solches Problem nicht, da die Lichtempfindungen von Anfang an an bestimmte Raumempfindungen geknüpft sind. Die ganze Theorie des psychologischen Ursprungs der Außenwelt durch Projektion der Empfindungen nach außen beruht nur auf einer mißverständlichen Anwendung physikalischer Gesichtspunkte. Unsere Gesichts- und Tastempfindungen sind an verschiedene Raumempfindungen gebunden, d. h. sie sind nebeneinander und außereinander, sie befinden sich in einem räumlichen Feld, von welchem unser Leib nur einen Teil erfüllt. Der Tisch, der Baum, das Haus liegt also selbstverständlich außerhalb meines Leibes. Ein Projektionsproblem liegt also niemals vor, wird weder bewußt noch unbewußt gelöst.</p>
+  <p class="jp" lang="ja">「外界への投射」という有名な理論についても同様である。網膜上の像の点に対して、目の交差点を通る光線の延長上に発光する対象点を求めるのは、物理学者の仕事である。しかし感じる主体にとっては、そのような問題は存在しない。光の感覚は最初から特定の空間感覚に結びついているからだ。感覚の外界への投射による外界の心理学的起源に関する理論全体は、物理学的視点の誤った適用に基づいているにすぎない。我々の視覚や触覚の感覚は、さまざまな空間感覚に結びついている。つまり、それらは互いに隣り合い、外に並んでおり、一つの空間的場の中にあり、我々の身体はその場の一部を占めているにすぎない。テーブルも木も家も、当然のこととして私の身体の外にある。投射の問題は、そもそも存在せず、意識的にも無意識的にも解かれることはない。</p>
+  
+</article>
+<article class="row" id="p1.4">
+  <aside class="mg"><a class="pid" href="#p1.4">1.4</a><span class="pg"><span>S.&nbsp;32</span></span></aside>
+  <p class="de" lang="de">Ein Physiker (Mariotte) findet, daß eine bestimmte Stelle der Netzhaut blind ist. Der Physiker ist gewohnt, jedem Raumpunkt einen Bildpunkt und jedem Bildpunkt eine Empfindung zuzuordnen. So entsteht die Frage: Was sehen wir an den dem blinden Fleck entsprechenden Raumstellen? Wie wird die Lücke ausgefüllt? Wenn die unberechtigte physikalische Fragenform aus der psychologischen Untersuchung ausgeschaltet wird, finden wir, daß ein Problem hier überhaupt nicht besteht. Wir sehen nichts an der blinden Stelle, die Lücke im Bild wird überhaupt nicht ausgefüllt. Die Lücke wird vielmehr gar nicht empfunden, einfach darum, weil ein Fehlen der Lichtempfindung an einer von Haus aus blinden Stelle so wenig bemerkt werden kann, als etwa die blinde Haut des Rückens eine Lücke im Gesichtsfeld bedingen kann. <a class="zref" href="zusaetze.html#sz2">S. Z. 2.</a> Ich habe absichtlich einfache und naheliegende Beispiele gewählt, um zu zeigen, welche unnötige Verwirrung durch die unvorsichtige Übertragung der in einem Gebiet gültigen Ansicht oder Denkweise auf ein gänzlich anderes entstehen kann.</p>
+  <p class="jp" lang="ja">ある物理学者（マリオット）が、網膜の特定の箇所が盲目であることを発見する。物理学者は、空間上のすべての点に像の点を、すべての像の点に感覚を対応させる習慣がある。そこで問いが生まれる。「盲点に対応する空間の場所に、我々は何を見るのか？　その欠落はどのように埋められるのか？」。しかし、不当な物理学的な問いの形式を心理学的研究から取り除けば、ここにはそもそも問題が存在しないことがわかる。 我々は盲点の位置には何も見ない。像の欠落は埋められるのではなく、そもそも感じられないのだ。もともと盲目の箇所に光の感覚が欠けていることに気づきえないのは、光を感じない背中の皮膚が視野に欠落を生じさせることがありえないのと同じだからである。（<a class="zref" href="zusaetze.html#sz2">補遺2</a>参照）私は意図的に、単純で身近な例を選んだ。一つの領域で妥当する見方や思考方法を、まったく別の領域に無用心に持ち込むことで、どれほど不必要な混乱が生じうるかを示すためである。</p>
+  
+</article>
+<article class="row" id="p1.5">
+  <aside class="mg"><a class="pid" href="#p1.5">1.5</a><span class="pg"><span>S.&nbsp;32</span><span>S.&nbsp;33</span></span></aside>
+  <p class="de" lang="de">In dem Werk eines berühmten deutschen Ethnographen las ich den folgenden Satz: „dieser Stamm hat sich durch Menschenfresserei tief entwürdigt“. Daneben lag das Buch eines englischen <span class="pb" title="Jena 1922, S. 33">33</span>Forschers, welches sich mit demselben Gegenstande beschäftigt. Der letztere stellt einfach die Frage auf, warum gewisse Südseeinsulaner Kannibalen sind, findet im Verlaufe der Untersuchung, daß auch unsere Vorfahren Kannibalen waren, und gelangt auch zum Verständnis der Anschauungen der Indier in dieser Frage.</p>
+  <p class="jp" lang="ja">ある著名なドイツの民族学者の著書に、次の文章を読んだ。「この部族は人肉食によって深く堕落した」。その隣に、同じ主題を扱うイギリスの研究者の本が置いてあった。後者は単に「なぜある南洋の島民は人食いなのか」と問い、調査の過程で我々の祖先もまた人食いであったことを見出し、インド人のこの問題に関する考え方の理解にも到達する。</p>
+  
+</article>
+<article class="row" id="p1.6">
+  <aside class="mg"><a class="pid" href="#p1.6">1.6</a><span class="pg"><span>S.&nbsp;33</span></span></aside>
+  <p class="de" lang="de">Dieses leuchtete auch einmal meinem 5 Jahre alten Knaben auf, der beim Verspeisen eines Bratens plötzlich erschreckt und betroffen innehielt und ausrief: „Wir sind für die Tiere Menschenfresser!“ „Du sollst nicht Menschen fressen“ ist ein sehr lobenswerter Grundsatz. In dem Munde des Ethnographen vernichtet er aber den erhabenen milden Glanz der Unbefangenheit, in dem wir den Forscher so gern erblicken.</p>
+  <p class="jp" lang="ja">このことは、私の五歳の息子にもあるとき思い当たった。彼は焼き肉を食べている最中に、突然ぎょっとして手を止め、叫んだ。「ぼくたちは動物にとっては人食いだ！」——「人を食うなかれ」はまことに称賛に値する原則である。しかし民族学者の口から発せられると、それは、我々が研究者のうちに好んで見ようとする、偏見のなさという気高く穏やかな輝きを打ち消してしまうのである。</p>
+  
+</article>
+<article class="row" id="p1.7">
+  <aside class="mg"><a class="pid" href="#p1.7">1.7</a><span class="pg"><span>S.&nbsp;33</span></span></aside>
+  <p class="de" lang="de">Noch einen Schritt weiter, und wir sagen auch: „Der Mensch darf nicht vom Affen abstammen“, „die Erde soll sich nicht drehen“, „die Materie soll den Raum nicht kontinuierlich ausfüllen“, „die Energie muß konstant sein“ usw.</p>
+  <p class="jp" lang="ja">もう一歩進めば、我々はこうも言うだろう。「人間は猿の子孫であってはならない」「地球は回転すべきではない」「物質は空間を連続的に満たすべきではない」「エネルギーは一定でなければならない」等々。</p>
+  
+</article>
+<article class="row" id="p1.8">
+  <aside class="mg"><a class="pid" href="#p1.8">1.8</a><span class="pg"><span>S.&nbsp;33</span></span></aside>
+  <p class="de" lang="de">Ich glaube, daß unser Vorgehen sich nur dem Grade nach und nicht der Art nach von dem eben bezeichneten unterscheidet, wenn wir physikalische Ansichten mit dem Anspruch der absoluten Giltigkeit, ohne vorher deren Verwendbarkeit erprobt zu haben, in das Gebiet der Psychologie übertragen. In solchen Fällen unterliegen wir dem Dogma, wenn auch nicht dem aufgezwungenen, wie unsere scholastischen Vorfahren, so doch dem selbstgemachten. Und welches Forschungsergebnis könnte durch lange Gewohnheit nicht zum Dogma werden? Dieselbe Gewandtheit, welche wir uns für oft wiederkehrende intellektuelle Situationen erworben haben, benimmt uns ja die Frische und Unbefangenheit, deren wir in neuen Situationen so sehr bedürfen.</p>
+  <p class="jp" lang="ja">物理学的な見解を、その有用性をあらかじめ試すことなく、絶対的妥当性を要求しつつ心理学の領域に持ちこむとき、我々のやり方は、いま述べたやり方と程度において異なるだけで、種類において異なるのではない、と私は思う。そのような場合、我々はドグマに屈しているのだ。もっとも、スコラ学的な祖先のように外から押しつけられたドグマではなく、自分で作ったドグマに。そして、どんな研究成果であれ、長い習慣によってドグマになりうるではないか。たびたび現れる知的状況に対して獲得した手際のよさこそが、新しい状況において切実に必要とされる新鮮さと偏見のなさを奪うのである。</p>
+  
+</article>
+<article class="row" id="p1.9">
+  <aside class="mg"><a class="pid" href="#p1.9">1.9</a><span class="pg"><span>S.&nbsp;33</span></span></aside>
+  <p class="de" lang="de">Nach diesen allgemeinen Bemerkungen kann ich die nötigen erläuternden Ausführungen über meine Stellung zum Dualismus des Physischen und Psychischen vorbringen. Derselbe ist meines Erachtens künstlich und ohne Not herbeigeführt.</p>
+  <p class="jp" lang="ja">以上の一般的な注意ののち、物理的なものと心理的なものの二元論に対する私の立場について、必要な説明を述べることができる。この二元論は、私の考えでは、人為的に、かつ不必要に作り出されたものである。</p>
+  
+</article>
+<h2 class="sec" id="s2"><a href="#s2">§ 2</a></h2>
+<article class="row" id="p2.1">
+  <aside class="mg"><a class="pid" href="#p2.1">2.1</a><span class="pg"><span>S.&nbsp;33</span><span>S.&nbsp;34</span></span></aside>
+  <p class="de" lang="de">Bei Untersuchung rein physikalischer Prozesse verwenden wir gewöhnlich so abstrakte Begriffe, daß wir in der Regel nur <span class="pb" title="Jena 1922, S. 34">34</span>flüchtig oder gar nicht an die Empfindungen (Elemente) denken, welche diesen Begriffen zugrunde liegen. Wenn ich z. B. feststelle, daß der elektrische Strom von der Intensität 1 Ampère in der Minute 10¹/₂ ccm Knallgas von 0° C und 760 mm Quecksilberdruck entwickelt, bin ich sehr geneigt, den definierten Objekten eine von meinen Sinnesempfindungen ganz unabhängige Realität zuzuschreiben. Um aber zu dem Definierten zu gelangen, bin ich genötigt, den Strom, dessen ich mich nur durch Sinnesempfindungen versichern kann, durch einen kreisförmigen Draht von bestimmtem Radius zu leiten, so daß derselbe bei gegebener Intensität des Erdmagnetismus die Magnetnadel um einen bestimmten Winkel aus dem Meridian ablenkt. Die Bestimmung der magnetischen Intensität, der Knallgasmenge usw. ist nicht weniger umständlich. Die ganze Bestimmung gründet sich auf eine fast unabsehbare Reihe von Sinnesempfindungen, insbesondere wenn noch die Justierung der Apparate in Betracht gezogen wird, welche der Bestimmung vorausgehen muß.</p>
+  <p class="jp" lang="ja">純粋に物理学的な過程を研究する際、我々はふつう非常に抽象的な概念を用いるので、その概念の基盤にある感覚（要素）のことをほんのちらりとしか、あるいはまったく考えない。例えば、「強さ1アンペアの電流は、1分間に0° C、水銀柱760 mmで10½ ccmの爆鳴気を発生させる」と確定するとき、こうして定義された対象に、自分の感覚とはまったく無関係な現実性を帰属させたくなる。しかし、この定義に到達するためには、感覚によってしか確認できない電流を、特定の半径の円形導線に流し、地磁気の強度が与えられたとき磁針が子午線から特定の角度だけ逸れるようにしなければならない。磁気の強度の決定も、爆鳴ガスの量の測定も、同様に手間がかかる。この決定全体が、ほとんど見渡しがたいほどの感覚の系列に基づいているのである——とりわけ測定に先立つ装置の較正まで考慮に入れれば。</p>
+  
+</article>
+<article class="row" id="p2.2">
+  <aside class="mg"><a class="pid" href="#p2.2">2.2</a><span class="pg"><span>S.&nbsp;34</span></span></aside>
+  <p class="de" lang="de">Nun kann es dem Physiker, der nicht die Psychologie seiner Operationen studiert, leicht begegnen, daß er, um eine bekannte Redeweise umzukehren, die Bäume vor lauter Wald nicht bemerkt, daß er die Empfindungen als Grundlage seiner Begriffe übersieht.</p>
+  <p class="jp" lang="ja">ところが、自分の操作の心理学を研究していない物理学者には、よく知られた言い回しを逆にして言えば、「森ばかり見て木を見ない」ということが容易に起こる。つまり、自分の概念の基盤にある感覚を見落とすのである。</p>
+  
+</article>
+<article class="row" id="p2.3">
+  <aside class="mg"><a class="pid" href="#p2.3">2.3</a><span class="pg"><span>S.&nbsp;34</span></span></aside>
+  <p class="de" lang="de">Ich halte nun aufrecht, daß ein physikalischer Begriff nur eine bestimmte Art des Zusammenhanges sinnlicher Elemente bedeutet, welche in dem vorigen mit A B C . . . bezeichnet wurden. Diese Elemente — Elemente in dem Sinne, daß eine weitere Auflösung bisher noch nicht gelungen ist — sind die einfachsten Bausteine der physikalischen (und auch der psychologischen) Welt.</p>
+  <p class="jp" lang="ja">私が主張するのは、物理学的概念とは、前章で A B C … と記した感性的要素の、ある特定の種類の連関を意味するにすぎない、ということである。これらの要素——それ以上の分解にまだ成功していないという意味での要素——こそが、物理的世界（そして心理的世界）のもっとも単純な構成材料なのである。</p>
+  
+</article>
+<article class="row" id="p2.4">
+  <aside class="mg"><a class="pid" href="#p2.4">2.4</a><span class="pg"><span>S.&nbsp;34</span><span>S.&nbsp;35</span></span></aside>
+  <p class="de" lang="de">Eine physiologische Untersuchung kann einen durchaus physikalischen Charakter haben. Ich kann den Verlauf eines physikalischen Prozesses durch einen sensiblen Nerv zum Zentralorgan verfolgen, von da seine verschiedenen Wege zu den Muskeln aufsuchen, deren Kontraktion neue physikalische Veränderungen in der Umgebung bedingt. Ich muß hierbei an keine Empfindung des beobachteten Menschen oder Tieres denken. Was ich untersuche, ist ein rein physikalisches Objekt. Ohne Zweifel fehlt <span class="pb" title="Jena 1922, S. 35">35</span>hier sehr viel zum Verständnis der Einzelheiten, und die Versicherung, daß alles auf „Bewegung der Moleküle" beruhe, kann mich über meine Unwissenheit nicht trösten und nicht täuschen.</p>
+  <p class="jp" lang="ja">生理学的研究がまったく物理学的な性格を持ちうることは確かである。ある物理学的過程が感覚神経を通って中枢器官に至り、そこからさまざまな経路で筋肉に達し、その収縮が環境に新たな物理的変化をもたらす過程を追跡することができる。その際、観察されている人間や動物の感覚について考える必要はまったくない。私が研究しているのは、純粋に物理学的な対象である。もっとも、ここには個々の細部の理解にはまだ多くが欠けており、「すべては分子の運動に帰着する」という保証は、自分の無知について私を慰めも欺きもしない。</p>
+  
+</article>
+<article class="row" id="p2.5">
+  <aside class="mg"><a class="pid" href="#p2.5">2.5</a><span class="pg"><span>S.&nbsp;35</span></span></aside>
+  <p class="de" lang="de">Lange vor Entwicklung einer wissenschaftlichen Psychologie hat jedoch der Mensch bemerkt, daß das Verhalten eines Tieres unter physikalischen Einflüssen viel besser vorausgesehen, d. h. verstanden wird, indem ihm Empfindungen, Erinnerungen ähnlich den unsrigen zugeschrieben werden. Das, was ich beobachte, meine Empfindungen, habe ich in Gedanken zu ergänzen durch die Empfindungen des Tieres, welche ich nicht im Gebiete meiner Empfindungen antreffe.</p>
+  <p class="jp" lang="ja">しかし、科学的な心理学が発達するはるか以前から、人間は気づいていた。動物の物理的条件下での行動は、自分のものに似た感覚や記憶を動物に帰属させれば、はるかによく予見できる、すなわち理解できるようになる、と。私が観察するもの、つまり自分の感覚を、自分の感覚の領域には見出されない動物の感覚によって、思考の中で補完しなければならないのである。</p>
+  
+</article>
+<article class="row" id="p2.6">
+  <aside class="mg"><a class="pid" href="#p2.6">2.6</a><span class="pg"><span>S.&nbsp;35</span></span></aside>
+  <p class="de" lang="de">Dieser Gegensatz erscheint dem Forscher, welcher einen Nervenprozeß mit Hilfe farbloser abstrakter Begriffe verfolgt, und der z. B. genötigt ist, diesem Prozeß in Gedanken die Empfindung Grün hinzuzufügen, sehr schroff. Diese letztere erscheint in der Tat als etwas gänzlich Neues und Fremdartiges, und wir stellen uns die Frage, wie dieses wunderbare Ding aus chemischen Prozessen, elektrischen Strömen u. dgl. hervorgehen kann.</p>
+  <p class="jp" lang="ja">この対立は、無色の抽象的概念を用いて神経過程を追跡し、そこに例えば「緑」という感覚を思考で付け加えねばならない研究者にとって、非常に激しく見える。「緑」はまったく新しい、異質なものとして現れ、「この不思議なものが、どうして化学過程や電流などから生じうるのか」と問わずにいられなくなる。</p>
+  
+</article>
+<h2 class="sec" id="s3"><a href="#s3">§ 3</a></h2>
+<article class="row" id="p3.1">
+  <aside class="mg"><a class="pid" href="#p3.1">3.1</a><span class="pg"><span>S.&nbsp;35</span></span></aside>
+  <p class="de" lang="de">Die psychologische Analyse belehrt uns darüber, daß diese Verwunderung nicht gerechtfertigt ist, indem der Physiker immer mit Empfindungen operiert. Dieselbe Analyse zeigt auch, daß die Ergänzung von Komplexen von Empfindungen in Gedanken nach der Analogie durch augenblicklich nicht beobachtete Elemente, oder solche, welche überhaupt nicht beobachtet werden können, vom Physiker tagtäglich geübt wird. Dies geschieht z. B., wenn er sich den Mond als greifbare, schwere, träge Masse vorstellt.</p>
+  <p class="jp" lang="ja">しかし、心理学的分析は、この驚きが正当でないことを教えてくれる。 物理学者は常に感覚を用いて操作しているからだ。同じ分析はまた、感覚の複合体を、現在は観察されていない要素によって、あるいはそもそも観察できない要素によって、類推に基づいて思考の中で補完することが、物理学者の日常的な営みであることも示す。例えば、物理学者が月を手で触れうる重い慣性質量として表象するときがそうである。</p>
+  
+</article>
+<article class="row" id="p3.2">
+  <aside class="mg"><a class="pid" href="#p3.2">3.2</a><span class="pg"><span>S.&nbsp;35</span></span></aside>
+  <p class="de" lang="de">Die gänzliche Fremdartigkeit der oben bezeichneten Situation ist also eine Illusion. Die Illusion verschwindet auch durch eine andere Betrachtung, welche sich auf die eigene sinnliche Sphäre beschränkt.</p>
+  <p class="jp" lang="ja">先に述べた状況の完全な異質さは幻想にすぎない。この幻想は、別の考察によっても消える。それは自分自身の感覚的領域に限定された考察である。</p>
+  
+</article>
+<article class="row" id="p3.3">
+  <aside class="mg"><a class="pid" href="#p3.3">3.3</a><span class="pg"><span>S.&nbsp;35</span><span>S.&nbsp;36</span></span></aside>
+  <p class="de" lang="de">Vor mir liegt das Blatt einer Pflanze. Das Grün (A) des Blattes ist verbunden mit einer gewissen optischen Raumempfindung (B), einer gewissen Tastempfindung (C) und mit der Sichtbarkeit der <span class="pb" title="Jena 1922, S. 36">36</span>Sonne oder der Lampe (D). Wenn das Gelb (E) der Natriumflamme an die Stelle der Sonne tritt, so übergeht das Grün des Blattes in Braun (F). Wenn das Chlorophyll durch Alkohol entfernt wird, eine Operation, die ebenfalls durch sinnliche Elemente darstellbar ist, verwandelt sich das Grün (A) in Weiß (G).</p>
+  <p class="jp" lang="ja">目の前に植物の葉がある。葉の緑（A）は、ある光学的空間感覚（B）、ある触覚（C）、そして太陽またはランプの可視性（D）と結びついている。ナトリウム炎の黄（E）が太陽に代わると、葉の緑は茶色（F）に変わる。アルコールでクロロフィルを除去すると——この操作もまた感覚的要素で記述可能だが——緑（A）は白（G）に変わる。</p>
+  
+</article>
+<article class="row" id="p3.4">
+  <aside class="mg"><a class="pid" href="#p3.4">3.4</a><span class="pg"><span>S.&nbsp;36</span></span></aside>
+  <p class="de" lang="de">Alle diese Beobachtungen sind physikalische. Doch das Grün (A) ist auch mit einem Prozeß meiner Netzhaut verknüpft. Nichts hindert mich prinzipiell, diesen Prozeß in meinem Auge in derselben Weise zu untersuchen, wie in den oben erwähnten Fällen, und denselben in Elemente X Y Z . . . aufzulösen. Stehen der Untersuchung am eigenen Auge Schwierigkeiten im Wege, so kann sie am fremden Auge ausgeführt und die Lücke nach der Analogie ausgefüllt werden, genau so, wie bei andern physikalischen Untersuchungen.</p>
+  <p class="jp" lang="ja">これらの観察はすべて物理学的なものである。しかし緑（A）は、私の網膜の過程とも結びついている。この過程を、上述の場合とまったく同じ仕方で自分の目で研究することを、原理的に妨げるものは何もない。自分の目での研究に困難があれば、他人の目で行い、類推によって欠けた部分を埋めることができる——他の物理学的研究とまったく同じように。</p>
+  
+</article>
+<article class="row" id="p3.5">
+  <aside class="mg"><a class="pid" href="#p3.5">3.5</a><span class="pg"><span>S.&nbsp;36</span></span></aside>
+  <p class="de" lang="de">Nun ist A in seiner Abhängigkeit von B C D E . . . ein physikalisches Element, in seiner Abhängigkeit von X Y Z . . . ist es eine Empfindung, und kann auch als psychisches Element aufgefaßt werden. Das Grün (A) an sich wird aber in seiner Natur nicht geändert, ob wir unsere Aufmerksamkeit auf die eine oder auf die andere Form der Abhängigkeit richten.</p>
+  <p class="jp" lang="ja">ここで、A は B C D E … への依存においては物理学的要素であり、X Y Z …（網膜過程）への依存においては感覚であり、心理学的要素とも把握しうる。 しかし、緑（A）そのものの本性は、我々が注意を一方の依存関係に向けるか、他方の依存関係に向けるかによって、いささかも変わらない。</p>
+  
+</article>
+<article class="row" id="p3.6">
+  <aside class="mg"><a class="pid" href="#p3.6">3.6</a><span class="pg"><span>S.&nbsp;36</span></span></aside>
+  <p class="de" lang="de">Ich sehe daher keinen Gegensatz von Psychischem und Physischem, sondern einfache Identität in bezug auf diese Elemente. In der sinnlichen Sphäre meines Bewußtseins ist jedes Objekt zugleich physisch und psychisch. (Vgl. S. 14.)</p>
+  <p class="jp" lang="ja">したがって、私は心理的なものと物理的なものの対立を見ない。これらの要素に関して、ただ単純な同一性を見るのである。私の感覚的意識の領域において、あらゆる対象は同時に物理的であり心理的である。（14頁参照）</p>
+  
+</article>
+<h2 class="sec" id="s4"><a href="#s4">§ 4</a></h2>
+<article class="row" id="p4.1">
+  <aside class="mg"><a class="pid" href="#p4.1">4.1</a><span class="pg"><span>S.&nbsp;36</span><span>S.&nbsp;37</span></span></aside>
+  <p class="de" lang="de">Die Dunkelheit, die man in dieser intellektuellen Situation gefunden hat, entspringt meines Erachtens nur einer physikalischen Voreingenommenheit, welche in das psychologische Gebiet übertragen wurde. Der Physiker sagt: Ich finde überall nur Körper und Bewegungen von Körpern, keine Empfindungen; Empfindungen müssen also etwas von den physikalischen Objekten, mit welchen ich verkehre, Grundverschiedenes sein. Der Psychologe akzeptiert den zweiten Teil der Behauptung. Ihm sind, das ist richtig, zunächst die Empfindungen gegeben; <span class="pb" title="Jena 1922, S. 37">37</span>denselben entspricht aber ein mysteriöses physikalisches Etwas, welches nach der vorgefaßten Meinung von Empfindungen gänzlich verschieden sein muß.</p>
+  <p class="jp" lang="ja">この知的状況に見いだされてきた不明瞭さは、私の考えでは、物理学的な先入見が心理学の領域に持ち込まれたことに起因するにすぎない。物理学者は言う。「私が至るところに見出すのは物体と物体の運動だけであり、感覚ではない。したがって感覚は、私が扱う物理的対象とは根本的に異なるものでなければならない。」心理学者は、この主張の後半を受け入れる。彼にとっては、確かに、まず感覚が与えられている。しかし感覚に対応するのは神秘的な物理的な何かであり、先入見によれば、それは感覚とはまったく異質でなければならないとされる。</p>
+  
+</article>
+<article class="row" id="p4.2">
+  <aside class="mg"><a class="pid" href="#p4.2">4.2</a><span class="pg"><span>S.&nbsp;37</span></span></aside>
+  <p class="de" lang="de">Was ist aber in Wirklichkeit das Mysteriöse? Ist es die Physis oder ist es die Psyche? oder sind es vielleicht gar beide? Fast scheint es so, da bald die eine, bald die andere, in undurchdringliches Dunkel gehüllt, unerreichbar scheint. Oder werden wir hier vom bösen Geist im Kreis herum geführt?</p>
+  <p class="jp" lang="ja">では現実には、その神秘的なものとは何か？　物理（Physis）なのか、精神（Psyche）なのか、それとも両方なのか？　ほとんどそのように見える。というのは、あるときは一方が、あるときは他方が、不可解な闇に包まれて到達不能に思えるからだ。あるいは、我々はここで悪霊に円を描いて引き回されているのだろうか？</p>
+  
+</article>
+<article class="row" id="p4.3">
+  <aside class="mg"><a class="pid" href="#p4.3">4.3</a><span class="pg"><span>S.&nbsp;37</span></span></aside>
+  <p class="de" lang="de">Ich glaube das letztere. Für mich sind die Elemente A B C . . . unmittelbar und unzweifelhaft gegeben, und für mich können dieselben nachträglich nicht durch Betrachtungen verflüchtigt werden, welche sich in letzter Linie doch immer auf deren Existenz gründen.</p>
+  <p class="jp" lang="ja">私は最後のものだと思う。私にとって要素 A B C … は直接的に、疑いなく与えられている。 そしてそれらが、結局のところ要素の存在に基づいている考察によって、あとから蒸発させられることはありえないのである。</p>
+  
+</article>
+<article class="row" id="p4.4">
+  <aside class="mg"><a class="pid" href="#p4.4">4.4</a><span class="pg"><span>S.&nbsp;37</span></span></aside>
+  <p class="de" lang="de">Die Spezialuntersuchung der sinnlichen physisch-psychischen Sphäre, welche durch diese allgemeine Orientierung nicht überflüssig wird, hat die Aufgabe, den eigenartigen Zusammenhang der A B C . . . zu ermitteln. Dies kann symbolisch so ausgedrückt werden, daß man der Spezialforschung das Ziel setzt, Gleichungen von der Form F (A, B, C . . .) = 0 zu finden. <a class="zref" href="zusaetze.html#sz3">S. Z. 3.</a></p>
+  <p class="jp" lang="ja">感覚的な物理的＝心理的領域の専門的研究は、この一般的な方向づけによって不要になるわけではなく、A B C … の独自の連関を解明するという課題を持つ。これは記号的に表現すれば、専門的研究に対して F(A, B, C …) = 0 という形の方程式を見出すことを目標として設定する、ということである。（<a class="zref" href="zusaetze.html#sz3">補遺3</a>参照）</p>
+  
+</article>
+</main>
+
+<details class="corr">
+  <summary>校訂注（Jena 1922 版との照合）</summary>
+  <p>ドイツ語本文は Jena 第9版（1922）に一致させた。旧テキストから改めた箇所：</p>
+  <div class="tw"><table><thead><tr><th>位置</th><th>旧テキスト</th><th>Jena 1922（採用）</th></tr></thead><tbody><tr><td>§3.3</td><td lang="de">3* {36}Sonne</td><td lang="de">{36}Sonne（版面の折記号を除去）</td></tr><tr><td>§2.1</td><td lang="de">0⁰ C</td><td lang="de">0° C</td></tr><tr><td>各所</td><td lang="de">A B C . / C .) = o</td><td lang="de">A B C . . . / C . . .) = 0</td></tr><tr><td>各所</td><td lang="de">Natrium- flamme, ent- fernt ほか</td><td lang="de">行末ハイフンの残骸を除去</td></tr></tbody></table></div>
+  <p>和訳の主な改訂：</p>
+  <ul><li><b>§1.4</b> 「背中の皮膚」の比喩を正しく訳し、補遺への参照（S. Z. 2）を明記。</li><li><b>§1.6</b> 誤訳「民族学者の問いにおいては…探究の輝きを台なしにする」を「民族学者の口から発せられると…研究者のうちに好んで見ようとする偏見のなさの輝きを打ち消す」に改める。</li><li><b>§1.8</b> 文意の取り違え（「やり方と程度においてのみ異なり」）を「程度において異なるだけで、種類において異なるのではない」に改める。</li><li><b>§2.2</b> マッハが逆にした成句を「木ばかり見て森を見ない」と誤って戻していたのを「森ばかり見て木を見ない」に改める。</li><li><b>§2.3</b> 訳し落とし「前章で A B C … と記した」を補う。</li><li><b>§3.3–3.4</b> 段落の対応のずれを修正。</li></ul>
+</details>
+
+<nav class="pager"><a href="kapitel_01.html">← 第Ⅰ章</a><a href="index.html">目次</a><a href="kapitel_03.html">第Ⅲ章 →</a></nav>
+
+<script>
+(function(){
+  var b=document.body;
+  function store(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
+  function load(k){ try{return localStorage.getItem(k);}catch(e){return null;} }
+  function setV(v){ b.classList.remove('only-de','only-jp'); if(v!=='both') b.classList.add(v);
+    document.querySelectorAll('[data-v]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.v===v);}); store('mach-view',v); }
+  function setN(n){ b.classList.toggle('no-notes',n==='no-notes');
+    document.querySelectorAll('[data-n]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.n===n);}); store('mach-notes',n); }
+  document.querySelectorAll('[data-v]').forEach(function(x){x.addEventListener('click',function(){setV(x.dataset.v);});});
+  document.querySelectorAll('[data-n]').forEach(function(x){x.addEventListener('click',function(){setN(x.dataset.n);});});
+  setV(load('mach-view')||'both'); setN(load('mach-notes')||'show');
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>第Ⅷ章 意志</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=Noto+Serif+JP:wght@400;600&display=swap">
+<style>
+:root {
+  --paper:#fbf8f1; --ink:#2b2721; --muted:#7a7266; --rule:#ddd3bd;
+  --de:#8b6f2e; --de-bg:#f6f0e2; --jp:#5a7a99; --jp-bg:#eef3f7;
+  --note-bg:#f4efe4; --bar:#fbf8f1ee; --hl:#f3e2b0;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper:#1c1a17; --ink:#e3ded4; --muted:#9d958a; --rule:#3a352d;
+    --de:#cfa95c; --de-bg:#26221b; --jp:#8fb0cf; --jp-bg:#1f242a;
+    --note-bg:#23201b; --bar:#1c1a17ee; --hl:#4a3f22;
+  }
+}
+:root[data-theme="dark"] {
+  --paper:#1c1a17; --ink:#e3ded4; --muted:#9d958a; --rule:#3a352d;
+  --de:#cfa95c; --de-bg:#26221b; --jp:#8fb0cf; --jp-bg:#1f242a;
+  --note-bg:#23201b; --bar:#1c1a17ee; --hl:#4a3f22;
+}
+* { box-sizing:border-box; }
+html { scroll-behavior:smooth; scroll-padding-top:4.5rem; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior:auto; } }
+body { margin:0; background:var(--paper); color:var(--ink);
+  font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif; line-height:1.9; }
+a { color:inherit; }
+:focus-visible { outline:2px solid var(--de); outline-offset:2px; }
+[lang="de"] { font-family:"EB Garamond","Garamond","Times New Roman",serif; hyphens:auto; }
+
+.bar { position:sticky; top:0; z-index:5; background:var(--bar); backdrop-filter:blur(6px);
+  border-bottom:1px solid var(--rule); }
+.bar-in { max-width:78rem; margin:0 auto; padding:.5rem 1rem; display:flex; gap:1rem; align-items:center; flex-wrap:wrap; font-size:.82rem; }
+.bar .ch { text-decoration:none; font-weight:600; letter-spacing:.06em; white-space:nowrap; }
+.seg { display:inline-flex; border:1px solid var(--rule); border-radius:999px; overflow:hidden; }
+.seg button { font:inherit; background:none; color:var(--muted); border:0; padding:.2rem .8rem; cursor:pointer; }
+.seg button[aria-pressed="true"] { background:var(--de); color:var(--paper); }
+.secnav { display:flex; gap:.15rem; overflow-x:auto; margin-left:auto; scrollbar-width:none; }
+.secnav a { text-decoration:none; color:var(--muted); padding:.1rem .45rem; border-radius:4px; white-space:nowrap; }
+.secnav a:hover { color:var(--de); background:var(--de-bg); }
+
+header.title { max-width:78rem; margin:0 auto; padding:3rem 1rem 1.5rem; text-align:center; }
+.kicker { font-size:.8rem; letter-spacing:.3em; color:var(--muted); }
+h1 { margin:.4rem 0 .2rem; font-size:2rem; font-weight:600; letter-spacing:.15em; }
+h1 + .de-title { font-size:1.35rem; font-style:italic; color:var(--de); }
+h1 sup a { font-size:.55em; color:var(--de); text-decoration:none; }
+.source { margin-top:1rem; font-size:.78rem; color:var(--muted); }
+.title .notes { max-width:60rem; margin:1.2rem auto 0; text-align:left; }
+
+main { max-width:78rem; margin:0 auto; padding:0 1rem 4rem; }
+h2.sec { font-size:1rem; font-weight:600; color:var(--de); letter-spacing:.12em;
+  margin:3rem 0 .6rem; padding-bottom:.3rem; border-bottom:1px solid var(--rule); }
+h2.sec a { text-decoration:none; }
+
+.row { display:grid; grid-template-columns:4.2rem 1fr 1fr; column-gap:1.6rem;
+  padding:1rem 0; border-bottom:1px dotted var(--rule); }
+.row:target { background:linear-gradient(90deg,var(--hl),transparent 70%); }
+.mg { font-size:.72rem; color:var(--muted); display:flex; flex-direction:column; gap:.1rem; padding-top:.3rem;
+  font-variant-numeric:tabular-nums; }
+.pid { font-weight:600; color:var(--de); text-decoration:none; font-size:.8rem; }
+.pg { display:flex; flex-direction:column; }
+.row > p { margin:0; }
+.row > .de { font-size:1.08rem; line-height:1.75; text-align:justify; }
+.row > .jp { font-size:.95rem; text-align:justify; }
+.pb { display:inline-block; font-family:"Noto Serif JP",serif; font-size:.62rem; line-height:1;
+  color:var(--de); border:1px solid var(--de); border-radius:3px; padding:.08rem .25rem; margin:0 .15rem;
+  vertical-align:.25em; opacity:.8; }
+.pb::before { content:"S. "; }
+a.fr { font-size:.68em; vertical-align:super; line-height:0; text-decoration:none; color:var(--de);
+  font-weight:600; padding:0 .1em; font-family:"Noto Serif JP",serif; }
+.jp a.fr { color:var(--jp); }
+a.zref { color:inherit; text-decoration:underline; text-decoration-thickness:1px; text-underline-offset:2px; }
+a.zref:hover { color:var(--accent, inherit); }
+
+.notes { grid-column:2 / 4; list-style:none; margin:.8rem 0 0; padding:.6rem .9rem; background:var(--note-bg);
+  border-radius:4px; display:grid; gap:.5rem; font-size:.8rem; line-height:1.65; }
+.notes li { display:grid; grid-template-columns:1.8rem 1fr 1fr; column-gap:1.2rem; }
+.notes li:target { outline:2px solid var(--hl); outline-offset:3px; }
+.notes .nn { color:var(--de); font-weight:600; }
+.notes p { margin:0; }
+.notes .de { font-size:.92rem; }
+
+.fig { grid-column:1/-1; margin:1rem 0 1rem 5.8rem; padding:.8rem 1rem; border:1px dashed var(--de);
+  border-radius:4px; display:flex; flex-wrap:wrap; gap:.3rem 1.5rem; font-size:.82rem; color:var(--muted); }
+.missing { color:var(--muted); font-style:italic; }
+.fig em { font-style:normal; margin-left:auto; font-size:.72rem; }
+
+body.only-de .row > .jp, body.only-de .notes .jp, body.only-jp .row > .de, body.only-jp .notes .de { display:none; }
+body.only-de .row, body.only-jp .row { grid-template-columns:4.2rem minmax(0,44rem); }
+body.only-de .notes li, body.only-jp .notes li { grid-template-columns:1.8rem 1fr; }
+body.only-de .notes, body.only-jp .notes { grid-column:2; }
+body.no-notes .row .notes { display:none; }
+
+details.corr { max-width:78rem; margin:2rem auto; padding:0 1rem; font-size:.85rem; }
+details.corr summary { cursor:pointer; color:var(--de); font-weight:600; }
+.corr .tw { overflow-x:auto; }
+.corr table { border-collapse:collapse; margin:.8rem 0; min-width:32rem; }
+.corr td, .corr th { border-bottom:1px solid var(--rule); padding:.3rem .8rem; text-align:left; vertical-align:top; }
+.corr th { color:var(--muted); font-weight:400; font-size:.75rem; }
+.corr ul { padding-left:1.2rem; }
+.pager { max-width:78rem; margin:0 auto; padding:1.5rem 1rem 3rem; display:flex; justify-content:space-between;
+  border-top:1px solid var(--rule); font-size:.85rem; }
+.pager a { color:var(--de); text-decoration:none; }
+
+@media (max-width: 760px) {
+  .row, body.only-de .row, body.only-jp .row { grid-template-columns:1fr; row-gap:.6rem; }
+  .mg { flex-direction:row; gap:.8rem; padding:0; }
+  .pg { flex-direction:row; gap:.5rem; }
+  .row > .jp { padding-top:.6rem; border-top:1px solid var(--rule); }
+  .notes, body.only-de .notes, body.only-jp .notes { grid-column:1; }
+  .notes li { grid-template-columns:1.6rem 1fr; }
+  .notes li .jp { grid-column:2; margin-top:.3rem; }
+  .fig { margin-left:0; }
+  .secnav { margin-left:0; width:100%; }
+}
+</style>
+</head>
+<body>
+<div class="bar"><div class="bar-in">
+  <a class="ch" href="index.html" title="目次">第Ⅷ章</a>
+  <span class="seg" role="group" aria-label="表示言語">
+    <button type="button" data-v="both" aria-pressed="true">対訳</button>
+    <button type="button" data-v="only-de" aria-pressed="false">独</button>
+    <button type="button" data-v="only-jp" aria-pressed="false">日</button>
+  </span>
+  <span class="seg" role="group" aria-label="注">
+    <button type="button" data-n="show" aria-pressed="true">注あり</button>
+    <button type="button" data-n="no-notes" aria-pressed="false">注なし</button>
+  </span>
+  <nav class="secnav" aria-label="節"><a href="#s1">§1</a><a href="#s2">§2</a><a href="#s3">§3</a><a href="#s4">§4</a><a href="#s5">§5</a><a href="#s6">§6</a></nav>
+</div></div>
+
+<header class="title">
+  <div class="kicker">KAPITEL VIII · 第Ⅷ章</div>
+  <h1>意志</h1>
+  <div class="de-title" lang="de">Der Wille</div>
+  <div class="source">底本：E. Mach, <i lang="de">Die Analyse der Empfindungen</i>, 9. Aufl., Jena: G. Fischer 1922, S. 140–147　｜　本文中の <span class="pb">201</span> は底本の改頁位置</div>
+  
+</header>
+
+<main>
+<h2 class="sec" id="s1"><a href="#s1">§ 1</a></h2>
+<article class="row" id="p1.1">
+  <aside class="mg"><a class="pid" href="#p1.1">1.1</a><span class="pg"><span>S.&nbsp;140</span></span></aside>
+  <p class="de" lang="de">Im Vorigen wurde vielfach der Ausdruck „Wille" gebraucht und es sollte damit nur ein allgemein bekanntes psychisches Phänomen bezeichnet werden. Ich verstehe unter dem Willen kein besonderes psychisches oder metaphysisches Agens, und nehme keine eigene psychische Kausalität an. Ich bin vielmehr mit der überwiegenden Zahl der Physiologen und modernen Psychologen überzeugt, daß die Willenserscheinungen aus den organisch-physischen Kräften allein, wie wir kurz, aber allgemein verständlich sagen wollen, begreiflich sein müssen. Ich würde dies als selbstverständlich gar nicht besonders betonen, wenn nicht die Bemerkungen mancher Kritiker bewiesen hätten, daß es doch nötig ist.</p>
+  <p class="jp" lang="ja">これまでの叙述では「意志」という表現がしばしば用いられたが、それによって指示されるのは一般によく知られた心的現象にすぎない。私は意志のうちに、特別な心的あるいは形而上学的な力を理解せず、独自の心的因果性を認めない。私はむしろ、大多数の生理学者および近代の心理学者とともに、意志現象は有機的＝物理的な力だけから——簡潔だが一般に理解しうるようにそう言おう——説明可能でなければならないと確信している。これが自明であることをあえて強調するのは、一部の批評家の論評によって、その必要性が証明されたからにほかならない。</p>
+  
+</article>
+<article class="row" id="p1.2">
+  <aside class="mg"><a class="pid" href="#p1.2">1.2</a><span class="pg"><span>S.&nbsp;140</span><span>S.&nbsp;141</span></span></aside>
+  <p class="de" lang="de">Die Bewegungen niederer Tiere, nicht minder die ersten Bewegungen der Neugeborenen, werden unmittelbar durch den Reiz ausgelöst, erfolgen ganz maschinenmäßig, sind Reflexbewegungen. Auch in spätern Lebensstadien der höhern Tiere fehlen solche Reflexbewegungen nicht, und wenn wir Gelegenheit haben, dieselben, etwa die Sehnenreflexe, an uns zum erstenmal zu beobachten, so sind wir von denselben nicht minder überrascht, als von irgend einem unerwarteten Ereignis in unserer Umgebung. Das beschriebene Verhalten des jungen Sperlings beruht auf Reflexbewegungen. Das junge Hühnchen pickt ganz maschinenmäßig nach allem, was es sieht, so wie das Kind nach allem Auffallenden greift, und andererseits die Glieder vor jeder unangenehmen Berührung ohne Mitwirkung des Intellekts zurück<span class="pb" title="Jena 1922, S. 141">141</span>zieht. Es bestehen eben organische Einrichtungen, welche die Erhaltung des Organismus bedingen.</p>
+  <p class="jp" lang="ja">下等な動物の運動も、新生児の最初の運動も、刺激によって直接に引き起こされ、まったく機械的に生じる反射運動である。高等動物の後の生涯段階にもこうした反射運動は欠けない。そして、例えば腱反射を自分自身ではじめて観察する機会があれば、我々の周囲の予期しない出来事に劣らず驚かされる。先に述べた若いスズメの振る舞いも反射運動に基づいている。生まれたばかりのヒヨコは、見えるものすべてをまったく機械的につつく——ちょうど赤ん坊が目立つものすべてをつかむように。他方、あらゆる不快な接触に対して、知性の関与なしに四肢を引っ込める。有機体の保存を条件づける有機的な仕組みがすでに備わっているのだ。</p>
+  
+</article>
+<article class="row" id="p1.3">
+  <aside class="mg"><a class="pid" href="#p1.3">1.3</a><span class="pg"><span>S.&nbsp;141</span></span></aside>
+  <p class="de" lang="de">Folgen wir den Ansichten von Hering über die lebendige Substanz, wonach diese dem Gleichgewicht der antagonistischen Vorgänge in derselben zustrebt, so müssen wir eine solche Erhaltungstendenz (oder tatsächliche Stabilität) schon den Elementen der Organismen zuschreiben.</p>
+  <p class="jp" lang="ja">生きた物質はその中の拮抗的過程の平衡を目指すというヘーリングの見解に従えば、そうした保存の傾向（あるいは事実上の安定性）を、有機体の要素にまですでに帰属させなければならない。</p>
+  
+</article>
+<article class="row" id="p1.4">
+  <aside class="mg"><a class="pid" href="#p1.4">1.4</a><span class="pg"><span>S.&nbsp;141</span></span></aside>
+  <p class="de" lang="de">Sinnliche Reize können durch Erinnerungsbilder teilweise oder ganz vertreten werden. Alle im Nervensystem zurückbleibenden Gedächtnisspuren wirken mit den Sinnesempfindungen reflexauslösend, fördernd, hemmend, modifizierend zusammen. So entsteht die willkürliche Bewegung, welche wir als eine durch Erinnerungen modifizierte Reflexbewegung, wenigstens im Prinzip, begreifen können, soviel auch an dem Verständnis im Einzelnen noch fehlen mag.</p>
+  <p class="jp" lang="ja">感覚的刺激は、記憶像によって部分的にあるいは全面的に代替されうる。神経系に残るすべての記憶の痕跡が感覚とともに作用し、反射を誘発し、促進し、抑制し、修正する。こうして随意運動が生まれる。これは、記憶によって修正された反射運動として、少なくとも原理的には理解することができる——個々の詳細にはまだ多くが欠けていようとも。</p>
+  
+</article>
+<article class="row" id="p1.5">
+  <aside class="mg"><a class="pid" href="#p1.5">1.5</a><span class="pg"><span>S.&nbsp;141</span></span></aside>
+  <p class="de" lang="de">Das Kind, welches sich einmal an der glänzenden Flamme gebrannt hat, ergreift dieselbe nicht mehr, weil der Angriffsreflex durch den antagonistischen Fluchtreflex, welchen die Schmerzerinnerung auslöst, gehemmt ist. Das Hühnchen pickt anfangs nach allem, wählt aber bald unter dem Einflusse der teils hemmenden, teils fördernden Geschmackserinnerung. Der allmähliche Übergang der Reflexbewegung in die Willkürhandlung ist an unserm Sperling (S. 62) sehr schön zu verfolgen.</p>
+  <p class="jp" lang="ja">一度きらきら光る炎で火傷をした子どもは、もうそれをつかまない。攻撃反射が、痛みの記憶が引き起こす拮抗的な逃避反射によって抑制されるからだ。ヒヨコは最初はすべてをつつくが、味覚の記憶の促進的・抑制的な影響のもとで、まもなく選り分けるようになる。反射運動から随意行動への漸進的な移行は、先に述べたスズメ（62頁）において非常によく追跡できる。</p>
+  
+</article>
+<article class="row" id="p1.6">
+  <aside class="mg"><a class="pid" href="#p1.6">1.6</a><span class="pg"><span>S.&nbsp;141</span></span></aside>
+  <p class="de" lang="de">Für das reflektierende Subjekt liegt das Charakteristische der Willkürhandlung zum Unterschiede von der Reflexbewegung darin, daß es das Bestimmende derselben in den eigenen Vorstellungen erkennt, welche diese Handlung antizipieren (S. 82).</p>
+  <p class="jp" lang="ja">反省する主体にとって、随意行動が反射運動と異なる特徴は、その行動を規定するものを自分自身の表象——この行動を先取りする表象——の中に認めることにある（82頁）。</p>
+  
+</article>
+<h2 class="sec" id="s2"><a href="#s2">§ 2</a></h2>
+<article class="row" id="p2.1">
+  <aside class="mg"><a class="pid" href="#p2.1">2.1</a><span class="pg"><span>S.&nbsp;141</span><span>S.&nbsp;142</span></span></aside>
+  <p class="de" lang="de">Die psychischen Vorgänge, welche die Willkürhandlung, die willkürliche Bewegung begleiten, sind von W. James<a class="fr" href="#n1">1</a> und H. Münsterberg<a class="fr" href="#n2">2</a> vortrefflich analysiert worden. Es scheint eine einfache und natürliche Ansicht, daß die wirkliche Bewegung an die vorgestellte sich ebenso assoziiert, wie eine Vorstellung <span class="pb" title="Jena 1922, S. 142">142</span>an die andere. Bezüglich der Empfindungen aber, der Art, des Ausmaßes, der Anstrengung der Bewegung, welche mit Ausführung der Bewegung verbunden sind, stehen sich zwei Ansichten gegenüber. Die eine, von Bain, Wundt, Helmholtz u. a. vertretene, nimmt an, daß die auf die Muskel abgehende Innervation selbst empfunden wird. Anderer Meinung sind James und Münsterberg. Sie halten alle kinästhetischen, die Bewegung begleitenden Empfindungen für peripherisch durch sensible Elemente in der Haut, dem Muskel, den Gelenken erregt.</p>
+  <p class="jp" lang="ja">随意行動・随意運動に伴う心的過程は、W・ジェイムズ<a class="fr" href="#n1">1</a>とH・ミュンスターベルク<a class="fr" href="#n2">2</a>によって見事に分析された。現実の運動が、表象された運動に——あたかも一つの表象が別の表象に連合するように——連合する、というのが単純で自然な見方であるように思われる。しかし、運動の遂行に伴う感覚——運動の種類・量・努力に関するもの——については二つの見解が対立している。一方の見解（ベイン、ヴント、ヘルムホルツが代表する）は、筋肉に向かう神経支配そのものが感じられると考える。他方、ジェイムズとミュンスターベルクは、すべての運動感覚的な（キネステティックな）付随感覚は末梢的に——皮膚・筋肉・関節の感覚要素によって——引き起こされると主張する。</p>
+  <ol class="notes"><li id="n1"><span class="nn">1</span><p class="de" lang="de">James, Principles of Psychology, II, 486 ff.</p><p class="jp" lang="ja">ジェイムズ『心理学原理』第II巻、486頁以下。</p></li><li id="n2"><span class="nn">2</span><p class="de" lang="de">Münsterberg, Die Willenshandlung, 1888.</p><p class="jp" lang="ja">ミュンスターベルク『意志行動』1888年。</p></li></ol>
+</article>
+<article class="row" id="p2.2">
+  <aside class="mg"><a class="pid" href="#p2.2">2.2</a><span class="pg"><span>S.&nbsp;142</span></span></aside>
+  <p class="de" lang="de">Gegen den zentralen Ursprung der kinästhetischen Empfindungen sprechen vor allem die Beobachtungen an Anästhetischen<a class="fr" href="#n3">3</a>, welche bei Ausschluß der Sinnesempfindungen über die passive Bewegung ihrer Glieder nichts auszusagen wissen, obgleich sie dieselben unter Leitung des Gesichtssinnes zu bewegen vermögen. Die Anstrengung eines faradisierten Muskels empfinden wir gerade so, wie jene eines willkürlich innervierten<a class="fr" href="#n4">4</a>. Die Annahme besonderer Innervationsempfindungen ist zur Erklärung der Erscheinungen unnötig, daher nach dem Prinzip der Sparsamkeit zu vermeiden. Endlich werden solche Innervationsempfindungen auch nicht direkt beobachtet. Eine besondere Schwierigkeit bilden gewisse optische Erscheinungen, auf die wir noch zurückkommen.</p>
+  <p class="jp" lang="ja">運動感覚の中枢的起源に反対する根拠としてとりわけ有力なのは、感覚脱失者の観察<a class="fr" href="#n3">3</a>である。彼らは感覚が排除されると、四肢の受動的な運動について何も言うことができない——視覚の導きのもとでは四肢を動かすことができるにもかかわらず。ファラデー電流で刺激された筋肉の努力を、我々は随意的に神経支配された筋肉の努力とまったく同じように感じる<a class="fr" href="#n4">4</a>。特別な神経支配感覚の仮定は現象の説明に不要であり、したがって節約の原理に従って避けるべきである。さらに、そのような神経支配感覚は直接には観察されない。ただし、特定の光学的現象が特別な困難をなすが、これについてはのちに立ち返る。</p>
+  <ol class="notes"><li id="n3"><span class="nn">3</span><p class="de" lang="de">James, a. a. O. II, 489.</p><p class="jp" lang="ja">ジェイムズ、前掲書、第II巻、489頁。</p></li><li id="n4"><span class="nn">4</span><p class="de" lang="de">James, a. a. O. II, 502.</p><p class="jp" lang="ja">ジェイムズ、前掲書、第II巻、502頁。</p></li></ol>
+</article>
+<article class="row" id="p2.3">
+  <aside class="mg"><a class="pid" href="#p2.3">2.3</a><span class="pg"><span>S.&nbsp;142</span><span>S.&nbsp;143</span></span></aside>
+  <p class="de" lang="de">Das Gesetz der Assoziation verbindet nicht nur ins Bewußtsein fallende Prozesse (Vorstellungen), sondern auch die verschiedenartigsten organischen Vorgänge. Wer in der Verlegenheit leicht errötet, wer leicht an den Händen schwitzt usw., beobachtet diese Prozesse meist sofort an sich, sobald er an dieselben erinnert wird. Ein Blendungsbild, welches sich Newton<a class="fr" href="#n5">5</a> zum Zwecke des Studiums durch Blicken in die Sonne verschafft hatte, verschwand zwar wieder, trat aber trotz mehrtägigen <span class="pb" title="Jena 1922, S. 143">143</span>Aufenthalts im Dunkeln durch mehrere Monate hindurch immer wieder mit voller sinnlicher Intensität hervor, sobald er sich desselben erinnerte. Nur durch lange fortgesetzte gewaltsame psychische Ablenkung konnte er die lästige Erscheinung wieder los werden. Eine ähnliche Beobachtung teilt Boyle in seinem Buch über die Farben mit. Zusammengehalten mit diesen Tatsachen, erscheint die Assoziation motorischer Prozesse an Vorstellungen nicht befremdlich.</p>
+  <p class="jp" lang="ja">連合の法則は、意識に上る過程（表象）を結びつけるだけでなく、もっとも多様な有機的過程をも結びつける。困惑すると顔が赤くなる人、手に汗をかきやすい人は、そうした過程がただ思い出されるだけで直ちに身体に現れるのを観察する。ニュートン<a class="fr" href="#n5">5</a>が研究のために太陽を直視して得た眩惑像は、一度は消えたものの、数日間暗所に滞在したにもかかわらず、何か月にもわたって、思い出すたびに完全な感覚的強度で繰り返し現れた。長く続けた強制的な心理的転換によってようやくこの煩わしい現象を脱することができた。ボイルもその著書『色彩について』の中で類似の観察を報告している。これらの事実を合わせ考えれば、運動過程が表象に連合されることは不思議でない。</p>
+  <ol class="notes"><li id="n5"><span class="nn">5</span><p class="de" lang="de">Kings Life of Locke, 1830, Vol. I, p. 404. — Brewster, Memoirs of Newton, 1855, Vol. I, p. 236.</p><p class="jp" lang="ja">キング『ロックの生涯』1830年、第I巻、404頁。——ブリュースター『ニュートンの回想録』1855年、第I巻、236頁。</p></li></ol>
+</article>
+<h2 class="sec" id="s3"><a href="#s3">§ 3</a></h2>
+<article class="row" id="p3.1">
+  <aside class="mg"><a class="pid" href="#p3.1">3.1</a><span class="pg"><span>S.&nbsp;143</span></span></aside>
+  <p class="de" lang="de">Durch einen apoplektischen Anfall (1898), den ich ohne die geringste Bewußtseinstrübung erlitten habe, bin ich mit einem Teil der hier in Betracht kommenden Tatsachen vertraut geworden.</p>
+  <p class="jp" lang="ja">私自身、1898年に脳卒中を経験し——意識の曇りはまったくなかった——ここで問題となる事実の一部と親しくなった。</p>
+  
+</article>
+<article class="row" id="p3.2">
+  <aside class="mg"><a class="pid" href="#p3.2">3.2</a><span class="pg"><span>S.&nbsp;143</span></span></aside>
+  <p class="de" lang="de">Auf einer Eisenbahnfahrt merkte ich plötzlich, ohne sonstiges Übelbefinden, eine vollständige Lähmung des rechten Armes und Beines, welche intermittierte, so daß ich mich zeitweilig anscheinend wieder ganz normal bewegen konnte. Nach einigen Stunden blieb dieselbe dauernd, und es gesellte sich auch eine Affektion des rechten Fazialis hinzu, welche mir nur leises und etwas erschwertes Sprechen gestattete.</p>
+  <p class="jp" lang="ja">列車の旅行中、ほかに気分の悪さもないまま、私は突然、右腕と右脚の完全な麻痺に気づいた。麻痺は間欠的で、そのため一時的には見たところふたたびまったく正常に動けることもあった。数時間後には持続的な麻痺となり、右顔面神経の障害も加わり、かすかにしか、やや困難にしか話せなくなった。</p>
+  
+</article>
+<article class="row" id="p3.3">
+  <aside class="mg"><a class="pid" href="#p3.3">3.3</a><span class="pg"><span>S.&nbsp;143</span></span></aside>
+  <p class="de" lang="de">Meinen Zustand während der Perioden der vollständigen Lähmung kann ich nur so bezeichnen, daß ich sage: ich fühlte keine Anstrengung bei der Absicht, die Glieder zu bewegen, konnte aber in keiner Weise den Willen zur Bewegung aufbringen. In den Phasen der unvollständigen Lähmung und in der Zeit der Rekonvaleszenz hingegen schienen mir Arm und Bein ungeheuere Lasten, die ich mit der größten Anstrengung erhob. Es scheint mir sehr plausibel, daß dies von der energischen Innervation anderer Muskelgruppen neben jenen der gelähmten Extremitäten herrührte<a class="fr" href="#n6">6</a>.</p>
+  <p class="jp" lang="ja">完全な麻痺の期間における自分の状態を、私は次のようにしか表現できない。四肢を動かそうとする意図に努力を感じなかったが、運動への意志をどのようにしても喚起できなかった。不完全な麻痺の段階と回復期には、逆に、腕と脚が巨大な重荷に感じられ、最大の努力をもって持ち上げた。これはおそらく、麻痺した四肢の筋肉に加えて、他の筋肉群をも精力的に神経支配したことに起因するのだろう<a class="fr" href="#n6">6</a>。</p>
+  <ol class="notes"><li id="n6"><span class="nn">6</span><p class="de" lang="de">James, a. a. O. II, 503.</p><p class="jp" lang="ja">ジェイムズ、前掲書、第II巻、503頁。</p></li></ol>
+</article>
+<article class="row" id="p3.4">
+  <aside class="mg"><a class="pid" href="#p3.4">3.4</a><span class="pg"><span>S.&nbsp;143</span></span></aside>
+  <p class="de" lang="de">Die Sensibilität der gelähmten Glieder mit Ausnahme einer Stelle am Schenkel, war vollständig erhalten, wodurch auch die Kenntnis der Lage und der passiven Bewegung vermittelt wurde. Die Reflexerregbarkeit der gelähmten Glieder fand ich enorm gesteigert, was sich namentlich durch heftiges Zucken beim leichtesten Erschrecken äußerte.</p>
+  <p class="jp" lang="ja">麻痺した四肢の感覚は、大腿の一か所を除いて完全に保たれていたため、位置と受動的運動の認知は維持された。麻痺した四肢の反射興奮性は著しく亢進しており、わずかな驚きでも激しい痙攣が生じた。</p>
+  
+</article>
+<article class="row" id="p3.5">
+  <aside class="mg"><a class="pid" href="#p3.5">3.5</a><span class="pg"><span>S.&nbsp;144</span></span></aside>
+  <p class="de" lang="de"><span class="pb" title="Jena 1922, S. 144">144</span>Die optischen und haptischen Bewegungsbilder verblieben im Gedächtnis. Sehr oft des Tages beabsichtigte ich, mit der rechten Hand etwas zu verrichten, und mußte mich erst auf die Unmöglichkeit, dies zu tun, besinnen. Lebhafte Träume von Klavierspielen und Schreiben, begleitet von Verwunderung, wie gut das wieder von statten gehe, und gefolgt von bitterer Enttäuschung beim Erwachen, sind auf dieselbe Quelle zurückzuführen. Auch motorische Halluzinationen kamen vor. Ich meinte oft ein Öffnen und Schließen der gelähmten Hand zu empfinden, wobei die Exkursionen wie durch einen weiten, aber steifen Handschuh eingeschränkt schienen. Daraufsehen überzeugte mich aber, daß jede Spur von Bewegung fehlte. Über die Beuger habe ich eine sehr geringe, über die Strecker dieser Hand habe ich aber gar keine Herrschaft mehr gewonnen.</p>
+  <p class="jp" lang="ja">光学的・触覚的な運動像は記憶に残っていた。日に何度も右手で何かをしようとし、それが不可能であることを思い出さなければならなかった。ピアノ演奏や筆記の鮮やかな夢——「こんなにうまくいくなんて」という驚きを伴い、目覚めとともに苦い幻滅に終わる——も同じ源に帰せられる。運動の幻覚も生じた。麻痺した手の開閉を感じることがしばしばあったが、運動の範囲は広いが硬い手袋で制限されているようだった。しかし目で確かめると、運動の痕跡はまったくなかった。この手の屈筋に対してはごくわずかな支配を回復したが、伸筋に対してはまったく支配を取り戻すことはできなかった。</p>
+  
+</article>
+<article class="row" id="p3.6">
+  <aside class="mg"><a class="pid" href="#p3.6">3.6</a><span class="pg"><span>S.&nbsp;144</span></span></aside>
+  <p class="de" lang="de">Da die Sensibilität der Hand erhalten ist, die willkürliche Bewegung aber fehlt, weiß ich mir die Bewegungstäuschung auch nach der neuen Theorie nicht recht zu erklären. Die Muskel, welche dem Einfluß des Willens entzogen sind, reagieren nun auf die verschiedensten Reize, so daß die Hand sich bald streckt, bald ballt. Qualitativ verschiedene stärkere Geschmacksreize scheinen ungleich auf verschiedene Muskel meiner gelähmten Hand zu wirken. Bitterwasser erregt z. B. unwillkürliche Beugungsspannung des Daumens und der beiden benachbarten Finger.</p>
+  <p class="jp" lang="ja">手の感覚は保たれているのに随意運動がないのだから、新しい理論（ジェイムズ＝ミュンスターベルクの説）によっても、この運動の錯覚を私はうまく説明できない。意志の支配を離れた筋肉は、さまざまな刺激に反応し、手は伸びたり握ったりする。質的に異なる強い味覚刺激は、麻痺した手の異なる筋肉に不均等に作用するようである。例えば苦味鉱泉水は、親指とその隣の二本の指の不随意的な屈曲緊張を引き起こす。</p>
+  
+</article>
+<h2 class="sec" id="s4"><a href="#s4">§ 4</a></h2>
+<article class="row" id="p4.1">
+  <aside class="mg"><a class="pid" href="#p4.1">4.1</a><span class="pg"><span>S.&nbsp;144</span></span></aside>
+  <p class="de" lang="de">Die Auffassung von James und Münsterberg schließt sich diesen Tatsachen, wie ich glaube, ohne Zwang an, und wir dürfen sie daher im wesentlichen für richtig halten. Nicht die Innervation wird empfunden, sondern die Folgen derselben setzen neue peripherische sensible Reize, welche an die Ausführung der Bewegung gebunden sind. Einige Schwierigkeiten hindern mich jedoch zu glauben, daß mit dieser Ansicht, welche ursprünglich auch die meinige<a class="fr" href="#n7">7</a> war, der Sachverhalt vollständig durchschaut ist.</p>
+  <p class="jp" lang="ja">ジェイムズとミュンスターベルクの見解は、これらの事実に無理なく合致し、本質的に正しいと認めてよいだろう。神経支配が感じられるのではなく、神経支配の結果が新たな末梢的感覚刺激を引き起こし、それが運動の遂行に結びついている。しかし、いくつかの困難のため、この見方——もともと私自身の見解でもあった<a class="fr" href="#n7">7</a>——によって事態が完全に見通されたとは、私には信じがたい。</p>
+  <ol class="notes"><li id="n7"><span class="nn">7</span><p class="de" lang="de">Bevor mir die Erscheinungen bei Lähmung der Augenmuskel bekannt waren (vor 1863).</p><p class="jp" lang="ja">眼筋麻痺における現象が私に知られるようになる以前（1863年以前）。</p></li></ol>
+</article>
+<article class="row" id="p4.2">
+  <aside class="mg"><a class="pid" href="#p4.2">4.2</a><span class="pg"><span>S.&nbsp;145</span></span></aside>
+  <p class="de" lang="de"><span class="pb" title="Jena 1922, S. 145">145</span>Man sollte meinen, daß der zentrale Prozeß, welcher die bloße Vorstellung einer Bewegung bedingt, doch in etwas sich von demjenigen unterscheiden müßte, der auch eine wirkliche Bewegung auslöst. Allerdings kann die Stärke des Prozesses, das Fehlen antagonistischer Vorgänge, die Ladung der Innervationszentren mitbestimmend sein, doch wird man ein Bedürfnis nach weiterer Aufklärung kaum in Abrede stellen.</p>
+  <p class="jp" lang="ja">単なる運動の表象を条件づける中枢過程と、実際の運動をも引き起こす中枢過程とは、何かにおいて異なるはずだと考えるべきだろう。たしかに過程の強さ、拮抗的過程の欠如、神経支配中枢の充電状態が共に規定的でありうるが、さらなる解明の必要性は否定しがたい。</p>
+  
+</article>
+<article class="row" id="p4.3">
+  <aside class="mg"><a class="pid" href="#p4.3">4.3</a><span class="pg"><span>S.&nbsp;145</span></span></aside>
+  <p class="de" lang="de">Insbesondere muß der Unterschied im Verhalten der Augenmuskel und der übrigen willkürlich erregbaren Muskel näher untersucht werden. Die meisten Muskel haben variable Arbeiten zu verrichten, deren Betrag ungefähr zu kennen für uns von praktischer Wichtigkeit ist. Die Arbeit der Augenmuskel ist im Gegenteil nur gering und immer genau an die Änderung der Stellung der Augen gebunden, welche letztere allein von optischer Bedeutung ist, während die Arbeit als solche gleichgültig ist. Daher mögen die kinästhetischen Empfindungen bei den Muskeln der Extremitäten eine so viel größere Rolle spielen.</p>
+  <p class="jp" lang="ja">とりわけ、眼筋と他の随意筋の振る舞いの違いがより詳しく研究されなければならない。大部分の筋肉は可変の仕事を遂行し、その量を知ることは実際的に重要である。これに対して眼筋の仕事はわずかであり、常に眼球の位置の変化に正確に結びついている。光学的に意味を持つのは位置だけであり、仕事そのものは無関係である。それゆえ四肢の筋肉では運動感覚的な感覚がはるかに大きな役割を演じるのだろう。</p>
+  
+</article>
+<h2 class="sec" id="s5"><a href="#s5">§ 5</a></h2>
+<article class="row" id="p5.1">
+  <aside class="mg"><a class="pid" href="#p5.1">5.1</a><span class="pg"><span>S.&nbsp;145</span></span></aside>
+  <p class="de" lang="de">Von wie geringer Bedeutung die von den Augenmuskeln ausgehenden Empfindungen sind, hat Hering<a class="fr" href="#n8">8</a> gezeigt. Gewöhnlich achten wir kaum auf die Bewegungen unserer Augen, und die Lage der Objekte im Raume bleibt von dieser Bewegung unbeeinflußt.</p>
+  <p class="jp" lang="ja">眼筋から発する感覚がいかにわずかな意義しか持たないかは、ヘーリング<a class="fr" href="#n8">8</a>が示した。通常、我々は目の運動にほとんど注意を払わず、対象の空間的位置は目の運動によって影響を受けない。</p>
+  <ol class="notes"><li id="n8"><span class="nn">8</span><p class="de" lang="de">Hering in Hermanns Handbuch der Physiologie, III, 1, 547. Vgl. auch Hillebrand, Verhältnis der Akkommodation und Konvergenz zur Tiefenlokalisation. Zeitschr. f. Psych. u. Phys. d. Sinnesorgane, VII, S. 97 fg.</p><p class="jp" lang="ja">ヘーリング、ヘルマン編『生理学ハンドブック』第III巻第1部、547頁。ヒレブラント「調節と輻輳の奥行き定位に対する関係」『感覚器官の心理学・生理学雑誌』第VII巻、97頁以下も参照。</p></li></ol>
+</article>
+<article class="row" id="p5.2">
+  <aside class="mg"><a class="pid" href="#p5.2">5.2</a><span class="pg"><span>S.&nbsp;145</span><span>S.&nbsp;146</span></span></aside>
+  <p class="de" lang="de">Stellt man sich zwei mit den beweglichen Netzhäuten sich deckende Kugelflächen vor, welche im Raume fest bleiben, während sich die Netzhäute drehen, so könnte man bei flüchtiger Überlegung sogar glauben, daß die Raumwerte der gesehenen Objekte nur durch die beiden Abbildungsorte auf den festen Kugeln bestimmt seien. Die S. 105 erwähnten Tatsachen nötigen aber, diese Raumwerte in zwei Komponenten zu zerlegen, deren eine von den Koordinaten des Bildpunktes auf der Netzhaut, deren andere von den Koordinaten des Blickpunktes ab<span class="pb" title="Jena 1922, S. 146">146</span>hängt, und welche Komponenten bei willkürlichen Änderungen des Blickpunktes sich gegenseitig kompensierende Änderungen erfahren<a class="fr" href="#n9">9</a>.</p>
+  <p class="jp" lang="ja">動きうる網膜と重なり合い、網膜が回転している間も空間に固定されたままの二つの球面を想像すれば、粗略に考えれば、見られた対象の空間値はもっぱら固定された球面上の二つの像の位置によって決定されると信じることさえできよう。しかし第105頁で述べた事実は、この空間値を二つの成分に分解することを余儀なくする。一方は網膜上の像点の座標に依存し、他方は注視点の座標に依存し、注視点が随意的に変化するとき、両成分は互いに補償し合う変化を受けるのである<a class="fr" href="#n9">9</a>。</p>
+  <ol class="notes"><li id="n9"><span class="nn">9</span><p class="de" lang="de">Vgl. S. 94; Hering, a. a. O. 533, 534. — Ob die Ansicht, daß die Änderung der Raumwerte sofort mit dem Wechsel der Aufmerksamkeit vollzogen ist, mit der Seite 107 erwähnten Tatsache in Einklang gebracht werden kann, vermag ich jetzt nicht zu entscheiden.</p><p class="jp" lang="ja">第94頁参照。ヘーリング、前掲書、533、534頁。——空間値の変化が注意の転換とともに直ちに完遂されるという見解が、第107頁で言及した事実と調和しうるかどうか、いま私には判断できない。</p></li></ol>
+</article>
+<article class="row" id="p5.3">
+  <aside class="mg"><a class="pid" href="#p5.3">5.3</a><span class="pg"><span>S.&nbsp;146</span></span></aside>
+  <p class="de" lang="de">Wenn man nun eine Empfindung der Innervation nicht annimmt, den peripherisch erregten kinästhetischen Empfindungen der Augenmuskel aber die Bedeutung abspricht, so bleibt allerdings nur übrig (mit Hering) den Ort der Aufmerksamkeit als durch einen bestimmten psychophysischen Prozeß bedingt anzusehen, der zugleich das physische Moment ist, welches die entsprechende Innervation der Augenmuskel auslöst<a class="fr" href="#n10">10</a>. Dieser Prozeß ist aber doch ein zentraler, und die „Aufmerksamkeit" von dem „Willen zu sehen", doch kaum verschieden.</p>
+  <p class="jp" lang="ja">神経支配感覚を認めず、眼筋の末梢的な運動感覚にも意義を認めないならば、（ヘーリングとともに）注意の場所を特定の心理物理的過程によって条件づけられたものと見なすほかない。この過程は同時に、対応する眼筋の神経支配を引き起こす物理的契機でもある<a class="fr" href="#n10">10</a>。しかしこの過程はやはり中枢的なものであり、「注意」は「見ようとする意志」とほとんど異ならない。</p>
+  <ol class="notes"><li id="n10"><span class="nn">10</span><p class="de" lang="de">Hering, a. a. O. 547, 548.</p><p class="jp" lang="ja">ヘーリング、前掲書、547、548頁。</p></li></ol>
+</article>
+<article class="row" id="p5.4">
+  <aside class="mg"><a class="pid" href="#p5.4">5.4</a><span class="pg"><span>S.&nbsp;146</span></span></aside>
+  <p class="de" lang="de">Somit könnte ich meinen Ausdruck S. 107 im wesentlichen doch festhalten, denn welcher von der Reihe der vom Zentrum aus erregten und ablaufenden Prozesse in die Empfindung eingeht, kann für manche Frage zunächst dahingestellt bleiben.</p>
+  <p class="jp" lang="ja">したがって私は、107頁の表現を本質的にはやはり維持することができよう。というのも、中枢から喚起され経過する一連の過程のうちどれが感覚に入り込むのかは、多くの問題にとって当面は未決のままにしておいてよいからである。</p>
+  
+</article>
+<h2 class="sec" id="s6"><a href="#s6">§ 6</a></h2>
+<article class="row" id="p6.1">
+  <aside class="mg"><a class="pid" href="#p6.1">6.1</a><span class="pg"><span>S.&nbsp;146</span></span></aside>
+  <p class="de" lang="de">In der S. 136 versuchten Erklärung könnte man nach dem Obigen die beiden antagonistischen Innervationen durch zwei antagonistische Aufmerksamkeitsprozesse ersetzen, einen durch den sensiblen Reiz und einen zentral erregten. Der von James<a class="fr" href="#n11">11</a> vorgebrachten Erklärung der Erscheinungen bei Augenmuskellähmungen, welche wenigstens in der Form in das bedenkliche Fahrwasser der „unbewußten Schlüsse" einzulenken scheint, könnte ich nicht zustimmen. Es handelt sich in dem fraglichen Fall wohl um Empfindungen und nicht um die Ergebnisse der Überlegung.</p>
+  <p class="jp" lang="ja">第136頁で試みた説明において、上述の考察に従えば、二つの拮抗的な神経支配を二つの拮抗的な注意過程——一つは感覚刺激により、もう一つは中枢的に喚起される——で置き換えることができよう。眼筋麻痺における現象についてジェイムズ<a class="fr" href="#n11">11</a>が提出した説明は、少なくとも形式の上では「無意識的推論」という危うい水域に入り込むように見えるが、私はこれに同意することができない。問題の場合に関わるのはおそらく感覚であって、思考の結果ではない。</p>
+  <ol class="notes"><li id="n11"><span class="nn">11</span><p class="de" lang="de">James, a. a. O. II, 506.</p><p class="jp" lang="ja">ジェイムズ、前掲書、第II巻、506頁。</p></li></ol>
+</article>
+<article class="row" id="p6.2">
+  <aside class="mg"><a class="pid" href="#p6.2">6.2</a><span class="pg"><span>S.&nbsp;146</span><span>S.&nbsp;147</span></span></aside>
+  <p class="de" lang="de">Die Augenmuskel dienen nur der räumlichen Orientierung, die Muskel der Glieder vorzugsweise der mechanischen Arbeit. <span class="pb" title="Jena 1922, S. 147">147</span>Es liegen also hier zwei extreme Fälle vor, zwischen welchen es auch Mittelfälle geben wird. Sieht man das neugeborene Hühnchen mit voller Sicherheit picken und treffen, so kann man wohl glauben, daß dessen Kopf- und Halsmuskel sich einigermaßen ähnlich wie die Augenmuskel, als räumlicher Orientierungsapparat, verhalten. Die zuckenden Kopfbewegungen vorwärtsschreitender Vögel werden wohl wie die nystagmischen Kopfwendungen bei Drehung im Interesse der Orientierung ausgeführt. Ganz ohne Analogie zu den Augenmuskeln werden auch die Muskel der Extremitäten nicht sein. Wie sollten wir sonst die haptische Raumvorstellung des Blinden verstehen? Es ist doch schwer, eine nativistische Theorie des Sehraumes mit einer empiristischen Theorie des Tastraumes zu vereinigen<a class="fr" href="#n12">12</a>. <a class="zref" href="zusaetze.html#sz12">S. Z. 12.</a></p>
+  <p class="jp" lang="ja">眼筋は空間的方位づけにのみ奉仕し、四肢の筋肉は主として力学的仕事に奉仕する。したがってここには二つの極端な場合があり、その間には中間的な場合もあるだろう。孵化したばかりのヒヨコが完全な確かさでつつき、的中させるのを見れば、その頭部と頸部の筋肉は、空間的方位づけの装置として、眼筋といくらか類似した振る舞いをすると考えてよいだろう。前進する鳥のぴくぴくとした頭の運動は、回転時の眼振的な頭の向け直しと同様に、方位づけのために行われるのであろう。四肢の筋肉もまた、眼筋とまったく類似性がないということはないだろう。そうでなければ、盲人の触覚的空間表象をどう理解すればよいのか。視空間の生得説と触空間の経験説とを両立させるのは、やはり困難である<a class="fr" href="#n12">12</a>。（<a class="zref" href="zusaetze.html#sz12">補遺12</a>参照）</p>
+  <ol class="notes"><li id="n12"><span class="nn">12</span><p class="de" lang="de">Vgl. S. 111, Anm. 2 u. S. 114.</p><p class="jp" lang="ja">第111頁、注2および第114頁を参照。</p></li></ol>
+</article>
+</main>
+
+<details class="corr">
+  <summary>校訂注（Jena 1922 版との照合）</summary>
+  <p>ドイツ語本文は Jena 第9版（1922）に一致させた。旧テキストから改めた箇所：</p>
+  <div class="tw"><table><thead><tr><th>位置</th><th>旧テキスト</th><th>Jena 1922（採用）</th></tr></thead><tbody><tr><td>§6.2</td><td lang="de">（S. 147 の本文が注11に混入し、本文には „10*“ のみ）</td><td lang="de">Es liegen also hier zwei extreme Fälle vor … zu vereinigen. S. Z. 12. を本文に戻す</td></tr><tr><td>§2.2</td><td lang="de">Gesichtsinnes</td><td lang="de">Gesichtssinnes</td></tr><tr><td>注7</td><td lang="de">(vor 1863). -- 145 --</td><td lang="de">(vor 1863).</td></tr></tbody></table></div>
+  <p>和訳の主な改訂：</p>
+  <ul><li><b>§2.1–2.3, §5.1–5.3, §6.1</b> 注番号の位置を独文に合わせる。§2.2 の「神経支配感覚の中枢的起源」を「運動感覚の中枢的起源」に訂正。</li><li><b>§4.1, §5.3, §5.4</b> 訳し落とし（「もともと私自身の見解でもあった」「しかしこの過程はやはり中枢的なものであり」）を補い、「107頁の表現」の参照を正す。</li><li><b>§1.4, §1.6</b> 頁参照（62頁、82頁）を補う。</li><li><b>§6.2</b> 本文に戻した S. 147 の部分を訳出（旧訳を改訂）。</li><li><b>全体</b> 旧訳の注に残っていた見出し語（[§2、…に対して] など）を除去し、未訳の注11を訳出。</li></ul>
+</details>
+
+<nav class="pager"><a href="kapitel_07.html">← 第Ⅶ章</a><a href="index.html">目次</a><a href="kapitel_09.html">第Ⅸ章 →</a></nav>
+
+<script>
+(function(){
+  var b=document.body;
+  function store(k,v){ try{localStorage.setItem(k,v);}catch(e){} }
+  function load(k){ try{return localStorage.getItem(k);}catch(e){return null;} }
+  function setV(v){ b.classList.remove('only-de','only-jp'); if(v!=='both') b.classList.add(v);
+    document.querySelectorAll('[data-v]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.v===v);}); store('mach-view',v); }
+  function setN(n){ b.classList.toggle('no-notes',n==='no-notes');
+    document.querySelectorAll('[data-n]').forEach(function(x){x.setAttribute('aria-pressed',x.dataset.n===n);}); store('mach-notes',n); }
+  document.querySelectorAll('[data-v]').forEach(function(x){x.addEventListener('click',function(){setV(x.dataset.v);});});
+  document.querySelectorAll('[data-n]').forEach(function(x){x.addEventListener('click',function(){setN(x.dataset.n);});});
+  setV(load('mach-view')||'both'); setN(load('mach-notes')||'show');
+})();
+</script>
+</body>
+</html>
