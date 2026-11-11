@@ -3,317 +3,515 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>ダシャクマーラチャリタ 本編第1章 対訳 — Daśakumāracarita Main Text Ch.1</title>
+<title>十王子物語 本編第1章 対訳</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=Noto+Serif+JP:wght@400;600&display=swap" rel="stylesheet">
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&display=swap');
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Noto Serif JP', 'Yu Mincho', serif; background: #f9f6f0; color: #2c2418; }
-  header { background: #2c2418; color: #f0e8d8; text-align: center; padding: 2.5em 1em 1.8em; }
-  header h1 { font-size: 1.8em; letter-spacing: 0.12em; margin-bottom: 0.3em; }
-  header .sub { font-size: 0.95em; opacity: 0.7; }
-  .wrap { max-width: 1200px; margin: 0 auto; padding: 1.5em 1em 4em; }
-  table { width: 100%; border-collapse: collapse; }
-  td { vertical-align: top; padding: 0.6em 1.5em; width: 50%; }
-  td.skt-cell { border-right: 2px solid #c9a96e; }
-  .skt-title, .jpn-title {
-    font-size: 1.3em; font-weight: bold; color: #6b4226;
-    text-align: center; padding: 0.5em 0; }
-  .skt-heading, .jpn-heading {
-    font-size: 1.05em; font-weight: bold; color: #6b4226;
-    margin-top: 1.5em; margin-bottom: 0.5em; }
-  .skt-verse {
-    font-family: 'DejaVu Serif', 'Georgia', serif;
-    font-style: italic; font-size: 0.92em; line-height: 1.7;
-    background: #f0e8d8; border-left: 3px solid #c9a96e;
-    padding: 0.6em 1em; margin: 0.5em 0; }
-  .jpn-verse {
-    font-size: 0.92em; line-height: 1.8;
-    background: #f0e8d8; border-left: 3px solid #c9a96e;
-    padding: 0.6em 1em; margin: 0.5em 0; }
-  .skt-prose {
-    font-family: 'DejaVu Serif', 'Georgia', serif;
-    font-size: 0.88em; line-height: 1.7; text-align: justify;
-    text-indent: 1em; margin: 0.4em 0; }
-  .jpn-prose {
-    font-size: 0.88em; line-height: 1.9; text-align: justify;
-    text-indent: 1em; margin: 0.4em 0; }
+  :root {
+    --bg: #f7f3ea; --paper: #fffdf8; --ink: #2b241b; --muted: #6f6253;
+    --accent: #8a5a32; --rule: #e2d6c1; --note-bg: #f3ecdf; --band: #2b241b; --band-ink: #f3ead9;
+    --chip: #efe5d4; --chip-on: #8a5a32; --chip-on-ink: #fffdf8;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --bg: #1b1814; --paper: #24201b; --ink: #e9e1d3; --muted: #a89a86;
+      --accent: #d29a66; --rule: #3a332a; --note-bg: #2c2620; --band: #12100d; --band-ink: #efe5d4;
+      --chip: #332c24; --chip-on: #d29a66; --chip-on-ink: #1b1814;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #1b1814; --paper: #24201b; --ink: #e9e1d3; --muted: #a89a86;
+    --accent: #d29a66; --rule: #3a332a; --note-bg: #2c2620; --band: #12100d; --band-ink: #efe5d4;
+    --chip: #332c24; --chip-on: #d29a66; --chip-on-ink: #1b1814;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    background: var(--bg); color: var(--ink);
+    font-family: 'Hiragino Mincho ProN', 'Noto Serif JP', 'Yu Mincho', serif;
+    font-size: 17px; line-height: 1.9;
+  }
+  [lang="sa"] { font-family: 'Noto Serif', 'Gentium Plus', Georgia, 'Times New Roman', serif; }
+  .lat { font-family: 'Noto Serif', 'Gentium Plus', Georgia, 'Times New Roman', serif; font-size: .96em; }
+  .deva { font-family: 'Noto Serif Devanagari', 'Kohinoor Devanagari', 'Devanagari Sangam MN', 'ITF Devanagari', 'Nirmala UI', serif; }
+
+  header { background: var(--band); color: var(--band-ink); text-align: center; padding: 2.4rem 1rem 2rem; }
+  header .kicker { font-size: .85rem; letter-spacing: .2em; opacity: .7; }
+  header h1 { font-size: 1.9rem; font-weight: 600; letter-spacing: .12em; margin: .3rem 0 .2rem; }
+  header .sub { font-size: 1rem; opacity: .85; }
+  header .sub[lang="sa"] { font-style: italic; }
+
+  .bar {
+    position: sticky; top: 0; z-index: 10; background: var(--paper);
+    border-bottom: 1px solid var(--rule);
+  }
+  .bar-in {
+    max-width: 1180px; margin: 0 auto; padding: .5rem 16px;
+    display: flex; flex-wrap: wrap; gap: .5rem 1rem; align-items: center; justify-content: space-between;
+  }
+  .nav { display: flex; flex-wrap: wrap; gap: .25rem 1rem; font-size: .9rem; }
+  .nav a { color: var(--accent); text-decoration: none; }
+  .nav a:hover { text-decoration: underline; }
+  .toggle { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; background: var(--chip); }
+  .toggle button {
+    font: inherit; font-size: .88rem; border: 0; background: transparent; color: var(--ink);
+    padding: .3rem .9rem; cursor: pointer; line-height: 1.5;
+  }
+  .toggle button[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); }
+  .toggle button.dv { font-family: 'Noto Serif Devanagari', 'Kohinoor Devanagari', 'Devanagari Sangam MN', serif; }
+
+  main { max-width: 1180px; margin: 0 auto; padding: 1.5rem 16px 4rem; }
+  .intro {
+    background: var(--note-bg); border: 1px solid var(--rule); border-radius: 8px;
+    padding: .9rem 1.2rem; font-size: .9rem; color: var(--muted); margin-bottom: 2rem;
+  }
+  .intro b { color: var(--ink); }
+
+  .sec { margin: 0 0 2.6rem; }
+  .sec h2 {
+    font-size: 1.15rem; font-weight: 600; color: var(--accent);
+    border-bottom: 2px solid var(--rule); padding-bottom: .35rem; margin-bottom: 1rem;
+    display: flex; align-items: baseline; gap: .7rem;
+  }
+  .sec h2 .num {
+    font-family: 'Noto Serif', Georgia, serif; font-size: .9rem; color: var(--paper); background: var(--accent);
+    border-radius: 4px; padding: 0 .45rem; min-width: 1.8rem; text-align: center;
+  }
+  .pair {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 0 2.2rem;
+    padding: .9rem 0; border-bottom: 1px dashed var(--rule);
+  }
+  .pair:last-of-type { border-bottom: 0; }
+  .skt { font-size: 1rem; line-height: 1.85; text-align: left; overflow-wrap: anywhere; hyphens: none; }
+  .skt.deva { font-size: 1.12rem; line-height: 2; }
+  .skt .iast-sub { display: block; margin-top: .5rem; font-family: 'Noto Serif', Georgia, serif; font-size: .86rem; color: var(--muted); line-height: 1.75; }
+  .jpn { font-size: 1rem; text-align: justify; }
+  .pno {
+    font-family: 'Noto Serif', Georgia, serif; font-size: .72rem; color: var(--muted);
+    border: 1px solid var(--rule); border-radius: 3px; padding: 0 .3rem; margin-right: .5rem;
+    vertical-align: .15em;
+  }
   .note {
-    font-size: 0.82em; line-height: 1.7; color: #5a4a3a;
-    background: #f5f0e5; border: 1px solid #d8c9a8;
-    border-radius: 4px; padding: 0.6em 1em; margin: 0.5em 0 0.8em;
+    background: var(--note-bg); border-left: 3px solid var(--accent); border-radius: 0 6px 6px 0;
+    padding: .7rem 1rem; margin-top: .8rem; font-size: .88rem; line-height: 1.85; color: var(--ink);
   }
-  .note-label {
-    font-weight: bold; color: #8b6914; font-size: 0.9em;
-  }
-  footer { text-align: center; padding: 2em; color: #999;
-    font-size: 0.8em; border-top: 1px solid #ddd; margin-top: 2em; }
+  .note-label { font-weight: 600; color: var(--accent); margin-right: .6rem; }
+
+  details.app { margin-top: 3rem; border: 1px solid var(--rule); border-radius: 8px; background: var(--paper); }
+  details.app summary { cursor: pointer; padding: .8rem 1.1rem; font-weight: 600; color: var(--accent); }
+  .app-body { padding: 0 1.1rem 1rem; overflow-x: auto; }
+  .app-body p { font-size: .88rem; color: var(--muted); margin-bottom: .6rem; }
+  .app table { border-collapse: collapse; width: 100%; font-size: .88rem; }
+  .app th, .app td { border-bottom: 1px solid var(--rule); padding: .35rem .6rem; text-align: left; vertical-align: top; }
+  .app th { color: var(--muted); font-weight: 600; }
+
+  .chapnav { display: flex; justify-content: space-between; gap: 1rem; margin-top: 2.5rem; font-size: .95rem; }
+  .chapnav a { color: var(--accent); text-decoration: none; }
+  footer { text-align: center; color: var(--muted); font-size: .8rem; padding: 2rem 16px; border-top: 1px solid var(--rule); }
+
   @media (max-width: 800px) {
-    td { display: block; width: 100%; border-right: none !important;
-         border-bottom: 1px solid #ddd; padding: 0.8em; }
+    body { font-size: 16px; }
+    header h1 { font-size: 1.5rem; }
+    .pair { grid-template-columns: 1fr; gap: .6rem; }
+    .skt { padding-bottom: .5rem; border-bottom: 1px dotted var(--rule); }
+    .jpn { text-align: left; }
+  }
+  @media print {
+    .bar { position: static; }
+    .toggle { display: none; }
   }
 </style>
 </head>
 <body>
 <header>
-  <h1>ダシャクマーラチャリタ ― 本編 第1章 対訳</h1>
-  <div class="sub">Daśakumāracarita — Rājavāhanacaritam — Prathama Ucchvāsaḥ</div>
+  <div class="kicker">ダンディン『ダシャクマーラチャリタ』</div>
+  <h1>本編 第1章 ラージャヴァーハナ物語</h1>
+  <div class="sub" lang="sa">Daśakumāracarita · Uttarapīṭhikā · Prathama Ucchvāsaḥ — Rājavāhanacaritam</div>
 </header>
-<div class="wrap">
-<table>
 
-<!-- Title -->
-<tr><td class="skt-cell"><div class="skt-title">Prathama Ucchvāsaḥ<br/><span style="font-size:0.75em; font-weight:normal;">Rājavāhanacaritam (The Story of Rājavāhana)</span></div>
-</td><td class="jpn-cell"><div class="jpn-title">第1章<br/><span style="font-size:0.75em; font-weight:normal;">ラージャヴァーハナ物語</span></div>
-</td></tr>
+<div class="bar"><div class="bar-in">
+  <nav class="nav">
+    <a href="dasakumaracarita_introduction.html">目次・紹介</a>
+    <a href="dasakumaracarita_synopsis_ch1.html">第1章 梗概</a>
+    <a href="dasakumaracarita_main_ch2_bilingual.html">第2章 対訳 →</a>
+  </nav>
+  <div class="toggle" role="group" aria-label="サンスクリットの表記">
+    <button type="button" data-mode="iast">IAST</button>
+    <button type="button" data-mode="deva" class="dv">देवनागरी</button>
+    <button type="button" data-mode="both">併記</button>
+  </div>
+</div></div>
 
-<!-- ===== Section 1: Avantisundarī's response ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 1. アヴァンティスンダリーの言葉</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 1. 世界の物語を聞き終えたアヴァンティスンダリー</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">śrutvā tu bhuvana-vṛttāntam uttamāṅganā vismaya-vikasita-akṣī sasmitam idam abhāṣata — "dayita, tvat-prasādād adya me caritārthā śrotra-vṛttiḥ / adya me manasi tamo'pahas tvayā datto jñāna-pradīpaḥ / pakvam idānāṃ tvat-pāda-padma-paricaryā-phalam / asya ca tvat-prasādasya kim upakṛtya pratyupakṛtavatī bhaveyam / a-bhavadīyaṃ hi naiva kiñcin mat-saṃbaddham / athavā asty evāsyāpi janasya kvacit prabhutvam / aśakyaṃ hi mad-icchayā vinā sarasvatī-mukha-grahaṇa-uccheṣaṇīkṛto daśanacchada eṣa cumbayitum / ambujāsana-stana-taṭa-upabhuktam uraḥ-sthalaṃ cedam āliṅgayitum" iti</div>
-</td><td class="jpn-cell"><div class="jpn-prose">世界の物語を聞き終えた高貴な婦人（アヴァンティスンダリー）は、驚きに目を見開き、微笑みながらこう言った。「愛しき方よ、あなたのお恵みにより、今日わたくしの耳の務めは果たされました。今日あなたはわたくしの心の闇を払い、知識の灯火をお与えくださいました。今こそあなたの蓮華の御足に仕えた果報が実りました。しかしこのあなたのご恩に対し、わたくしは何をもってお返しできましょう。あなたのものでないものは、わたくしに関わるものの中に何ひとつないのですから。いえ、このわたくしにも、どこかで主権を持つ領分があります。なぜなら、わたくしの意志なくしては、サラスヴァティーの口づけの残りとされたこの唇に口づけすることも、蓮華の座の主（ブラフマー）の胸の傾斜に楽しまれたこの胸を抱きしめることも、不可能なのですから。」</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：sarasvatī-mukha-grahaṇa-uccheṣaṇīkṛtaḥ ― サラスヴァティー女神が口づけした残り物とされた唇、すなわち弁才の女神が宿る唇への口づけは、彼女の許しなくしては不可能であるという趣向。ambujāsana（蓮華に座す者）はブラフマー神を指し、その胸に楽しまれた＝サラスヴァティーがブラフマーの妃であることへの暗示。</div>
-</td></tr>
-
-<!-- ===== Section 2: The kiss and love scene ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 2. 口づけと情交</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 2. 口づけと情交</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">priyorasi prāvṛḍ iva nabhasy upāstīrṇa-guru-payodhara-maṇḍalā prauḍha-kandalī-kuḍmalam iva rūḍha-rāga-rūṣitaṃ cakṣur ullāsayantī varhi-varhāvalīṃ viḍambayatā kusuma-candraka-śāreṇa madhukara-kula-vyākulena keśa-kalāpena sphurad-aruṇa-kiraṇa-kesara-karālaṃ kadamba-mukulam iva kāntasyādhara-maṇim adhīram ācucumba /</div>
-<div class="skt-prose">tad-ārambha-sapharitayā ca rāga-vṛttyā bhūyo 'py āvartatātimātra-citra-upacāra-śīpharaḥ rati-prabandhaḥ /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">雨季の空に重き雲の群れが広がるように、愛する人の胸に豊かな乳房を押し当て、咲き誇るカンダリー（白百合）の蕾のように愛の赤みに染められ怒ったかのような目を輝かせながら、孔雀の尾羽の列を模し花の斑点で彩られ蜜蜂の群れにざわめく髪束をもって、赤い光線の蕊で恐ろしげなカダンバの蕾のような愛しい人の下唇の宝石に、熱く口づけした。</div>
-<div class="jpn-prose">その行為に触発された情熱の高まりにより、この上なく巧みな愛の技法に満ちた情交がふたたび続いた。</div>
-</td></tr>
-
-<!-- ===== Section 3: The silver shackles dream ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 3. 銀の足枷の夢</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 3. 銀の足枷</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">surata-kheda-suptayos tu tayoḥ svapne bisa-guṇa-nigaḍita-pādaḥ jaraṭhaḥ kaścij jāla-pādaḥ adṛśyata / pratyabudhyetāṃ ca ubhau / atha tasya rājakumārasya kamala-mūḍha-śaśi-kiraṇa-rajju-dāma-nigṛhītam iva rajata-śṛṅkhala-upagūḍhaṃ caraṇa-yugalam āsīt /</div>
-<div class="skt-prose">upalabhyaiva ca "kim etat" ity ati-paritrāsa-vihvalā mukta-kaṇṭham ācakranda rājakanyā /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">情交の疲れで眠る二人の夢に、蓮の繊維で足を縛られた老いた水鳥（jālapāda）が現れた。二人とも目覚めた。すると王子の両足は、蓮に迷い込んだ月光の綱に捕えられたかのように、銀の鎖に包まれていた。</div>
-<div class="jpn-prose">それを見るなり「これは何事！」と極度の恐怖に動揺し、王女は声を限りに叫んだ。</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：rajata-śṛṅkhala（銀の鎖）は後に天女スラタマンジャリーの呪いの結果であることが明かされる。pāṇḍuloha（銀）は loha を「金属」の一般的意味で用いたもの。</div>
-</td></tr>
-
-<!-- ===== Section 4: The uproar in the palace ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 4. 宮殿の騒動</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 4. 宮殿の騒動とチャンダヴァルマンの到来</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">yena ca tat sakalam eva kanyā-antaḥpuram agni-parītam iva piśāca-upahatam iva vepamānam anirūpyamāṇa-tadātvāyati-vibhāgam agaṇyamāna-rahasya-rakṣā-samayam avanita-lavi-pravidhyamāna-gātram ākranda-vidīryamāṇa-kaṇṭham aśru-srotaḥ-avaguṇṭhita-kapola-talam ākulībabhūva /</div>
-<div class="skt-prose">tumule cāsmin samaye 'niyantrita-praveśāḥ "kiṃ kim" iti sahasopasṛtya viviśur antar-vaṃśika-puruṣāḥ / dadṛśuś ca tad-avasthaṃ rājakumāram / tad-anubhāva-niruddha-nigraha-icchās tu sadya eva te tam arthaṃ caṇḍavarmaṇe nivedayāñcakruḥ /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">するとその後宮全体が、火に囲まれたかのように、悪鬼に取り憑かれたかのように震え、現在と未来の区別もつかず、秘密を守る時でもないと構わず、地面に投げ出されたように身悶えし、叫び声で喉を裂き、涙の流れで頬を覆い、混乱に陥った。</div>
-<div class="jpn-prose">この騒ぎの最中、入室を制止されることなく「何事だ、何事だ」と急いで駆けつけた宮中の内侍たちが入ってきて、そのような状態の王子を目にした。しかし彼の威厳に気圧されて捕縛の意志を抑えた彼らは、ただちにその件をチャンダヴァルマンに報告した。</div>
-</td></tr>
-
-<!-- ===== Section 5: Caṇḍavarman's fury ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 5. チャンダヴァルマンの怒り</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 5. チャンダヴァルマンの怒りとラージャヴァーハナの拘束</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">so 'pi kopād āgatya nirdahann iva dahana-garbhayā dṛśā niśāmya utpanna-pratyabhijñaḥ — "kathaṃ sa evāṣa mad-anuja-maraṇa-nimitta-bhūtāyāḥ pāpāyā bālacandrikāyāḥ patur aty-abhiniviṣṭa-vitta-darpasya vaideśika-vaṇik-putrasya puṣpodbhavasya mitraṃ rūpa-mattaḥ kalā-abhimānī naika-vidha-viparalambha-upāya-pāṭava-āvarjita-mūḍha-paura-jana-mithyā-āropita-vitatha-devatā-anubhāvaḥ kapaṭa-dharma-kañcukaḥ nigūḍha-pāpa-śīlaś capalaḥ brāhmaṇa-bruvaḥ / katham ivainam anuraktā mādṛśeṣv api puruṣa-siṃheṣu sāvamānā pāpeyam avantisundarī / paśyatu patim adyaiva śūlāvataṃsitam iyam anārya-śīlā kula-pāṃsanī" iti nirbhartsayan bhīṣaṇa-bhrukuṭi-dūṣita-lalāṭaḥ kāla iva kāla-loha-daṇḍa-karkaśena bāhu-daṇḍena avalambya hastāmbuje rekhā-ambuja-rathāṅga-lāñchane rājaputraṃ sarabhasam ācakarṣa /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">チャンダヴァルマンもまた怒りに駆られてやって来て、火を孕んだかのような眼差しで焼き尽くさんばかりに見据え、相手を認識するなりこう言った。「何と、これはあの者ではないか。わが弟の死の原因となった邪悪なバーラチャンドリカーの夫、財の驕りに溺れた外国の商人の倅プシュポードバヴァの友、容姿に酔い、技芸を鼻にかけ、さまざまな欺瞞の手口に巧みなことで愚かな町人を籠絡し、偽りの神的威力を捏造して吹聴する、偽りの信仰の衣を纏い、隠れた悪徳の性を持つ軽薄な、バラモンと称するだけの者。よくもこのような者に惚れ、わしのような人中の獅子をも蔑ろにしたものだ、この邪悪なアヴァンティスンダリーめ。今日こそ串刺しにされた夫を見るがよい、この卑しき性根の家門の恥さらしめが。」――こう罵りながら、恐ろしい眉をひそめて額を歪め、死神のように鉄杖のごとく硬い腕の棒で、蓮と輪の印が刻まれた蓮華のような手の王子を荒々しく引きずった。</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：brāhmaṇa-bruvaḥ（バラモンと称するだけの者）――ラージャヴァーハナは実際にはクシャトリヤだが、アヴァンティーではバラモンの身分で暮らしていたため、チャンダヴァルマンはそう認識している。śūlāvataṃsita（串刺しの飾りにされた＝串刺し刑に処された）。kapaṭa-dharma-kañcuka（偽りの信仰の鎧）はŚāk. V参照。rekhā-ambuja-rathāṅga-lāñchane は蓮と法輪の相が手のひらに刻まれた王子の手の描写で、madhyamapada複合語。</div>
-</td></tr>
-
-<!-- ===== Section 6: Rājavāhana's composure ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 6. ラージャヴァーハナの沈着</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 6. ラージャヴァーハナの沈着と投獄</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">sa tu svabhāva-dhīraḥ sarva-pauruṣa-atibhūmiḥ sahiṣṇutaika-pratikriyāṃ daivīm eva tām āpadam avadhārya "smara tasyā haṃsa-gāmini, haṃsa-kathāyāḥ / sahasva vāsu, māsa-dvayam" iti prāṇa-parityāga-rāgiṇīṃ prāṇa-samāṃ samāśvāsyāri-vaśyatām ayāsīt /</div>
-<div class="skt-prose">atha vidita-vārtā ārtau mahādevī-mālavendrau jāmātaram ākāra-pakṣapātinau ātma-parityāga-upanyāsena ariṇā jighāṃsyamānaṃ rarakṣatuḥ / na śekatus tu tam aparabhutvād uttārayitum āpadaḥ /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">しかし王子は生来沈着で、あらゆる男らしさの極致であり、忍耐のみが対処法であるその天の災いを悟り、「ハンサ鳥のように歩む人よ、あのハンサ鳥の物語を思い出しなさい。美しき人よ、二か月だけ耐えなさい」と、命を捨てんとする最愛の人を慰め、敵の支配下に身を委ねた。</div>
-<div class="jpn-prose">事態を知り心を痛めた王太后とマーラヴァ王は、その容姿に心を寄せる婿を、自らの命を盾にして敵に殺されんとするのを防いだ。しかし彼らには権力がなく、王子をその苦境から救い出すことはできなかった。</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：haṃsa-kathā（ハンサ鳥の物語）は前篇第5章で語られたアヴァンティスンダリーとの出会いの経緯への言及。vāsu は「若い女性」の意（Mṛcch. I. 18参照）。ātma-parityāga-upanyāsena（自殺を申し出ることにより）――王太后とマーラヴァ王は「もし婿を殺すなら自分たちも死ぬ」と脅すことでチャンダヴァルマンの殺害意図を阻止した。</div>
-</td></tr>
-
-<!-- ===== Section 7: Caṇḍavarman's campaign ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 7. チャンダヴァルマンのアンガ国遠征</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 7. プシュポードバヴァ一家の投獄とアンガ国遠征</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">sa kila caṇḍa-śīlaś caṇḍavarmā sarvam idam udanta-jātaṃ rāja-rāja-girau tapasyate darpasārāya saṃdiśya sarvam eva puṣpodbhava-kuṭumbakaṃ sarvasva-haraṇa-pūrvakaṃ sadya eva bandhane kṣiptvā kṛtvā ca rājavāhanaṃ rāja-kesari-kiśorakam iva dāru-pañjara-nibaddhaṃ mūrdhaja-jāla-valīna-cūḍhā-maṇi-prabhāva-vikṣipta-kṣut-pipāsādi-khedaṃ ca tam avadhūta-duhitṛ-prārthanasya aṅga-rājasya uddharaṇāya aṅgān abhiyāsyan nyaviśvāsān nināya /</div>
-<div class="skt-prose">rurodha ca bala-bhara-datta-kampaś campām /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">かの荒々しい性格のチャンダヴァルマンは、この一切の顛末をカイラーサ山で苦行中のダルパサーラに報告した上で、プシュポードバヴァの一家を全財産没収の上ただちに投獄し、ラージャヴァーハナを若き獅子のように木の檻に閉じ込めた。髪の中に隠した頂上宝珠の力により飢えや渇きなどの苦しみは退けられていた。そしてチャンダヴァルマンは、娘の求婚を拒んだアンガ王を討伐すべくアンガ国に攻め入り、不意を突いて進軍した。</div>
-<div class="jpn-prose">そして軍勢の重みに震えさせながら、チャンパー（アンガの都）を包囲した。</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：dāru-pañjara（木の檻）について――チャンダヴァルマンは鉄の檻ではなく木の檻を選んでいるが、王子が足枷を解かれた後に脱出しやすくするための著者の配慮であろう。cūḍā-maṇi（頂上宝珠）はパーターラ（地底世界）でカーリンディーからマタンガを通じてラージャヴァーハナに贈られた宝石で、飢え・渇きなどの苦痛を退ける力を持つ（前篇参照）。aṅga はガンジス河右岸に位置する国で、都はチャンパー（現在のバーガルプル近郊）。</div>
-</td></tr>
-
-<!-- ===== Section 8: Battle of Champā ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 8. チャンパーの戦い</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 8. シンハヴァルマンの出撃と捕獲</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">campeśvaro 'pi siṃhavarmā siṃha ivāsahya-vikramaḥ prākāraṃ bhedayitvā mahatā bala-samudāyena nirgatya sva-prahita-dūta-vrāta-āhūtānāṃ sāhāyya-dānāya ati-satvaram āpatatāṃ dharāpatīnām acira-kāla-bhāviny api saṃnidhau adattāpekṣaḥ sa sākṣād ivāvalepaḥ vapuṣmān akṣamā-parītaḥ pratibalaṃ pratijagrāha /</div>
-<div class="skt-prose">jagṛhe ca mahati saṃparāye kṣīṇa-sakala-sainya-maṇḍalaḥ pracaṇḍa-praharaṇa-śata-bhinna-marmā siṃhavarmā kariṇaḥ kariṇam avaplutya ati-mānuṣa-prāṇa-balena caṇḍavarmaṇā /</div>
-<div class="skt-prose">sa ca tad-duhitary ambālikāyām abalā-ratna-samākhyātāyām atimātra-abhilāṣaḥ prāṇair enaṃ na vyayūyujat / avāpi tv anīnayad apanīta-aśeṣa-śalyam akalya-saṃdhaḥ bandhanam /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">チャンパーの王シンハヴァルマンもまた、獅子のように不可抗の武勇を持ち、城壁を破って大軍とともに出撃した。自ら派遣した使者団に呼び寄せられ援軍のために急ぎ馳せ参じる諸王がまもなく到着するにもかかわらず、それを待つことなく、彼は傲慢そのものが人の姿を取ったかのように、堪忍の限りを超え、敵軍に立ち向かった。</div>
-<div class="jpn-prose">しかし大戦の中、全軍を失い、猛烈な武器の数百の打撃で急所を砕かれたシンハヴァルマンは、象から象へ飛び移った超人的な体力のチャンダヴァルマンに捕えられた。</div>
-<div class="jpn-prose">チャンダヴァルマンはその娘アンバーリカー（女宝と称される者）に対する過度の執着ゆえに、シンハヴァルマンの命を奪わなかった。ただし傷を癒させた上で、その意図を測りがたいまま、投獄した。</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：sākṣād iva āvalepaḥ vapuṣmān（傲慢そのものが肉体を持ったかのような）――sākṣāt と vapuṣmān のいずれかは冗語的。akalya-saṃdhaḥ は「その意図を推し量ることのできない」の意で、kal（理解する）の意味でのMāl.-Mādh. II. 9参照。bhinna-marmā（急所を砕かれた）という異読もあるが、それでは長く生存できないため不適当。</div>
-</td></tr>
-
-<!-- ===== Section 9: Marriage preparations and Darpasāra's message ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 9. ダルパサーラの使者</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 9. 婚礼の準備とダルパサーラからの使者</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">ajīgaṇac ca gaṇaka-saṃghaiḥ "adyaiva kṣapā-avasāne vivāhanīyā rāja-duhitā" iti / kṛta-kautuka-maṅgale ca tasmin eka-piṅga-ācalāt pratinivṛttya aiṇa-jaṅghaḥ nāma jaṅghā-kārikaḥ prabhavataḥ darpasārasya pratisaṃdeśam āvedayat —</div>
-<div class="skt-prose">"ayi mūḍha, kim asti kanyā-antaḥpura-dūṣake 'pi kaścit kṛpā-avasāraḥ / sthaviraḥ sa rājā jarā-vilupta-māna-avamāna-cittaḥ duś-carita-duhitṛ-pakṣapātī yad eva kiñcit pralapati tvayāpi kiṃ tad-anumatyā sthātavyam / avilambitam eva tasya kāma-unmattasya citra-vadha-vārtā-preṣaṇena śravaṇa-utsavaḥ asmākaṃ vidheyaḥ / sā ca duṣṭa-kanyā saha anujena kīrti-sāreṇa nigaḍita-caraṇā cārake niroddhavyā" iti /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">チャンダヴァルマンは占星術師たちに計算させ、「今日の夜明けにも王女と婚礼を行うべし」と定めた。吉祥の儀式が行われているその時、エーカピンガ山（カイラーサ）から帰還した「鹿脚」という名の飛脚が、主君ダルパサーラの返信を伝えた。</div>
-<div class="jpn-prose">「おお愚か者め、後宮を汚した者にまで慈悲をかける余地があるというのか。あの老王は老齢のために自尊心も恥辱の感覚も鈍っており、品行の悪い娘を庇っている。あの者が何をわめこうと、お前もその言いなりになる必要があるのか。直ちにあの色欲に狂った者を珍しき死刑（串刺しなど）に処した報を送り、我らの耳の祝宴とせよ。あの邪悪な王女もその弟キールティサーラとともに足枷をかけ、牢に閉じ込めよ。」</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：eka-piṅga-ācala（一つ目の黄色い山）はカイラーサ山のこと。ekapiṅga はクベーラの異名で、シヴァを訪れた際にパールヴァティーを左目で見たために眼が焼かれ、右目が黄色くなったという逸話に基づく（Rām. Uttara 13参照）。citra-vadha（奇怪な死刑）は象に踏ませる、目を抉る等の特殊な処刑法（Mudr. II参照）。jaṅghā-kārika（飛脚）は jaṅghā（脛）で稼ぐ者の意。</div>
-</td></tr>
-
-<!-- ===== Section 10: Caṇḍavarman's plan ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 10. チャンダヴァルマンの計画</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 10. チャンダヴァルマンの計画と天女の解放</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">tac cākarṇya "prātar eva rāja-bhavana-dvāre sa ca durātmā kanyā-antaḥpura-dūṣakaḥ saṃnidhāpayitavyaḥ / caṇḍapotaś ca mātaṅga-patir upacita-kalpana-upapannas tatraiva samupasthāpanīyaḥ / kṛta-vivāha-kṛtyaś ca utthāya aham eva tam anārya-śīlaṃ tasya hastinaḥ kṛtvā krīḍanakaṃ tad-adhirūḍha eva gatvā śatru-sāhāyyakāya pratyāsīdataḥ rājanyakasya sa-kośa-vāhanasya avagrahaṇaṃ kariṣyāmi" iti pārśvacarān avekṣāñcakre /</div>
-<div class="skt-prose">ninye cāsāv ahany anyasminn unmiṣaty evoṣāroge rājaputraḥ rāja-aṅgaṇaṃ rakṣibhiḥ / utasthe ca kṣarita-gaṇḍaś caṇḍapotaḥ / kṣaṇe ca tasmin mumuce tad-aṅghri-yugalaṃ rajata-śṛṅkhalayā /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">それを聞いてチャンダヴァルマンは言った。「明朝、王宮の門前にあの悪党、後宮の汚し者を連れ出せ。そしてチャンダポータという名の象王を十分に飾り立てて同じ場所に引き出せ。婚礼の儀を終えて立ち上がり、わしみずからあの卑しき者をその象の玩具にした上、それに乗ったまま出撃して、援軍として近づきつつある敵の王族をその軍資と乗物もろとも捕獲してくれよう。」――こう言って従者たちに目配せした。</div>
-<div class="jpn-prose">翌日の曙光がまさに差しかかる頃、王子は衛兵によって宮殿の前庭に連れ出された。こめかみから発情液を滴らせたチャンダポータが立ち上がった。するとまさにその瞬間、銀の鎖が王子の両足を解き放った。</div>
-</td></tr>
-
-<!-- ===== Section 11: The apsaras Suratamañjarī ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 11. 天女スラタマンジャリーの告白</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 11. 天女スラタマンジャリーの告白</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">sā cainaṃ candralekhā-cchaviḥ kācid apsarā bhūtvā pradakṣiṇīkṛtya prāñjalir vyajijñapat — "deva, dīyatām anugrahārdraṃ cittam / aham asmi soma-raśmi-saṃbhavā suratamañjarī nāma sura-sundarī / tasyā me nabhasi nalina-lubdha-mugdha-kala-haṃsa-anubaddha-vaktrāyās tan-nivāraṇa-kṣobha-vicchinna-vigalitā hāra-yaṣṭir yadṛcchayā jātu haimavate mandodake magna-unmagnasya maharṣer mārkaṇḍeyasya mastake maṇi-kiraṇa-dviguṇita-palitam apatat /</div>
-<div class="skt-prose">pātitaś ca kopitena ko 'pi tena mayi śāpaḥ — 'pāpe, bhajasva loha-jātim ajāta-caitanyā satī' iti / sa punaḥ prasādyamānas tvat-pāda-padma-dvayasya māsa-dvaya-mātraṃ saṃdānatām etya nistaraṇīyām imām āpadam aparikṣīṇa-śaktitvaṃ cendriyāṇām akalpayat /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">すると月光のような輝きを持つ何者かが天女の姿となり、王子のまわりを右繞し、合掌して申し上げた。「殿下、どうか慈悲深きお心をお向けください。わたくしは月光より生まれたスラタマンジャリーという名の天女でございます。空を飛んでいたわたくしの顔に、蓮を慕う無垢なハンサ鳥が付きまとい、それを払いのけようとした拍子に真珠の首飾りの紐が切れ、たまたまヒマラヤの清冷な湖で浮き沈みしていた大仙マールカンデーヤの頭上に、宝石の光で白髪を倍加させながら落ちました。</div>
-<div class="jpn-prose">怒った聖仙はわたくしに呪いをかけました。『悪しき女よ、意識を失った者となって金属の身を受けよ』と。しかし宥められた聖仙は、殿下の蓮華の御足を二か月間だけ束縛する鎖となることで、この呪いから脱する道と、感覚機能の力が衰えぬことを定めてくださいました。」</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：soma-raśmi-saṃbhavā（月光より生まれた）――Kād. p.217によれば天女には14の家系があり、そのひとつが月光から生まれた家系。loha-jāti は「金属の状態」を意味し、天女が銀の鎖に変身させられたことを示す。ajāta-caitanyā（意識の生じない状態で）は鎖として意識を失うこと。</div>
-</td></tr>
-
-<!-- ===== Section 12: The Vidyādhara story and release ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 12. ヴィディヤーダラの物語と解放</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 12. ヴィーラシェーカラとの因縁、そして解放</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">analpena ca pāpmanā rajata-śṛṅkhalī-bhūtāṃ mām aikṣvākasya rājño vegavataḥ pautraḥ, putro mānasavegasya, vīra-śekharaḥ nāma vidyādharaḥ śaṅkara-girau samadhyagamat / ātmasātkṛtā ca tena aham āsam / athāsau pitṛ-prayukta-vaire pravartamāne vidyādhara-cakravartini vatsa-rāja-vaṃśa-vardhane naravāhanadatte virasāśayas tad-apakāra-kṣamaḥ ayam iti tapasyatā darpasāreṇa saha samasṛjyata / pratiśrutaṃ ca tena tasmai svasu-avantisundaryāḥ pradānam /</div>
-<div class="skt-prose">anyadā tu viyati vyavadāyamāna-candrike manorathapriyatamām avantisundarīṃ didṛkṣur avaśendriyaḥ tad-indra-mandira-dyuti kumārī-puram upāsarat / antaritaś ca tiraskariṇyā vidyayā /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">「少なからぬ罪により銀の鎖と化したわたくしを、イクシュヴァーク族の王ヴェーガヴァットの孫で、マーナサヴェーガの息子たるヴィーラシェーカラという名のヴィディヤーダラがシャンカラ山で見つけ、自分のものとしました。その後、父の代から始まった戦いが続く中、ヴィディヤーダラの転輪聖王にしてヴァッサ王家の繁栄者ナラヴァーハナダッタに対して敵意を抱くヴィーラシェーカラは、『この者ならば敵に害を加えることができる』と考え、苦行中のダルパサーラと同盟を結びました。そしてダルパサーラは自分の妹アヴァンティスンダリーを彼に与えることを約束しました。</div>
-<div class="jpn-prose">ある時、空に月光が輝く夜、心の中の恋人アヴァンティスンダリーを一目見たいと感覚を制御できずに、インドラの宮殿のように輝く王女の館に近づきました。しかし隠身の術（ティラスカリニー・ヴィディヤー）によって遮られました。」</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：naravāhanadatta（ナラヴァーハナダッタ）はヴァッサ王の子で、『カターサリトサーガラ』（および元のグナーディヤ作『ブリハトカター』）の主人公。同作品でヴィディヤーダラの王位に就く冒険が語られる（Kathās. XIV. 1参照）。pitṛ-prayukta-vaire pravartamāne は「父（マーナサヴェーガ）が始めた敵対関係が続いている中」の意で、Loc. Abs.。tiraskariṇī vidyā は天界の住人が持つ隠身の術。</div>
-</td></tr>
-
-<!-- ===== Section 13: The shackle's origin explained ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 13. 足枷の由来の解明</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 13. ヴィーラシェーカラによる足枷と解放</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">sa ca tāṃ tadā tvad-aṅka-apāśrayāṃ surata-kheda-supta-gātrīṃ tribhuvana-sarga-yātrā-saṃhāra-saṃbaddhābhiḥ kathābhir amṛta-syandinībhiḥ pratyānīyamāna-rāga-pūrāṃ nyarūpayat / sa tu prakupito 'pi tvad-anubhāva-pratibaddha-niprahāntarādhyavasāyaḥ samāliṅgyetaretaram atyanta-sukha-suptayor yuvayoḥ daiva-datta-utsāhaḥ pāṇḍu-loha-śṛṅkhala-ātmanā mayā pāda-padmayor yugalaṃ tava nigaḍayitvā sa-roṣa-rabhasam apāsarat /</div>
-<div class="skt-prose">avasitaś ca mama adya śāpaḥ / tac ca māsa-dvayaṃ tava pāratantryam / prasīdedānīm / kiṃ tava karaṇīyam" iti praṇipatantī "vārtayānayā mat-prāṇa-samāṃ samāśvāsaya" iti vyādiśya visasarja /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">「彼はその時、殿下の膝に頭を預けて情交の疲れに眠る彼女を見つけました。三界の創造・維持・破壊にまつわる甘露のような物語によって愛の潮を再び引き起こされていた彼女を。彼は怒りに満ちていましたが、殿下の威光に阻まれて攻撃の決意を固めることができませんでした。互いに抱き合い深く眠るお二人に対し、運命に与えられた勇気をもって、銀の鎖の姿のわたくしで殿下の蓮華の御足の両方を縛り、怒りと激情のうちに去りました。</div>
-<div class="jpn-prose">そして今日、わたくしの呪いは終わりました。殿下の二か月の拘束も終わりです。どうかお許しください。殿下のために何をいたしましょうか。」――こう言って平伏する天女に、「この知らせでわが命に等しき人を慰めよ」と命じて、解き放った。</div>
-</td></tr>
-
-<!-- ===== Section 14: Caṇḍavarman's death ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 14. チャンダヴァルマンの死</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 14. チャンダヴァルマンの殺害</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">tasminn eva kṣaṇāntare "hataḥ hataś caṇḍavarmā siṃhavarma-duhitur ambālikāyāḥ pāṇi-sparśa-rāga-prasārite bāhu-daṇḍa eva balavad avalambya sarabhasam ākṛṣya kenāpi duṣkara-karmaṇā taskareṇa nakha-prahāreṇa rāja-mandira-uddeśaṃ ca śava-śatam ayam āpādayann acakita-gatir asau viharati" iti vācaḥ samabhavan /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">まさにその瞬間、声が上がった。「殺された、チャンダヴァルマンが殺された！ シンハヴァルマンの娘アンバーリカーの手に触れようと伸ばした腕を力強くつかみ、荒々しく引きずり、爪の形をした短刀の一撃で――何者か超人的な業を持つ盗賊が、王宮一帯を百の死体で満たしながら、恐れげもなく動き回っている！」</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：nakha は「爪」の形をした短剣を指す。duṣkara-karmaṇā taskareṇa（超人的な業を成す盗賊）とはアパハーラヴァルマンのことで、彼の正体は後に明かされる。この人物は前篇第5章でダールヴァルマンを殺害した同一人物。</div>
-</td></tr>
-
-<!-- ===== Section 15: Rājavāhana mounts the mad elephant ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 15. 狂象に乗るラージャヴァーハナ</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 15. ラージャヴァーハナ、狂象チャンダポータに乗る</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">śrutvā caitattameva matta-hastinam udastādhoraṇo rājaputro 'dhiruhya raṃhasottamena rāja-bhavanam abhyavartata / stamberama-rayā avadhūta-padāti-dattārtmā ca praviśya veśyābhyantaram adabhrābhra-nirghoṣa-gambhīreṇa svareṇa abhyadhāt — "kaḥ sa mahāpuruṣaḥ yena etat mānuṣamātra-duṣkaraṃ mahat karma anuṣṭhitam / āgacchatu / mayā saha imaṃ matta-hastinam ārohatu / abhayaṃ mad-upakaṇṭha-vartinaḥ deva-dānavair api vigṛhṇānasya" iti /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">それを聞いた王子は、象使いを叩き落としてその狂象に飛び乗り、最高の速さで王宮に向かった。象の疾走に蹴散らされた歩兵に道を開かせ、宮殿の内部に入ると、濃密な雷雲の轟きのように重々しい声で叫んだ。「人間離れした偉業を成し遂げたその偉大な者は誰か。こちらに来よ。わしとともにこの狂象に乗れ。わしの傍らにいる者は、神々と阿修羅が敵となろうとも恐れることはない！」</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：udastādhoraṇaḥ（象使いを叩き落として）――utthāya + ādhoraṇaḥ。stamberama（象）はaluk複合語。</div>
-</td></tr>
-
-<!-- ===== Section 16: Reunion with Apahāravarman ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 16. アパハーラヴァルマンとの再会</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 16. アパハーラヴァルマンとの再会</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">niśamyaivaṃ sa pumān upoḍha-harṣaḥ nirgatya kṛtāñjalir ākramya saṃjñā-saṃkucitaṃ kuñjara-gātram asaktam adhyarukṣat / ārohantam evainaṃ nirvarṇya harṣa-utphulla-dṛṣṭiḥ "aye, priya-sakho 'yam apahāravarma iva" iti paścān niṣīdato 'sya bāhu-daṇḍa-yugalam ubhaya-bhuja-mūla-praveśitam agre 'valambya svam aṅgam āliṅgayāmāsa / svayaṃ ca pṛṣṭhataḥ valitābhyāṃ bhujābhyāṃ paryaveṣṭayat /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">それを聞いたその男は、溢れる喜びとともに出てきて合掌し、合図で身を縮めた象の体に飛びつき、素早く乗り上がった。乗り上がる彼をじっと見つめ、喜びに目を大きく開いた王子は「おお、親しき友アパハーラヴァルマンではないか！」と叫び、後ろに座る彼の両腕を両肩の付け根に通して前で支え、自らの体を抱きしめさせた。王子もまた背後から両腕を回して彼を包み込んだ。</div>
-</td></tr>
-
-<!-- ===== Section 17: Battle and victory ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 17. 敵軍の撃破</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 17. アパハーラヴァルマンの武勇と援軍の到着</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">tatkṣaṇa-upasaṃhṛta-āliṅgana-vyatikaraś ca apahāravarmā cāpa-cakra-kaṇapa-karpaṇa-prāsa-paṭṭiśa-musala-tomara-ādi-praharaṇa-jātam upayuñjānān bala-āvaliptān pratibala-vīrān bahu-prakāra-āyodhinaḥ parikṣipataḥ kṣitau vicikṣepa / kṣaṇena ca adrākṣīt tad api sainyam anyena samantataḥ abhimukham abhidhāvatā bala-nikāyena parikṣiptam /</div>
-<div class="skt-prose">anantaraṃ ca kaścit karmikāra-gauraḥ kuruvinda-savarṇa-kuntalaḥ kamala-komala-pāṇi-pādaḥ karṇa-cumbi-dugdha-dhavala-snigdha-nīla-locanaḥ kaṭi-taṭa-niviṣṭa-ratna-nakhaḥ paṭṭa-nivasanaḥ kṛśā-kṛśa-udara-uraḥ-sthalaḥ kṛta-hastatayā ripu-kulam iṣu-varṣeṇā 'bhivarṣan pāda-aṅguṣṭha-niṣṭharāva-ghṛṣṭa-karṇa-mūlena prajavinā gajena saṃnikṛṣya pūrva-upadeśa-pratyayāt "ayam eva sa devaḥ rājavāhanaḥ" iti prāñjaliḥ praṇamya apahāravarmaṇi niviṣṭa-dṛṣṭir ācaṣṭa — "tvad-ādiṣṭena mārgeṇa saṃnipātitam etad-aṅga-rāja-sāhāyya-dānāya upasthitaṃ rājakam / ari-balaṃ ca vihita-vidhvastaṃ strī-bāla-hārya-śastraṃ vartate / kim anyat kṛtyam" iti /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">抱擁を瞬時に解いたアパハーラヴァルマンは、弓・円盤・鉄棒・鉤矛・投槍・両刃の長剣・杵・投矛など各種の武器を振るう力に驕る敵の勇士たち、さまざまな戦法で四方から取り囲む者たちを、次々と地に叩き伏せた。するとたちまち、別の軍勢が四方から敵軍を取り囲んでいるのが見えた。</div>
-<div class="jpn-prose">続いて、ある男が近づいてきた。カルニカーラ花のように白い肌、クルヴィンダ宝石のような色の巻き毛、蓮のように柔らかい手足、耳に届くほどの乳白色にして柔潤な黒い瞳、腰に宝石の柄の短剣を佩び、絹の衣をまとい、引き締まった腹と胸を持つ者。弓術に熟達し矢の雨で敵族を射すくめつつ、足の親指の激しい擦れ音で耳元を刺激される俊足の象に乗って近づき、以前の教示から確信して「これこそかのラージャヴァーハナ殿下にちがいない」と合掌して平伏し、アパハーラヴァルマンに目を注ぎながら告げた。「殿下のご指示どおりの経路で集結させた、このアンガ王への援軍が到着しております。敵軍はすでに壊滅し、女子供でも武器を奪えるほどの状態です。他に何をいたしましょうか。」</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：karmikāra-gaura（カルニカーラ花のように白い）――カルニカーラ花は美しい色を持つが香りがない（Kum. III. 28参照）。kṛta-hastatayā は「武器の使用に熟達していること」の意で、kṛ は古い用法で「学ぶ」の意味を持つ。pāda-aṅguṣṭha-niṣṭharāva-ghṛṣṭa-karṇa-mūlena は、足の親指を象の耳元に押し付けて操るという、驚くべき体力を示唆する描写。strī-bāla-hārya-śastra（女子供でも武器を奪える）はRagh. VII. 67参照。</div>
-</td></tr>
-
-<!-- ===== Section 18: Apahāravarman's explanation ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 18. アパハーラヴァルマンの説明</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 18. ダナミトラの正体と友の集結</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">hṛṣṭas tu vyājahāra apahāravarmā — "deva, dṛṣṭi-dānena anugṛhyatām ayam ājñā-kāraḥ / so 'yam eva hy amunā rūpaṇe dhanamitrā-khyayā ca antaritaḥ mantavyaḥ / sa evāyaṃ nirgamya abandhanād aṅga-rājam apavarjitaṃ ca kośa-vāhanam ekīkṛtya asmad-gṛhyeṇā 'munā saha rājanyakena ekānte sukha-upaviṣṭam iha devam upatiṣṭhatu yadi na doṣaḥ" iti /</div>
-<div class="skt-prose">devo 'pi "yathā te rocate" iti tam ābhāṣya gatvā ca tan-nirdiṣṭena mārgeṇa nagarād vahir ati-mahataḥ rohiṇa-drumasya kasyacit kṣauma-avadāta-saikate gaṅgā-taraṅga-pavana-pāta-śītale tale dvirad ād avatatāra /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">喜んだアパハーラヴァルマンが言った。「殿下、どうかこの者にお目を留めてお恵みください。この者こそ、この姿とダナミトラという名で身を隠してきた者とお考えください。この者は牢から脱出し、アンガ王と残された軍資・乗物を結集し、われわれの味方であるこの王族とともに、殿下をお迎えするためにここに参っております。もしお咎めなくば、人目を避けてくつろげる場所で殿下にお仕えいたしましょう。」</div>
-<div class="jpn-prose">王子も「そなたの思うとおりにせよ」と答え、彼の示す道に従って市街を出て、ある巨大な菩提樹のもと、亜麻布のように白い砂地でガンジス河の波の風が涼しく吹くその場所で、象から降りた。</div>
-</td></tr>
-
-<!-- ===== Section 19: The grand reunion ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 19. 十王子の集結</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 19. 十王子の大集結</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-prose">prathama-samavatīrṇena apahāravarmaṇā ca sva-hasta-satvara-samīkṛte mātaṅga iva bhāgīrathī-pulina-maṇḍale sukhaṃ niṣasāda / tathā niṣaṇṇaṃ ca tam upahāravarma-arthapāla-pramati-mitragupta-mantragupta-viśrutaiḥ maithilena ca prahāravarmaṇā, kāśī-bhartrā ca kāmapālena campeśvareṇa siṃhavarmaṇā saha upāgatya dhanamitraḥ praṇipapāta /</div>
-<div class="skt-prose">devo 'pi harṣāviddham abhyutthitaḥ — "kathaṃ samasta eṣa mitra-gaṇaḥ samāgataḥ / ko nāmāyam abhyudayaḥ" iti kṛta-yathocita-upacārān nirbharataraṃ parirebhe /</div>
-</td><td class="jpn-cell"><div class="jpn-prose">先に降りたアパハーラヴァルマンが自らの手で急いで整えたガンジス河の砂州で、象のように堂々と寛いだ。そして同じく座した王子のもとに、ウパハーラヴァルマン・アルタパーラ・プラマティ・ミトラグプタ・マントラグプタ・ヴィシュルタ、ミティラーの王プラハーラヴァルマン、カーシーの主カーマパーラ、チャンパーの王シンハヴァルマンとともにダナミトラ（＝プシュポードバヴァ）が到着し、平伏した。</div>
-<div class="jpn-prose">王子もまた喜びに胸を射抜かれて立ち上がり、「何と、この友の群れが全員集まったとは！ これはいかなる幸運であろうか」と、それぞれに礼を尽くした者たちを深く深く抱きしめた。</div>
-<div class="note"><span class="note-label">【注】</span>
-Kale注：ここに列挙される人物がラージャヴァーハナを含めた十王子（daśakumāra）の全員である。upahāravarma（ウパハーラヴァルマン）以下がそれぞれ第3章以降で自分の冒険を語る構成となる。prahāravarman はアパハーラヴァルマンとウパハーラヴァルマンの父で、ミティラーの王。kāmapāla はダルマパーラの息子で前篇でヤクシャ女と結婚したことが語られており、後にカーシーの王となった。</div>
-</td></tr>
-
-<!-- ===== Section 20: The kings and the story exchange begins ===== -->
-<tr><td class="skt-cell"><div class="skt-heading">◆ 20. 物語の交換の始まり</div>
-</td><td class="jpn-cell"><div class="jpn-heading">◆ 20. 諸王との対面と物語の交換の開始</div>
-</td></tr>
-
-<tr><td class="skt-cell"><div class="skt-verse">kāśi-pati-maithila-aṅga-rājāṃś ca suhṛn-niveditān pitṛvad apaśyat /</div>
-<div class="skt-verse">taiś ca harṣa-kampita-palitaṃ sarabhasopagūḍhaḥ param abhinananda /</div>
-<div class="skt-prose">tataḥ pravṛttāsu prīti-saṃkathāsu priya-vayasya-gaṇa-anuyuktaḥ svasya ca somadatta-puṣpodbhavayoś caritam anuvarṇya suhṛdām api vṛttāntaṃ krameṇa śrotuṃ kṛta-prastāvas tāṃś ca tad-uktāvam anvayuṅkta /</div>
-<div class="skt-prose">teṣu prathamaṃ prāha sma kilāpahāravarmā — //</div>
-</td><td class="jpn-cell"><div class="jpn-verse">カーシーの王、ミティラーの王、アンガの王を友人たちに紹介され、父のように見た。</div>
-<div class="jpn-verse">彼らもまた喜びに白髪を震わせて激しく抱きしめ、心から歓喜した。</div>
-<div class="jpn-prose">こうして喜びの語らいが始まると、親しき友の群れに囲まれた王子は、自分とソーマダッタ・プシュポードバヴァの物語を語り終え、友たちの身の上も順に聞こうと話を向けた。そして彼らもまた求めに応じて語り始めた。</div>
-<div class="jpn-prose">その中で最初に語ったのは、まさしくアパハーラヴァルマンであった。</div>
-</td></tr>
-
-</table>
+<main>
+<div class="intro">
+  <b>底本</b>：GRETIL 所収テキスト（Sansknet Project 入力、2020-07-31版）。電子テキストの誤記・脱字は M. R. Kale 校訂本の読みと文法・連声規則に基づいて訂正し、異同はすべて巻末の「校訂一覧」に掲げた。サンスクリット本文は連声（sandhi）を施した形で示し、複合語の区切りをハイフンで示す（デーヴァナーガリー表示ではハイフンを省く）。
 </div>
-<footer>
-  <p>Daśakumāracarita — Rājavāhanacaritam (Prathama Ucchvāsaḥ) Bilingual Edition</p>
-  <p>Sanskrit text: GRETIL (CC BY-NC-SA 4.0) | Annotations ref.: M.R. Kale, 3rd ed.</p>
-  <p>Japanese translation based on the Sanskrit original, with reference to Kale's English translation</p>
-</footer>
+
+<section class="sec" id="s1">
+<h2><span class="num">1</span>アヴァンティスンダリーの言葉</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="śrutvā tu bhuvana-vṛttāntam uttamāṅganā vismaya-vikasitākṣī sasmitam idam abhāṣata — “dayita, tvat-prasādād adya me caritārthā śrotra-vṛttiḥ / adya me manasi tamo&#x27;pahas tvayā datto jñāna-pradīpaḥ / pakvam idānīṃ tvat-pāda-padma-paricaryā-phalam / asya ca tvat-prasādasya kim upakṛtya pratyupakṛtavatī bhaveyam / abhavadīyaṃ hi naiva kiñcin mat-saṃbaddham / athavāsty evāsyāpi janasya kvacit prabhutvam / aśakyaṃ hi mad-icchayā vinā sarasvatī-mukha-grahaṇoccheṣaṇīkṛto daśanacchada eṣa cumbayitum / ambujāsanā-stana-taṭopabhuktam uraḥ-sthalaṃ cedam āliṅgayitum” iti">śrutvā tu bhuvana-vṛttāntam uttamāṅganā vismaya-vikasitākṣī sasmitam idam abhāṣata — “dayita, tvat-prasādād adya me caritārthā śrotra-vṛttiḥ / adya me manasi tamo&#x27;pahas tvayā datto jñāna-pradīpaḥ / pakvam idānīṃ tvat-pāda-padma-paricaryā-phalam / asya ca tvat-prasādasya kim upakṛtya pratyupakṛtavatī bhaveyam / abhavadīyaṃ hi naiva kiñcin mat-saṃbaddham / athavāsty evāsyāpi janasya kvacit prabhutvam / aśakyaṃ hi mad-icchayā vinā sarasvatī-mukha-grahaṇoccheṣaṇīkṛto daśanacchada eṣa cumbayitum / ambujāsanā-stana-taṭopabhuktam uraḥ-sthalaṃ cedam āliṅgayitum” iti</div>
+  <div class="jpn"><span class="pno">1.1</span>世界の成り立ちの物語を聞き終えると、この上なく高貴な女性（アヴァンティスンダリー）は、驚きに目を見開き、微笑みながらこう言った。「愛しい方、あなたのお恵みによって、今日わたくしの耳はその務めを果たしました。今日あなたは、わたくしの心に、闇を払う知識の灯火をお授けくださいました。あなたの蓮華の御足にお仕えしてきた果報が、今こそ熟しました。このご恩に、わたくしは何をしてお返しすればよいのでしょう。わたくしに関わるもので、あなたのものでないものなど何ひとつないのですから。いえ、このわたくしにも、どこかに主権を持つところがございます。わたくしの意志なくしては、サラスヴァティー女神が口に含んで食べ残しとしたこの唇に口づけすることも、蓮華に座す女神（ラクシュミー）の乳房の斜面に味わわれたこの胸を抱きしめることも、おできにならないのですから。」</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">sarasvatī-mukha-grahaṇoccheṣaṇīkṛta</span>（サラスヴァティーが口に含んで食べ残しとした）――学芸と弁才の女神サラスヴァティーが王子の口に宿っている、という讃辞。<span class="lat" lang="sa">ambujāsanā</span>（女性形「蓮華に座す女神」）はラクシュミー（シュリー、王権の幸運）を指す。<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">ambujāsanāstana</span>- は <span class="lat" lang="sa">ambujāsanā-stana</span>- と分かつべきで、男性形 <span class="lat" lang="sa">ambujāsana</span>（ブラフマー）と解するのは誤り。王子はすでに学芸の女神と王権の女神に「享受」されているが、唇と胸に触れることを許すか否かだけは自分が決められる、という機知に富んだ恋の戯れである。</aside>
+</section>
+<section class="sec" id="s2">
+<h2><span class="num">2</span>口づけと情交</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="priyorasi prāvṛḍ iva nabhasy upāstīrṇa-guru-payodhara-maṇḍalā prauḍha-kandalī-kuḍmalam iva rūḍha-rāga-rūṣitaṃ cakṣur ullāsayantī barhi-barhāvalīṃ viḍambayatā kusuma-candraka-śāreṇa madhukara-kula-vyākulena keśa-kalāpena sphurad-aruṇa-kiraṇa-kesara-karālaṃ kadamba-mukulam iva kāntasyādhara-maṇim adhīram ācucumba /">priyorasi prāvṛḍ iva nabhasy upāstīrṇa-guru-payodhara-maṇḍalā prauḍha-kandalī-kuḍmalam iva rūḍha-rāga-rūṣitaṃ cakṣur ullāsayantī barhi-barhāvalīṃ viḍambayatā kusuma-candraka-śāreṇa madhukara-kula-vyākulena keśa-kalāpena sphurad-aruṇa-kiraṇa-kesara-karālaṃ kadamba-mukulam iva kāntasyādhara-maṇim adhīram ācucumba /</div>
+  <div class="jpn"><span class="pno">2.1</span>雨季が空に重い雨雲の群れを広げるように、彼女は愛しい人の胸に豊かな乳房の円みを押し当て、咲き初めたカンダリーの蕾のように、高まる情熱の紅に染まった目を輝かせた。そして、孔雀の尾羽の列にも劣らず、花の斑紋に彩られ、蜜蜂の群れが群がる髪の房とともに身を寄せ、震える赤い光の花糸に覆われたカダンバの蕾のような恋人の宝石の唇に、激しく口づけした。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="tad-ārambha-sphuritayā ca rāga-vṛttyā bhūyo &#x27;py āvartatātimātra-citropacāra-śīpharo rati-prabandhaḥ /">tad-ārambha-sphuritayā ca rāga-vṛttyā bhūyo &#x27;py āvartatātimātra-citropacāra-śīpharo rati-prabandhaḥ /</div>
+  <div class="jpn"><span class="pno">2.2</span>その始まりに勢いづいた情熱のうねりによって、この上なく多彩な愛の技巧に満ちた交わりが、ふたたび繰り返された。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">barhi-barhāvalī</span>（孔雀の尾羽の列）――<span class="lat" lang="sa">GRETIL</span>は <span class="lat" lang="sa">varhi-varhā</span>- と綴るが、ベンガル系写本に多い <span class="lat" lang="sa">v</span>/<span class="lat" lang="sa">b</span> の混同であり、標準的な綴りに改めた。<span class="lat" lang="sa">kusuma-candraka</span>（花の斑紋）の <span class="lat" lang="sa">candraka</span> は孔雀の尾羽の目玉模様。</aside>
+</section>
+<section class="sec" id="s3">
+<h2><span class="num">3</span>銀の足枷</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="surata-kheda-suptayos tu tayoḥ svapne bisa-guṇa-nigaḍita-pādo jaraṭhaḥ kaścij jāla-pādo &#x27;dṛśyata / pratyabudhyetāṃ cobhau / atha tasya rājakumārasya kamala-mūḍha-śaśi-kiraṇa-rajju-dāma-nigṛhītam iva rajata-śṛṅkhalopagūḍhaṃ caraṇa-yugalam āsīt /">surata-kheda-suptayos tu tayoḥ svapne bisa-guṇa-nigaḍita-pādo jaraṭhaḥ kaścij jāla-pādo &#x27;dṛśyata / pratyabudhyetāṃ cobhau / atha tasya rājakumārasya kamala-mūḍha-śaśi-kiraṇa-rajju-dāma-nigṛhītam iva rajata-śṛṅkhalopagūḍhaṃ caraṇa-yugalam āsīt /</div>
+  <div class="jpn"><span class="pno">3.1</span>情交の疲れに眠る二人の夢に、蓮の茎の糸で足を縛られた一羽の老いた水かき足の鳥（<span class="lat" lang="sa">jālapāda</span>、ハンサ鳥）が現れた。二人はともに目を覚ました。すると王子の両足は、蓮に迷い込んだ月光の綱の束に捕えられたかのように、銀の鎖に絡みつかれていた。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="upalabhyaiva ca “kim etat” ity ati-paritrāsa-vihvalā mukta-kaṇṭham ācakranda rāja-kanyā /">upalabhyaiva ca “kim etat” ity ati-paritrāsa-vihvalā mukta-kaṇṭham ācakranda rāja-kanyā /</div>
+  <div class="jpn"><span class="pno">3.2</span>それに気づくなり、王女は「これは何ということ」と激しい恐怖にうろたえ、声を限りに泣き叫んだ。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">jāla-pāda</span>（水かきのある足をもつ鳥）はハンサ鳥の異名。蓮の糸で足を縛られたハンサ鳥の夢は、第6節で王子が言及する「ハンサ鳥の物語」と呼応し、王子の拘束を予兆する。<span class="lat" lang="sa">cobhau</span>（二人とも）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">caubhau</span> は <span class="lat" lang="sa">ca</span> + <span class="lat" lang="sa">ubhau</span> の連声 <span class="lat" lang="sa">cobhau</span> の誤記。銀の鎖（<span class="lat" lang="sa">rajata-śṛṅkhala</span>）の由来は、後に天女スラタマンジャリーによって明かされる（第11〜13節）。</aside>
+</section>
+<section class="sec" id="s4">
+<h2><span class="num">4</span>後宮の騒動</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="yena ca tat sakalam eva kanyāntaḥpuram agni-parītam iva piśācopahatam iva vepamānam anirūpyamāṇa-tadātvāyati-vibhāgam agaṇyamāna-rahasya-rakṣā-samayam avani-tala-vipravidhyamāna-gātram ākranda-vidīryamāṇa-kaṇṭham aśru-sroto&#x27;vaguṇṭhita-kapola-talam ākulībabhūva /">yena ca tat sakalam eva kanyāntaḥpuram agni-parītam iva piśācopahatam iva vepamānam anirūpyamāṇa-tadātvāyati-vibhāgam agaṇyamāna-rahasya-rakṣā-samayam avani-tala-vipravidhyamāna-gātram ākranda-vidīryamāṇa-kaṇṭham aśru-sroto&#x27;vaguṇṭhita-kapola-talam ākulībabhūva /</div>
+  <div class="jpn"><span class="pno">4.1</span>その叫びによって、王女の後宮全体が、火に包まれたかのように、悪鬼に取り憑かれたかのように震えおののき、今どうすべきか、後にどうなるかの分別も失い、秘密を守るべき決まりも顧みず、地面に身を投げ打ち、泣き叫んで喉も裂けんばかり、涙の流れに頬を覆われて、大混乱に陥った。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="tumule cāsmin samaye &#x27;niyantrita-praveśāḥ “kiṃ kim” iti sahasopasṛtya viviśur antarvaṃśika-puruṣāḥ / dadṛśuś ca tad-avasthaṃ rājakumāram / tad-anubhāva-niruddha-nigrahecchās tu sadya eva te tam arthaṃ caṇḍavarmaṇe nivedayāñcakruḥ /">tumule cāsmin samaye &#x27;niyantrita-praveśāḥ “kiṃ kim” iti sahasopasṛtya viviśur antarvaṃśika-puruṣāḥ / dadṛśuś ca tad-avasthaṃ rājakumāram / tad-anubhāva-niruddha-nigrahecchās tu sadya eva te tam arthaṃ caṇḍavarmaṇe nivedayāñcakruḥ /</div>
+  <div class="jpn"><span class="pno">4.2</span>この騒ぎの最中、自由に出入りを許された後宮警護の男たちが「何事だ、何事だ」と言いながら急いで駆けつけて中に入り、そのような有様の王子を目にした。しかし王子の威光に気圧されて捕えようとする気持ちを抑えられた彼らは、すぐさまその件をチャンダヴァルマンに報告した。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">yena ca</span>（その叫びによって）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">yana</span> は <span class="lat" lang="sa">yena</span> の誤記と見て改めた。<span class="lat" lang="sa">anirūpyamāṇa-tadātvāyati-vibhāgam</span>（現在 <span class="lat" lang="sa">tadātva</span> と将来 <span class="lat" lang="sa">āyati</span> の区別を考慮せずに）。<span class="lat" lang="sa">antarvaṃśika-puruṣa</span> は後宮の警護・監督にあたる役人。</aside>
+</section>
+<section class="sec" id="s5">
+<h2><span class="num">5</span>チャンダヴァルマンの怒り</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="so &#x27;pi kopād āgatya nirdahann iva dahana-garbhayā dṛśā niśāmyotpanna-pratyabhijñaḥ — “kathaṃ sa evaiṣa mad-anuja-maraṇa-nimitta-bhūtāyāḥ pāpāyā bālacandrikāyāḥ patyur atyabhiniviṣṭa-vitta-darpasya vaideśika-vaṇik-putrasya puṣpodbhavasya mitraṃ rūpa-mattaḥ kalābhimānī naika-vidha-vipralambhopāya-pāṭavāvarjita-mūḍha-paura-jana-mithyāropita-vitatha-devatānubhāvaḥ kapaṭa-dharma-kañcuko nigūḍha-pāpa-śīlaś capalo brāhmaṇa-bruvaḥ / katham ivainam anuraktā mādṛśeṣv api puruṣa-siṃheṣu sāvamānā pāpeyam avantisundarī / paśyatu patim adyaiva śūlāvataṃsitam iyam anārya-śīlā kula-pāṃsanī” iti nirbhartsayan bhīṣaṇa-bhrukuṭi-dūṣita-lalāṭaḥ kāla iva kāla-loha-daṇḍa-karkaśena bāhu-daṇḍenāvalambya hastāmbuje rekhāmbuja-rathāṅga-lāñchane rājaputraṃ sarabhasam ācakarṣa /">so &#x27;pi kopād āgatya nirdahann iva dahana-garbhayā dṛśā niśāmyotpanna-pratyabhijñaḥ — “kathaṃ sa evaiṣa mad-anuja-maraṇa-nimitta-bhūtāyāḥ pāpāyā bālacandrikāyāḥ patyur atyabhiniviṣṭa-vitta-darpasya vaideśika-vaṇik-putrasya puṣpodbhavasya mitraṃ rūpa-mattaḥ kalābhimānī naika-vidha-vipralambhopāya-pāṭavāvarjita-mūḍha-paura-jana-mithyāropita-vitatha-devatānubhāvaḥ kapaṭa-dharma-kañcuko nigūḍha-pāpa-śīlaś capalo brāhmaṇa-bruvaḥ / katham ivainam anuraktā mādṛśeṣv api puruṣa-siṃheṣu sāvamānā pāpeyam avantisundarī / paśyatu patim adyaiva śūlāvataṃsitam iyam anārya-śīlā kula-pāṃsanī” iti nirbhartsayan bhīṣaṇa-bhrukuṭi-dūṣita-lalāṭaḥ kāla iva kāla-loha-daṇḍa-karkaśena bāhu-daṇḍenāvalambya hastāmbuje rekhāmbuja-rathāṅga-lāñchane rājaputraṃ sarabhasam ācakarṣa /</div>
+  <div class="jpn"><span class="pno">5.1</span>チャンダヴァルマンも怒りに駆られてやって来て、火を宿した眼差しで焼き尽くさんばかりに見つめ、相手が誰かを悟ると言った。「何と、まさにこやつではないか。わが弟の死の原因となった邪な女バーラチャンドリカーの夫で、財産の驕りに凝り固まった異国の商人の息子プシュポードバヴァの友。容姿に酔い、技芸を鼻にかけ、さまざまな欺きの手口の巧みさで愚かな町人たちを手なずけ、神の威力があるという偽りの評判を吹き込ませ、偽善の法を鎧とし、隠れて悪事を働く性分の、軽薄なバラモンもどきめ。よくもこんな男に惚れて、わしのような人中の獅子たちを蔑んだものだ、この邪なアヴァンティスンダリーは。今日こそ、串刺しにされた夫の姿を見るがよい、この卑しい性根の、家門を汚す女めが。」こう罵りながら、恐ろしくひそめた眉で額を歪めたチャンダヴァルマンは、死神さながら、黒鉄の棍棒のように硬い腕で、蓮華と輪の吉相の線が刻まれた王子の蓮華の手をつかみ、荒々しく引きずっていった。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">brāhmaṇa-bruva</span>（バラモンを自称するだけの者）――ラージャヴァーハナはクシャトリヤだが、ウッジャイニーではバラモンとして振る舞っていたため、チャンダヴァルマンはこう罵る。<span class="lat" lang="sa">śūlāvataṃsita</span>（串を冠飾りとされた＝串刺しにされた）。<span class="lat" lang="sa">kapaṭa-dharma-kañcuka</span>（偽りの法を鎧とする者）について、<span class="lat" lang="sa">Kale</span> は『シャクンタラー』第5幕を参照させる。<span class="lat" lang="sa">rekhāmbuja-rathāṅga-lāñchana</span> は、掌に蓮華と輪（<span class="lat" lang="sa">rathāṅga</span>、車輪）の線をもつこと。転輪王となるべき者の吉相である。<span class="lat" lang="sa">sa evaiṣa</span>（まさにこやつ）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">evāṣa</span> は <span class="lat" lang="sa">evaiṣa</span> の誤記。</aside>
+</section>
+<section class="sec" id="s6">
+<h2><span class="num">6</span>ラージャヴァーハナの沈着</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="sa tu svabhāva-dhīraḥ sarva-pauruṣātibhūmiḥ sahiṣṇutaika-pratikriyāṃ daivīm eva tām āpadam avadhārya “smara tasyā haṃsa-gāmini, haṃsa-kathāyāḥ / sahasva vāsu, māsa-dvayam” iti prāṇa-parityāga-rāgiṇīṃ prāṇa-samāṃ samāśvāsyāri-vaśyatām ayāsīt /">sa tu svabhāva-dhīraḥ sarva-pauruṣātibhūmiḥ sahiṣṇutaika-pratikriyāṃ daivīm eva tām āpadam avadhārya “smara tasyā haṃsa-gāmini, haṃsa-kathāyāḥ / sahasva vāsu, māsa-dvayam” iti prāṇa-parityāga-rāgiṇīṃ prāṇa-samāṃ samāśvāsyāri-vaśyatām ayāsīt /</div>
+  <div class="jpn"><span class="pno">6.1</span>しかし王子は、生まれつき沈着で、あらゆる雄々しさの極みに達した人であったから、これは耐え忍ぶことだけが唯一の対処である天来の災いだと見定め、「ハンサ鳥のように歩む人よ、あのハンサ鳥の物語を思い出しなさい。いとしい人よ、二か月の間耐えなさい」と、命を捨てようと思いつめている、命にも等しい恋人を慰めて、敵の手に身をゆだねた。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="atha vidita-vārtāv ārtau mahādevī-mālavendrau jāmātaram ākāra-pakṣapātināv ātma-parityāgopanyāsenāriṇā jighāṃsyamānaṃ rarakṣatuḥ / na śekatus tu tam aparabhutvād uttārayitum āpadaḥ /">atha vidita-vārtāv ārtau mahādevī-mālavendrau jāmātaram ākāra-pakṣapātināv ātma-parityāgopanyāsenāriṇā jighāṃsyamānaṃ rarakṣatuḥ / na śekatus tu tam aparabhutvād uttārayitum āpadaḥ /</div>
+  <div class="jpn"><span class="pno">6.2</span>さて、知らせを聞いて心を痛めた王妃とマーラヴァ王は、婿の容姿に心を寄せていたので、自分たちが命を絶つと申し立てることで、敵に殺されようとしていた婿を守った。しかし自分たちが主権を握っていなかったために、彼を災難から救い出すことはできなかった。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">haṃsa-kathā</span>（ハンサ鳥の物語）――前編第5章で王子がアヴァンティスンダリーに語った物語への言及。蓮の糸でハンサ鳥を縛った王が、聖仙の呪いによって二か月のあいだ足枷をはめられたという話で、王子は自分の身に同じことが起こったと悟り、二か月で解放されることをほのめかしている。<span class="lat" lang="sa">vāsu</span> は若い女性への呼びかけ（<span class="lat" lang="sa">Kale</span> は『ムリッチャカティカー』<span class="lat" lang="sa">I.18</span> を参照させる）。<span class="lat" lang="sa">vidita-vārtāv ārtau</span>（知らせを聞いて心を痛めた二人は）――連声を正した。<span class="lat" lang="sa">aparabhutvāt</span>（主権がないため）――老王マーナサーラと王妃には実権がなく、実権はダルパサーラと、その留守を預かるチャンダヴァルマンにあった。</aside>
+</section>
+<section class="sec" id="s7">
+<h2><span class="num">7</span>チャンダヴァルマンのアンガ遠征</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="sa kila caṇḍa-śīlaś caṇḍavarmā sarvam idam udanta-jātaṃ rājarāja-girau tapasyate darpasārāya saṃdiśya sarvam eva puṣpodbhava-kuṭumbakaṃ sarvasva-haraṇa-pūrvakaṃ sadya eva bandhane kṣiptvā kṛtvā ca rājavāhanaṃ rāja-kesari-kiśorakam iva dāru-pañjara-nibaddhaṃ mūrdhaja-jāla-vilīna-cūḍāmaṇi-prabhāva-vikṣipta-kṣut-pipāsādi-khedaṃ ca tam avadhūta-duhitṛ-prārthanasyāṅga-rājasyoddharaṇāyāṅgān abhiyāsyann aviśvāsān nināya /">sa kila caṇḍa-śīlaś caṇḍavarmā sarvam idam udanta-jātaṃ rājarāja-girau tapasyate darpasārāya saṃdiśya sarvam eva puṣpodbhava-kuṭumbakaṃ sarvasva-haraṇa-pūrvakaṃ sadya eva bandhane kṣiptvā kṛtvā ca rājavāhanaṃ rāja-kesari-kiśorakam iva dāru-pañjara-nibaddhaṃ mūrdhaja-jāla-vilīna-cūḍāmaṇi-prabhāva-vikṣipta-kṣut-pipāsādi-khedaṃ ca tam avadhūta-duhitṛ-prārthanasyāṅga-rājasyoddharaṇāyāṅgān abhiyāsyann aviśvāsān nināya /</div>
+  <div class="jpn"><span class="pno">7.1</span>荒々しい気性で知られるそのチャンダヴァルマンは、この一部始終を、ラージャラージャ（クベーラ）の山で苦行中のダルパサーラに書き送ると、プシュポードバヴァの一族をことごとく、全財産を没収した上でただちに投獄した。そしてラージャヴァーハナを、獅子の子のように木の檻に閉じ込めた。もっとも王子は、髪の房に隠れた頂の宝珠の力によって、飢えや渇きなどの苦しみを退けていたのであるが。それからチャンダヴァルマンは、娘をめとりたいという自分の申し入れを退けたアンガ王を討ち滅ぼそうとアンガ国へ進軍するにあたり、王子を信用できなかったので、そのまま連れて行った。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="rurodha ca bala-bhara-datta-kampaś campām /">rurodha ca bala-bhara-datta-kampaś campām /</div>
+  <div class="jpn"><span class="pno">7.2</span>そして大軍の重みで大地を震わせつつ、チャンパーを包囲した。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">abhiyāsyann aviśvāsān nināya</span>（進軍するにあたり、信用できぬゆえに連れて行った）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">abhiyāsyannyaviśvāsān</span> は <span class="lat" lang="sa">abhiyāsyann aviśvāsān</span> の誤記と見て改めた。王子を都に残しておくことを恐れて遠征に同行させたのであり、旧版の「不意を突いて進軍した」という訳は誤り。<span class="lat" lang="sa">rājarāja-giri</span>（財宝の王クベーラの山）はカイラーサ山。<span class="lat" lang="sa">cūḍāmaṇi</span>（頂の宝珠）は、前編で地下世界の王女カーリンディーからマータンガを通じて王子に贈られた宝珠で、飢えや渇きを退ける力をもつ。アンガ国はガンジス河中流域の国で、都チャンパーは現在のバーガルプル近郊。</aside>
+</section>
+<section class="sec" id="s8">
+<h2><span class="num">8</span>チャンパーの戦い</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="campeśvaro &#x27;pi siṃhavarmā siṃha ivāsahya-vikramaḥ prākāraṃ bhedayitvā mahatā bala-samudāyena nirgatya sva-prahita-dūta-vrātāhūtānāṃ sāhāyya-dānāyāti-satvaram āpatatāṃ dharāpatīnām acira-kāla-bhāviny api saṃnidhāv adattāpekṣaḥ sa sākṣād ivāvalepo vapuṣmān akṣamā-parītaḥ pratibalaṃ pratijagrāha /">campeśvaro &#x27;pi siṃhavarmā siṃha ivāsahya-vikramaḥ prākāraṃ bhedayitvā mahatā bala-samudāyena nirgatya sva-prahita-dūta-vrātāhūtānāṃ sāhāyya-dānāyāti-satvaram āpatatāṃ dharāpatīnām acira-kāla-bhāviny api saṃnidhāv adattāpekṣaḥ sa sākṣād ivāvalepo vapuṣmān akṣamā-parītaḥ pratibalaṃ pratijagrāha /</div>
+  <div class="jpn"><span class="pno">8.1</span>チャンパーの王シンハヴァルマンもまた、獅子のように抗しがたい武勇の持ち主であったので、城壁を破って大軍を率いて打って出た。自ら遣わした使者たちに呼び寄せられ、援軍のために大急ぎで駆けつけつつある諸王の到着がまもなくであったにもかかわらず、それを待とうともせず、傲慢そのものが肉体をそなえて現れたかのように、こらえきれぬ焦りに駆られて、敵軍を迎え撃った。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="jagṛhe ca mahati saṃparāye kṣīṇa-sakala-sainya-maṇḍalaḥ pracaṇḍa-praharaṇa-śata-bhinna-marmā siṃhavarmā kariṇaḥ kariṇam avaplutyāti-mānuṣa-prāṇa-balena caṇḍavarmaṇā /">jagṛhe ca mahati saṃparāye kṣīṇa-sakala-sainya-maṇḍalaḥ pracaṇḍa-praharaṇa-śata-bhinna-marmā siṃhavarmā kariṇaḥ kariṇam avaplutyāti-mānuṣa-prāṇa-balena caṇḍavarmaṇā /</div>
+  <div class="jpn"><span class="pno">8.2</span>しかし大激戦の中で、全軍を失い、猛烈な武器の幾百もの打撃に急所を傷つけられたシンハヴァルマンは、象から象へ跳び移った、人間離れした生命力をもつチャンダヴァルマンに捕えられた。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="sa ca tad-duhitary ambālikāyām abalā-ratna-samākhyātāyām atimātrābhilāṣaḥ prāṇair enaṃ na vyayūyujat / api tv anīnayad apanītāśeṣa-śalyam akalya-saṃdho bandhanam /">sa ca tad-duhitary ambālikāyām abalā-ratna-samākhyātāyām atimātrābhilāṣaḥ prāṇair enaṃ na vyayūyujat / api tv anīnayad apanītāśeṣa-śalyam akalya-saṃdho bandhanam /</div>
+  <div class="jpn"><span class="pno">8.3</span>チャンダヴァルマンは、女の中の宝と名高いその娘アンバーリカーに激しく恋い焦がれていたので、シンハヴァルマンの命を奪わなかった。それどころか、腹の内を測りがたいこの男は、刺さった矢をすべて抜き取らせた上で、彼を牢に入れた。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">sākṣād ivāvalepo vapuṣmān</span>（傲慢そのものが肉体をそなえたかのような）――<span class="lat" lang="sa">Kale</span> は <span class="lat" lang="sa">sākṣāt</span> と <span class="lat" lang="sa">vapuṣmān</span> のいずれかが冗語であると注する。<span class="lat" lang="sa">pratijagrāha</span>（迎え撃った）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">pratijagrāhaḥ</span> は誤記。<span class="lat" lang="sa">akalya-saṃdha</span> は「その意図（<span class="lat" lang="sa">saṃdhā</span>）を推し量れない者」と解される。<span class="lat" lang="sa">api tv</span>（それどころか）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">avapi tv</span> は意味をなさず、<span class="lat" lang="sa">api tv</span> と推定して改めた。</aside>
+</section>
+<section class="sec" id="s9">
+<h2><span class="num">9</span>ダルパサーラからの返書</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="ajīgaṇac ca gaṇaka-saṃghaiḥ “adyaiva kṣapāvasāne vivāhanīyā rāja-duhitā” iti / kṛta-kautuka-maṅgale ca tasminn eka-piṅgācalāt pratinivṛtyaiṇajaṅgho nāma jaṅghākarikaḥ prabhavato darpasārasya pratisaṃdeśam āvedayat —">ajīgaṇac ca gaṇaka-saṃghaiḥ “adyaiva kṣapāvasāne vivāhanīyā rāja-duhitā” iti / kṛta-kautuka-maṅgale ca tasminn eka-piṅgācalāt pratinivṛtyaiṇajaṅgho nāma jaṅghākarikaḥ prabhavato darpasārasya pratisaṃdeśam āvedayat —</div>
+  <div class="jpn"><span class="pno">9.1</span>そしてチャンダヴァルマンは占星術師たちに日取りを計算させ、「まさに今夜の明け方に王女と婚礼を挙げるべし」と定めた。彼が婚礼の吉祥の儀を済ませたところへ、エーカピンガの山から戻ったアイナジャンガ（「鹿の脛」）という名の飛脚が、主君ダルパサーラからの返書の内容を伝えた。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="“ayi mūḍha, kim asti kanyāntaḥpura-dūṣake &#x27;pi kaścit kṛpāvasaraḥ / sthaviraḥ sa rājā jarā-vilupta-mānāvamāna-citto duścarita-duhitṛ-pakṣapātī yad eva kiñcit pralapati tvayāpi kiṃ tad-anumatyā sthātavyam / avilambitam eva tasya kāmonmattasya citra-vadha-vārtā-preṣaṇena śravaṇotsavo &#x27;smākaṃ vidheyaḥ / sā ca duṣṭa-kanyā sahānujena kīrtisāreṇa nigaḍita-caraṇā cārake niroddhavyā” iti /">“ayi mūḍha, kim asti kanyāntaḥpura-dūṣake &#x27;pi kaścit kṛpāvasaraḥ / sthaviraḥ sa rājā jarā-vilupta-mānāvamāna-citto duścarita-duhitṛ-pakṣapātī yad eva kiñcit pralapati tvayāpi kiṃ tad-anumatyā sthātavyam / avilambitam eva tasya kāmonmattasya citra-vadha-vārtā-preṣaṇena śravaṇotsavo &#x27;smākaṃ vidheyaḥ / sā ca duṣṭa-kanyā sahānujena kīrtisāreṇa nigaḍita-caraṇā cārake niroddhavyā” iti /</div>
+  <div class="jpn"><span class="pno">9.2</span>「おい、愚か者。後宮を汚した者にまで、情けをかける余地があるとでもいうのか。あの老王は、年老いて誇りも恥も分からぬ心となり、品行の悪い娘の肩を持っているのだ。あれが何を口走ろうとも、お前までがその言いなりになっていてよいものか。ただちにあの色に狂った男を残酷な刑に処し、その知らせを送って、われらの耳を楽しませよ。またあの性悪の娘は、弟キールティサーラともども足に枷をはめ、牢に閉じ込めておけ。」</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">eka-piṅgācala</span>（エーカピンガの山）――<span class="lat" lang="sa">ekapiṅga</span>（片目が黄色い者）はクベーラの異名で、その山はカイラーサ山。クベーラがパールヴァティーを見つめたために片目が黄色く変じたという伝説による（<span class="lat" lang="sa">Kale</span> は『ラーマーヤナ』ウッタラ・カーンダ 13 を参照させる）。<span class="lat" lang="sa">aiṇajaṅgha</span>（鹿 <span class="lat" lang="sa">eṇa</span> の脛をもつ者）は俊足の飛脚にふさわしい名。<span class="lat" lang="sa">jaṅghākarika</span>（飛脚）は脛（<span class="lat" lang="sa">jaṅghā</span>）で働く者の意。<span class="lat" lang="sa">citra-vadha</span>（さまざまな残酷な処刑）について、<span class="lat" lang="sa">Kale</span> は『ムドラーラークシャサ』第2幕を参照させる。<span class="lat" lang="sa">kṛpāvasara</span>（情けをかける機会）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">kṛpāvasāra</span> は誤記。</aside>
+</section>
+<section class="sec" id="s10">
+<h2><span class="num">10</span>処刑の準備と足枷の解放</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="tac cākarṇya “prātar eva rāja-bhavana-dvāre sa ca durātmā kanyāntaḥpura-dūṣakaḥ saṃnidhāpayitavyaḥ / caṇḍapotaś ca mātaṅga-patir upacita-kalpanopapannas tatraiva samupasthāpanīyaḥ / kṛta-vivāha-kṛtyaś cotthāyāham eva tam anārya-śīlaṃ tasya hastinaḥ kṛtvā krīḍanakaṃ tad-adhirūḍha eva gatvā śatru-sāhāyyakāya pratyāsīdato rājanyakasya sa-kośa-vāhanasyāvagrahaṇaṃ kariṣyāmi” iti pārśvacarān avekṣāñcakre /">tac cākarṇya “prātar eva rāja-bhavana-dvāre sa ca durātmā kanyāntaḥpura-dūṣakaḥ saṃnidhāpayitavyaḥ / caṇḍapotaś ca mātaṅga-patir upacita-kalpanopapannas tatraiva samupasthāpanīyaḥ / kṛta-vivāha-kṛtyaś cotthāyāham eva tam anārya-śīlaṃ tasya hastinaḥ kṛtvā krīḍanakaṃ tad-adhirūḍha eva gatvā śatru-sāhāyyakāya pratyāsīdato rājanyakasya sa-kośa-vāhanasyāvagrahaṇaṃ kariṣyāmi” iti pārśvacarān avekṣāñcakre /</div>
+  <div class="jpn"><span class="pno">10.1</span>それを聞くとチャンダヴァルマンは、「明朝、王宮の門前にあの悪党、後宮を汚した男を引き出しておけ。また象の王チャンダポータを、すっかり装備を整えた上で同じ場所に連れて来ておけ。わしは婚礼の務めを終えたら立ち上がり、自らあの卑しい男をその象の慰みものにしてやる。そしてそのままその象に乗って出陣し、敵の援軍として近づいてくる王族どもを、財宝も乗物もろとも捕えてやろう」と言って、側近たちに目を向けて命じた。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="ninye cāsāv ahany anyasminn unmiṣaty evoṣorāge rājaputro rājāṅgaṇaṃ rakṣibhiḥ / uttasthe ca kṣarita-gaṇḍaś caṇḍapotaḥ / kṣaṇe ca tasmin mumuce tad-aṅghri-yugalaṃ rajata-śṛṅkhalayā /">ninye cāsāv ahany anyasminn unmiṣaty evoṣorāge rājaputro rājāṅgaṇaṃ rakṣibhiḥ / uttasthe ca kṣarita-gaṇḍaś caṇḍapotaḥ / kṣaṇe ca tasmin mumuce tad-aṅghri-yugalaṃ rajata-śṛṅkhalayā /</div>
+  <div class="jpn"><span class="pno">10.2</span>翌日、曙の紅がまさに差し始めたころ、王子は衛兵たちによって王宮の中庭へ引き出された。こめかみから発情の液を滴らせたチャンダポータも立ち上がった。するとまさにその刹那、銀の鎖が王子の両足を離れた。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">uṣorāge</span>（曙の紅が差すころ）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">uṣāroge</span> は <span class="lat" lang="sa">uṣas</span> + <span class="lat" lang="sa">rāga</span> の連声 <span class="lat" lang="sa">uṣorāge</span> の誤記と見て改めた。<span class="lat" lang="sa">śatru-sāhāyyakāya</span>（敵の援軍として）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">śatra</span>- は誤記。</aside>
+</section>
+<section class="sec" id="s11">
+<h2><span class="num">11</span>天女スラタマンジャリーの告白</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="sā cainaṃ candralekhācchaviḥ kācid apsarā bhūtvā pradakṣiṇīkṛtya prāñjalir vyajijñapat — “deva, dīyatām anugrahārdraṃ cittam / aham asmi soma-raśmi-saṃbhavā suratamañjarī nāma sura-sundarī / tasyā me nabhasi nalina-lubdha-mugdha-kalahaṃsānubaddha-vaktrāyās tan-nivāraṇa-kṣobha-vicchinna-vigalitā hāra-yaṣṭir yadṛcchayā jātu haimavate mandodake magnonmagnasya maharṣer mārkaṇḍeyasya mastake maṇi-kiraṇa-dviguṇita-palitam apatat /">sā cainaṃ candralekhācchaviḥ kācid apsarā bhūtvā pradakṣiṇīkṛtya prāñjalir vyajijñapat — “deva, dīyatām anugrahārdraṃ cittam / aham asmi soma-raśmi-saṃbhavā suratamañjarī nāma sura-sundarī / tasyā me nabhasi nalina-lubdha-mugdha-kalahaṃsānubaddha-vaktrāyās tan-nivāraṇa-kṣobha-vicchinna-vigalitā hāra-yaṣṭir yadṛcchayā jātu haimavate mandodake magnonmagnasya maharṣer mārkaṇḍeyasya mastake maṇi-kiraṇa-dviguṇita-palitam apatat /</div>
+  <div class="jpn"><span class="pno">11.1</span>するとその鎖は、細い月のような輝きをもつ一人の天女となり、王子のまわりを右回りに巡って合掌し、申し上げた。「殿下、どうか慈しみに潤ったお心をお向けください。わたくしは月の光から生まれたスラタマンジャリーという名の天女でございます。ある時わたくしが空を行きますと、蓮を慕う愛らしいカラハンサ鳥（ハンサ鳥）が、わたくしの顔を蓮と見誤ってつきまといました。それを追い払おうとして身を揺らした拍子に、首飾りの紐が切れて落ち、ちょうどヒマラヤのマンドーダカ湖で水に潜っては浮かび上がっていた大聖仙マールカンデーヤの頭上に、その宝珠の光で白髪をいっそう白く輝かせながら、たまたま落ちかかったのです。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="pātitaś ca kopitena ko &#x27;pi tena mayi śāpaḥ — ‘pāpe, bhajasva loha-jātim ajāta-caitanyā satī’ iti / sa punaḥ prasādyamānas tvat-pāda-padma-dvayasya māsa-dvaya-mātraṃ saṃdānatām etya nistaraṇīyām imām āpadam aparikṣīṇa-śaktitvaṃ cendriyāṇām akalpayat /">pātitaś ca kopitena ko &#x27;pi tena mayi śāpaḥ — ‘pāpe, bhajasva loha-jātim ajāta-caitanyā satī’ iti / sa punaḥ prasādyamānas tvat-pāda-padma-dvayasya māsa-dvaya-mātraṃ saṃdānatām etya nistaraṇīyām imām āpadam aparikṣīṇa-śaktitvaṃ cendriyāṇām akalpayat /</div>
+  <div class="jpn"><span class="pno">11.2</span>怒った聖仙は、わたくしにこのような呪いを下しました。『罪深い女よ、意識をもたぬものとなって、金属の身となれ』と。けれども、なだめられた聖仙は、殿下の蓮華の両御足を二か月だけ縛る枷となった後にこの災いから抜け出せること、そしてその間も感官の力が失われないことを、お定めくださいました。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">soma-raśmi-saṃbhavā</span>（月光から生まれた）――<span class="lat" lang="sa">Kale</span> は『カーダンバリー』を引き、天女（アプサラス）には十四の系統があり、その一つが月光から生まれたものだとする。<span class="lat" lang="sa">kalahaṃsa</span> はハンサ鳥の一種。<span class="lat" lang="sa">haimavate mandodake</span> は「ヒマラヤのマンドーダカ湖で」とも「ヒマラヤの静かな水で」とも解しうる。<span class="lat" lang="sa">loha-jāti</span>（金属の身）、<span class="lat" lang="sa">ajāta-caitanyā</span>（意識の生じない者として）。</aside>
+</section>
+<section class="sec" id="s12">
+<h2><span class="num">12</span>ヴィーラシェーカラとダルパサーラの同盟</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="analpena ca pāpmanā rajata-śṛṅkhalībhūtāṃ mām aikṣvākasya rājño vegavataḥ pautraḥ, putro mānasavegasya, vīraśekharo nāma vidyādharaḥ śaṅkara-girau samadhyagamat / ātmasātkṛtā ca tenāham āsam / athāsau pitṛ-prayukta-vaire pravartamāne vidyādhara-cakravartini vatsarāja-vaṃśa-vardhane naravāhanadatte virasāśayas tad-apakāra-kṣamo &#x27;yam iti tapasyatā darpasāreṇa saha samasṛjyata / pratiśrutaṃ ca tena tasmai svasur avantisundaryāḥ pradānam /">analpena ca pāpmanā rajata-śṛṅkhalībhūtāṃ mām aikṣvākasya rājño vegavataḥ pautraḥ, putro mānasavegasya, vīraśekharo nāma vidyādharaḥ śaṅkara-girau samadhyagamat / ātmasātkṛtā ca tenāham āsam / athāsau pitṛ-prayukta-vaire pravartamāne vidyādhara-cakravartini vatsarāja-vaṃśa-vardhane naravāhanadatte virasāśayas tad-apakāra-kṣamo &#x27;yam iti tapasyatā darpasāreṇa saha samasṛjyata / pratiśrutaṃ ca tena tasmai svasur avantisundaryāḥ pradānam /</div>
+  <div class="jpn"><span class="pno">12.1</span>少なからぬ罪のために銀の鎖となっていたわたくしを、イクシュヴァーク族のヴェーガヴァット王の孫でマーナサヴェーガの息子、ヴィーラシェーカラという名のヴィディヤーダラが、シャンカラの山（カイラーサ）で見つけ、わたくしは彼のものとなりました。さて彼は、父の代から始まった敵対関係が続いていたため、ヴァツァ王の家系を栄えさせるヴィディヤーダラの転輪王ナラヴァーハナダッタに敵意を抱いており、『この男ならばあの者に害を加えることができる』と考えて、苦行中のダルパサーラと手を結びました。そしてダルパサーラは、妹アヴァンティスンダリーを彼に与えることを約束したのです。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="anyadā tu viyati vyavadāyamāna-candrike manoratha-priyatamām avantisundarīṃ didṛkṣur avaśendriyas tad indra-mandira-dyuti kumārī-puram upāsarat / antaritaś ca tiraskariṇyā vidyayā /">anyadā tu viyati vyavadāyamāna-candrike manoratha-priyatamām avantisundarīṃ didṛkṣur avaśendriyas tad indra-mandira-dyuti kumārī-puram upāsarat / antaritaś ca tiraskariṇyā vidyayā /</div>
+  <div class="jpn"><span class="pno">12.2</span>ある時、空に月の光が冴えわたる夜、心に思い描く最愛の人アヴァンティスンダリーをひと目見たいと、感官を抑えきれなくなった彼は、インドラの宮殿のように輝く王女の館に近づきました。隠身の術で姿を隠して。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">naravāhanadatta</span> はヴァツァ王ウダヤナの子で、グナーディヤ『ブリハットカター』およびそれを伝える『カターサリットサーガラ』の主人公。ヴィディヤーダラの転輪王となる（<span class="lat" lang="sa">Kale</span> は『カターサリットサーガラ』第14巻第1章を参照させる）。<span class="lat" lang="sa">pitṛ-prayukta-vaire pravartamāne</span> は「父（マーナサヴェーガ）が始めた敵対関係が続いている中で」の意の絶対処格。<span class="lat" lang="sa">svasur avantisundaryāḥ</span>（妹アヴァンティスンダリーの）――旧版の <span class="lat" lang="sa">svasu</span>- は誤り。<span class="lat" lang="sa">tiraskariṇī vidyā</span> は天界の者が用いる隠身の術で、旧版の「術によって遮られた」という訳は誤り。ヴィーラシェーカラは姿を隠して館に忍び込んだのである。</aside>
+</section>
+<section class="sec" id="s13">
+<h2><span class="num">13</span>足枷の由来と解放</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="sa ca tāṃ tadā tvad-aṅkāpāśrayāṃ surata-kheda-supta-gātrīṃ tribhuvana-sarga-yātrā-saṃhāra-saṃbaddhābhiḥ kathābhir amṛta-syandinībhiḥ pratyānīyamāna-rāga-pūrāṃ nyarūpayat / sa tu prakupito &#x27;pi tvad-anubhāva-pratibaddha-nigrahāntarādhyavasāyaḥ samāliṅgyetaretaram atyanta-sukha-suptayor yuvayor daiva-dattotsāhaḥ pāṇḍu-loha-śṛṅkhalātmanā mayā pāda-padmayor yugalaṃ tava nigaḍayitvā sa-roṣa-rabhasam apāsarat /">sa ca tāṃ tadā tvad-aṅkāpāśrayāṃ surata-kheda-supta-gātrīṃ tribhuvana-sarga-yātrā-saṃhāra-saṃbaddhābhiḥ kathābhir amṛta-syandinībhiḥ pratyānīyamāna-rāga-pūrāṃ nyarūpayat / sa tu prakupito &#x27;pi tvad-anubhāva-pratibaddha-nigrahāntarādhyavasāyaḥ samāliṅgyetaretaram atyanta-sukha-suptayor yuvayor daiva-dattotsāhaḥ pāṇḍu-loha-śṛṅkhalātmanā mayā pāda-padmayor yugalaṃ tava nigaḍayitvā sa-roṣa-rabhasam apāsarat /</div>
+  <div class="jpn"><span class="pno">13.1</span>そして彼はその時、殿下の膝にもたれ、情交の疲れに身を横たえて眠っている彼女を見ました。三界の創造と存続と破壊にまつわる、甘露を滴らせるような殿下の物語によって、ふたたび愛の潮を満たされていた彼女を。彼は激しく怒りましたが、殿下の威光に阻まれて、それ以上の懲罰を加える決心はつきませんでした。そこで、互いに抱き合ってこの上なく幸せに眠っていたお二人のうち、殿下の蓮華の両御足を、運命に与えられた勇気をふるって、銀の鎖の姿をしたわたくしで縛り、怒りと激情のうちに立ち去ったのです。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="avasitaś ca mamādya śāpaḥ / tac ca māsa-dvayaṃ tava pāratantryam / prasīdedānīm / kiṃ tava karaṇīyam” iti praṇipatantī “vārtayānayā mat-prāṇa-samāṃ samāśvāsaya” iti vyādiśya visasarja /">avasitaś ca mamādya śāpaḥ / tac ca māsa-dvayaṃ tava pāratantryam / prasīdedānīm / kiṃ tava karaṇīyam” iti praṇipatantī “vārtayānayā mat-prāṇa-samāṃ samāśvāsaya” iti vyādiśya visasarja /</div>
+  <div class="jpn"><span class="pno">13.2</span>今日、わたくしの呪いは終わりました。殿下の二か月の囚われの身も、これで終わりです。どうかお許しください。殿下のために、わたくしは何をいたしましょう。」こう言って平伏する天女に、王子は「この知らせで、わが命にも等しい人を慰めてやってほしい」と命じて、彼女を去らせた。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">nigrahāntarādhyavasāya</span>（それ以上の懲罰を加える決意）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">niprahāntara</span>- は <span class="lat" lang="sa">nigrahāntara</span>- の誤記と見て改めた。<span class="lat" lang="sa">pāṇḍu-loha</span>（白い金属）は銀を指し、<span class="lat" lang="sa">loha</span> を「金属」の一般的な意味で用いたもの。<span class="lat" lang="sa">tribhuvana-sarga-yātrā-saṃhāra</span>（三界の創造・存続・破壊）は、本章冒頭の「世界の成り立ちの物語」を指す。</aside>
+</section>
+<section class="sec" id="s14">
+<h2><span class="num">14</span>チャンダヴァルマンの死</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="tasminn eva kṣaṇāntare “hato hataś caṇḍavarmā siṃhavarma-duhitur ambālikāyāḥ pāṇi-sparśa-rāga-prasārite bāhu-daṇḍa eva balavad avalambya sarabhasam ākṛṣya kenāpi duṣkara-karmaṇā taskareṇa nakha-prahāreṇa rāja-mandiroddeśaṃ ca śava-śatamayam āpādayann acakita-gatir asau viharati” iti vācaḥ samabhavan /">tasminn eva kṣaṇāntare “hato hataś caṇḍavarmā siṃhavarma-duhitur ambālikāyāḥ pāṇi-sparśa-rāga-prasārite bāhu-daṇḍa eva balavad avalambya sarabhasam ākṛṣya kenāpi duṣkara-karmaṇā taskareṇa nakha-prahāreṇa rāja-mandiroddeśaṃ ca śava-śatamayam āpādayann acakita-gatir asau viharati” iti vācaḥ samabhavan /</div>
+  <div class="jpn"><span class="pno">14.1</span>まさにその時、声が沸き起こった。「殺された、チャンダヴァルマンが殺された！シンハヴァルマンの娘アンバーリカーの手を取ろうと、愛欲に駆られて差し伸べたその腕をぐいとつかまれ、荒々しく引き寄せられて、何者とも知れぬ、とてつもない業をなす盗賊の、爪の一撃によって。そしてその男は、王宮一帯を幾百もの死骸で埋め尽くしながら、恐れる様子もなく暴れ回っている！」</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">pāṇi-sparśa</span>（手に触れること）は婚礼の儀で花嫁の手を取ること（<span class="lat" lang="sa">pāṇigrahaṇa</span>）を指す。<span class="lat" lang="sa">nakha</span> は爪とも、爪の形をした短刀とも解される。「とてつもない業をなす盗賊」とはアパハーラヴァルマンで、直後に正体が明かされる。<span class="lat" lang="sa">śava-śatamaya</span>（幾百もの死骸から成る）――旧版の <span class="lat" lang="sa">śava-śatam ayam</span> という分かち書きは誤り。</aside>
+</section>
+<section class="sec" id="s15">
+<h2><span class="num">15</span>狂象に乗るラージャヴァーハナ</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="śrutvā caitat tam eva matta-hastinam udastādhoraṇo rājaputro &#x27;dhiruhya raṃhasottamena rāja-bhavanam abhyavartata / stamberama-rayāvadhūta-padāti-datta-vartmā ca praviśya veśmābhyantaram adabhrābhra-nirghoṣa-gambhīreṇa svareṇābhyadhāt — “kaḥ sa mahāpuruṣo yenaitan mānuṣa-mātra-duṣkaraṃ mahat karmānuṣṭhitam / āgacchatu / mayā sahemaṃ matta-hastinam ārohatu / abhayaṃ mad-upakaṇṭha-vartino deva-dānavair api vigṛhṇānasya” iti /">śrutvā caitat tam eva matta-hastinam udastādhoraṇo rājaputro &#x27;dhiruhya raṃhasottamena rāja-bhavanam abhyavartata / stamberama-rayāvadhūta-padāti-datta-vartmā ca praviśya veśmābhyantaram adabhrābhra-nirghoṣa-gambhīreṇa svareṇābhyadhāt — “kaḥ sa mahāpuruṣo yenaitan mānuṣa-mātra-duṣkaraṃ mahat karmānuṣṭhitam / āgacchatu / mayā sahemaṃ matta-hastinam ārohatu / abhayaṃ mad-upakaṇṭha-vartino deva-dānavair api vigṛhṇānasya” iti /</div>
+  <div class="jpn"><span class="pno">15.1</span>それを聞くと王子は、象使いを振り落としてまさにその狂象に乗り、全速力で王宮へ向かった。象の疾走に蹴散らされた歩兵たちが道を空けたので、王宮の内に入り、厚い雨雲の轟きのように重々しい声で呼ばわった。「人の身ではなしがたいこの大業をなしとげたのは、どの偉丈夫か。こちらへ来るがよい。わたしとともにこの狂象に乗れ。わたしの傍らにいる者は、神々や阿修羅たちと戦おうとも、恐れることはない。」</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">udastādhoraṇa</span>（象使いを振り落とした）は <span class="lat" lang="sa">udasta</span>（投げ落とされた）と <span class="lat" lang="sa">ādhoraṇa</span>（象使い）の所有複合語。<span class="lat" lang="sa">stamberama</span>（象、「茂みに遊ぶもの」）は前分の格語尾を残す <span class="lat" lang="sa">aluk</span> 複合語。<span class="lat" lang="sa">veśmābhyantaram</span>（館の内に）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">veśyābhyantaram</span>（遊女の内に）は <span class="lat" lang="sa">veśma</span>-（館）の誤記と見て改めた。<span class="lat" lang="sa">datta-vartmā</span>（道を空けられた）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">dattartmā</span> は誤記。</aside>
+</section>
+<section class="sec" id="s16">
+<h2><span class="num">16</span>アパハーラヴァルマンとの再会</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="niśamyaivaṃ sa pumān upoḍha-harṣo nirgatya kṛtāñjalir ākramya saṃjñā-saṃkucitaṃ kuñjara-gātram asaktam adhyarukṣat / ārohantam evainaṃ nirvarṇya harṣotphulla-dṛṣṭiḥ “aye, priya-sakho &#x27;yam apahāravarmaiva” iti paścān niṣīdato &#x27;sya bāhu-daṇḍa-yugalam ubhaya-bhuja-mūla-praveśitam agre &#x27;valambya svam aṅgam āliṅgayāmāsa / svayaṃ ca pṛṣṭhato valitābhyāṃ bhujābhyāṃ paryaveṣṭayat /">niśamyaivaṃ sa pumān upoḍha-harṣo nirgatya kṛtāñjalir ākramya saṃjñā-saṃkucitaṃ kuñjara-gātram asaktam adhyarukṣat / ārohantam evainaṃ nirvarṇya harṣotphulla-dṛṣṭiḥ “aye, priya-sakho &#x27;yam apahāravarmaiva” iti paścān niṣīdato &#x27;sya bāhu-daṇḍa-yugalam ubhaya-bhuja-mūla-praveśitam agre &#x27;valambya svam aṅgam āliṅgayāmāsa / svayaṃ ca pṛṣṭhato valitābhyāṃ bhujābhyāṃ paryaveṣṭayat /</div>
+  <div class="jpn"><span class="pno">16.1</span>これを聞くとその男は、喜びをあらわにして進み出て合掌し、合図によって身をかがめた象の体に足をかけ、軽々とよじ登った。登ってくる彼をじっと見つめた王子は、喜びに目を見開き、「おお、これはまさしく親友アパハーラヴァルマンではないか」と言って、後ろに座る彼の両腕を自分の両脇の下に通させて前でつかみ、自分の体を抱きしめさせた。そして自らも、後ろへ回した両腕で彼を抱き包んだ。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">apahāravarmaiva</span>（まさしくアパハーラヴァルマン）は <span class="lat" lang="sa">apahāravarmā</span> + <span class="lat" lang="sa">eva</span>。旧版の <span class="lat" lang="sa">apahāravarma iva</span>（「アパハーラヴァルマンのような」）という分かち書きは誤り。</aside>
+</section>
+<section class="sec" id="s17">
+<h2><span class="num">17</span>援軍の到着</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="tat-kṣaṇopasaṃhṛtāliṅgana-vyatikaraś cāpahāravarmā cāpa-cakra-kaṇapa-karpaṇa-prāsa-paṭṭiśa-musala-tomarādi-praharaṇa-jātam upayuñjānān balāvaliptān pratibala-vīrān bahu-prakārāyodhinaḥ parikṣipataḥ kṣitau vicikṣepa / kṣaṇena cādrākṣīt tad api sainyam anyena samantato &#x27;bhimukham abhidhāvatā bala-nikāyena parikṣiptam /">tat-kṣaṇopasaṃhṛtāliṅgana-vyatikaraś cāpahāravarmā cāpa-cakra-kaṇapa-karpaṇa-prāsa-paṭṭiśa-musala-tomarādi-praharaṇa-jātam upayuñjānān balāvaliptān pratibala-vīrān bahu-prakārāyodhinaḥ parikṣipataḥ kṣitau vicikṣepa / kṣaṇena cādrākṣīt tad api sainyam anyena samantato &#x27;bhimukham abhidhāvatā bala-nikāyena parikṣiptam /</div>
+  <div class="jpn"><span class="pno">17.1</span>抱擁をその場で解いたアパハーラヴァルマンは、弓・円盤・カナパ（鉄の槍）・カルパナ（矛）・投げ槍・パッティシャ（両刃の剣）・棍棒・トーマラ（投げ矛）などの武器の数々を振るい、力に驕り、さまざまな戦法で戦いながら取り囲んでくる敵の勇士たちを、地に投げ倒していった。するとたちまち、その敵の軍勢もまた、四方から正面に向かって押し寄せる別の軍勢に包囲されるのが見えた。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="anantaraṃ ca kaścit karṇikāra-gauraḥ kuruvinda-savarṇa-kuntalaḥ kamala-komala-pāṇi-pādaḥ karṇa-cumbi-dugdha-dhavala-snigdha-nīla-locanaḥ kaṭi-taṭa-niviṣṭa-ratna-nakhaḥ paṭṭa-nivasanaḥ kṛśākṛśodaroraḥ-sthalaḥ kṛta-hastatayā ripu-kulam iṣu-varṣeṇābhivarṣan pādāṅguṣṭha-niṣṭharāva-ghṛṣṭa-karṇa-mūlena prajavinā gajena saṃnikṛṣya pūrvopadeśa-pratyayāt “ayam eva sa devo rājavāhanaḥ” iti prāñjaliḥ praṇamyāpahāravarmaṇi niviṣṭa-dṛṣṭir ācaṣṭa — “tvad-ādiṣṭena mārgeṇa saṃnipātitam etad aṅgarāja-sāhāyya-dānāyopasthitaṃ rājakam / ari-balaṃ ca vihita-vidhvastaṃ strī-bāla-hārya-śastraṃ vartate / kim anyat kṛtyam” iti /">anantaraṃ ca kaścit karṇikāra-gauraḥ kuruvinda-savarṇa-kuntalaḥ kamala-komala-pāṇi-pādaḥ karṇa-cumbi-dugdha-dhavala-snigdha-nīla-locanaḥ kaṭi-taṭa-niviṣṭa-ratna-nakhaḥ paṭṭa-nivasanaḥ kṛśākṛśodaroraḥ-sthalaḥ kṛta-hastatayā ripu-kulam iṣu-varṣeṇābhivarṣan pādāṅguṣṭha-niṣṭharāva-ghṛṣṭa-karṇa-mūlena prajavinā gajena saṃnikṛṣya pūrvopadeśa-pratyayāt “ayam eva sa devo rājavāhanaḥ” iti prāñjaliḥ praṇamyāpahāravarmaṇi niviṣṭa-dṛṣṭir ācaṣṭa — “tvad-ādiṣṭena mārgeṇa saṃnipātitam etad aṅgarāja-sāhāyya-dānāyopasthitaṃ rājakam / ari-balaṃ ca vihita-vidhvastaṃ strī-bāla-hārya-śastraṃ vartate / kim anyat kṛtyam” iti /</div>
+  <div class="jpn"><span class="pno">17.2</span>続いて、一人の男が近づいてきた。カルニカーラの花のように金色に輝く肌、クルヴィンダの色をした巻き毛、蓮のように柔らかな手足、耳もとまで切れ長で、乳のように白い白目に潤いのある黒い瞳。腰には宝石をちりばめた短刀を差し、絹の衣をまとい、細い腹と厚い胸をもつ男である。武器の扱いに熟達したその男は、矢の雨を敵勢に降らせながら、足の親指で耳の付け根を強く擦って駆り立てる俊足の象に乗って近づくと、以前に聞かされていた特徴から「この方こそラージャヴァーハナ殿下にちがいない」と確信して合掌し、平伏した。そしてアパハーラヴァルマンに目を向けて報告した。「あなたのお指図どおりのやり方で、アンガ王に援軍を送るために来ていた王たちを、ここに集結させました。敵軍はすでに打ち砕かれ、女子供にさえ武器を奪われるほどのありさまです。ほかに何をいたしましょう。」</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">karṇikāra-gaura</span>（カルニカーラの花のように金色の）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">karmikāra</span> は <span class="lat" lang="sa">karṇikāra</span> の誤記。カルニカーラは鮮やかな黄色の花を咲かせるが香りがない（<span class="lat" lang="sa">Kale</span> は『クマーラサンバヴァ』<span class="lat" lang="sa">III.28</span> を参照させる）。旧版の「白い肌」という訳は誤り。<span class="lat" lang="sa">kṛta-hastatā</span>（武器の扱いに熟達していること）。<span class="lat" lang="sa">strī-bāla-hārya-śastra</span>（女子供にさえ武器を奪われうる）について、<span class="lat" lang="sa">Kale</span> は『ラグヴァンシャ』<span class="lat" lang="sa">VII.67</span> を参照させる。この男はダナミトラ（第18節）で、アパハーラヴァルマン自身が次章で語る冒険に登場する、チャンパーの若者である。報告はアパハーラヴァルマンに向けられており、「あなたのお指図」は王子ではなくアパハーラヴァルマンの指図を指す。</aside>
+</section>
+<section class="sec" id="s18">
+<h2><span class="num">18</span>ダナミトラの紹介</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="hṛṣṭas tu vyājahārāpahāravarmā — “deva, dṛṣṭi-dānenānugṛhyatām ayam ājñākāraḥ / so &#x27;yam eva hy amunā rūpeṇa dhanamitrākhyayā cāntarito mantavyaḥ / sa evāyaṃ nirgamayya bandhanād aṅgarājam apavarjitaṃ ca kośa-vāhanam ekīkṛtyāsmad-gṛhyeṇāmunā saha rājanyakenaikānte sukhopaviṣṭam iha devam upatiṣṭhatu yadi na doṣaḥ” iti /">hṛṣṭas tu vyājahārāpahāravarmā — “deva, dṛṣṭi-dānenānugṛhyatām ayam ājñākāraḥ / so &#x27;yam eva hy amunā rūpeṇa dhanamitrākhyayā cāntarito mantavyaḥ / sa evāyaṃ nirgamayya bandhanād aṅgarājam apavarjitaṃ ca kośa-vāhanam ekīkṛtyāsmad-gṛhyeṇāmunā saha rājanyakenaikānte sukhopaviṣṭam iha devam upatiṣṭhatu yadi na doṣaḥ” iti /</div>
+  <div class="jpn"><span class="pno">18.1</span>喜んだアパハーラヴァルマンは申し上げた。「殿下、どうかひと目お向けくださり、このしもべにお恵みをお与えください。この者は、この姿とダナミトラという名に隔てられているだけで、わたくしそのものとお考えください。この者がアンガ王を牢から救い出し、奪われていた財宝と乗物を取り戻してまとめ上げたのです。もしお差し支えなければ、われらの味方となったこの王たちとともに、人目のない所でくつろいでおられる殿下のもとへ、この者を伺わせましょう。」</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="devo &#x27;pi “yathā te rocate” iti tam ābhāṣya gatvā ca tan-nirdiṣṭena mārgeṇa nagarād bahir atimahato rohiṇa-drumasya kasyacit kṣaumāvadāta-saikate gaṅgā-taraṅga-pavana-pāta-śītale tale dviradād avatatāra /">devo &#x27;pi “yathā te rocate” iti tam ābhāṣya gatvā ca tan-nirdiṣṭena mārgeṇa nagarād bahir atimahato rohiṇa-drumasya kasyacit kṣaumāvadāta-saikate gaṅgā-taraṅga-pavana-pāta-śītale tale dviradād avatatāra /</div>
+  <div class="jpn"><span class="pno">18.2</span>王子も「そなたのよいように」と答えると、彼が示した道をたどって町の外へ出た。そしてある巨大なローヒナの樹の下、亜麻布のように白い砂地の、ガンジス河の波を渡る風が吹き寄せて涼しい場所で、象から降りた。</div>
+</div>
+<aside class="note"><span class="note-label">注</span><span class="lat" lang="sa">so &#x27;yam eva hy amunā rūpeṇa dhanamitrākhyayā cāntarito mantavyaḥ</span> は「この姿とダナミトラという名によって隔てられているだけで、（わたくし）その人と見なされるべき者」の意に解した。<span class="lat" lang="sa">amunā rūpeṇa</span>（この姿によって）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">rūpaṇe</span> は <span class="lat" lang="sa">rūpeṇa</span> の誤記。<span class="lat" lang="sa">nirgamayya bandhanād aṅgarājam</span>（アンガ王を牢から出して）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">nirgamapya</span> は使役の連続体 <span class="lat" lang="sa">nirgamayya</span> の誤記と見て改めた。旧版の「牢から脱出し」という訳は誤り。<span class="lat" lang="sa">rohiṇa</span> はローヒナ（ローヒタカ）樹で、旧版の「菩提樹」は誤り。<span class="lat" lang="sa">dviradād avatatāra</span>（象から降りた）――旧版の <span class="lat" lang="sa">dvirad ād</span> は誤り。</aside>
+</section>
+<section class="sec" id="s19">
+<h2><span class="num">19</span>友の集結</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="prathama-samavatīrṇenāpahāravarmaṇā ca sva-hasta-satvara-samīkṛte mātaṅga iva bhāgīrathī-pulina-maṇḍale sukhaṃ niṣasāda / tathā niṣaṇṇaṃ ca tam upahāravarmārthapāla-pramati-mitragupta-mantragupta-viśrutair maithilena ca prahāravarmaṇā, kāśī-bhartrā ca kāmapālena campeśvareṇa siṃhavarmaṇā sahopāgatya dhanamitraḥ praṇipapāta /">prathama-samavatīrṇenāpahāravarmaṇā ca sva-hasta-satvara-samīkṛte mātaṅga iva bhāgīrathī-pulina-maṇḍale sukhaṃ niṣasāda / tathā niṣaṇṇaṃ ca tam upahāravarmārthapāla-pramati-mitragupta-mantragupta-viśrutair maithilena ca prahāravarmaṇā, kāśī-bhartrā ca kāmapālena campeśvareṇa siṃhavarmaṇā sahopāgatya dhanamitraḥ praṇipapāta /</div>
+  <div class="jpn"><span class="pno">19.1</span>先に降りたアパハーラヴァルマンが自らの手で急いで平らにならした、ガンジス河（バーギーラティー）の円い砂州に、王子は象王のように悠然と腰を下ろした。こうして座った王子のもとへ、ダナミトラが、ウパハーラヴァルマン、アルタパーラ、プラマティ、ミトラグプタ、マントラグプタ、ヴィシュルタ、そしてミティラーの王プラハーラヴァルマン、カーシーの主カーマパーラ、チャンパーの王シンハヴァルマンとともにやって来て、平伏した。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="devo &#x27;pi harṣāviddham abhyutthitaḥ “kathaṃ samasta eṣa mitra-gaṇaḥ samāgataḥ / ko nāmāyam abhyudayaḥ” iti kṛta-yathocitopacārān nirbharataraṃ parirebhe /">devo &#x27;pi harṣāviddham abhyutthitaḥ “kathaṃ samasta eṣa mitra-gaṇaḥ samāgataḥ / ko nāmāyam abhyudayaḥ” iti kṛta-yathocitopacārān nirbharataraṃ parirebhe /</div>
+  <div class="jpn"><span class="pno">19.2</span>王子も喜びに胸を打たれて立ち上がり、「何と、友人たちがそろって集まってくれたとは。これはいったい何という幸運だろう」と言って、それぞれにふさわしい礼をとった彼らを、心をこめて固く抱きしめた。</div>
+</div>
+<aside class="note"><span class="note-label">注</span>ここに集まったのは、ラージャヴァーハナとアパハーラヴァルマンを含めて八人の王子である。残るソーマダッタとプシュポードバヴァはすでに前編で自らの物語を語っており、プシュポードバヴァはなおウッジャイニーの牢にある（両者は結語で合流する）。旧版注の「十王子の全員」は誤り。プラハーラヴァルマンはアパハーラヴァルマンとウパハーラヴァルマンの父でミティラーの王、カーマパーラはアルタパーラの父でカーシーの王。</aside>
+</section>
+<section class="sec" id="s20">
+<h2><span class="num">20</span>物語の交換の始まり</h2>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="kāśipati-maithilāṅgarājāṃś ca suhṛn-niveditān pitṛvad apaśyat / taiś ca harṣa-kampita-palitaṃ sarabhasopagūḍhaḥ param abhinananda /">kāśipati-maithilāṅgarājāṃś ca suhṛn-niveditān pitṛvad apaśyat / taiś ca harṣa-kampita-palitaṃ sarabhasopagūḍhaḥ param abhinananda /</div>
+  <div class="jpn"><span class="pno">20.1</span>また、友人たちから紹介されたカーシーの主、ミティラーの王、アンガの王を、王子は父のように敬った。そして彼らに、喜びに白髪を震わせながら激しく抱擁されて、王子はこの上なく喜んだ。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="tataḥ pravṛttāsu prīti-saṃkathāsu priya-vayasya-gaṇānuyuktaḥ svasya ca somadatta-puṣpodbhavayoś caritam anuvarṇya suhṛdām api vṛttāntaṃ krameṇa śrotuṃ kṛta-prastāvas tāṃś ca tad-uktāv anvayuṅkta /">tataḥ pravṛttāsu prīti-saṃkathāsu priya-vayasya-gaṇānuyuktaḥ svasya ca somadatta-puṣpodbhavayoś caritam anuvarṇya suhṛdām api vṛttāntaṃ krameṇa śrotuṃ kṛta-prastāvas tāṃś ca tad-uktāv anvayuṅkta /</div>
+  <div class="jpn"><span class="pno">20.2</span>こうして親しい語らいが始まると、親友たちに問われるままに、王子は自分自身とソーマダッタ、プシュポードバヴァの身の上を語り聞かせた。そして友人たちの身の上も順に聞こうと話を切り出し、彼らにその話をするよう促した。</div>
+</div>
+<div class="pair">
+  <div class="skt" lang="sa" data-iast="teṣu prathamaṃ prāha sma kilāpahāravarmā — //">teṣu prathamaṃ prāha sma kilāpahāravarmā — //</div>
+  <div class="jpn"><span class="pno">20.3</span>その中でまず語ったのは、アパハーラヴァルマンであったという。</div>
+</div>
+<aside class="note"><span class="note-label">注</span>旧版はこの節の最初の二文を韻文として表示していたが、散文である。<span class="lat" lang="sa">priya-vayasya-gaṇānuyukta</span>（親友たちに問われて）――<span class="lat" lang="sa">GRETIL</span>の <span class="lat" lang="sa">priyavayamya</span>- は誤記。</aside>
+</section>
+
+<details class="app">
+  <summary>校訂一覧（GRETIL との異同 42 箇所）</summary>
+  <div class="app-body">
+    <p>本文と底本との異同を、出現順に掲げる。「推定」は他に確かな根拠がなく、文意から推定した読みである。</p>
+    <table>
+      <thead><tr><th>GRETIL</th><th>本書</th><th>備考</th></tr></thead>
+      <tbody>
+<tr><td lang="sa">pakkam idānāṃ</td><td lang="sa">pakvam idānīṃ</td><td>誤記</td></tr>
+<tr><td lang="sa">mādicchayā</td><td lang="sa">madicchayā</td><td>誤記</td></tr>
+<tr><td lang="sa">varhivarhāvalīṃ</td><td lang="sa">barhibarhāvalīṃ</td><td>v/b の正規化</td></tr>
+<tr><td lang="sa">tadārambhasapharitayā</td><td lang="sa">tadārambhasphuritayā</td><td>DCS</td></tr>
+<tr><td lang="sa">caubhau</td><td lang="sa">cobhau</td><td>連声 ca + ubhau</td></tr>
+<tr><td lang="sa">yana ca</td><td lang="sa">yena ca</td><td>誤記</td></tr>
+<tr><td lang="sa">sa evāṣa</td><td lang="sa">sa evaiṣa</td><td>誤記</td></tr>
+<tr><td lang="sa">viparalambha-</td><td lang="sa">vipralambha-</td><td>誤記</td></tr>
+<tr><td lang="sa">-dūṣatalalāṭaḥ</td><td lang="sa">-dūṣitalalāṭaḥ</td><td>誤記</td></tr>
+<tr><td lang="sa">caṇjavarmā</td><td lang="sa">caṇḍavarmā</td><td>誤記</td></tr>
+<tr><td lang="sa">-valīna-</td><td lang="sa">-vilīna-</td><td>DCS</td></tr>
+<tr><td lang="sa">-cūḍhāmaṇi-</td><td lang="sa">-cūḍāmaṇi-</td><td>誤記</td></tr>
+<tr><td lang="sa">abhiyāsyannyaviśvāsān</td><td lang="sa">abhiyāsyann aviśvāsān</td><td>誤記</td></tr>
+<tr><td lang="sa">pratijagrāhaḥ</td><td lang="sa">pratijagrāha</td><td>誤記</td></tr>
+<tr><td lang="sa">avapi tv</td><td lang="sa">api tv</td><td>推定</td></tr>
+<tr><td lang="sa">pratinivṛttyaiṇajaṅgho</td><td lang="sa">pratinivṛtyaiṇajaṅgho</td><td>誤記</td></tr>
+<tr><td lang="sa">kṛpāvasāraḥ</td><td lang="sa">kṛpāvasaraḥ</td><td>誤記</td></tr>
+<tr><td lang="sa">śatrasāhāyyakāya</td><td lang="sa">śatrusāhāyyakāya</td><td>誤記</td></tr>
+<tr><td lang="sa">uṣāroge</td><td lang="sa">uṣorāge</td><td>連声 uṣas + rāga</td></tr>
+<tr><td lang="sa">utasthe</td><td lang="sa">uttasthe</td><td>DCS（ud + tasthe）</td></tr>
+<tr><td lang="sa">prāñjalirṃ</td><td lang="sa">prāñjalir</td><td>誤記</td></tr>
+<tr><td lang="sa">-niprahāntara-</td><td lang="sa">-nigrahāntara-</td><td>誤記</td></tr>
+<tr><td lang="sa">balavadalambya</td><td lang="sa">balavad avalambya</td><td>脱字</td></tr>
+<tr><td lang="sa">-dattartmā</td><td lang="sa">-dattavartmā</td><td>脱字</td></tr>
+<tr><td lang="sa">veśyābhyantaram</td><td lang="sa">veśmābhyantaram</td><td>誤記</td></tr>
+<tr><td lang="sa">yainaitan</td><td lang="sa">yenaitan</td><td>誤記</td></tr>
+<tr><td lang="sa">karmikāra-</td><td lang="sa">karṇikāra-</td><td>誤記</td></tr>
+<tr><td lang="sa">rājavāhanaḥ&#x27; ti</td><td lang="sa">rājavāhanaḥ” iti</td><td>脱字</td></tr>
+<tr><td lang="sa">-sahāyya-</td><td lang="sa">-sāhāyya-</td><td>誤記</td></tr>
+<tr><td lang="sa">apahāraṃvarmā</td><td lang="sa">apahāravarmā</td><td>誤記</td></tr>
+<tr><td lang="sa">rūpaṇe</td><td lang="sa">rūpeṇa</td><td>誤記</td></tr>
+<tr><td lang="sa">nirgamapya</td><td lang="sa">nirgamayya</td><td>誤記</td></tr>
+<tr><td lang="sa">vahir</td><td lang="sa">bahir</td><td>v/b の正規化</td></tr>
+<tr><td lang="sa">avatatara</td><td lang="sa">avatatāra</td><td>誤記</td></tr>
+<tr><td lang="sa">-maṇaaḍale</td><td lang="sa">-maṇḍale</td><td>誤記</td></tr>
+<tr><td lang="sa">niṣaṇmaṃ</td><td lang="sa">niṣaṇṇaṃ</td><td>誤記</td></tr>
+<tr><td lang="sa">-mitrragupta-</td><td lang="sa">-mitragupta-</td><td>誤記</td></tr>
+<tr><td lang="sa">sahopāgataya</td><td lang="sa">sahopāgatya</td><td>誤記</td></tr>
+<tr><td lang="sa">kāśapiti-</td><td lang="sa">kāśipati-</td><td>誤記</td></tr>
+<tr><td lang="sa">priyavayamya-</td><td lang="sa">priyavayasya-</td><td>誤記</td></tr>
+<tr><td lang="sa">-puṣpodbhevayāś</td><td lang="sa">-puṣpodbhavayoś</td><td>誤記</td></tr>
+<tr><td lang="sa">anuvaraṇya</td><td lang="sa">anuvarṇya</td><td>誤記</td></tr>
+      </tbody>
+    </table>
+  </div>
+</details>
+
+<nav class="chapnav">
+  <a href="dasakumaracarita_introduction.html">← 目次・紹介</a>
+  <a href="dasakumaracarita_main_ch2_bilingual.html">第2章 アパハーラヴァルマ物語 →</a>
+</nav>
+</main>
+
+<footer>十王子物語（Daśakumāracarita）本編第1章 対訳</footer>
+
+<script>
+function iastToDeva(src) {
+  var V = {"a":["अ",""],"ā":["आ","ा"],"i":["इ","ि"],"ī":["ई","ी"],"u":["उ","ु"],"ū":["ऊ","ू"],
+    "ṛ":["ऋ","ृ"],"ṝ":["ॠ","ॄ"],"ḷ":["ऌ","ॢ"],"e":["ए","े"],"ai":["ऐ","ै"],"o":["ओ","ो"],"au":["औ","ौ"]};
+  var C = {"k":"क","kh":"ख","g":"ग","gh":"घ","ṅ":"ङ","c":"च","ch":"छ","j":"ज","jh":"झ","ñ":"ञ",
+    "ṭ":"ट","ṭh":"ठ","ḍ":"ड","ḍh":"ढ","ṇ":"ण","t":"त","th":"थ","d":"द","dh":"ध","n":"न",
+    "p":"प","ph":"फ","b":"ब","bh":"भ","m":"म","y":"य","r":"र","l":"ल","v":"व",
+    "ś":"श","ṣ":"ष","s":"स","h":"ह"};
+  var O = {"ṃ":"ं","ṁ":"ं","ḥ":"ः","'":"ऽ"};
+  var VIRAMA = "्";
+  var s = src.normalize("NFC").toLowerCase()
+    .replace(/-/g, "")
+    .replace(/\s+'/g, "'")
+    .replace(/\s*\/\/\s*/g, "\u00a0॥")
+    .replace(/\s*\/(?=\s|$)/g, "\u00a0।");
+  var out = "", pending = false, i = 0;
+  while (i < s.length) {
+    var two = s.substr(i, 2), one = s.charAt(i), tok = null;
+    if (C[two] !== undefined && two.length === 2) tok = ["C", two];
+    else if (V[two] !== undefined && two.length === 2) tok = ["V", two];
+    else if (C[one] !== undefined) tok = ["C", one];
+    else if (V[one] !== undefined) tok = ["V", one];
+    if (tok && tok[0] === "C") {
+      if (pending) out += VIRAMA;
+      out += C[tok[1]]; pending = true; i += tok[1].length;
+    } else if (tok && tok[0] === "V") {
+      out += pending ? V[tok[1]][1] : V[tok[1]][0];
+      pending = false; i += tok[1].length;
+    } else {
+      if (pending && one === " ") {
+        var nx = s.charAt(i + 1);
+        if (V[nx] !== undefined) { i += 1; continue; }
+      }
+      if (pending) { out += VIRAMA; pending = false; }
+      out += (O[one] !== undefined) ? O[one] : one;
+      i += 1;
+    }
+  }
+  if (pending) out += VIRAMA;
+  return out;
+}
+
+(function () {
+  var KEY = "dkc-script";
+  var nodes = Array.prototype.slice.call(document.querySelectorAll(".skt[data-iast]"));
+  var cache = nodes.map(function (n) { return iastToDeva(n.getAttribute("data-iast")); });
+  var buttons = Array.prototype.slice.call(document.querySelectorAll(".toggle button"));
+  function render(mode) {
+    nodes.forEach(function (n, k) {
+      var iast = n.getAttribute("data-iast");
+      n.textContent = "";
+      if (mode === "iast") {
+        n.classList.remove("deva"); n.setAttribute("lang", "sa");
+        n.textContent = iast;
+      } else {
+        n.classList.add("deva"); n.setAttribute("lang", "sa-Deva");
+        n.appendChild(document.createTextNode(cache[k]));
+        if (mode === "both") {
+          var sub = document.createElement("span");
+          sub.className = "iast-sub"; sub.setAttribute("lang", "sa");
+          sub.textContent = iast; n.appendChild(sub);
+        }
+      }
+    });
+    buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.getAttribute("data-mode") === mode ? "true" : "false"); });
+    try { localStorage.setItem(KEY, mode); } catch (e) {}
+  }
+  buttons.forEach(function (b) { b.addEventListener("click", function () { render(b.getAttribute("data-mode")); }); });
+  var saved = "iast";
+  try { saved = localStorage.getItem(KEY) || "iast"; } catch (e) {}
+  if (["iast", "deva", "both"].indexOf(saved) < 0) saved = "iast";
+  render(saved);
+})();
+</script>
 </body>
 </html>
