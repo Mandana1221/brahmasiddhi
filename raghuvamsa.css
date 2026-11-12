@@ -1,0 +1,293 @@
+/* Raghuvaṃśa bilingual pages — shared styles */
+:root {
+  --bg: #faf8f5;
+  --surface: #ffffff;
+  --note-bg: #f4efe8;
+  --text: #2c2418;
+  --text-2: #6b5d4d;
+  --text-3: #8f8273;
+  --accent: #8b4513;
+  --accent-soft: #c4956a;
+  --border: #e0d6c8;
+  --border-2: #ede6db;
+  --sanskrit: #3a1f00;
+  --vnum: #9a6b0b;
+  --chip-bg: #f1e7da;
+  --toolbar-bg: rgba(250, 248, 245, 0.94);
+  --focus: #b5651d;
+  color-scheme: light;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #1a1714;
+    --surface: #221e18;
+    --note-bg: #29241e;
+    --text: #e8e0d4;
+    --text-2: #b6a998;
+    --text-3: #8a7d6e;
+    --accent: #d9a46c;
+    --accent-soft: #8b6a42;
+    --border: #3a332a;
+    --border-2: #302a22;
+    --sanskrit: #f2dcbc;
+    --vnum: #d9ae45;
+    --chip-bg: #332c23;
+    --toolbar-bg: rgba(26, 23, 20, 0.94);
+    --focus: #e0a560;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #1a1714;
+  --surface: #221e18;
+  --note-bg: #29241e;
+  --text: #e8e0d4;
+  --text-2: #b6a998;
+  --text-3: #8a7d6e;
+  --accent: #d9a46c;
+  --accent-soft: #8b6a42;
+  --border: #3a332a;
+  --border-2: #302a22;
+  --sanskrit: #f2dcbc;
+  --vnum: #d9ae45;
+  --chip-bg: #332c23;
+  --toolbar-bg: rgba(26, 23, 20, 0.94);
+  --focus: #e0a560;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; scroll-padding-top: 4rem; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'Noto Sans JP', 'Hiragino Sans', 'Yu Gothic', sans-serif;
+  font-size: 16px;
+  line-height: 1.85;
+}
+a { color: var(--accent); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-radius: 3px; }
+
+/* script toggle */
+.sk-iast { display: none; }
+:root[data-script="iast"] .sk-iast { display: inline; }
+:root[data-script="iast"] .sk-dev { display: none; }
+:root[data-notes="hide"] .notes { display: none; }
+
+/* toolbar */
+.toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--toolbar-bg);
+  -webkit-backdrop-filter: blur(6px);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--border);
+  padding-top: env(safe-area-inset-top, 0px);
+}
+.toolbar-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 0.45rem 16px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem 1rem;
+  font-size: 0.85rem;
+}
+.tb-home { text-decoration: none; font-weight: 500; }
+.tb-title { color: var(--text-2); margin-right: auto; }
+.seg { display: inline-flex; align-items: center; gap: 0.35rem; }
+.seg-label { color: var(--text-3); font-size: 0.78rem; }
+.seg button {
+  font: inherit;
+  font-size: 0.82rem;
+  line-height: 1.4;
+  color: var(--text-2);
+  background: transparent;
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.65rem;
+  cursor: pointer;
+}
+.seg button:first-of-type { border-radius: 999px 0 0 999px; }
+.seg button:last-of-type { border-radius: 0 999px 999px 0; margin-left: -1px; }
+.seg button[lang="sa-Deva"] { font-family: 'Noto Serif Devanagari', serif; }
+.seg button[lang="sa-Latn"] { font-family: 'Gentium Book Plus', serif; }
+.seg button[aria-pressed="true"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: var(--bg);
+}
+
+/* header */
+.page-head, .legend, main, .colophon, .pager {
+  max-width: 1080px;
+  margin-inline: auto;
+  padding-inline: 16px;
+}
+.page-head { padding-block: 2.2rem 1.2rem; text-align: center; }
+.eyebrow { margin: 0; color: var(--text-2); font-size: 0.85rem; letter-spacing: 0.08em; }
+.page-head h1 {
+  margin: 0.2rem 0 0.4rem;
+  font-weight: 600;
+  font-size: clamp(1.7rem, 4vw, 2.3rem);
+  color: var(--accent);
+  line-height: 1.4;
+  text-wrap: balance;
+}
+.page-head h1 .sk-dev { font-family: 'Noto Serif Devanagari', serif; }
+.page-head h1 .sk-iast { font-family: 'Gentium Book Plus', serif; font-style: italic; }
+.h1-sarga { font-family: 'Noto Sans JP', sans-serif; font-size: 0.6em; color: var(--text); margin-left: 0.3em; }
+.meta { margin: 0; font-size: 0.8rem; color: var(--text-3); text-wrap: balance; }
+.meta i { font-family: 'Gentium Book Plus', serif; }
+
+.legend {
+  margin-block: 0 2rem;
+  font-size: 0.88rem;
+  color: var(--text-2);
+}
+.legend summary {
+  cursor: pointer;
+  color: var(--accent);
+  font-weight: 500;
+  width: fit-content;
+  margin-inline: auto;
+}
+.legend ul {
+  margin: 0.6rem auto 0;
+  padding: 0.9rem 1.2rem 0.9rem 2rem;
+  max-width: 46rem;
+  background: var(--note-bg);
+  border-radius: 8px;
+  line-height: 1.75;
+}
+
+/* verses */
+.verse {
+  padding-block: 1.6rem;
+  border-top: 1px solid var(--border-2);
+}
+.verse:target { background: linear-gradient(var(--chip-bg), transparent 9rem); }
+.vhead {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.3rem 0.55rem;
+  margin-bottom: 0.7rem;
+}
+.vid {
+  font-family: 'Gentium Book Plus', serif;
+  font-weight: 700;
+  font-size: 1.05rem;
+  color: var(--vnum);
+  text-decoration: none;
+  font-variant-numeric: tabular-nums;
+}
+.vid:hover { text-decoration: underline; }
+.meter, .tag {
+  font-size: 0.72rem;
+  line-height: 1.5;
+  padding: 0.05rem 0.55rem;
+  border-radius: 999px;
+  background: var(--chip-bg);
+  color: var(--text-2);
+}
+.meter { font-family: 'Gentium Book Plus', serif; font-size: 0.8rem; font-style: italic; }
+
+.parallel {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: 1rem 2.4rem;
+  align-items: start;
+}
+@media (max-width: 760px) {
+  .parallel { grid-template-columns: minmax(0, 1fr); }
+}
+
+.sk { color: var(--sanskrit); }
+.stanza { margin: 0 0 0.9rem; }
+.stanza:last-child { margin-bottom: 0; }
+.ln { display: block; padding-left: 1.6em; text-indent: -1.6em; }
+.stanza .ln:nth-child(even) { padding-left: 2.6em; }
+.stanza.sloka .ln:nth-child(even) { padding-left: 1.6em; }
+.pd { margin-right: 0.45em; }
+.sk-dev {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.12rem;
+  line-height: 1.9;
+}
+.sk-iast {
+  font-family: 'Gentium Book Plus', 'Times New Roman', serif;
+  font-size: 1.08rem;
+  line-height: 1.75;
+}
+.stanza.sloka .pd { display: inline-block; text-indent: 0; }
+
+.ja {
+  font-size: 0.98rem;
+  line-height: 1.95;
+  text-align: justify;
+  text-justify: inter-character;
+  word-break: normal;
+  overflow-wrap: anywhere;
+}
+.iast {
+  font-family: 'Gentium Book Plus', 'Times New Roman', serif;
+  font-style: normal;
+  color: var(--accent);
+  font-size: 0.98em;
+}
+
+/* notes */
+.notes {
+  margin-top: 1.1rem;
+  padding: 0.8rem 1.1rem;
+  background: var(--note-bg);
+  border-radius: 8px;
+  font-size: 0.86rem;
+  line-height: 1.8;
+  color: var(--text-2);
+}
+.notes .note-heading {
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent);
+  margin: 0.2rem 0 0.15rem;
+}
+.notes p { margin: 0 0 0.5rem; }
+.notes p:last-child { margin-bottom: 0; }
+.notes hr, .notes .separator { border: 0; border-top: 1px dashed var(--border); margin: 0.6rem 0; }
+
+/* end */
+.colophon {
+  text-align: center;
+  padding-block: 2rem 1rem;
+  border-top: 2px solid var(--accent-soft);
+  margin-top: 1rem;
+}
+.colo-sk { margin: 0 0 0.3rem; color: var(--accent); }
+.colo-ja { margin: 0; font-size: 0.85rem; color: var(--text-2); }
+.pager {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding-block: 1.2rem calc(2rem + env(safe-area-inset-bottom, 0px));
+  font-size: 0.92rem;
+}
+.pager a { text-decoration: none; }
+.pager a:hover { text-decoration: underline; }
+
+@media print {
+  .toolbar, .pager, .legend { display: none; }
+  .verse { break-inside: avoid; }
+}
+
+.pd.hy { margin-right: 0; }
+@media (max-width: 520px) {
+  .tb-title, .seg-label { display: none; }
+  .toolbar-inner { gap: 0.4rem 0.6rem; flex-wrap: nowrap; }
+  .tb-home { margin-right: auto; }
+  .seg button { padding: 0.2rem 0.5rem; }
+}
