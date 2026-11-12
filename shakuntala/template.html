@@ -1,343 +1,283 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-script="iast">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>シャクンタラー対訳</title>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400;1,600&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho:wght@400;600&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Noto+Serif+Devanagari:wght@400;600&family=Shippori+Mincho:wght@400;600&display=swap">
+<script>
+/* 表示設定（文字・チャーヤー・注）を、描画前に読みこんでちらつきを防ぐ */
+(function () {
+  var d = document.documentElement;
+  try {
+    var s = localStorage.getItem('sak-script');
+    if (s === 'deva' || s === 'iast') d.setAttribute('data-script', s);
+    if (localStorage.getItem('sak-chaya') === 'off') d.classList.add('no-chaya');
+    if (localStorage.getItem('sak-notes') === 'off') d.classList.add('no-notes');
+  } catch (e) {}
+})();
+</script>
 <style>
 :root {
-  --ground: #F4F0E8;
+  --ground: #F6F2EA;
+  --paper: #FBF8F2;
   --ink: #2A2520;
-  --ink-soft: #5A4D42;
+  --ink-soft: #5E5146;
+  --muted: #8A7D70;
   --accent: #8B4A2B;
   --accent-soft: #C47A54;
-  --rule: #C9C1B4;
-  --rule-light: #DCD5CA;
-  --verse-num: #7E7265;
-  --note-bg: #EDE8DF;
-  --verse-bg: #EFEAE1;
-  --prakrit: #4F5B3A;
+  --rule: #D6CDBF;
+  --rule-light: #E6DFD3;
+  --verse-bg: #F1EBE0;
+  --note-bg: #EFE9DE;
+  --prakrit: #4D5C36;
+  --bar-bg: rgba(246, 242, 234, 0.94);
+  --chip-bg: #EDE5D8;
+  --chip-on: #8B4A2B;
+  --chip-on-ink: #FFF8F0;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
-    --ground: #1E1D1B;
-    --ink: #DDD8D0;
-    --ink-soft: #A89E92;
-    --accent: #C47A54;
-    --accent-soft: #D4956C;
-    --rule: #3E3A34;
-    --rule-light: #322E2A;
-    --verse-num: #8A7F73;
-    --note-bg: #27251F;
-    --verse-bg: #24221F;
-    --prakrit: #A9B78C;
+    --ground: #1C1B19;
+    --paper: #23211E;
+    --ink: #E2DCD3;
+    --ink-soft: #B3A89B;
+    --muted: #8F8478;
+    --accent: #D08A62;
+    --accent-soft: #E0A47F;
+    --rule: #3D3933;
+    --rule-light: #302D29;
+    --verse-bg: #27241F;
+    --note-bg: #2A2722;
+    --prakrit: #A9BA8A;
+    --bar-bg: rgba(28, 27, 25, 0.94);
+    --chip-bg: #2E2B27;
+    --chip-on: #D08A62;
+    --chip-on-ink: #1C1B19;
   }
 }
 :root[data-theme="dark"] {
-  --ground: #1E1D1B;
-  --ink: #DDD8D0;
-  --ink-soft: #A89E92;
-  --accent: #C47A54;
-  --accent-soft: #D4956C;
-  --rule: #3E3A34;
-  --rule-light: #322E2A;
-  --verse-num: #8A7F73;
-  --note-bg: #27251F;
-  --verse-bg: #24221F;
-  --prakrit: #A9B78C;
+  --ground: #1C1B19;
+  --paper: #23211E;
+  --ink: #E2DCD3;
+  --ink-soft: #B3A89B;
+  --muted: #8F8478;
+  --accent: #D08A62;
+  --accent-soft: #E0A47F;
+  --rule: #3D3933;
+  --rule-light: #302D29;
+  --verse-bg: #27241F;
+  --note-bg: #2A2722;
+  --prakrit: #A9BA8A;
+  --bar-bg: rgba(28, 27, 25, 0.94);
+  --chip-bg: #2E2B27;
+  --chip-on: #D08A62;
+  --chip-on-ink: #1C1B19;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-
+html { scroll-padding-top: 4.2rem; }
 body {
   background: var(--ground);
   color: var(--ink);
-  font-family: 'Shippori Mincho', serif;
+  font-family: 'Shippori Mincho', 'Noto Serif', serif;
   line-height: 1.9;
-  padding: 3rem 1.5rem 5rem;
-  max-width: 1000px;
-  margin: 0 auto;
   -webkit-font-smoothing: antialiased;
 }
+a { color: var(--accent); }
 
-/* ---------- 冒頭 ---------- */
-.header {
-  text-align: center;
-  padding-bottom: 2.5rem;
-  margin-bottom: 2rem;
+/* ---------- 文字の切り替え ---------- */
+.t-deva { display: none; }
+html[data-script="deva"] .t-iast { display: none; }
+html[data-script="deva"] .t-deva { display: inline; }
+.t-deva { font-family: 'Noto Serif Devanagari', serif; font-style: normal; }
+html.no-chaya .chaya { display: none; }
+html.no-notes .commentary { display: none; }
+
+/* ---------- ツールバー ---------- */
+.toolbar {
+  position: sticky; top: 0; z-index: 10;
+  background: var(--bar-bg);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
   border-bottom: 1px solid var(--rule);
 }
-.header-iast {
-  font-family: 'Noto Serif', serif;
-  font-style: italic;
-  font-size: 1.45rem;
-  color: var(--ink);
-  margin-bottom: 0.3rem;
+.toolbar-inner {
+  max-width: 1120px; margin: 0 auto;
+  padding: 0.5rem 1.25rem;
+  display: flex; align-items: center; gap: 0.6rem 1rem; flex-wrap: wrap;
 }
-.header h1 {
-  font-family: 'Shippori Mincho', serif;
-  font-weight: 600;
-  font-size: 1.7rem;
-  letter-spacing: 0.08em;
-  color: var(--accent);
+.tb-title { font-weight: 600; color: var(--accent); text-decoration: none; letter-spacing: 0.08em; margin-right: auto; white-space: nowrap; }
+.tb-group { display: flex; align-items: center; gap: 0.35rem; }
+.tb-label { font-size: 0.75rem; color: var(--muted); }
+.seg { display: inline-flex; border: 1px solid var(--rule); border-radius: 999px; overflow: hidden; }
+.seg button, .chip {
+  font: inherit; font-size: 0.82rem; line-height: 1.4;
+  border: 0; background: var(--chip-bg); color: var(--ink-soft);
+  padding: 0.3rem 0.8rem; cursor: pointer;
 }
-.header-sub {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1rem;
-  font-style: italic;
-  color: var(--ink-soft);
-}
-.header-jp {
-  font-size: 0.88rem;
-  color: var(--ink-soft);
-  margin-top: 0.5rem;
-  line-height: 1.6;
+.seg button + button { border-left: 1px solid var(--rule); }
+.seg button[aria-pressed="true"], .chip[aria-pressed="true"] { background: var(--chip-on); color: var(--chip-on-ink); }
+.seg button .deva-sample { font-family: 'Noto Serif Devanagari', serif; }
+.chip { border: 1px solid var(--rule); border-radius: 999px; }
+.tb-select {
+  font: inherit; font-size: 0.82rem; color: var(--ink);
+  background: var(--chip-bg); border: 1px solid var(--rule); border-radius: 999px;
+  padding: 0.3rem 0.7rem; max-width: 12rem;
 }
 
-.toc, .front-sec {
-  margin-bottom: 2rem;
-  padding-bottom: 2rem;
-  border-bottom: 1px solid var(--rule-light);
-}
-.toc h2, .front-sec h2 {
-  font-size: 1rem;
-  font-weight: 600;
-  color: var(--accent);
-  letter-spacing: 0.12em;
-  margin-bottom: 0.9rem;
-}
-.front-sec h3 {
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--ink);
-  margin: 1.2rem 0 0.4rem;
-}
-.front-sec p, .front-sec li {
-  font-size: 0.95rem;
-  color: var(--ink);
-  line-height: 1.95;
-}
+/* ---------- ページ本体 ---------- */
+.page { max-width: 1120px; margin: 0 auto; padding: 2.5rem 1.25rem 5rem; }
+
+.header { text-align: center; padding: 1.5rem 0 2.5rem; border-bottom: 1px solid var(--rule); margin-bottom: 2rem; }
+.header-iast { font-family: 'Noto Serif', serif; font-style: italic; font-size: 1.4rem; color: var(--ink-soft); }
+.header-iast .t-deva { font-size: 1.6rem; }
+.header h1 { font-weight: 600; font-size: 2rem; letter-spacing: 0.12em; color: var(--accent); margin: 0.2rem 0; }
+.header-sub { font-family: 'Noto Serif', serif; font-style: italic; color: var(--muted); font-size: 0.95rem; }
+.header-jp { font-size: 0.9rem; color: var(--ink-soft); margin-top: 0.6rem; line-height: 1.7; }
+
+.toc, .front-sec { margin-bottom: 2rem; padding-bottom: 2rem; border-bottom: 1px solid var(--rule-light); }
+.toc h2, .front-sec h2 { font-size: 1.05rem; font-weight: 600; color: var(--accent); letter-spacing: 0.12em; margin-bottom: 0.9rem; }
+.front-sec h3 { font-size: 0.97rem; font-weight: 600; margin: 1.3rem 0 0.4rem; }
+.front-sec p, .front-sec li { font-size: 0.95rem; line-height: 1.95; }
 .front-sec p + p { margin-top: 0.6rem; }
 .front-sec ul { padding-left: 1.3rem; }
-.biblio-entry { font-family: "Noto Serif", serif; font-size: 0.92rem; padding-left: 1rem; border-left: 2px solid var(--rule); margin-bottom: 0.6rem; }
 .front-sec li + li { margin-top: 0.3rem; }
-.toc-list { list-style: none; }
-.toc-list a {
-  color: var(--accent);
-  text-decoration: none;
-  font-size: 0.95rem;
-  display: flex;
-  align-items: baseline;
-  gap: 0.7rem;
-  padding: 0.4rem 0;
-  border-bottom: 1px solid var(--rule-light);
-}
-.toc-list a:hover { color: var(--accent-soft); }
-.toc-num {
-  font-family: 'Cormorant Garamond', serif;
-  color: var(--verse-num);
-  min-width: 1.2rem;
-}
-.toc-skt { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.9rem; }
-.pending { color: var(--verse-num); font-size: 0.88rem; padding: 0.4rem 0; }
+.biblio-entry { font-family: 'Noto Serif', serif; font-size: 0.92rem; padding-left: 1rem; border-left: 2px solid var(--rule); margin-bottom: 0.6rem; }
+.toc-list { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr)); gap: 0 1.5rem; }
+.toc-list a { display: flex; align-items: baseline; gap: 0.6rem; padding: 0.45rem 0; border-bottom: 1px solid var(--rule-light); text-decoration: none; color: var(--ink); font-size: 0.95rem; }
+.toc-list a:hover { color: var(--accent); }
+.toc-num { color: var(--muted); min-width: 1rem; font-family: 'Noto Serif', serif; }
+.toc-skt { margin-left: auto; color: var(--muted); font-size: 0.82rem; font-family: 'Noto Serif', serif; font-style: italic; }
 
 .synopsis-entry { margin-bottom: 1rem; }
-.synopsis-head { font-weight: 600; color: var(--accent); font-size: 0.95rem; }
-
-table.cast {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  margin-top: 0.4rem;
-}
-table.cast th, table.cast td {
-  text-align: left;
-  vertical-align: top;
-  padding: 0.45rem 0.6rem 0.45rem 0;
-  border-bottom: 1px solid var(--rule-light);
-  line-height: 1.7;
-}
-table.cast th {
-  font-weight: 600;
-  color: var(--ink-soft);
-  font-size: 0.8rem;
-  letter-spacing: 0.08em;
-}
+.synopsis-head { font-weight: 600; color: var(--accent); font-size: 0.97rem; }
+table.cast { width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-top: 0.4rem; }
+table.cast th, table.cast td { text-align: left; vertical-align: top; padding: 0.45rem 0.6rem 0.45rem 0; border-bottom: 1px solid var(--rule-light); line-height: 1.7; }
+table.cast th { font-weight: 600; color: var(--ink-soft); font-size: 0.8rem; letter-spacing: 0.08em; }
 table.cast td.iast { font-family: 'Noto Serif', serif; font-style: italic; white-space: nowrap; }
 table.cast td.name { white-space: nowrap; font-weight: 600; }
-.lang-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  padding: 0 0.35rem;
-  border: 1px solid var(--rule);
-  border-radius: 3px;
-  color: var(--ink-soft);
-  margin-left: 0.3rem;
-  font-weight: 400;
-}
+.lang-tag { display: inline-block; font-size: 0.72rem; padding: 0 0.35rem; border: 1px solid var(--rule); border-radius: 3px; color: var(--ink-soft); margin-left: 0.3rem; font-weight: 400; }
 
 /* ---------- 幕 ---------- */
-.act-header {
-  text-align: center;
-  padding: 3rem 0 1.5rem;
-  border-bottom: 1px solid var(--rule);
-  margin-bottom: 0.5rem;
-}
-.act-header h2 {
-  font-family: 'Noto Serif', serif;
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1.3rem;
-  color: var(--accent);
-}
-.act-jp { font-size: 1.1rem; font-weight: 600; }
-.scene-head {
-  text-align: center;
-  margin: 2rem 0 0.8rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-}
+.act { margin-top: 3rem; }
+.act-header { text-align: center; padding: 2.2rem 0 1.4rem; border-top: 3px double var(--rule); border-bottom: 1px solid var(--rule); margin-bottom: 0.8rem; }
+.act-no { font-size: 0.85rem; color: var(--muted); letter-spacing: 0.3em; }
+.act-header h2 { font-family: 'Noto Serif', serif; font-style: italic; font-weight: 400; font-size: 1.35rem; color: var(--accent); }
+.act-header h2 .t-deva { font-size: 1.5rem; }
+.act-jp { font-size: 1.25rem; font-weight: 600; letter-spacing: 0.06em; }
+.scene-head { text-align: center; margin: 2.2rem 0 0.8rem; display: flex; flex-direction: column; gap: 0.1rem; }
 .scene-skt { font-family: 'Noto Serif', serif; font-style: italic; color: var(--accent); }
-.scene-jp { font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.15em; }
+.scene-jp { font-size: 0.95rem; font-weight: 600; color: var(--ink-soft); letter-spacing: 0.2em; }
 
-.row {
-  padding: 0.9rem 0;
-  border-bottom: 1px solid var(--rule-light);
-}
+/* 対訳の行 */
+.row { padding: 0.85rem 0; border-top: 1px solid var(--rule-light); }
+.row.cont { border-top: 0; padding-top: 0.2rem; }
+.cols { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 0 2rem; }
+.col-l { font-family: 'Noto Serif', serif; font-size: 1rem; line-height: 1.85; overflow-wrap: anywhere; }
+.col-l .t-deva { font-size: 1.12rem; line-height: 2; }
+.col-r { font-size: 1rem; line-height: 1.95; border-left: 1px solid var(--rule-light); padding-left: 2rem; margin-left: -1rem; }
+
+/* 話者 */
+.speaker { display: flex; align-items: baseline; gap: 0.5rem; margin-bottom: 0.3rem; }
+.sp-jp { font-size: 0.82rem; font-weight: 600; color: var(--chip-on-ink); background: var(--accent); border-radius: 999px; padding: 0.05rem 0.7rem; letter-spacing: 0.04em; }
+.sp-skt { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.82rem; color: var(--muted); }
+
+/* プラークリットとチャーヤー */
+.prakrit { color: var(--prakrit); }
+.chaya { font-size: 0.86rem; color: var(--ink-soft); margin-top: 0.45rem; padding-top: 0.35rem; border-top: 1px dotted var(--rule); line-height: 1.75; }
+.col-l .chaya .t-deva { font-size: 0.95rem; }
+.lang-label { display: inline-block; font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.72rem; letter-spacing: 0.08em; color: var(--muted); margin-right: 0.5rem; }
+.verse-chaya .lang-label { display: block; margin-bottom: 0.1rem; }
+
+/* ト書き */
+.sd-in { font-style: italic; color: var(--ink-soft); }
+.col-r .sd-in { font-style: normal; color: var(--muted); }
+html[data-script="deva"] .col-l .sd-in, html[data-script="deva"] .row.sd .col-l { font-style: normal; color: var(--muted); }
+.row.sd .col-l, .row.sd .col-r { color: var(--ink-soft); font-size: 0.92rem; }
+.row.sd .col-l { font-style: italic; }
+.row.endline { text-align: center; border-top: 0; padding-top: 2.2rem; }
+.row.endline .col-l, .row.endline .col-r { color: var(--accent); border-left: 0; }
+
+/* 詩節 */
 .row.verse {
   background: var(--verse-bg);
-  padding: 1.1rem 1rem;
-  margin: 0.4rem -1rem;
-  border-bottom: none;
-  border-radius: 4px;
+  border: 0; border-left: 3px solid var(--accent-soft);
+  border-radius: 6px;
+  padding: 1rem 1.2rem 1.1rem;
+  margin: 0.7rem 0;
 }
-.speaker {
-  display: flex;
-  gap: 0.6rem;
-  align-items: baseline;
-  margin-bottom: 0.25rem;
-}
-.sp-skt {
-  font-family: 'Noto Serif', serif;
-  font-style: italic;
-  font-size: 0.85rem;
-  color: var(--accent);
-}
-.sp-jp { font-size: 0.8rem; font-weight: 600; color: var(--accent); }
-.verse-number {
-  font-size: 0.75rem;
-  color: var(--verse-num);
-  margin-bottom: 0.4rem;
-  letter-spacing: 0.08em;
-}
-.meter {
-  font-family: 'Noto Serif', serif;
-  font-style: italic;
-  margin-left: 0.8rem;
-  letter-spacing: 0;
-}
-.cols {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) 1px minmax(0, 1fr);
-  gap: 0 1.6rem;
-  align-items: start;
-}
-.divider { background: var(--rule); width: 1px; align-self: stretch; }
-.col-l {
-  font-family: 'Noto Serif', serif;
-  font-size: 1rem;
-  line-height: 1.85;
-  overflow-wrap: anywhere;
-}
-.col-r { font-size: 1rem; line-height: 1.95; }
-.col-l .prakrit, .verse-skt.prakrit { color: var(--prakrit); }
-.chaya, .verse-chaya {
-  font-size: 0.85rem;
-  color: var(--ink-soft);
-  margin-top: 0.35rem;
-  line-height: 1.7;
-}
-.lang-label {
-  display: inline-block;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 0.72rem;
-  letter-spacing: 0.12em;
-  color: var(--verse-num);
-  margin-right: 0.5rem;
-  font-style: italic;
-}
-.verse-chaya .lang-label { display: block; margin-bottom: 0.1rem; }
-.pada { display: block; }
+.row.verse .col-r { border-left-color: var(--rule); }
+.verse-meta { display: flex; align-items: baseline; gap: 0.7rem; margin-bottom: 0.45rem; }
+.verse-no { font-family: 'Noto Serif', serif; font-size: 0.8rem; font-weight: 600; color: var(--accent); border: 1px solid var(--accent-soft); border-radius: 4px; padding: 0 0.45rem; }
+.meter { font-family: 'Noto Serif', serif; font-style: italic; font-size: 0.8rem; color: var(--muted); }
+.meter-jp { font-style: normal; font-family: 'Shippori Mincho', serif; margin-left: 0.4rem; }
 .verse-skt { font-size: 1.05rem; line-height: 1.9; }
-.verse-skt .pada + .pada { margin-top: 0.15rem; }
+.verse-skt .t-deva { font-size: 1.15rem; line-height: 2.05; }
+.pada { display: block; }
+.verse-skt .pada:nth-child(even) { padding-left: 1.4em; }
 .verse-ja { font-size: 1.02rem; }
-.sd-in { font-style: italic; color: var(--ink-soft); }
-.col-r .sd-in { font-style: normal; }
-.row.sd .col-l, .row.sd .col-r { font-style: italic; color: var(--ink-soft); font-size: 0.92rem; }
-.row.sd .col-r { font-style: normal; }
-.row.endline { text-align: center; border-bottom: none; padding-top: 2rem; }
-.row.endline .col-l, .row.endline .col-r { color: var(--accent); }
 
-.commentary {
-  margin-top: 0.7rem;
-  padding: 0.55rem 1rem;
-  background: var(--note-bg);
-  border-left: 2px solid var(--accent);
-  font-size: 0.9rem;
-  line-height: 1.8;
-  color: var(--ink-soft);
-}
-.row.verse .commentary { background: var(--ground); }
+/* 注 */
+.commentary { margin-top: 0.7rem; padding: 0.55rem 1rem 0.6rem; background: var(--note-bg); border-radius: 4px; font-size: 0.88rem; line-height: 1.8; color: var(--ink-soft); }
+.row.verse .commentary { background: var(--paper); }
 .commentary p + p { margin-top: 0.3rem; }
-.commentary-title {
-  font-size: 0.72rem;
-  letter-spacing: 0.2em;
-  color: var(--accent);
-  font-weight: 600;
-}
+.commentary-title { display: inline-block; font-size: 0.72rem; font-weight: 600; letter-spacing: 0.2em; color: var(--accent); }
 
-.back-top {
-  display: block;
-  text-align: center;
-  padding: 1.5rem;
-  font-size: 0.8rem;
-  color: var(--verse-num);
-  text-decoration: none;
-}
+.back-top { display: block; text-align: center; padding: 1.5rem; font-size: 0.82rem; color: var(--muted); text-decoration: none; }
 .back-top:hover { color: var(--accent); }
-.colophon {
-  margin-top: 3rem;
-  padding-top: 2rem;
-  border-top: 1px solid var(--rule);
-  text-align: center;
-  font-size: 0.8rem;
-  color: var(--verse-num);
-  line-height: 1.8;
-}
+.colophon { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--rule); text-align: center; font-size: 0.82rem; color: var(--muted); line-height: 1.8; }
 
-@media (max-width: 680px) {
-  body { padding: 2rem 1rem 3rem; }
-  .header h1 { font-size: 1.4rem; }
-  .cols { grid-template-columns: minmax(0, 1fr); gap: 0.5rem 0; }
-  .divider { display: none; }
-  .col-r { border-top: 1px dashed var(--rule-light); padding-top: 0.4rem; }
-  .row.verse { margin: 0.4rem 0; padding: 0.9rem 0.7rem; }
+@media (max-width: 720px) {
+  .toolbar-inner { padding: 0.45rem 1rem; gap: 0.4rem 0.6rem; }
+  .tb-title { flex-basis: 100%; }
+  .tb-label { display: none; }
+  .page { padding: 1.5rem 1rem 3rem; }
+  .header h1 { font-size: 1.6rem; }
+  .cols { grid-template-columns: minmax(0, 1fr); gap: 0.45rem 0; }
+  .col-r { border-left: 0; padding-left: 0; margin-left: 0; border-top: 1px dashed var(--rule-light); padding-top: 0.45rem; }
+  .row.verse { padding: 0.85rem 0.8rem; }
+  .row.verse .col-r { border-top-color: var(--rule); }
   table.cast td.iast, table.cast td.name { white-space: normal; }
   table.cast { font-size: 0.85rem; }
 }
 @media print {
-  .back-top, .toc { display: none; }
-  .row { page-break-inside: avoid; }
+  .toolbar, .back-top { display: none; }
+  .row { break-inside: avoid; }
 }
 </style>
 </head>
 <body>
 <div id="top"></div>
 
+<div class="toolbar" role="toolbar" aria-label="表示の設定">
+  <div class="toolbar-inner">
+    <a class="tb-title" href="#top">シャクンタラー</a>
+    <div class="tb-group">
+      <span class="tb-label">原文</span>
+      <div class="seg" role="group" aria-label="原文の文字">
+        <button type="button" data-script-btn="iast">IAST</button>
+        <button type="button" data-script-btn="deva"><span class="deva-sample">देवनागरी</span></button>
+      </div>
+    </div>
+    <div class="tb-group">
+      <button type="button" class="chip" data-toggle="chaya">チャーヤー</button>
+      <button type="button" class="chip" data-toggle="notes">注</button>
+    </div>
+    <select class="tb-select" aria-label="幕へ移動" onchange="if(this.value){location.hash=this.value;this.selectedIndex=0;}">
+      <option value="">幕へ移動…</option>
+      <option value="about">この対訳について</option>
+      <option value="synopsis">あらすじ</option>
+      <option value="cast">登場人物</option>
+      {{ACTNAV}}
+    </select>
+  </div>
+</div>
+
+<div class="page">
 <div class="header">
-  <div class="header-iast">Abhijñānaśakuntalam</div>
+  <div class="header-iast"><span class="t-iast">Abhijñānaśakuntalam</span><span class="t-deva" lang="sa-Deva">अभिज्ञानशाकुन्तलम्</span></div>
   <h1>シャクンタラー</h1>
   <div class="header-sub">Kālidāsa · Sanskrit–Japanese</div>
   <div class="header-jp">カーリダーサ作『アビジュニャーナ・シャクンタラム（しるしによって思い出されたシャクンタラー）』<br>サンスクリット・日本語対訳（カシミール系伝本による）</div>
@@ -362,5 +302,37 @@ table.cast td.name { white-space: nowrap; font-weight: 600; }
   サンスクリット・プラークリット原文：カーリダーサ（パブリックドメイン）<br>
   日本語訳・チャーヤー・注・あらすじ：本対訳のための書き下ろし
 </div>
+</div>
+
+<script>
+(function () {
+  var d = document.documentElement;
+  function save(k, v) { try { localStorage.setItem(k, v); } catch (e) {} }
+  function sync() {
+    var s = d.getAttribute('data-script');
+    document.querySelectorAll('[data-script-btn]').forEach(function (b) {
+      b.setAttribute('aria-pressed', b.getAttribute('data-script-btn') === s ? 'true' : 'false');
+    });
+    document.querySelectorAll('[data-toggle]').forEach(function (b) {
+      var off = d.classList.contains('no-' + b.getAttribute('data-toggle'));
+      b.setAttribute('aria-pressed', off ? 'false' : 'true');
+    });
+  }
+  document.querySelectorAll('[data-script-btn]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var s = b.getAttribute('data-script-btn');
+      d.setAttribute('data-script', s); save('sak-script', s); sync();
+    });
+  });
+  document.querySelectorAll('[data-toggle]').forEach(function (b) {
+    b.addEventListener('click', function () {
+      var k = b.getAttribute('data-toggle');
+      var off = d.classList.toggle('no-' + k);
+      save('sak-' + k, off ? 'off' : 'on'); sync();
+    });
+  });
+  sync();
+})();
+</script>
 </body>
 </html>

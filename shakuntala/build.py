@@ -10,6 +10,8 @@ import html
 import os
 import re
 
+from translit import to_deva
+
 HERE = os.path.dirname(os.path.abspath(__file__))
 OUT = os.path.join(HERE, '..', 'shakuntala_bilingual.html')
 
@@ -139,24 +141,46 @@ def esc(s):
 
 
 def stage(s, ja=False):
-    """括弧内のト書きを斜体の span にする。"""
+    """括弧内のト書きを斜体の span にする（エスケープ済みの文字列を返す）。"""
     s = esc(s)
     if ja:
         return re.sub(r'（([^（）]*)）', r'<span class="sd-in">（\1）</span>', s)
     return re.sub(r'\(([^()]*)\)', r'<span class="sd-in">(\1)</span>', s)
 
 
-def lines(s, ja=False):
-    return ''.join(f'<span class="pada">{stage(p.strip(), ja)}</span>'
-                   for p in s.split(' / '))
+def dual(s, wrap=stage):
+    """IAST とデーヴァナーガリーの両方を出力し、表示はCSSで切り替える。"""
+    return (f'<span class="t-iast">{wrap(s)}</span>'
+            f'<span class="t-deva" lang="sa-Deva">{wrap(to_deva(s))}</span>')
+
+
+def verse_lines(s):
+    """詩節の各句を行に分ける。デーヴァナーガリーでは半詩節末に । 、詩節末に ॥ をつける。"""
+    padas = [p.strip() for p in s.split(' / ')]
+    n = len(padas)
+    iast = ''.join(f'<span class="pada">{stage(p)}</span>' for p in padas)
+    deva = []
+    for i, p in enumerate(padas):
+        d = stage(to_deva(p)).rstrip('।॥ ')
+        if i == n - 1:
+            d += ' ॥'
+        elif (n == 4 and i == 1) or (n == 2 and i == 0) or (n not in (2, 4)):
+            d += ' ।'
+        deva.append(f'<span class="pada">{d}</span>')
+    return (f'<span class="t-iast">{iast}</span>'
+            f'<span class="t-deva" lang="sa-Deva">{"".join(deva)}</span>')
+
+
+def ja_text(s):
+    return stage(s, True)
 
 
 def speaker_html(who):
     if who in (None, '-'):
         return ''
     jp = SPEAKERS.get(who, who)
-    return (f'<div class="speaker"><span class="sp-skt">{esc(who)}</span>'
-            f'<span class="sp-jp">{jp}</span></div>')
+    return (f'<div class="speaker"><span class="sp-jp">{jp}</span>'
+            f'<span class="sp-skt">{dual(who, esc)}</span></div>')
 
 
 def notes_html(notes):
@@ -166,46 +190,49 @@ def notes_html(notes):
     return f'<div class="commentary"><div class="commentary-title">注</div>{body}</div>'
 
 
+def two_cols(left, right, cls=''):
+    return (f'<div class="cols {cls}"><div class="col-l">{left}</div>'
+            f'<div class="col-r">{right}</div></div>')
+
+
 def render_block(b, act_no):
     k, a = b['kind'], b['args']
     if k == 'act':
         return ''  # 幕見出しは render_act で出す
     if k == 'head':
-        return (f'<div class="scene-head"><span class="scene-skt">{esc(b["skt"])}</span>'
+        return (f'<div class="scene-head"><span class="scene-skt">{dual(b["skt"], esc)}</span>'
                 f'<span class="scene-jp">{esc(b["ja"])}</span></div>')
     if k in ('sd', 'end'):
         cls = 'row sd' if k == 'sd' else 'row endline'
-        return (f'<div class="{cls}"><div class="cols">'
-                f'<div class="col-l"><p>{stage(b["skt"])}</p></div><div class="divider"></div>'
-                f'<div class="col-r"><p>{stage(b["ja"], True)}</p></div></div>'
-                f'{notes_html(b["note"])}</div>')
+        return (f'<div class="{cls}">'
+                + two_cols(f'<p>{dual(b["skt"])}</p>', f'<p>{ja_text(b["ja"])}</p>')
+                + f'{notes_html(b["note"])}</div>')
     if k in ('sp', 'pk'):
         who = a[1] if len(a) > 1 else None
         if k == 'sp':
-            left = f'<p class="skt">{stage(b["skt"])}</p>'
+            left = f'<p class="skt">{dual(b["skt"])}</p>'
         else:
-            left = (f'<p class="prakrit">{stage(b["pk"])}</p>'
-                    f'<p class="chaya"><span class="lang-label">chāyā</span>{esc(b["ch"])}</p>')
-        return (f'<div class="row">{speaker_html(who)}<div class="cols">'
-                f'<div class="col-l">{left}</div><div class="divider"></div>'
-                f'<div class="col-r"><p>{stage(b["ja"], True)}</p></div></div>'
-                f'{notes_html(b["note"])}</div>')
+            left = (f'<p class="prakrit">{dual(b["pk"])}</p>'
+                    f'<p class="chaya"><span class="lang-label">chāyā</span>{dual(b["ch"], esc)}</p>')
+        cont = ' cont' if who == '-' else ''
+        return (f'<div class="row speech{cont}">{speaker_html(who)}'
+                + two_cols(left, f'<p>{ja_text(b["ja"])}</p>')
+                + f'{notes_html(b["note"])}</div>')
     if k in ('v', 'pv'):
         num, who = a[0], a[1]
         meter = a[2] if len(a) > 2 else ''
         mj = METERS.get(meter, '')
-        meta = (f'<div class="verse-number">詩節 {num}'
-                + (f'<span class="meter">{esc(meter)}（{mj}）</span>' if meter else '')
+        meta = (f'<div class="verse-meta"><span class="verse-no">{num}</span>'
+                + (f'<span class="meter">{dual(meter, esc)}<span class="meter-jp">{mj}</span></span>' if meter else '')
                 + '</div>')
         if k == 'v':
-            left = f'<div class="verse-skt">{lines(b["skt"])}</div>'
+            left = f'<div class="verse-skt">{verse_lines(b["skt"])}</div>'
         else:
-            left = (f'<div class="verse-skt prakrit">{lines(b["pk"])}</div>'
-                    f'<div class="verse-chaya"><span class="lang-label">chāyā</span>{lines(b["ch"])}</div>')
-        return (f'<div class="row verse" id="v{num}">{speaker_html(who)}{meta}<div class="cols">'
-                f'<div class="col-l">{left}</div><div class="divider"></div>'
-                f'<div class="col-r"><p class="verse-ja">{stage(b["ja"], True)}</p></div></div>'
-                f'{notes_html(b["note"])}</div>')
+            left = (f'<div class="verse-skt prakrit">{verse_lines(b["pk"])}</div>'
+                    f'<div class="verse-chaya chaya"><span class="lang-label">chāyā</span>{verse_lines(b["ch"])}</div>')
+        return (f'<div class="row verse" id="v{num}">{speaker_html(who)}{meta}'
+                + two_cols(left, f'<p class="verse-ja">{ja_text(b["ja"])}</p>')
+                + f'{notes_html(b["note"])}</div>')
     raise ValueError(f'unknown block kind: {k}')
 
 
@@ -213,8 +240,9 @@ def render_act(blocks):
     head = blocks[0]
     act_no = head['args'][0]
     out = [f'<section class="act" id="act{act_no}">',
-           f'<div class="act-header"><h2>{esc(head["skt"])}</h2>'
-           f'<div class="act-jp">{esc(head["ja"])}</div></div>']
+           f'<div class="act-header"><div class="act-no">第{"一二三四五六七"[int(act_no)-1]}幕</div>'
+           f'<h2>{dual(head["skt"], esc)}</h2>'
+           f'<div class="act-jp">{esc(head["ja"].split("　", 1)[-1])}</div></div>']
     out += [render_block(b, act_no) for b in blocks[1:]]
     out.append('<a class="back-top" href="#top">↑ 目次へ</a></section>')
     return act_no, head, '\n'.join(out)
@@ -230,9 +258,10 @@ def main():
         acts.append(render_act(parse(path)))
     toc = ''.join(
         f'<li><a href="#act{n}"><span class="toc-num">{n}</span>'
-        f'<span class="toc-skt">{esc(h["skt"])}</span><span>{esc(h["ja"])}</span></a></li>'
+        f'<span class="toc-jp">{esc(h["ja"])}</span><span class="toc-skt">{dual(h["skt"], esc)}</span></a></li>'
         for n, h, _ in acts)
-    page = (TEMPLATE.replace('{{TOC}}', toc)
+    actnav = ''.join(f'<option value="act{n}">{esc(h["ja"])}</option>' for n, h, _ in acts)
+    page = (TEMPLATE.replace('{{TOC}}', toc).replace('{{ACTNAV}}', actnav)
             .replace('{{FRONT}}', FRONT)
             .replace('{{BODY}}', '\n'.join(body for _, _, body in acts)))
     with open(OUT, 'w', encoding='utf-8') as f:
