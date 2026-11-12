@@ -35,6 +35,11 @@ def _tokens(word):
     while i < len(word):
         for u in _UNITS:
             if word.startswith(u, i):
+                # 母音の前の ḷ は子音（ळ。プラークリットの kīḷā、luḷita など）
+                if u == 'ḷ' and any(word.startswith(v, i + 1) for v in VOWELS):
+                    yield 'C', 'ḻ'
+                    i += 1
+                    break
                 yield ('V' if u in VOWELS else 'C'), u
                 i += len(u)
                 break
