@@ -419,11 +419,37 @@ body {
   font-size: 0.85rem; color: var(--ink-soft); background: var(--note-bg);
   padding: 0.8rem 1rem; border-left: 2px solid var(--accent-soft); margin-bottom: 2rem; line-height: 1.8;
 }
+
+/* Sanskrit script switch (IAST / Devanagari) */
+.script-toggle {
+  position: fixed; top: 0.75rem; right: 0.75rem; z-index: 50;
+  display: flex; border: 1px solid var(--rule); border-radius: 999px;
+  background: var(--ground); overflow: hidden; box-shadow: 0 1px 4px rgba(0,0,0,0.12);
+}
+.script-toggle button {
+  font: inherit; font-size: 0.85rem; line-height: 1.4; padding: 0.35rem 0.8rem;
+  border: 0; background: transparent; color: var(--ink-soft); cursor: pointer;
+}
+.script-toggle button + button { border-left: 1px solid var(--rule); }
+.script-toggle button[aria-pressed="true"] { background: var(--accent); color: var(--ground); }
+.script-toggle .deva-label { font-family: 'Noto Serif Devanagari', serif; }
+html[data-script="deva"] .verse-sanskrit .pada {
+  font-family: 'Noto Serif Devanagari', serif;
+  font-size: 1.4rem;
+  line-height: 2;
+}
+@media (max-width: 640px) {
+  html[data-script="deva"] .verse-sanskrit .pada { font-size: 1.3rem; }
+}
 </style>
 
 </head>
 <body>
 <div id="top"></div>
+<div class="script-toggle" role="group" aria-label="サンスクリット本文の文字">
+  <button type="button" data-mode="iast" aria-pressed="true">IAST</button>
+  <button type="button" data-mode="deva" aria-pressed="false" class="deva-label">देवनागरी</button>
+</div>
 
 <div class="header">
   <div class="header-devanagari">कलिविडम्बनम्</div>
@@ -434,6 +460,7 @@ body {
 
 <div class="notice">
   <p><strong>凡例</strong></p>
+  <p>・右上のボタンで、サンスクリット本文の文字を IAST（ローマ字転写）とデーヴァナーガリー（देवनागरी）に切り替えられます。デーヴァナーガリーは IAST から自動変換したもので、複合語のハイフンは取り除き、半偈の終わりに「।」、偈の終わりに「॥番号॥」を付けています。</p>
   <p>・左欄はサンスクリット原文（IAST）、右欄は和訳です。<strong>底本は Vasudeva 2005（Clay Sanskrit Library）の校訂本文</strong>です。GRETIL 版は参考として照合し、異なる箇所は解説の【本文】に記しました。和訳はサンスクリット原文から直接訳し、Vasudeva の英訳は解釈の確認に使いました。</p>
   <p>・各偈の下の解説では、Vasudeva の英訳・注を<strong>短い語句の引用と要約</strong>で紹介し、頁数を示しています。英訳の全文や長い段落は転載していません（著作権への配慮）。</p>
   <p>・表記：CSL 版独自の表記（複合語の区切り「|」、連声を示す â・ê など）は通常の IAST に直しました。初心者向けに、複合語の切れ目はハイフン（例 <span class="iast">jaya-hetavaḥ</span>）で示しています。句読点（！？“ ”）は、Vasudeva の解釈を反映したものなので底本に従いました。</p>
@@ -2783,5 +2810,82 @@ body {
   Nīlakaṇṭha Dīkṣita, Kaliviḍambana 1–102 · Sanskrit text: ed. S. Vasudeva, <i>Three Satires</i> (CSL 2005); collated with GRETIL
   <div class="colophon-jp">和訳・解説：初版。Vasudeva 2005 からの引用は短い語句と注の要約にとどめています。</div>
 </div>
+<script>
+(function () {
+  var V = {a:'अ',ā:'आ',i:'इ',ī:'ई',u:'उ',ū:'ऊ',ṛ:'ऋ',ṝ:'ॠ',ḷ:'ऌ',e:'ए',ai:'ऐ',o:'ओ',au:'औ'};
+  var M = {a:'',ā:'ा',i:'ि',ī:'ी',u:'ु',ū:'ू',ṛ:'ृ',ṝ:'ॄ',ḷ:'ॢ',e:'े',ai:'ै',o:'ो',au:'ौ'};
+  var C = {k:'क',kh:'ख',g:'ग',gh:'घ',ṅ:'ङ',c:'च',ch:'छ',j:'ज',jh:'झ',ñ:'ञ',
+    ṭ:'ट',ṭh:'ठ',ḍ:'ड',ḍh:'ढ',ṇ:'ण',t:'त',th:'थ',d:'द',dh:'ध',n:'न',
+    p:'प',ph:'फ',b:'ब',bh:'भ',m:'म',y:'य',r:'र',l:'ल',v:'व',ś:'श',ṣ:'ष',s:'स',h:'ह'};
+  var VIRAMA = '्';
+  function toDeva(s) {
+    s = s.normalize('NFC');
+    var out = '', i = 0, cons = false;
+    while (i < s.length) {
+      var ch = s[i];
+      if (ch === '-') { i++; continue; } // compound boundary: join the members
+      var two = s.substr(i, 2);
+      if (two.length === 2 && (V[two] || C[two])) ch = two;
+      if (C[ch]) {
+        if (cons) out += VIRAMA;
+        out += C[ch]; cons = true;
+      } else if (V[ch]) {
+        out += cons ? M[ch] : V[ch]; cons = false;
+      } else {
+        if (cons) out += VIRAMA;
+        cons = false;
+        if (ch === 'ṃ') out += 'ं';
+        else if (ch === 'ḥ') out += 'ः';
+        else if (ch === "'" || ch === '’') out += 'ऽ';
+        else out += ch;
+      }
+      i += ch.length;
+    }
+    if (cons) out += VIRAMA;
+    return out.replace(/ ऽ/g, 'ऽ').replace(/\./g, '।');
+  }
+  var DIG = '०१२३४५६७८९';
+  function devaNum(n) { return String(n).replace(/[0-9]/g, function (d) { return DIG[d]; }); }
+  function stripEnd(t) { return t.replace(/[\s,।;:!?—]+$/, ''); }
+  if (typeof window === 'undefined') { globalThis.iastToDeva = toDeva; return; }
+  if (typeof document === 'undefined') return;
+
+  var blocks = document.querySelectorAll('.verse-sanskrit');
+  blocks.forEach(function (b) {
+    var padas = b.querySelectorAll('.pada');
+    var block = b.closest('.verse-block');
+    var m = block && block.id ? block.id.match(/(\d+)$/) : null;
+    var num = m ? m[1] : '';
+    padas.forEach(function (p, k) {
+      var iast = p.textContent;
+      var deva = toDeva(iast);
+      if (padas.length >= 4 && k === 1) deva = stripEnd(deva) + ' ।';
+      if (k === padas.length - 1) deva = stripEnd(deva) + ' ॥' + (num ? devaNum(num) + '॥' : '');
+      p.setAttribute('data-iast', iast);
+      p.setAttribute('data-deva', deva);
+    });
+  });
+
+  function apply(mode) {
+    document.documentElement.setAttribute('data-script', mode);
+    document.querySelectorAll('.verse-sanskrit .pada').forEach(function (p) {
+      p.textContent = p.getAttribute(mode === 'deva' ? 'data-deva' : 'data-iast');
+    });
+    document.querySelectorAll('.verse-sanskrit').forEach(function (b) {
+      b.setAttribute('lang', mode === 'deva' ? 'sa-Deva' : 'sa-Latn');
+    });
+    document.querySelectorAll('.script-toggle button').forEach(function (btn) {
+      btn.setAttribute('aria-pressed', btn.getAttribute('data-mode') === mode ? 'true' : 'false');
+    });
+    try { localStorage.setItem('skt-script', mode); } catch (e) {}
+  }
+  document.querySelectorAll('.script-toggle button').forEach(function (btn) {
+    btn.addEventListener('click', function () { apply(btn.getAttribute('data-mode')); });
+  });
+  var saved = 'iast';
+  try { saved = localStorage.getItem('skt-script') || 'iast'; } catch (e) {}
+  apply(saved === 'deva' ? 'deva' : 'iast');
+})();
+</script>
 </body>
 </html>
