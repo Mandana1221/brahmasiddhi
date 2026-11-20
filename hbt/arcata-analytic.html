@@ -1,0 +1,502 @@
+<title>アルチャタ対分析哲学</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Shippori+Mincho+B1:wght@600;800&display=swap">
+<style>
+/* Layout: one reading column; each debate = issue box → dialogue → sorting table → verdict. Arcaṭa speaks in gold, modern philosophers in violet, Indian opponents in slate. */
+:root{
+  --bg:#f5f3ee;--card:#ffffff;--ink:#23262c;--muted:#5c636e;--line:#d8d2c4;
+  --gold:#9a6310;--gold-soft:#faf0dc;--west:#5d4596;--west-soft:#eee8f8;
+  --slate:#3f6474;--slate-soft:#e4eef2;--good:#2f7a4a;--good-soft:#e3f2e8;--bad:#a8413d;--bad-soft:#f8e5e4;
+  --f-body:"Zen Kaku Gothic New",system-ui,"Hiragino Sans","Yu Gothic",sans-serif;
+  --f-head:"Shippori Mincho B1","Hiragino Mincho ProN","Yu Mincho",serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#16181c;--card:#1f2329;--ink:#e8e5de;--muted:#a3a9b3;--line:#3a3f47;
+  --gold:#e2b35e;--gold-soft:#3a2f1c;--west:#b7a2ea;--west-soft:#2b2540;
+  --slate:#8fc0d2;--slate-soft:#1d2e35;--good:#7fd19c;--good-soft:#1c3324;--bad:#ee8f8a;--bad-soft:#3d2221;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#16181c;--card:#1f2329;--ink:#e8e5de;--muted:#a3a9b3;--line:#3a3f47;
+  --gold:#e2b35e;--gold-soft:#3a2f1c;--west:#b7a2ea;--west-soft:#2b2540;
+  --slate:#8fc0d2;--slate-soft:#1d2e35;--good:#7fd19c;--good-soft:#1c3324;--bad:#ee8f8a;--bad-soft:#3d2221;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.85;margin:0}
+.wrap{max-width:52rem;margin:0 auto;padding-block:2.5rem 4rem;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+h1,h2,h3{font-family:var(--f-head);text-wrap:balance;line-height:1.4}
+h1{font-size:2rem;margin:.2rem 0 .6rem}
+h2{font-size:1.45rem;margin:3.2rem 0 1rem;padding-bottom:.4rem;border-bottom:2px solid var(--line);display:flex;gap:.6rem;align-items:baseline}
+h2 .no{font-family:var(--f-body);font-size:.8rem;font-weight:700;color:var(--gold);letter-spacing:.08em}
+h3{font-size:1.1rem;margin:2rem 0 .6rem}
+p{margin:.7rem 0}
+.lead{color:var(--muted);font-size:.95rem}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;color:var(--gold);font-weight:700}
+a{color:var(--slate)}
+i{font-style:italic}
+.issue{background:var(--gold-soft);border:1px solid var(--line);border-radius:6px;padding:1rem 1.2rem;margin:1rem 0}
+.issue .lbl{font-size:.75rem;letter-spacing:.1em;font-weight:700;color:var(--gold)}
+.issue p{margin:.4rem 0}
+.refs{font-size:.82rem;color:var(--muted)}
+.dlg{display:flex;flex-direction:column;gap:.8rem;margin:1.2rem 0}
+.say{display:grid;grid-template-columns:6.2rem 1fr;gap:.8rem;align-items:start}
+.who{font-size:.8rem;font-weight:700;padding:.25rem .5rem;border-radius:4px;text-align:center;line-height:1.4}
+.who small{display:block;font-weight:400;font-size:.68rem;opacity:.85}
+.a .who{background:var(--gold-soft);color:var(--gold);border:1px solid var(--gold)}
+.w .who{background:var(--west-soft);color:var(--west);border:1px solid var(--west)}
+.n .who{background:var(--slate-soft);color:var(--slate);border:1px solid var(--slate)}
+.line{min-width:0}
+.line p{margin:0 0 .4rem}
+.note{font-size:.82rem;color:var(--muted)}
+.tbl{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;font-size:.88rem;line-height:1.6;min-width:34rem}
+th,td{border:1px solid var(--line);padding:.5rem .6rem;vertical-align:top;text-align:left}
+th{background:var(--slate-soft);font-weight:700}
+td.k{font-weight:700;white-space:nowrap}
+.pill{display:inline-block;font-size:.72rem;font-weight:700;padding:.05rem .45rem;border-radius:999px;margin-right:.25rem}
+.pill.s{background:var(--good-soft);color:var(--good)}
+.pill.l{background:var(--bad-soft);color:var(--bad)}
+.pill.m{background:var(--west-soft);color:var(--west)}
+.verdict{display:grid;grid-template-columns:repeat(auto-fit,minmax(15rem,1fr));gap:.8rem;margin:1rem 0}
+.verdict div{border:1px solid var(--line);border-radius:6px;padding:.8rem 1rem;background:var(--card);min-width:0}
+.verdict h4{margin:0 0 .3rem;font-size:.9rem}
+.verdict .s h4{color:var(--good)}
+.verdict .l h4{color:var(--bad)}
+.verdict ul{margin:.2rem 0;padding-left:1.1rem;font-size:.9rem}
+figure{margin:1.4rem 0;background:var(--card);border:1px solid var(--line);border-radius:6px;padding:1rem}
+figure .svgbox{overflow-x:auto}
+figcaption{font-size:.82rem;color:var(--muted);margin-top:.5rem}
+svg{display:block;margin:0 auto;max-width:100%;height:auto}
+svg text{font-family:var(--f-body);fill:var(--ink)}
+svg .t-muted{fill:var(--muted)}
+svg .b-gold{fill:var(--gold-soft);stroke:var(--gold);stroke-width:1.5}
+svg .b-west{fill:var(--west-soft);stroke:var(--west);stroke-width:1.5}
+svg .b-slate{fill:var(--slate-soft);stroke:var(--slate);stroke-width:1.5}
+svg .b-bad{fill:var(--bad-soft);stroke:var(--bad);stroke-width:1.5}
+svg .ln{stroke:var(--muted);stroke-width:1.5;fill:none}
+svg .ln-gold{stroke:var(--gold);stroke-width:2.2;fill:none}
+svg .ln-bad{stroke:var(--bad);stroke-width:1.8;fill:none;stroke-dasharray:5 4}
+svg .ah{fill:var(--muted)}
+svg .ah-gold{fill:var(--gold)}
+svg .ah-bad{fill:var(--bad)}
+.toc{display:grid;grid-template-columns:repeat(auto-fit,minmax(14rem,1fr));gap:.6rem;margin:1.2rem 0;padding:0;list-style:none}
+.toc li{border:1px solid var(--line);border-radius:6px;padding:.6rem .8rem;background:var(--card);font-size:.9rem}
+.toc a{text-decoration:none;color:var(--ink)}
+.toc b{color:var(--gold);font-size:.75rem;display:block;letter-spacing:.08em}
+.legend{display:flex;flex-wrap:wrap;gap:.6rem;font-size:.82rem;margin:.6rem 0}
+.legend span{display:inline-flex;align-items:center;gap:.3rem}
+.sw{width:.9rem;height:.9rem;border-radius:3px;display:inline-block}
+footer{margin-top:3rem;font-size:.82rem;color:var(--muted);border-top:1px solid var(--line);padding-top:1rem}
+@media (max-width:30rem){.say{grid-template-columns:1fr}.who{justify-self:start}}
+</style>
+
+<div class="wrap">
+<div class="eyebrow">HETUBINDUṬĪKĀ ・ 架空対論</div>
+<h1>アルチャタ対分析哲学</h1>
+<p class="lead">アルチャタ（Arcaṭa, 8世紀）は、ダルマキールティ『ヘートゥビンドゥ』に詳しい注（<i>Hetubinduṭīkā</i>, HBṬ）を書いた。その注で特に掘り下げられている四つの論点を取り上げ、それぞれに最もよく噛み合う現代の分析哲学者と架空の討論をさせる。目的は三つある。アルチャタの主張が現代のどの立場に当たるかを整理すること、現代から見た強さと弱さを示すこと、そしてその限界をはっきりさせることである。</p>
+<p class="note">討論は創作である。現代の論者の発言は、それぞれの公刊された立場を要約・脚色したもので、本人の言葉の引用ではない。アルチャタ側の発言は HBṬ の議論にもとづき、ブロック番号（u…）と GOS 版の頁を示す。訳語は本対訳に従う（pratibandha＝縛り付け、svabhāva＝自体）。</p>
+
+<div class="legend">
+<span><i class="sw" style="background:var(--gold)"></i>アルチャタ</span>
+<span><i class="sw" style="background:var(--west)"></i>現代の分析哲学者</span>
+<span><i class="sw" style="background:var(--slate)"></i>インドの論敵（ニヤーヤ学派・クマーリラ）</span>
+</div>
+
+<ul class="toc">
+<li><a href="#map"><b>序</b>アルチャタの骨組みと現代の地図</a></li>
+<li><a href="#r1"><b>第1対論</b>論証は覆されうるか ― ポロックと</a></li>
+<li><a href="#r2"><b>第2対論</b>疑いはいつ消えるか ― ドレツキ、プライアーと</a></li>
+<li><a href="#r3"><b>第3対論</b>能力は相棒を待つか ― マンフォード、アンジュムと</a></li>
+<li><a href="#r4"><b>第4対論</b>「ない」は見えるか ― ファレンニコワと</a></li>
+<li><a href="#sum"><b>総括</b>強み・弱み・限界</a></li>
+</ul>
+
+<!-- ============ MAP ============ -->
+<h2 id="map"><span class="no">序</span>アルチャタの骨組みと現代の地図</h2>
+<p>アルチャタの推理論は、一つの考えに集約される。<strong>論証因は、それ自体が所証に縛り付けられているときにだけ、所証を知らせる</strong>。この「縛り付け」（<i>pratibandha</i>、とくに <i>svasādhyapratibandha</i>「自分の所証への縛り付け」）は二種類しかない。同一性（<i>tādātmya</i>）と、因果性（<i>tadutpatti</i>、それから生じること）である。</p>
+
+<figure>
+<div class="svgbox">
+<svg viewBox="0 0 760 330" width="760" role="img" aria-label="アルチャタの推理の骨組み">
+<defs>
+<marker id="m1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker>
+<marker id="m2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah-gold"/></marker>
+</defs>
+<rect x="20" y="40" width="170" height="70" rx="6" class="b-gold"/>
+<text x="105" y="70" text-anchor="middle" font-size="15" font-weight="700">論証因（能証属性）</text>
+<text x="105" y="92" text-anchor="middle" font-size="12" class="t-muted">例：作られたもの／煙</text>
+<rect x="570" y="40" width="170" height="70" rx="6" class="b-gold"/>
+<text x="655" y="70" text-anchor="middle" font-size="15" font-weight="700">所証（所証属性）</text>
+<text x="655" y="92" text-anchor="middle" font-size="12" class="t-muted">例：無常／火</text>
+<path d="M190,75 L566,75" class="ln-gold" marker-end="url(#m2)"/>
+<text x="378" y="62" text-anchor="middle" font-size="14" font-weight="700">縛り付け（pratibandha）</text>
+<text x="378" y="98" text-anchor="middle" font-size="12" class="t-muted">論証因それ自体が所証に縛り付けられる</text>
+<rect x="150" y="150" width="200" height="62" rx="6" class="b-slate"/>
+<text x="250" y="176" text-anchor="middle" font-size="14" font-weight="700">同一性（tādātmya）</text>
+<text x="250" y="197" text-anchor="middle" font-size="12" class="t-muted">→ 自性因</text>
+<rect x="410" y="150" width="200" height="62" rx="6" class="b-slate"/>
+<text x="510" y="176" text-anchor="middle" font-size="14" font-weight="700">因果性（tadutpatti）</text>
+<text x="510" y="197" text-anchor="middle" font-size="12" class="t-muted">→ 結果因</text>
+<path d="M300,150 L340,110" class="ln" marker-end="url(#m1)"/>
+<path d="M460,150 L420,110" class="ln" marker-end="url(#m1)"/>
+<rect x="150" y="250" width="200" height="62" rx="6" class="b-west"/>
+<text x="250" y="274" text-anchor="middle" font-size="13" font-weight="700">逆の場合に否定する認識手段</text>
+<text x="250" y="295" text-anchor="middle" font-size="12" class="t-muted">bādhakapramāṇa（u95, u132）</text>
+<rect x="410" y="250" width="200" height="62" rx="6" class="b-west"/>
+<text x="510" y="274" text-anchor="middle" font-size="13" font-weight="700">知覚と非知覚</text>
+<text x="510" y="295" text-anchor="middle" font-size="12" class="t-muted">pratyakṣānupalambha（u96, u180）</text>
+<path d="M250,250 L250,214" class="ln" marker-end="url(#m1)"/>
+<path d="M510,250 L510,214" class="ln" marker-end="url(#m1)"/>
+<text x="40" y="285" font-size="12" class="t-muted">確かめ方</text>
+<text x="40" y="185" font-size="12" class="t-muted">中身</text>
+</svg>
+</div>
+<figcaption>図1　アルチャタの推理の骨組み。上段が「何が」論証を成り立たせるか、中段がその中身、下段がそれを「どう」確かめるか。ただ一緒に見られたこと（<i>darśana-mātra</i>）は、どこにも入らない。</figcaption>
+</figure>
+
+<p>この骨組みを現代の言葉に置き直すと、アルチャタの主張はおおよそ次の表のように整理できる。</p>
+
+<div class="tbl"><table>
+<thead><tr><th>アルチャタの主張</th><th>HBṬ の箇所</th><th>現代の分類</th><th>近い論者</th><th>一致の度合い</th></tr></thead>
+<tbody>
+<tr><td>論証は縛り付け（同一性・因果）があるときだけ成り立つ</td><td>u56, u101, u206</td><td>必然的結合の実在論、反ヒューム主義（法則の非規則説）</td><td>アームストロング、ドレツキ、トゥーリー</td><td><span class="pill s">高</span></td></tr>
+<tr><td>縛り付けは「論証因それ自体が所証に」縛り付けられる、向きのある関係</td><td>u56, u101, u123, u213</td><td>非対称的依存、基礎づけ（grounding）</td><td>ファイン、シャッファー</td><td><span class="pill m">中</span></td></tr>
+<tr><td>正しい論証因は「決定的理由」である（所証がなければ論証因もない）</td><td>u208, u217</td><td>知識の決定的理由説、感受性条件</td><td>ドレツキ（1971）、ノージック</td><td><span class="pill s">高</span></td></tr>
+<tr><td>六相説（否定されていないこと・唯一数・知られていること）は不要</td><td>u208–u216</td><td>覆しうる推論の拒否、推論的知識の不可謬主義</td><td>ポロックの反対側</td><td><span class="pill s">高</span></td></tr>
+<tr><td>「確定された」は論証因の特質ではなく、誤解を退けるための語</td><td>u216, u217</td><td>命題的正当化と信念的正当化の区別</td><td>ファース、ターリ</td><td><span class="pill m">中</span></td></tr>
+<tr><td>見る・見ないだけでは随伴は成り立たない（「その人の息子だから色黒」）</td><td>u101, u206, u217</td><td>枚挙的帰納の批判</td><td>ヒューム、グッドマン</td><td><span class="pill s">高</span></td></tr>
+<tr><td>常住のものは協働者を待って作ることができない。協働とは一つの結果を共に作ること</td><td>u136–u177</td><td>原因の十分条件集合説、能力論（傾向性主義）への批判</td><td>マッキー（INUS）の側、マンフォードとアンジュムの反対側</td><td><span class="pill m">中</span></td></tr>
+<tr><td>無は、それを欠いた場所の知覚で知られる。別の認識手段は要らない</td><td>u186–u205</td><td>不在の知覚、否定的事実の否認</td><td>ファレンニコワ、ソレンセン（アームストロングの総体性事実の反対側）</td><td><span class="pill m">中</span></td></tr>
+</tbody></table></div>
+
+<!-- ============ ROUND 1 ============ -->
+<h2 id="r1"><span class="no">第1対論</span>論証は覆されうるか ― ポロックと</h2>
+<div class="issue">
+<div class="lbl">論点</div>
+<p>ニヤーヤ学派などは、論証因に三相（主題所属性・肯定的随伴・否定的随伴）のほか、さらに三つの相を求めた。「対象が否定されていないこと」（<i>abādhitaviṣayatva</i>）、「意図された唯一数であること」（<i>vivakṣitaikasaṃkhyatva</i>、対抗する論証因がないこと）、「知られていること」（<i>jñātatva</i>）である。アルチャタは、三相が縛り付けにもとづいていれば、残りの三つは不要か不可能だと論じる。</p>
+<p class="refs">HBṬ u208–u216（GOS pp.205–222）</p>
+</div>
+<p>現代では、ジョン・ポロックが「覆しうる推論」（defeasible reasoning）の理論を作った。正しい理由（prima facie reason）も、後から出てくる「覆す根拠」（defeater）によって効力を失いうる、という考えである。覆す根拠には二種類ある。結論の否定を支える<strong>反駁型</strong>（rebutting）と、理由と結論のつながりを断つ<strong>切断型</strong>（undercutting）である。ニヤーヤ学派の「否定」（<i>bādhā</i>）は前者、「対抗論証因」（<i>pratihetu</i>）は前者の一種にほぼ当たる。</p>
+
+<div class="dlg">
+<div class="say w"><div class="who">ポロック<small>J. Pollock</small></div><div class="line"><p>日常の推論は、ほとんどが覆しうるものです。「鳥だから飛ぶ」は良い理由ですが、ペンギンだと分かれば撤回します。ですから、論証因の条件に「覆す根拠がないこと」を入れるニヤーヤ学派は、現実をよく見ていると思います。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>あなたの「鳥だから飛ぶ」は、そもそも論証因ではありません。鳥であることと飛ぶこととの間には、同一性も因果性もない。だから、たまたま一緒に見られていただけです。縛り付けのない理由は、覆す根拠が出る前から、もう所証を保証していないのです（u101, u217）。</p></div></div>
+<div class="say w"><div class="who">ポロック</div><div class="line"><p>保証していない、とまでは言えないでしょう。たいていの鳥は飛びます。統計的な理由は、確率的に結論を支えます。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>私が問題にしているのは、「この有法に所証がある」と確定することです。たいていは成り立つ、では確定になりません。そのうえで、ニヤーヤ学派の言う「否定」について言いましょう。不可離の関係（<i>avinābhāva</i>）とは、所証があるときにだけ論証因があることです。否定とは、所証がないことを認識手段が示すことです。この二つが同じ有法に同時にあれば、所証があり、かつない、という矛盾になります。つまり、本当の論証因には否定の余地がそもそもない（u208）。</p></div></div>
+<div class="say n"><div class="who">ニヤーヤ学派<small>（アルチャタが描く論敵）</small></div><div class="line"><p>不可離の関係は喩例（台所など）で確かめたもので、いま問題の有法についてのものではない。だから、ここでは否定がありうるのだ（u209）。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>それなら、気の毒な有法は、宦官と結婚して息子を求めているようなものです（u209）。この有法で所証を保証しない論証因を据えておいて、どうして所証があると言えましょう。論証因の不可離の関係は、主題も含めた「すべて」について成り立っていなければなりません。</p></div></div>
+<div class="say w"><div class="who">ポロック</div><div class="line"><p>なるほど。あなたの論証因は、私の言葉で言えば「決定的な理由」（conclusive reason）だけなのですね。そうした理由に覆す根拠がないのは当然です。でも、それでは推論の範囲がひどく狭くなりませんか。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>狭くなるのは承知の上です。さらに言えば、「否定がないこと」を特質として加えても、役に立ちません。否定がないことを、どうやって知るのか。否定する認識がまだ生じていないだけなら、人の能力が足りないだけかもしれない。否定がありうる立場でそれを論証因の特質にすれば、論証因を使える場面がなくなります（u210–u211）。</p></div></div>
+<div class="say w"><div class="who">ポロック</div><div class="line"><p>私の理論では、そこは割り切ります。覆す根拠が見つかっていない限り、暫定的に結論を受け入れてよい。正当化は時点ごとのもので、後で取り消してかまわないのです。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>その考えはまさに、私が「対抗論証因が示されていないもの」を論証因と認める第二の選択肢として退けたものです。もしそれで論証手段になるなら、論証手段であることは、人の機知（<i>puruṣapratibhā</i>）が作るものになってしまう（u215）。示されないうちは論証手段で、賢いヴァイシェーシカ学派の人が現れたら論証手段でなくなる。「聞かれるものであること」という論証因は、王位を失った王のように苦行林へ去っていくわけです。</p></div></div>
+</div>
+
+<figure>
+<div class="svgbox">
+<svg viewBox="0 0 760 300" width="760" role="img" aria-label="覆しうる推論とアルチャタの論証因">
+<defs>
+<marker id="m3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker>
+<marker id="m4" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah-bad"/></marker>
+<marker id="m5" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah-gold"/></marker>
+</defs>
+<text x="190" y="24" text-anchor="middle" font-size="14" font-weight="700">ポロック：覆しうる理由</text>
+<rect x="40" y="50" width="120" height="50" rx="6" class="b-west"/>
+<text x="100" y="80" text-anchor="middle" font-size="13">理由 R</text>
+<rect x="230" y="50" width="120" height="50" rx="6" class="b-west"/>
+<text x="290" y="80" text-anchor="middle" font-size="13">結論 P</text>
+<path d="M160,75 L226,75" class="ln" marker-end="url(#m3)"/>
+<rect x="40" y="170" width="140" height="50" rx="6" class="b-bad"/>
+<text x="110" y="193" text-anchor="middle" font-size="12">反駁型</text>
+<text x="110" y="210" text-anchor="middle" font-size="11" class="t-muted">¬P の理由（≒否定・対抗因）</text>
+<rect x="210" y="170" width="140" height="50" rx="6" class="b-bad"/>
+<text x="280" y="193" text-anchor="middle" font-size="12">切断型</text>
+<text x="280" y="210" text-anchor="middle" font-size="11" class="t-muted">R→P のつながりを断つ</text>
+<path d="M110,170 L270,104" class="ln-bad" marker-end="url(#m4)"/>
+<path d="M280,170 L195,80" class="ln-bad" marker-end="url(#m4)"/>
+<text x="190" y="260" text-anchor="middle" font-size="12" class="t-muted">後から覆されれば撤回する</text>
+<line x1="380" y1="30" x2="380" y2="280" class="ln"/>
+<text x="570" y="24" text-anchor="middle" font-size="14" font-weight="700">アルチャタ：縛り付けをもつ論証因</text>
+<rect x="420" y="50" width="120" height="50" rx="6" class="b-gold"/>
+<text x="480" y="80" text-anchor="middle" font-size="13">論証因</text>
+<rect x="610" y="50" width="120" height="50" rx="6" class="b-gold"/>
+<text x="670" y="80" text-anchor="middle" font-size="13">所証</text>
+<path d="M540,75 L606,75" class="ln-gold" marker-end="url(#m5)"/>
+<text x="573" y="66" text-anchor="middle" font-size="11">縛り付け</text>
+<rect x="470" y="170" width="200" height="50" rx="6" class="b-bad"/>
+<text x="570" y="193" text-anchor="middle" font-size="12">否定・対抗論証因</text>
+<text x="570" y="210" text-anchor="middle" font-size="11" class="t-muted">同じ有法に入る余地がない</text>
+<line x1="545" y1="140" x2="595" y2="160" stroke="var(--bad)" stroke-width="2.5"/>
+<line x1="595" y1="140" x2="545" y2="160" stroke="var(--bad)" stroke-width="2.5"/>
+<text x="570" y="260" text-anchor="middle" font-size="12" class="t-muted">縛り付けがなければ、最初から論証因ではない</text>
+</svg>
+</div>
+<figcaption>図2　覆しうる推論のモデル（左）と、アルチャタの論証因（右）。アルチャタは、正しい論証因と覆す根拠とは同じ有法に共存できないので、「覆す根拠がないこと」を特質に加える意味がない、と論じる（u208, u213）。</figcaption>
+</figure>
+
+<h3>整理</h3>
+<div class="tbl"><table>
+<thead><tr><th>六相説の追加の相</th><th>ポロックでの対応</th><th>アルチャタの批判</th></tr></thead>
+<tbody>
+<tr><td class="k">対象が否定されていないこと</td><td>反駁型の覆す根拠がないこと</td><td>不可離の関係と否定は矛盾するので、縛り付けがあれば不要。縛り付けがなければ、否定がないことを確かめられないので役に立たない（u208–u212）</td></tr>
+<tr><td class="k">意図された唯一数</td><td>対立する論証（rebutting argument）がないこと</td><td>縛り付けがあれば、相反する二つの自体をもつ事物はないので、対抗論証因はありえない。縛り付けがなければ、いつ現れるか分からないので、確定できない（u213–u215）</td></tr>
+<tr><td class="k">知られていること</td><td>理由が手元にあること（理由の所有）</td><td>知は論証因自身の姿ではない。理解に役立つものを特質にすると、対象・光・注意なども特質になってしまう（u216）</td></tr>
+</tbody></table></div>
+
+<div class="verdict">
+<div class="s"><h4>アルチャタの強み</h4><ul>
+<li>「覆す根拠がない」を推論の条件に入れると、その条件自体を確かめる手段がない、という指摘は鋭い。</li>
+<li>妥当性を人の機知や議論の状況に相対化することを拒む（u215）。根拠の客観性を守る立場として明快である。</li>
+</ul></div>
+<div class="l"><h4>アルチャタの弱み</h4><ul>
+<li>日常・医学・法廷・科学の推論のほとんどは覆しうる。それらを推理の外に置くので、扱える範囲が極端に狭い。</li>
+<li>いま手元にある論証因が本当に縛り付けをもつかどうかを、私たちは間違えうる。その場合の撤回の仕方は語られない。</li>
+</ul></div>
+</div>
+
+<!-- ============ ROUND 2 ============ -->
+<h2 id="r2"><span class="no">第2対論</span>疑いはいつ消えるか ― ドレツキ、プライアーと</h2>
+<div class="issue">
+<div class="lbl">論点</div>
+<p>ニヤーヤ学派やクマーリラは、見ること・見ないことによって随伴を確かめる。対抗論証因が一生見つからなければ、それはないとしてよい。クマーリラは「否定の知が生じていないのに疑うのは根拠がない」と言う。アルチャタは、同じように見えていた論証因に後で対抗者が現れた例がある以上、見ないことだけでは疑いは消えない、と応じる。疑いを消せるのは、縛り付けの確定だけである。</p>
+<p class="refs">HBṬ u213–u214（GOS pp.213–218）、u217（pp.223–228）</p>
+</div>
+<p>現代の認識論にも、ちょうど対応する対立がある。フレッド・ドレツキは「決定的理由」説（1971）で、R が P の決定的理由であるのは「P でなかったならば R でなかったであろう」ときだけで、知識には決定的理由が要る、と論じた。ジェームズ・プライアーの「独断主義」（2000）は、P と見えることが、懐疑的な可能性を前もって退けていなくても、P を信じる一応の正当化を与える、と言う。クマーリラは後者に、アルチャタは前者に近い。</p>
+
+<div class="dlg">
+<div class="say n"><div class="who">クマーリラ<small>（アルチャタが引く論敵）</small></div><div class="line"><p>否定の知が生じていないのに疑うのは、根拠のない疑いである（u213 に引用）。</p></div></div>
+<div class="say w"><div class="who">プライアー<small>J. Pryor</small></div><div class="line"><p>私はクマーリラに賛成です。手が見えるなら、「水槽の中の脳ではない」と先に証明していなくても、手があると信じてよい。疑うための具体的な理由がない疑いには、従う必要がありません。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>知覚について言うなら、私も同意見です。しかし推理では事情が違います。かつて人々が、ずっと対抗者の見られなかった論証因を出していた。ところがクマーリラ自身が、優れた知恵で、それに対抗論証因を考え出したではありませんか（u214）。同じ特質（見ること・見ないことだけにもとづく随伴）をもつ論証因に一度でも対抗者が見つかったなら、同じ特質をもつ他のどの論証因についても、疑いには根拠があります（u213）。</p></div></div>
+<div class="say w"><div class="who">プライアー</div><div class="line"><p>それは「同じ種類の方法が過去に失敗した」という、具体的な根拠のある疑いですね。それなら確かに無視できません。</p></div></div>
+<div class="say w"><div class="who">ドレツキ<small>F. Dretske</small></div><div class="line"><p>私はアルチャタに近い。煙が火の決定的理由であるのは、「火がなかったならば煙はなかったであろう」が真だからです。何度一緒に見たかは関係ない。必要なのは、その反事実的な依存を支える法則的なつながりです。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>その「法則的なつながり」を、私は縛り付けと呼びます。結果因なら、知覚と非知覚で一度確かめれば足ります。同じような結果が、それと同じでない原因から生じるなら、その結果はその原因から生じる本性をもたないことになり、一度見たものもそれから生じなかったことになってしまうからです（u180–u185）。</p></div></div>
+<div class="say w"><div class="who">ドレツキ</div><div class="line"><p>ただ、その「同じような結果は同じような原因からだけ生じる」という原理は、どこから来るのでしょう。それは帰納の一様性原理そのものに見えます。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>経験から集めた一般化ではありません。もし同じような結果が別様の原因からも生じるなら、その結果は原因のないものになり、場所・時・本性の決まりがなくなります（u184）。私の原理は、因果があるとはどういうことか、から出てくるのです。</p></div></div>
+<div class="say w"><div class="who">ドレツキ</div><div class="line"><p>概念の分析から出てくる、という主張ですね。でも、目の前の煙が「同じような煙」かどうかを見分けるところで、また誤りうるのではありませんか。あなた自身、髪や爪が切ってまた生えたとき、人々は錯誤して「同じだ」と判断すると言っています（u131）。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>だからこそ、形が似ていることではなく、原因の総体が同じかどうかで同類を決める、と言ったのです（u183）。真理を考える人は、原因の違いから事物の同類・異類を推し量ります。</p></div></div>
+</div>
+
+<div class="tbl"><table>
+<thead><tr><th>問い</th><th>クマーリラ／プライアー</th><th>アルチャタ／ドレツキ</th></tr></thead>
+<tbody>
+<tr><td class="k">疑いの立証責任</td><td>疑う側にある。具体的な否定の根拠がなければ、信じてよい</td><td>確定する側にある。縛り付けを確かめていなければ、疑いには根拠がある</td></tr>
+<tr><td class="k">何が理由を良いものにするか</td><td>覆す根拠がないこと（既定の正当化）</td><td>「所証がなければ論証因もない」という依存（決定的理由・不可離の関係）</td></tr>
+<tr><td class="k">観察の役割</td><td>見ること・見ないことの積み重ねで随伴を確かめる</td><td>縛り付けを確かめる手段としてだけ働く（一度で足りる）</td></tr>
+<tr><td class="k">失敗例の扱い</td><td>個別に撤回する</td><td>同じ方法による他のすべての推理を疑わしくする</td></tr>
+</tbody></table></div>
+
+<div class="verdict">
+<div class="s"><h4>アルチャタの強み</h4><ul>
+<li>「同じ方法が一度失敗したなら、その方法による他の結論もすべて疑わしい」という論法は、方法の信頼性を問う現代の議論（信頼性主義の一般性問題など）に通じる。</li>
+<li>観察の回数ではなく、反事実的な依存（決定的理由）に根拠を求める点で、ドレツキ以降の議論を先取りしている。</li>
+</ul></div>
+<div class="l"><h4>アルチャタの弱み</h4><ul>
+<li>「同じような結果は同じような原因からだけ」という原理は、概念から出てくると言うが、ヒューム以来、まさにそれが経験に先立って言えるかどうかが問われてきた。</li>
+<li>何が「同じような」原因の総体かを決める基準（u183）が、因果関係を知っていることをすでに前提している。循環のおそれがある。</li>
+</ul></div>
+</div>
+
+<!-- ============ ROUND 3 ============ -->
+<h2 id="r3"><span class="no">第3対論</span>能力は相棒を待つか ― マンフォード、アンジュムと</h2>
+<div class="issue">
+<div class="lbl">論点</div>
+<p>種子は倉の中では芽を出さず、土と水がそろうと芽を出す。常住論者は、種子の本性は同じままで、補助因（土・水）がそろったときに作るのだ、と言う。アルチャタは、ジレンマで退ける。種子が作る本性をもつなら、いつも作るはずである。作らない本性をもつなら、補助因があっても作らない。補助因が違い（優越）を加えると言うなら、それは別の本性が生じることで、もう同じ種子ではない。だから、作るものは刹那ごとに別のもので、協働とは、そろった一刹那の原因の総体が一つの結果を共に作ることにほかならない。</p>
+<p class="refs">HBṬ u136–u177（GOS pp.89–149）</p>
+</div>
+<p>現代の能力（power）の形而上学では、スティーヴン・マンフォードとラニ・リル・アンジュムが、因果を能力の発現として説明する（2011）。能力は、相棒（manifestation partner）とそろったときに共に発現する。種子の芽を出す能力は、土と水の能力と組んで初めて結果に向かう。これは、アルチャタが論敵の口から語らせる立場にかなり近い。</p>
+
+<div class="dlg">
+<div class="say w"><div class="who">マンフォード<small>S. Mumford</small></div><div class="line"><p>種子には、芽を出す能力が本当にあります。ただし能力は、相棒がそろったときにだけ発現する。倉の中で芽が出ないのは、能力がないからではなく、相棒がいないからです。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>それは、私の注で常住論者が言う「他と共にあれば作る。他と共にあるものとして結果を作るべきだ、というのもこれの本性だ」という説そのものです（u154）。そこで尋ねます。単独の種子の本性は、能力のある本性ですか、ない本性ですか。</p></div></div>
+<div class="say w"><div class="who">マンフォード</div><div class="line"><p>能力のある本性です。ただ、それは「単独では発現しない」能力です。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>能力があるのに作らない、というのは、ためらわずに作る性質をもちながら作らない、ということで、「母でありながら石女だ」と言うのと同じです（u158, u161–u162）。能力は結果から推し量られるものです。単独の種子が決して作らないなら、どうしてそこに能力を想定できましょう（u154）。</p></div></div>
+<div class="say w"><div class="who">アンジュム<small>R. L. Anjum</small></div><div class="line"><p>能力は「必ず作る」ものではなく、結果に向かう傾向（tendency）です。私たちは、能力が結果を必然化するとは考えません。妨げや欠けによって発現しないことは、能力の本性に反しません。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>それでは、補助因がそろったときに何が起こるのかを言わなければなりません。補助因が種子に違いを加えるのなら、その違いはどうやって生じたのか。また別の補助因が要り、無限遡及になります（u166）。違いを加えないのなら、そろう前とそろった後で種子は同じなので、そろう前にも作るはずです。</p></div></div>
+<div class="say w"><div class="who">マンフォード</div><div class="line"><p>変わったのは種子ではなく、状況です。能力は内在的で、発現は関係的です。相棒がそろうことは、種子の内在的な変化を要しません。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>それなら、本当の原因は種子ではなく、そろった全体、つまり原因の総体（<i>sāmagrī</i>）です。私もそう言っています。ただし、その総体は一刹那ごとに新しく生じ、前の刹那の総体から、結果にふさわしい特別な刹那が次々に生じる。最後の総体が芽を生む（u164）。そう考えれば、遡及も矛盾も起こりません。常住の種子を想定する必要がなくなるのです。</p></div></div>
+<div class="say w"><div class="who">アンジュム</div><div class="line"><p>あなたは、変化しないものは新しい結果を始められない、という原理に頼っています。でも、それは前提として強すぎませんか。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>事物の自体が自ずから別様になることはありません（u154, u171）。前と後で別の結果を作るなら、前と後で自体が違う。自体が違えば、別の事物です。相反する属性を帯びることこそが、違いの特質だからです（u155, u158）。</p></div></div>
+</div>
+
+<figure>
+<div class="svgbox">
+<svg viewBox="0 0 760 330" width="760" role="img" aria-label="アルチャタのジレンマ">
+<defs><marker id="m6" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+<rect x="260" y="14" width="240" height="52" rx="6" class="b-slate"/>
+<text x="380" y="36" text-anchor="middle" font-size="13" font-weight="700">常住の種子が</text>
+<text x="380" y="55" text-anchor="middle" font-size="12">補助因がそろったときだけ芽を出す</text>
+<path d="M330,66 L170,110" class="ln" marker-end="url(#m6)"/>
+<path d="M380,66 L380,110" class="ln" marker-end="url(#m6)"/>
+<path d="M430,66 L590,110" class="ln" marker-end="url(#m6)"/>
+<rect x="40" y="112" width="220" height="70" rx="6" class="b-west"/>
+<text x="150" y="136" text-anchor="middle" font-size="12" font-weight="700">① 作る本性をもつ</text>
+<text x="150" y="156" text-anchor="middle" font-size="11" class="t-muted">→ いつも作るはず</text>
+<text x="150" y="172" text-anchor="middle" font-size="11" class="t-muted">（倉の中でも）u154</text>
+<rect x="270" y="112" width="220" height="70" rx="6" class="b-west"/>
+<text x="380" y="136" text-anchor="middle" font-size="12" font-weight="700">② 作らない本性をもつ</text>
+<text x="380" y="156" text-anchor="middle" font-size="11" class="t-muted">→ 補助因があっても作らない</text>
+<text x="380" y="172" text-anchor="middle" font-size="11" class="t-muted">u156, u170</text>
+<rect x="500" y="112" width="220" height="70" rx="6" class="b-west"/>
+<text x="610" y="136" text-anchor="middle" font-size="12" font-weight="700">③ 補助因が違いを加える</text>
+<text x="610" y="156" text-anchor="middle" font-size="11" class="t-muted">→ 別の本性の生起＝別の事物</text>
+<text x="610" y="172" text-anchor="middle" font-size="11" class="t-muted">さもなくば無限遡及 u155, u166</text>
+<path d="M150,182 L330,236" class="ln" marker-end="url(#m6)"/>
+<path d="M380,182 L380,236" class="ln" marker-end="url(#m6)"/>
+<path d="M610,182 L430,236" class="ln" marker-end="url(#m6)"/>
+<rect x="200" y="238" width="360" height="74" rx="6" class="b-gold"/>
+<text x="380" y="262" text-anchor="middle" font-size="13" font-weight="700">結論：作るものは刹那ごとに別のもの</text>
+<text x="380" y="283" text-anchor="middle" font-size="11">協働＝そろった一刹那の総体が一つの結果を共に作ること</text>
+<text x="380" y="300" text-anchor="middle" font-size="11" class="t-muted">（ekārthakriyā, u150–u151, u164）</text>
+</svg>
+</div>
+<figcaption>図3　常住の原因に対するアルチャタのジレンマ。マンフォードとアンジュムは、③の前提「相棒がそろうことは、種子の内在的な変化である」を拒み、能力は内在的・発現は関係的だと答える。</figcaption>
+</figure>
+
+<div class="tbl"><table>
+<thead><tr><th>問い</th><th>マンフォードとアンジュム（能力論）</th><th>アルチャタ</th></tr></thead>
+<tbody>
+<tr><td class="k">原因の担い手</td><td>個々の事物の能力（内在的）</td><td>一刹那の原因の総体（sāmagrī）</td></tr>
+<tr><td class="k">相棒（補助因）の役割</td><td>共に発現する相手。種子を変えない</td><td>一つの結果を共に作るもの（ekārthakriyā）。優越を加えるのは比喩的な言い方（u151, u163）</td></tr>
+<tr><td class="k">様相</td><td>傾向性（必然化しない、独自の様相）</td><td>そろった総体からは必ず生じる（ためらわずに作る）</td></tr>
+<tr><td class="k">時間</td><td>持続するものが能力をもち続ける</td><td>刹那滅。前の刹那の総体が次の特別な刹那を生む</td></tr>
+<tr><td class="k">現代の近い立場</td><td>傾向性主義、相互発現（C. B. マーティン）</td><td>原因の十分条件集合説（ミル、マッキーの INUS 条件）、離散的な時間の存在論</td></tr>
+</tbody></table></div>
+
+<div class="verdict">
+<div class="s"><h4>アルチャタの強み</h4><ul>
+<li>「原因は個物ではなく、そろった条件の総体だ」という考えは、ミルやマッキーの十分条件集合説を先取りしている。</li>
+<li>能力論の「能力はあるが発現しない」の様相的身分をはっきりさせよ、という要求は、現代でも傾向性主義への有力な批判になる。</li>
+</ul></div>
+<div class="l"><h4>アルチャタの弱み</h4><ul>
+<li>「事物の自体は自ずから別様にならない」「変化しないものは新しい結果を始められない」という前提が強い。関係的な性質の変化を認めれば、ジレンマは崩れる。</li>
+<li>刹那滅を前提にすると、「同じ種子」「同じ人」を語る言語活動はすべて錯誤になる。持続の現象を説明する負担が大きい。</li>
+</ul></div>
+</div>
+
+<!-- ============ ROUND 4 ============ -->
+<h2 id="r4"><span class="no">第4対論</span>「ない」は見えるか ― ファレンニコワと</h2>
+<div class="issue">
+<div class="lbl">論点</div>
+<p>「ここに壺はない」はどうして分かるのか。クマーリラは、知覚や推理とは別の認識手段「無の認識手段」（<i>abhāvapramāṇa</i>）を立てた。アルチャタは、壺のない場所という「他の存在」を見ることが、そのまま壺の無を見ることだ、と言う。ただし、壺がもしそこにあったなら見えていたはずだ、という条件（知覚の条件を満たすこと、場所と等しい適性をもつこと）が要る。</p>
+<p class="refs">HBṬ u186–u205（GOS pp.167–202）</p>
+</div>
+<p>現代の知覚の哲学では、アンナ・ファレンニコワ（2013）が「不在の知覚」を論じた。財布がないのが「見える」のは、期待していたものの雛形と、実際の知覚との食い違いを検出するからだ、という説である。アルチャタの説と、驚くほどよく重なる。</p>
+
+<div class="dlg">
+<div class="say w"><div class="who">ファレンニコワ<small>A. Farennikova</small></div><div class="line"><p>机の上に財布がないとき、私たちは推論しているのではなく、「ない」を見ていると感じます。私の説明では、探しているものの雛形（template）と、見えている光景とを照らし合わせ、その食い違いが不在の知覚になります。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>私も、壺を求めることなどによって、相手である壺の想起があるとき、と条件を付けました（u191）。場所が単独で見えていて、そこで壺を思い出しているとき、非認識が壺の無、あるいは「無い」という言語活動を論証するのです。</p></div></div>
+<div class="say n"><div class="who">クマーリラ</div><div class="line"><p>存在の部分は感官と結合して知られるが、無の部分は感官と結合しない。だから、無を知るには別の認識手段が要る（u199）。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>場所の単独であることこそが、壺の欠如です（u199）。他の姿と混ざらない自分の姿で場所を見ることは、そのまま、場所が壺を欠いていることを見ることです（u193–u194, u202）。無の部分を、存在の部分とは別のものとして立てる必要はありません。</p></div></div>
+<div class="say w"><div class="who">ファレンニコワ</div><div class="line"><p>そこは賛成です。ただ、私は「ないことが見える」と言いたい。あなたは、知覚が捉えるのは場所だけで、「ない」は後の分別だ、と言いませんか。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>知覚が捉えるのは、壺を欠いた場所という一つの姿です。「ここに壺はない」という分別は、すでに捉えたものを捉える後の判断で、新しい認識手段ではありません（u194, u201）。ですから、何が見えているかについては、あなたと私の違いは言葉の上のことです。</p></div></div>
+<div class="say w"><div class="who">ファレンニコワ</div><div class="line"><p>では、見えないものの不在はどうですか。たとえば、部屋に幽霊がいないこと。</p></div></div>
+<div class="say a"><div class="who">アルチャタ</div><div class="line"><p>知覚の条件を満たさないものの非認識は、疑いの原因になるだけです（u187）。壺と場所とは、同じ一つの認識に結びつき、知覚される適性が等しいので、場所だけが見えていれば壺はないと言える（u190）。適性が等しくないもの、たとえば味や、遠く隔たったものについては、色を見ても、その無は成り立ちません（u204）。ニヤーヤ学派の言う眼の光線のように、見えないとされるものについても同じです（u186）。</p></div></div>
+</div>
+
+<figure>
+<div class="svgbox">
+<svg viewBox="0 0 760 270" width="760" role="img" aria-label="非認識の条件">
+<defs><marker id="m7" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="ah"/></marker></defs>
+<rect x="30" y="40" width="200" height="80" rx="6" class="b-gold"/>
+<text x="130" y="68" text-anchor="middle" font-size="13" font-weight="700">壺のない場所を見る</text>
+<text x="130" y="90" text-anchor="middle" font-size="11" class="t-muted">他の姿と混ざらない姿で</text>
+<text x="130" y="106" text-anchor="middle" font-size="11" class="t-muted">（他の存在 anyabhāva）</text>
+<rect x="30" y="160" width="200" height="70" rx="6" class="b-slate"/>
+<text x="130" y="188" text-anchor="middle" font-size="12" font-weight="700">壺を想起している</text>
+<text x="130" y="208" text-anchor="middle" font-size="11" class="t-muted">求めることなどによって u191</text>
+<rect x="280" y="90" width="210" height="90" rx="6" class="b-west"/>
+<text x="385" y="118" text-anchor="middle" font-size="12" font-weight="700">条件：等しい適性</text>
+<text x="385" y="138" text-anchor="middle" font-size="11">壺があったなら、同じ一つの</text>
+<text x="385" y="154" text-anchor="middle" font-size="11">認識に現れていたはず</text>
+<text x="385" y="170" text-anchor="middle" font-size="11" class="t-muted">u190, u204</text>
+<rect x="540" y="90" width="190" height="90" rx="6" class="b-gold"/>
+<text x="635" y="122" text-anchor="middle" font-size="13" font-weight="700">「ここに壺はない」</text>
+<text x="635" y="144" text-anchor="middle" font-size="11" class="t-muted">すでに捉えたものの</text>
+<text x="635" y="160" text-anchor="middle" font-size="11" class="t-muted">言語活動（新しい認識ではない）</text>
+<path d="M230,80 L276,118" class="ln" marker-end="url(#m7)"/>
+<path d="M230,195 L276,160" class="ln" marker-end="url(#m7)"/>
+<path d="M490,135 L536,135" class="ln" marker-end="url(#m7)"/>
+<text x="385" y="40" text-anchor="middle" font-size="11" class="t-muted">ファレンニコワ：雛形との食い違い</text>
+<text x="385" y="56" text-anchor="middle" font-size="11" class="t-muted">ノージック：あったなら見えていた（感受性）</text>
+</svg>
+</div>
+<figcaption>図4　アルチャタの非認識の条件。「壺があったなら同じ認識に現れていたはず」という等しい適性の条件は、ノージックの感受性条件（P でなかったなら P と信じなかったであろう）の、知覚版にあたる。</figcaption>
+</figure>
+
+<div class="tbl"><table>
+<thead><tr><th>問い</th><th>クマーリラ</th><th>アルチャタ</th><th>現代</th></tr></thead>
+<tbody>
+<tr><td class="k">無は何によって知られるか</td><td>別の認識手段（abhāvapramāṇa）</td><td>無を欠いた場所の知覚と、その後の分別</td><td>不在の知覚（ファレンニコワ、ソレンセン）</td></tr>
+<tr><td class="k">無は存在者か</td><td>存在とは別の「無の部分」がある</td><td>他の存在こそがそれの無。別の無の部分はない（u192, u199）</td><td>否定的事実を認める説（ラッセル）、総体性事実（アームストロング）と、それを認めない説</td></tr>
+<tr><td class="k">条件</td><td>五つの認識手段が生じないこと</td><td>知覚の条件を満たし、等しい適性をもつこと（u187, u190）</td><td>反事実的な感受性、雛形の期待</td></tr>
+</tbody></table></div>
+
+<div class="verdict">
+<div class="s"><h4>アルチャタの強み</h4><ul>
+<li>否定的事実という余分な存在者を立てずに、不在の知識を説明する。存在論として倹約的である。</li>
+<li>「あったなら見えていた」という条件を明示している。これは、見えないから無い、という推論の誤りを防ぐ。</li>
+</ul></div>
+<div class="l"><h4>アルチャタの弱み</h4><ul>
+<li>「等しい適性」をどう判定するかが、知覚そのものから分かるとは限らない。暗がりや錯覚の場面で、条件を満たしているかを誤りうる。</li>
+<li>理論的な不在（ある粒子がないこと、ある病原体がいないこと）は、原因や遍充者の非認識に回すしかなく、そのための縛り付けの確定がまた必要になる。</li>
+</ul></div>
+</div>
+
+<!-- ============ SUMMARY ============ -->
+<h2 id="sum"><span class="no">総括</span>強み・弱み・限界</h2>
+<p>四つの対論を通して、アルチャタの立場は現代の言葉で次のように言える。<strong>推論的知識についての不可謬主義と、必然的結合の実在論との結合</strong>である。正しい推理は、論証因それ自体が所証に縛り付けられていることを認識手段で確かめたうえでの、決定的理由による推理だけである。それ以外は、どれほど確からしくても推理ではない。</p>
+
+<figure>
+<div class="svgbox">
+<svg viewBox="0 0 760 300" width="760" role="img" aria-label="現代の認識論の地図におけるアルチャタの位置">
+<line x1="80" y1="150" x2="700" y2="150" class="ln"/>
+<line x1="390" y1="30" x2="390" y2="280" class="ln"/>
+<text x="80" y="140" font-size="11" class="t-muted">覆しうる推論を認める</text>
+<text x="700" y="140" text-anchor="end" font-size="11" class="t-muted">決定的理由だけ</text>
+<text x="398" y="40" font-size="11" class="t-muted">必然的結合を認める（反ヒューム）</text>
+<text x="398" y="275" font-size="11" class="t-muted">規則性だけ（ヒューム的）</text>
+<circle cx="610" cy="70" r="9" fill="var(--gold)"/>
+<text x="610" y="96" text-anchor="middle" font-size="13" font-weight="700">アルチャタ</text>
+<circle cx="560" cy="110" r="7" fill="var(--west)"/>
+<text x="560" y="128" text-anchor="middle" font-size="11">ドレツキ</text>
+<circle cx="250" cy="80" r="7" fill="var(--west)"/>
+<text x="250" y="98" text-anchor="middle" font-size="11">マンフォードとアンジュム</text>
+<circle cx="200" cy="210" r="7" fill="var(--west)"/>
+<text x="200" y="228" text-anchor="middle" font-size="11">ポロック</text>
+<circle cx="300" cy="240" r="7" fill="var(--west)"/>
+<text x="300" y="258" text-anchor="middle" font-size="11">ルイス（ヒューム的随伴）</text>
+<circle cx="170" cy="165" r="7" fill="var(--slate)"/>
+<text x="170" y="183" text-anchor="middle" font-size="11">ニヤーヤ学派・クマーリラ</text>
+</svg>
+</div>
+<figcaption>図5　二つの軸による位置づけ（おおよその目安）。横軸は推論に覆しうるものを認めるか、縦軸は必然的な結合を認めるか。ニヤーヤ学派・クマーリラは、見ること・見ないことによる随伴と、覆す根拠がないことを重んじる点で、左下寄りに置いた。</figcaption>
+</figure>
+
+<h3>強み・弱みの一覧</h3>
+<div class="tbl"><table>
+<thead><tr><th>論点</th><th>強み</th><th>弱み</th></tr></thead>
+<tbody>
+<tr><td class="k">縛り付け</td><td><span class="pill s">強</span>推理の様相的な力（なぜ「必ず」と言えるか）を、事物の側の関係で説明する。枚挙的帰納の問題を最初から避ける</td><td><span class="pill l">弱</span>縛り付けを確かめる手段そのものが争点を含む（刹那滅論証は「存在＝目的達成能力」という前提に頼る）</td></tr>
+<tr><td class="k">二種類の縛り付けだけ</td><td><span class="pill s">強</span>同一性と因果の二つに絞ることで、論証因の分類（自性・結果・非認識）が体系的になる。色から味を推す場合も、同じ原因の総体を介した因果として扱える</td><td><span class="pill l">弱</span>数学的な関係、構成的な関係、統計的な相関、共通原因によらない法則的な共変などは、どちらにも入れにくい</td></tr>
+<tr><td class="k">六相説の批判</td><td><span class="pill s">強</span>「覆す根拠がないこと」を条件に入れると、その条件を確かめられない、という指摘は今も有効</td><td><span class="pill l">弱</span>覆しうる推論を一切認めないので、実践的な推論を説明できない</td></tr>
+<tr><td class="k">疑いと確定</td><td><span class="pill s">強</span>方法の信頼性を問う、反独断主義の立場が一貫している</td><td><span class="pill l">弱</span>確定（niścaya）そのものが誤りうることへの手当てがない。不可謬な確定の要求は懐疑論を招きやすい</td></tr>
+<tr><td class="k">協働と刹那滅</td><td><span class="pill s">強</span>十分条件集合としての原因の考えを先取りし、能力論の様相の曖昧さを突く</td><td><span class="pill l">弱</span>「自体は変化しない」「変化しないものは始められない」という強い前提に依存する</td></tr>
+<tr><td class="k">非認識</td><td><span class="pill s">強</span>否定的事実を立てず、知覚可能性の条件で不在を説明する</td><td><span class="pill l">弱</span>条件の判定は誤りうる。理論的な不在は扱いにくい</td></tr>
+</tbody></table></div>
+
+<h3>アルチャタの論点の限界</h3>
+<div class="tbl"><table>
+<thead><tr><th>限界</th><th>内容</th><th>現代から見た対応</th></tr></thead>
+<tbody>
+<tr><td class="k">論理の形式</td><td>推理は「有法・論証因・所証」の一項の述語の形に限られる。関係や量化の入り組んだ推論は扱えない</td><td>述語論理・関係論理（フレーゲ以後）</td></tr>
+<tr><td class="k">確率と程度</td><td>確定か疑いかの二値で、確からしさの程度という考えがない</td><td>確率論的認識論、ベイズ主義</td></tr>
+<tr><td class="k">撤回の理論</td><td>一度確定したものを、どう撤回するかの理論がない。誤りは「最初から論証因ではなかった」と処理される</td><td>信念改訂（AGM）、覆しうる推論</td></tr>
+<tr><td class="k">認識と存在の重なり</td><td>「縛り付けがある」（存在の事実）と「縛り付けを確かめた」（認識の事実）が、議論の中で入れ替わりやすい。たとえば u213 は、存在の側の不可能性から、確定の可能性へと進む</td><td>形而上学と認識論の区別、外在主義と内在主義の区別</td></tr>
+<tr><td class="k">形而上学への依存</td><td>推理論の要が、刹那滅・目的達成能力・自体の不変といった仏教の存在論に支えられている。その存在論を受け入れない相手には、推理論も弱くなる</td><td>形而上学的に中立な推論論（論理的妥当性の形式的定義）</td></tr>
+<tr><td class="k">同類の基準</td><td>「同じような結果」「同じような原因の総体」の基準が、因果の知識を前提にしている（u183–u185）</td><td>グッドマンの投射可能性、自然種の議論</td></tr>
+</tbody></table></div>
+
+<p>まとめると、アルチャタは、推理がなぜ「必ず」と言えるのかについて、現代でもまっすぐ通じる答えを出している。答えは、事物の側に、論証因それ自体を所証に縛り付ける関係がある、というものである。その代わりに、推理の範囲を極端に狭め、その関係を確かめる手段を、仏教の存在論に強く依存させた。現代の分析哲学は、論理の形式化と確率の導入によって、推理をより広く、より程度のあるものとして扱う方向へ進んだ。アルチャタの議論は、その道をとらずに「必然性はどこから来るか」を突き詰めた場合に、どこまで行けて、どこで止まるかを示す、よい見本になっている。</p>
+
+<footer>
+<p>関連：<a href="hetubindutika-index.html">アルチャタ『ヘートゥビンドゥ注』対訳（目次）</a>。ダルマキールティ全体を扱った対論は、サイトの「ダルマキールティ対分析哲学――五つの架空対論」を参照。</p>
+<p>現代の論者の主な文献：J. Pollock, “Defeasible Reasoning,” <i>Cognitive Science</i> 11 (1987)；F. Dretske, “Conclusive Reasons,” <i>Australasian Journal of Philosophy</i> 49 (1971)；J. Pryor, “The Skeptic and the Dogmatist,” <i>Noûs</i> 34 (2000)；S. Mumford &amp; R. L. Anjum, <i>Getting Causes from Powers</i> (2011)；A. Farennikova, “Seeing Absence,” <i>Philosophical Studies</i> 166 (2013)；R. Nozick, <i>Philosophical Explanations</i> (1981)；J. L. Mackie, <i>The Cement of the Universe</i> (1974)。</p>
+</footer>
+</div>
