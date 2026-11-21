@@ -16,7 +16,8 @@ dict(
 <p>この「語は話し手の意図を示す」（<i>vaktrabhiprāyasūcaka</i>）という考えは、第1章の言語論の基本命題で、第3章（現量章）や Dignāga の議論にも通じる。</p>
 <p class="stk"><span class="tag">Steinkellner</span>Steinkellner 2013 の分析では、ここから第339偈まで（Gnoli 107,14–176,12）の経典論は、独立した主題ではなく、非認識の議論の一部である。「経典に書かれていないこと」も、知覚や推論の非認識と同じく、非存在を知らせない、ということを示すための余論（107,19–176,4）と位置づけられる。この余論の詳しい構成は Eltschinger 2007 の分析に譲られている。</p>
 <p><b>本文校訂</b>：Steinkellner（2013, vol. I, Fn.60）は、Gnoli の <i>anyapramāṇānivṛttau</i> を、写本 B・PVSVṬ 389,16f・チベット訳（<i>tshad ma gźan log pa na</i>）に従って <i>anyapramāṇanivṛttau</i> と改める。「他の認識手段が退いても、［対象の］非存在がない［＝成立しない］ことはあってもよい」となり、本訳はすでにこの読みで訳している。</p>
-<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.616）によれば、ここで Dharmakīrti は、言葉から生じる知の妥当性を区別している。話し手の意図（<i>vaktrabhiprāya</i>）については妥当性を認めるが、言葉が指す実在の対象（<i>artha</i>）については認めない。この区別はのちの PV 2.2 でも繰り返される。この区別はすでに Śabara に見られるミーマーンサー学派の定理を利用したものである。ただし Śabara では、それは人の作った日常の言葉（<i>pauruṣeyavacana</i>）だけに当てはまり、人に由来しない常住のヴェーダには当てはまらない、という限定つきであった。</p>"""
+<p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.616）によれば、ここで Dharmakīrti は、言葉から生じる知の妥当性を区別している。話し手の意図（<i>vaktrabhiprāya</i>）については妥当性を認めるが、言葉が指す実在の対象（<i>artha</i>）については認めない。この区別はのちの PV 2.2 でも繰り返される。この区別はすでに Śabara に見られるミーマーンサー学派の定理を利用したものである。ただし Śabara では、それは人の作った日常の言葉（<i>pauruṣeyavacana</i>）だけに当てはまり、人に由来しない常住のヴェーダには当てはまらない、という限定つきであった。</p>
+<p class="stk"><span class="tag">Pind 2009</span>Pind（2009: Intro 3.11, n.9）は、語が示すのは話し手の意図（<i>vivakṣā</i>）だというこの考えを、Dignāga の説の再解釈と見る。Dignāga は PS 5.1 で、言葉による認識は推論と異ならないと述べたが、そこで推論されるのは語の指す対象（他者の排除によって限定されたもの）であった。Dharmakīrti はこれを、推論されるのは話し手の意図だ、と読み替えたのである。Pind によれば、この考えは Bhartṛhari（VP 3.14.197cd：<i>anumānaṃ vivakṣāyāḥ śabdād anyan na vidyate</i>）にさかのぼる。</p>"""
 ),
 dict(
   label="第214偈　吟味に値する言明",
