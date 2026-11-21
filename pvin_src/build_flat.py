@@ -50,11 +50,21 @@ TEXTINFO = {
 PV3MAP = ['—（PV II）', '1–122', '123–190, 288', '239–248', '249–280', '281–287', '288–300', '301–325', '326–366', '364–539']
 
 
+# 第1章：各ブロックの Steinkellner 2007 の頁・行（OCR と照合して復元。loc_ch1.tsv）
+BLOCKLOC = {}
+for _ln in (ROOT / 'pvin_src' / 'loc_ch1.tsv').read_text(encoding='utf-8').splitlines():
+    if '\t' in _ln:
+        _r, _l = _ln.split('\t')
+        BLOCKLOC[_r] = _l
+
+
 def ref_label(ref):
     """'14:1-4' → '14.1–4'、'18-19' → '18–19'。第3章は校訂本の頁・行（'p.12,3'）。"""
     loc = build.loc(ref)
     if loc:
         return 'p.' + loc
+    if ref in BLOCKLOC:
+        return 'p.' + BLOCKLOC[ref]
     return ref.replace(':', '.').replace('-', '–')
 
 
@@ -155,7 +165,7 @@ def mula(kind, d, uid, notes):
                        f'<span class="lbl">{build.SCHOLARS[sk]}</span>' + ''.join(ss) + '</div>'
                 first = False
         exp += '</div>'
-    ref = f'<span class="ref">{ref_label(d["ref"])}</span>' if build.loc(d['ref']) else ''   # 第1・2章は番号を出さない
+    ref = f'<span class="ref">{ref_label(d["ref"])}</span>' if (build.loc(d['ref']) or d['ref'] in BLOCKLOC) else ''   # 第1・2章は番号を出さない
     return (f'<div class="{cls}" id="{uid}">\n  {ref}\n'
             f'  <div class="src deva" lang="sa">{src}</div>{ia}\n'
             f'  <div class="tr">{build.ja(d["ja"])}</div>{exp}\n</div>')
@@ -203,7 +213,12 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                         refs.append(int(re.match(r'\d+', items[j][1]['ref']).group()))
                     j += 1
                 rng = ''
-                if refs and build.LOC[min(refs) - 1]:          # 第3章は校訂本の頁で示す
+                brefs = [items[k][1]['ref'] for k in range(i + 1, j) if items[k][0] in 'LV' and items[k][1]['ref'] in BLOCKLOC]
+                if brefs:                                      # 第1章は復元した頁・行による
+                    p0 = BLOCKLOC[brefs[0]].split(',')[0]
+                    p1 = re.findall(r'(\d+),\d+', BLOCKLOC[brefs[-1]])[-1]
+                    rng = f'pp.{p0}–{p1}' if p0 != p1 else f'p.{p0}'
+                elif refs and build.LOC[min(refs) - 1]:          # 第3章は校訂本の頁で示す
                     p0, p1 = (build.LOC[x - 1].split(',')[0] for x in (min(refs), max(refs)))
                     rng = f'pp.{p0}–{p1}' if p0 != p1 else f'p.{p0}'
                 gist = ''
@@ -258,7 +273,12 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
         nav.insert(0, f'<li><a href="pvin_taiyaku_{chno - 1}.html" class="chp">← 第{chno - 1}章へ</a></li>')
     if any(c[0] == chno + 1 for c in CHAPTERS):
         nav.append(f'<li><a href="pvin_taiyaku_{chno + 1}.html" class="chp">第{chno + 1}章へ →</a></li>')
-    tx = TEXTINFO[3 if chno == 3 else 1]
+    tx = dict(TEXTINFO[3 if chno == 3 else 1])
+    if chno == 1:
+        tx['num'] = ('各ブロック左上の <span class="ia">p.3,1–8</span> は校訂本（Steinkellner 2007）の頁・行（そのブロックの範囲）。'
+                     '節見出しの <span class="pg">pp.1–7</span> はその節の頁範囲。行は校訂本の OCR を本文と照合し、脚注の行番号で検算して復元したもので、'
+                     'まれに1行ずれることがある')
+        tx['col'] = '頁'
     stk_fact = stk_howto = ''
     pv3_fact = pv3_howto = pv3_section = ''
     if chno == 1:     # PV III（知覚章）との関係
