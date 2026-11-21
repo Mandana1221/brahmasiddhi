@@ -161,10 +161,28 @@ def mula(kind, d, uid, notes):
             f'  <div class="tr">{build.ja(d["ja"])}</div>{exp}\n</div>')
 
 
+def kada_section(kd):
+    """詳しい科段（全見出しの入れ子リスト）"""
+    out, depth = [], 0
+    for lv, num, ttl, sk, aid in kd:
+        if lv > depth:
+            out.append('<ol>' * (lv - depth))
+        else:
+            out.append('</li>' + '</ol></li>' * (depth - lv))
+        depth = lv
+        s = f'<span class="s">{html.escape(sk)}</span>' if sk else ''
+        out.append(f'<li class="l{lv}"><a href="#{aid}"><span class="n">{html.escape(num)}</span>{html.escape(ttl)}</a>{s}')
+    out.append('</li>' + '</ol></li>' * (depth - 1) + '</ol>')
+    return ('<section id="kada" class="wrap kada">\n  <div class="sec-head"><h2 style="grid-column:1/-1">詳しい科段</h2>'
+            '<span class="sub">本文の見出しをすべて階層順に並べた。項目をクリックすると本文のその箇所へ移る</span></div>\n'
+            '  <details open><summary>科段を開く／閉じる</summary>\n  ' + ''.join(out) + '\n  </details>\n</section>\n\n')
+
+
 def build_chapter(chno, name, sk_name, parts, lead, facts):
     nav = []
     maprows = []
     body = []
+    kd = []          # 詳しい科段：(階層, 番号, 見出し, 梵語, アンカー)
     sec_no = 0
     for pid in parts:
         items = parse(pid)
@@ -194,6 +212,7 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                     i += 1
                 short = d['ttl'] if len(d['ttl']) <= 12 else d['ttl'][:11] + '…'
                 nav.append(f'<li><a href="#{sid}"><b>{sec_no}</b>{html.escape(short)}</a></li>')
+                kd.append((1, str(sec_no), d['ttl'], d['sk'], sid))
                 maprows.append(f'<tr><td class="num">§{sec_no}</td><td class="k"><a href="#{sid}">{html.escape(d["ttl"])}</a>'
                                f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td>' + (f'<td class="num">{rng}</td>' if rng else '')
                                + (f'<td class="sm">{PV3MAP[sec_no - 1]}</td>' if chno == 1 else '')
@@ -206,9 +225,12 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                     body.append(f'<p>{gist}</p>')
                 open_sec = True
             elif kind == 'H':
-                tag = 'h3' if d['lv'] == 2 else 'h4'
+                tag = {2: 'h3', 3: 'h4'}.get(d['lv'], 'h5')
                 sk = f' <span class="sk"><i>{html.escape(d["sk"])}</i></span>' if d['sk'] else ''
-                body.append(f'<{tag} class="sub-h"><span class="snum">{renum(d["num"], sec_no)}</span>{html.escape(d["ttl"])}{sk}</{tag}>')
+                hn = renum(d["num"], sec_no)
+                hid = 'k' + re.sub(r'[^0-9A-Za-z]+', '-', hn)
+                kd.append((d['lv'], hn, d['ttl'], d['sk'], hid))
+                body.append(f'<{tag} class="sub-h" id="{hid}"><span class="snum">{hn}</span>{html.escape(d["ttl"])}{sk}</{tag}>')
             elif kind in 'LV':
                 notes = []
                 while i + 1 < len(items) and items[i + 1][0] in 'NSRPWT':
@@ -282,6 +304,17 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
 .mula .tr p,.mula .exp p{{margin:0 0 .6em}}
 .mula .tr p:last-child{{margin-bottom:0}}
 .sub-h{{display:flex;flex-wrap:wrap;align-items:baseline;gap:4px 10px}}
+h5.sub-h{{font-family:var(--f-display);font-size:.95rem;font-weight:700;margin:1.5em 0 .35em;color:var(--ink-2,var(--ink))}}
+.kada ol{{list-style:none;margin:0;padding-left:1.1em;border-left:1px solid var(--line)}}
+.kada > ol{{padding-left:0;border-left:0}}
+.kada li{{margin:.15em 0;line-height:1.6}}
+.kada a{{color:var(--ink);text-decoration:none}}
+.kada a:hover{{color:var(--accent);text-decoration:underline}}
+.kada .n{{font-family:var(--f-ia);font-size:.82rem;font-weight:700;color:var(--accent);margin-right:.5em}}
+.kada .s{{font-family:var(--f-ia);font-size:.8rem;font-style:italic;color:var(--muted);margin-left:.5em}}
+.kada li.l1{{margin-top:.7em}}
+.kada li.l1 > a{{font-weight:700}}
+.kada details > summary{{cursor:pointer;color:var(--muted);font-size:.9rem;margin-bottom:.4em}}
 h4.sub-h{{font-family:var(--f-display);font-size:1.02rem;font-weight:800;margin:1.8em 0 .4em;color:var(--ink)}}
 .sub-h .snum{{font-family:var(--f-ia);font-size:.85rem;font-weight:700;color:var(--accent)}}
 .sub-h .sk{{font-family:var(--f-ia);font-size:.85rem;font-weight:400;color:var(--muted)}}
@@ -306,7 +339,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
 <nav class="toc" aria-label="目次">
   <ol>
     <li><a href="#intro">入口</a></li>
-    <li><a href="#map">全体の地図</a></li>
+    <li><a href="#map">全体の地図</a></li>{'<li><a href="#kada">科段</a></li>' if chno in (1, 2) else ''}
     {"".join(nav)}
   </ol>
 </nav>
@@ -354,7 +387,7 @@ nav.toc a.chp{{background:var(--accent);color:var(--card);border-color:var(--acc
   </div>
 </section>
 
-{pv3_section}{chr(10).join(body)}
+{kada_section(kd) if chno in (1, 2) else ''}{pv3_section}{chr(10).join(body)}
 
 <footer class="wrap">
   <p><strong>テキストについて</strong>　{tx['foot']}</p>
