@@ -58,7 +58,7 @@ dict(
 <li><b>推論</b>：人がいれば知があり、いなければない、という随伴・排除から推論される。</li>
 </ul>
 <p>のすべてと矛盾する。</p>
-<p><b>本文校訂</b>：e-text の <i>ānupūrvī <u>vādyam</u></i> は <i>vākyam</i> と、<i>sama yo 'sya</i> は <i>samayo 'sya</i>（彼の学説）と読む。</p>"""
+<p><b>本文校訂</b>：e-text（Gnoli 140,27; 141,1）の <i>ānupūrvī <u>vādyam</u></i> を <i>vākyam</i> と、<i>sama yo 'sya</i> を <i>samayo 'sya</i>（彼の学説）と読む。Gnoli の刊本もこの読みを支持する（電子テキストの入力の誤り）。</p>"""
 ),
 dict(
   label="第268偈　順序はスポータと同様に退けられ、構想されたものである",
