@@ -285,7 +285,7 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
     if chno == 2:
         tx['num'] = ('各ブロック左上の <span class="ia">p.52,1–2</span> は校訂本（Steinkellner 2007）の頁・行（そのブロックの範囲）。'
                      '節見出しの <span class="pg">pp.52–55</span> はその節の頁範囲。行は校訂本の OCR を本文と照合し、脚注の行番号で検算して復元したもので、'
-                     'まれに1行ずれることがある。46–51頁（§1.2–§4.3 の大部分）は OCR が未入手のため、まだ示していない')
+                     'まれに1行ずれることがある')
         tx['col'] = '頁'
     if chno == 1:
         tx['num'] = ('各ブロック左上の <span class="ia">p.3,1–8</span> は校訂本（Steinkellner 2007）の頁・行（そのブロックの範囲）。'
