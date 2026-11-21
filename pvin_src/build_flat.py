@@ -50,12 +50,17 @@ TEXTINFO = {
 PV3MAP = ['—（PV II）', '1–122', '123–190, 288', '239–248', '249–280', '281–287', '288–300', '301–325', '326–366', '364–539']
 
 
-# 第1章：各ブロックの Steinkellner 2007 の頁・行（OCR と照合して復元。loc_ch1.tsv）
-BLOCKLOC = {}
-for _ln in (ROOT / 'pvin_src' / 'loc_ch1.tsv').read_text(encoding='utf-8').splitlines():
-    if '\t' in _ln:
-        _r, _l = _ln.split('\t')
-        BLOCKLOC[_r] = _l
+# 第1・2章：各ブロックの Steinkellner 2007 の頁・行（OCR と照合して復元。loc_ch1.tsv, loc_ch2.tsv）
+BLOCKLOC = {}      # ref → '3,1–8'
+NOLOC = set()      # OCR がなく頁・行を復元できなかったブロック
+for _f in ('loc_ch1.tsv', 'loc_ch2.tsv'):
+    for _ln in (ROOT / 'pvin_src' / _f).read_text(encoding='utf-8').splitlines():
+        if '\t' in _ln:
+            _r, _l = _ln.split('\t')
+            if _l:
+                BLOCKLOC[_r] = _l
+            else:
+                NOLOC.add(_r)
 
 
 def ref_label(ref):
@@ -213,8 +218,11 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                         refs.append(int(re.match(r'\d+', items[j][1]['ref']).group()))
                     j += 1
                 rng = ''
-                brefs = [items[k][1]['ref'] for k in range(i + 1, j) if items[k][0] in 'LV' and items[k][1]['ref'] in BLOCKLOC]
-                if brefs:                                      # 第1章は復元した頁・行による
+                brefs = [items[k][1]['ref'] for k in range(i + 1, j)
+                         if chno in (1, 2) and items[k][0] in 'LV' and items[k][1]['ref'] in BLOCKLOC]
+                if chno in (1, 2) and any(items[k][0] in 'LV' and items[k][1]['ref'] in NOLOC for k in range(i + 1, j)):
+                    pass                                       # 頁・行の分からないブロックを含む節は示さない
+                elif brefs:                                    # 第1・2章は復元した頁・行による
                     p0 = BLOCKLOC[brefs[0]].split(',')[0]
                     p1 = re.findall(r'(\d+),\d+', BLOCKLOC[brefs[-1]])[-1]
                     rng = f'pp.{p0}–{p1}' if p0 != p1 else f'p.{p0}'
@@ -229,7 +237,7 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
                 nav.append(f'<li><a href="#{sid}"><b>{sec_no}</b>{html.escape(short)}</a></li>')
                 kd.append((1, str(sec_no), d['ttl'], d['sk'], sid))
                 maprows.append(f'<tr><td class="num">§{sec_no}</td><td class="k"><a href="#{sid}">{html.escape(d["ttl"])}</a>'
-                               f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td>' + (f'<td class="num">{rng}</td>' if rng else '')
+                               f'<span class="sm"><i>{html.escape(d["sk"])}</i></span></td>' + (f'<td class="num">{rng or "—"}</td>' if (rng or chno in (1, 2)) else '')
                                + (f'<td class="sm">{PV3MAP[sec_no - 1]}</td>' if chno == 1 else '')
                                + (f'<td class="sm">{pvsv_range(items, i)}</td>' if chno == 2 else '') + '</tr>')
                 body.append(f'<section id="{sid}" class="wrap">\n  <div class="sec-head"><span class="sec-no">{sec_no}</span>'
@@ -274,6 +282,11 @@ def build_chapter(chno, name, sk_name, parts, lead, facts):
     if any(c[0] == chno + 1 for c in CHAPTERS):
         nav.append(f'<li><a href="pvin_taiyaku_{chno + 1}.html" class="chp">第{chno + 1}章へ →</a></li>')
     tx = dict(TEXTINFO[3 if chno == 3 else 1])
+    if chno == 2:
+        tx['num'] = ('各ブロック左上の <span class="ia">p.52,1–2</span> は校訂本（Steinkellner 2007）の頁・行（そのブロックの範囲）。'
+                     '節見出しの <span class="pg">pp.52–55</span> はその節の頁範囲。行は校訂本の OCR を本文と照合し、脚注の行番号で検算して復元したもので、'
+                     'まれに1行ずれることがある。46–51頁（§1.2–§4.3 の大部分）は OCR が未入手のため、まだ示していない')
+        tx['col'] = '頁'
     if chno == 1:
         tx['num'] = ('各ブロック左上の <span class="ia">p.3,1–8</span> は校訂本（Steinkellner 2007）の頁・行（そのブロックの範囲）。'
                      '節見出しの <span class="pg">pp.1–7</span> はその節の頁範囲。行は校訂本の OCR を本文と照合し、脚注の行番号で検算して復元したもので、'
