@@ -127,7 +127,7 @@ dict(
 </li>
 </ul>
 <p><b>矛盾の二種</b>：① 一方が他方を排除する、いわゆる共存不可能の矛盾（<i>sahānavasthāna</i>、例：火と冷触）。② 互いに排除しあう特徴をもつ矛盾（<i>parasparaparihāra</i>、例：常住と無常）。後代の NB 3.72 以下でも整理される区別である。</p>
-<p class="note">本文校訂：電子テキストの <i>anubhavasya</i>（2箇所）は、PVin の並行文に従い <i>anubhayasya</i>（両者のどちらでもないものの）と読む。「結果と原因の、あるいはどちらでもないものの」という対比が明確になる。</p>
+<p class="note">本文校訂：電子テキスト（Gnoli 5,19）の <i>anubhavasya</i>（2箇所）を <i>anubhayasya</i>（両者のどちらでもないものの）と読む。Gnoli の刊本も <i>anubhayasya</i> であり、PVin の並行文もこれを支持する（電子テキストの入力の誤り）。「結果と原因の、あるいはどちらでもないものの」という対比が明確になる。</p>
 <p class="pvin"><span class="tag">PVin</span>PVin 第2章 k.32'b の自注とほぼ同文である。主な違いは次の三点。
 ① 矛盾の第二の定義が、PVin では「<i>anyonyavyatirekasthitalakṣaṇatā</i>」（互いの排除に成り立つ特徴）。
 ② PVin は「<i>kāraṇāni tadvanti</i>」（中性複数）と読む。
