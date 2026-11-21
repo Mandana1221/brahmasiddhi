@@ -85,7 +85,7 @@ dict(
 </table>
 <p><b>Mīmāṃsā 批判</b>：前者の推論は、Veda が人の作でない（<i>apauruṣeya</i>）とする Mīmāṃsā 学派への批判を含んでいる。Veda の文章も、普通の文章と区別できる特徴がない以上、人の作と推論される。Mīmāṃsā 側が「Veda の文章には見えない特殊性がある」と言っても、見えない特殊性を根拠に別種のものと認めることはできない。</p>
 <p><b>離貪者の可能性</b>：後者については、離貪という特殊性が修習によってありうる。それが見えないからといって否定はできない。これは第12偈以下の議論の続きである。</p>
-<p class="note">本文校訂：電子テキストの <i>apratikṣepārthatvāt</i> は、PVin の並行文により <i>apratikṣepārhatvāt</i>（否定するにふさわしくないから）と読む。</p>
+<p class="note">本文校訂：電子テキスト（Gnoli 16,1）の <i>apratikṣepārthatvāt</i> を <i>apratikṣepārhatvāt</i>（否定するにふさわしくないから）と読む。Gnoli の刊本も <i>apratikṣepārhatvāt</i> であり、PVin の並行文もこれを支持する（電子テキストの入力の誤り）。</p>
 <p class="pvin"><span class="tag">PVin</span>PVin 第2章にほぼ同文がある。主な異読は次のとおり（PVin／PVSV）。<i>bādhakahetvasambhavāt</i>／<i>bādhakahetvabhāvāt</i>。<i>rāgādyavyabhicārikāryāsambhavāt</i>／<i>rāgādyavyabhicāri kāryābhāvāt</i>。<i>parabhūtasya</i>／<i>parabhāvabhūtasya</i>。</p>
 <p class="stk"><span class="tag">Steinkellner</span>Steinkellner（2013, Anm.249）によれば、人については言葉などのわずかな共通性からあらゆる点での同一性を推論できない、という議論は、Mīmāṃsā による「卓越した人格の否定」を念頭に置いている。精神的な性質は修習によって最高度まで高められうる、という仏教の主張を Mīmāṃsā は否定した。Dharmakīrti はこの否定の論証を 164,15f. で <i>puruṣātiśayapratikṣepasādhana</i> と呼び、第311偈で「残余をもつ」擬似的論証としている。その論証は、Kumārila『大注』の二偈（TS 3167–3168 に保存）に確認できる（Kataoka 2003a:49）。ここで言う「他の[特殊性]」は、文脈上まず離貪（<i>vairāgya</i>）を指す（15,23 でもそれだけが挙げられる）。注釈者はさらに一切知者性を補う（Anm.250）。</p>"""
 ),
