@@ -116,7 +116,18 @@ p,.def,.card,.note,figcaption{overflow-wrap:break-word;line-break:strict}
 .kd details > summary::-webkit-details-marker{display:none}
 .kd details > summary .row::after{content:"▾";font-size:.75rem;color:var(--muted)}
 .kd details:not([open]) > summary .row::after{content:"▸"}
-.kdbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0}
+.kdbar{display:flex;gap:.5rem;flex-wrap:wrap;margin:.6rem 0;align-items:center}
+.kd .t .h{font-family:var(--f-iast);font-style:italic;font-size:1.04em}
+.kd .lv0 > details > summary .row .t .h{font-style:normal;font-weight:700}
+.kd .j{display:block;font-size:.84em;color:var(--muted);line-height:1.55}
+.kd .lv0 > details > summary .row .t .j{font-family:var(--f-body);font-weight:400;font-size:.8rem}
+.edt{display:inline-block;font-family:var(--f-body);font-size:.66rem;font-weight:700;font-style:normal;color:var(--accent);border:1px solid var(--accent);border-radius:3px;padding:0 .3rem;margin-left:.45rem;vertical-align:.12em;line-height:1.5}
+.kd .edh{display:block;font-size:.76rem;color:var(--accent)}
+.kd .edh i{font-family:var(--f-iast)}
+.kdbar input{flex:1 1 240px;min-width:0;font:inherit;font-size:.88rem;padding:.3rem .6rem;border:1px solid var(--line-strong);border-radius:6px;background:var(--surface);color:var(--ink)}
+.kd li.miss{display:none}
+.kd .row.hit{background:var(--accent-soft)}
+
 button{font:inherit;font-size:.8rem;border:1px solid var(--line-strong);background:var(--surface);color:var(--ink);padding:.25rem .7rem;border-radius:6px;cursor:pointer}
 button:hover{border-color:var(--accent)}
 button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
@@ -311,205 +322,281 @@ html{scroll-behavior:smooth}
 
 <!-- ============ KAKUDAN ============ -->
 <h2 id="kakudan">科段</h2>
-<p>科段は階層番号で示します。章は 1〜5（1 <i>pratyakṣa</i>、2 <i>anumāna</i>、3 <i>śabda</i>、4 <i>smṛti</i>、5 <i>prameya</i>）で、その下の <i>āhnika</i> は 1.1、論題は 1.1.1 のように番号を重ねます。全書の総結偈は 5.2 の最後に置きました。下の解説の見出し番号も、この番号に対応しています。右の小さな字は底本の頁です。分け方は本文の小題（<i>gautamasūtrabahiṣkārapakṣaḥ</i> など）と論の運びに従っています。小題がない箇所は内容から分けました。</p>
-<div class="kdbar"><button type="button" id="kdOpen">すべて展開</button><button type="button" id="kdClose">章レベルまで畳む</button></div>
+<p>科段は階層番号で示します。章は 1〜5（1 <i>pratyakṣa</i>、2 <i>anumāna</i>、3 <i>śabda</i>、4 <i>smṛti</i>、5 <i>prameya</i>）、その下が <i>āhnika</i>（1.1）、さらに論題（1.1.1）です。各項目は IAST の見出しと和文の要旨から成り、右端は底本（1941年版）の頁です。</p>
+<p>1941年版の本文には刊本の小見出しが入っています。見出しそのものが刊本の小見出しである項目には <span class="edt" style="margin-left:0">刊本</span> を付け、対応する刊本の小見出しが別にある項目にはそれを「刊本見出し」として添えました。第2章は刊本の小見出しに沿って組み、第1・3〜5章の細かい区分と IAST 見出しは別に作成された科段によっています。</p>
+<div class="kdbar"><input id="kdq" type="search" placeholder="語句で絞り込み（例：khyāti、tattvamasi、upādhi、記憶）" aria-label="科段を語句で絞り込む"><button type="button" id="kdOpen">すべて展開</button><button type="button" id="kdClose">章レベルまで畳む</button></div>
 <div class="kd" id="kdTree">
 <ul>
-  <!-- I pratyaksa -->
-  <li class="lv0"><details open><summary><div class="row"><span class="no">1</span><span class="t">第一 <i>pratyakṣādhyāya</i></span><span class="ref">pp.85–98</span></div></summary>
-   <ul>
-    <li><details open><summary><div class="row"><span class="no">1.1</span><span class="t">第一 <i>āhnika</i>：総論と <i>pramā</i> の定義</span><span class="ref">pp.85–92</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">1.1.1</span><span class="t">帰敬と造論の趣旨（<i>pariśodhyate</i>）</span><span class="ref">p.85</span></div></li>
-      <li><details><summary><div class="row"><span class="no">1.1.2</span><span class="t">Gautama の <i>sūtra</i> をどう扱うか</span><span class="ref">pp.85–89</span></div></summary>
-       <ul>
-        <li><details><summary><div class="row"><span class="no">1.1.2.1</span><span class="t">排斥説 <i>gautamasūtrabahiṣkārapakṣaḥ</i></span><span class="ref">pp.85–87</span></div></summary>
-         <ul>
-          <li><div class="row"><span class="no">1.1.2.1.1</span><span class="t">Brahmasūtra（<i>etena śiṣṭāparigrahā api vyākhyātāḥ</i>）とその Bhāṣya による排斥を理由とする</span><span class="ref">pp.85–86</span></div></li>
-          <li><div class="row"><span class="no">1.1.2.1.2</span><span class="t">聖仙の作（<i>ārṣatva</i>）であることは尊重の根拠にならない（Bṛhaspati や Brahmā も邪説を説いた）</span><span class="ref">p.85</span></div></li>
-          <li><div class="row"><span class="no">1.1.2.1.3</span><span class="t">自ら定義文を列挙し、<i>sūtra</i> は誰にでも作れることを示す</span><span class="ref">p.86</span></div></li>
-          <li><div class="row"><span class="no">1.1.2.1.4</span><span class="t"><i>siṃhavanagupti-nyāya</i>：Veda と、Veda が認める <i>nyāya</i> とに従う</span><span class="ref">pp.86–87</span></div></li>
-         </ul></details></li>
-        <li><details><summary><div class="row"><span class="no">1.1.2.2</span><span class="t">受容説 <i>gautamasūtrasvīkārapakṣaḥ</i>：Nyāyasūtra の各 <i>adhyāya</i> を Vedānta と矛盾しないように読む</span><span class="ref">pp.87–89</span></div></summary>
-         <ul>
-          <li><div class="row"><span class="no">1.1.2.2.1</span><span class="t">NS 第1 <i>adhyāya</i>：<i>indriya</i> は <i>bhūta</i> から（<i>āpyāyaka</i> の意と取る）。<i>apavarga</i> も <i>ānanda</i> を否定しない</span><span class="ref">p.87</span></div></li>
-          <li><div class="row"><span class="no">1.1.2.2.2</span><span class="t">第2：<i>avayavin</i> を <i>saṃghātaviśeṣa</i> と読む。<i>upamāna</i>、語と意味の関係が約束によること（<i>sāmayikatva</i>）、<i>āptaprāmāṇya</i>、<i>varṇānityatva</i>、<i>vyakti-ākṛti-jāti</i></span><span class="ref">pp.87–88</span></div></li>
-          <li><div class="row"><span class="no">1.1.2.2.3</span><span class="t">第3：<i>pāñcabhautika</i> の身体と <i>guṇa</i> の配分、<i>indriya</i> の <i>guṇa</i></span><span class="ref">pp.88–89</span></div></li>
-          <li><div class="row"><span class="no">1.1.2.2.4</span><span class="t">第4：おおむね Vedānta に合う。第5（<i>jāti・nigrahasthāna</i>）は <i>tattva</i> の役に立たない</span><span class="ref">p.89</span></div></li>
-         </ul></details></li>
-        <li><div class="row"><span class="no">1.1.2.3</span><span class="t">結論：全面的に排斥も全面的に受容もしない（<i>tuṣataṇḍula</i>、籾殻と米を分ける）</span><span class="ref">p.89</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">1.1.3</span><span class="t"><i>adhikārin</i> の弁別：学ぶ資格は三 <i>varṇa</i> に限られる</span><span class="ref">p.89</span></div></li>
-      <li><div class="row"><span class="no">1.1.4</span><span class="t"><i>prayojana</i>：Veda 解釈への効用。<i>pramāṇa</i> が主題で、<i>prameya</i> は究極の目的を示すために扱う</span><span class="ref">pp.89–90</span></div></li>
-      <li><div class="row"><span class="no">1.1.5</span><span class="t"><i>pramāṇa</i> と <i>apramāṇa</i> の区別を確立する（全面的懐疑論の自己論駁）</span><span class="ref">p.90</span></div></li>
-      <li><details><summary><div class="row"><span class="no">1.1.6</span><span class="t"><i>pramā</i> の定義の吟味</span><span class="ref">pp.90–92</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">1.1.6.1</span><span class="t">自派の3つの定義と自説 <i>yathāvasthitavyavahārānuguṇaṃ jñānam</i></span><span class="ref">p.90</span></div></li>
-        <li><div class="row"><span class="no">1.1.6.2</span><span class="t"><i>smṛti</i> の一律の否定は不当</span><span class="ref">pp.90–91</span></div></li>
-        <li><div class="row"><span class="no">1.1.6.3</span><span class="t"><i>anyathākhyāti</i> と <i>akhyāti</i>：Bhāṣya は両方を保持する。Nāthamuni の <i>yathārthakhyāti</i></span><span class="ref">p.91</span></div></li>
-        <li><div class="row"><span class="no">1.1.6.4</span><span class="t">他の <i>khyāti</i> の批判：<i>ātma-・asat-・niradhiṣṭhāna-・anirvacanīya-・nirviṣaya-</i></span><span class="ref">pp.91–92</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">1.1.7</span><span class="t">結：<i>bhrānti</i> は <i>anyathādhī</i> か、その原因である</span><span class="ref">p.92</span></div></li>
-     </ul></details></li>
-    <li><details open><summary><div class="row"><span class="no">1.2</span><span class="t">第二 <i>āhnika</i>：<i>apramā</i> と <i>pratyakṣa</i></span><span class="ref">pp.92–98</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">1.2.1</span><span class="t">定義中の限定語（<i>yathāvasthita</i> など）は何を除外するか</span><span class="ref">p.92</span></div></li>
-      <li><div class="row"><span class="no">1.2.2</span><span class="t"><i>viparyaya</i>：二つの立場それぞれでの定義、種類、原因（<i>rajas・tamas</i> ほか）</span><span class="ref">p.92</span></div></li>
-      <li><details><summary><div class="row"><span class="no">1.2.3</span><span class="t"><i>saṃśaya</i></span><span class="ref">pp.92–94</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">1.2.3.1</span><span class="t">定義。<i>ḍolāvega</i> 説、<i>Ātmasiddhi</i> の定義との調停</span><span class="ref">pp.92–93</span></div></li>
-        <li><div class="row"><span class="no">1.2.3.2</span><span class="t">原因は <i>samānadharma</i> と <i>vipratipatti</i>。<i>vipratipatti</i> を8種に分ける</span><span class="ref">pp.92–93</span></div></li>
-        <li><div class="row"><span class="no">1.2.3.3</span><span class="t">他説批判：<i>Prajñāparitrāṇa</i> の三種説、<i>asādhāraṇadharma</i> 説、<i>vipratipatti</i> を <i>samānadharma</i> に含める説</span><span class="ref">pp.93–94</span></div></li>
-        <li><div class="row"><span class="no">1.2.3.4</span><span class="t">下位分類：選択肢（<i>koṭi</i>）の数、<i>pariśeṣa</i> が可能かどうか</span><span class="ref">p.94</span></div></li>
-        <li><div class="row"><span class="no">1.2.3.5</span><span class="t"><i>anadhyavasāya</i> と <i>ūha</i> を還元する</span><span class="ref">p.94</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">1.2.4</span><span class="t"><i>pramāṇa</i> は3つ（Manu・Śaunaka・Bhāṣya）。<i>smṛti・divya・svayaṃsiddhi</i> の扱い</span><span class="ref">pp.94–95</span></div></li>
-      <li><div class="row"><span class="no">1.2.5</span><span class="t"><i>pratyakṣa</i> の定義（<i>sākṣātkāripramā</i>）と分類。<i>yogipratyakṣa</i>、<i>mānasa</i> の否定、<i>saṃnikarṣa</i></span><span class="ref">pp.95–96</span></div></li>
-      <li><div class="row"><span class="no">1.2.6</span><span class="t">Naiyāyika の <i>nirvikalpaka</i>（無規定な対象の把握）を退ける</span><span class="ref">p.96</span></div></li>
-      <li><div class="row"><span class="no">1.2.7</span><span class="t"><i>savikalpaka</i> も <i>pratyakṣa</i> である。<i>bheda</i> は一挙に知覚できる（<i>sanmātragrāhi</i> 説の批判）</span><span class="ref">pp.96–97</span></div></li>
-      <li><div class="row"><span class="no">1.2.8</span><span class="t"><i>śābdāparokṣa</i> の否定（<i>daśamas tvam asi</i> の例）</span><span class="ref">p.97</span></div></li>
-      <li><div class="row"><span class="no">1.2.9</span><span class="t">結偈（<i>pratyakṣaṃ cidacinmayaṃ jagad idaṃ…</i>）</span><span class="ref">pp.97–98</span></div></li>
-     </ul></details></li>
-   </ul></details></li>
-  <!-- II anumana -->
-  <li class="lv0"><details open><summary><div class="row"><span class="no">2</span><span class="t">第二 <i>anumānādhyāya</i></span><span class="ref">pp.98–149</span></div></summary>
-   <ul>
-    <li><details open><summary><div class="row"><span class="no">2.1</span><span class="t">第一 <i>āhnika</i>「<i>pratibandhādi</i>」：<i>anumāna</i> の成立と <i>vyāpti</i></span><span class="ref">pp.98–107</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">2.1.1</span><span class="t">序偈：<i>pratyakṣa</i> を基とし、<i>āgama</i> が最上位にあるので、その間に <i>aṅga</i> とともに <i>anumāna</i> を論じる</span><span class="ref">p.98</span></div></li>
-      <li><div class="row"><span class="no">2.1.2</span><span class="t"><i>anumāna</i> の定義（<i>vyāpyasya vyāpyatvānusaṃdhānād vyāpakaviśeṣapramitiḥ</i>）と <i>prāmāṇya</i> の論証（<i>karaṇadoṣabādhakapratyayarahitatvāt</i>）</span><span class="ref">p.98</span></div></li>
-      <li><div class="row"><span class="no">2.1.3</span><span class="t"><i>anumāna</i> の <i>prāmāṇya</i>：Cārvāka の否定は <i>pratyakṣa</i> でも <i>anumāna</i> でも立たず、<i>anumāna</i> を <i>saṃśaya</i> とすることもできない</span><span class="ref">p.98</span></div></li>
-      <li><div class="row"><span class="no">2.1.4</span><span class="t"><i>anumāna</i> は <i>pratyakṣa・mānasa・smṛti</i> に還元されない。感官を超えたものの推論には限界がある（<i>śāstrayonitvāt</i>）</span><span class="ref">p.98</span></div></li>
-      <li><div class="row"><span class="no">2.1.5</span><span class="t"><i>vyāpti</i>（<i>avinābhāva</i>）の定義。空間的・時間的な <i>vyāpti</i></span><span class="ref">p.99</span></div></li>
-      <li><div class="row"><span class="no">2.1.6</span><span class="t"><i>vyāpti</i> はどう把握されるか：繰り返しの観察（<i>bhūyodarśana</i>）か、一度の観察（<i>sakṛddarśana</i>）か</span><span class="ref">p.99</span></div></li>
-      <li><div class="row"><span class="no">2.1.7</span><span class="t"><i>upādhi</i>：定義、例、<i>aprayojaka</i></span><span class="ref">pp.100–101</span></div></li>
-      <li><div class="row"><span class="no">2.1.8</span><span class="t"><i>hetu</i> の5つの条件（<i>pañcarūpa</i>）</span><span class="ref">pp.101–102</span></div></li>
-      <li><div class="row"><span class="no">2.1.9</span><span class="t"><i>vyāpya</i> の2種（<i>anvayavyatirekin・kevalānvayin</i>）と <i>kevalavyatirekin</i> の否定。定義文（<i>lakṣaṇa</i>）も <i>kevalavyatirekin</i> ではない</span><span class="ref">pp.101–107</span></div></li>
-      <li><div class="row"><span class="no">2.1.10</span><span class="t">感官を超えたものの推論は、<i>śāstra</i> が <i>vyāpti</i> を与える場合だけ。<i>sāmānyatodṛṣṭa / viśeṣatodṛṣṭa</i></span><span class="ref">p.107</span></div></li>
-     </ul></details></li>
-    <li><details><summary><div class="row"><span class="no">2.2</span><span class="t">第二 <i>āhnika</i>「<i>prayogādi</i>」：論証式と論争</span><span class="ref">pp.107–118</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">2.2.1</span><span class="t">自分のための推論と他者のための推論（<i>svārtha / parārtha</i>）。<i>prayoga</i>＝<i>anumodbodhakaṃ vākyam</i></span><span class="ref">pp.107–108</span></div></li>
-      <li><div class="row"><span class="no">2.2.2</span><span class="t">5つの <i>avayava</i> の定義。<i>upanaya・nigamana</i> を欠点を防ぐための部分とみる説を批判し、論証文の形は多様だとする</span><span class="ref">pp.107–109</span></div></li>
-      <li><div class="row"><span class="no">2.2.3</span><span class="t"><i>kathā</i>：<i>vāda・jalpa・vitaṇḍā</i>。勝敗の条件と、<i>jalpa・vitaṇḍā</i> が許される場合</span><span class="ref">pp.109–112</span></div></li>
-      <li><div class="row"><span class="no">2.2.4</span><span class="t"><i>nigrahasthāna</i> 各論（<i>uktahāni</i> から <i>paryanuyojyopekṣaṇa</i> まで）</span><span class="ref">pp.112–118</span></div></li>
-     </ul></details></li>
-    <li><details><summary><div class="row"><span class="no">2.3</span><span class="t">第三 <i>āhnika</i>「<i>niranuyojyānuyoga</i>」：不当な非難</span><span class="ref">pp.118–130</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">2.3.1</span><span class="t">咎められない者を咎めること（<i>niranuyojyānuyoga</i>）の総論と種類</span><span class="ref">pp.118–119</span></div></li>
-      <li><div class="row"><span class="no">2.3.2</span><span class="t"><i>chala</i>（<i>upacāracchala</i> ほか）</span><span class="ref">pp.119–120</span></div></li>
-      <li><div class="row"><span class="no">2.3.3</span><span class="t"><i>jāti</i>：定義（<i>svavyāghātaka</i>＝<i>svavyāpidūṣaṇa</i>）と、<i>bādhasama・kāryasama</i> などの吟味</span><span class="ref">pp.120–129</span></div></li>
-      <li><div class="row"><span class="no">2.3.4</span><span class="t"><i>kukathā</i>：主張が2つから6つまで続くもの（<i>ṣaṭpakṣī</i>）と、<i>sabhya</i>（審判役）による制止</span><span class="ref">pp.129–130</span></div></li>
-     </ul></details></li>
-    <li><details><summary><div class="row"><span class="no">2.4</span><span class="t">第四 <i>āhnika</i>「<i>pramāṇābhāsa</i>」：根拠に似て根拠でないもの</span><span class="ref">pp.130–149</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">2.4.1</span><span class="t">総論：<i>pramāṇābhāsa</i> は <i>pratyakṣa・anumāna・āgama・smṛti</i> に対応して4種。これも <i>nigrahasthāna</i> の一つ</span><span class="ref">p.130</span></div></li>
-      <li><div class="row"><span class="no">2.4.2</span><span class="t"><i>hetvābhāsa</i>：根本は <i>avyāpta</i> と <i>apakṣadharma</i> の2つ。そこから <i>asiddha・viruddha・anaikāntika・bādhita・prakaraṇasama・aprayojaka</i> などに展開する</span><span class="ref">pp.130–136</span></div></li>
-      <li><div class="row"><span class="no">2.4.3</span><span class="t"><i>āgamābhāsa</i>（<i>śruti</i> どうしの衝突）</span><span class="ref">pp.136–137</span></div></li>
-      <li><div class="row"><span class="no">2.4.4</span><span class="t"><i>pakṣābhāsa</i> と <i>dṛṣṭāntābhāsa</i>（他書の分類の紹介を含む）</span><span class="ref">pp.138–141</span></div></li>
-      <li><div class="row"><span class="no">2.4.5</span><span class="t"><i>tarka</i> の位置と <i>tarkābhāsa</i>（<i>ātmāśraya・anyonyāśraya・cakraka・anavasthā</i>）</span><span class="ref">pp.142–147</span></div></li>
-      <li><div class="row"><span class="no">2.4.6</span><span class="t"><i>smṛtyābhāsa</i> と <i>purāṇa</i> の強弱</span><span class="ref">pp.147–149</span></div></li>
-      <li><div class="row"><span class="no">2.4.7</span><span class="t">結：論の途中の脱線は許される（劇中劇 <i>garbhāṅka</i> の喩え）。結偈（<i>yasmin nānumitiḥ krameta…</i>）と後書き</span><span class="ref">pp.148–149</span></div></li>
-     </ul></details></li>
-   </ul></details></li>
-  <!-- III sabda -->
-  <li class="lv0"><details open><summary><div class="row"><span class="no">3</span><span class="t">第三 <i>śabdādhyāya</i></span><span class="ref">pp.149–171</span></div></summary>
-   <ul>
-    <li><details open><summary><div class="row"><span class="no">3.1</span><span class="t">第一 <i>āhnika</i>：<i>śabda</i> の本質、意味論、<i>svataḥ prāmāṇya</i></span><span class="ref">pp.149–157</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">3.1.1</span><span class="t">定義（<i>anāptānukta-vākya-janitaṃ tadarthavijñānam</i>）。<i>pratyakṣa・anumāna・smṛti</i> と異なること。<i>pada・vākya</i> の定義、語は約束によらないこと</span><span class="ref">pp.149–150</span></div></li>
-      <li><div class="row"><span class="no">3.1.2</span><span class="t"><i>vākya</i> は <i>pauruṣeya</i> と <i>apauruṣeya</i>。世俗の文は話者の知の推論によるかという問題</span><span class="ref">p.150</span></div></li>
-      <li><details><summary><div class="row"><span class="no">3.1.3</span><span class="t"><i>vṛtti</i> と <i>anvitābhidhāna</i></span><span class="ref">pp.150–153</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">3.1.3.1</span><span class="t"><i>abhidhā</i> と <i>upacāra</i>（<i>lakṣaṇā・gauṇī</i>）</span><span class="ref">pp.150–151</span></div></li>
-        <li><div class="row"><span class="no">3.1.3.2</span><span class="t"><i>abhihitānvaya</i> を支持するように見える箇所を挙げる説（<i>iti kecit</i>）</span><span class="ref">pp.151–152</span></div></li>
-        <li><div class="row"><span class="no">3.1.3.3</span><span class="t"><i>anvitābhidhāna</i> こそ定説だとする説（<i>anye</i>）</span><span class="ref">p.152</span></div></li>
-        <li><div class="row"><span class="no">3.1.3.4</span><span class="t">語は <i>viśiṣṭa</i> を表示する。<i>jāti</i> にだけ <i>śakti</i> があるとする説の批判</span><span class="ref">pp.152–153</span></div></li>
-       </ul></details></li>
-      <li><details><summary><div class="row"><span class="no">3.1.4</span><span class="t"><i>sāmānādhikaraṇya</i> と <i>śarīra-śarīri-bhāva</i></span><span class="ref">pp.153–155</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">3.1.4.1</span><span class="t"><i>śarīra</i> を表す語は <i>śarīrin</i> まで指し、すべての語は Īśvara を指す</span><span class="ref">p.153</span></div></li>
-        <li><div class="row"><span class="no">3.1.4.2</span><span class="t">反論：<i>tat tvam asi</i> と <i>jīvenātmanā</i> の文法上の難点</span><span class="ref">p.153</span></div></li>
-        <li><div class="row"><span class="no">3.1.4.3</span><span class="t">答：<i>kārya-kāraṇa</i> または <i>śarīra-ātman</i> の関係で解く。<i>tādātmya</i> の定義</span><span class="ref">pp.153–154</span></div></li>
-        <li><div class="row"><span class="no">3.1.4.4</span><span class="t"><i>satyaṃ jñānam anantam</i> は <i>viśiṣṭaikaviṣaya</i>。<i>viśeṣaṇa</i> 同士は両立する</span><span class="ref">p.154</span></div></li>
-        <li><div class="row"><span class="no">3.1.4.5</span><span class="t"><i>akhaṇḍārtha</i> の推論を批判し、<i>sāmānādhikaraṇya</i> を定義する</span><span class="ref">pp.154–155</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">3.1.5</span><span class="t"><i>svataḥ prāmāṇya</i>：<i>parataḥ</i> 説（Kusumāñjali）の循環を指摘し、<i>jñapti</i> も自律的であることを示す</span><span class="ref">pp.155–157</span></div></li>
-     </ul></details></li>
-    <li><details open><summary><div class="row"><span class="no">3.2</span><span class="t">第二 <i>āhnika</i>：Veda の権威と諸聖典</span><span class="ref">pp.157–171</span></div></summary>
-     <ul>
-      <li><details><summary><div class="row"><span class="no">3.2.1</span><span class="t"><i>apauruṣeyatva</i> と <i>nityatva</i></span><span class="ref">pp.157–161</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">3.2.1.1</span><span class="t">人の作だとする反論。<i>mahājanaparigraha</i>（偉人たちによる受容）と外道聖典の対比</span><span class="ref">pp.157–159</span></div></li>
-        <li><div class="row"><span class="no">3.2.1.2</span><span class="t">反証の推論（<i>pratiprayoga</i>）。<i>yathāpūrva</i>（前と同じに）の伝承</span><span class="ref">pp.159–160</span></div></li>
-        <li><div class="row"><span class="no">3.2.1.3</span><span class="t">聖典そのものによる確立。<i>ṛṣi</i> は <i>draṣṭṛ</i>（見る者）。<i>śākhā</i> と名称</span><span class="ref">pp.160–161</span></div></li>
-        <li><div class="row"><span class="no">3.2.1.4</span><span class="t"><i>varṇānityatva</i> と矛盾しない。<i>śakti</i> は本性的（<i>svābhāvika</i>）。<i>apauruṣeyatva</i> の定義</span><span class="ref">p.161</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">3.2.2</span><span class="t">Veda の区分：<i>mantra・arthavāda</i>（4種）・<i>vidhi</i>（<i>niyama・parisaṃkhyā</i>）</span><span class="ref">pp.161–162</span></div></li>
-      <li><details><summary><div class="row"><span class="no">3.2.3</span><span class="t"><i>liṅ</i> などの意味（<i>liṅādipratyayārtha</i>）</span><span class="ref">pp.162–166</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">3.2.3.1</span><span class="t"><i>apūrva</i> 説と「最初の語学習は命令文からだけ」という説の批判</span><span class="ref">pp.162–163</span></div></li>
-        <li><div class="row"><span class="no">3.2.3.2</span><span class="t">「半ば Lokāyata」による <i>devatā</i> の身体などの否定を退ける</span><span class="ref">pp.163–164</span></div></li>
-        <li><div class="row"><span class="no">3.2.3.3</span><span class="t"><i>śabdabhāvanā・iṣṭasādhanatva・āptecchā</i> の批判と、<i>kartṛvyāpārasādhyatā</i> の採用</span><span class="ref">pp.164–165</span></div></li>
-        <li><div class="row"><span class="no">3.2.3.4</span><span class="t">4つの問い（<i>ākāṅkṣā</i>）の充足。<i>vidhi</i> は <i>preraṇa</i>、すなわち Īśvara の命令</span><span class="ref">pp.165–166</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">3.2.4</span><span class="t">Jaimini 自身が命令者を示唆していた（<i>codanā・upadeśa</i>）。Bādarāyaṇa と同じ考えである</span><span class="ref">p.166</span></div></li>
-      <li><details><summary><div class="row"><span class="no">3.2.5</span><span class="t"><i>smṛti</i> 以下の聖典の権威</span><span class="ref">pp.166–170</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">3.2.5.1</span><span class="t"><i>dharmaśāstra・itihāsa・purāṇa</i>。<i>śruti</i> と衝突したときの裁定</span><span class="ref">pp.166–167</span></div></li>
-        <li><div class="row"><span class="no">3.2.5.2</span><span class="t">Sāṃkhya・Yoga・Pāśupata・Pañcarātra も <i>dharmaśāstra</i> の一種である。部分的に有効か、全体が有効か</span><span class="ref">p.167</span></div></li>
-        <li><div class="row"><span class="no">3.2.5.3</span><span class="t">Pañcarātra は Īśvara の慈悲に直接もとづくので、Manu などより優越する。Ekāyana <i>śruti</i></span><span class="ref">pp.167–169</span></div></li>
-        <li><div class="row"><span class="no">3.2.5.4</span><span class="t">Pañcarātra の4種。Vaikhānasa の <i>prāmāṇya</i> と <i>brāhmaṇya</i> を擁護する</span><span class="ref">pp.169–170</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">3.2.6</span><span class="t">Veda の補助学（<i>vedāṅga</i>）。<i>viṃśatilakṣaṇī mīmāṃsā</i> は一つの学である（<i>śāstraikya</i>）</span><span class="ref">p.170</span></div></li>
-      <li><div class="row"><span class="no">3.2.7</span><span class="t"><i>nididhyāsana</i>＝<i>upāsana</i>＝<i>bhakti</i>。<i>śāstra</i> を捨てよという言葉の解釈</span><span class="ref">pp.170–171</span></div></li>
-      <li><div class="row"><span class="no">3.2.8</span><span class="t">結偈（<i>yasyājñā nigamaikaharmya°</i>）</span><span class="ref">p.171</span></div></li>
-     </ul></details></li>
-   </ul></details></li>
-  <!-- IV smrti -->
-  <li class="lv0"><details open><summary><div class="row"><span class="no">4</span><span class="t">第四 <i>smṛtyadhyāya</i></span><span class="ref">pp.171–178</span></div></summary>
-   <ul>
-    <li><details><summary><div class="row"><span class="no">4.1</span><span class="t">第一 <i>āhnika</i>：<i>smṛti</i> の <i>prāmāṇya</i></span><span class="ref">pp.171–173</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">4.1.1</span><span class="t">定義（<i>saṃskāramātrajaṃ jñānam</i>）。<i>smṛti</i> を <i>pramāṇa</i> と認めない側の論拠を一つずつ退ける</span><span class="ref">pp.171–172</span></div></li>
-      <li><div class="row"><span class="no">4.1.2</span><span class="t">Nyāyatattva・Tattvaratnākara を支持とし、Viṣṇucitta・Varadaviṣṇumiśra・Yāmuna の否定的な言明は「他説に合わせた説明（<i>paramatānvāroha</i>）」と読む</span><span class="ref">pp.172–173</span></div></li>
-      <li><div class="row"><span class="no">4.1.3</span><span class="t">Bhāṣya の該当箇所も <i>smṛti</i> の非 <i>prāmāṇya</i> を述べてはいない</span><span class="ref">p.173</span></div></li>
-     </ul></details></li>
-    <li><details open><summary><div class="row"><span class="no">4.2</span><span class="t">第二 <i>āhnika</i>：追加された <i>pramāṇa</i> を還元する</span><span class="ref">pp.173–178</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">4.2.1</span><span class="t"><i>pramāṇa</i> の数をめぐる学説誌（1から8まで）</span><span class="ref">p.173</span></div></li>
-      <li><div class="row"><span class="no">4.2.2</span><span class="t"><i>pratyabhijñā</i>：<i>grahaṇātmikā</i> 説と <i>ubhayātmikā</i> 説。9種に分かれ、事物が恒常であることを証する</span><span class="ref">pp.173–174</span></div></li>
-      <li><div class="row"><span class="no">4.2.3</span><span class="t"><i>pratisandhāna</i> と <i>saṃvāda</i> を還元する</span><span class="ref">pp.174–175</span></div></li>
-      <li><div class="row"><span class="no">4.2.4</span><span class="t"><i>upamāna</i> は <i>smṛti・anumāna・āgama</i> に、<i>arthāpatti</i> は <i>anumāna</i> に還元する</span><span class="ref">pp.175–176</span></div></li>
-      <li><div class="row"><span class="no">4.2.5</span><span class="t"><i>abhāva・saṃbhava・aitihya・ceṣṭā・lipi・pratibhā</i> を還元する</span><span class="ref">pp.176–177</span></div></li>
-      <li><div class="row"><span class="no">4.2.6</span><span class="t"><i>pratyakṣa/parokṣa</i> の2分説を批判し、3と数える根拠を示す（6分も可）</span><span class="ref">p.177</span></div></li>
-      <li><div class="row"><span class="no">4.2.7</span><span class="t"><i>pramāṇa</i> を吟味する必要性。結偈</span><span class="ref">pp.177–178</span></div></li>
-     </ul></details></li>
-   </ul></details></li>
-  <!-- V prameya -->
-  <li class="lv0"><details open><summary><div class="row"><span class="no">5</span><span class="t">第五 <i>prameyādhyāya</i></span><span class="ref">pp.178–186</span></div></summary>
-   <ul>
-    <li><details open><summary><div class="row"><span class="no">5.1</span><span class="t">第一 <i>āhnika</i>：<i>padārtha</i> 論</span><span class="ref">pp.178–183</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">5.1.1</span><span class="t">Vaiśeṣika の句義の批判：<i>abhāva・samavāya・viśeṣa・sāmānya</i>。「<i>jāti</i>＝<i>saṃsthāna</i>」とする</span><span class="ref">pp.178–180</span></div></li>
-      <li><div class="row"><span class="no">5.1.2</span><span class="t"><i>karma</i> 論。<i>karma</i> は <i>guṇa</i> から独立した類を作らない。よって <i>dravya / adravya</i> の2つ</span><span class="ref">pp.180–181</span></div></li>
-      <li><details><summary><div class="row"><span class="no">5.1.3</span><span class="t"><i>adravya</i> の吟味</span><span class="ref">pp.181–182</span></div></summary>
-       <ul>
-        <li><div class="row"><span class="no">5.1.3.1</span><span class="t"><i>ātmaguṇa</i> は <i>buddhiviśeṣa</i>。<i>dharma・adharma</i> は Īśvara の恩寵と懲罰。<i>saṃskāra</i> の所在</span><span class="ref">p.181</span></div></li>
-        <li><div class="row"><span class="no">5.1.3.2</span><span class="t">Bhagavat の6つの <i>guṇa</i>（<i>ṣāḍguṇya</i>）と <i>śakti</i></span><span class="ref">p.181</span></div></li>
-        <li><div class="row"><span class="no">5.1.3.3</span><span class="t">非精神的な <i>dravya</i>（<i>acit</i>）の <i>guṇa</i>：何を残し、何を還元するか</span><span class="ref">pp.181–182</span></div></li>
-       </ul></details></li>
-      <li><div class="row"><span class="no">5.1.4</span><span class="t"><i>dravya</i> の吟味：<i>śabda</i> を <i>dravya</i> とする説の否定、<i>tamas</i> は <i>dravya</i>、<i>avayavin</i> と <i>paramāṇu</i> の否定、<i>dik</i> を還元する。こうして6つの <i>dravya</i> になる</span><span class="ref">pp.182–183</span></div></li>
-     </ul></details></li>
-    <li><details open><summary><div class="row"><span class="no">5.2</span><span class="t">第二 <i>āhnika</i>：解脱に向けた <i>prameya</i></span><span class="ref">pp.183–186</span></div></summary>
-     <ul>
-      <li><div class="row"><span class="no">5.2.1</span><span class="t"><i>prameya</i> を「<i>prakarṣeṇa meya</i>」（とりわけ知られるべきもの）と取る。Gautama の12 <i>prameya</i> を定義し直す</span><span class="ref">pp.183–184</span></div></li>
-      <li><div class="row"><span class="no">5.2.2</span><span class="t">他の分け方（4・3・5・6・25〜27）。どれも本質的な違いはない</span><span class="ref">pp.183–184</span></div></li>
-      <li><div class="row"><span class="no">5.2.3</span><span class="t"><i>hita / ahita</i>。<i>kāmya</i> と <i>abhicāra</i> の位置。<i>upāsana</i>（<i>bhakti</i>）が最高の <i>hita</i>（<i>hitatama</i>）。段階的な道と <i>śaraṇāgati</i></span><span class="ref">pp.184–185</span></div></li>
-      <li><div class="row"><span class="no">5.2.4</span><span class="t">他派の解脱観を排し、<i>prameya</i> を説いた意図を述べる</span><span class="ref">pp.185–186</span></div></li>
-      <li><div class="row"><span class="no">5.2.5</span><span class="t">総結偈（全書の結び）：本書の位置づけ（<i>prācī nītiṣu paryaśodhi saraṇiḥ</i>）と終わりの句</span><span class="ref">p.186</span></div></li>
-     </ul></details></li>
-   </ul></details></li>
+<li class="lv0" data-k="1"><details open><summary><div class="row"><span class="no">1</span><span class="t"><i class="h">pratyakṣādhyāyaḥ</i><span class="j">第1章 知覚</span></span><span class="ref">pp.85–98</span></div></summary><ul>
+<li data-k="1.1"><details open><summary><div class="row"><span class="no">1.1</span><span class="t"><i class="h">prathamam āhnikam</i><span class="j">第1日課</span></span><span class="ref">pp.85–92</span></div></summary><ul>
+<li data-k="1.1.1"><div class="row"><span class="no">1.1.1</span><span class="t"><i class="h">maṅgalam, granthaprayojanam</i><span class="j">帰敬偈と著作の目的:乱された nyāyavistara を浄める</span></span><span class="ref">p.85</span></div></li>
+<li data-k="1.1.2"><details><summary><div class="row"><span class="no">1.1.2</span><span class="t"><i class="h">gautamasūtrabahiṣkārapakṣaḥ</i><span class="edt">刊本</span><span class="j">Gautama の経を退ける立場</span></span><span class="ref">pp.85–87</span></div></summary><ul>
+<li data-k="1.1.2.1"><div class="row"><span class="no">1.1.2.1</span><span class="t"><i class="h">ārṣatvaṃ nādaraṇīyatāhetuḥ</i><span class="j">聖仙の作であることは尊重の理由にならない(Bṛhaspati・Brahmā の例)</span></span><span class="ref">p.85</span></div></li>
+<li data-k="1.1.2.2"><div class="row"><span class="no">1.1.2.2</span><span class="t"><i class="h">kāṇādādibahiṣkāre smṛtibhāratavacanāni</i><span class="j">Kaṇāda・Sāṃkhya 排斥の典拠が Nyāya にも同様に及ぶ</span></span><span class="ref">pp.85–86</span></div></li>
+<li data-k="1.1.2.3"><div class="row"><span class="no">1.1.2.3</span><span class="t"><i class="h">pūrvācāryavacanaṃ śārīrakabhāṣyaṃ ca</i><span class="j">「kāṇādam ākṣapādaṃ vā…」と Brahmasūtra 2.1.12 の注</span></span><span class="ref">p.86</span></div></li>
+<li data-k="1.1.2.4"><div class="row"><span class="no">1.1.2.4</span><span class="t"><i class="h">pramāṇaśabdavyutpattiḥ, lokasiddhopajīvanam</i><span class="j">「pramāṇa」の語源諸説。ヴェーダに随う nyāya のみを採る(池と泥の喩え、siṃhavanagupti)</span></span><span class="ref">pp.86–87</span></div></li>
+<li data-k="1.1.2.5"><div class="row"><span class="no">1.1.2.5</span><span class="t"><i class="h">nāthamuneḥ nyāyatattvam</i><span class="j">Nāthamuni は Akṣapāda を退けて独自の nyāya を立てた。これが Bhāṣya に裏づけられた排斥説</span></span><span class="ref">p.87</span></div></li>
+</ul></details></li>
+<li data-k="1.1.3"><details><summary><div class="row"><span class="no">1.1.3</span><span class="t"><i class="h">gautamasūtrasvīkārapakṣaḥ</i><span class="edt">刊本</span><span class="j">Gautama の経を受け入れる立場:矛盾箇所を再解釈する</span></span><span class="ref">pp.87–89</span></div></summary><ul>
+<li data-k="1.1.3.1"><div class="row"><span class="no">1.1.3.1</span><span class="t"><i class="h">indriyasaṃkhyā</i><span class="j">第1巻:感覚器官五つ。行為器官も含意される(Brahmasūtra 2.4.6 との整合)</span></span><span class="ref">p.87</span></div></li>
+<li data-k="1.1.3.2"><div class="row"><span class="no">1.1.3.2</span><span class="t"><i class="h">apavargalakṣaṇam</i><span class="j">苦の完全な消滅としての解脱。歓喜の否定は含まれない</span></span><span class="ref">p.87</span></div></li>
+<li data-k="1.1.3.3"><div class="row"><span class="no">1.1.3.3</span><span class="t"><i class="h">avayavisamarthanam, upamānam</i><span class="j">第2巻:全体(avayavin)論と upamāna の扱い</span></span><span class="ref">pp.87–88</span></div></li>
+<li data-k="1.1.3.4"><div class="row"><span class="no">1.1.3.4</span><span class="t"><i class="h">śabdārthasaṃbandhaḥ, vedaprāmāṇyam, varṇānityatvam</i><span class="j">言葉と対象の関係、ヴェーダの権威、音素の無常性</span></span><span class="ref">p.88</span></div></li>
+<li data-k="1.1.3.5"><div class="row"><span class="no">1.1.3.5</span><span class="t"><i class="h">vyaktyākṛtijātayaḥ padārthaḥ</i><span class="j">語の意味は個物・形状・類</span></span><span class="ref">p.88</span></div></li>
+<li data-k="1.1.3.6"><div class="row"><span class="no">1.1.3.6</span><span class="t"><i class="h">tṛtīyādhyāyaḥ: indriyāṇi, bhautikatvam, guṇavyavasthā</i><span class="j">第3巻:内外の感官、身体の五元素性、元素の性質配分</span></span><span class="ref">pp.88–89</span></div></li>
+<li data-k="1.1.3.7"><div class="row"><span class="no">1.1.3.7</span><span class="t"><i class="h">caturthapañcamādhyāyau</i><span class="j">第4巻は概ね有用。第5巻(jāti・nigrahasthāna)は真理に寄与しない</span></span><span class="ref">p.89</span></div></li>
+<li data-k="1.1.3.8"><div class="row"><span class="no">1.1.3.8</span><span class="t"><i class="h">madhyamapakṣaḥ</i><span class="j">中道の結論:有用な部分を採り、矛盾部分だけを退ける</span></span><span class="ref">p.89</span></div></li>
+</ul></details></li>
+<li data-k="1.1.4"><div class="row"><span class="no">1.1.4</span><span class="t"><i class="h">adhikārivivecanam</i><span class="edt">刊本</span><span class="j">学ぶ資格:三 varṇa に限る(Āśvamedhika・Śaṅkha の典拠)</span></span><span class="ref">p.89</span></div></li>
+<li data-k="1.1.5"><details><summary><div class="row"><span class="no">1.1.5</span><span class="t"><i class="h">prayojananirūpaṇam</i><span class="j">学問の目的と、十六句義を固定しないこと</span></span><span class="ref">pp.89–90</span></div></summary><ul>
+<li data-k="1.1.5.1"><div class="row"><span class="no">1.1.5.1</span><span class="t"><i class="h">vedārthaśodhanopayogaḥ</i><span class="j">語と意味の浄化、矛盾文の解釈、arthavāda・vidhi の検討に役立つ</span></span><span class="ref">pp.89–90</span></div></li>
+<li data-k="1.1.5.2"><div class="row"><span class="no">1.1.5.2</span><span class="t"><i class="h">prameyaśuddhis tādarthyāt</i><span class="j">対象の浄化は最終的には Brahman の考究のため</span></span><span class="ref">p.90</span></div></li>
+<li data-k="1.1.5.3"><div class="row"><span class="no">1.1.5.3</span><span class="t"><i class="h">pramāṇasya prādhānyam, ṣoḍaśatvāgrahaḥ</i><span class="j">主題は pramāṇa。十六の数には固執しない</span></span><span class="ref">p.90</span></div></li>
+</ul></details></li>
+<li data-k="1.1.6"><details><summary><div class="row"><span class="no">1.1.6</span><span class="t"><i class="h">pramāṇāpramāṇavyavasthāpanam</i><span class="edt">刊本</span><span class="j">正しい認識と誤った認識の区別は否定できない(懐疑論・全面的不確実説の論駁)</span></span><span class="ref">p.90</span></div></summary><ul>
+<li data-k="1.1.6.1"><div class="row"><span class="no">1.1.6.1</span><span class="t"><i class="h">lokavyavahārasiddhiḥ</i><span class="j">世間と吟味者の慣用が出発点</span></span><span class="ref">p.90</span></div></li>
+<li data-k="1.1.6.2"><div class="row"><span class="no">1.1.6.2</span><span class="t"><i class="h">sarvāprāmāṇya-sarvaprāmāṇyanirāsaḥ</i><span class="j">すべてが誤り/すべてが正しいという説は自己論駁</span></span><span class="ref">p.90</span></div></li>
+<li data-k="1.1.6.3"><div class="row"><span class="no">1.1.6.3</span><span class="t"><i class="h">sarvasaṃśayavādanirāsaḥ</i><span class="j">すべてを疑う説の自己矛盾</span></span><span class="ref">p.90</span></div></li>
+<li data-k="1.1.6.4"><div class="row"><span class="no">1.1.6.4</span><span class="t"><i class="h">pramāṇaśabdārthaḥ, āptaprāmāṇyam</i><span class="j">pramāṇa は認識とその手段のどちらでもよい。権威の根拠は原因の欠陥の不在</span></span><span class="ref">p.90</span></div></li>
+</ul></details></li>
+<li data-k="1.1.7"><details><summary><div class="row"><span class="no">1.1.7</span><span class="t"><i class="h">pramālakṣaṇaparīkṣaṇam</i><span class="edt">刊本</span><span class="j">正しい認識(pramā)の定義の検討</span></span><span class="ref">pp.90–92</span></div></summary><ul>
+<li data-k="1.1.7.1"><div class="row"><span class="no">1.1.7.1</span><span class="t"><i class="h">pūrvalakṣaṇāni</i><span class="j">同派内の諸定義(samyaganubhava など)</span></span><span class="ref">p.90</span></div></li>
+<li data-k="1.1.7.2"><div class="row"><span class="no">1.1.7.2</span><span class="t"><i class="h">yathāvasthitavyavahārānuguṇaṃ jñānaṃ pramā</i><span class="j">定説:実相どおりの言語・行動に適う認識が pramā</span></span><span class="ref">pp.90–91</span></div></li>
+<li data-k="1.1.7.3"><div class="row"><span class="no">1.1.7.3</span><span class="t"><i class="h">smṛtiprāmāṇyaprasaṅgaḥ</i><span class="j">記憶も、妨げられなければ pramā でありうる(詳しくは第4章)</span></span><span class="ref">pp.90–91</span></div></li>
+<li data-k="1.1.7.4"><div class="row"><span class="no">1.1.7.4</span><span class="t"><i class="h">khyātivādaḥ: anyathākhyātiḥ, akhyātiḥ, yathārthakhyātiḥ</i><span class="j">誤認論:anyathākhyāti の自然さ、akhyāti の簡潔さ。Bhāṣya は両説を残す。Nāthamuni らの yathārthakhyāti</span></span><span class="ref">p.91</span></div></li>
+<li data-k="1.1.7.5"><div class="row"><span class="no">1.1.7.5</span><span class="t"><i class="h">ātmakhyātinirāsaḥ</i><span class="j">唯識派の ātmakhyāti 批判</span></span><span class="ref">p.91</span></div></li>
+<li data-k="1.1.7.6"><div class="row"><span class="no">1.1.7.6</span><span class="t"><i class="h">asatkhyātinirāsaḥ</i><span class="j">中観派の説の批判(四句分別)</span></span><span class="ref">p.91</span></div></li>
+<li data-k="1.1.7.7"><div class="row"><span class="no">1.1.7.7</span><span class="t"><i class="h">niradhiṣṭhānakhyātinirāsaḥ</i><span class="j">基体なき誤認説の批判(飛蚊症の喩え)</span></span><span class="ref">p.91</span></div></li>
+<li data-k="1.1.7.8"><div class="row"><span class="no">1.1.7.8</span><span class="t"><i class="h">anirvacanīyakhyātinirāsaḥ</i><span class="j">不二一元論の「言表不可能」説の批判</span></span><span class="ref">pp.91–92</span></div></li>
+<li data-k="1.1.7.9"><div class="row"><span class="no">1.1.7.9</span><span class="t"><i class="h">nirviṣayakhyātinirāsaḥ</i><span class="j">対象なき誤認説の批判</span></span><span class="ref">p.92</span></div></li>
+</ul></details></li>
+<li data-k="1.1.8"><div class="row"><span class="no">1.1.8</span><span class="t"><i class="h">nigamanam</i><span class="edt">刊本</span><span class="j">結論:誤認とは、別様の認識(またはその原因)が実相に反する言動を生むこと</span></span><span class="ref">p.92</span></div></li>
+</ul></details></li>
+<li data-k="1.2"><details open><summary><div class="row"><span class="no">1.2</span><span class="t"><i class="h">dvitīyam āhnikam</i><span class="j">第2日課</span></span><span class="ref">pp.92–98</span></div></summary><ul>
+<li data-k="1.2.1"><div class="row"><span class="no">1.2.1</span><span class="t"><i class="h">pramālakṣaṇasya vyavacchedyāni</i><span class="j">定義が除外するもの:viparyaya と saṃśaya</span></span><span class="ref">p.92</span></div></li>
+<li data-k="1.2.2"><details><summary><div class="row"><span class="no">1.2.2</span><span class="t"><i class="h">viparyayanirūpaṇam</i><span class="edt">刊本</span><span class="j">顛倒の考察</span></span><span class="ref">p.92</span></div></summary><ul>
+<li data-k="1.2.2.1"><div class="row"><span class="no">1.2.2.1</span><span class="t"><i class="h">viparyayalakṣaṇam</i><span class="j">anyathākhyāti 説・akhyāti 説それぞれの定義</span></span><span class="ref">p.92</span></div></li>
+<li data-k="1.2.2.2"><div class="row"><span class="no">1.2.2.2</span><span class="t"><i class="h">ekānekaviśeṣasphuraṇabhedāḥ, rajastamomūlatvam</i><span class="j">種類。rajas と tamas が根(Gītā 18.31–32)</span></span><span class="ref">p.92</span></div></li>
+<li data-k="1.2.2.3"><div class="row"><span class="no">1.2.2.3</span><span class="t"><i class="h">svarūpājñānam, anyathājñānam, viparītajñānam</i><span class="j">無知・別様知・逆知の区別</span></span><span class="ref">p.92</span></div></li>
+</ul></details></li>
+<li data-k="1.2.3"><details><summary><div class="row"><span class="no">1.2.3</span><span class="t"><i class="h">saṃśayanirūpaṇam</i><span class="edt">刊本</span><span class="j">疑いの考察</span></span><span class="ref">pp.92–95</span></div></summary><ul>
+<li data-k="1.2.3.1"><div class="row"><span class="no">1.2.3.1</span><span class="t"><i class="h">saṃśayalakṣaṇam, vipratipattibhedāḥ</i><span class="j">定義。認識手段どうしの不一致から生じる疑い(知覚と推論、知覚と聖典、推論と聖典)</span></span><span class="ref">pp.92–93</span></div></li>
+<li data-k="1.2.3.2"><div class="row"><span class="no">1.2.3.2</span><span class="t"><i class="h">prajñāparitrāṇoktatraividhyavicāraḥ</i><span class="j">『Prajñāparitrāṇa』の三分類の検討</span></span><span class="ref">p.93</span></div></li>
+<li data-k="1.2.3.3"><div class="row"><span class="no">1.2.3.3</span><span class="t"><i class="h">asādhāraṇadharmajasaṃśayaḥ, vipratipattiḥ</i><span class="j">不共の性質による疑い、論者の対立による疑い</span></span><span class="ref">pp.93–94</span></div></li>
+<li data-k="1.2.3.4"><div class="row"><span class="no">1.2.3.4</span><span class="t"><i class="h">koṭibhedāḥ, pariśeṣayogyatā</i><span class="j">選択肢の数による種類、残余による決定の可否</span></span><span class="ref">p.94</span></div></li>
+<li data-k="1.2.3.5"><div class="row"><span class="no">1.2.3.5</span><span class="t"><i class="h">anadhyavasāyaḥ, ūhaḥ</i><span class="j">未決(anadhyavasāya)は疑いに含まれる。推測(ūha)の位置づけ</span></span><span class="ref">p.94</span></div></li>
+</ul></details></li>
+<li data-k="1.2.4"><details><summary><div class="row"><span class="no">1.2.4</span><span class="t"><i class="h">pramāṇatraividhyam</i><span class="j">認識手段は三つ:知覚・推論・言葉(Manu・Śaunaka・Bhāṣya・Vedārthasaṃgraha)</span></span><span class="ref">pp.94–95</span></div></summary><ul>
+<li data-k="1.2.4.1"><div class="row"><span class="no">1.2.4.1</span><span class="t"><i class="h">smṛteḥ pṛthaganuktiḥ</i><span class="j">記憶は知覚などに基づくので別に数えない</span></span><span class="ref">pp.94–95</span></div></li>
+<li data-k="1.2.4.2"><div class="row"><span class="no">1.2.4.2</span><span class="t"><i class="h">svayaṃsiddhi-divyayoḥ pratyakṣe 'ntarbhāvaḥ</i><span class="j">『Prajñāparitrāṇa』の五つの pramāṇa:自証と神的認識は知覚に含まれる</span></span><span class="ref">p.95</span></div></li>
+</ul></details></li>
+<li data-k="1.2.5"><details><summary><div class="row"><span class="no">1.2.5</span><span class="t"><i class="h">pratyakṣalakṣaṇam</i><span class="j">知覚の定義と分類</span><span class="edh">刊本見出し：<i>pratyakṣalakṣaṇam</i></span></span><span class="ref">pp.95–96</span></div></summary><ul>
+<li data-k="1.2.5.1"><div class="row"><span class="no">1.2.5.1</span><span class="t"><i class="h">sākṣātkāripramā pratyakṣam</i><span class="j">直接的な正しい認識が知覚。Prameyasaṃgraha・Tattvaratnākara・Varadaviṣṇumiśra の定義</span></span><span class="ref">p.95</span></div></li>
+<li data-k="1.2.5.2"><div class="row"><span class="no">1.2.5.2</span><span class="t"><i class="h">nityānityasākṣāttvam, divyapratyakṣam</i><span class="j">永続(神)と非永続の直接性。神的知覚=ヨーガ行者・解脱者・神の認識</span></span><span class="ref">pp.95–96</span></div></li>
+<li data-k="1.2.5.3"><div class="row"><span class="no">1.2.5.3</span><span class="t"><i class="h">mānasapratyakṣābhāvaḥ</i><span class="j">我々には意による知覚はない(古伝)</span></span><span class="ref">p.96</span></div></li>
+<li data-k="1.2.5.4"><div class="row"><span class="no">1.2.5.4</span><span class="t"><i class="h">ayogipratyakṣaṃ pañcadhā, saṃnikarṣaḥ</i><span class="j">通常の知覚は五感官による五種。接触は saṃyoga と saṃyuktāśrayaṇa の二つ</span></span><span class="ref">p.96</span></div></li>
+<li data-k="1.2.5.5"><div class="row"><span class="no">1.2.5.5</span><span class="t"><i class="h">savikalpaka-nirvikalpakavibhāgaḥ</i><span class="j">分別ある知覚と無分別の知覚</span></span><span class="ref">p.96</span></div></li>
+</ul></details></li>
+<li data-k="1.2.6"><div class="row"><span class="no">1.2.6</span><span class="t"><i class="h">naiyāyikanirvikalpakanirākaraṇam</i><span class="edt">刊本</span><span class="j">Nyāya 派の無分別知覚の否定:どちらの知覚も限定された対象をとる</span></span><span class="ref">p.96</span></div></li>
+<li data-k="1.2.7"><div class="row"><span class="no">1.2.7</span><span class="t"><i class="h">savikalpakanirūpaṇam</i><span class="edt">刊本</span><span class="j">分別知覚も知覚である。Bhāṣya の「最初の個体の把握」の解釈。sanmātragrāhi 説と相互依存の難の論駁</span></span><span class="ref">pp.96–97</span></div></li>
+<li data-k="1.2.8"><div class="row"><span class="no">1.2.8</span><span class="t"><i class="h">śābdāparokṣanirāsaḥ</i><span class="j">言葉から直接知覚が生じるという説(tattvamasi による直証)の否定</span></span><span class="ref">pp.97–98</span></div></li>
+<li data-k="1.2.9"><div class="row"><span class="no">1.2.9</span><span class="t"><i class="h">nigamanaślokaḥ</i><span class="j">結偈</span></span><span class="ref">p.97</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li class="lv0" data-k="2"><details open><summary><div class="row"><span class="no">2</span><span class="t"><i class="h">anumānādhyāyaḥ</i><span class="j">第2章 推論</span></span><span class="ref">pp.98–149</span></div></summary><ul>
+<li data-k="2.1"><details open><summary><div class="row"><span class="no">2.1</span><span class="t"><i class="h">prathamam āhnikam</i><span class="j">第1日課（<i>pratibandhādi</i>）：推論の成立と遍充</span></span><span class="ref">pp.98–107</span></div></summary><ul>
+<li data-k="2.1.1"><div class="row"><span class="no">2.1.1</span><span class="t"><i class="h">upodghātaḥ, anumānalakṣaṇam</i><span class="j">序偈と定義：<i>vyāpyasya vyāpyatvānusaṃdhānād vyāpakaviśeṣapramitir anumānam</i></span></span><span class="ref">p.98</span></div></li>
+<li data-k="2.1.2"><div class="row"><span class="no">2.1.2</span><span class="t"><i class="h">anumānaprāmāṇyasthāpanam</i><span class="j">Cārvāka の否定は知覚でも推論でも立たず、推論を疑いとすることもできない</span></span><span class="ref">p.98</span></div></li>
+<li data-k="2.1.3"><div class="row"><span class="no">2.1.3</span><span class="t"><i class="h">anumānasyātiriktatvasthāpanam</i><span class="edt">刊本</span><span class="j">推論は知覚・意による知覚・記憶のいずれにも還元されない</span></span><span class="ref">p.98</span></div></li>
+<li data-k="2.1.4"><div class="row"><span class="no">2.1.4</span><span class="t"><i class="h">vyāptinirūpaṇam</i><span class="edt">刊本</span><span class="j">遍充（<i>avinābhāva</i>）の定義。場所・時を明示した定義</span></span><span class="ref">pp.98–99</span></div></li>
+<li data-k="2.1.5"><div class="row"><span class="no">2.1.5</span><span class="t"><i class="h">vyāptigrahopāyanirūpaṇam</i><span class="edt">刊本</span><span class="j">遍充はどう把握されるか：繰り返しの観察か一度の観察か</span></span><span class="ref">p.99</span></div></li>
+<li data-k="2.1.6"><div class="row"><span class="no">2.1.6</span><span class="t"><i class="h">vyāptivibhāgaḥ</i><span class="edt">刊本</span><span class="j">遍充の区分</span></span><span class="ref">p.99</span></div></li>
+<li data-k="2.1.7"><div class="row"><span class="no">2.1.7</span><span class="t"><i class="h">upādhinirūpaṇam</i><span class="edt">刊本</span><span class="j"><i>upādhi</i> の定義と例、<i>aprayojaka</i></span></span><span class="ref">pp.99–101</span></div></li>
+<li data-k="2.1.8"><div class="row"><span class="no">2.1.8</span><span class="t"><i class="h">sādhanarūpanirūpaṇam</i><span class="edt">刊本</span><span class="j">論証因の五つの条件（<i>pañcarūpa</i>）</span></span><span class="ref">pp.101–102</span></div></li>
+<li data-k="2.1.9"><div class="row"><span class="no">2.1.9</span><span class="t"><i class="h">hetuvibhāgaḥ</i><span class="edt">刊本</span><span class="j">論証因は <i>anvayavyatirekin</i> と <i>kevalānvayin</i> の二種</span></span><span class="ref">p.102</span></div></li>
+<li data-k="2.1.10"><div class="row"><span class="no">2.1.10</span><span class="t"><i class="h">kevalavyatirekibhaṅgaḥ</i><span class="edt">刊本</span><span class="j"><i>kevalavyatirekin</i> の否定</span></span><span class="ref">pp.102–105</span></div></li>
+<li data-k="2.1.11"><div class="row"><span class="no">2.1.11</span><span class="t"><i class="h">lakṣaṇanirūpaṇam</i><span class="edt">刊本</span><span class="j">定義文は <i>kevalavyatirekin</i> の推論ではない</span></span><span class="ref">pp.105–106</span></div></li>
+<li data-k="2.1.12"><div class="row"><span class="no">2.1.12</span><span class="t"><i class="h">anumānaviṣayaviśeṣanirūpaṇam</i><span class="edt">刊本</span><span class="j">推論の対象の範囲：感官を超えたものは聖典が遍充を与える場合だけ</span></span><span class="ref">pp.106–107</span></div></li>
+<li data-k="2.1.13"><div class="row"><span class="no">2.1.13</span><span class="t"><i class="h">sāmānyatodṛṣṭādinirūpaṇam</i><span class="edt">刊本</span><span class="j"><i>sāmānyatodṛṣṭa</i>・<i>viśeṣatodṛṣṭa</i> の位置づけ</span></span><span class="ref">p.107</span></div></li>
+</ul></details></li>
+<li data-k="2.2"><details open><summary><div class="row"><span class="no">2.2</span><span class="t"><i class="h">dvitīyam āhnikam</i><span class="j">第2日課（<i>prayogādi</i>）：論証式と論争</span></span><span class="ref">pp.107–118</span></div></summary><ul>
+<li data-k="2.2.1"><div class="row"><span class="no">2.2.1</span><span class="t"><i class="h">parārthānumānam</i><span class="j">他者のための推論。<i>prayoga</i>＝推論を引き起こす文</span></span><span class="ref">p.107</span></div></li>
+<li data-k="2.2.2"><div class="row"><span class="no">2.2.2</span><span class="t"><i class="h">pañcāvayavavākyanirūpaṇam</i><span class="edt">刊本</span><span class="j">五支の定義</span></span><span class="ref">p.108</span></div></li>
+<li data-k="2.2.3"><div class="row"><span class="no">2.2.3</span><span class="t"><i class="h">pañcāvayavāniyamanirūpaṇam</i><span class="edt">刊本</span><span class="j">五支は必須ではない。<i>upanaya・nigamana</i> の機能論の批判</span></span><span class="ref">pp.108–109</span></div></li>
+<li data-k="2.2.4"><div class="row"><span class="no">2.2.4</span><span class="t"><i class="h">kathānirūpaṇam</i><span class="edt">刊本</span><span class="j">論議（<i>vāda・jalpa・vitaṇḍā</i>）</span></span><span class="ref">pp.109–110</span></div></li>
+<li data-k="2.2.5"><div class="row"><span class="no">2.2.5</span><span class="t"><i class="h">kathāṅganirūpaṇam</i><span class="edt">刊本</span><span class="j">論議の構成要素</span></span><span class="ref">p.110</span></div></li>
+<li data-k="2.2.6"><div class="row"><span class="no">2.2.6</span><span class="t"><i class="h">nigrahasthānaniyamaḥ</i><span class="edt">刊本</span><span class="j">論議ごとの <i>nigrahasthāna</i> の決まり</span></span><span class="ref">p.110</span></div></li>
+<li data-k="2.2.7"><div class="row"><span class="no">2.2.7</span><span class="t"><i class="h">kathāsvarūpavivekaḥ</i><span class="edt">刊本</span><span class="j">三種の論議の性格の区別、<i>jalpa・vitaṇḍā</i> が許される場合</span></span><span class="ref">pp.110–111</span></div></li>
+<li data-k="2.2.8"><details><summary><div class="row"><span class="no">2.2.8</span><span class="t"><i class="h">nigrahasthānāni</i><span class="j">敗北の根拠の各論</span></span><span class="ref">pp.111–118</span></div></summary><ul>
+<li data-k="2.2.8.1"><div class="row"><span class="no">2.2.8.1</span><span class="t"><i class="h">nigrahasthānasāmānyalakṣaṇam</i><span class="edt">刊本</span><span class="j">総定義</span></span><span class="ref">p.111</span></div></li>
+<li data-k="2.2.8.2"><div class="row"><span class="no">2.2.8.2</span><span class="t"><i class="h">uktahāniḥ</i><span class="edt">刊本</span><span class="j">自分の言ったことを捨てる</span></span><span class="ref">p.111</span></div></li>
+<li data-k="2.2.8.3"><div class="row"><span class="no">2.2.8.3</span><span class="t"><i class="h">uktaviśeṣaṇam</i><span class="edt">刊本</span><span class="j">言ったことに後から限定を加える</span></span><span class="ref">p.112</span></div></li>
+<li data-k="2.2.8.4"><div class="row"><span class="no">2.2.8.4</span><span class="t"><i class="h">uktāpalāpaḥ</i><span class="edt">刊本</span><span class="j">言ったことを否認する</span></span><span class="ref">p.112</span></div></li>
+<li data-k="2.2.8.5"><div class="row"><span class="no">2.2.8.5</span><span class="t"><i class="h">uktavirodhaḥ</i><span class="edt">刊本</span><span class="j">言ったことと矛盾する</span></span><span class="ref">p.113</span></div></li>
+<li data-k="2.2.8.6"><div class="row"><span class="no">2.2.8.6</span><span class="t"><i class="h">apasiddhāntaḥ</i><span class="edt">刊本</span><span class="j">自派の定説に背く（<i>siddhānta</i> の種類）</span></span><span class="ref">pp.113–114</span></div></li>
+<li data-k="2.2.8.7"><div class="row"><span class="no">2.2.8.7</span><span class="t"><i class="h">avācakam</i><span class="edt">刊本</span><span class="j">文法に背く語を用いる</span></span><span class="ref">p.114</span></div></li>
+<li data-k="2.2.8.8"><div class="row"><span class="no">2.2.8.8</span><span class="t"><i class="h">ananvitam</i><span class="edt">刊本</span><span class="j">語や文がつながらない</span></span><span class="ref">p.114</span></div></li>
+<li data-k="2.2.8.9"><div class="row"><span class="no">2.2.8.9</span><span class="t"><i class="h">aprāptakālam</i><span class="edt">刊本</span><span class="j">順序を外れて言う</span></span><span class="ref">p.115</span></div></li>
+<li data-k="2.2.8.10"><div class="row"><span class="no">2.2.8.10</span><span class="t"><i class="h">avijñātārtham</i><span class="edt">刊本</span><span class="j">聴き手に意味が分からない</span></span><span class="ref">p.115</span></div></li>
+<li data-k="2.2.8.11"><div class="row"><span class="no">2.2.8.11</span><span class="t"><i class="h">arthāntaram</i><span class="edt">刊本</span><span class="j">無関係なことを言う</span></span><span class="ref">p.115</span></div></li>
+<li data-k="2.2.8.12"><div class="row"><span class="no">2.2.8.12</span><span class="t"><i class="h">nyūnam</i><span class="edt">刊本</span><span class="j">必要な支分を欠く</span></span><span class="ref">p.116</span></div></li>
+<li data-k="2.2.8.13"><div class="row"><span class="no">2.2.8.13</span><span class="t"><i class="h">adhikam</i><span class="edt">刊本</span><span class="j">余計な因や例を加える</span></span><span class="ref">p.116</span></div></li>
+<li data-k="2.2.8.14"><div class="row"><span class="no">2.2.8.14</span><span class="t"><i class="h">punaruktam</i><span class="edt">刊本</span><span class="j">無用の繰り返し</span></span><span class="ref">p.116</span></div></li>
+<li data-k="2.2.8.15"><div class="row"><span class="no">2.2.8.15</span><span class="t"><i class="h">ananubhāṣaṇam</i><span class="edt">刊本</span><span class="j">相手の主張を言い直せない</span></span><span class="ref">p.117</span></div></li>
+<li data-k="2.2.8.16"><div class="row"><span class="no">2.2.8.16</span><span class="t"><i class="h">ajñānam</i><span class="edt">刊本</span><span class="j">相手の言うことを理解しない</span></span><span class="ref">p.117</span></div></li>
+<li data-k="2.2.8.17"><div class="row"><span class="no">2.2.8.17</span><span class="t"><i class="h">apratibhā</i><span class="edt">刊本</span><span class="j">応答できない</span></span><span class="ref">p.117</span></div></li>
+<li data-k="2.2.8.18"><div class="row"><span class="no">2.2.8.18</span><span class="t"><i class="h">vikṣepaḥ</i><span class="edt">刊本</span><span class="j">口実を設けて論議を打ち切る</span></span><span class="ref">p.117</span></div></li>
+<li data-k="2.2.8.19"><div class="row"><span class="no">2.2.8.19</span><span class="t"><i class="h">matānujñā</i><span class="edt">刊本</span><span class="j">相手の非難を認めてしまう</span></span><span class="ref">p.117</span></div></li>
+<li data-k="2.2.8.20"><div class="row"><span class="no">2.2.8.20</span><span class="t"><i class="h">paryanuyojyopekṣaṇam</i><span class="edt">刊本</span><span class="j">指摘すべき相手の敗北を見逃す</span></span><span class="ref">pp.117–118</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li data-k="2.3"><details open><summary><div class="row"><span class="no">2.3</span><span class="t"><i class="h">tṛtīyam āhnikam</i><span class="j">第3日課（<i>niranuyojyānuyoga</i>）：不当な非難</span></span><span class="ref">pp.118–130</span></div></summary><ul>
+<li data-k="2.3.1"><div class="row"><span class="no">2.3.1</span><span class="t"><i class="h">niranuyojyānuyogaḥ</i><span class="edt">刊本</span><span class="j">咎められない者を咎めること：総論と種類</span></span><span class="ref">pp.118–119</span></div></li>
+<li data-k="2.3.2"><div class="row"><span class="no">2.3.2</span><span class="t"><i class="h">chalam</i><span class="j">言葉の曖昧さにつけ込む非難（<i>tātparyacchala</i> ほか）</span></span><span class="ref">pp.119–121</span></div></li>
+<li data-k="2.3.3"><div class="row"><span class="no">2.3.3</span><span class="t"><i class="h">svavyāghātanirūpaṇam</i><span class="edt">刊本</span><span class="j"><i>jāti</i> の本質＝自分の論拠も壊す非難</span></span><span class="ref">pp.121–122</span></div></li>
+<li data-k="2.3.4"><div class="row"><span class="no">2.3.4</span><span class="t"><i class="h">jātivibhāgaḥ</i><span class="edt">刊本</span><span class="j"><i>jāti</i> の区分。一つの定義ですべてを包む</span></span><span class="ref">p.122</span></div></li>
+<li data-k="2.3.5"><details><summary><div class="row"><span class="no">2.3.5</span><span class="t"><i class="h">jātibhedāḥ</i><span class="j"><i>jāti</i> 各論</span></span><span class="ref">pp.123–128</span></div></summary><ul>
+<li data-k="2.3.5.1"><div class="row"><span class="no">2.3.5.1</span><span class="t"><i class="h">pratirodhasamaḥ</i><span class="edt">刊本</span></span><span class="ref">p.123</span></div></li>
+<li data-k="2.3.5.2"><div class="row"><span class="no">2.3.5.2</span><span class="t"><i class="h">asiddhisamaḥ</i><span class="edt">刊本</span></span><span class="ref">p.124</span></div></li>
+<li data-k="2.3.5.3"><div class="row"><span class="no">2.3.5.3</span><span class="t"><i class="h">utkarṣasamaḥ</i><span class="edt">刊本</span></span><span class="ref">pp.124–125</span></div></li>
+<li data-k="2.3.5.4"><div class="row"><span class="no">2.3.5.4</span><span class="t"><i class="h">apakarṣasamaḥ</i><span class="edt">刊本</span></span><span class="ref">pp.125–126</span></div></li>
+<li data-k="2.3.5.5"><div class="row"><span class="no">2.3.5.5</span><span class="t"><i class="h">varṇyasamaḥ</i><span class="edt">刊本</span></span><span class="ref">p.127</span></div></li>
+<li data-k="2.3.5.6"><div class="row"><span class="no">2.3.5.6</span><span class="t"><i class="h">avarṇyasamaḥ</i><span class="edt">刊本</span></span><span class="ref">p.127</span></div></li>
+<li data-k="2.3.5.7"><div class="row"><span class="no">2.3.5.7</span><span class="t"><i class="h">utprekṣāsamaḥ</i><span class="edt">刊本</span></span><span class="ref">p.128</span></div></li>
+<li data-k="2.3.5.8"><div class="row"><span class="no">2.3.5.8</span><span class="t"><i class="h">kāryasamaḥ</i></span><span class="ref">p.128</span></div></li>
+</ul></details></li>
+<li data-k="2.3.6"><div class="row"><span class="no">2.3.6</span><span class="t"><i class="h">kukathā</i><span class="j">勝ちも真理の確定もない論議（主張が2つから6つまで続く）と審判役による制止</span></span><span class="ref">pp.129–130</span></div></li>
+</ul></details></li>
+<li data-k="2.4"><details open><summary><div class="row"><span class="no">2.4</span><span class="t"><i class="h">caturtham āhnikam</i><span class="j">第4日課（<i>pramāṇābhāsa</i>）：根拠に似て根拠でないもの</span></span><span class="ref">pp.130–149</span></div></summary><ul>
+<li data-k="2.4.1"><div class="row"><span class="no">2.4.1</span><span class="t"><i class="h">hetvābhāsaḥ</i><span class="edt">刊本</span><span class="j">総論：根本は <i>avyāpta</i> と <i>apakṣadharma</i> の二つ。<i>aprayojaka</i></span></span><span class="ref">pp.130–131</span></div></li>
+<li data-k="2.4.2"><div class="row"><span class="no">2.4.2</span><span class="t"><i class="h">asiddhaḥ</i><span class="edt">刊本</span><span class="j"><i>pakṣa</i> に属さない因（百を超える細分）</span></span><span class="ref">pp.132–134</span></div></li>
+<li data-k="2.4.3"><div class="row"><span class="no">2.4.3</span><span class="t"><i class="h">savyabhicāraḥ</i><span class="edt">刊本</span><span class="j">遍充を外れる因（<i>sādhāraṇa</i>・<i>asādhāraṇa</i> 各8種）</span></span><span class="ref">pp.134–135</span></div></li>
+<li data-k="2.4.4"><div class="row"><span class="no">2.4.4</span><span class="t"><i class="h">viruddhaḥ</i><span class="edt">刊本</span><span class="j">反対の結論を導く因（<i>viśeṣaviruddha</i> を含む）</span></span><span class="ref">p.135</span></div></li>
+<li data-k="2.4.5"><div class="row"><span class="no">2.4.5</span><span class="t"><i class="h">bādhitaḥ</i><span class="edt">刊本</span><span class="j">他の根拠に否定される主張（7種）</span></span><span class="ref">pp.136–137</span></div></li>
+<li data-k="2.4.6"><div class="row"><span class="no">2.4.6</span><span class="t"><i class="h">prakaraṇasamaḥ</i><span class="edt">刊本</span><span class="j">同じ強さの反論に阻まれる因。正しい根拠どうしは本当には衝突しない</span></span><span class="ref">pp.137–138</span></div></li>
+<li data-k="2.4.7"><div class="row"><span class="no">2.4.7</span><span class="t"><i class="h">hetvābhāsavibhāgāntaram</i><span class="edt">刊本</span><span class="j"><i>hetvābhāsa</i> の別の分類（<i>Prajñāparitrāṇa</i> など）</span></span><span class="ref">pp.138–139</span></div></li>
+<li data-k="2.4.8"><div class="row"><span class="no">2.4.8</span><span class="t"><i class="h">udāharaṇādyābhāsāḥ</i><span class="edt">刊本</span><span class="j">例示などの <i>ābhāsa</i></span></span><span class="ref">pp.139–141</span></div></li>
+<li data-k="2.4.9"><div class="row"><span class="no">2.4.9</span><span class="t"><i class="h">dṛṣṭāntavacanadoṣāḥ</i><span class="edt">刊本</span><span class="j">例示の言い方の欠陥</span></span><span class="ref">p.141</span></div></li>
+<li data-k="2.4.10"><div class="row"><span class="no">2.4.10</span><span class="t"><i class="h">tarkaḥ</i><span class="j"><i>tarka</i> の位置（使用したスキャンでは pp.142–143 が欠け、Chowkhamba 本で補う）</span></span><span class="ref">pp.141–144</span></div></li>
+<li data-k="2.4.11"><div class="row"><span class="no">2.4.11</span><span class="t"><i class="h">tarkavibhāgaḥ</i><span class="edt">刊本</span><span class="j"><i>tarka</i> の区分</span></span><span class="ref">pp.144–146</span></div></li>
+<li data-k="2.4.12"><div class="row"><span class="no">2.4.12</span><span class="t"><i class="h">anavasthābhāsaḥ</i><span class="edt">刊本</span><span class="j"><i>tarkābhāsa</i>：見かけだけの無限遡及・循環など</span></span><span class="ref">p.146</span></div></li>
+<li data-k="2.4.13"><div class="row"><span class="no">2.4.13</span><span class="t"><i class="h">āgamābhāsāḥ</i><span class="edt">刊本</span><span class="j">聖典の <i>ābhāsa</i>。聖典の権威の強弱（<i>sāttvika</i> などの <i>purāṇa</i>）</span></span><span class="ref">pp.147–148</span></div></li>
+<li data-k="2.4.14"><div class="row"><span class="no">2.4.14</span><span class="t"><i class="h">smṛtyābhāsāḥ</i><span class="edt">刊本</span><span class="j">記憶の <i>ābhāsa</i>。論中の脱線の許容（<i>garbhāṅka</i>）と結偈</span></span><span class="ref">pp.148–149</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li class="lv0" data-k="3"><details open><summary><div class="row"><span class="no">3</span><span class="t"><i class="h">śabdādhyāyaḥ</i><span class="j">第3章 言葉による認識</span></span><span class="ref">pp.149–171</span></div></summary><ul>
+<li data-k="3.1"><details open><summary><div class="row"><span class="no">3.1</span><span class="t"><i class="h">prathamam āhnikam</i><span class="j">第1日課</span></span><span class="ref">pp.149–157</span></div></summary><ul>
+<li data-k="3.1.1"><div class="row"><span class="no">3.1.1</span><span class="t"><i class="h">śabdalakṣaṇam</i><span class="j">定義:信頼できない者の言葉以外の文から生じる意味の認識</span></span><span class="ref">p.149</span></div></li>
+<li data-k="3.1.2"><div class="row"><span class="no">3.1.2</span><span class="t"><i class="h">śabdasya pratyakṣānumānātiriktatvam</i><span class="j">言葉は知覚とも推論とも別の認識手段(Vaiśeṣika の推論への包摂説の論駁)。Vedic な言葉だけを認める説の否定</span><span class="edh">刊本見出し：<i>śabdasya pratyakṣādyatiriktatvam</i></span></span><span class="ref">pp.149–150</span></div></li>
+<li data-k="3.1.3"><div class="row"><span class="no">3.1.3</span><span class="t"><i class="h">vākyadvaividhyam</i><span class="j">文は人為的(pauruṣeya)と非人為的(apauruṣeya)の二種</span><span class="edh">刊本見出し：<i>vākyavibhāgaḥ</i></span></span><span class="ref">p.150</span></div></li>
+<li data-k="3.1.4"><details><summary><div class="row"><span class="no">3.1.4</span><span class="t"><i class="h">anvitābhidhānavicāraḥ</i><span class="j">連関を伴う指示(anvitābhidhāna)の検討</span></span><span class="ref">pp.150–153</span></div></summary><ul>
+<li data-k="3.1.4.1"><div class="row"><span class="no">3.1.4.1</span><span class="t"><i class="h">ekadeśimatam: laukikavākye vaktṛjñānānumānam</i><span class="j">一部の論者の説:世俗の文では話者の知識の推論が必要(Prameyasaṃgraha、Vivaraṇakāra)</span></span><span class="ref">p.150</span></div></li>
+<li data-k="3.1.4.2"><div class="row"><span class="no">3.1.4.2</span><span class="t"><i class="h">vṛttibhedāḥ: abhidhā, lakṣaṇā, gauṇī</i><span class="j">語の機能:直接指示と転用(関係による lakṣaṇā、性質による gauṇī)</span><span class="edh">刊本見出し：<i>vṛttiḥ</i></span></span><span class="ref">pp.150–152</span></div></li>
+<li data-k="3.1.4.3"><div class="row"><span class="no">3.1.4.3</span><span class="t"><i class="h">anvitābhidhāna-abhihitānvayayor vicāraḥ</i><span class="j">anvitābhidhāna と abhihitānvaya。「anvitābhidhāna だけが定説とは決められない」とする一説</span><span class="edh">刊本見出し：<i>anvitābhidhānavādaḥ・abhihitānvayavādaḥ</i></span></span><span class="ref">pp.151–152</span></div></li>
+<li data-k="3.1.4.4"><div class="row"><span class="no">3.1.4.4</span><span class="t"><i class="h">anvitābhidhānasamarthanam</i><span class="j">別の説:anvitābhidhāna の擁護</span></span><span class="ref">p.152</span></div></li>
+<li data-k="3.1.4.5"><div class="row"><span class="no">3.1.4.5</span><span class="t"><i class="h">viśeṣaṇamātraśaktinirāsaḥ</i><span class="j">限定語だけに力があるという説の否定</span></span><span class="ref">pp.152–153</span></div></li>
+<li data-k="3.1.4.6"><div class="row"><span class="no">3.1.4.6</span><span class="t"><i class="h">rāmamiśra-ātmasiddhivacanavicāraḥ</i><span class="j">Rāmamiśra『Ṣaḍarthasaṃkṣepa』と Yāmuna『Ātmasiddhi』の文の解釈</span></span><span class="ref">p.153</span></div></li>
+</ul></details></li>
+<li data-k="3.1.5"><details><summary><div class="row"><span class="no">3.1.5</span><span class="t"><i class="h">sāmānādhikaraṇyavicāraḥ</i><span class="j">同格表現と全語の Brahman 指示</span></span><span class="ref">pp.153–155</span></div></summary><ul>
+<li data-k="3.1.5.1"><div class="row"><span class="no">3.1.5.1</span><span class="t"><i class="h">aprthaksiddhaviśeṣaṇavācināṃ viśeṣyaparyavasānam</i><span class="j">不可分の限定者を表す語は限定される者にまで及ぶ。よって全ての語は Brahman に帰着する</span></span><span class="ref">p.153</span></div></li>
+<li data-k="3.1.5.2"><div class="row"><span class="no">3.1.5.2</span><span class="t"><i class="h">tattvamasivākye pūrvapakṣaḥ</i><span class="j">「tat tvam asi」への反論</span><span class="edh">刊本見出し：<i>tattvamasivākyārthaḥ</i></span></span><span class="ref">p.153</span></div></li>
+<li data-k="3.1.5.3"><div class="row"><span class="no">3.1.5.3</span><span class="t"><i class="h">tattvamasivākye siddhāntaḥ</i><span class="j">定説:呼びかけは Śvetaketu へ、tvam は内在する神まで及ぶ。同格は本質の同一を意味しない</span></span><span class="ref">pp.153–154</span></div></li>
+<li data-k="3.1.5.4"><div class="row"><span class="no">3.1.5.4</span><span class="t"><i class="h">satyaṃ jñānam iti lakṣaṇavākyārthaḥ</i><span class="j">「satyaṃ jñānam anantam」は諸性質で限定された単一の対象を表す</span><span class="edh">刊本見出し：<i>satyaṃjñānavākyārthaḥ</i></span></span><span class="ref">p.154</span></div></li>
+<li data-k="3.1.5.5"><div class="row"><span class="no">3.1.5.5</span><span class="t"><i class="h">viśeṣaṇānāṃ parasparāvirodhaḥ</i><span class="j">限定語は互いに排斥しない</span></span><span class="ref">p.154</span></div></li>
+<li data-k="3.1.5.6"><div class="row"><span class="no">3.1.5.6</span><span class="t"><i class="h">akhaṇḍārthavākyanirāsaḥ</i><span class="j">不可分の意味を表すとする説(「so &#x27;yaṃ devadattaḥ」の例)の論駁</span></span><span class="ref">pp.154–155</span></div></li>
+</ul></details></li>
+<li data-k="3.1.6"><details><summary><div class="row"><span class="no">3.1.6</span><span class="t"><i class="h">svataḥprāmāṇyavicāraḥ</i><span class="j">認識の本来的妥当性</span><span class="edh">刊本見出し：<i>svataḥprāmāṇyam</i></span></span><span class="ref">pp.155–157</span></div></summary><ul>
+<li data-k="3.1.6.1"><div class="row"><span class="no">3.1.6.1</span><span class="t"><i class="h">svataḥprāmāṇyasthāpanam</i><span class="j">妥当性は本来的。欠陥がそれを妨げる(火の熱の喩え)</span></span><span class="ref">pp.155–156</span></div></li>
+<li data-k="3.1.6.2"><div class="row"><span class="no">3.1.6.2</span><span class="t"><i class="h">buddhādivākyaprasaṅgaparihāraḥ</i><span class="j">仏陀などの言葉も本来的に妥当になるという難への答え</span></span><span class="ref">p.156</span></div></li>
+<li data-k="3.1.6.3"><div class="row"><span class="no">3.1.6.3</span><span class="t"><i class="h">niḥsvabhāvatvaprasaṅgaparihāraḥ</i><span class="j">ヴェーダの認識は本性を欠くという難を、神の認識の例で返す</span></span><span class="ref">pp.156–157</span></div></li>
+<li data-k="3.1.6.4"><div class="row"><span class="no">3.1.6.4</span><span class="t"><i class="h">smṛtyaprāmāṇyavāde 'pi vedaprāmāṇyam</i><span class="j">記憶を認めない立場でもヴェーダの妥当性は成り立つ</span></span><span class="ref">p.157</span></div></li>
+<li data-k="3.1.6.5"><div class="row"><span class="no">3.1.6.5</span><span class="t"><i class="h">aprāmāṇyasya parataḥ grahaṇam</i><span class="j">誤りは他から知られる</span></span><span class="ref">p.157</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li data-k="3.2"><details open><summary><div class="row"><span class="no">3.2</span><span class="t"><i class="h">dvitīyam āhnikam</i><span class="j">第2日課</span></span><span class="ref">pp.157–171</span></div></summary><ul>
+<li data-k="3.2.1"><details><summary><div class="row"><span class="no">3.2.1</span><span class="t"><i class="h">vedāpauruṣeyatvasthāpanam</i><span class="j">ヴェーダの非人為性と永遠性</span><span class="edh">刊本見出し：<i>vedāpauruṣeyatvam</i></span></span><span class="ref">pp.157–161</span></div></summary><ul>
+<li data-k="3.2.1.1"><div class="row"><span class="no">3.2.1.1</span><span class="t"><i class="h">pūrvapakṣaḥ: sarvaṃ vākyaṃ pauruṣeyam</i><span class="j">反論:すべての文は人為的。ヴェーダは全知者の作</span></span><span class="ref">pp.157–158</span></div></li>
+<li data-k="3.2.1.2"><div class="row"><span class="no">3.2.1.2</span><span class="t"><i class="h">bāhyāgamapratibandī</i><span class="j">仏教などの聖典との比較による反論の分析</span></span><span class="ref">p.158</span></div></li>
+<li data-k="3.2.1.3"><div class="row"><span class="no">3.2.1.3</span><span class="t"><i class="h">mahājanapravṛttyā prāmāṇyam</i><span class="j">賢者たちの大きな出費を伴う実践がヴェーダの権威を示す</span></span><span class="ref">pp.158–159</span></div></li>
+<li data-k="3.2.1.4"><div class="row"><span class="no">3.2.1.4</span><span class="t"><i class="h">vedanityatvānumānāni</i><span class="j">ヴェーダの永遠性の推論(前後の劫も同じテクスト)</span></span><span class="ref">p.159</span></div></li>
+<li data-k="3.2.1.5"><div class="row"><span class="no">3.2.1.5</span><span class="t"><i class="h">sargapralaye saṃpradāyavicchedaśaṅkā</i><span class="j">創造と帰滅による伝承の断絶。神は前のヴェーダを再び流布させるだけ</span></span><span class="ref">pp.159–160</span></div></li>
+<li data-k="3.2.1.6"><div class="row"><span class="no">3.2.1.6</span><span class="t"><i class="h">mantrakṛttvādivākyanirvāhaḥ</i><span class="j">「mantra を作った」などの表現は最初の見者・想起者の意味</span></span><span class="ref">pp.160–161</span></div></li>
+<li data-k="3.2.1.7"><div class="row"><span class="no">3.2.1.7</span><span class="t"><i class="h">varṇānityatvam avirodhi</i><span class="j">音素の無常性はヴェーダの永遠性と矛盾しない</span></span><span class="ref">p.161</span></div></li>
+</ul></details></li>
+<li data-k="3.2.2"><div class="row"><span class="no">3.2.2</span><span class="t"><i class="h">śabdaśakteḥ svābhāvikatvam</i><span class="j">言葉の力は本来的。Vedārthasaṃgraha による。関係把握が必要なのは推論の標識と同様</span></span><span class="ref">p.161</span></div></li>
+<li data-k="3.2.3"><details><summary><div class="row"><span class="no">3.2.3</span><span class="t"><i class="h">vedavibhāgaḥ: mantrārthavādavidhayaḥ</i><span class="j">ヴェーダの区分</span></span><span class="ref">pp.161–162</span></div></summary><ul>
+<li data-k="3.2.3.1"><div class="row"><span class="no">3.2.3.1</span><span class="t"><i class="h">mantralakṣaṇam</i><span class="j">mantra の定義と種類(Atharvan、三ヴェーダの呼称)</span><span class="edh">刊本見出し：<i>mantraḥ</i></span></span><span class="ref">pp.161–162</span></div></li>
+<li data-k="3.2.3.2"><div class="row"><span class="no">3.2.3.2</span><span class="t"><i class="h">arthavādalakṣaṇam, svārthe prāmāṇyam</i><span class="j">arthavāda は自らの意味でも権威をもちうる</span><span class="edh">刊本見出し：<i>arthavādaḥ</i></span></span><span class="ref">p.162</span></div></li>
+<li data-k="3.2.3.3"><div class="row"><span class="no">3.2.3.3</span><span class="t"><i class="h">vidhilakṣaṇam, parisaṃkhyā</i><span class="j">vidhi = 有益なことの教示。niyama・parisaṃkhyā</span></span><span class="ref">p.162</span></div></li>
+</ul></details></li>
+<li data-k="3.2.4"><details><summary><div class="row"><span class="no">3.2.4</span><span class="t"><i class="h">liṅarthavicāraḥ, kāryavādanirāsaḥ</i><span class="j">命令形の意味と、既成の事物についての言語習得</span><span class="edh">刊本見出し：<i>vidhyarthaḥ</i></span></span><span class="ref">pp.162–163</span></div></summary><ul>
+<li data-k="3.2.4.1"><div class="row"><span class="no">3.2.4.1</span><span class="t"><i class="h">apūrvaṃ na liṅarthaḥ</i><span class="j">命令語尾の意味は apūrva ではない</span></span><span class="ref">p.162</span></div></li>
+<li data-k="3.2.4.2"><div class="row"><span class="no">3.2.4.2</span><span class="t"><i class="h">siddhārthe vyutpattisaṃbhavaḥ</i><span class="j">既成の事物についても言語習得は可能(子供の例)</span></span><span class="ref">pp.162–163</span></div></li>
+<li data-k="3.2.4.3"><div class="row"><span class="no">3.2.4.3</span><span class="t"><i class="h">siddhaparaprayogāḥ</i><span class="j">命令を伴わない文の用例(「あの王は誰か」)</span></span><span class="ref">p.163</span></div></li>
+</ul></details></li>
+<li data-k="3.2.5"><div class="row"><span class="no">3.2.5</span><span class="t"><i class="h">devatāvigrahādisamarthanam</i><span class="j">神格の身体・供物の受領などを否定する「半ローカーヤタ」への反論</span></span><span class="ref">pp.163–164</span></div></li>
+<li data-k="3.2.6"><div class="row"><span class="no">3.2.6</span><span class="t"><i class="h">arthavādādhikaraṇa-samanvayasūtrayor avirodhaḥ</i><span class="j">Mīmāṃsā の arthavāda 論と Brahmasūtra 1.1.4 の整合</span></span><span class="ref">pp.164–165</span></div></li>
+<li data-k="3.2.7"><details><summary><div class="row"><span class="no">3.2.7</span><span class="t"><i class="h">vidhivākyānām īśvaraśāsanātmakatvam</i><span class="j">命令文は神の命令である</span></span><span class="ref">pp.165–166</span></div></summary><ul>
+<li data-k="3.2.7.1"><div class="row"><span class="no">3.2.7.1</span><span class="t"><i class="h">gītābhāṣyavyākhyā</i><span class="j">Gītābhāṣya の「yudhyasva」の注釈。命令違反は神への反逆</span></span><span class="ref">pp.165–166</span></div></li>
+<li data-k="3.2.7.2"><div class="row"><span class="no">3.2.7.2</span><span class="t"><i class="h">jaiminisūtre īśvarasūcanam</i><span class="j">Jaimini の「codanālakṣaṇo &#x27;rtho dharmaḥ」に神が含意される</span></span><span class="ref">p.166</span></div></li>
+<li data-k="3.2.7.3"><div class="row"><span class="no">3.2.7.3</span><span class="t"><i class="h">upadeśaśabdena upadeṣṭrākṣepaḥ</i><span class="j">「upadeśa」は教える者を含意する。Jaimini と Bādarāyaṇa の一致</span></span><span class="ref">p.166</span></div></li>
+</ul></details></li>
+<li data-k="3.2.8"><details><summary><div class="row"><span class="no">3.2.8</span><span class="t"><i class="h">smṛtyāgamaprāmāṇyam</i><span class="j">smṛti と Āgama の権威</span><span class="edh">刊本見出し：<i>smṛtiḥ</i></span></span><span class="ref">pp.166–170</span></div></summary><ul>
+<li data-k="3.2.8.1"><div class="row"><span class="no">3.2.8.1</span><span class="t"><i class="h">smṛtiprāmāṇyam, śrutismṛtivirodhaḥ</i><span class="j">smṛti は散逸したヴェーダに基づく。矛盾時の扱い</span></span><span class="ref">pp.166–167</span></div></li>
+<li data-k="3.2.8.2"><div class="row"><span class="no">3.2.8.2</span><span class="t"><i class="h">sāṃkhyayogapāśupatapañcarātrāṇi</i><span class="j">四つの体系はいずれも dharmaśāstra の一種。矛盾部分は退ける。Pāñcarātra は全体が権威</span><span class="edh">刊本見出し：<i>smṛtibhedāḥ</i></span></span><span class="ref">p.167</span></div></li>
+<li data-k="3.2.8.3"><div class="row"><span class="no">3.2.8.3</span><span class="t"><i class="h">pañcarātrasya manvādibhyo 'tirekaḥ</i><span class="j">Pāñcarātra は神の慈悲に直接基づくので Manu などより優れる</span></span><span class="ref">p.167</span></div></li>
+<li data-k="3.2.8.4"><div class="row"><span class="no">3.2.8.4</span><span class="t"><i class="h">viprakīrṇaśākhāmūlatvam</i><span class="j">散逸した śākhā に基づくとする定説(Āpastamba)</span></span><span class="ref">pp.167–169</span></div></li>
+<li data-k="3.2.8.5"><div class="row"><span class="no">3.2.8.5</span><span class="t"><i class="h">caturvidhaṃ pañcarātram, vaikhānasaprāmāṇyam</i><span class="j">四種の Pāñcarātra(āgama・divya・tantra・tantrāntara siddhānta)。Vaikhānasa の権威をめぐる議論</span><span class="edh">刊本見出し：<i>pañcarātravibhāgaḥ・vaikhānasaprāmāṇyam</i></span></span><span class="ref">p.169</span></div></li>
+<li data-k="3.2.8.6"><div class="row"><span class="no">3.2.8.6</span><span class="t"><i class="h">bhārgavādīnāṃ prāmāṇyaprakāraḥ</i><span class="j">Bhārgava など(Vaikhānasa 系)の書は dharmaśāstra として権威をもつ</span></span><span class="ref">pp.169–170</span></div></li>
+</ul></details></li>
+<li data-k="3.2.9"><div class="row"><span class="no">3.2.9</span><span class="t"><i class="h">mīmāṃsaikaśāstratvam</i><span class="j">Karma・Devatā・Brahma の Mīmāṃsā は一つの学(Jaimini・Kāśakṛtsna・Bādarāyaṇa)。学習の順序</span><span class="edh">刊本見出し：<i>vedaprāmāṇyopasaṃhāraḥ</i></span></span><span class="ref">p.170</span></div></li>
+<li data-k="3.2.10"><div class="row"><span class="no">3.2.10</span><span class="t"><i class="h">nididhyāsanavidhiḥ, nigamanam</i><span class="j">解脱の手段として命じられるのは瞑想(upāsana)であって文意の理解だけではない。章の結び</span></span><span class="ref">pp.170–171</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li class="lv0" data-k="4"><details open><summary><div class="row"><span class="no">4</span><span class="t"><i class="h">smṛtyadhyāyaḥ</i><span class="j">第4章 記憶</span></span><span class="ref">pp.171–178</span></div></summary><ul>
+<li data-k="4.1"><details open><summary><div class="row"><span class="no">4.1</span><span class="t"><i class="h">prathamam āhnikam</i><span class="j">第1日課</span></span><span class="ref">pp.171–173</span></div></summary><ul>
+<li data-k="4.1.1"><div class="row"><span class="no">4.1.1</span><span class="t"><i class="h">smṛtilakṣaṇam, prāmāṇyasthāpanam</i><span class="j">記憶の定義(潜在印象だけから生じる認識)と、正しい記憶は pramā であること</span><span class="edh">刊本見出し：<i>smṛtiprāmāṇyam</i></span></span><span class="ref">pp.171–173</span></div></li>
+<li data-k="4.1.2"><div class="row"><span class="no">4.1.2</span><span class="t"><i class="h">bhāṣyavacanānāṃ smṛtyaprāmāṇyāsūcakatvam</i><span class="j">Śrībhāṣya の文は記憶の非妥当性を説いていない</span></span><span class="ref">p.173</span></div></li>
+</ul></details></li>
+<li data-k="4.2"><details open><summary><div class="row"><span class="no">4.2</span><span class="t"><i class="h">dvitīyam āhnikam</i><span class="j">第2日課</span></span><span class="ref">pp.173–177</span></div></summary><ul>
+<li data-k="4.2.1"><div class="row"><span class="no">4.2.1</span><span class="t"><i class="h">pramāṇasaṃkhyāvādāḥ</i><span class="j">諸学派の認識手段の数(Cārvāka・Vaiśeṣika・仏教・Sāṃkhya ほか)</span></span><span class="ref">pp.173–174</span></div></li>
+<li data-k="4.2.2"><div class="row"><span class="no">4.2.2</span><span class="t"><i class="h">pratyabhijñāyā ubhayātmakatvam</i><span class="j">再認は知覚と記憶の両面をもつ</span><span class="edh">刊本見出し：<i>pratyabhijñā</i></span></span><span class="ref">pp.173–174</span></div></li>
+<li data-k="4.2.3"><div class="row"><span class="no">4.2.3</span><span class="t"><i class="h">pratyabhijñābhedāḥ, prāmāṇyam</i><span class="j">再認の種類(感官別に三種、潜在印象の組み合わせで九種)と妥当性。刹那滅論の論駁と事物の持続</span></span><span class="ref">p.174</span></div></li>
+<li data-k="4.2.4"><div class="row"><span class="no">4.2.4</span><span class="t"><i class="h">pratisandhānam, saṃvādaḥ</i><span class="j">自己についての統合認識も再認の一種。saṃvāda は別種の認識ではない(Varadaviṣṇumiśra 批判)</span><span class="edh">刊本見出し：<i>pratisandhānam・saṃvādaḥ</i></span></span><span class="ref">pp.174–175</span></div></li>
+<li data-k="4.2.5"><div class="row"><span class="no">4.2.5</span><span class="t"><i class="h">upamānasya smṛtyanumānayor antarbhāvaḥ</i><span class="j">upamāna は記憶か推論に含まれる</span><span class="edh">刊本見出し：<i>upamānam</i></span></span><span class="ref">pp.175–176</span></div></li>
+<li data-k="4.2.6"><div class="row"><span class="no">4.2.6</span><span class="t"><i class="h">arthāpattyabhāvapratibhādīnām antarbhāvaḥ</i><span class="j">arthāpatti・無(abhāva)・直観(pratibhā)なども既存の手段に含まれる。『Āgamaprāmāṇya』の文は反論者の側の説</span><span class="edh">刊本見出し：<i>arthāpattiḥ・aitihyam・ceṣṭādi・pratibhā</i></span></span><span class="ref">pp.176–178</span></div></li>
+<li data-k="4.2.7"><div class="row"><span class="no">4.2.7</span><span class="t"><i class="h">pramāṇavibhāgaprakārāḥ</i><span class="j">二分(仏教)・三分・六分などの区分の評価</span></span><span class="ref">p.177</span></div></li>
+<li data-k="4.2.8"><div class="row"><span class="no">4.2.8</span><span class="t"><i class="h">pramāṇaśodhanaprayojanam, nigamanam</i><span class="j">なぜ認識手段を吟味するのか:真理の撹乱を防ぎ、顛倒を避けるため。結偈</span></span><span class="ref">p.177</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li class="lv0" data-k="5"><details open><summary><div class="row"><span class="no">5</span><span class="t"><i class="h">prameyādhyāyaḥ</i><span class="j">第5章 認識対象</span></span><span class="ref">pp.178–186</span></div></summary><ul>
+<li data-k="5.1"><details open><summary><div class="row"><span class="no">5.1</span><span class="t"><i class="h">prathamam āhnikam</i><span class="j">第1日課</span></span><span class="ref">pp.178–183</span></div></summary><ul>
+<li data-k="5.1.1"><div class="row"><span class="no">5.1.1</span><span class="t"><i class="h">vaiśeṣikapadārthavibhāganirāsaḥ</i><span class="j">Vaiśeṣika の六・七句義の批判。無は別の有</span><span class="edh">刊本見出し：<i>padārthāḥ・viśeṣaḥ・sāmānyam</i></span></span><span class="ref">pp.178–180</span></div></li>
+<li data-k="5.1.2"><div class="row"><span class="no">5.1.2</span><span class="t"><i class="h">karmaṇaḥ pṛthakpadārthatvanirāsaḥ, dravyādravyavibhāgaḥ</i><span class="j">運動を独立の範疇とする説の否定。区分は実体と非実体の二つ</span></span><span class="ref">pp.180–181</span></div></li>
+<li data-k="5.1.3"><div class="row"><span class="no">5.1.3</span><span class="t"><i class="h">ātmaguṇānāṃ buddhyanatirekaḥ</i><span class="j">楽・苦・欲・嫌悪・努力は知の特殊形態(Vedārthasaṃgraha)</span><span class="edh">刊本見出し：<i>guṇāḥ</i></span></span><span class="ref">p.181</span></div></li>
+<li data-k="5.1.4"><div class="row"><span class="no">5.1.4</span><span class="t"><i class="h">saṃskārāśrayavicāraḥ</i><span class="j">潜在印象の所在:属性的知(dharmabhūtajñāna)に宿る</span></span><span class="ref">p.181</span></div></li>
+<li data-k="5.1.5"><div class="row"><span class="no">5.1.5</span><span class="t"><i class="h">bhagavadguṇānāṃ ṣāḍguṇyarūpatvam</i><span class="j">神の無数の吉祥の性質は六徳の展開</span><span class="edh">刊本見出し：<i>ṣāḍguṇyam</i></span></span><span class="ref">p.181</span></div></li>
+<li data-k="5.1.6"><div class="row"><span class="no">5.1.6</span><span class="t"><i class="h">aciddravyaguṇāḥ</i><span class="j">非精神的実体の性質:五つの対象性質、三 guṇa、結合</span></span><span class="ref">pp.181–182</span></div></li>
+<li data-k="5.1.7"><details><summary><div class="row"><span class="no">5.1.7</span><span class="t"><i class="h">dravyavimarśaḥ</i><span class="j">実体の検討</span><span class="edh">刊本見出し：<i>dravyāṇi</i></span></span><span class="ref">pp.182–183</span></div></summary><ul>
+<li data-k="5.1.7.1"><div class="row"><span class="no">5.1.7.1</span><span class="t"><i class="h">kaumārilaśabdadravyanirāsaḥ</i><span class="j">Kumārila 派の遍在する実体としての音の否定</span></span><span class="ref">p.182</span></div></li>
+<li data-k="5.1.7.2"><div class="row"><span class="no">5.1.7.2</span><span class="t"><i class="h">tamaso dravyatvam, pārthivatvam</i><span class="j">闇は実体で、地の一種(Varadaguru『Tattvasāra』)</span></span><span class="ref">p.182</span></div></li>
+<li data-k="5.1.7.3"><div class="row"><span class="no">5.1.7.3</span><span class="t"><i class="h">ṣaḍ dravyāṇi</i><span class="j">六実体:三 guṇa(prakṛti)・時間・個我・神・純粋 sattva・属性的知。一元論的諸説の否定</span></span><span class="ref">pp.182–183</span></div></li>
+</ul></details></li>
+</ul></details></li>
+<li data-k="5.2"><details open><summary><div class="row"><span class="no">5.2</span><span class="t"><i class="h">dvitīyam āhnikam</i><span class="j">第2日課</span></span><span class="ref">pp.183–186</span></div></summary><ul>
+<li data-k="5.2.1"><details><summary><div class="row"><span class="no">5.2.1</span><span class="t"><i class="h">niḥśreyasāntaraṅgaṃ prameyam</i><span class="j">解脱に直結する対象としての prameya:Gautama の十二項目の再解釈</span><span class="edh">刊本見出し：<i>prameyam</i></span></span><span class="ref">pp.183–184</span></div></summary><ul>
+<li data-k="5.2.1.1"><div class="row"><span class="no">5.2.1.1</span><span class="t"><i class="h">ātmā: īśvaro 'nīśvaraś ca</i><span class="j">我は神と非神(個我)の二種</span></span><span class="ref">pp.183–184</span></div></li>
+<li data-k="5.2.1.2"><div class="row"><span class="no">5.2.1.2</span><span class="t"><i class="h">tattvasaṃkhyāvikalpāḥ</i><span class="j">一つ・三つ(cit・acit・īśvara)・四つ・五つ・25・26・27 などの数え方は同じことを言う</span></span><span class="ref">p.184</span></div></li>
+<li data-k="5.2.1.3"><div class="row"><span class="no">5.2.1.3</span><span class="t"><i class="h">arthapañcakam, ṣoḍhā vibhāgaḥ</i><span class="j">到達されるもの・到達する者・手段・除かれるもの・果報の五項目、関係を加えて六項目</span></span><span class="ref">p.184</span></div></li>
+</ul></details></li>
+<li data-k="5.2.2"><details><summary><div class="row"><span class="no">5.2.2</span><span class="t"><i class="h">hitāhitarūpaṃ prameyam</i><span class="j">実践のための対象の要約:益と害</span></span><span class="ref">pp.184–186</span></div></summary><ul>
+<li data-k="5.2.2.1"><div class="row"><span class="no">5.2.2.1</span><span class="t"><i class="h">laukikālaukikahitāhitapramāṇam</i><span class="j">世俗の益は経験・医学・政治学、超世俗の益はヴェーダ</span></span><span class="ref">pp.184–185</span></div></li>
+<li data-k="5.2.2.2"><div class="row"><span class="no">5.2.2.2</span><span class="t"><i class="h">brahmavidyābhedāḥ</i><span class="j">sad-, akṣara-, nyāsa-, vaiśvānara-, madhu-, bhūma-, dahara-vidyā など</span></span><span class="ref">p.185</span></div></li>
+<li data-k="5.2.2.3"><div class="row"><span class="no">5.2.2.3</span><span class="t"><i class="h">yogalakṣaṇam, karmayogaḥ</i><span class="j">yoga の定義、śama などの規定と行為の両立、力に応じた行為(Gītā)</span></span><span class="ref">pp.185–186</span></div></li>
+</ul></details></li>
+<li data-k="5.2.3"><div class="row"><span class="no">5.2.3</span><span class="t"><i class="h">nigamanaślokāḥ, śāstraparisamāptiḥ</i><span class="j">結偈と全巻の結び</span></span><span class="ref">p.186</span></div></li>
+</ul></details></li>
+</ul></details></li>
 </ul>
 </div>
 
@@ -769,8 +856,9 @@ html{scroll-behavior:smooth}
 <tr><td><i>dṛṣṭāntābhāsa</i></td><td>疑わしい場合と確定した場合などで32種</td><td>pp.140–141</td></tr>
 <tr><td><i>tarka</i></td><td><i>vyāpti</i> の力で相手に望ましくない帰結を突きつけること（<i>aniṣṭāpādana</i>）。<i>anumāna</i> とも <i>smṛti</i> とも区別され、<i>pramāṇa</i> を助けるもの（<i>mānopakāraka</i>）と位置づけられる。<i>tarka</i> を偽とすると「毒入りの飯を食えば死ぬ」のような世俗と Veda の警告がすべて嘘になってしまう、という論拠</td><td>pp.142–144</td></tr>
 <tr><td><i>tarkābhāsa</i></td><td><i>ātmāśraya・anyonyāśraya・cakraka・anavasthā</i> の見かけだけのもの。<i>pramāṇa</i> で確立した流れ（<i>sāmagrī</i> の連鎖など）を <i>anavasthā</i> と言い立てるのは <i>anavasthābhāsa</i>。<i>anumānābhāsa</i> に含める立場でも別に挙げるべきだとする</td><td>pp.145–147</td></tr>
-<tr><td><i>āgamābhāsa</i></td><td>正しい <i>pramāṇa</i> どうしが本当に矛盾することはない（<i>na tu mānena mānasya rodho bhavati karhicit</i>）。<i>śruti</i> どうしが衝突する場合の読み方</td><td>p.137</td></tr>
-<tr><td><i>smṛtyābhāsa</i>・<i>purāṇa</i></td><td><i>pratyakṣābhāsa</i> に根ざす <i>smṛti</i>（「あのとき空に乾闥婆城があった」）など。<i>purāṇa</i> どうしの矛盾は、根拠となる <i>guṇa</i> の違い（<i>sāttvika</i> など）で強弱を決める（pp.166–167 の「<i>ābhāsāhnike darśitā</i>」に当たる）</td><td>pp.147–148</td></tr>
+<tr><td><i>prakaraṇasama</i></td><td>正しい <i>pramāṇa</i> どうしが本当に矛盾することはない（<i>na tu mānena mānasya rodho bhavati karhicit</i>）。矛盾が見えるのは一方が <i>ābhāsa</i> であるとき</td><td>p.137</td></tr>
+<tr><td><i>āgamābhāsa</i>・<i>purāṇa</i></td><td>聖典の <i>ābhāsa</i>。<i>purāṇa</i> どうしの矛盾は、根拠となる <i>guṇa</i> の違い（<i>sāttvika</i> など）で強弱を決める（<i>svamūlaguṇabhedena balābalaviniścayaḥ</i>。pp.166–167 の「<i>ābhāsāhnike darśitā</i>」に当たる）</td><td>pp.147–148</td></tr>
+<tr><td><i>smṛtyābhāsa</i></td><td><i>pratyakṣābhāsa</i> に根ざす <i>smṛti</i>（「あのとき空に乾闥婆城があった」）など</td><td>p.148</td></tr>
 <tr><td>結び</td><td>論の途中に別の論を差し挟むことは、劇中劇（<i>garbhāṅka</i>）のように許される。終われば本筋に戻ればよい。この章で論じたことこそ <i>nyāyavistara</i> の固有の核心だ、と締めくくる</td><td>pp.148–149</td></tr>
 </table></div>
 <div class="def"><span class="lab">章末の結偈 · pp.148–149</span><span class="s">yasmin nānumitiḥ krameta vividhā bodhāya bādhāya vā / yasyāśeṣadṛśaḥ kṣitāv anumitis tanmānatākhyātaye / yasmin paśyati tattvanirṇayajayau atyāhitaṃ yatkrudhā / nityaiśvaryamahodadhiḥ sa bhagavān niḥśreyasāyāstu naḥ</span>章の結論を Bhagavat への祈りに重ねた偈で、<i>Nyāyasāra</i> に従って読むと次のようになります。
@@ -1186,6 +1274,21 @@ html{scroll-behavior:smooth}
       var li=d.parentElement;
       d.open = li.classList.contains('lv0');
     });
+  });
+})();
+(function(){
+  var q=document.getElementById('kdq'); if(!q) return;
+  var lis=[].slice.call(document.querySelectorAll('#kdTree li'));
+  function norm(s){return s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();}
+  var txt=lis.map(function(li){var r=li.querySelector('.row');return norm(r?r.textContent:'');});
+  q.addEventListener('input',function(){
+    var v=norm(q.value.trim());
+    lis.forEach(function(li){li.classList.remove('miss');var r=li.querySelector('.row');if(r)r.classList.remove('hit');});
+    if(!v) return;
+    var keep={};
+    lis.forEach(function(li,i){ if(txt[i].indexOf(v)>-1){ li.querySelector('.row').classList.add('hit'); var p=li.dataset.k.split('.'); for(var k=1;k<=p.length;k++) keep[p.slice(0,k).join('.')]=1; } });
+    lis.forEach(function(li){ if(!keep[li.dataset.k]) li.classList.add('miss'); });
+    document.querySelectorAll('#kdTree details').forEach(function(d){d.open=true;});
   });
 })();
 </script>
