@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="iast-fonts.css">
+<title>ラハスヤトラヤサーラ入門</title>
+<style>
+  :root{
+    --ink:#1f2328; --sub:#5b6370; --line:#d9dde3; --bg:#fbfaf7; --card:#ffffff;
+    --accent:#8a4b12; --accent-bg:#fdf3e1; --l1:#2d3748; --l2:#4a5568;
+    --gray-bg:#f1f2f4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+      --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+    --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'IAST Sans',"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    line-height:1.85;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+  header.hero{background:linear-gradient(135deg,#2d3748,#4a5568);color:#fff;border-radius:16px;padding:26px 22px;margin-bottom:28px}
+  .hero .kicker{font-size:13px;letter-spacing:.08em;opacity:.8}
+  .hero h1{font-size:25px;line-height:1.4;margin:6px 0 10px}
+  .hero p{margin:0;opacity:.92;font-size:14.5px}
+  h2{font-size:21px;margin:44px 0 14px;padding-bottom:6px;border-bottom:3px solid var(--ink)}
+  h3{font-size:17px;margin:26px 0 10px}
+  p{margin:10px 0}
+  i, .iast{font-style:italic}
+  .note{font-size:13.5px;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0}
+  .toc a{color:var(--ink)}
+  .toc ol{margin:6px 0;padding-left:22px}
+
+  /* 科段 */
+  .kd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin:14px 0}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;
+    padding:5px 14px;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);white-space:nowrap}
+  .row .t{min-width:0}
+  .row .s{font-variant-numeric:tabular-nums;color:var(--sub);font-size:13.5px;white-space:nowrap}
+  .row .s::before{content:"§ "}
+  .lv1{background:var(--l1);color:#fff;font-size:17px;font-weight:700;border-bottom:none}
+  .lv1 .n,.lv1 .s{color:#fff}
+  .lv2{background:var(--accent-bg);font-weight:700}
+  .lv3{padding-left:34px}
+  .lv4{padding-left:58px;font-size:15px}
+  .lv5{padding-left:82px;font-size:14.5px}
+  .gloss{display:block;font-size:13px;color:var(--sub);font-weight:400}
+  .pending{color:var(--sub);font-style:normal;font-size:13.5px}
+
+  /* 解説 */
+  .sutra{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:12px 16px;margin:16px 0}
+  .sutra .hd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:4px}
+  .sutra .no{font-weight:700;font-size:17px;color:var(--accent)}
+  .sutra .ref{font-size:12.5px;color:var(--sub);background:var(--gray-bg);border-radius:999px;padding:0 9px}
+  .sutra .tr{font-size:16.5px;margin:4px 0 8px}
+  .sutra .ex{font-size:15px;border-top:1px dashed var(--line);padding-top:8px}
+  .sutra .ex p{margin:6px 0}
+  ul{padding-left:22px;margin:6px 0}
+  body{counter-reset:fig}
+  :root{--good:#2f855a;--good-bg:#e6f4ec;--bad:#c53030;--bad-bg:#fdeaea}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}}
+  :root[data-theme="dark"]{--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}
+  .fig{counter-increment:fig;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:22px 0}
+  .fig figcaption{font-weight:700;margin-bottom:10px;font-size:15.5px}
+  .fig figcaption::before{content:"図" counter(fig) "　";color:var(--accent)}
+  .cap2{font-size:13.5px;color:var(--sub);margin-top:10px;line-height:1.7}
+  .tscroll{overflow-x:auto}
+  table.t{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.6}
+  .t th,.t td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+  .t th{background:var(--gray-bg);white-space:nowrap}
+  .t tr.grp td{background:var(--accent-bg);font-weight:700;color:var(--accent)}
+  .good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+  .flow{display:flex;align-items:stretch}
+  .node{flex:1 1 0;min-width:0;background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;padding:9px 10px;text-align:center;font-size:14px;line-height:1.6}
+  .node b{display:block;font-size:15px;margin-bottom:2px}
+  .node.plain{background:var(--card);border-color:var(--line)}
+  .node.good{background:var(--good-bg);border-color:var(--good);color:var(--ink);font-weight:400}
+  .node.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink);font-weight:400}
+  .node .sm{display:block;font-size:12.5px;color:var(--sub);margin-top:4px}
+  .node .sep{display:block;border-top:1px dashed var(--line);margin:7px 0}
+  .arr{flex:0 0 28px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-weight:700;font-size:20px}
+  .arr.lbl{flex:0 0 96px;flex-direction:column;font-size:12px;font-weight:400;line-height:1.35;text-align:center;padding:0 4px}
+  .arr.lbl .ac{font-size:20px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .res{margin-top:12px;border:2px dashed var(--accent);border-radius:10px;padding:8px 12px;text-align:center;font-weight:700}
+  .tree ul{list-style:none;margin:0;padding-left:20px}
+  .tree>ul{padding-left:0}
+  .tree li{position:relative;padding:5px 0 5px 18px}
+  .tree>ul>li{padding-left:0}
+  .tree ul ul>li::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
+  .tree ul ul>li::after{content:"";position:absolute;left:0;top:20px;width:14px;border-top:2px solid var(--line)}
+  .tree ul ul>li:last-child::before{bottom:auto;height:20px}
+  .tree .box{display:inline-block;border:1.5px solid var(--line);border-radius:8px;padding:3px 10px;background:var(--card);font-size:14.5px}
+  .tree .box.hl{border-color:var(--accent);background:var(--accent-bg);font-weight:700}
+  @media (max-width:640px){
+    .flow{flex-direction:column}
+    .arr{flex-basis:26px}.arr .ac{display:inline-block;transform:rotate(90deg)}
+    .arr.lbl{flex-direction:row;gap:8px;flex-basis:auto;padding:4px 0}
+    .grid2,.grid3{grid-template-columns:1fr}
+    table.t{font-size:13.5px}.t th{white-space:normal}.t th,.t td{padding:6px 7px}
+  }
+
+  #exp ~ h3{border-left:4px solid var(--accent);padding-left:10px;margin-top:34px}
+  .h3n{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+  .chk{font-size:12px;font-weight:700;color:#b7791f;border:1px solid #b7791f;border-radius:999px;padding:0 8px}
+
+  @media (max-width:640px){
+    .hero h1{font-size:21px}
+    .row{grid-template-columns:auto 1fr;padding:5px 10px}
+    .row .s{grid-column:2;font-size:12.5px}
+    .lv3{padding-left:18px}.lv4{padding-left:28px}.lv5{padding-left:38px}
+  }
+
+  .edmark{margin:26px 0 6px;font-size:13px;color:var(--sub);border-top:2px dotted var(--line);padding-top:6px}
+  .edmark b{color:var(--accent)}
+  .kd .row .t i{font-style:italic}
+
+  .edmark{margin:26px 0 6px;font-size:13px;color:var(--sub);border-top:2px dotted var(--line);padding-top:6px}
+  .edmark b{color:var(--accent)}
+  .kd .row .t i{font-style:italic}
+
+  .key{background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px;padding:12px 16px;margin:18px 0}
+  .key .lbl{font-weight:700;color:var(--accent);font-size:14px;margin-bottom:4px}
+  a.src{font-size:12.5px;white-space:nowrap;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:0 7px;margin:0 2px}
+  a.src:hover{background:var(--accent-bg)}
+  h2 .num{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;padding:0 9px;margin-right:8px;font-size:16px}
+  .q li{margin:8px 0}
+  .lamp{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:6px 0}
+  .lamp svg{max-width:100%;height:auto}
+
+  .bars{display:flex;gap:4px;min-width:0}
+  .bar{min-width:0;border-radius:8px;padding:8px 6px;text-align:center;font-size:13px;line-height:1.4;color:#fff;overflow-wrap:anywhere}
+  .bar b{display:block;font-size:14px}
+  .bar.b1{background:#8a4b12}.bar.b2{background:#2c6e63}.bar.b3{background:#4a5590}.bar.b4{background:#7a3550}
+  .grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:8px}
+  .grid5 .node i{display:block;font-size:13px}
+  .steps{list-style:none;counter-reset:st;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+  .steps li{counter-increment:st;background:var(--accent-bg);border:1.5px solid var(--accent);border-radius:9px;padding:6px 10px;font-size:14px;line-height:1.5}
+  .steps li::before{content:counter(st);display:inline-block;min-width:1.6em;font-weight:700;color:var(--accent)}
+  .steps li.end{grid-column:1/-1;background:var(--good-bg);border-color:var(--good)}
+  .steps li.end::before{content:"★"}
+  .syls{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+  .sg{display:flex;gap:4px;flex-wrap:wrap;justify-content:center;border:2px dashed var(--accent);border-radius:10px;padding:8px 8px 4px}
+  .sy{font-style:italic;font-size:20px;min-width:2.4em;text-align:center;background:var(--card);border:1.5px solid var(--line);border-radius:7px;padding:2px 6px}
+  .sl{flex-basis:100%;text-align:center;font-size:12.5px;color:var(--sub)}
+  @media (max-width:640px){table.t:has(th:nth-child(4)){min-width:560px}}
+  @media (max-width:640px){
+    .grid5{grid-template-columns:1fr 1fr}
+    .bars{flex-direction:column}.bar{flex:none!important}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">大学1年生のための宗教思想入門</div>
+  <h1>『ラハスヤトラヤサーラ』入門<br><span style="font-size:.7em">三つの秘密の言葉で読む、救いの教え</span></h1>
+  <p>ヴェーダーンタ・デーシカが、南インドのヴィシュヌ信仰の救いの教えを体系的にまとめた主著を、図と表でわかりやすく紹介します。</p>
+  <p style="margin-top:8px"><a href="index.html" style="color:#fff">← 原典研究の書庫（リンク集）へ</a></p>
+</header>
+
+<nav class="card toc"><b>目次</b><ol start="0">
+<li><a href="#intro">はじめに：この本は何のための本か</a></li>
+<li><a href="#author">著者ヴェーダーンタ・デーシカ</a></li>
+<li><a href="#three">「三つの秘密」とは何か</a></li>
+<li><a href="#structure">本の全体構成：32章を4つに分ける</a></li>
+<li><a href="#five">知るべき五つのこと</a></li>
+<li><a href="#world">世界の見方：神・魂・物質</a></li>
+<li><a href="#seeker">救いを求める人：資格と心がまえ</a></li>
+<li><a href="#paths">救いへの二つの道：信愛と帰依</a></li>
+<li><a href="#prapatti">帰依（プラパッティ）のしくみ</a></li>
+<li><a href="#doubt">五つの疑いと「大いなる信頼」</a></li>
+<li><a href="#after">帰依した後の生き方</a></li>
+<li><a href="#journey">死と解脱の旅</a></li>
+<li><a href="#defense">反論に答える（第23–26章）</a></li>
+<li><a href="#mula">秘密1：根本マントラを一語ずつ読む</a></li>
+<li><a href="#dvaya">秘密2：ドヴァヤを一語ずつ読む</a></li>
+<li><a href="#carama">秘密3：最後の偈を一語ずつ読む</a></li>
+<li><a href="#guru">師と弟子（第30–32章）</a></li>
+<li><a href="#schools">北派と南派：二つの読み方</a></li>
+<li><a href="#compare">他の宗教と比べると</a></li>
+<li><a href="#think">考えてみよう</a></li>
+<li><a href="#glossary">用語集と読書案内</a></li>
+</ol></nav>
+
+<!-- 0 -->
+<h2 id="intro"><span class="num">0</span>はじめに：この本は何のための本か</h2>
+<p>『ラハスヤトラヤサーラ』（<i>Rahasyatrayasāra</i>）は、14世紀の南インドの思想家ヴェーダーンタ・デーシカ（<i>Vedānta Deśika</i>）の著作です。書名は「三つの秘密（<i>rahasya-traya</i>）の精髄（<i>sāra</i>）」という意味です。</p>
+<p>「三つの秘密」とは、信者がこの伝統に入門するときに、師から耳もとで授けられる三つの聖なる言葉（<i>mantra</i>）のことです。この本は、その三つの言葉に込められた意味を説き明かします。それを通して、「人はどうすれば救われるのか」という問いに体系的に答えます。</p>
+<div class="key"><div class="lbl">ひとことで言うと</div>「三つの短い言葉の中に、救いに必要なことはすべて入っている。その意味を正しく知り、一度、心から神にすべてを委ねれば、人は必ず救われる」――この確信を、聖典と論理で裏づけた本です。</div>
+<figure class="fig">
+  <figcaption>この本の基本データ</figcaption>
+<div class="tscroll"><table class="t"><tbody>
+<tr><th>著者</th><td>ヴェーダーンタ・デーシカ（本名ヴェーンカタナータ <i>Veṅkaṭanātha</i>、伝承では1268–1369年）</td></tr>
+<tr><th>宗派</th><td>シュリーヴァイシュナヴァ派（ヴィシュヌとその妃シュリーを信仰する南インドの伝統）のうち、北派（ヴァダカライ <i>Vaḍakalai</i>）</td></tr>
+<tr><th>哲学の立場</th><td>ラーマーヌジャ（<i>Rāmānuja</i>）のヴィシシュタードヴァイタ（<i>Viśiṣṭādvaita</i>、限定不二一元論）</td></tr>
+<tr><th>言語</th><td>マニプラヴァーラ（<i>Maṇipravāḷa</i>）：タミル語の文にサンスクリット語の語句を大量に混ぜた文体。章の初めと終わりにはサンスクリットの詩とタミル語の詩が置かれる</td></tr>
+<tr><th>分量</th><td>全32章（<i>adhikāra</i>）。その前に師資相承の章（<i>Guruparamparāsāra</i>）がある</td></tr>
+<tr><th>主題</th><td>救いの教え：誰が、何によって、何を得るのか</td></tr>
+</tbody></table></div>
+</figure>
+<div class="card"><b>「マニプラヴァーラ」とは</b><br>「宝石（<i>maṇi</i>）と珊瑚（<i>pravāḷa</i>）を交ぜて編んだ首飾り」という意味です。日本語の漢文訓読体に、少し似たところがあります。日本語の文の中に漢語の熟語や漢文の引用が入るように、タミル語の文の中にサンスクリットの術語や聖典の引用がそのまま入ります。学者でない信者にも語りかけながら、聖典の権威も保つための文体です。</div>
+
+<!-- 1 -->
+<h2 id="author"><span class="num">1</span>著者ヴェーダーンタ・デーシカ</h2>
+<p>デーシカは、カーンチープラム近くのトゥーップル（<i>Tūppul</i>）で生まれたと伝えられます。母方の叔父アートレーヤ・ラーマーヌジャ（<i>Ātreya Rāmānuja</i>）に学び、のちにシュリーランガムでも活動しました。哲学・論理学・詩・劇・タミル語の讃歌まで、100を超える著作を残したとされます。「詩人と論理家の中の獅子（<i>Kavitārkikasiṃha</i>）」「あらゆる学問に自在な者（<i>Sarvatantrasvatantra</i>）」という称号で呼ばれます。</p>
+<figure class="fig">
+  <figcaption>シュリーヴァイシュナヴァ派の流れの中のデーシカ</figcaption>
+<div class="flow">
+<div class="node plain"><b>アールヴァール</b>6–9世紀頃<span class="sm">タミル語でヴィシュヌを歌った12人の詩人聖者</span></div>
+<div class="arr">→</div>
+<div class="node plain"><b>ラーマーヌジャ</b>11–12世紀<span class="sm">ヴィシシュタードヴァイタ哲学を大成</span></div>
+<div class="arr">→</div>
+<div class="node"><b>13–14世紀</b>二つの流れが生まれる<span class="sep"></span><span class="sm">北派：デーシカ<br>南派：ピッライ・ローカーチャーリヤ</span></div>
+<div class="arr">→</div>
+<div class="node plain"><b>現代</b>二派が並存<span class="sm">南インドを中心に今も続く</span></div>
+</div>
+<div class="cap2">年代はおおよその目安です。アールヴァールの年代には諸説あります。</div>
+</figure>
+<figure class="fig">
+  <figcaption>デーシカの主な著作（このサイトで扱っているもの）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>分野</th><th>著作</th><th>内容</th></tr></thead><tbody>
+<tr><td>救いの教え</td><td><b>ラハスヤトラヤサーラ</b>（このページ）</td><td>三つの秘密の言葉による救いの教えの体系</td></tr>
+<tr><td>認識論</td><td><a href="nyayaparisuddhi_kadan.html">ニヤーヤパリシュッディ</a></td><td>正しい知識の手段（知覚・推論・聖典）の理論</td></tr>
+<tr><td>存在論</td><td><a href="nyayasiddhanjana_intro_seidoku.html">ニヤーヤシッダーンジャナ</a></td><td>世界にどんな種類のものがあるか</td></tr>
+<tr><td>聖典解釈学</td><td><a href="sesvaramimamsa_kadan.html">セーシュヴァラミーマーンサー</a></td><td>神を認める立場からのミーマーンサー（祭祀の聖典解釈学）</td></tr>
+</tbody></table></div>
+</figure>
+
+<!-- 2 -->
+<h2 id="three"><span class="num">2</span>「三つの秘密」とは何か</h2>
+<p>シュリーヴァイシュナヴァ派では、信者になるときに「五つの浄め」（<i>pañca-saṃskāra</i>）という入門儀礼を受けます。その中で、師から三つのマントラを授かります。これが「三つの秘密」です。むやみに人に明かしてはならない、という意味で「秘密」と呼ばれます。</p>
+<figure class="fig">
+  <figcaption>入門儀礼「五つの浄め」（<i>pañca-saṃskāra</i>）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>名前</th><th>何をするか</th></tr></thead><tbody>
+<tr><td>1</td><td><i>tāpa</i>（ターパ）</td><td>肩にヴィシュヌの法螺貝と円盤のしるしを焼き印する</td></tr>
+<tr><td>2</td><td><i>puṇḍra</i>（プンドラ）</td><td>額などに縦の聖なるしるしを描く</td></tr>
+<tr><td>3</td><td><i>nāma</i>（ナーマ）</td><td>「神の僕」を意味する新しい名前を受ける</td></tr>
+<tr><td>4</td><td><b><i>mantra</i>（マントラ）</b></td><td><b>三つの秘密の言葉を、意味とともに師から授かる</b></td></tr>
+<tr><td>5</td><td><i>yāga</i>（ヤーガ）</td><td>神像の礼拝の仕方を教わる</td></tr>
+</tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>三つの秘密の言葉</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>① 根本マントラ</th><th>② ドヴァヤ</th><th>③ 最後の偈</th></tr></thead><tbody>
+<tr><th>名前</th><td><i>mūlamantra</i>（ムーラマントラ）<br>別名：ティルマントラ、八音節のマントラ（<i>aṣṭākṣara</i>）</td><td><i>dvaya</i>（ドヴァヤ）<br>「二つ組」の意。マントラの宝石（<i>mantraratna</i>）とも</td><td><i>caramaśloka</i>（チャラマシュローカ）<br>『バガヴァッド・ギーター』18章66節</td></tr>
+<tr><th>原文</th><td><i>oṃ namo nārāyaṇāya</i></td><td><i>śrīman-nārāyaṇa-caraṇau śaraṇaṃ prapadye<br>śrīmate nārāyaṇāya namaḥ</i></td><td><i>sarvadharmān parityajya mām ekaṃ śaraṇaṃ vraja<br>ahaṃ tvā sarvapāpebhyo mokṣayiṣyāmi mā śucaḥ</i></td></tr>
+<tr><th>訳</th><td>オーム、ナーラーヤナに帰命します</td><td>シュリーを伴うナーラーヤナの御足を、拠り所として帰依します。シュリーを伴うナーラーヤナに、帰命します</td><td>すべての法を捨てて、私ひとりを拠り所とせよ。私があなたをすべての罪から解き放とう。悲しむな</td></tr>
+<tr><th>話し手</th><td>信者</td><td>信者</td><td>神（クリシュナ）</td></tr>
+<tr><th>教えること</th><td>私は誰のものか（魂の本来の姿）</td><td>帰依の実行と、奉仕の願い</td><td>帰依せよという神の命令と、救いの約束</td></tr>
+<tr><th>詳しく扱う章</th><td>第27章</td><td>第28章</td><td>第29章</td></tr>
+</tbody></table></div>
+</figure>
+<p>三つの言葉は、ばらばらの呪文ではありません。デーシカは、三つが一つの流れをなすと考えます。</p>
+<figure class="fig">
+  <figcaption>三つの秘密の関係</figcaption>
+<div class="flow">
+<div class="node"><b>① 根本マントラ</b>「私は神のもの」<span class="sm">自分の本当の姿を知る</span></div>
+<div class="arr lbl"><span class="ac">→</span><span>だから神にすがる</span></div>
+<div class="node"><b>③ 最後の偈</b>「私にすがれ」<span class="sm">神がすがり方を命じ、救いを約束する</span></div>
+<div class="arr lbl"><span class="ac">→</span><span>その命令を実行する</span></div>
+<div class="node good"><b>② ドヴァヤ</b>「御足に帰依します」<span class="sm">帰依を実際に行い、奉仕を願う</span></div>
+</div>
+<div class="cap2">伝統的な説明を単純化した図です。根本マントラが意味の土台を、最後の偈が帰依の根拠となる命令を、ドヴァヤが帰依の実行そのものを担う、という役割分担として理解するとわかりやすいでしょう。</div>
+</figure>
+
+<!-- 3 -->
+<h2 id="structure"><span class="num">3</span>本の全体構成：32章を4つに分ける</h2>
+<p>本書の32章は、伝統的に四つの部分に分けられます。最初の22章で救いの教えの中身を説明し、次の4章で反論を退け、続く3章で三つの秘密を一語ずつ解釈し、最後の3章で師と弟子のあり方を述べて結びます。</p>
+<figure class="fig">
+  <figcaption>全32章の構成</figcaption>
+<div class="bars">
+<div class="bar b1" style="flex:22"><b>意味の教示</b><span>第1–22章</span></div>
+<div class="bar b2" style="flex:4"><b>確定</b><span>23–26</span></div>
+<div class="bar b3" style="flex:3"><b>逐語釈</b><span>27–29</span></div>
+<div class="bar b4" style="flex:3"><b>師弟</b><span>30–32</span></div>
+</div>
+<div class="tscroll" style="margin-top:12px"><table class="t"><thead><tr><th>部分</th><th>章</th><th>何をするか</th></tr></thead><tbody>
+<tr><td>意味の教示（<i>arthānuśāsana</i>）</td><td>1–22</td><td>救いに必要なことを順に説明する：世界観 → 求道者と手段 → 帰依後の生活 → 解脱</td></tr>
+<tr><td>確定（<i>sthirīkaraṇa</i>）</td><td>23–26</td><td>予想される反論に答えて、理解を揺るがないものにする</td></tr>
+<tr><td>逐語釈（<i>padavākyayojanā</i>）</td><td>27–29</td><td>三つの秘密を、一語ずつ・一文ずつ解釈する</td></tr>
+<tr><td>師弟論・結論</td><td>30–32</td><td>師の務め、弟子の務め、全体のまとめ</td></tr>
+</tbody></table></div>
+<div class="cap2">第4部分の名前には別の呼び方もあります。</div>
+</figure>
+<p>第1部分（第1–22章）は、さらに次のように整理できます。これは一つの旅の地図のようなものです。</p>
+<figure class="fig">
+  <figcaption>第1–22章の流れ：救いの旅として読む</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>まとまり</th><th>章</th><th>問い</th><th>旅にたとえると</th></tr></thead><tbody>
+<tr class="grp"><td colspan="4">序：伝統と目的</td></tr>
+<tr><td>師資相承・序説・精髄</td><td>序, 1–2</td><td>この教えはどこから来たか。何が肝心か</td><td>旅の案内人と目的地</td></tr>
+<tr class="grp"><td colspan="4">世界観</td></tr>
+<tr><td>本派の教義・五つの事柄・三つの実在・最高神</td><td>3–6</td><td>神とは、魂とは、世界とは何か</td><td>地図を読む</td></tr>
+<tr class="grp"><td colspan="4">求道者と手段</td></tr>
+<tr><td>解脱を求める心・資格・手段の区分</td><td>7–9</td><td>誰が、どの道を行けるか</td><td>どの道を選ぶか</td></tr>
+<tr><td>帰依に適う者・付随要素・帰依</td><td>10–12</td><td>帰依とは何か。どう行うか</td><td>出発する</td></tr>
+<tr class="grp"><td colspan="4">帰依した後の生</td></tr>
+<tr><td>成し終えた者・確立の徴・帰依後の務め・最高の目的・聖典の規定・過失の回避・住む場所</td><td>13–19</td><td>救いが決まった人は、どう生きるか</td><td>旅の途中の過ごし方</td></tr>
+<tr class="grp"><td colspan="4">果</td></tr>
+<tr><td>魂の離脱・解脱への道程・神の完全な享受</td><td>20–22</td><td>死後、何が起きるか</td><td>目的地に着く</td></tr>
+</tbody></table></div>
+</figure>
+
+<!-- 4 -->
+<h2 id="five"><span class="num">4</span>知るべき五つのこと</h2>
+<p>救われるために知っておくべきことを、伝統は五つにまとめます。これを「五つの意味」（<i>arthapañcaka</i>）といいます（第4章）。本書全体が、この五つを詳しく展開したものだと言えます。</p>
+<figure class="fig">
+  <figcaption>五つの知るべき事柄（<i>arthapañcaka</i>）</figcaption>
+<div class="grid5">
+<div class="node"><b>得られるもの</b><i>prāpya</i><span class="sm">神（シュリーを伴うナーラーヤナ）</span></div>
+<div class="node"><b>得る者</b><i>prāptṛ</i><span class="sm">魂（私たち）</span></div>
+<div class="node"><b>手段</b><i>upāya</i><span class="sm">神ご自身と、信愛・帰依</span></div>
+<div class="node good"><b>果</b><i>phala</i><span class="sm">神を味わい、仕えること</span></div>
+<div class="node bad"><b>障害</b><i>virodhin</i><span class="sm">身体を自分と思うこと、自分は独立していると思うことなど</span></div>
+</div>
+<div class="tscroll" style="margin-top:12px"><table class="t"><thead><tr><th>事柄</th><th>本書での中身</th><th>主に扱う章</th></tr></thead><tbody>
+<tr><td>得られるもの</td><td>シュリーの夫であり、無限のよい性質と神聖な姿をもち、天界とこの世の両方の主で、世界の原因である神</td><td>5, 6</td></tr>
+<tr><td>得る者</td><td>知を本質とし、原子のように小さく、本来神に属する魂。束縛された魂・解脱した魂・永遠の魂の三種</td><td>5, 7</td></tr>
+<tr><td>手段</td><td>すでに成り立っている手段としての神ご自身（<i>siddhopāya</i>）と、人が実践する手段としての信愛・帰依（<i>sādhyopāya</i>）</td><td>8–12, 23–24</td></tr>
+<tr><td>果</td><td>神を味わい尽くし、その喜びからあふれ出る奉仕（<i>kaiṅkarya</i>）</td><td>16, 20–22</td></tr>
+<tr><td>障害</td><td>身体を自分と見誤ること、自分は独立しているという思い、他の神々への傾倒、帰依後の罪、神や信者への冒涜など</td><td>13–19</td></tr>
+</tbody></table></div>
+</figure>
+<p>この五つは、根本マントラの各部分にも割り当てられます（第4章の詩）。短い言葉の中に救いの教え全体が畳み込まれている、という本書の基本の考え方がここに表れています。</p>
+
+<!-- 5 -->
+<h2 id="world"><span class="num">5</span>世界の見方：神・魂・物質</h2>
+<p>本書の世界観は、ラーマーヌジャの哲学そのままです。世界には、魂（<i>cit</i>）・物質（<i>acit</i>）・神（<i>Īśvara</i>）の三つの実在があります（第5章）。いちばん大切なのは、魂と物質は神の「身体」であり、神はそれらに宿る「魂」である、という考え方です（第3章）。デーシカはこれを、他の学派にはないこの派の固有の教え（<i>pradhāna-pratitantra</i>）と呼びます。</p>
+<figure class="fig">
+  <figcaption>「身体と魂」の関係（<i>śarīra-śarīri-bhāva</i>）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>私たちの身体と魂</th><th>世界と神</th><th>救いの教えにとっての意味</th></tr></thead><tbody>
+<tr><td>魂が身体を<b>支える</b></td><td>神が魂と物質を支える（<i>ādhāra</i>）</td><td>私は自分の力で存在しているのではない</td></tr>
+<tr><td>魂が身体を<b>動かす</b></td><td>神が内側から統御する（<i>niyantṛ</i>）</td><td>私は本当の意味で独立していない</td></tr>
+<tr><td>身体は魂の<b>ためにある</b></td><td>魂は神のためにある（<i>śeṣa</i>）</td><td>私の存在目的は、神に仕えること</td></tr>
+</tbody></table></div>
+</figure>
+<div class="key"><div class="lbl">キーワード：<i>śeṣa</i>（シェーシャ）</div>「ほかの者のためにあり、その者を喜ばせることで価値をもつもの」。従属物、付属物、と訳されます。魂は神のシェーシャであり、神はシェーシン（<i>śeṣin</i>、主）です。この関係を正しく知ることが、救いの出発点になります。</div>
+<p>世界観について詳しくは、同じ派の思想家の本を紹介した<a href="tattvatraya_nyumon.html">『タットヴァトラヤ』入門</a>を見てください。デーシカと基本的な考えは同じです。</p>
+<p>デーシカは第6章で、この最高神がナーラーヤナ（ヴィシュヌ）であることを論じます。シヴァやブラフマーなどの神々は、ナーラーヤナに創られ、支えられる存在だとされます。救いを求めるなら、最高神にこそ向かうべきだ、というのが結論です。</p>
+
+<!-- 6 -->
+<h2 id="seeker"><span class="num">6</span>救いを求める人：資格と心がまえ</h2>
+<p>第7章では、解脱を求める心（<i>mumukṣutva</i>）がどう生まれるかを述べます。輪廻の苦しみに気づき、この世や天界の楽しみのはかなさを知ること。そして、神のもとで永遠に仕える喜びを知ることで、本当に解脱を求める心が起こります。</p>
+<p>第8章では、救いを求める人の種類を分けます。中でも重要なのが、帰依した人（<i>prapanna</i>）の二つのタイプです。</p>
+<figure class="fig">
+  <figcaption>帰依する人の二つのタイプ</figcaption>
+<div class="grid2">
+<div class="node"><b>苦しむ人</b><i>ārta-prapanna</i>（アールタ）<span class="sep"></span>この世に一瞬もいられないほど苦しみ、<b>今すぐの</b>解脱を求める<span class="sm">→ 帰依したその身体が終わると、すぐに解脱する</span></div>
+<div class="node plain"><b>待てる人</b><i>dṛpta-prapanna</i>（ドリプタ）<span class="sep"></span>この世での生を続けながら、<b>この身体が終わるとき</b>の解脱を求める<span class="sm">→ 今の寿命を終えたとき、解脱する</span></div>
+</div>
+<div class="cap2">どちらも、帰依によって解脱が確実になる点は同じです。違うのは、解脱の時をいつと願うかです。</div>
+</figure>
+
+<!-- 7 -->
+<h2 id="paths"><span class="num">7</span>救いへの二つの道：信愛と帰依</h2>
+<p>本書の中心問題は、「救いの手段（<i>upāya</i>）は何か」です（第9章）。まず押さえておきたいのは、デーシカが手段を二つの層に分けることです。</p>
+<figure class="fig">
+  <figcaption>手段の二つの層</figcaption>
+<div class="grid2">
+<div class="node good"><b>すでに成り立っている手段</b><i>siddhopāya</i><span class="sep"></span>神ご自身。救いを実際に与えるのは、いつでも神だけ</div>
+<div class="node"><b>人が実践する手段</b><i>sādhyopāya</i><span class="sep"></span>信愛（<i>bhakti</i>）か帰依（<i>prapatti</i>）。神が救いを与える「きっかけ」（<i>vyāja</i>）になる</div>
+</div>
+<div class="cap2">人の実践は、神に救いを「払わせる」代金ではありません。慈悲深い神が、救いを与えるために受け入れる、ささやかなきっかけです。</div>
+</figure>
+<p>人が実践する手段には、古くから知られた長い道と、もう一つの道があります。</p>
+<figure class="fig">
+  <figcaption>伝統的な長い道：行為 → 知 → 信愛</figcaption>
+<div class="flow">
+<div class="node plain"><b>行為の道</b><i>karmayoga</i><span class="sm">日々の義務や祭祀を、見返りを求めずに行う</span></div>
+<div class="arr">→</div>
+<div class="node plain"><b>知の道</b><i>jñānayoga</i><span class="sm">身体と異なる自己を観想する</span></div>
+<div class="arr">→</div>
+<div class="node"><b>信愛の道</b><i>bhaktiyoga</i><span class="sm">神を、油が途切れず流れるように愛をこめて念じ続ける</span></div>
+<div class="arr">→</div>
+<div class="node good"><b>解脱</b><span class="sm">最高の信愛が熟して神を得る</span></div>
+</div>
+</figure>
+<p>しかしこの道は、誰にでも歩めるものではありません。そこで、もう一つの道として「帰依」（<i>prapatti</i>、<i>śaraṇāgati</i>）が示されます。</p>
+<figure class="fig">
+  <figcaption>信愛と帰依の比較</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>比べる点</th><th>信愛（<i>bhakti</i>）</th><th>帰依（<i>prapatti</i>）</th></tr></thead><tbody>
+<tr><td>誰ができるか</td><td>上位三階級の男性で、能力と知識のある人</td><td><span class="good">誰でも</span>。とくに、ほかに頼る手段も力もない人（<i>ākiñcanya</i>, <i>ananyagatitva</i>）</td></tr>
+<tr><td>何回行うか</td><td>死ぬまで毎日続ける</td><td><span class="good">一度だけ</span>（一瞬で完了する）</td></tr>
+<tr><td>必要な補助</td><td>階級と人生段階ごとの義務、ヨーガの八つの段階など</td><td>五つの付随要素（第8節）</td></tr>
+<tr><td>前世の業の残り（<i>prārabdha</i>）</td><td>すべて受け尽くす必要があり、何度も生まれ変わることもある</td><td>本人が望んで残す分を除いて消える</td></tr>
+<tr><td>解脱の時</td><td>業の残りが尽きた後</td><td>苦しむ人はすぐ、待てる人は今の身体が終わるとき</td></tr>
+<tr><td>難しさ</td><td>非常に難しい</td><td>行うのはやさしい。ただし、本気の信頼が必要</td></tr>
+</tbody></table></div>
+<div class="cap2">第9章の内容を表にしたものです。帰依は「信愛の代わりになる、独立した手段」（<i>bhakti-sthānāpanna</i>）だとされます。</div>
+</figure>
+<div class="key"><div class="lbl">ポイント</div>帰依は「信愛ができない人のための簡単な代用品」ではありません。デーシカによれば、帰依はそれだけで解脱をもたらす独立した手段です。しかも、生まれや能力に関係なく誰にでも開かれています。</div>
+
+<!-- 8 -->
+<h2 id="prapatti"><span class="num">8</span>帰依（プラパッティ）のしくみ</h2>
+<p>帰依とは、「自分を守るという重荷を、神に委ねること」です。この中心の行為を「自己を委ねること」（<i>ātmanikṣepa</i>）と呼びます。デーシカは、この中心の行為に五つの付随要素（<i>aṅga</i>）が伴わなければならないと説きます（第10–12章）。根拠は、パーンチャラートラ派の聖典『ラクシュミー・タントラ』などの詩句です。</p>
+<div class="key"><div class="lbl">帰依の六つの側面を挙げる詩句</div><i>ānukūlyasya saṅkalpaḥ prātikūlyasya varjanam | rakṣiṣyatīti viśvāso goptṛtvavaraṇaṃ tathā | ātmanikṣepakārpaṇye ṣaḍvidhā śaraṇāgatiḥ ||</i><br>「神の意にかなうことをしようという決意、神の意に背くことをやめること、『必ず守ってくださる』という信頼、守り手となってくださいと請うこと、自己を委ねることと、へりくだり――帰依は六つの側面をもつ」</div>
+<figure class="fig">
+  <figcaption>帰依の構造：中心の行為と五つの付随要素</figcaption>
+<div class="tree"><ul><li><span class="box hl">帰依（<i>prapatti</i>）</span>
+<ul>
+<li><span class="box hl">中心：自己を委ねる（<i>ātmanikṣepa</i>）</span>「私を守る重荷を、あなたにお任せします」</li>
+<li><span class="box">付随1：意にかなう決意（<i>ānukūlya-saṅkalpa</i>）</span>神と、すべての生きものによいことをしよう</li>
+<li><span class="box">付随2：背くことをやめる（<i>prātikūlya-varjana</i>）</span>神の意に反することはしない</li>
+<li><span class="box">付随3：へりくだり（<i>kārpaṇya</i>）</span>「私には、ほかに何の手段も力もない」</li>
+<li><span class="box">付随4：大いなる信頼（<i>mahāviśvāsa</i>）</span>「必ず守ってくださる」</li>
+<li><span class="box">付随5：守り手を請う（<i>goptṛtva-varaṇa</i>）</span>「どうか私の守り手になってください」</li>
+</ul></li></ul></div>
+</figure>
+<figure class="fig">
+  <figcaption>五つの付随要素の役割</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>付随要素</th><th>何のためにあるか</th></tr></thead><tbody>
+<tr><td>意にかなう決意・背くことをやめる</td><td>二つで、神の命令に背くことから人を遠ざける。根拠は「自分は神のものだ」という知</td></tr>
+<tr><td>へりくだり</td><td>ほかの手段に頼る気持ちを断ち、神だけに向かわせる。慢心を消す</td></tr>
+<tr><td>大いなる信頼</td><td>神を本当に手段とすることを成り立たせる。帰依の後も心を安らかにする</td></tr>
+<tr><td>守り手を請う</td><td>神はいずれ救うのに、なぜ請うのか？――請い求めて与えられてこそ、救いが本人の目的（<i>puruṣārtha</i>）になるから</td></tr>
+</tbody></table></div>
+</figure>
+<h3>物語で見る帰依：ヴィビーシャナ</h3>
+<p>デーシカは、帰依の具体例を叙事詩『ラーマーヤナ』に求めます。代表は、魔王ラーヴァナの弟ヴィビーシャナが、兄を捨ててラーマのもとへ逃れてくる場面です。</p>
+<figure class="fig">
+  <figcaption>ヴィビーシャナの帰依を五つの要素で読む</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>物語の場面</th><th>対応する要素</th></tr></thead><tbody>
+<tr><td>兄ラーヴァナに「シーターをラーマに返せ」と忠告する。すぐに兄を離れず、できる限り改めさせようとする</td><td>意にかなう決意（すべての者への善意）</td></tr>
+<tr><td>侮辱されて、「妻子もランカーも、友も財も捨てた」と言ってラーマのもとへ来る</td><td>背くことをやめる</td></tr>
+<tr><td>行き場を失った自分の窮状を述べる</td><td>へりくだり</td></tr>
+<tr><td>「すべての世界の拠り所であるラーマに、私のことを急ぎ伝えてください」と頼む</td><td>守り手を請う・自己を委ねる</td></tr>
+<tr><td>ラーマは「一度でも『あなたのものです』と言ってすがる者には、すべての者から安全を与える。これが私の誓いだ」と応える</td><td>神の側の約束（帰依は一度で足りる根拠）</td></tr>
+</tbody></table></div>
+<div class="cap2">最後の行のラーマの言葉は『ラーマーヤナ』戦争の巻18章33節（<i>sakṛd eva prapannāya tavāsmīti ca yācate | abhayaṃ sarvabhūtebhyo dadāmy etad vrataṃ mama ||</i>）。帰依の教えで最もよく引かれる詩句の一つです。</div>
+</figure>
+<h3>自分で行うか、師に代わってもらうか</h3>
+<p>帰依の仕方にもいくつかの形があります。自分で意味を理解して行うほか、師が弟子のために帰依を行い、弟子はそれを拒まないだけで足りる、という形も認められます（第11章）。</p>
+<figure class="fig">
+  <figcaption>帰依の行い方</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>形</th><th>説明</th></tr></thead><tbody>
+<tr><td>自分で行う（<i>svaniṣṭhā</i>）</td><td>意味を知る人が、自ら帰依の言葉を述べて行う</td></tr>
+<tr><td>師の言葉をなぞって行う（<i>uktiniṣṭhā</i>）</td><td>師が唱える帰依の言葉を、弟子が繰り返す</td></tr>
+<tr><td>師に委ねる（<i>ācāryaniṣṭhā</i>）</td><td>師が弟子のために帰依を行う。弟子は師に属する者としてそれに含まれる</td></tr>
+</tbody></table></div>
+<div class="cap2">デーシカはこの例として、ヴィビーシャナに従ってきた四人の仲間が、自分では帰依の言葉を述べずに共に救われたことを挙げます。</div>
+</figure>
+
+<!-- 9 -->
+<h2 id="doubt"><span class="num">9</span>五つの疑いと「大いなる信頼」</h2>
+<p>帰依は一度で足りる、と言われても、人は不安になります。「本当にこんなことで救われるのか」。デーシカは、帰依する人の心に起こりうる五つの疑いを挙げ、それぞれを神の性質によって打ち消します（第11章）。</p>
+<figure class="fig">
+  <figcaption>五つの疑い（<i>śaṅkā-pañcaka</i>）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>疑い</th><th>疑いの根拠になる神の性質</th></tr></thead><tbody>
+<tr><td>①</td><td>本当に救ってくださるだろうか</td><td>神は私たちの罪をすべて知り、それに応じて罰する方である</td></tr>
+<tr><td>②</td><td>罪のある者に果を与えるだろうか</td><td>神は各人の業に応じて果を与える方である</td></tr>
+<tr><td>③</td><td>こんなわずかなきっかけで与えるだろうか</td><td>神は何も必要としない、満ち足りた方である</td></tr>
+<tr><td>④</td><td>遅れずに与えるだろうか</td><td>神は急いで事を行う方ではない</td></tr>
+<tr><td>⑤</td><td>生まれの卑しさを顧みず、ご自身を与えるだろうか</td><td>神はすべてに勝る方であり、私たちは卑しい</td></tr>
+</tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>疑いを打ち消すもの：神の別の性質</figcaption>
+<div class="flow">
+<div class="node bad"><b>疑い</b>神は厳しい裁き手で、遠く偉大な方だ</div>
+<div class="arr lbl"><span class="ac">→</span><span>しかし</span></div>
+<div class="node"><b>神の慈悲の性質</b><span class="sm">慈悲（<i>dayā</i>）・母のような慈しみ（<i>vātsalya</i>）・近づきやすさ（<i>saulabhya</i>）・誓いを守ること、そして妃シュリーがとりなしてくださること</span></div>
+<div class="arr">→</div>
+<div class="node good"><b>大いなる信頼</b><i>mahāviśvāsa</i><span class="sm">「必ず守ってくださる」</span></div>
+</div>
+<div class="cap2">神の厳しさを否定するのではありません。厳しさを上回る慈悲があり、しかも神は帰依する者を救うと自ら誓っている（前節のラーマの言葉、最後の偈）。だから疑う理由はない、と論じます。</div>
+</figure>
+
+<!-- 10 -->
+<h2 id="after"><span class="num">10</span>帰依した後の生き方</h2>
+<p>帰依によって救いが確実になった人は、「なすべきことを成し終えた人」（<i>kṛtakṛtya</i>）と呼ばれます（第13章）。では、その後は何をしてもよいのでしょうか。デーシカの答えは「いいえ」です。第13–19章は、帰依した人の生き方を詳しく述べます。</p>
+<figure class="fig">
+  <figcaption>帰依の前と後で、行いの意味が変わる</figcaption>
+<div class="grid2">
+<div class="node plain"><b>帰依の前</b>行いは、救いを得るための<b>手段</b>になりうる</div>
+<div class="node good"><b>帰依の後</b>救いのためにすることは何もない。行いは、神を喜ばせる<b>奉仕</b>（<i>kaiṅkarya</i>）として行う</div>
+</div>
+<div class="cap2">日々の宗教的な義務も、帰依した後は「救われるため」ではなく、「神がそれを命じ、それを喜ぶから」行う、と考えます。</div>
+</figure>
+<figure class="fig">
+  <figcaption>第13–19章の要点</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>章</th><th>テーマ</th><th>要点</th></tr></thead><tbody>
+<tr><td>13</td><td>成し終えた人</td><td>救いのためにすべきことは、もう残っていない</td></tr>
+<tr><td>14</td><td>確立を知る徴</td><td>帰依が本物かどうかは、心の安らぎ、他の手段への執着のなさ、信者への敬意などに表れる</td></tr>
+<tr><td>15</td><td>帰依後の務め</td><td>聖典の命じる務めを、神への奉仕として続ける</td></tr>
+<tr><td>16</td><td>人生目的の極致</td><td>最高の目的は奉仕。とりわけ、神の信者たちに仕えること</td></tr>
+<tr><td>17</td><td>聖典による規定</td><td>帰依した人も、聖典の決まりを守る</td></tr>
+<tr><td>18</td><td>過失の回避</td><td>神や信者への冒涜を避ける。意図しない過ちは赦され、意図した過ちには償い（<i>prāyaścitta</i>）が求められる</td></tr>
+<tr><td>19</td><td>住むべき場所</td><td>聖地や、信者たちのいる所に住むのがふさわしい</td></tr>
+</tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>避けるべき三つの冒涜（<i>apacāra</i>）</figcaption>
+<div class="grid3">
+<div class="node bad"><b>神への冒涜</b><i>bhagavad-apacāra</i><span class="sm">神を他の神々と同列に扱う、神像を粗末にするなど</span></div>
+<div class="node bad"><b>信者への冒涜</b><i>bhāgavata-apacāra</i><span class="sm">神の信者を、生まれなどで見下す。とくに重い罪とされる</span></div>
+<div class="node bad"><b>耐えがたい冒涜</b><i>asahya-apacāra</i><span class="sm">理由なく神や師を軽んじるなど</span></div>
+</div>
+</figure>
+
+<!-- 11 -->
+<h2 id="journey"><span class="num">11</span>死と解脱の旅</h2>
+<p>第20–22章は、帰依した人が死んだ後に何が起こるかを述べます。古いウパニシャッドに描かれた「光の道」（<i>arcirādi-gati</i>）を、魂は神に導かれてたどります。</p>
+<figure class="fig">
+  <figcaption>魂が身体を離れるまで（第20章）</figcaption>
+<div class="flow">
+<div class="node plain"><b>感覚器官</b>が意に収まる</div><div class="arr">→</div>
+<div class="node plain"><b>意</b>が生気に収まる</div><div class="arr">→</div>
+<div class="node plain"><b>生気</b>が魂に収まる</div><div class="arr">→</div>
+<div class="node"><b>魂</b>が微細な元素とともに心臓へ</div><div class="arr">→</div>
+<div class="node good"><b>頭頂の脈管</b>から出る<span class="sm">神が101本目の脈管を照らしてくださる</span></div>
+</div>
+<div class="cap2">帰依した人は、死ぬ時に神を念じる必要はありません。神のほうが、帰依した者を思い起こしてくださるからです。夜に死んでも、太陽が南へ向かう時期に死んでも、妨げにはなりません。</div>
+</figure>
+<figure class="fig">
+  <figcaption>光の道（<i>arcirādi-gati</i>）：神の国への旅（第21章）</figcaption>
+<ol class="steps">
+<li><b>炎</b>（<i>arcis</i>）</li>
+<li><b>昼</b>（<i>ahar</i>）</li>
+<li><b>月の満ちる半月</b>（<i>śukla-pakṣa</i>）</li>
+<li><b>太陽が北へ向かう半年</b>（<i>uttarāyaṇa</i>）</li>
+<li><b>年</b>（<i>saṃvatsara</i>）</li>
+<li><b>風</b>（<i>vāyu</i>）</li>
+<li><b>太陽</b>（<i>āditya</i>）</li>
+<li><b>月</b>（<i>candra</i>）</li>
+<li><b>稲妻</b>（<i>vidyut</i>）</li>
+<li><b>ヴァルナ</b>（<i>varuṇa</i>）</li>
+<li><b>インドラ</b>（<i>indra</i>）</li>
+<li><b>プラジャーパティ</b>（<i>prajāpati</i>）</li>
+<li class="end"><b>ヴィラジャー川</b>を渡って微細な身体を捨て、<b>神の国ヴァイクンタ</b>（<i>Vaikuṇṭha</i>）へ</li>
+</ol>
+<div class="cap2">それぞれの名前は、その場所を治める神格（道案内役）を指すと解釈されます。順序は『ブラフマ・スートラ』第4篇第3章の議論によります。</div>
+</figure>
+<figure class="fig">
+  <figcaption>解脱した魂の状態（第22章）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>得るもの</th><th>得ないもの</th></tr></thead><tbody>
+<tr><td>神の本性・性質・姿・世界のすべてを、余すところなく味わう（<i>paripūrṇa-brahmānubhava</i>）</td><td>世界を創り、支え、壊す働き。これは神だけのもの（<i>jagad-vyāpāra-varjam</i>、『ブラフマ・スートラ』4.4.17）</td></tr>
+<tr><td>神と同じ喜び。知は無限に広がる</td><td>神と一つに溶け合うこと。魂は魂として永遠に残る</td></tr>
+<tr><td>その喜びからあふれ出る、永遠の奉仕</td><td>再びこの世に生まれること</td></tr>
+</tbody></table></div>
+</figure>
+
+<!-- 12 -->
+<h2 id="defense"><span class="num">12</span>反論に答える（第23–26章）</h2>
+<p>救いの中身を説明し終えたデーシカは、次に、帰依の教えに向けられそうな疑問を取り上げ、答えていきます。ここでは、そこで扱われる主な問いを、入門向けに簡単にまとめます。</p>
+<figure class="fig">
+  <figcaption>第23–26章の主な問い（要約）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>章</th><th>主題</th><th>問い</th><th>答えの方向</th></tr></thead><tbody>
+<tr><td>23</td><td>すでに成り立っている手段の吟味（<i>Siddhopāyaśodhana</i>）</td><td>神が救うのなら、人は何もしなくてよいのではないか</td><td>救うのは神だけだが、神は自由な意志をもつ人に、受け入れる意志を示すきっかけを求める</td></tr>
+<tr><td>24</td><td>実践される手段の吟味（<i>Sādhyopāyaśodhana</i>）</td><td>一度の帰依が、一生の信愛と同じ果をもつのはおかしくないか</td><td>果を与えるのは神の慈悲であり、行為の大きさではない。聖典がそう定めている</td></tr>
+<tr><td>25</td><td>効力の範囲の確定（<i>Prabhāvavyavasthā</i>）</td><td>帰依すれば、その後は罪を犯してもよいのか</td><td>帰依の力は大きいが、聖典の決まりを破ってよいことにはならない。効力の範囲を定める</td></tr>
+<tr><td>26</td><td>効力の擁護（<i>Prabhāvarakṣā</i>）</td><td>こんなに簡単な道は、怠け者を生むのではないか</td><td>帰依は本気の信頼と委ねを必要とし、決して安易ではない。帰依の力を正しく守る</td></tr>
+</tbody></table></div>
+<div class="cap2">各章の問いと答えは、入門のために大きく単純化しています。詳しくは<a href="rahasyatrayasara_kadan.html#c-23">科段と詳解</a>を見てください。</div>
+</figure>
+
+<!-- 13 -->
+<h2 id="mula"><span class="num">13</span>秘密1：根本マントラを一語ずつ読む</h2>
+<p>いよいよ三つの秘密そのものの解釈です（第27–29章）。根本マントラ「<i>oṃ namo nārāyaṇāya</i>」は、三つの語、八つの音節からできています。</p>
+<figure class="fig">
+  <figcaption>根本マントラの八つの音節</figcaption>
+<div class="syls">
+<div class="sg"><div class="sy">oṃ</div><div class="sl">1音節</div></div>
+<div class="sg"><div class="sy">na</div><div class="sy">maḥ</div><div class="sl">2音節</div></div>
+<div class="sg"><div class="sy">nā</div><div class="sy">rā</div><div class="sy">ya</div><div class="sy">ṇā</div><div class="sy">ya</div><div class="sl">5音節</div></div>
+</div>
+<div class="cap2">1＋2＋5＝8音節。本書の章末の詩（第63偈）も「一・二・五音節の三つの語からなる」と歌います。</div>
+</figure>
+<figure class="fig">
+  <figcaption>三つの語の意味</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>語</th><th>文字どおりの意味</th><th>救いの教えとしての意味</th><th>五つの事柄との対応</th></tr></thead><tbody>
+<tr><td><i>oṃ</i>（オーム）</td><td>聖音。<i>a</i>・<i>u</i>・<i>m</i> の三つの音からなる</td><td>魂は神だけのものである</td><td>本来の姿（<i>tattva</i>）</td></tr>
+<tr><td><i>namaḥ</i>（ナマハ）</td><td>帰命、敬礼。<i>na</i>（否）＋ <i>mama</i>（私のもの）とも解かれる</td><td>私は私自身のものではない。私を守るのは私ではなく神である</td><td>手段（<i>hita</i>）</td></tr>
+<tr><td><i>nārāyaṇāya</i>（ナーラーヤナーヤ）</td><td>ナーラーヤナのために</td><td>すべての者の拠り所であるナーラーヤナに、仕えることができますように</td><td>目的（<i>puruṣārtha</i>）</td></tr>
+</tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>聖音 <i>oṃ</i> を三つの音に分けて読む</figcaption>
+<div class="flow">
+<div class="node"><b>a</b>神（ヴィシュヌ）<span class="sm">すべての音の始まりである「a」は、すべての原因である神を表す。隠れた「〜のために」という格を含む</span></div>
+<div class="arr">＋</div>
+<div class="node plain"><b>u</b>「〜だけ」<span class="sm">他の誰のものでもない、という限定</span></div>
+<div class="arr">＋</div>
+<div class="node plain"><b>m</b>魂<span class="sm">「知る」（<i>man</i>）者としての魂</span></div>
+<div class="arr">＝</div>
+<div class="node good"><b>魂は神だけのためにある</b><span class="sm">ほかの誰のものでもない（<i>ananyārha-śeṣatva</i>）</span></div>
+</div>
+<div class="cap2">伝統的な解釈の一つを単純化したものです。<i>u</i> の解釈などには、派や注釈者によって違いがあります。</div>
+</figure>
+<figure class="fig">
+  <figcaption>「ナーラーヤナ」という名前の分解</figcaption>
+<div class="flow">
+<div class="node plain"><b>nāra</b>永遠なるものの集まり<span class="sm">すべての魂と物質</span></div>
+<div class="arr">＋</div>
+<div class="node plain"><b>ayana</b>拠り所・住まい<span class="sm">二通りに読む</span></div>
+<div class="arr">＝</div>
+<div class="node"><b>nārāyaṇa</b><span class="sm">①すべての者の拠り所である方<br>②すべての者の内に住む方</span></div>
+</div>
+<div class="cap2">①は神が世界を支えること、②は神が世界の内に宿ること（第5節の「身体と魂」）を表します。最後の <i>-āya</i> は「〜のために」を表す語尾（与格）です。</div>
+</figure>
+
+<!-- 14 -->
+<h2 id="dvaya"><span class="num">14</span>秘密2：ドヴァヤを一語ずつ読む</h2>
+<p>ドヴァヤは、前半と後半の二つの文からなるので「二つ組」と呼ばれます。前半が帰依の実行、後半が奉仕の願いです。本書は、ドヴァヤを「聞けば、なすべきことを成し終えた人になり、繰り返し唱えれば、目的を遂げた人になる」と讃えます（第64偈）。</p>
+<figure class="fig">
+  <figcaption>ドヴァヤの前半と後半</figcaption>
+<div class="grid2">
+<div class="node"><b>前半：帰依</b><i>śrīman-nārāyaṇa-caraṇau śaraṇaṃ prapadye</i><span class="sep"></span>手段としての神にすがる<span class="sm">→ 帰依を実際に行う言葉</span></div>
+<div class="node good"><b>後半：奉仕の願い</b><i>śrīmate nārāyaṇāya namaḥ</i><span class="sep"></span>目的としての神に仕えることを願う<span class="sm">→ 「自分のため」を捨てた奉仕</span></div>
+</div>
+</figure>
+<figure class="fig">
+  <figcaption>ドヴァヤの逐語的な意味</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>語</th><th>意味</th><th>込められた教え</th></tr></thead><tbody>
+<tr class="grp"><td colspan="3">前半</td></tr>
+<tr><td><i>śrīmat-</i></td><td>シュリー（女神ラクシュミー）を伴う</td><td>女神は常に神とともにいて、帰依する者のためにとりなす</td></tr>
+<tr><td><i>nārāyaṇa-</i></td><td>ナーラーヤナの</td><td>慈悲・近づきやすさなど、すがる者を受け入れる神の性質</td></tr>
+<tr><td><i>caraṇau</i></td><td>二つの御足を</td><td>神の具体的な姿。すがりつく対象としての御足</td></tr>
+<tr><td><i>śaraṇam</i></td><td>拠り所として、手段として</td><td>救いの手段は神だけ</td></tr>
+<tr><td><i>prapadye</i></td><td>私は帰依する</td><td>五つの付随要素を伴う帰依の行為そのもの</td></tr>
+<tr class="grp"><td colspan="3">後半</td></tr>
+<tr><td><i>śrīmate</i></td><td>シュリーを伴う方に</td><td>奉仕の対象は、神と女神の二人</td></tr>
+<tr><td><i>nārāyaṇāya</i></td><td>ナーラーヤナのために</td><td>すべての時、すべての所で仕えることを願う</td></tr>
+<tr><td><i>namaḥ</i></td><td>帰命します</td><td>奉仕から「自分のため」という思いを取り除く</td></tr>
+</tbody></table></div>
+</figure>
+<div class="key"><div class="lbl">女神シュリーの役割</div>シュリーヴァイシュナヴァ派という名前のとおり、この派では女神シュリー（ラクシュミー）がとても重要です。罪深い者でも、母である女神がとりなしてくださるので、父である神に近づくことができます。デーシカは、女神が神と一体となって救いを与える、と考えます（第17節を参照）。</div>
+
+<!-- 15 -->
+<h2 id="carama"><span class="num">15</span>秘密3：最後の偈を一語ずつ読む</h2>
+<p>「最後の偈」は、『バガヴァッド・ギーター』の最後の教え（18章66節）です。これまでの二つは信者が唱える言葉でしたが、これは神クリシュナ自身の言葉です。救いを命じ、約束する言葉なので、帰依の究極の根拠になります。</p>
+<figure class="fig">
+  <figcaption>最後の偈の逐語的な意味</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>語</th><th>意味</th><th>デーシカの読み</th></tr></thead><tbody>
+<tr class="grp"><td colspan="3">前半：命令（<i>vidhi</i>）</td></tr>
+<tr><td><i>sarvadharmān</i></td><td>すべての法（手段）を</td><td>信愛など、救いのための他の手段すべて</td></tr>
+<tr><td><i>parityajya</i></td><td>捨てて</td><td>他の手段を行う力のない人が、それらに頼らずに。帰依する人の条件を示す言葉で、日々の義務そのものを捨てよという意味ではない</td></tr>
+<tr><td><i>mām</i></td><td>私を</td><td>慈悲と近づきやすさをもって人の姿で現れた私を</td></tr>
+<tr><td><i>ekam</i></td><td>ひとりだけを</td><td>手段は私ひとり。他の手段と併用しない</td></tr>
+<tr><td><i>śaraṇaṃ vraja</i></td><td>拠り所として、行け</td><td>帰依せよ。これは命令であり、帰依が聖典に定められた行為であることを示す</td></tr>
+<tr class="grp"><td colspan="3">後半：約束</td></tr>
+<tr><td><i>aham</i></td><td>私が</td><td>全知で全能、すべてを成し遂げられる私が</td></tr>
+<tr><td><i>tvā</i></td><td>あなたを</td><td>帰依したあなたを</td></tr>
+<tr><td><i>sarvapāpebhyaḥ</i></td><td>すべての罪から</td><td>解脱を妨げるすべての業から</td></tr>
+<tr><td><i>mokṣayiṣyāmi</i></td><td>解き放とう</td><td>私が自ら、確実に</td></tr>
+<tr><td><i>mā śucaḥ</i></td><td>悲しむな</td><td>救いについて、もう心配はいらない</td></tr>
+</tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>「すべての法を捨てて」をどう読むか</figcaption>
+<div class="grid2">
+<div class="node bad"><b>誤った読み</b>宗教的な義務も道徳も、すべて捨ててよい</div>
+<div class="node good"><b>デーシカの読み</b>救いの<b>手段</b>として他の道に頼らなくてよい。日々の義務は、神への奉仕として続ける</div>
+</div>
+<div class="cap2">この一語の解釈は、帰依の教えが道徳の否定にならないために、とても重要です。本書の第29章の中心的な論点の一つです。</div>
+</figure>
+
+<!-- 16 -->
+<h2 id="guru"><span class="num">16</span>師と弟子（第30–32章）</h2>
+<p>本書の最後の三章は、師（<i>ācārya</i>）と弟子（<i>śiṣya</i>）のあり方を述べます。三つの秘密は、本を読んで学ぶものではなく、ふさわしい師から、ふさわしい弟子へと手渡されるものだからです。</p>
+<figure class="fig">
+  <figcaption>師の務めと弟子の務め</figcaption>
+<div class="grid2">
+<div class="node"><b>師の務め</b>（第30章）<span class="sep"></span>弟子をよく試してから、愛情をこめて教えを授ける。教えは「消えない伝統の灯火」<span class="sm">師は、最初の師である神の命令の連鎖に従う者</span></div>
+<div class="node plain"><b>弟子の務め</b>（第31章）<span class="sep"></span>師への揺るがない信愛。師を讃え、師の持ち物や住まいまで敬う。教えをふさわしい人に伝えるために守る</div>
+</div>
+</figure>
+<div class="key"><div class="lbl">本書の結びの詩（第78偈）</div><i>rahasyatrayasāro'yaṃ veṅkaṭeśavipaścitā | śaraṇyadampatividāṃ saṃmataḥ samagṛhyata ||</i><br>「拠り所である夫妻（神と女神）を知る人々に認められたこの『三秘密の精髄』は、賢者ヴェーンカテーシャ（デーシカ）によって集成された」</div>
+<p>第77偈は、本書を読むのにふさわしい人を、「信仰心があり、鋭い知性をもち、他人を妬まず、正しい伝統によって心が清められ、善を求める人」と描きます。信仰と知性の両方を求める点に、デーシカらしさがあります。</p>
+
+<!-- 17 -->
+<h2 id="schools"><span class="num">17</span>北派と南派：二つの読み方</h2>
+<p>デーシカと同じ頃、同じ三つの秘密を解釈したもう一人の大思想家がいます。南派（テンカライ <i>Teṅkalai</i>）の祖とされるピッライ・ローカーチャーリヤです。二人の考え方の違いは、のちに北派・南派という二つの流れになりました。</p>
+<figure class="fig">
+  <figcaption>有名なたとえ：猿の子と猫の子</figcaption>
+<div class="grid2">
+<div class="node"><b>猿の子の喩え</b>（<i>markaṭa-kiśora-nyāya</i>）<span class="sep"></span>猿の子は、自分で母にしがみつく。母が運ぶが、子もしがみつく努力をする<span class="sm">→ 北派（デーシカ）の側にあたる</span></div>
+<div class="node plain"><b>猫の子の喩え</b>（<i>mārjāra-kiśora-nyāya</i>）<span class="sep"></span>猫の子は、母にくわえられて運ばれる。子は何もしない<span class="sm">→ 南派（ピッライ・ローカーチャーリヤ）の側にあたる</span></div>
+</div>
+<div class="cap2">この二つのたとえで両派を対比するのは後代の整理で、二人の思想の細部を正確に表すものではありません。ただ、違いのおおまかな方向をつかむには便利です。</div>
+</figure>
+<figure class="fig">
+  <figcaption>北派と南派の主な違い（単純化した比較）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>論点</th><th>北派（デーシカ）</th><th>南派（ピッライ・ローカーチャーリヤ）</th></tr></thead><tbody>
+<tr><td>帰依は手段か</td><td>帰依は、神が救いを与えるきっかけとなる、聖典に定められた手段（<i>vyāja</i>）。人が行う必要がある</td><td>帰依さえ手段ではない。救うのは神の慈悲だけで、帰依は「自分は神のもの」と認めることにすぎない</td></tr>
+<tr><td>女神シュリーの役割</td><td>神と一体となって救いを与える。女神も神と同じく遍在する</td><td>とりなし役（<i>puruṣakāra</i>）が中心</td></tr>
+<tr><td>神の慈悲と罪</td><td>神の慈悲は、帰依というきっかけを通して働く</td><td>神は罪をむしろ「楽しむ」（<i>doṣabhogya</i>）ほど慈悲深い</td></tr>
+<tr><td>重んじる言語・典拠</td><td>サンスクリット聖典とタミル聖典の両方を重視</td><td>アールヴァールのタミル語聖典をとくに重視</td></tr>
+<tr><td>主な拠点</td><td>カーンチープラム</td><td>シュリーランガム</td></tr>
+</tbody></table></div>
+<div class="cap2">南派の考え方は、<a href="pillai_lokacarya_nyumon.html">ピッライ・ローカーチャーリヤの宗教思想入門</a>で詳しく紹介しています。両派の違いは伝統的に「十八の相違点」として数えられますが、ここでは入門に必要なものだけを挙げました。</div>
+</figure>
+
+<!-- 18 -->
+<h2 id="compare"><span class="num">18</span>他の宗教と比べると</h2>
+<p>「人間の努力では救われない。神（仏）の側の力にすがることで救われる」という考えは、ほかの宗教にも見られます。日本の読者にとって身近な浄土教と比べてみましょう。</p>
+<figure class="fig">
+  <figcaption>浄土教・キリスト教との比較（入門のための単純化）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>比べる点</th><th>ラハスヤトラヤサーラ</th><th>浄土教（法然・親鸞）</th><th>プロテスタント（ルター）</th></tr></thead><tbody>
+<tr><td>救う者</td><td>神ナーラーヤナ（女神シュリーとともに）</td><td>阿弥陀仏</td><td>神（キリストを通して）</td></tr>
+<tr><td>救いの根拠</td><td>神の慈悲と、帰依する者を救うという誓い（ラーマの誓い、最後の偈）</td><td>阿弥陀仏の本願（四十八願、とくに第十八願）</td><td>神の恵み（<i>sola gratia</i>）</td></tr>
+<tr><td>人の側の行い</td><td>一度の帰依（五つの付随要素を伴う）</td><td>念仏。親鸞では信心が中心</td><td>信仰（<i>sola fide</i>）</td></tr>
+<tr><td>難しい道と易しい道</td><td>信愛（難）と帰依（易）</td><td>聖道門（難行）と浄土門（易行）</td><td>行いによる義と、信仰による義</td></tr>
+<tr><td>一度か、繰り返しか</td><td>帰依は一度で足りる。その後の行いは奉仕</td><td>一念か多念か、という論争があった</td><td>—</td></tr>
+<tr><td>救われた後の行い</td><td>神への奉仕として、聖典の義務を守る</td><td>報恩の念仏</td><td>感謝から生まれる善い行い</td></tr>
+<tr><td>仲介者</td><td>女神シュリー、師（<i>ācārya</i>）</td><td>善知識（よき師）</td><td>キリスト</td></tr>
+</tbody></table></div>
+</figure>
+<div class="card"><b>比較するときの注意</b><br>似ているところを見つけるのは面白いですが、それぞれの教えは別々の歴史と世界観の中で生まれました。たとえば、浄土教には永遠の魂（アートマン）という考えはありません。ラハスヤトラヤサーラでは、魂が永遠に神に仕えることこそが救いです。「似ている」で終わらせずに、「どこが違うのか」まで考えることが大切です。</div>
+
+<!-- 19 -->
+<h2 id="think"><span class="num">19</span>考えてみよう</h2>
+<ol class="q">
+<li>なぜ救いの教えが、「三つの短い言葉」という形で伝えられるのでしょうか。長い本ではなく短い言葉であることには、どんな利点があるでしょうか。</li>
+<li>帰依は「一度で足りる」とされます。それなのに、帰依した後も聖典の義務を守るのはなぜでしょうか。第10節と第15節をもとに説明してみましょう。</li>
+<li>神はいずれ救ってくださるのに、なぜ「守り手になってください」と請う必要があるのでしょうか（第8節）。人間どうしの関係にたとえて考えてみましょう。</li>
+<li>「五つの疑い」（第9節）のうち、あなたにとっていちばん自然に思える疑いはどれですか。デーシカの答えに納得できるでしょうか。</li>
+<li>猿の子と猫の子のたとえ（第17節）について、それぞれの長所と問題点を考えてみましょう。</li>
+<li>帰依の道が「生まれや能力に関係なく誰にでも開かれている」ことは、当時のインド社会でどんな意味をもったでしょうか。</li>
+</ol>
+
+<!-- 20 -->
+<h2 id="glossary"><span class="num">20</span>用語集と読書案内</h2>
+<figure class="fig">
+  <figcaption>用語集</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>用語</th><th>読み</th><th>意味</th></tr></thead><tbody>
+<tr><td><i>rahasya-traya</i></td><td>ラハスヤ・トラヤ</td><td>三つの秘密（根本マントラ・ドヴァヤ・最後の偈）</td></tr>
+<tr><td><i>mūlamantra</i></td><td>ムーラマントラ</td><td>根本マントラ <i>oṃ namo nārāyaṇāya</i></td></tr>
+<tr><td><i>dvaya</i></td><td>ドヴァヤ</td><td>二文からなる帰依のマントラ</td></tr>
+<tr><td><i>caramaśloka</i></td><td>チャラマシュローカ</td><td>最後の偈（『ギーター』18.66）</td></tr>
+<tr><td><i>adhikāra</i></td><td>アディカーラ</td><td>章。また「資格」の意味もある</td></tr>
+<tr><td><i>arthapañcaka</i></td><td>アルタパンチャカ</td><td>知るべき五つの事柄</td></tr>
+<tr><td><i>śeṣa / śeṣin</i></td><td>シェーシャ／シェーシン</td><td>他者のためにあるもの／その主</td></tr>
+<tr><td><i>upāya</i></td><td>ウパーヤ</td><td>救いの手段</td></tr>
+<tr><td><i>siddhopāya / sādhyopāya</i></td><td>シッドーパーヤ／サーディヨーパーヤ</td><td>すでに成り立っている手段（神）／人が実践する手段</td></tr>
+<tr><td><i>bhakti</i></td><td>バクティ</td><td>信愛。神を愛をこめて念じ続ける瞑想</td></tr>
+<tr><td><i>prapatti / śaraṇāgati</i></td><td>プラパッティ／シャラナーガティ</td><td>帰依。自分を守る重荷を神に委ねること</td></tr>
+<tr><td><i>ātmanikṣepa</i></td><td>アートマニクシェーパ</td><td>自己を委ねること（帰依の中心）</td></tr>
+<tr><td><i>aṅga</i></td><td>アンガ</td><td>付随要素</td></tr>
+<tr><td><i>mahāviśvāsa</i></td><td>マハーヴィシュヴァーサ</td><td>大いなる信頼</td></tr>
+<tr><td><i>kārpaṇya</i></td><td>カールパニヤ</td><td>へりくだり。自分に手段がないと自覚すること</td></tr>
+<tr><td><i>ākiñcanya</i></td><td>アーキンチャニヤ</td><td>無一物。救いのために差し出せるものが何もないこと</td></tr>
+<tr><td><i>prapanna</i></td><td>プラパンナ</td><td>帰依した人</td></tr>
+<tr><td><i>kṛtakṛtya</i></td><td>クリタクリティヤ</td><td>なすべきことを成し終えた人</td></tr>
+<tr><td><i>kaiṅkarya</i></td><td>カインカリヤ</td><td>神への奉仕</td></tr>
+<tr><td><i>apacāra</i></td><td>アパチャーラ</td><td>冒涜。神や信者への不敬</td></tr>
+<tr><td><i>prārabdha</i></td><td>プラーラブダ</td><td>すでに働き始めている前世の業</td></tr>
+<tr><td><i>arcirādi-gati</i></td><td>アルチラーディ・ガティ</td><td>光の道。解脱する魂がたどる道</td></tr>
+<tr><td><i>Vaikuṇṭha</i></td><td>ヴァイクンタ</td><td>神の国</td></tr>
+<tr><td><i>ācārya</i></td><td>アーチャーリヤ</td><td>師</td></tr>
+<tr><td><i>Maṇipravāḷa</i></td><td>マニプラヴァーラ</td><td>タミル語とサンスクリット語を交ぜた文体</td></tr>
+<tr><td><i>Vaḍakalai / Teṅkalai</i></td><td>ヴァダカライ／テンカライ</td><td>北派／南派</td></tr>
+</tbody></table></div>
+</figure>
+<div class="card"><b>本サイトの関連ページ</b><ul style='margin:6px 0 0;padding-left:20px'>
+<li><a href="rahasyatrayasara_kadan.html">『ラハスヤトラヤサーラ』科段と詳解</a>（専門家向け。全章の詳しい科段と、章ごとの図表、章末の詩の原文と試訳）</li>
+<li><a href="tattvatraya_nyumon.html">『タットヴァトラヤ』入門</a>（この派の世界観：魂・物質・神）</li>
+<li><a href="pillai_lokacarya_nyumon.html">ピッライ・ローカーチャーリヤの宗教思想入門</a>（南派の救いの教え）</li>
+<li><a href="mumukshuppadi_kadan.html">『ムムクシュッパディ』科段・和訳・図解</a>（南派による三つの秘密の解説）</li>
+</ul><p class='note' style='margin-top:8px'>このページの内容は、本サイトの「科段と詳解」（タミル語解説付き版などによる）に基づき、入門のために大きく単純化したものです。章番号は本書の章（<i>adhikāra</i>）を指します。他の宗教との比較は、おおまかな見取り図として示したものです。</p></div>
+
+</div>
+</body>
+</html>
