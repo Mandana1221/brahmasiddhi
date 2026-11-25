@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="iast-fonts.css">
+<title>タットヴァトラヤ科段</title>
+<style>
+  :root{
+    --ink:#1f2328; --sub:#5b6370; --line:#d9dde3; --bg:#fbfaf7; --card:#ffffff;
+    --accent:#8a4b12; --accent-bg:#fdf3e1; --l1:#2d3748; --l2:#4a5568;
+    --gray-bg:#f1f2f4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+      --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+    --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'IAST Sans',"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    line-height:1.85;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+  header.hero{background:linear-gradient(135deg,#2d3748,#4a5568);color:#fff;border-radius:16px;padding:26px 22px;margin-bottom:28px}
+  .hero .kicker{font-size:13px;letter-spacing:.08em;opacity:.8}
+  .hero h1{font-size:25px;line-height:1.4;margin:6px 0 10px}
+  .hero p{margin:0;opacity:.92;font-size:14.5px}
+  h2{font-size:21px;margin:44px 0 14px;padding-bottom:6px;border-bottom:3px solid var(--ink)}
+  h3{font-size:17px;margin:26px 0 10px}
+  p{margin:10px 0}
+  i, .iast{font-style:italic}
+  .note{font-size:13.5px;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0}
+  .toc a{color:var(--ink)}
+  .toc ol{margin:6px 0;padding-left:22px}
+
+  /* 科段 */
+  .kd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin:14px 0}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;
+    padding:5px 14px;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);white-space:nowrap}
+  .row .t{min-width:0}
+  .row .s{font-variant-numeric:tabular-nums;color:var(--sub);font-size:13.5px;white-space:nowrap}
+  .row .s::before{content:"§ "}
+  .lv1{background:var(--l1);color:#fff;font-size:17px;font-weight:700;border-bottom:none}
+  .lv1 .n,.lv1 .s{color:#fff}
+  .lv2{background:var(--accent-bg);font-weight:700}
+  .lv3{padding-left:34px}
+  .lv4{padding-left:58px;font-size:15px}
+  .lv5{padding-left:82px;font-size:14.5px}
+  .gloss{display:block;font-size:13px;color:var(--sub);font-weight:400}
+  .pending{color:var(--sub);font-style:normal;font-size:13.5px}
+
+  /* 解説 */
+  .sutra{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:12px 16px;margin:16px 0}
+  .sutra .hd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:4px}
+  .sutra .no{font-weight:700;font-size:17px;color:var(--accent)}
+  .sutra .ref{font-size:12.5px;color:var(--sub);background:var(--gray-bg);border-radius:999px;padding:0 9px}
+  .sutra .tr{font-size:16.5px;margin:4px 0 8px}
+  .sutra .ex{font-size:15px;border-top:1px dashed var(--line);padding-top:8px}
+  .sutra .ex p{margin:6px 0}
+  ul{padding-left:22px;margin:6px 0}
+  body{counter-reset:fig}
+  :root{--good:#2f855a;--good-bg:#e6f4ec;--bad:#c53030;--bad-bg:#fdeaea}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}}
+  :root[data-theme="dark"]{--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}
+  .fig{counter-increment:fig;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:22px 0}
+  .fig figcaption{font-weight:700;margin-bottom:10px;font-size:15.5px}
+  .fig figcaption::before{content:"図" counter(fig) "　";color:var(--accent)}
+  .cap2{font-size:13.5px;color:var(--sub);margin-top:10px;line-height:1.7}
+  .tscroll{overflow-x:auto}
+  table.t{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.6}
+  .t th,.t td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+  .t th{background:var(--gray-bg);white-space:nowrap}
+  .t tr.grp td{background:var(--accent-bg);font-weight:700;color:var(--accent)}
+  .good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+  .flow{display:flex;align-items:stretch}
+  .node{flex:1 1 0;min-width:0;background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;padding:9px 10px;text-align:center;font-size:14px;line-height:1.6}
+  .node b{display:block;font-size:15px;margin-bottom:2px}
+  .node.plain{background:var(--card);border-color:var(--line)}
+  .node.good{background:var(--good-bg);border-color:var(--good);color:var(--ink);font-weight:400}
+  .node.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink);font-weight:400}
+  .node .sm{display:block;font-size:12.5px;color:var(--sub);margin-top:4px}
+  .node .sep{display:block;border-top:1px dashed var(--line);margin:7px 0}
+  .arr{flex:0 0 28px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-weight:700;font-size:20px}
+  .arr.lbl{flex:0 0 96px;flex-direction:column;font-size:12px;font-weight:400;line-height:1.35;text-align:center;padding:0 4px}
+  .arr.lbl .ac{font-size:20px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .res{margin-top:12px;border:2px dashed var(--accent);border-radius:10px;padding:8px 12px;text-align:center;font-weight:700}
+  .tree ul{list-style:none;margin:0;padding-left:20px}
+  .tree>ul{padding-left:0}
+  .tree li{position:relative;padding:5px 0 5px 18px}
+  .tree>ul>li{padding-left:0}
+  .tree ul ul>li::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
+  .tree ul ul>li::after{content:"";position:absolute;left:0;top:20px;width:14px;border-top:2px solid var(--line)}
+  .tree ul ul>li:last-child::before{bottom:auto;height:20px}
+  .tree .box{display:inline-block;border:1.5px solid var(--line);border-radius:8px;padding:3px 10px;background:var(--card);font-size:14.5px}
+  .tree .box.hl{border-color:var(--accent);background:var(--accent-bg);font-weight:700}
+  @media (max-width:640px){
+    .flow{flex-direction:column}
+    .arr{flex-basis:26px}.arr .ac{display:inline-block;transform:rotate(90deg)}
+    .arr.lbl{flex-direction:row;gap:8px;flex-basis:auto;padding:4px 0}
+    .grid2,.grid3{grid-template-columns:1fr}
+    table.t{font-size:13.5px}.t th{white-space:normal}.t th,.t td{padding:6px 7px}
+  }
+
+  #exp ~ h3{border-left:4px solid var(--accent);padding-left:10px;margin-top:34px}
+  .h3n{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+  .chk{font-size:12px;font-weight:700;color:#b7791f;border:1px solid #b7791f;border-radius:999px;padding:0 8px}
+
+  @media (max-width:640px){
+    .hero h1{font-size:21px}
+    .row{grid-template-columns:auto 1fr;padding:5px 10px}
+    .row .s{grid-column:2;font-size:12.5px}
+    .lv3{padding-left:18px}.lv4{padding-left:28px}.lv5{padding-left:38px}
+  }
+
+  .edmark{margin:26px 0 6px;font-size:13px;color:var(--sub);border-top:2px dotted var(--line);padding-top:6px}
+  .edmark b{color:var(--accent)}
+  .kd .row .t i{font-style:italic}
+
+  .edmark{margin:26px 0 6px;font-size:13px;color:var(--sub);border-top:2px dotted var(--line);padding-top:6px}
+  .edmark b{color:var(--accent)}
+  .kd .row .t i{font-style:italic}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Piḷḷai Lokācārya 作　科段・和訳・図解</div>
+  <h1>『タットヴァトラヤ』<i>Tattvatraya</i><br>科段と解説</h1>
+  <p>節の番号（§）は1927年刊テルグ文字版（<i>Aṇṇaṅgarācārya</i> 校訂、全202節）によります。術語は IAST で記しています。<a href="pillai_lokacarya_nyumon.html" style="color:#fff">入門ページ</a>もあわせてご覧ください。</p>
+  <p style="margin-top:8px"><a href="index.html" style="color:#fff">← 原典研究の書庫（リンク集）へ</a></p>
+</header>
+
+<nav class="card toc"><b>目次</b><ol><li><a href="#whole">全体の科段</a></li><li><a href="#zukai">図解：全体の見取り図</a></li><li><a href="#kd1">詳しい科段 1（§1–76）</a></li><li><a href="#exp1">解説 1：<i>cit-prakaraṇa</i>：魂（知をもつもの）</a></li></ol></nav>
+
+<h2 id="whole">全体の科段</h2>
+<div class="kd">
+  <div class="row lv2"><span class="n">1</span><span class="t"><i>cit-prakaraṇa</i>：魂（知をもつもの）</span><span class="s">1–76</span></div>
+  <div class="row lv3"><span class="n">1.1</span><span class="t">序：解脱には三つの実在の知が必要</span><span class="s">1–3</span></div>
+  <div class="row lv3"><span class="n">1.2</span><span class="t">自己の本性の総説：十三の特徴</span><span class="s">4</span></div>
+  <div class="row lv3"><span class="n">1.3</span><span class="t">十三の特徴を一つずつ説明する</span><span class="s">5–41</span></div>
+  <div class="row lv3"><span class="n">1.4</span><span class="t">三種の自己：束縛された者・解脱した者・永遠の者</span><span class="s">42–48</span></div>
+  <div class="row lv3"><span class="n">1.5</span><span class="t">自己は多数である：一元論の批判</span><span class="s">49–60</span></div>
+  <div class="row lv3"><span class="n">1.6</span><span class="t">自己の定義：従属を伴う「知る者」</span><span class="s">61</span></div>
+  <div class="row lv3"><span class="n">1.7</span><span class="t">属性としての知（<i>dharma-bhūta-jñāna</i>）</span><span class="s">62–76</span></div>
+</div>
+<p class="note">和訳・解説は現在 76 節（全202節中）。</p>
+
+<h2 id="zukai">図解：全体の見取り図</h2>
+
+
+<h2 id="kd1">詳しい科段 1（§1–76）</h2>
+<div class="kd">
+  <div class="row lv1"><span class="n">1</span><span class="t"><i>cit-prakaraṇa</i>：魂（知をもつもの）</span><span class="s">1–76</span></div>
+  <div class="row lv2"><span class="n">1.1</span><span class="t">序：解脱には三つの実在の知が必要</span><span class="s">1–3</span></div>
+  <div class="row lv2"><span class="n">1.2</span><span class="t">自己の本性の総説：十三の特徴</span><span class="s">4</span></div>
+  <div class="row lv2"><span class="n">1.3</span><span class="t">十三の特徴を一つずつ説明する</span><span class="s">5–41</span></div>
+  <div class="row lv3"><span class="n">1.3.1</span><span class="t">身体・感官などと異なる</span><span class="s">5–7</span></div>
+  <div class="row lv3"><span class="n">1.3.2</span><span class="t"><i>ajaḍa</i>：自ら現れる</span><span class="s">8</span></div>
+  <div class="row lv3"><span class="n">1.3.3</span><span class="t">歓喜を本性とする</span><span class="s">9–10</span></div>
+  <div class="row lv3"><span class="n">1.3.4</span><span class="t">永遠である：では生と死とは何か</span><span class="s">11–12</span></div>
+  <div class="row lv3"><span class="n">1.3.5</span><span class="t">原子大（<i>aṇu</i>）である</span><span class="s">13–17</span></div>
+  <div class="row lv3"><span class="n">1.3.6</span><span class="t">見えず、思考を超え、部分がなく、変化しない</span><span class="s">18–22</span></div>
+  <div class="row lv3"><span class="n">1.3.7</span><span class="t">他説の批判：<i>Jaina</i> の「身体大」説</span><span class="s">23–25</span></div>
+  <div class="row lv3"><span class="n">1.3.8</span><span class="t">知の拠り所（<i>jñānāśraya</i>）である</span><span class="s">26–37</span></div>
+  <div class="row lv4"><span class="n">1.3.8.1</span><span class="t">自己は知そのものではなく、知る主体である</span><span class="s">26–30</span></div>
+  <div class="row lv4"><span class="n">1.3.8.2</span><span class="t">行為の主体性：<i>Sāṃkhya</i> 説の批判と、神への依存</span><span class="s">31–35</span></div>
+  <div class="row lv4"><span class="n">1.3.8.3</span><span class="t">では聖典はなぜ自己を「知」と呼ぶのか</span><span class="s">36–37</span></div>
+  <div class="row lv3"><span class="n">1.3.9</span><span class="t">神に統御され、支えられ、従属する</span><span class="s">38–41</span></div>
+  <div class="row lv2"><span class="n">1.4</span><span class="t">三種の自己：束縛された者・解脱した者・永遠の者</span><span class="s">42–48</span></div>
+  <div class="row lv2"><span class="n">1.5</span><span class="t">自己は多数である：一元論の批判</span><span class="s">49–60</span></div>
+  <div class="row lv3"><span class="n">1.5.1</span><span class="t">自己が一つなら説明できないこと</span><span class="s">49–55</span></div>
+  <div class="row lv3"><span class="n">1.5.2</span><span class="t">解脱しても自己どうしの区別は残る</span><span class="s">56–60</span></div>
+  <div class="row lv2"><span class="n">1.6</span><span class="t">自己の定義：従属を伴う「知る者」</span><span class="s">61</span></div>
+  <div class="row lv2"><span class="n">1.7</span><span class="t">属性としての知（<i>dharma-bhūta-jñāna</i>）</span><span class="s">62–76</span></div>
+  <div class="row lv3"><span class="n">1.7.1</span><span class="t">自己そのものと知との違い</span><span class="s">62–65</span></div>
+  <div class="row lv3"><span class="n">1.7.2</span><span class="t">知が生まれたり消えたりするように見えるわけ</span><span class="s">66–68</span></div>
+  <div class="row lv3"><span class="n">1.7.3</span><span class="t">知は実体である。では熟睡中はどうか</span><span class="s">69–72</span></div>
+  <div class="row lv3"><span class="n">1.7.4</span><span class="t">知は本来心地よい。不快は後から加わる</span><span class="s">73–76</span></div>
+</div>
+
+<h2 id="exp1">解説 1：<i>cit-prakaraṇa</i>：魂（知をもつもの）（§1–76）</h2>
+
+<h3><span class="h3n">1.1</span>序：解脱には三つの実在の知が必要（§1–3）</h3>
+
+<figure class="fig">
+  <figcaption>『タットヴァトラヤ』の三章</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>章</th><th>実在</th><th>意味</th><th>節</th></tr></thead><tbody><tr><td>第1章</td><td><i>cit</i></td><td>魂・自己（知をもつもの）</td><td>§1–76</td></tr><tr><td>第2章</td><td><i>acit</i></td><td>物質（知をもたないもの）</td><td>§77–140</td></tr><tr><td>第3章</td><td><i>Īśvara</i></td><td>神</td><td>§141–202</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s1">
+  <div class="hd"><span class="no">§1</span><span class="ref">科段 1.1</span></div>
+  <div class="tr">「解脱を求める者（<i>mumukṣu</i>）に解脱が生じるためには、三つの実在（<i>tattva-traya</i>）の知が生じなければならない。」</div>
+  <div class="ex"><p>書名の由来となった冒頭の一文です。前著『ムムクシュッパディ』が「解脱を求める者が知るべき三つの秘密」から始まったのと対になっています。救いの教え（秘密の句）を理解する土台として、世界の成り立ちを知る必要がある、という位置づけです。</p></div>
+</div>
+
+<div class="sutra" id="s2">
+  <div class="hd"><span class="no">§2</span><span class="ref">科段 1.1</span></div>
+  <div class="tr">「三つの実在とは、<i>cit</i>（知をもつもの）と <i>acit</i>（知をもたないもの）と <i>Īśvara</i>（神）である。」</div>
+  <div class="ex"><p>本書はこの三つを、第1章（魂）・第2章（物質）・第3章（神）で順に論じます（図を参照）。</p></div>
+</div>
+
+<div class="sutra" id="s3">
+  <div class="hd"><span class="no">§3</span><span class="ref">科段 1.1</span></div>
+  <div class="tr">「<i>cit</i> とは、自己（<i>ātman</i>）のことである。」</div>
+</div>
+
+<h3><span class="h3n">1.2</span>自己の本性の総説：十三の特徴（§4）</h3>
+
+<div class="sutra" id="s4">
+  <div class="hd"><span class="no">§4</span><span class="ref">科段 1.2</span></div>
+  <div class="tr">「自己の本性は、『（身体を）超え、（感官を）超え、さらにその先にある』という句のとおり、身体・感官・意（<i>manas</i>）・生気（<i>prāṇa</i>）・知性（<i>buddhi</i>）とは異なり、<i>ajaḍa</i>（自ら現れる）であり、歓喜を本性とし、永遠であり、原子大であり、目に見えず、思考を超え、部分がなく、変化せず、知の拠り所であり、<i>Īśvara</i> に統御され、支えられ、従属するものである。」</div>
+  <div class="ex"><p>自己の特徴を一息に並べた総説です。§5 以下でこれらが一つずつ説明されます（図を参照）。</p></div>
+</div>
+
+<h3><span class="h3n">1.3</span>十三の特徴を一つずつ説明する（§5–41）</h3>
+
+<figure class="fig">
+  <figcaption>自己の十三の特徴（§4）と説明の節</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>特徴</th><th>意味</th><th>節</th></tr></thead><tbody><tr><td>身体などと異なる</td><td>身体・感官・意・生気・知性のどれでもない</td><td>§5–7</td></tr><tr><td><i>ajaḍa</i></td><td>知を介さずに自分に現れる</td><td>§8</td></tr><tr><td>歓喜を本性とする</td><td>楽を本性とする</td><td>§9–10</td></tr><tr><td>永遠</td><td>常に存在する</td><td>§11–12</td></tr><tr><td>原子大（<i>aṇu</i>）</td><td>ごく小さく、心臓にある</td><td>§13–17</td></tr><tr><td>目に見えない</td><td>感官ではとらえられない</td><td>§18</td></tr><tr><td>思考を超える</td><td>物質と同類とさえ考えられない</td><td>§19</td></tr><tr><td>部分がない</td><td>部分の集まりではない</td><td>§20</td></tr><tr><td>変化しない</td><td>物質のように変化しない</td><td>§21–22</td></tr><tr><td>知の拠り所</td><td>知る主体であり、行為・享受する者</td><td>§26–37</td></tr><tr><td>統御される</td><td>すべての働きは神の意志による</td><td>§38</td></tr><tr><td>支えられる</td><td>神がいなければ存在できない</td><td>§39</td></tr><tr><td>従属する（<i>śeṣa</i>）</td><td>神が望むままに用いられる</td><td>§40–41</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s5">
+  <div class="hd"><span class="no">§5</span><span class="ref">科段 1.3.1</span></div>
+  <div class="tr">「自己の本性が身体などと異なるのはどうしてか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s6">
+  <div class="hd"><span class="no">§6</span><span class="ref">科段 1.3.1</span></div>
+  <div class="tr">「身体などは『私の身体』というように自己とは別のものとして現れ、また『これ』として現れる。自己は『私』として現れる。身体などはある時は現れ、ある時は現れないが、自己は常に現れる。身体などは多数だが、自己は一つである。だから、自己はこれらと異なると考えなければならない。」</div>
+  <div class="ex"><p>日常の言葉づかいと経験から、自己と身体の違いを論証しています（図を参照）。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>自己と身体の違い（§6）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>身体など</th><th>自己</th></tr></thead><tbody><tr><td>どう現れるか</td><td>「私の身体」「これ」</td><td>「私」</td></tr><tr><td>いつ現れるか</td><td>ある時は現れ、ある時は現れない</td><td>常に現れる</td></tr><tr><td>数</td><td>多数（身体・感官・意…）</td><td>一つ</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s7">
+  <div class="hd"><span class="no">§7</span><span class="ref">科段 1.3.1</span></div>
+  <div class="tr">「これらの論証に欠点があるとしても、聖典の力によって、自己は身体などと異なるものである。」</div>
+  <div class="ex"><p>推論だけに頼らず、最終的な根拠は聖典に置く、というこの学派の基本姿勢が表れています。</p></div>
+</div>
+
+<div class="sutra" id="s8">
+  <div class="hd"><span class="no">§8</span><span class="ref">科段 1.3.2</span></div>
+  <div class="tr">「<i>ajaḍa</i> であるとは、（属性としての）知を介さずに、自分で自分に現れることである。」</div>
+  <div class="ex"><p>壺などは知によって照らされて初めて現れますが、自己は自分自身に直接現れる、という意味です。</p></div>
+</div>
+
+<div class="sutra" id="s9">
+  <div class="hd"><span class="no">§9</span><span class="ref">科段 1.3.3</span></div>
+  <div class="tr">「歓喜を本性とするとは、楽を本性とすることである。」</div>
+</div>
+
+<div class="sutra" id="s10">
+  <div class="hd"><span class="no">§10</span><span class="ref">科段 1.3.3</span></div>
+  <div class="tr">「『目覚めて、心地よく眠った』と言うことから、楽を本性とすると分かる。」</div>
+  <div class="ex"><p>何も知覚していない熟睡の後にも「よく眠れた」と言えるのは、自己そのものが楽を本性とするからだ、という論証です。</p></div>
+</div>
+
+<div class="sutra" id="s11">
+  <div class="hd"><span class="no">§11</span><span class="ref">科段 1.3.4</span></div>
+  <div class="tr">「永遠であるとは、常に存在することである。」</div>
+</div>
+
+<div class="sutra" id="s12">
+  <div class="hd"><span class="no">§12</span><span class="ref">科段 1.3.4</span></div>
+  <div class="tr">「常に存在するなら、どうして生と死があるのか、と問うなら、生とは身体との結びつきであり、死とは身体からの別離である。」</div>
+</div>
+
+<div class="sutra" id="s13">
+  <div class="hd"><span class="no">§13</span><span class="ref">科段 1.3.5</span></div>
+  <div class="tr">「（自己が）原子大であるのはどうしてか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s14">
+  <div class="hd"><span class="no">§14</span><span class="ref">科段 1.3.5</span></div>
+  <div class="tr">「聖典が『心臓の場所から抜け出して去り、また来る』と言うので、自己は原子大である。」</div>
+  <div class="ex"><p><i>Upaniṣad</i> は、死のとき自己が心臓から出て行くと説きます。出入りするのだから、全身に広がる大きさではなく、ごく小さいはずだ、という論法です。</p></div>
+</div>
+
+<div class="sutra" id="s15">
+  <div class="hd"><span class="no">§15</span><span class="ref">科段 1.3.5</span></div>
+  <div class="tr">「原子大で心臓のところだけにあるなら、身体中で楽や苦を感じるのはどうしてか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s16">
+  <div class="hd"><span class="no">§16</span><span class="ref">科段 1.3.5</span></div>
+  <div class="tr">「宝石・太陽・灯火などが一か所にあっても光が辺り一面に広がるように、（自己の）知が身体中に広がるので、それらを感じるのに差し支えはない。」</div>
+  <div class="ex"><p>自己そのものは小さいが、その属性である知は広がる、という区別です。§64 で詳しく説かれます。</p></div>
+</div>
+
+<div class="sutra" id="s17">
+  <div class="hd"><span class="no">§17</span><span class="ref">科段 1.3.5</span></div>
+  <div class="tr">「一人の者が同時に多くの身体をとることも、知が広がることによる。」</div>
+  <div class="ex"><p>ヨーガの行者が同時に多くの身体をもつ、という伝承を説明しています。</p></div>
+</div>
+
+<div class="sutra" id="s18">
+  <div class="hd"><span class="no">§18</span><span class="ref">科段 1.3.6</span></div>
+  <div class="tr">「目に見えないとは、壺や布などをとらえる目などの感官によっては現れないことである。」</div>
+</div>
+
+<div class="sutra" id="s19">
+  <div class="hd"><span class="no">§19</span><span class="ref">科段 1.3.6</span></div>
+  <div class="tr">「思考を超えるとは、<i>acit</i>（物質）と同じ種類のものとさえ考えられないことである。」</div>
+</div>
+
+<div class="sutra" id="s20">
+  <div class="hd"><span class="no">§20</span><span class="ref">科段 1.3.6</span></div>
+  <div class="tr">「部分がないとは、部分の集まりではないことである。」</div>
+</div>
+
+<div class="sutra" id="s21">
+  <div class="hd"><span class="no">§21</span><span class="ref">科段 1.3.6</span></div>
+  <div class="tr">「変化しないとは、<i>acit</i> のように変化することなく、一定のあり方を保っていることである。」</div>
+</div>
+
+<div class="sutra" id="s22">
+  <div class="hd"><span class="no">§22</span><span class="ref">科段 1.3.6</span></div>
+  <div class="tr">「このようであるから、武器・火・水・風・日光などによって、切られたり、焼かれたり、濡らされたり、乾かされたりすることがない。」</div>
+  <div class="ex"><p><i>Bhagavadgītā</i> 2.23「武器もこれを切らず、火もこれを焼かず、水もこれを濡らさず、風もこれを乾かさない」を踏まえています。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>自己の大きさをめぐる諸説（§13–25）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>学派</th><th>自己の大きさ</th><th>本書の評価</th></tr></thead><tbody><tr><td><b>この学派</b></td><td>原子大。ただし知が身体中に広がる</td><td>—</td></tr><tr><td><i>Jaina</i>（<i>Arhat</i> の徒）</td><td>身体と同じ大きさ</td><td>聖典に反し、多くの身体をとる時に自己が分裂する（§24–25）</td></tr><tr><td><i>Advaita</i>・<i>Nyāya</i> など</td><td>遍在（どこにでもある）</td><td>本書は直接論じないが、§14 の「出入りする」によって退けられる</td></tr></tbody></table></div>
+  <div class="cap2">三行目は本書の議論から推した補足です。</div>
+</figure>
+
+<div class="sutra" id="s23">
+  <div class="hd"><span class="no">§23</span><span class="ref">科段 1.3.7</span></div>
+  <div class="tr">「<i>Arhat</i> の徒（<i>Jaina</i>）は、自己は身体と同じ大きさだと言った。」</div>
+</div>
+
+<div class="sutra" id="s24">
+  <div class="hd"><span class="no">§24</span><span class="ref">科段 1.3.7</span></div>
+  <div class="tr">「それは聖典（<i>śruti</i>）に反する。」</div>
+</div>
+
+<div class="sutra" id="s25">
+  <div class="hd"><span class="no">§25</span><span class="ref">科段 1.3.7</span></div>
+  <div class="tr">「（それでは）多くの身体をとるヨーガ行者の場合、自己の本性がばらばらになってしまう。」</div>
+  <div class="ex"><p>身体の大きさに合わせて伸び縮みする自己なら、多くの身体に分かれた時に自己が分裂してしまう、という批判です（図を参照）。</p></div>
+</div>
+
+<div class="sutra" id="s26">
+  <div class="hd"><span class="no">§26</span><span class="ref">科段 1.3.8.1</span></div>
+  <div class="tr">「知の拠り所であるとは、知の宿る場所であることである。」</div>
+</div>
+
+<div class="sutra" id="s27">
+  <div class="hd"><span class="no">§27</span><span class="ref">科段 1.3.8.1</span></div>
+  <div class="tr">「自己が知の宿る場所ではなく、ただの知そのものであるなら、」</div>
+</div>
+
+<div class="sutra" id="s28">
+  <div class="hd"><span class="no">§28</span><span class="ref">科段 1.3.8.1</span></div>
+  <div class="tr">「『私は知である』と言わねばならず、『私は知っている』と言うことはできなくなる。」</div>
+  <div class="ex"><p>自己を「純粋な知」とする説（<i>Advaita</i> など）への批判です。「私は知っている」という日常の言い方は、知る主体と知とを区別しています。</p></div>
+</div>
+
+<div class="sutra" id="s29">
+  <div class="hd"><span class="no">§29</span><span class="ref">科段 1.3.8.1</span></div>
+  <div class="tr">「知る者だと言ったことで、行為する者・享受する者であることも言ったことになる。」</div>
+</div>
+
+<div class="sutra" id="s30">
+  <div class="hd"><span class="no">§30</span><span class="ref">科段 1.3.8.1</span></div>
+  <div class="tr">「行為する者であることと享受する者であることは、知の特別な状態だからである。」</div>
+</div>
+
+<figure class="fig">
+  <figcaption>行為するのは誰か（§29–35）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>学派</th><th>行為する者</th><th>問題点・本書の立場</th></tr></thead><tbody><tr><td><i>Sāṃkhya</i></td><td>物質の <i>guṇa</i> だけ。自己はただ見ている</td><td>それでは聖典の命令も、結果の享受も成り立たない（§32）</td></tr><tr><td><b>この学派</b></td><td>自己が行為する主体である</td><td>ただし世俗の行いは <i>guṇa</i> との結びつきによるもので、行為の主体性そのものも神に依存する（§33–35）</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s31">
+  <div class="hd"><span class="no">§31</span><span class="ref">科段 1.3.8.2</span></div>
+  <div class="tr">「ある人々は、行為する者であるのは（物質の）<i>guṇa</i> だけで、自己ではない、と言った。」</div>
+  <div class="ex"><p><i>Sāṃkhya</i> 学派の説です。<i>Sāṃkhya</i> では、行為するのは物質（<i>prakṛti</i>）の三つの <i>guṇa</i> で、自己（<i>puruṣa</i>）はただ見ているだけだとされます。</p></div>
+</div>
+
+<div class="sutra" id="s32">
+  <div class="hd"><span class="no">§32</span><span class="ref">科段 1.3.8.2</span></div>
+  <div class="tr">「それでは、この者が聖典の命令に従うことも、（結果を）享受することも成り立たなくなる。」</div>
+  <div class="ex"><p>行為しない者に「〜せよ」と命じても意味がないし、行為していない結果を受けるのも理屈に合わない、という批判です。</p></div>
+</div>
+
+<div class="sutra" id="s33">
+  <div class="hd"><span class="no">§33</span><span class="ref">科段 1.3.8.2</span></div>
+  <div class="tr">「世俗の行いにおいて行為する者であることは、（自己の）本性から来るのではない。」</div>
+</div>
+
+<div class="sutra" id="s34">
+  <div class="hd"><span class="no">§34</span><span class="ref">科段 1.3.8.2</span></div>
+  <div class="tr">「<i>guṇa</i> と結びついたことによって生じたものである。」</div>
+</div>
+
+<div class="sutra" id="s35">
+  <div class="hd"><span class="no">§35</span><span class="ref">科段 1.3.8.2</span></div>
+  <div class="tr">「行為する者であること自体が、<i>Īśvara</i> に依存している。」</div>
+  <div class="ex"><p>自己は行為の主体ではあるが、その主体性は神に支えられている、という中間的な立場です（図を参照）。</p></div>
+</div>
+
+<div class="sutra" id="s36">
+  <div class="hd"><span class="no">§36</span><span class="ref">科段 1.3.8.3</span></div>
+  <div class="tr">「知の拠り所であるなら、なぜ聖典ではこの者を『知』と呼ぶのか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s37">
+  <div class="hd"><span class="no">§37</span><span class="ref">科段 1.3.8.3</span></div>
+  <div class="tr">「（属性としての）知を介さずに自分自身を知るからであり、また知がその本質的な属性であり、それを定義づける性質だからである。」</div>
+</div>
+
+<div class="sutra" id="s38">
+  <div class="hd"><span class="no">§38</span><span class="ref">科段 1.3.9</span></div>
+  <div class="tr">「統御されるとは、すべての働きが <i>Īśvara</i> の意志に従って生じることである。」</div>
+</div>
+
+<div class="sutra" id="s39">
+  <div class="hd"><span class="no">§39</span><span class="ref">科段 1.3.9</span></div>
+  <div class="tr">「支えられるとは、主の本性と意志がなければ、自分の存在がなくなることである。」</div>
+</div>
+
+<div class="sutra" id="s40">
+  <div class="hd"><span class="no">§40</span><span class="ref">科段 1.3.9</span></div>
+  <div class="tr">「従属する（<i>śeṣa</i>）とは、白檀・花・<i>tāmbūla</i>（キンマ）などのように、主が望むままに用いられるのにふさわしいことである。」</div>
+  <div class="ex"><p>前の二著作で中心となった <i>śeṣatva</i>（主に属すること）の定義です。白檀も花もキンマも、持ち主を喜ばせるためだけにある、という喩えです。</p></div>
+</div>
+
+<div class="sutra" id="s41">
+  <div class="hd"><span class="no">§41</span><span class="ref">科段 1.3.9</span></div>
+  <div class="tr">「これは、家・田・息子・妻などのように（持ち主から）離れて存在しうるものとは違って、身体のように、離れて存在することができないものである。」</div>
+  <div class="ex"><p>神と自己の関係は、持ち主と財産のような外的な関係ではなく、魂と身体のような切り離せない関係だ、という <i>Viśiṣṭādvaita</i> の要点です。</p></div>
+</div>
+
+<h3><span class="h3n">1.4</span>三種の自己：束縛された者・解脱した者・永遠の者（§42–48）</h3>
+
+<figure class="fig">
+  <figcaption>神と自己の関係：三つのあり方（§38–41）</figcaption>
+<div class="flow"><div class="node "><b>統御される</b>（<i>niyāmya</i>）すべての働きは神の意志による</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>支えられる</b>（<i>dhārya</i>）神がいなければ存在しない</div><div class="arr"><span class="ac">→</span></div><div class="node good"><b>従属する</b>（<i>śeṣa</i>）白檀や花のように神の喜びのためにある</div></div>
+  <div class="cap2">財産（家・田・妻子）のように持ち主から離れうる関係ではなく、身体のように離れられない関係である（§41）。</div>
+</figure>
+
+<div class="sutra" id="s42">
+  <div class="hd"><span class="no">§42</span><span class="ref">科段 1.4</span></div>
+  <div class="tr">「自己の本性は、束縛された者・解脱した者・永遠の者という三通りに分かれる。」</div>
+</div>
+
+<div class="sutra" id="s43">
+  <div class="hd"><span class="no">§43</span><span class="ref">科段 1.4</span></div>
+  <div class="tr">「束縛された者（<i>baddha</i>）とは、輪廻する者たちのことである。」</div>
+</div>
+
+<div class="sutra" id="s44">
+  <div class="hd"><span class="no">§44</span><span class="ref">科段 1.4</span></div>
+  <div class="tr">「解脱した者（<i>mukta</i>）とは、輪廻との結びつきがなくなった者たちのことである。」</div>
+</div>
+
+<div class="sutra" id="s45">
+  <div class="hd"><span class="no">§45</span><span class="ref">科段 1.4</span></div>
+  <div class="tr">「永遠の者（<i>nitya</i>）とは、一度も輪廻したことのない、<i>Śeṣa</i>（蛇神）や <i>Śeṣāśana</i>（<i>Viṣvaksena</i>）などのことである。」</div>
+  <div class="ex"><p>主の寝床となる蛇 <i>Ādiśeṣa</i> や、主の食べ残しをいただく従者の長 <i>Viṣvaksena</i> など、天界で永遠に主に仕えている存在です。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>三種の自己（§42–48）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>種類</th><th>意味</th><th>例</th></tr></thead><tbody><tr><td><i>baddha</i>（束縛された者）</td><td>輪廻している</td><td>私たち</td></tr><tr><td><i>mukta</i>（解脱した者）</td><td>輪廻との結びつきがなくなった</td><td>解脱した魂たち</td></tr><tr><td><i>nitya</i>（永遠の者）</td><td>一度も輪廻したことがない</td><td><i>Ādiśeṣa</i>・<i>Viṣvaksena</i> など</td></tr></tbody></table></div>
+  <div class="cap2">どの種類も数限りなく存在する（§48）。</div>
+</figure>
+
+<div class="sutra" id="s46">
+  <div class="hd"><span class="no">§46</span><span class="ref">科段 1.4</span></div>
+  <div class="tr">「水が、火にかけられた鍋と触れることで熱さや音をもつように、自己も <i>acit</i>（物質）と結びつくことで、無知・業・潜在的な印象・好みをもつようになる。」</div>
+  <div class="ex"><p>自己の本性そのものは清らかで、汚れは物質との結びつきから後で生じる、という喩えです。</p></div>
+</div>
+
+<div class="sutra" id="s47">
+  <div class="hd"><span class="no">§47</span><span class="ref">科段 1.4</span></div>
+  <div class="tr">「<i>acit</i> との結びつきがなくなれば、無知などもなくなる、と（先師たちは）言う。」</div>
+</div>
+
+<div class="sutra" id="s48">
+  <div class="hd"><span class="no">§48</span><span class="ref">科段 1.4</span></div>
+  <div class="tr">「この三種（の自己）は、それぞれ数限りなく存在する。」</div>
+</div>
+
+<h3><span class="h3n">1.5</span>自己は多数である：一元論の批判（§49–60）</h3>
+
+<div class="sutra" id="s49">
+  <div class="hd"><span class="no">§49</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「ある人々は、自己に区別はなく、ただ一つの自己があるだけだ、と言った。」</div>
+  <div class="ex"><p><i>Advaita</i>（不二一元論）の説です。以下 §60 まで、その批判が続きます（図を参照）。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>自己は一つか、多数か（§49–60）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th><i>Advaita</i> の主張</th><th>本書の反論</th><th>節</th></tr></thead><tbody><tr><td>自己はただ一つ</td><td>それなら一人が楽しむ時に別の人が苦しむことはない</td><td>§50</td></tr><tr><td>違いは身体の違いによる</td><td>それなら <i>Saubhari</i> の多くの身体でも経験が分かれるはず</td><td>§51–52</td></tr><tr><td>—</td><td>輪廻と解脱、弟子と師の区別、生まれの違いが説明できない</td><td>§53–54</td></tr><tr><td>聖典の説く区別は仮のもの</td><td>解脱した後も区別は残る（同じ形の米粒も別々）</td><td>§56–59</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s50">
+  <div class="hd"><span class="no">§50</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「その説では、一人が楽しんでいる時に、別の一人が苦しむことはありえない。」</div>
+</div>
+
+<div class="sutra" id="s51">
+  <div class="hd"><span class="no">§51</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「それは身体が違うからだ、と言うなら、」</div>
+</div>
+
+<div class="sutra" id="s52">
+  <div class="hd"><span class="no">§52</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「<i>Saubhari</i> の（多くの）身体にもそれ（楽と苦の違い）が見られるはずである。」</div>
+  <div class="ex"><p>聖仙 <i>Saubhari</i> は一つの自己で多くの身体をとったと伝えられます。身体が違えば経験が別々になるのなら、<i>Saubhari</i> の身体どうしでも経験が別々になるはずだが、そうではない、という論法です。</p></div>
+</div>
+
+<div class="sutra" id="s53">
+  <div class="hd"><span class="no">§53</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「一人が輪廻し、一人が解脱し、一人が弟子となり、一人が師となる、ということも成り立たない。」</div>
+</div>
+
+<div class="sutra" id="s54">
+  <div class="hd"><span class="no">§54</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「不平等な創造（生まれの違い）も成り立たない。」</div>
+</div>
+
+<div class="sutra" id="s55">
+  <div class="hd"><span class="no">§55</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「自己の多数性を説く聖典とも矛盾する。」</div>
+</div>
+
+<div class="sutra" id="s56">
+  <div class="hd"><span class="no">§56</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「聖典は、外から加わった条件による区別を説いているのだ、と言うことはできない。」</div>
+</div>
+
+<div class="sutra" id="s57">
+  <div class="hd"><span class="no">§57</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「解脱の状態でも区別があるからである。」</div>
+</div>
+
+<div class="sutra" id="s58">
+  <div class="hd"><span class="no">§58</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「その時（解脱の時）には、神・人間などの区別も、欲・怒りなどの区別もなくなり、自己たちの本性はまったく等しく、どの点でも区別を言えないほどになるとしても、」</div>
+</div>
+
+<div class="sutra" id="s59">
+  <div class="hd"><span class="no">§59</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「大きさも重さも形も同じ金の壺や、宝石や、米粒などに区別があるように、本性の区別もはっきりしている。」</div>
+  <div class="ex"><p>同じ形の米粒でも一粒一粒は別物であるように、解脱した自己どうしもまったく同じ性質でありながら、別々の存在だ、という喩えです。</p></div>
+</div>
+
+<div class="sutra" id="s60">
+  <div class="hd"><span class="no">§60</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「それゆえ、自己の多数性を認めなければならない。」</div>
+</div>
+
+<h3><span class="h3n">1.6</span>自己の定義：従属を伴う「知る者」（§61）</h3>
+
+<div class="sutra" id="s61">
+  <div class="hd"><span class="no">§61</span><span class="ref">科段 1.6</span></div>
+  <div class="tr">「さて、これら（自己）の定義は、従属することを伴った『知る者であること』である。」</div>
+  <div class="ex"><p>自己とは何かを一言で定義した重要な一節です。単に「知る者」ではなく「主に従属する知る者」とする点に、この学派の特色があります。</p></div>
+</div>
+
+<h3><span class="h3n">1.7</span>属性としての知（<i>dharma-bhūta-jñāna</i>）（§62–76）</h3>
+
+<figure class="fig">
+  <figcaption>自己そのもの（<i>svarūpa</i>）と、属性としての知（§62–64）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>自己そのもの</th><th>属性としての知</th></tr></thead><tbody><tr><td>位置づけ</td><td>担い手（<i>dharmin</i>）</td><td>属性（<i>dharma</i>）</td></tr><tr><td>大きさ</td><td>原子大</td><td>遍く広がりうる</td></tr><tr><td>伸び縮み</td><td>しない</td><td>する</td></tr><tr><td>照らすもの</td><td>自分だけ</td><td>自分以外のもの</td></tr><tr><td>誰に現れるか</td><td>自分自身に</td><td>自己に</td></tr><tr><td>共通点</td><td>永遠の実体・自ら現れる・歓喜を本性とする</td><td>同左</td></tr></tbody></table></div><div class="res">灯火にたとえると：炎（小さく一か所にある）＝ 自己、光（辺りに広がる）＝ 知</div>
+</figure>
+
+<div class="sutra" id="s62">
+  <div class="hd"><span class="no">§62</span><span class="ref">科段 1.7.1</span></div>
+  <div class="tr">「これら（自己）の知は、本性と同じく、永遠の実体であり、自ら現れ、歓喜を本性とする。」</div>
+</div>
+
+<div class="sutra" id="s63">
+  <div class="hd"><span class="no">§63</span><span class="ref">科段 1.7.1</span></div>
+  <div class="tr">「それでは、知と本性の違いは何か、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s64">
+  <div class="hd"><span class="no">§64</span><span class="ref">科段 1.7.1</span></div>
+  <div class="tr">「本性は、（属性の）担い手であり、縮んだり広がったりすることがなく、自分以外のものを照らさずに自分だけに現れ、原子大である。知は、属性であり、縮んだり広がったりし、自分以外のものを照らし、自分に対してではなく自己に対して現れ、遍く広がるものである。」</div>
+  <div class="ex"><p><i>Viśiṣṭādvaita</i> 独特の「属性としての知」（<i>dharma-bhūta-jñāna</i>）の考え方です。自己を灯火の炎、知をその光に喩えるとわかりやすいでしょう（図を参照）。</p></div>
+</div>
+
+<div class="sutra" id="s65">
+  <div class="hd"><span class="no">§65</span><span class="ref">科段 1.7.1</span></div>
+  <div class="tr">「そのうち、ある者たちの知は常に遍く広がり、ある者たちの知は常に遍く広がらず、ある者たちの知はある時は広がらず、ある時は遍く広がる。」</div>
+  <div class="ex"><p>伝統的には、常に広がるのは永遠の者（<i>nitya</i>）、広がらないのは束縛された者（<i>baddha</i>）、ある時から広がるのは解脱した者（<i>mukta</i>）と説明されます（図を参照）。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>知の広がり方の三種（§65）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>知のあり方</th><th>伝統的に当てはめられる自己</th></tr></thead><tbody><tr><td>常に遍く広がる</td><td>永遠の者（<i>nitya</i>）</td></tr><tr><td>常に広がらない（縮んでいる）</td><td>束縛された者（<i>baddha</i>）</td></tr><tr><td>ある時から遍く広がる</td><td>解脱した者（<i>mukta</i>）</td></tr></tbody></table></div>
+  <div class="cap2">右の欄は本文にはなく、伝統的な注釈の理解によります。</div>
+</figure>
+
+<div class="sutra" id="s66">
+  <div class="hd"><span class="no">§66</span><span class="ref">科段 1.7.2</span></div>
+  <div class="tr">「知が永遠なら、『私に知が生じた、消えた』と言うのはどうしてか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s67">
+  <div class="hd"><span class="no">§67</span><span class="ref">科段 1.7.2</span></div>
+  <div class="tr">「感官を通って広がり、対象をとらえ、また退くので、そのように言うのである。」</div>
+</div>
+
+<div class="sutra" id="s68">
+  <div class="hd"><span class="no">§68</span><span class="ref">科段 1.7.2</span></div>
+  <div class="tr">「これ（知）は一つでありながら、多くのものとして現れるのは、広がり方の違いによる。」</div>
+</div>
+
+<div class="sutra" id="s69">
+  <div class="hd"><span class="no">§69</span><span class="ref">科段 1.7.3</span></div>
+  <div class="tr">「（知が）実体であるのはどうしてか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s70">
+  <div class="hd"><span class="no">§70</span><span class="ref">科段 1.7.3</span></div>
+  <div class="tr">「働きと性質の拠り所であり、自ら現れるものなので、実体である。」</div>
+  <div class="ex"><p>広がったり縮んだりする（働き）ものは、性質ではなく実体だ、という論法です。</p></div>
+</div>
+
+<div class="sutra" id="s71">
+  <div class="hd"><span class="no">§71</span><span class="ref">科段 1.7.3</span></div>
+  <div class="tr">「自ら現れるものなら、熟睡や気絶などの時にも現れるはずではないか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s72">
+  <div class="hd"><span class="no">§72</span><span class="ref">科段 1.7.3</span></div>
+  <div class="tr">「広がらないので、現れない。」</div>
+</div>
+
+<figure class="fig">
+  <figcaption>快と不快はどこから来るか（§73–76）</figcaption>
+<div class="grid2"><div class="node good"><b>本来</b>すべてのものは神を内なる自己とするので、心地よい（§75）</div><div class="node bad"><b>後から加わる</b>不快さ。身体を自己と思い違えることなどから生じる（§74）</div></div>
+  <div class="cap2">同じ白檀や花が、人や時や所によって快にも不快にもなることが、その証拠である（§76）。</div>
+</figure>
+
+<div class="sutra" id="s73">
+  <div class="hd"><span class="no">§73</span><span class="ref">科段 1.7.4</span></div>
+  <div class="tr">「（知が）歓喜を本性とするとは、知が（対象を）照らす時に、心地よいものであることである。」</div>
+</div>
+
+<div class="sutra" id="s74">
+  <div class="hd"><span class="no">§74</span><span class="ref">科段 1.7.4</span></div>
+  <div class="tr">「毒や武器などを示す時に不快であることのもとは、身体を自己と思い違えることなどである。」</div>
+</div>
+
+<div class="sutra" id="s75">
+  <div class="hd"><span class="no">§75</span><span class="ref">科段 1.7.4</span></div>
+  <div class="tr">「（すべてのものは）<i>Īśvara</i> を内なる自己としているので、すべてのものにとって心地よさこそが本来の性質であり、不快さは後から加わったものである。」</div>
+  <div class="ex"><p>世界のすべては神の身体なので、本来はすべてが心地よいはずだ、という大胆な主張です。</p></div>
+</div>
+
+<div class="sutra" id="s76">
+  <div class="hd"><span class="no">§76</span><span class="ref">科段 1.7.4</span><span class="chk">要確認</span></div>
+  <div class="tr">「もし（快・不快が）ものの本来の性質なら、ある時ある所である人に心地よい白檀や花などが、別の所・別の時にはその人にも不快となり、また同じ所・同じ時に別の人には不快となる、ということはありえないはずである。」</div>
+  <div class="ex"><p>同じものが人や時によって快にも不快にもなるのだから、不快さはもの自体の性質ではない、という論証です。OCR の冒頭の語が乱れているため、論旨に沿って訳しています。</p></div>
+</div>
+
+
+<div class="card note">
+  <b>注意</b><br>
+  本文は1927年刊テルグ文字版（<i>Aṇṇaṅgarācārya</i> 校訂）を Gemini で OCR し、ページをまたぐ節をつなぎ合わせた<a href="tattvatraya_telugu_collated.txt">校合テキスト（テルグ文字、全202節）</a>に基づきます。照合に使える別の OCR はなく、OCR の乱れがある節や、訳・解釈に特に自信がない節には「要確認」の印を付けました。
+  科段と解説は、伝統的な注釈（<i>Maṇavāḷa Māmuni</i>）の理解を参考にまとめたもので、注釈そのものと一節ずつ照合したものではありません。
+</div>
+</div>
+</body>
+</html>
