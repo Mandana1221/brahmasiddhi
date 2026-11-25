@@ -41,8 +41,10 @@ def S(no, tr, ex=None, chk=False):
     SS[no] = (tr, ex, chk)
 def F(no, h): FS.setdefault(no, []).append(h)
 def OVERVIEW(h): OV["html"] = h
+NT = {}
+def N(no, txt): NT[no] = txt
 
-ns = dict(K=K, S=S, F=F, fig=fig, table=table, flow=flow, OVERVIEW=OVERVIEW)
+ns = dict(K=K, S=S, F=F, N=N, fig=fig, table=table, flow=flow, OVERVIEW=OVERVIEW)
 for p in sorted(glob.glob(os.path.join(SRC, "d*.py"))) + [os.path.join(SRC, "overview.py")]:
     if os.path.exists(p):
         exec(compile(open(p, encoding="utf-8").read(), p, "exec"), ns)
@@ -144,6 +146,8 @@ for n in done:
     for f in FS.get(n, []):
         H.append(f)
     tr, ex, chk = SS[n]
+    if n in NT:
+        ex = (ex + " " if ex else "") + NT[n]
     tag = '<span class="chk">要確認</span>' if chk else ''
     exh = f'\n  <div class="ex"><p>{ex}</p></div>' if ex else ''
     H.append(f'<div class="sutra" id="s{n}">\n  <div class="hd"><span class="no">§{n}</span><span class="ref">科段 {ref_of(n)}</span>{tag}</div>\n  <div class="tr">{tr}</div>{exh}\n</div>\n')
@@ -151,7 +155,7 @@ for n in done:
 H.append("""
 <div class="card note">
   <b>注意</b><br>
-  本文は acharya.org 刊タミル文字版を二つの OCR（Gemini・mitra-surya）で読み、節ごとに照合した<a href="srivacanabhusanam_tamil_collated.txt">校合テキスト（タミル文字、全463節）</a>に基づきます。OCR の乱れがある節や、訳・解釈に特に自信がない節には「要確認」の印を付けました。
+  本文は acharya.org 刊タミル文字版を二つの OCR（Gemini・mitra-surya）で読み、節ごとに照合した<a href="srivacanabhusanam_tamil_collated.txt">校合テキスト（タミル文字、全463節）</a>に基づきます。OCR の乱れがある節や、訳・解釈に特に自信がない節には「要確認」の印を付けました。「要確認」の節はすべて、1927年刊テルグ文字版（<i>Aṇṇaṅgarācārya</i> 校訂）の OCR と照合しました（<a href="srivacanabhusanam_telugu1927_aligned.txt">1927年版の節ごとの本文</a>）。
   科段と解説は、本書の讃頌（<i>taniyan</i>）が挙げる六つの主題と伝統的な注釈（<i>Maṇavāḷa Māmuni</i>）の理解を参考にまとめたもので、注釈そのものと一節ずつ照合したものではありません。
 </div>
 </div>
