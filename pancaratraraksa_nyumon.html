@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>はじめてのパーンチャラートラ・ラクシャー</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gentium+Book+Plus:ital,wght@0,400;0,700;1,400&family=Noto+Sans+JP:wght@400;500;700&family=Zen+Old+Mincho:wght@600;900&display=swap">
+<style>
+/* Layout: 一段組の読み物。各節は「問い → 図 → 要点」の順。要点は枠、確認問題は開閉式。 */
+:root{
+  --bg:#F4F5F2; --panel:#FFFFFF; --ink:#1F2430; --muted:#5D6472; --line:#D3D7DD; --soft:#E8EBEE;
+  --accent:#2F5D8C; --saffron:#C2621F; --leaf:#4E7A34; --violet:#714C8E; --teal:#21716F; --warn:#A23232; --gray:#8A919C;
+  --accent-bg:#E1EAF4; --saffron-bg:#F8E7DA; --leaf-bg:#E3EEDB; --violet-bg:#EEE5F4; --teal-bg:#DAEEED; --warn-bg:#F7E0E0; --gray-bg:#ECEDEF;
+  --f-head:"Zen Old Mincho","Noto Serif JP",serif;
+  --f-body:"Gentium Book Plus","Noto Sans JP",system-ui,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#13161C; --panel:#1A1E27; --ink:#E4E6EA; --muted:#9EA5B3; --line:#353B48; --soft:#222733;
+  --accent:#8EB2DE; --saffron:#E89A64; --leaf:#9CC27E; --violet:#C4A0DB; --teal:#73C6C2; --warn:#EB9292; --gray:#7F8794;
+  --accent-bg:#1E2B3D; --saffron-bg:#3A2618; --leaf-bg:#22301D; --violet-bg:#2E2338; --teal-bg:#163231; --warn-bg:#3B1F1F; --gray-bg:#262A33;
+  color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#13161C; --panel:#1A1E27; --ink:#E4E6EA; --muted:#9EA5B3; --line:#353B48; --soft:#222733;
+  --accent:#8EB2DE; --saffron:#E89A64; --leaf:#9CC27E; --violet:#C4A0DB; --teal:#73C6C2; --warn:#EB9292; --gray:#7F8794;
+  --accent-bg:#1E2B3D; --saffron-bg:#3A2618; --leaf-bg:#22301D; --violet-bg:#2E2338; --teal-bg:#163231; --warn-bg:#3B1F1F; --gray-bg:#262A33;
+  color-scheme:dark}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16.5px;line-height:1.9;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main{max-width:860px;margin:0 auto;padding-block:40px 80px}
+.back{font-size:13.5px}
+header{padding:28px 0 26px;border-bottom:2px solid var(--ink);margin-bottom:10px}
+.eyebrow{font-size:12.5px;letter-spacing:.14em;color:var(--saffron);font-weight:700}
+h1{font-family:var(--f-head);font-weight:900;font-size:clamp(28px,5.4vw,46px);line-height:1.3;margin:.2em 0 .3em;text-wrap:balance}
+.sub{font-size:16px;color:var(--muted);max-width:40em}
+nav.toc{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 18px;margin:26px 0 10px;font-size:14.5px}
+nav.toc b{font-family:var(--f-head);font-size:15px}
+nav.toc ol{margin:6px 0 0;padding-left:1.6em;columns:2;column-gap:28px}
+nav.toc li{break-inside:avoid}
+h2{font-family:var(--f-head);font-weight:900;font-size:26px;line-height:1.4;margin:60px 0 6px;text-wrap:balance}
+h2 .q{display:block;font-family:var(--f-body);font-size:14px;font-weight:700;color:var(--saffron);letter-spacing:.06em}
+h3{font-family:var(--f-head);font-size:19px;margin:30px 0 4px}
+p{margin:.6em 0;max-width:42em}
+i,.ia{font-style:italic}
+a{color:var(--accent)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.key{background:var(--accent-bg);border-radius:6px;padding:12px 18px;margin:18px 0;max-width:44em}
+.key b.l{display:block;font-size:13px;letter-spacing:.08em;color:var(--accent)}
+.key ul{margin:4px 0 0;padding-left:1.2em}
+.hint{background:var(--saffron-bg);border-radius:6px;padding:12px 18px;margin:18px 0;max-width:44em}
+.hint b.l{display:block;font-size:13px;letter-spacing:.08em;color:var(--saffron)}
+figure{margin:22px 0 26px;background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:16px 16px 10px}
+figcaption{font-size:13.5px;color:var(--muted);margin-top:6px;line-height:1.65}
+figcaption b{color:var(--ink);margin-right:.4em}
+.scroll{overflow-x:auto}
+svg{display:block;width:100%;height:auto}
+svg text{font-family:"Gentium Book Plus","Noto Sans JP",sans-serif}
+.s-ink{fill:var(--ink)} .s-mut{fill:var(--muted)} .s-acc{fill:var(--accent)} .s-saf{fill:var(--saffron)} .s-leaf{fill:var(--leaf)} .s-vio{fill:var(--violet)} .s-teal{fill:var(--teal)} .s-warn{fill:var(--warn)}
+.b-acc{fill:var(--accent-bg);stroke:var(--accent)} .b-saf{fill:var(--saffron-bg);stroke:var(--saffron)} .b-leaf{fill:var(--leaf-bg);stroke:var(--leaf)} .b-vio{fill:var(--violet-bg);stroke:var(--violet)} .b-teal{fill:var(--teal-bg);stroke:var(--teal)} .b-warn{fill:var(--warn-bg);stroke:var(--warn)} .b-gray{fill:var(--gray-bg);stroke:var(--gray)} .b-panel{fill:var(--panel);stroke:var(--line)}
+.ln{stroke:var(--line);fill:none} .ln-ink{stroke:var(--ink);fill:none} .ln-mut{stroke:var(--muted);fill:none} .ln-warn{stroke:var(--warn);fill:none}
+table{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.65}
+th,td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+thead th{font-size:12.5px;color:var(--muted);font-weight:500;border-bottom:1.5px solid var(--ink);white-space:nowrap}
+tbody th{white-space:nowrap}
+.tbl{overflow-x:auto;margin:16px 0 22px}
+.tbl table{min-width:600px}
+.chip{display:inline-block;font-size:12.5px;font-weight:700;padding:0 9px;border-radius:99px;line-height:1.8;white-space:nowrap}
+.c-acc{background:var(--accent-bg);color:var(--accent)} .c-saf{background:var(--saffron-bg);color:var(--saffron)} .c-leaf{background:var(--leaf-bg);color:var(--leaf)} .c-vio{background:var(--violet-bg);color:var(--violet)} .c-teal{background:var(--teal-bg);color:var(--teal)} .c-gray{background:var(--gray-bg);color:var(--muted)}
+.cards{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:14px 16px;min-width:0}
+.card .no{font-family:var(--f-head);font-weight:900;font-size:28px;line-height:1;color:var(--saffron)}
+.card h4{font-family:var(--f-head);margin:6px 0 2px;font-size:17px}
+.card p{font-size:14.5px;margin:.3em 0}
+.card .tag{font-size:12.5px;color:var(--muted)}
+.vs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:10px;align-items:stretch;margin:18px 0}
+.vs .card.l{border-top:4px solid var(--warn)} .vs .card.r{border-top:4px solid var(--leaf)}
+.vs .mid{display:grid;place-items:center;font-family:var(--f-head);font-weight:900;color:var(--muted)}
+.vs ul{margin:4px 0 0;padding-left:1.2em;font-size:14.5px}
+details.qz{background:var(--panel);border:1px solid var(--line);border-radius:6px;margin:10px 0;padding:0 16px}
+details.qz summary{cursor:pointer;padding:12px 0;font-weight:700}
+details.qz p{margin:0 0 12px}
+dl.gl{display:grid;grid-template-columns:minmax(10em,auto) minmax(0,1fr);gap:8px 18px;font-size:15px}
+dl.gl dt{font-weight:700}
+dl.gl dt span{display:block;font-weight:400;font-style:italic;color:var(--muted);font-size:13.5px}
+dl.gl dd{margin:0}
+footer{margin-top:60px;padding-top:14px;border-top:1px solid var(--line);font-size:13px;color:var(--muted)}
+@media (max-width:640px){
+  body{font-size:15.5px}
+  nav.toc ol{columns:1}
+  .cards{grid-template-columns:minmax(0,1fr)}
+  .vs{grid-template-columns:minmax(0,1fr)}
+  .vs .mid{padding:2px 0}
+  dl.gl{grid-template-columns:minmax(0,1fr)}
+  dl.gl dd{margin-bottom:10px}
+}
+</style>
+</head>
+<body>
+<main>
+<div class="back"><a href="index.html">← リンク集に戻る</a> ・ 専門家向け:<a href="pancaratraraksa_kadan.html">科段と解説</a></div>
+<header>
+  <div class="eyebrow">大学1年生のための入門解説</div>
+  <h1>はじめての<br>『パーンチャラートラ・ラクシャー』</h1>
+  <p class="sub">14世紀南インドの思想家ヴェーダーンタ・デーシカが、「お寺の聖典は本当に正しい教えなのか」「毎日どう神に仕えればよいのか」という問いに答えた本です。予備知識なしで読めるように、図と表で順を追って説明します。</p>
+</header>
+
+<nav class="toc" aria-label="目次"><b>目次</b>
+<ol>
+  <li><a href="#s1">どんな本?ひとことで</a></li>
+  <li><a href="#s2">インドの聖典の地図</a></li>
+  <li><a href="#s3">誰が、いつ書いたのか</a></li>
+  <li><a href="#s4">本の全体像:三つの章</a></li>
+  <li><a href="#s5">第1章:四つの流派を混ぜない</a></li>
+  <li><a href="#s6">第1章:聖典にも「格」がある</a></li>
+  <li><a href="#s7">第2章:一日を五つに分ける</a></li>
+  <li><a href="#s8">第2章:帰依した人も続けるべきか</a></li>
+  <li><a href="#s9">第3章:朝から夜までの手引き</a></li>
+  <li><a href="#s10">失われた一節</a></li>
+  <li><a href="#s11">用語ミニ辞典</a></li>
+  <li><a href="#s12">確認問題と考えてみよう</a></li>
+</ol></nav>
+
+<section id="s1">
+<h2><span class="q">Q1</span>どんな本?ひとことで</h2>
+<p>ひとことで言えば、<b>「パーンチャラートラという聖典の正しさを守り(<i>rakṣā</i> = 護り)、その聖典が定める毎日の礼拝の仕方を確立した本」</b>です。</p>
+<div class="cards">
+  <div class="card"><div class="no">1</div><h4>何を守るのか</h4><p>ヴィシュヌ神を祀る寺院や家庭で使われる聖典「パーンチャラートラ」の権威。</p></div>
+  <div class="card"><div class="no">2</div><h4>誰から守るのか</h4><p>「その聖典はヴェーダより劣る」「流派を混ぜてもかまわない」と考える人々。</p></div>
+  <div class="card"><div class="no">3</div><h4>何を定めるのか</h4><p>一日を五つの時間帯に分けて神に仕える生活(<i>pañcakāla</i>、五時)。</p></div>
+</div>
+<div class="key"><b class="l">ポイント</b>著者自身は本の最後で、この本を「<i>pañcakālasya rakṣā</i>(五時の行の護り)」と呼んでいます。理論の議論はすべて、<b>毎日の実践を守るため</b>に置かれています。</div>
+</section>
+
+<section id="s2">
+<h2><span class="q">Q2</span>インドの聖典の地図:パーンチャラートラはどこにある?</h2>
+<p>インドの宗教文献は、大きく<b>ヴェーダ</b>(ニガマ)と<b>アーガマ</b>(タントラ)に分かれます。ヴェーダは古代の祭式と哲学(ウパニシャッド)の聖典です。アーガマは寺院での神像の礼拝や入門儀礼を定める聖典で、シヴァ派・シャクティ派・ヴィシュヌ派の三つに分かれます。パーンチャラートラはそのうちヴィシュヌ派のアーガマです。</p>
+<figure>
+<div class="scroll"><svg viewBox="0 0 760 330" role="img" aria-label="聖典の地図。ヴェーダとアーガマ。アーガマはシヴァ派・シャクティ派・ヴィシュヌ派。ヴィシュヌ派はヴァイカーナサとパーンチャラートラ。パーンチャラートラは四つの siddhānta に分かれる。" style="min-width:600px">
+  <rect x="40" y="20" width="250" height="60" rx="8" class="b-gray" stroke-width="1.2"/>
+  <text x="165" y="46" text-anchor="middle" font-size="17" font-weight="700" class="s-ink">ヴェーダ(ニガマ)</text>
+  <text x="165" y="68" text-anchor="middle" font-size="12.5" class="s-mut">祭式・ウパニシャッド</text>
+  <rect x="440" y="20" width="280" height="60" rx="8" class="b-gray" stroke-width="1.2"/>
+  <text x="580" y="46" text-anchor="middle" font-size="17" font-weight="700" class="s-ink">アーガマ(タントラ)</text>
+  <text x="580" y="68" text-anchor="middle" font-size="12.5" class="s-mut">寺院の礼拝・入門儀礼</text>
+  <path d="M290 50 H440" class="ln-mut" stroke-dasharray="5 4" stroke-width="1.4"/>
+  <text x="365" y="42" text-anchor="middle" font-size="12" class="s-warn" font-weight="700">どちらが上?</text>
+  <path d="M580 80 V100 M450 100 H710 M450 100 V114 M580 100 V114 M710 100 V114" class="ln-ink"/>
+  <rect x="395" y="114" width="110" height="38" rx="6" class="b-panel" stroke-width="1"/><text x="450" y="138" text-anchor="middle" font-size="14" class="s-ink">シヴァ派</text>
+  <rect x="525" y="114" width="110" height="38" rx="6" class="b-panel" stroke-width="1"/><text x="580" y="138" text-anchor="middle" font-size="14" class="s-ink">シャクティ派</text>
+  <rect x="655" y="114" width="100" height="38" rx="6" class="b-acc" stroke-width="1.5"/><text x="705" y="138" text-anchor="middle" font-size="14" class="s-acc" font-weight="700">ヴィシュヌ派</text>
+  <path d="M705 152 V168 M540 168 H705 M540 168 V182 M688 168 V182" class="ln-ink"/>
+  <rect x="470" y="182" width="140" height="38" rx="6" class="b-panel" stroke-width="1"/><text x="540" y="206" text-anchor="middle" font-size="14" class="s-ink">ヴァイカーナサ</text>
+  <rect x="620" y="182" width="136" height="38" rx="6" class="b-saf" stroke-width="2"/><text x="688" y="206" text-anchor="middle" font-size="13" class="s-saf" font-weight="700">パーンチャラートラ</text>
+  <path d="M688 220 V240 M170 240 H688" class="ln-ink"/>
+  <g font-size="13.5" text-anchor="middle">
+    <path d="M170 240 V256 M340 240 V256 M510 240 V256 M680 240 V256" class="ln-ink"/>
+    <rect x="95" y="256" width="150" height="56" rx="6" class="b-acc" stroke-width="1.2"/><text x="170" y="280" class="s-acc" font-weight="700">Āgama</text><text x="170" y="300" class="s-mut" font-size="12">siddhānta</text>
+    <rect x="265" y="256" width="150" height="56" rx="6" class="b-saf" stroke-width="1.2"/><text x="340" y="280" class="s-saf" font-weight="700">Mantra</text><text x="340" y="300" class="s-mut" font-size="12">siddhānta</text>
+    <rect x="435" y="256" width="150" height="56" rx="6" class="b-leaf" stroke-width="1.2"/><text x="510" y="280" class="s-leaf" font-weight="700">Tantra</text><text x="510" y="300" class="s-mut" font-size="12">siddhānta</text>
+    <rect x="605" y="256" width="150" height="56" rx="6" class="b-vio" stroke-width="1.2"/><text x="680" y="280" class="s-vio" font-weight="700">Tantrāntara</text><text x="680" y="300" class="s-mut" font-size="12">siddhānta</text>
+  </g>
+  <text x="40" y="228" font-size="12.5" class="s-mut">パーンチャラートラの四つの流派(§5)</text>
+</svg></div>
+<figcaption><b>図1</b>聖典の地図(簡略版)。この本の第1章は、いちばん下の段の「四つの流派」の話から始まります。</figcaption>
+</figure>
+<p>アーガマは「ヴェーダに従えない人のための二流の教え」と見られることがありました。デーシカより2〜3世紀前、同じ学派の先達ヤームナ(Yāmuna)は『アーガマ・プラーマーニヤ』(アーガマの権威)を書いてこれに反論しています。デーシカの本は、この論争の延長にあります。</p>
+<div class="hint"><b class="l">名前の由来</b>「パーンチャラートラ」は直訳すると「五夜の(教え)」です。由来には諸説あります。有力な一説は、神が五つの姿(最高の姿 <i>para</i>、四つに展開した姿 <i>vyūha</i>、化身 <i>vibhava</i>、心の内に住む姿 <i>antaryāmin</i>、神像 <i>arcā</i>)で現れるという教えに結びつけます。</div>
+</section>
+
+<section id="s3">
+<h2><span class="q">Q3</span>誰が、いつ書いたのか</h2>
+<p>著者は<b>ヴェーダーンタ・デーシカ</b>(本名ヴェーンカタナータ、1268/69–1369/70年)です。南インドのカーンチープラム近郊に生まれ、ラーマーヌジャが大成した<b>ヴィシシュタードヴァイタ</b>(限定不二論)の学派を代表する学者です。哲学・論理学・詩・戯曲・タミル語の著作まで幅広く書き、「詩人と論理家の獅子」(<i>kavitārkikasiṃha</i>)と呼ばれました。</p>
+<figure>
+<div class="scroll"><svg viewBox="0 0 800 190" role="img" aria-label="年表。ヤームナ(10–11世紀)、ラーマーヌジャ(伝統的に1017–1137)、デーシカ(1268–1369)、初版1880、Adyar 版1942。" style="min-width:640px">
+  <!-- x = 40 + (year-900)*0.68 -->
+  <line x1="40" y1="110" x2="770" y2="110" class="ln-ink" stroke-width="1.5"/>
+  <g font-size="12" class="s-mut" text-anchor="middle">
+    <line x1="108" y1="104" x2="108" y2="116" class="ln-ink"/><text x="108" y="132">1000</text>
+    <line x1="244" y1="104" x2="244" y2="116" class="ln-ink"/><text x="244" y="132">1200</text>
+    <line x1="380" y1="104" x2="380" y2="116" class="ln-ink"/><text x="380" y="132">1400</text>
+    <line x1="516" y1="104" x2="516" y2="116" class="ln-ink"/><text x="516" y="132">1600</text>
+    <line x1="652" y1="104" x2="652" y2="116" class="ln-ink"/><text x="652" y="132">1800</text>
+  </g>
+  <rect x="88" y="80" width="40" height="22" rx="4" class="b-gray" stroke-width="1"/>
+  <text x="108" y="70" text-anchor="middle" font-size="13" class="s-ink" font-weight="700">ヤームナ</text>
+  <text x="108" y="52" text-anchor="middle" font-size="11.5" class="s-mut">『アーガマの権威』</text>
+  <rect x="119" y="80" width="81.6" height="22" rx="4" class="b-acc" stroke-width="1"/>
+  <text x="182" y="160" text-anchor="middle" font-size="13" class="s-acc" font-weight="700">ラーマーヌジャ</text>
+  <text x="182" y="176" text-anchor="middle" font-size="11.5" class="s-mut">伝統的に 1017–1137</text>
+  <line x1="160" y1="102" x2="175" y2="146" class="ln-mut"/>
+  <rect x="290" y="80" width="68" height="22" rx="4" class="b-saf" stroke-width="1.5"/>
+  <text x="324" y="70" text-anchor="middle" font-size="14" class="s-saf" font-weight="700">デーシカ</text>
+  <text x="324" y="52" text-anchor="middle" font-size="11.5" class="s-mut">1268/69–1369/70</text>
+  <circle cx="696" cy="91" r="6" class="b-gray" stroke-width="1"/>
+  <text x="690" y="160" text-anchor="middle" font-size="12" class="s-ink">1880 初の刊本</text>
+  <line x1="696" y1="97" x2="690" y2="146" class="ln-mut"/>
+  <circle cx="737" cy="91" r="6" class="b-saf" stroke-width="1.5"/>
+  <text x="737" y="70" text-anchor="middle" font-size="12" class="s-saf" font-weight="700">1942 Adyar 校訂版</text>
+</svg></div>
+<figcaption><b>図2</b>年表。ヤームナの生没年ははっきりしないため、おおよその位置で示しています。本ページの内容は1942年の Adyar 図書館版(校訂者 M. Duraiswami Aiyangar と T. Venugopalacharya)に基づきます。</figcaption>
+</figure>
+</section>
+
+<section id="s4">
+<h2><span class="q">Q4</span>本の全体像:三つの章はどうつながる?</h2>
+<p>本は三章からなります。家づくりにたとえると、第1章が土台、第2章が柱、第3章が部屋の中の暮らし方です。</p>
+<figure>
+<div class="scroll"><svg viewBox="0 0 800 210" role="img" aria-label="三章の関係。第1章 流派の区分(土台)→ 第2章 五時の行は義務(柱)→ 第3章 一日の具体的な手引き(暮らし)。頁数は44、34、102。" style="min-width:640px">
+  <defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="s-mut"/></marker></defs>
+  <rect x="20" y="20" width="220" height="120" rx="8" class="b-acc" stroke-width="1.5"/>
+  <text x="130" y="50" text-anchor="middle" font-size="15" class="s-acc" font-weight="700">第1章 土台</text>
+  <text x="130" y="76" text-anchor="middle" font-size="13.5" class="s-ink">四つの流派の区別と</text>
+  <text x="130" y="96" text-anchor="middle" font-size="13.5" class="s-ink">「混ぜてはいけない」</text>
+  <text x="130" y="122" text-anchor="middle" font-size="12" class="s-mut">Siddhāntavyavasthāpana</text>
+  <rect x="290" y="20" width="220" height="120" rx="8" class="b-saf" stroke-width="1.5"/>
+  <text x="400" y="50" text-anchor="middle" font-size="15" class="s-saf" font-weight="700">第2章 柱</text>
+  <text x="400" y="76" text-anchor="middle" font-size="13.5" class="s-ink">一日を五つに分ける行は</text>
+  <text x="400" y="96" text-anchor="middle" font-size="13.5" class="s-ink">全員の義務</text>
+  <text x="400" y="122" text-anchor="middle" font-size="12" class="s-mut">Nityānuṣṭhānavyavasthāpana</text>
+  <rect x="560" y="20" width="220" height="120" rx="8" class="b-leaf" stroke-width="1.5"/>
+  <text x="670" y="50" text-anchor="middle" font-size="15" class="s-leaf" font-weight="700">第3章 暮らし</text>
+  <text x="670" y="76" text-anchor="middle" font-size="13.5" class="s-ink">ラーマーヌジャの手引きに</text>
+  <text x="670" y="96" text-anchor="middle" font-size="13.5" class="s-ink">沿った朝から夜までの説明</text>
+  <text x="670" y="122" text-anchor="middle" font-size="12" class="s-mut">Nityavyākhyāna</text>
+  <line x1="242" y1="80" x2="286" y2="80" class="ln-mut" stroke-width="2" marker-end="url(#ar)"/>
+  <line x1="512" y1="80" x2="556" y2="80" class="ln-mut" stroke-width="2" marker-end="url(#ar)"/>
+  <!-- page bars: total 180 pages -> 760 width -->
+  <text x="20" y="172" font-size="12" class="s-mut">本文の頁数</text>
+  <rect x="20" y="180" width="186" height="16" class="b-acc" stroke-width="1"/>
+  <rect x="206" y="180" width="143" height="16" class="b-saf" stroke-width="1"/>
+  <rect x="349" y="180" width="431" height="16" class="b-leaf" stroke-width="1"/>
+  <g font-size="11.5" text-anchor="middle" class="s-ink"><text x="113" y="193">44頁</text><text x="277" y="193">34頁</text><text x="564" y="193">102頁(半分以上)</text></g>
+</svg></div>
+<figcaption><b>図3</b>三章の関係と分量。いちばん厚いのは具体的な日課を説明する第3章です。</figcaption>
+</figure>
+</section>
+
+<section id="s5">
+<h2><span class="q">Q5</span>第1章:パーンチャラートラの四つの流派を混ぜてはいけないのはなぜ?</h2>
+<p>デーシカによると、パーンチャラートラは<b>四つの流派(<i>siddhānta</i>)</b>に分かれます。ヴェーダがリグ・ヴェーダ、サーマ・ヴェーダなどに分かれ、さらに細かい学派(<i>śākhā</i>)に分かれるのと同じだ、と彼は説明します。流派ごとに、どの神の姿をどのように祀るかが違います。</p>
+<div class="tbl"><table>
+<thead><tr><th>流派</th><th>祀り方のイメージ</th><th>得られるもの(『ハヤグリーヴァ・サンヒター』)</th></tr></thead>
+<tbody>
+<tr><th><span class="chip c-acc">Āgama</span></th><td>ヴィシュヌの四つの展開した姿(ヴァースデーヴァなど四 <i>vyūha</i>)を同じ格で並べて祀る</td><td>解脱だけ</td></tr>
+<tr><th><span class="chip c-saf">Mantra</span></th><td>一柱の姿を中心に祀り、他の神々や女神シュリーは「お付き」として周りに祀る</td><td>この世の成就と解脱</td></tr>
+<tr><th><span class="chip c-leaf">Tantra</span></th><td>九つの姿を中心に、多くの姿を組み合わせて祀る</td><td>人生の四つの目的すべて</td></tr>
+<tr><th><span class="chip c-vio">Tantrāntara</span></th><td>ナラシンハ(獅子頭の化身)など、いくつもの顔をもつ一柱の姿を祀る</td><td>望むもの(デーシカは解脱も含むと解釈)</td></tr>
+</tbody></table></div>
+<p>大事なのは、<b>四つとも最終的には神のもとへ至る道だ</b>という点です。優劣はあっても、どれも正しい道です。ただし、一つの寺院や一人の礼拝者は、最初に受け継いだ流派を守り通さなければなりません。</p>
+<div class="hint"><b class="l">たとえるなら</b>同じ料理でも、和食の出汁と洋食のブイヨンを途中で混ぜると、どちらの料理でもなくなってしまいます。デーシカにとって流派の混淆(<i>saṅkara</i>)は、伝統の筋道を壊すことです。聖典は、混淆すると王と国が滅ぶとまで警告し、贖罪の儀式(大量の水瓶による灌水など)を定めています。</div>
+<figure>
+<div class="scroll"><svg viewBox="0 0 760 300" role="img" aria-label="流派のはしご。上の流派の人は下の流派の寺院で、その流派のやり方で祀れる。逆はできない。右繞や礼拝は誰でもどこでもできる。" style="min-width:600px">
+  <defs><marker id="dn" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="s-leaf"/></marker>
+  <marker id="up" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="s-warn"/></marker></defs>
+  <g font-size="15" font-weight="700" text-anchor="middle">
+    <rect x="200" y="20" width="200" height="48" rx="6" class="b-acc" stroke-width="1.5"/><text x="300" y="50" class="s-acc">Āgama</text>
+    <rect x="200" y="84" width="200" height="48" rx="6" class="b-saf" stroke-width="1.5"/><text x="300" y="114" class="s-saf">Mantra</text>
+    <rect x="200" y="148" width="200" height="48" rx="6" class="b-leaf" stroke-width="1.5"/><text x="300" y="178" class="s-leaf">Tantra</text>
+    <rect x="200" y="212" width="200" height="48" rx="6" class="b-vio" stroke-width="1.5"/><text x="300" y="242" class="s-vio">Tantrāntara</text>
+  </g>
+  <path d="M410 44 C 470 60, 470 210, 410 232" fill="none" style="stroke:var(--leaf)" stroke-width="2.2" marker-end="url(#dn)"/>
+  <text x="478" y="120" font-size="13.5" class="s-leaf" font-weight="700">上 → 下 はOK</text>
+  <text x="478" y="140" font-size="12.5" class="s-ink">上の流派で入門した人は、</text>
+  <text x="478" y="158" font-size="12.5" class="s-ink">下の流派の寺院で、</text>
+  <text x="478" y="176" font-size="12.5" class="s-ink">その寺院の流儀で祀れる</text>
+  <path d="M190 232 C 130 210, 130 60, 190 44" fill="none" style="stroke:var(--warn)" stroke-width="2.2" stroke-dasharray="6 4" marker-end="url(#up)"/>
+  <text x="122" y="130" font-size="13.5" text-anchor="end" class="s-warn" font-weight="700">下 → 上 はNG</text>
+  <text x="122" y="150" font-size="12.5" text-anchor="end" class="s-ink">逆向きは不可</text>
+  <text x="380" y="290" font-size="12.5" text-anchor="middle" class="s-mut">寺院を右回りに巡る・礼拝する・灯明を捧げる・掃除するなどは、誰でもどこでもできる</text>
+</svg></div>
+<figcaption><b>図4</b>礼拝資格の「はしご」。デーシカが引く聖典『パードマ・サンヒター』の規定を単純化した図です。</figcaption>
+</figure>
+<div class="key"><b class="l">第1章の要点(1)</b><ul>
+<li>パーンチャラートラは全体として正しい聖典である</li>
+<li>四つの流派があり、どれも解脱への道である</li>
+<li>流派は混ぜてはいけない。上位の人が下位の寺院で祀るときも、その寺院の流儀に従う</li>
+</ul></div>
+</section>
+
+<section id="s6">
+<h2><span class="q">Q6</span>第1章:聖典にも「格」がある?</h2>
+<p>パーンチャラートラの文献には「下の流儀をやめて上の流儀で祀れ」と勧める文もあります。これは「混ぜるな」という原則と矛盾しないのでしょうか。デーシカはまず、聖典を<b>誰が語ったか</b>によって分類します。</p>
+<figure>
+<div class="scroll"><svg viewBox="0 0 760 260" role="img" aria-label="聖典の格。神自身が語った divya、神々や聖仙が著した munibhāṣita(sāttvika、rājasa、tāmasa)、人間だけが作った pauruṣa。" style="min-width:600px">
+  <polygon points="380,20 560,100 200,100" class="b-acc" stroke-width="1.5"/>
+  <text x="380" y="70" text-anchor="middle" font-size="16" class="s-acc" font-weight="700">divya</text>
+  <text x="380" y="90" text-anchor="middle" font-size="12" class="s-ink">神自身が語った</text>
+  <polygon points="200,108 560,108 640,190 120,190" class="b-saf" stroke-width="1.5"/>
+  <text x="380" y="132" text-anchor="middle" font-size="16" class="s-saf" font-weight="700">munibhāṣita</text>
+  <text x="380" y="150" text-anchor="middle" font-size="12" class="s-ink">神々や聖仙が、神から聞いた内容をもとに著した</text>
+  <g font-size="12.5" text-anchor="middle" class="s-ink">
+    <text x="250" y="178">sāttvika(聞いたまま)</text><text x="380" y="178">rājasa(一部を補った)</text><text x="515" y="178">tāmasa(自分の構想)</text>
+  </g>
+  <rect x="120" y="200" width="520" height="44" rx="4" class="b-warn" stroke-width="1.5" stroke-dasharray="5 4"/>
+  <text x="380" y="220" text-anchor="middle" font-size="15" class="s-warn" font-weight="700">pauruṣa(人間だけが作ったもの)</text>
+  <text x="380" y="238" text-anchor="middle" font-size="12" class="s-ink">聖典の枠の外。矛盾しない部分は参考にできるが、それだけで神像を祀ってはいけない</text>
+</svg></div>
+<figcaption><b>図5</b>聖典の格。上の三段(divya と munibhāṣita の三種)はどれも正しい聖典です。sāttvika・rājasa・tāmasa の名は「正しいか誤りか」ではなく、得られる結果の優劣を表す、とデーシカは説明します。</figcaption>
+</figure>
+<p>デーシカの答えは、<b>「上に移れ」という文は特別な場所についての規定だ</b>というものです。特別な場所とは、神が自ら姿を現したとされる聖地(<i>svayaṃvyakta</i>)や、伝承が途絶えて元の流儀が分からなくなった寺院です。ふつうの寺院では、受け継いだ流儀を守るのが原則です。また、この種の文には誇張して称える表現(<i>ativāda</i>)もある、と指摘します。</p>
+<div class="key"><b class="l">第1章の要点(2)</b><ul>
+<li>聖典は「誰が語ったか」で格付けされるが、聖仙の聖典もすべて正しい</li>
+<li>「上の流儀に移れ」は、神が自ら現れた聖地などの例外的な場面の話である</li>
+<li>結論:パーンチャラートラは全体が正しく、流派を混ぜずに守れば神に至る</li>
+</ul></div>
+</section>
+
+<section id="s7">
+<h2><span class="q">Q7</span>第2章:一日を五つに分けるってどういうこと?</h2>
+<p>第2章の主題は<b>五時の行(<i>pañcakāla</i>)</b>です。一日を五つの時間帯に分け、それぞれに決まった仕方で神に仕えます。主な典拠は、パーンチャラートラの代表的な聖典『ジャヤーキヤ・サンヒター』です。そこでは聖仙ナーラダが「時は一つなのに、なぜ五つの時なのか」と尋ね、神が「一日という一つの時を、行いの違いで五つに区切るのだ」と答えます。</p>
+<figure>
+<div class="scroll"><svg viewBox="0 0 700 430" role="img" aria-label="五時の行を示す24時間の時計。夜明け前から午前は abhigamana、続いて upādāna、昼前後は ijyā、午後は svādhyāya、夕べと夜明け前に yoga、夜は睡眠。" style="min-width:520px">
+  <path d="M316.1,103.9 A150,150 0 0 1 348.6,152.6 L274.7,183.2 A70,70 0 0 0 259.5,160.5 Z" class="b-teal" stroke-width="1.5"/>
+  <path d="M348.6,152.6 A150,150 0 0 1 316.1,316.1 L259.5,259.5 A70,70 0 0 0 274.7,183.2 Z" class="b-acc" stroke-width="1.5"/>
+  <path d="M316.1,316.1 A150,150 0 0 1 267.4,348.6 L236.8,274.7 A70,70 0 0 0 259.5,259.5 Z" class="b-leaf" stroke-width="1.5"/>
+  <path d="M267.4,348.6 A150,150 0 0 1 152.6,348.6 L183.2,274.7 A70,70 0 0 0 236.8,274.7 Z" class="b-saf" stroke-width="1.5"/>
+  <path d="M152.6,348.6 A150,150 0 0 1 71.4,267.4 L145.3,236.8 A70,70 0 0 0 183.2,274.7 Z" class="b-vio" stroke-width="1.5"/>
+  <path d="M71.4,267.4 A150,150 0 0 1 71.4,152.6 L145.3,183.2 A70,70 0 0 0 145.3,236.8 Z" class="b-gray" stroke-width="1"/>
+  <path d="M71.4,152.6 A150,150 0 0 1 135.0,80.1 L175.0,149.4 A70,70 0 0 0 145.3,183.2 Z" class="b-teal" stroke-width="1.5"/>
+  <path d="M135.0,80.1 A150,150 0 0 1 316.1,103.9 L259.5,160.5 A70,70 0 0 0 175.0,149.4 Z" class="b-panel" stroke-width="1"/>
+  <g font-size="14" font-weight="700" text-anchor="middle">
+    <text x="318" y="236" class="s-acc">①</text>
+    <text x="271" y="306" class="s-leaf">②</text>
+    <text x="210" y="325" class="s-saf">③</text>
+    <text x="132" y="293" class="s-vio">④</text>
+    <text x="127" y="142" class="s-teal">⑤</text>
+    <text x="301" y="154" class="s-teal">⑤</text>
+  </g>
+  <text x="100" y="214" text-anchor="middle" font-size="11" class="s-mut">夕べ</text>
+  <text x="224" y="106" text-anchor="middle" font-size="12" class="s-mut">睡眠</text>
+  <text x="210" y="205" text-anchor="middle" font-size="13" class="s-ink" font-weight="700">一日</text>
+  <text x="210" y="223" text-anchor="middle" font-size="11.5" class="s-mut">24時間</text>
+  <g font-size="11.5" class="s-mut" text-anchor="middle">
+    <text x="210" y="40">0時</text><text x="330" y="90">3</text><text x="380" y="214">6</text><text x="330" y="338">9</text><text x="210" y="388">12</text><text x="90" y="338">15</text><text x="40" y="214">18</text><text x="90" y="90">21</text>
+  </g>
+  <g font-size="13.5">
+    <rect x="420" y="70" width="14" height="14" class="b-acc" stroke-width="1"/><text x="442" y="82" class="s-ink"><tspan font-weight="700">① abhigamana</tspan> 神に近づく</text>
+    <rect x="420" y="110" width="14" height="14" class="b-leaf" stroke-width="1"/><text x="442" y="122" class="s-ink"><tspan font-weight="700">② upādāna</tspan> 供物を集める</text>
+    <rect x="420" y="150" width="14" height="14" class="b-saf" stroke-width="1"/><text x="442" y="162" class="s-ink"><tspan font-weight="700">③ ijyā</tspan> 礼拝する</text>
+    <rect x="420" y="190" width="14" height="14" class="b-vio" stroke-width="1"/><text x="442" y="202" class="s-ink"><tspan font-weight="700">④ svādhyāya</tspan> 聖典を学ぶ</text>
+    <rect x="420" y="230" width="14" height="14" class="b-teal" stroke-width="1"/><text x="442" y="242" class="s-ink"><tspan font-weight="700">⑤ yoga</tspan> 神を瞑想する</text>
+  </g>
+  <text x="420" y="290" font-size="12" class="s-mut">時計は「上が0時、右回り」。</text>
+  <text x="420" y="308" font-size="12" class="s-mut">時刻の区切りはおおよその目安。</text>
+</svg></div>
+<figcaption><b>図6</b>五時の行を24時間の時計で表したもの。夜明け前(brāhma muhūrta)に起きて ① が始まり、⑤ の瞑想は夕べの後と夜明け前に行います。</figcaption>
+</figure>
+<div class="tbl"><table>
+<thead><tr><th>時</th><th>名前</th><th>すること(『ジャヤーキヤ』による)</th><th>現代の生活にたとえると</th></tr></thead>
+<tbody>
+<tr><th>①</th><td><span class="chip c-acc">abhigamana</span></td><td>夜明け前に起き、念誦・瞑想・礼拝・讃歌で神に近づく。沐浴やサンディヤー(朝の祈り)もここに入る</td><td>起床と身支度、朝のあいさつ</td></tr>
+<tr><th>②</th><td><span class="chip c-leaf">upādāna</span></td><td>礼拝に使う花や果物などを、正しい手段で集める</td><td>食材の買い出し</td></tr>
+<tr><th>③</th><td><span class="chip c-saf">ijyā</span></td><td>八つの部分からなる礼拝(<i>yāga</i>)。最後の部分は自分の食事</td><td>心をこめて料理をふるまう</td></tr>
+<tr><th>④</th><td><span class="chip c-vio">svādhyāya</span></td><td>聖典を聞く・考える・説明する・唱える</td><td>読書と勉強会</td></tr>
+<tr><th>⑤</th><td><span class="chip c-teal">yoga</span></td><td>夕べの礼拝の後と夜明け前に、神を瞑想する</td><td>一日の終わりの振り返り</td></tr>
+</tbody></table></div>
+<p>デーシカは、この五時の行がパーンチャラートラの聖典だけでなく、一般の法典(smṛti)とも食い違わないことを示します。たとえば『ダクシャ法典』は昼を八つに分けて日課を定めますが、デーシカはその八つを五時に割り振れると論じます(第1・2区分 → ①、第3 → ②、第4・5 → ③、第6・7 → ④)。第8区分の世間の用事は、神に専念する人には当てはまらないとしています。</p>
+<div class="hint"><b class="l">完璧でなくてもよい</b>五時の行は本来、途切れずに(<i>acchidra</i>)行うものです。しかし力の及ばない人は、いくつかの時の行をまとめて行ってもかまいません。本の最後の項目は、<b>まとめて行う人も全部行う人と同じ果報を得る</b>と述べています。</div>
+</section>
+
+<section id="s8">
+<h2><span class="q">Q8</span>第2章:神にすべてを委ねた人も、日課を続けるべき?</h2>
+<p>ラーマーヌジャの学派では、神にすべてを委ねる<b>帰依(<i>prapatti</i>)</b>が解脱の手段として重視されます。そこで、「すべてを委ねた人(<i>prapanna</i>)に、まだ五時の行は必要なのか」という疑問が生まれます。デーシカはこれを反論と定説の形で論じます。</p>
+<div class="vs">
+  <div class="card l"><h4>反論</h4><ul><li>帰依だけで解脱できる</li><li>だから、帰依した人は五時の行をやめてよい</li></ul></div>
+  <div class="mid">vs</div>
+  <div class="card r"><h4>デーシカの答え</h4><ul>
+    <li>五時の行は解脱のための手段ではなく、<b>神への奉仕(<i>kaiṅkarya</i>)そのもの</b>。それ自体が目的である</li>
+    <li>ラーマーヌジャ自身が、帰依を説いた後に礼拝の手引き(<i>Nityagrantha</i>)を書いている</li>
+    <li>ラーマーヌジャの弟子筋の日課書も、みな五時の枠組みに従う</li>
+  </ul></div>
+</div>
+<div class="hint"><b class="l">たとえるなら</b>入学が決まった学生が、もう試験がないからといって大学に通わなくなるわけではありません。好きな先生の授業に出るのは、点数のためではなく、そこに通うこと自体に意味があるからです。デーシカにとって帰依後の日課は、このような「報酬目当てでない奉仕」です。</div>
+</section>
+
+<section id="s9">
+<h2><span class="q">Q9</span>第3章:朝から夜までの手引きには何が書いてある?</h2>
+<p>第3章はラーマーヌジャの礼拝の手引き『ニティヤグランタ』に沿って、五時の行を一つずつ細かく説明します。ほかの聖典や法典の規定も、どの時に行うかを割り振っていきます。</p>
+<figure>
+<div class="scroll"><svg viewBox="0 0 800 150" role="img" aria-label="第3章の頁配分。abhigamana 46頁、upādāna 11頁、ijyā 10頁(途中で欠落)、svādhyāya 11頁、yoga 9頁、まとめ15頁。" style="min-width:640px">
+  <!-- 102 pages -> 760 px: 7.45 per page -->
+  <rect x="20" y="30" width="343" height="44" class="b-acc" stroke-width="1"/>
+  <rect x="363" y="30" width="82" height="44" class="b-leaf" stroke-width="1"/>
+  <rect x="445" y="30" width="75" height="44" class="b-saf" stroke-width="1"/>
+  <rect x="520" y="30" width="82" height="44" class="b-vio" stroke-width="1"/>
+  <rect x="602" y="30" width="67" height="44" class="b-teal" stroke-width="1"/>
+  <rect x="669" y="30" width="111" height="44" class="b-gray" stroke-width="1"/>
+  <g font-size="13" text-anchor="middle" font-weight="700">
+    <text x="191" y="57" class="s-acc">① abhigamana 46頁</text>
+    <text x="404" y="57" class="s-leaf">② 11頁</text>
+    <text x="482" y="57" class="s-saf">③ 10頁</text>
+    <text x="561" y="57" class="s-vio">④ 11頁</text>
+    <text x="635" y="57" class="s-teal">⑤ 9頁</text>
+    <text x="724" y="57" class="s-mut">まとめ 15頁</text>
+  </g>
+  <line x1="520" y1="18" x2="520" y2="86" class="ln-warn" stroke-width="2.4" stroke-dasharray="4 3"/>
+  <text x="520" y="104" text-anchor="middle" font-size="12.5" class="s-warn" font-weight="700">ここで本文が途切れている(§10)</text>
+  <text x="20" y="134" font-size="12" class="s-mut">朝の部分(①)がとても詳しく、全体の半分近くを占めます。</text>
+</svg></div>
+<figcaption><b>図7</b>第3章の頁の配分。</figcaption>
+</figure>
+<div class="tbl"><table>
+<thead><tr><th>時</th><th>第3章で扱う主な話題</th></tr></thead>
+<tbody>
+<tr><th><span class="chip c-acc">①</span></th><td>夜明け前に起きることの功徳、起床後の瞑想、神の名を唱える、師から続く系譜への帰依、沐浴の作法、朝の祈り(サンディヤー)、八音節のマントラの念誦、寺院での礼拝の仕方、<b>寺院でしてはいけない32の行為</b></td></tr>
+<tr><th><span class="chip c-leaf">②</span></th><td>供えてよい物とよくない物、使ってよい花と避けるべき花、布施を受け取るときの決まり</td></tr>
+<tr><th><span class="chip c-saf">③</span></th><td>「神にのみ専心する人」(<i>paramaikāntin</i>)とは誰か、他の神々を拝まないこと、礼拝の資格(この後、本文が失われている)</td></tr>
+<tr><th><span class="chip c-vio">④</span></th><td>聖典学習の作法、学習中でも師が来たら敬う、夕べの祈り</td></tr>
+<tr><th><span class="chip c-teal">⑤</span></th><td>瞑想の方法、ラーマーヌジャの三つの散文讃歌(<i>Gadyatraya</i>)の使い方、帰依した人の瞑想は寺院の神像を思い浮かべるのが中心、睡眠も神への奉仕</td></tr>
+<tr><th><span class="chip c-gray">まとめ</span></th><td>五時に専念する人の営みはすべて奉仕、喪中でも神の名は唱えてよい、礼拝に欠けがあっても罪にならない、内なる心の「花」が最も大切</td></tr>
+</tbody></table></div>
+<h3>寺院でしてはいけないこと(抜粋)</h3>
+<p>『ヴァラーハ・プラーナ』から引かれる32の不敬行為(<i>apacāra</i>)の一部です。今の私たちが寺社を訪れるときのマナーにも通じるものがあります。</p>
+<div class="tbl"><table>
+<thead><tr><th>してはいけないこと</th><th>聖典が語る報い</th></tr></thead>
+<tbody>
+<tr><td>履物のまま、体に油を塗ったまま入る</td><td>3回、番犬に生まれ変わる</td></tr>
+<tr><td>噛んだキンマを吐き捨てる、唾を吐く</td><td>長い地獄の後、犬や木に生まれ変わる</td></tr>
+<tr><td>灯明を外へ持ち出す</td><td>14回、目の見えない者に生まれる</td></tr>
+<tr><td>説法の最中に立ち去る</td><td>5回、耳と口の不自由な者に生まれる</td></tr>
+<tr><td>神前で足を伸ばして寝る</td><td>水のない森の枯れ木になる</td></tr>
+</tbody></table></div>
+</section>
+
+<section id="s10">
+<h2><span class="q">Q10</span>失われた一節:いちばん大事な部分がない?</h2>
+<p>この本には不思議な点があります。第3章の ③ 礼拝(<i>ijyā</i>)の説明が、途中で突然途切れているのです。1942年版の校訂者は貝葉(ヤシの葉)の写本6点と刊本5点を集めましたが、<b>すべてが同じ箇所で途切れていました</b>。</p>
+<figure>
+<div class="scroll"><svg viewBox="0 0 760 170" role="img" aria-label="写本と刊本11点すべてが同じ箇所で途切れていることを示す図。" style="min-width:600px">
+  <g font-size="12" class="s-ink">
+    <text x="20" y="30">貝葉写本 6点</text>
+    <text x="20" y="108">刊本 5点</text>
+  </g>
+  <g stroke-width="1">
+    <rect x="140" y="16" width="250" height="18" rx="3" class="b-saf"/><rect x="430" y="16" width="200" height="18" rx="3" class="b-saf"/>
+    <rect x="140" y="40" width="250" height="18" rx="3" class="b-saf"/><rect x="430" y="40" width="200" height="18" rx="3" class="b-saf"/>
+    <rect x="140" y="64" width="250" height="18" rx="3" class="b-saf"/><rect x="430" y="64" width="200" height="18" rx="3" class="b-saf"/>
+    <rect x="140" y="96" width="250" height="18" rx="3" class="b-acc"/><rect x="430" y="96" width="200" height="18" rx="3" class="b-acc"/>
+    <rect x="140" y="120" width="250" height="18" rx="3" class="b-acc"/><rect x="430" y="120" width="200" height="18" rx="3" class="b-acc"/>
+  </g>
+  <rect x="392" y="8" width="36" height="136" rx="3" class="b-warn" stroke-width="1.5" stroke-dasharray="4 3"/>
+  <text x="410" y="162" text-anchor="middle" font-size="12.5" class="s-warn" font-weight="700">同じ箇所で欠落</text>
+  <text x="660" y="50" font-size="12" class="s-mut">→ ④ 聖典学習へ</text>
+  <text x="140" y="162" font-size="12" class="s-mut">… ③ 礼拝の説明</text>
+</svg></div>
+<figcaption><b>図8</b>欠落のイメージ(写本・刊本の点数は概念的に示したもの)。どれだけの分量が失われたかは分かっていません。</figcaption>
+</figure>
+<p>すべての写本が同じ所で切れているということは、現存する写本がどれも<b>同じ一つの欠けた祖本</b>から写された可能性を示しています。肝心の礼拝の具体的な手順が読めないのは残念ですが、この欠落そのものが、写本がどのように伝わってきたかを考える手がかりになります。</p>
+</section>
+
+<section id="s11">
+<h2><span class="q">Q11</span>用語ミニ辞典</h2>
+<dl class="gl">
+  <dt>パーンチャラートラ<span>Pāñcarātra</span></dt><dd>ヴィシュヌ神を祀るアーガマ聖典群とその伝統</dd>
+  <dt>アーガマ<span>Āgama</span></dt><dd>寺院礼拝や入門儀礼を定める聖典。ヴェーダと並ぶもう一つの聖典の流れ</dd>
+  <dt>シッダーンタ<span>siddhānta</span></dt><dd>この本では、パーンチャラートラ内部の四つの流派</dd>
+  <dt>混淆<span>saṅkara</span></dt><dd>流派の規定を混ぜること。贖罪が必要とされる</dd>
+  <dt>自ら現れた聖地<span>svayaṃvyakta</span></dt><dd>神が自ら姿を現したとされる特別な聖地</dd>
+  <dt>五時の行<span>pañcakāla</span></dt><dd>一日を五つに分けて神に仕える日課</dd>
+  <dt>帰依<span>prapatti</span></dt><dd>自分を神に完全に委ねること。帰依した人を prapanna と呼ぶ</dd>
+  <dt>奉仕<span>kaiṅkarya</span></dt><dd>報酬を求めない、神への仕え。五時の行の本質</dd>
+  <dt>神にのみ専心する人<span>paramaikāntin</span></dt><dd>目的としても手段としても、神だけを頼る人</dd>
+  <dt>不敬行為<span>apacāra</span></dt><dd>寺院でしてはいけない行い</dd>
+  <dt>ニティヤグランタ<span>Nityagrantha</span></dt><dd>ラーマーヌジャに帰される日々の礼拝の手引き。第3章が注解する</dd>
+</dl>
+</section>
+
+<section id="s12">
+<h2><span class="q">Q12</span>確認問題と考えてみよう</h2>
+<p>クリックすると答えが開きます。</p>
+<details class="qz"><summary>問1 本の題名の「ラクシャー(rakṣā)」は何を意味し、著者は本の最後で何の護りだと言っていますか。</summary><p>「護り」。本の最後で著者は、この本を「五時の行(pañcakāla)の護り」と呼んでいます。</p></details>
+<details class="qz"><summary>問2 パーンチャラートラの四つの流派を挙げてください。</summary><p>Āgama、Mantra、Tantra、Tantrāntara の四つ(siddhānta)。</p></details>
+<details class="qz"><summary>問3 上の流派で入門した人が下の流派の寺院で祀るとき、どの流儀に従いますか。</summary><p>その寺院の(下の流派の)流儀に従います。逆に、下の流派の人が上の流派の寺院で祀ることはできません。</p></details>
+<details class="qz"><summary>問4 五時の行を順に挙げ、それぞれ一言で説明してください。</summary><p>① abhigamana(神に近づく)② upādāna(供物を集める)③ ijyā(礼拝)④ svādhyāya(聖典学習)⑤ yoga(瞑想)。</p></details>
+<details class="qz"><summary>問5 「帰依した人は五時の行をやめてよい」という反論に、デーシカはどう答えましたか。</summary><p>五時の行は解脱のための手段ではなく、それ自体が目的である神への奉仕だから、帰依した人も続けるべきだと答えました。ラーマーヌジャ自身の著作も根拠に挙げています。</p></details>
+<details class="qz"><summary>問6 すべての写本が同じ箇所で途切れていることから、何が推測できますか。</summary><p>現存する写本がどれも、同じ一つの欠けた写本(祖本)から伝わってきた可能性です。</p></details>
+<div class="hint"><b class="l">考えてみよう(レポートのヒント)</b><ul style="margin:4px 0 0;padding-left:1.2em">
+<li>デーシカは「伝統を混ぜるな」と強く主張しました。日本の宗教や芸道(茶道の流派、能の流儀など)にも似た考え方はあるでしょうか。</li>
+<li>「すべてを委ねたあとでも続ける日課」という発想は、目的と手段の関係について何を教えてくれるでしょうか。</li>
+<li>デーシカは「完璧にできなくても果報は同じ」とも言います。厳しい規則と寛容さは、この本の中でどう両立しているでしょうか。</li>
+</ul></div>
+</section>
+
+<footer>資料:<i>Śrī Pāñcarātra Rakṣā of Śrī Vedānta Deśika</i>, ed. M. Duraiswami Aiyangar & T. Venugopalacharya, Adyar Library Series 36, 1942。たとえ話と図は理解のための単純化を含みます。詳しくは<a href="pancaratraraksa_kadan.html">専門家向けの科段と解説</a>を参照してください。</footer>
+</main>
+</body>
+</html>
