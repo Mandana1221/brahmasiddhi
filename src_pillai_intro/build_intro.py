@@ -426,6 +426,8 @@ A(box("<b>本サイトの関連ページ</b><ul style='margin:6px 0 0;padding-le
   "<li><a href='mumukshuppadi_kadan.html'>『ムムクシュッパディ』科段・和訳・図解</a></li>"
   "<li><a href='srivacanabhusanam_kadan.html'>『シュリーヴァチャナブーシャナム』科段・和訳・図解</a></li>"
   "<li><a href='tattvatraya_kadan.html'>『タットヴァトラヤ』科段・和訳・図解</a>（魂・物質・神の三つの実在を論じた著作。「世界の見方」の節を詳しく知りたい人へ）</li>"
+  "<li><a href='mumukshuppadi_nyumon.html'>『ムムクシュッパディ』入門</a>（大学1年生向け。三つの秘密の句を図表で解説）</li>"
+  "<li><a href='srivacanabhusanam_nyumon.html'>『シュリーヴァチャナブーシャナム』入門</a>（大学1年生向け。六つの主題を図表で解説）</li>"
   "<li><a href='tattvatraya_nyumon.html'>『タットヴァトラヤ』入門</a>（大学1年生向け。三つの実在の世界観を図表で解説）</li>"
   "<li><a href='rahasyatrayasara_kadan.html'>ヴェーダーンタ・デーシカ『ラハスヤトラヤサーラ』科段と詳解</a>（北派の立場から三つの秘密を論じた主著）</li>"
   "</ul>"

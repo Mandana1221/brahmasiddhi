@@ -416,8 +416,8 @@ A(fig("用語集",
 A(box("<b>本サイトの関連ページ</b><ul style='margin:6px 0 0;padding-left:20px'>"
   "<li><a href='tattvatraya_kadan.html'>『タットヴァトラヤ』科段・和訳・図解</a>（全202節の和訳。このページの節番号ボタンから移動できます）</li>"
   "<li><a href='pillai_lokacarya_nyumon.html'>ピッライ・ローカーチャーリヤの宗教思想入門</a></li>"
-  "<li><a href='mumukshuppadi_kadan.html'>『ムムクシュッパディ』科段・和訳・図解</a></li>"
-  "<li><a href='srivacanabhusanam_kadan.html'>『シュリーヴァチャナブーシャナム』科段・和訳・図解</a></li>"
+  "<li><a href='mumukshuppadi_nyumon.html'>『ムムクシュッパディ』入門</a>・<a href='mumukshuppadi_kadan.html'>科段・和訳・図解</a></li>"
+  "<li><a href='srivacanabhusanam_nyumon.html'>『シュリーヴァチャナブーシャナム』入門</a>・<a href='srivacanabhusanam_kadan.html'>科段・和訳・図解</a></li>"
   "</ul><p class='note' style='margin-top:8px'>このページの引用は本サイトの和訳（1927年刊テルグ文字版の OCR に基づく試訳）によります。他の思想との比較は、入門のために大きく単純化しています。</p>"))
 
 toc = "".join(f'<li><a href="#{a}">{t}</a></li>' for a, t in TOC)

@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="iast-fonts.css">
+<title>シュリーヴァチャナブーシャナム入門</title>
+<style>
+  :root{
+    --ink:#1f2328; --sub:#5b6370; --line:#d9dde3; --bg:#fbfaf7; --card:#ffffff;
+    --accent:#8a4b12; --accent-bg:#fdf3e1; --l1:#2d3748; --l2:#4a5568;
+    --gray-bg:#f1f2f4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+      --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+    --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'IAST Sans',"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    line-height:1.85;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+  header.hero{background:linear-gradient(135deg,#2d3748,#4a5568);color:#fff;border-radius:16px;padding:26px 22px;margin-bottom:28px}
+  .hero .kicker{font-size:13px;letter-spacing:.08em;opacity:.8}
+  .hero h1{font-size:25px;line-height:1.4;margin:6px 0 10px}
+  .hero p{margin:0;opacity:.92;font-size:14.5px}
+  h2{font-size:21px;margin:44px 0 14px;padding-bottom:6px;border-bottom:3px solid var(--ink)}
+  h3{font-size:17px;margin:26px 0 10px}
+  p{margin:10px 0}
+  i, .iast{font-style:italic}
+  .note{font-size:13.5px;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0}
+  .toc a{color:var(--ink)}
+  .toc ol{margin:6px 0;padding-left:22px}
+
+  /* 科段 */
+  .kd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin:14px 0}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;
+    padding:5px 14px;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);white-space:nowrap}
+  .row .t{min-width:0}
+  .row .s{font-variant-numeric:tabular-nums;color:var(--sub);font-size:13.5px;white-space:nowrap}
+  .row .s::before{content:"§ "}
+  .lv1{background:var(--l1);color:#fff;font-size:17px;font-weight:700;border-bottom:none}
+  .lv1 .n,.lv1 .s{color:#fff}
+  .lv2{background:var(--accent-bg);font-weight:700}
+  .lv3{padding-left:34px}
+  .lv4{padding-left:58px;font-size:15px}
+  .lv5{padding-left:82px;font-size:14.5px}
+  .gloss{display:block;font-size:13px;color:var(--sub);font-weight:400}
+  .pending{color:var(--sub);font-style:normal;font-size:13.5px}
+
+  /* 解説 */
+  .sutra{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:12px 16px;margin:16px 0}
+  .sutra .hd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:4px}
+  .sutra .no{font-weight:700;font-size:17px;color:var(--accent)}
+  .sutra .ref{font-size:12.5px;color:var(--sub);background:var(--gray-bg);border-radius:999px;padding:0 9px}
+  .sutra .tr{font-size:16.5px;margin:4px 0 8px}
+  .sutra .ex{font-size:15px;border-top:1px dashed var(--line);padding-top:8px}
+  .sutra .ex p{margin:6px 0}
+  ul{padding-left:22px;margin:6px 0}
+  body{counter-reset:fig}
+  :root{--good:#2f855a;--good-bg:#e6f4ec;--bad:#c53030;--bad-bg:#fdeaea}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}}
+  :root[data-theme="dark"]{--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}
+  .fig{counter-increment:fig;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:22px 0}
+  .fig figcaption{font-weight:700;margin-bottom:10px;font-size:15.5px}
+  .fig figcaption::before{content:"図" counter(fig) "　";color:var(--accent)}
+  .cap2{font-size:13.5px;color:var(--sub);margin-top:10px;line-height:1.7}
+  .tscroll{overflow-x:auto}
+  table.t{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.6}
+  .t th,.t td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+  .t th{background:var(--gray-bg);white-space:nowrap}
+  .t tr.grp td{background:var(--accent-bg);font-weight:700;color:var(--accent)}
+  .good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+  .flow{display:flex;align-items:stretch}
+  .node{flex:1 1 0;min-width:0;background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;padding:9px 10px;text-align:center;font-size:14px;line-height:1.6}
+  .node b{display:block;font-size:15px;margin-bottom:2px}
+  .node.plain{background:var(--card);border-color:var(--line)}
+  .node.good{background:var(--good-bg);border-color:var(--good);color:var(--ink);font-weight:400}
+  .node.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink);font-weight:400}
+  .node .sm{display:block;font-size:12.5px;color:var(--sub);margin-top:4px}
+  .node .sep{display:block;border-top:1px dashed var(--line);margin:7px 0}
+  .arr{flex:0 0 28px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-weight:700;font-size:20px}
+  .arr.lbl{flex:0 0 96px;flex-direction:column;font-size:12px;font-weight:400;line-height:1.35;text-align:center;padding:0 4px}
+  .arr.lbl .ac{font-size:20px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .res{margin-top:12px;border:2px dashed var(--accent);border-radius:10px;padding:8px 12px;text-align:center;font-weight:700}
+  .tree ul{list-style:none;margin:0;padding-left:20px}
+  .tree>ul{padding-left:0}
+  .tree li{position:relative;padding:5px 0 5px 18px}
+  .tree>ul>li{padding-left:0}
+  .tree ul ul>li::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
+  .tree ul ul>li::after{content:"";position:absolute;left:0;top:20px;width:14px;border-top:2px solid var(--line)}
+  .tree ul ul>li:last-child::before{bottom:auto;height:20px}
+  .tree .box{display:inline-block;border:1.5px solid var(--line);border-radius:8px;padding:3px 10px;background:var(--card);font-size:14.5px}
+  .tree .box.hl{border-color:var(--accent);background:var(--accent-bg);font-weight:700}
+  @media (max-width:640px){
+    .flow{flex-direction:column}
+    .arr{flex-basis:26px}.arr .ac{display:inline-block;transform:rotate(90deg)}
+    .arr.lbl{flex-direction:row;gap:8px;flex-basis:auto;padding:4px 0}
+    .grid2,.grid3{grid-template-columns:1fr}
+    table.t{font-size:13.5px}.t th{white-space:normal}.t th,.t td{padding:6px 7px}
+  }
+
+  #exp ~ h3{border-left:4px solid var(--accent);padding-left:10px;margin-top:34px}
+  .h3n{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+  .chk{font-size:12px;font-weight:700;color:#b7791f;border:1px solid #b7791f;border-radius:999px;padding:0 8px}
+
+  @media (max-width:640px){
+    .hero h1{font-size:21px}
+    .row{grid-template-columns:auto 1fr;padding:5px 10px}
+    .row .s{grid-column:2;font-size:12.5px}
+    .lv3{padding-left:18px}.lv4{padding-left:28px}.lv5{padding-left:38px}
+  }
+
+  .edmark{margin:26px 0 6px;font-size:13px;color:var(--sub);border-top:2px dotted var(--line);padding-top:6px}
+  .edmark b{color:var(--accent)}
+  .kd .row .t i{font-style:italic}
+
+  .key{background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px;padding:12px 16px;margin:18px 0}
+  .key .lbl{font-weight:700;color:var(--accent);font-size:14px;margin-bottom:4px}
+  a.src{font-size:12.5px;white-space:nowrap;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:0 7px;margin:0 2px}
+  a.src:hover{background:var(--accent-bg)}
+  h2 .num{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;padding:0 9px;margin-right:8px;font-size:16px}
+  .q li{margin:8px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">大学1年生のための宗教思想入門</div>
+  <h1>『シュリーヴァチャナブーシャナム』入門<br><span style="font-size:.7em">六つの主題で読む、救いの書</span></h1>
+  <p>ピッライ・ローカーチャーリヤの主著を、本書に伝わる六つの主題に沿って、図と表でわかりやすく紹介します。</p>
+  <p style="margin-top:8px"><a href="index.html" style="color:#fff">← 原典研究の書庫（リンク集）へ</a></p>
+</header>
+<nav class="card toc"><b>目次</b><ol start="0"><li><a href="#intro">はじめに：どんな本か</a></li><li><a href="#map">全体の地図：六つの主題</a></li><li><a href="#t1">主題1 とりなし役の女神</a></li><li><a href="#t2">主題2 神にすがるという手段</a></li><li><a href="#t3a">主題3（前半）すがった人の心構え</a></li><li><a href="#t3b">主題3（後半）信者を敬い、神に仕える</a></li><li><a href="#t4">主題4 よい師に仕える</a></li><li><a href="#t5">主題5 神の理由なき慈悲</a></li><li><a href="#t6">主題6 最後の拠り所は師</a></li><li><a href="#quotes">名句で読む</a></li><li><a href="#compare">他の宗教と比べると</a></li><li><a href="#think">考えてみよう</a></li><li><a href="#glossary">用語集と関連ページ</a></li></ol></nav>
+<h2 id="intro"><span class="num">0</span>はじめに：どんな本か</h2>
+<p>『シュリーヴァチャナブーシャナム』（<i>Śrīvacanabhūṣaṇam</i>）は、13〜14世紀の南インドの思想家ピッライ・ローカーチャーリヤ（<i>Piḷḷai Lokācārya</i>）の主著です。書名は「聖なる言葉の装身具」という意味です。先人たちの言葉という宝石を、首飾りのように連ねた本、という意味がこめられています。</p>
+<p>本書は、ヒンドゥー教ヴィシュヌ派の一派シュリーヴァイシュナヴァ派で、とくに南派（<i>Teṉkalai</i>）の人々にとって最も大切な書物の一つです。タミル語にサンスクリット語を混ぜた <i>maṇipravāla</i> という文体で、463の短い文（<i>sūtra</i>）からできています。</p>
+<figure class="fig">
+  <figcaption>ピッライ・ローカーチャーリヤの三つの著作</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>著作</th><th>節</th><th>扱うこと</th><th>このサイトのページ</th></tr></thead><tbody><tr><td>タットヴァトラヤ</td><td>202</td><td>世界観：魂・物質・神</td><td><a href="tattvatraya_nyumon.html">入門</a>・<a href="tattvatraya_kadan.html">和訳</a></td></tr><tr><td>ムムクシュッパディ</td><td>289</td><td>三つの秘密の句（<i>mantra</i>）の解説</td><td><a href="mumukshuppadi_kadan.html">和訳</a></td></tr><tr><td><b>シュリーヴァチャナブーシャナム</b></td><td><b>463</b></td><td><b>救いの教えの詳しい議論</b></td><td><b>このページ</b>・<a href="srivacanabhusanam_kadan.html">和訳</a></td></tr></tbody></table></div>
+  <div class="cap2">三著作をまとめた思想の入門は「<a href="pillai_lokacarya_nyumon.html">ピッライ・ローカーチャーリヤの宗教思想入門</a>」にあります。このページは、とくに本書の中身を順を追って紹介します。</div>
+</figure>
+<div class="key"><div class="lbl">このページの要点（先に結論）</div><ol style='margin:4px 0 0;padding-left:20px'><li>人は女神のとりなしを通して神にすがる。罪や欠点は、むしろ受け入れられる理由になる。</li><li>神にすがることには、場所・時・身分の制約がない。しかも、すがることさえ救いの手段ではない。救いの手段は神の思いだけ。</li><li>すがった人は、自分の力で善を求めず、神の信者を生まれで判断せず、神と師に喜んで仕える。</li><li>神は、人が気づかないうちに救いの口実をこしらえてくれる。</li><li>最後の、そして最も確かな拠り所は、師が弟子を「自分のもの」として引き受けてくれること。</li></ol></div>
+<h2 id="map"><span class="num">1</span>全体の地図：六つの主題</h2>
+<p>本書には、内容を六つの主題で要約した古い讃歌（<i>taniyan</i>）が伝わっています。この六つが、本書を読むときのいちばんよい地図になります。</p>
+<figure class="fig">
+  <figcaption>六つの主題</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>主題</th><th>ひとことで</th><th>節</th></tr></thead><tbody><tr><td>1</td><td>とりなし役の偉大さ（<i>puruṣakāra-vaibhava</i>）</td><td>女神が神と人の間に立つ</td><td>§1–22</td></tr><tr><td>2</td><td>手段の偉大さ（<i>upāya-vaibhava</i>）</td><td>誰でも、いつでも、神にすがれる</td><td>§23–79</td></tr><tr><td>3</td><td>資格者のあり方（<i>adhikāri-kṛtya</i>）</td><td>すがった人はどう生きるか</td><td>§80–307</td></tr><tr><td>4</td><td>よい師に仕えること（<i>sadguru-upasevana</i>）</td><td>師と弟子の関係</td><td>§308–380</td></tr><tr><td>5</td><td>神の理由なき慈悲（<i>nirhetuka-kṛpā</i>）</td><td>救いの理由はすべて神の側にある</td><td>§381–407</td></tr><tr><td>6</td><td>師の庇護（<i>ācārya-abhimāna</i>）</td><td>最後の拠り所は師</td><td>§408–463</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>六つの主題の流れ</figcaption>
+<div class="flow"><div class="node "><b>1 誰を通して</b>女神</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>2 誰に</b>神（神像）</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>3–4 どう生きるか</b>信者と師を敬い、仕える</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>5 なぜ救われるか</b>神の慈悲</div><div class="arr"><span class="ac">→</span></div><div class="node good"><b>6 最後の拠り所</b>師</div></div>
+</figure>
+<h2 id="t1"><span class="num">2</span>主題1 とりなし役の女神（§1–22）</h2>
+<p>本書は、意外にも聖典の順位の話から始まります。ヴェーダ（最古の聖典）の意味は、叙事詩などの補助的な聖典で確定される。そして二大叙事詩について、本書は次のように言います。</p>
+<div class="key"><div class="lbl">本書の出発点</div>「『ラーマーヤナ』は囚われの身となった方（シーター）の偉大さを説く。『マハーバーラタ』は使者として出向いた方（クリシュナ）の偉大さを説く」<a class="src" href="srivacanabhusanam_kadan.html#s5">§5</a><br>「この二つによって、とりなし役の偉大さと手段の偉大さが説かれた」<a class="src" href="srivacanabhusanam_kadan.html#s6">§6</a></div>
+<p>シーターは神ラーマの妃で、女神ラクシュミーの化身です。本書は、彼女が神と人との間をとりなす「とりなし役」（<i>puruṣakāra</i>）だと説きます。とりなし役には、慈悲・神に従う心・神以外のものにならないこと、の三つが必要で、シーターは三度の別離を通してそれを示した、とされます<a class="src" href="srivacanabhusanam_kadan.html#s7">§7</a><a class="src" href="srivacanabhusanam_kadan.html#s8">§8</a>。</p>
+<figure class="fig">
+  <figcaption>シーターの三度の別離（§7–8）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>別離</th><th>場面（伝統的な理解）</th><th>示した資質</th></tr></thead><tbody><tr><td>最初</td><td>魔王ラーヴァナにさらわれた</td><td>慈悲：自分を脅した鬼女たちまでかばった</td></tr><tr><td>中ほど</td><td>ラーマの命で森に送られた</td><td>神に従う心：黙って従った</td></tr><tr><td>最後</td><td>大地に帰った</td><td>神以外の誰のものにもならないこと</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>とりなし役の働き方（§9–13）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>神と一緒にいる時</th><th>神と離れている時</th></tr></thead><tbody><tr><td>働きかける相手</td><td>神</td><td>人</td></tr><tr><td>まず使うもの</td><td>教え</td><td>教え</td></tr><tr><td>教えで足りない時</td><td>自分の美しさで神の心を和らげる</td><td>自分の慈悲で人の心を変える</td></tr></tbody></table></div>
+</figure>
+<div class="key"><div class="lbl">本書で最も有名な考え</div>「とりなし役と手段の偉大さとは、罪や徳の欠如を見ても見捨てない、というだけでなく、それらそのものを、受け入れるための『引き出物』にしてしまうことである」<a class="src" href="srivacanabhusanam_kadan.html#s15">§15</a></div>
+<figure class="fig">
+  <figcaption>罪や欠点をどう考えるか（§15–17）</figcaption>
+<div class="grid3"><div class="node good"><b>正しい考え</b>罪や欠点があるからこそ、神と女神は哀れんで受け入れる</div><div class="node bad"><b>誤り①</b>「まず罪を消してから」<span class='sm'>→ 神の慈悲を疑うことになる</span></div><div class="node bad"><b>誤り②</b>「もう罪は消えた」<span class='sm'>→ 高慢という新たな罪</span></div></div>
+</figure>
+<figure class="fig">
+  <figcaption>欠点がある者が救われた例（§18–22）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>人物</th><th>欠点</th><th>それでも</th></tr></thead><tbody><tr><td>鬼女たち</td><td>シーターを脅し続けた</td><td>シーターがハヌマーンからかばった</td></tr><tr><td>アルジュナ</td><td>親族への愛着・憐れみ・殺す恐れ（クリシュナの教えに逆らった）</td><td>クリシュナはそれをきっかけに『ギーター』を説いた</td></tr><tr><td>パーンダヴァ兄弟</td><td>妻ドラウパディーが辱められるのを黙って見ていた</td><td>ドラウパディーのために生かされた</td></tr></tbody></table></div>
+</figure>
+<h2 id="t2"><span class="num">3</span>主題2 神にすがるという手段（§23–79）</h2>
+<p>救いの手段は、神にすがること（<i>prapatti</i>、帰依）です。本書はまず、これには宗教儀式のような制約が一切ないことを強調します。</p>
+<figure class="fig">
+  <figcaption>祭式と、神にすがること（§23–33）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>制約</th><th>祭式（ヴェーダの儀式）</th><th>神にすがること</th></tr></thead><tbody><tr><td>場所</td><td>聖地でなければならない</td><td>どこでもよい</td></tr><tr><td>時</td><td>定められた季節</td><td>いつでもよい</td></tr><tr><td>方法</td><td>作法どおりに</td><td>清らかでも汚れていてもよい</td></tr><tr><td>資格</td><td>上位の身分の男性</td><td>誰でもよい</td></tr><tr><td>結果</td><td>定められた果報</td><td>何を願ってもよい</td></tr><tr><td>対象</td><td>—</td><td><b>ただ一つ：徳の満ちた神（とくに寺院の神像）</b></td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>すがった人々と、得たもの（§32–33）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>すがった者</th><th>どんな者か</th><th>得たもの</th></tr></thead><tbody><tr><td>ドラウパディー</td><td>王妃（沐浴もしていなかった）</td><td>衣</td></tr><tr><td>鴉</td><td>鳥（しかも罪を犯した）</td><td>命</td></tr><tr><td>カーリヤ</td><td>毒蛇</td><td>命</td></tr><tr><td>ガジェーンドラ</td><td>象</td><td>奉仕</td></tr><tr><td>ヴィビーシャナ</td><td>敵方の魔族</td><td>ラーマのもとへ行くこと</td></tr><tr><td>ラーマ自身</td><td>神の化身（海の神にすがった）</td><td>海を渡ること</td></tr></tbody></table></div>
+  <div class="cap2">身分も種族も、願いの中身も問わない、ということの例証です。</div>
+</figure>
+<p>すがる相手は、寺院の神像（<i>arcā</i>）としての神です。なぜでしょうか。本書は、神の五つの現れ方を水にたとえます<a class="src" href="srivacanabhusanam_kadan.html#s39">§39</a>。</p>
+<figure class="fig">
+  <figcaption>神の五つの現れ方と水のたとえ（§39）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>現れ方</th><th>たとえ</th><th>渇いた人がすぐ飲めるか</th></tr></thead><tbody><tr><td>心に宿る神</td><td>地中の水</td><td>×</td></tr><tr><td>天界の神</td><td>世界を囲む海の水</td><td>×</td></tr><tr><td>神の分身</td><td>乳の海</td><td>×</td></tr><tr><td>神の化身（ラーマ・クリシュナ）</td><td>増水した川</td><td>△（その時代の人だけ）</td></tr><tr><td><b>寺院の神像</b></td><td><b>川の水がたまった池</b></td><td><b>◎ いつでも誰でも</b></td></tr></tbody></table></div>
+  <div class="cap2">「飲めるか」の欄は、たとえの意味を補ったものです。</div>
+</figure>
+<figure class="fig">
+  <figcaption>神にすがる三種類の人（§41–44）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>すがる理由</th><th>代表する人々</th></tr></thead><tbody><tr><td>無知だから（他の修行ができない）</td><td>私たちのような普通の人</td></tr><tr><td>知があふれているから（他の道が不要と知る）</td><td>先代の師たち</td></tr><tr><td>神への愛に圧倒されて（他の修行が手につかない）</td><td>詩人聖者 <i>Āḻvār</i> たち</td></tr></tbody></table></div>
+</figure>
+<h3>すがることさえ、救いの手段ではない</h3>
+<p>ここで本書は、驚くべき主張をします。すがることそのものも、救いの「手段」ではない、と言うのです<a class="src" href="srivacanabhusanam_kadan.html#s55">§55</a>。救いの本当の手段は、神の思いだけです。</p>
+<div class="key"><div class="lbl">主の思いこそ手段</div>「『あなたの心で、私を思っていてくださった』という句のとおり、到達の手段は、神の思いである。その思いはいつもある。それが実るのは、この者の思いが止んだときである」<a class="src" href="srivacanabhusanam_kadan.html#s66">§66</a><a class="src" href="srivacanabhusanam_kadan.html#s67">§67</a><a class="src" href="srivacanabhusanam_kadan.html#s68">§68</a><br>「到達する者も、到達させる者も、到達を喜ぶ者も、神ご自身である」<a class="src" href="srivacanabhusanam_kadan.html#s70">§70</a></div>
+<p>では、なぜすがるのでしょうか。すがることは、神の救いを「拒んでいない」ことの表れであり、「守られることへの同意」にすぎない、と本書は説明します<a class="src" href="srivacanabhusanam_kadan.html#s60">§60</a><a class="src" href="srivacanabhusanam_kadan.html#s63">§63</a>。また、別の箇所では「息子が父から証文を受け取るようなもの」とも言います<a class="src" href="srivacanabhusanam_kadan.html#s54">§54</a>。父の財産はもともと息子のものになるのに、念のため証文をもらう――すがることも、そのような形式にすぎない、という意味です。</p>
+<div class="key"><div class="lbl">人間の本質</div>「自己にとっては、知と歓喜さえ外側の特徴にすぎない、と言えるほどに、<i>dāsya</i>（従者であること）こそが内なる本質である」<a class="src" href="srivacanabhusanam_kadan.html#s73">§73</a><br>「我執という埃を払えば、自己の消えない名は『しもべ』である」<a class="src" href="srivacanabhusanam_kadan.html#s77">§77</a></div>
+<h2 id="t3a"><span class="num">4</span>主題3（前半）すがった人の心構え（§80–188）</h2>
+<p>第3の主題は、本書で最も長い部分です（§80–307）。すがった人（<i>prapanna</i>）がどう考え、どう生きるべきかを、具体例をたくさん挙げて論じます。</p>
+<figure class="fig">
+  <figcaption>手本となる人々（§80–85）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>手本</th><th>何をしたか</th><th>学ぶこと</th></tr></thead><tbody><tr class="grp"><td colspan="4">手段の面（自分の力を捨てる）</td></tr><tr><td></td><td>シーター</td><td>魔王を焼き滅ぼす力があったのに使わなかった</td><td>自分の力を捨てる</td></tr><tr><td></td><td>ドラウパディー</td><td>衣を押さえていた手を離して神にすがった</td><td>恥じらいを捨てる</td></tr><tr><td></td><td><i>Tirukkaṇṇamaṅkai Āṇṭāṉ</i></td><td>自分の行いを一切手段としなかった</td><td>自分の努力を捨てる</td></tr><tr class="grp"><td colspan="4">目的の面（神に仕えたいと願う）</td></tr><tr><td></td><td>ラクシュマナ</td><td>「すべての奉仕をさせてほしい」と願った</td><td>愛</td></tr><tr><td></td><td>鷲のジャターユ</td><td>シーターを守って命を落とした</td><td>自分を顧みない</td></tr><tr><td></td><td>牧女チンタヤンティー</td><td>クリシュナに会えない切なさで身体を離れた</td><td>耐えられない思い</td></tr></tbody></table></div>
+</figure>
+<h3>他の修行を捨てるのは「できないから」ではない</h3>
+<div class="key"><div class="lbl">捨てる理由</div>「他の手段を捨てる理由は、無知や無力ではない。本性に反することこそが、主な理由である」<a class="src" href="srivacanabhusanam_kadan.html#s115">§115</a></div>
+<p>自分の力で修行して救われようとすることは、「自分の力で救いを手に入れる」という我執を含んでいます。だから、神のしもべである自己の本性に反する、というのです。</p>
+<figure class="fig">
+  <figcaption>他の修行がふさわしくない理由（§116–126）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>たとえ</th><th>言おうとしていること</th></tr></thead><tbody><tr><td>無知な人には「手段（<i>upāya</i>）」、知ある人には「危険（<i>apāya</i>）」</td><td>同じ修行でも、知ある人には本性を損なう</td></tr><tr><td>酒が一滴混じった、金の壺の聖水</td><td>どんなに立派でも我執が混じっている</td></tr><tr><td>宝石を子安貝で、王国をレモン一つで買おうとする</td><td>人の行いは、神という結果に釣り合わない</td></tr><tr><td>夫との交わりを、腹を満たす手立てにする</td><td>神との関係を、何かを得る道具にする恥</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>こちらが求めるか、神が求めるか（§142–145）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>バラタ（ラーマの弟）</th><th>グハ（狩人の長）</th></tr></thead><tbody><tr><td>すがり方</td><td>森まで迎えに行き、正式にすがった（善）</td><td>作法も知らず、身分も低い（悪）</td></tr><tr><td>結果</td><td><span class='bad'>願いは聞き入れられなかった</span></td><td><span class='good'>温かく迎えられた</span></td></tr><tr><td>教訓</td><td>こちらが求めるなら、すがることさえ手段にならない</td><td>神が求めるなら、大罪さえ妨げにならない</td></tr></tbody></table></div>
+</figure>
+<h3>自分で善くなろうとしない</h3>
+<p>本書はさらに、自分の力で徳を身につけたり、欠点を取り除いたりすることさえ、神との交わりの妨げになると言います<a class="src" href="srivacanabhusanam_kadan.html#s160">§160</a><a class="src" href="srivacanabhusanam_kadan.html#s175">§175</a>。</p>
+<figure class="fig">
+  <figcaption>自分で整えた善が妨げになるたとえ（§160–178）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>たとえ</th><th>意味</th></tr></thead><tbody><tr><td>美しさのために着た上着は、抱擁の邪魔になる</td><td>自分で身につけた徳が、神との交わりを妨げる</td></tr><tr><td>恋人は、飾りよりも汚れたままの姿を喜ぶ</td><td>神はありのままの人を喜ぶ</td></tr><tr><td>自分で得る善は「買った乳」、神によって得る善は「母の乳」</td><td>神から与えられる善こそ本物</td></tr><tr><td>乳飲み子を親の手から取り上げ、屠殺人に渡す</td><td>神を離れて自分で善を求めるのは、自分を滅ぼすこと</td></tr></tbody></table></div>
+</figure>
+<h2 id="t3b"><span class="num">5</span>主題3（後半）信者を敬い、神に仕える（§189–307）</h2>
+<h3>信者を生まれで判断してはならない</h3>
+<p>本書の後半で最も強調されるのが、神の信者（<i>bhāgavata</i>）を侮ること（<i>bhāgavata-apacāra</i>）の重大さです。中でも、信者の生まれ（身分・カースト）を詮索することは、最も重い罪の一つとされます。</p>
+<div class="key"><div class="lbl">生まれではなく、神との関係</div>「信者の生まれを詮索することは、神像の材料（石か金属か）を詮索することよりもひどい」<a class="src" href="srivacanabhusanam_kadan.html#s195">§195</a><a class="src" href="srivacanabhusanam_kadan.html#s196">§196</a><br>「生まれや行いの高い低いは、救いを得ることにも失うことにも関係しない。関係するのは、神との関係があるか、ないかである」<a class="src" href="srivacanabhusanam_kadan.html#s208">§208</a><a class="src" href="srivacanabhusanam_kadan.html#s209">§209</a></div>
+<figure class="fig">
+  <figcaption>救いを決めるもの（§204–209）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>関係しない</th><th>関係する</th></tr></thead><tbody><tr><td>決め手</td><td>生まれ・行いの高低</td><td>神との関係があるかないか</td></tr><tr><td>救いを得る時</td><td>知や行いがなくても</td><td>信者との関係だけで足りる</td></tr><tr><td>救いを失う時</td><td>知や行いがあっても</td><td>信者への冒瀆だけで足りる</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>神との関係がある人の「生まれ」（§210–216）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>高いとされる生まれ</th><th>低いとされる生まれ</th></tr></thead><tbody><tr><td>落ちる恐れ</td><td>ある</td><td>ない</td></tr><tr><td>謙虚さ</td><td>努力して保たなければならない</td><td>生まれながらに備わる</td></tr><tr><td>評価</td><td>—</td><td><b>最もすぐれている</b></td></tr></tbody></table></div>
+  <div class="cap2">当時の身分観をまったく逆転させた、大胆な主張です。</div>
+</figure>
+<figure class="fig">
+  <figcaption>生まれによらず尊ばれた人々（§227–238）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>人物</th><th>世間での生まれ</th><th>尊ばれ方</th></tr></thead><tbody><tr><td>ヴィビーシャナ</td><td>魔族</td><td>ラーマが自分の家の一員と見た</td></tr><tr><td>ジャターユ</td><td>鳥</td><td>ラーマが最上の葬儀を行った</td></tr><tr><td>ダルマヴィヤーダ</td><td>肉屋</td><td>聖仙たちが教えを請うた</td></tr><tr><td>ヴィドゥラ</td><td>侍女の子</td><td>クリシュナが王族の館を素通りして、彼の家で食事した</td></tr><tr><td>シャバリー</td><td>狩人の女</td><td>ラーマが手から食事を受けた</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>信者をどう見るか（§222–225）</figcaption>
+<div class="flow"><div class="node plain"><b>普通の人・自分・神</b></div><div class="arr lbl"><span class="ac">→</span><span>より上</span></div><div class="node "><b>信者</b>これらより上と見る</div><div class="arr lbl"><span class="ac">→</span><span>等しい</span></div><div class="node plain"><b>師</b>信者は師に等しいと見る</div></div>
+  <div class="cap2">信者を「神よりも上」と見る、という極端なまでの表現が、本書の信者観の特徴です（§223）。</div>
+</figure>
+<h3>神の安寧を祈る</h3>
+<p>本書は、神の無事を祈ること（<i>maṅgalāśāsana</i>）を大切にします。神は守る側、人は守られる側のはずなのに、なぜ人が神の無事を祈るのでしょうか。</p>
+<figure class="fig">
+  <figcaption>知の段階と愛の段階（§244–245）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>知の段階</th><th>愛の段階</th></tr></thead><tbody><tr><td>思うもの</td><td>神の全能</td><td>神の柔らかさ・かよわさ</td></tr><tr><td>守る者</td><td>神</td><td>自分</td></tr><tr><td>行い</td><td>神にすがる</td><td>「どうかご無事で」と神の安寧を祈る</td></tr></tbody></table></div>
+  <div class="cap2">子が年老いた親を気づかうように、愛が深まると立場が入れ替わる。詩人聖者ペリヤールワールは、いつもこのように神を案じていたとされます（§250–257）。</div>
+</figure>
+<figure class="fig">
+  <figcaption>日々の六つの心得（§274）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>項目</th><th>内容</th></tr></thead><tbody><tr><td>住む所</td><td>師のそば・神のそば</td></tr><tr><td>語ること</td><td>師の偉大さ・自分の至らなさ</td></tr><tr><td>唱えるもの</td><td>師の系譜・<i>dvaya</i>（二つの句からなる <i>mantra</i>）</td></tr><tr><td>受け入れるもの</td><td>先師たちの言葉と行い</td></tr><tr><td>捨てるもの</td><td>神を信じない人々と共に住むこと・高慢</td></tr><tr><td>すること</td><td>師への奉仕・神への奉仕</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>奉仕（<i>kaiṅkarya</i>）の心得（§275–294）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>心得</th><th>内容</th></tr></thead><tbody><tr><td>二種類</td><td>相手の好むことをし、嫌うことを避ける（§277）</td></tr><tr><td>根</td><td>愛。なければ恐れ（§281）</td></tr><tr><td>手段にしない</td><td>奉仕を何かを得る手段にせず、奉仕そのものを喜びとする（§283）</td></tr><tr><td>謝礼を払う</td><td>受け取っていただいたことに感謝する（§285）</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>神と人の四つの性質（§295–299）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>性質</th><th>神の場合</th><th>人の場合</th></tr></thead><tbody><tr><td>知</td><td>人の徳をよく知る</td><td>師の徳をよく知る</td></tr><tr><td>無知</td><td>人の欠点を知らない（見ない）</td><td>師の欠点を知らない（見ない）</td></tr><tr><td>力</td><td>人を守る力</td><td>師に仕える力</td></tr><tr><td>無力</td><td>人を見捨てることができない</td><td>禁じられたことができない</td></tr></tbody></table></div>
+  <div class="cap2">神は人の欠点を「知らない」、人を見捨てることが「できない」。美しい対句です。</div>
+</figure>
+<h2 id="t4"><span class="num">6</span>主題4 よい師に仕える（§308–380）</h2>
+<p>第4の主題は、師（<i>ācārya</i>）と弟子の関係です。まず、教える側の心得から始まります。</p>
+<figure class="fig">
+  <figcaption>師が教えるときの思い違い（§308–310）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>取り違え</th><th>誤った思い</th><th>正しくは</th></tr></thead><tbody><tr><td>自分</td><td>「私は師だ」</td><td>自分も先師の弟子にすぎない</td></tr><tr><td>弟子</td><td>「私の弟子だ」</td><td>神と先師のもの</td></tr><tr><td>結果</td><td>お礼・弟子の救い・神への奉仕・弟子と共に住むこと</td><td>求めなくても自然に得られる</td></tr></tbody></table></div>
+  <div class="cap2">「正しくは」の欄の前二行は、本文の意味を補ったものです。</div>
+</figure>
+<figure class="fig">
+  <figcaption>師と弟子の務め（§326–342）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>弟子</th><th>師</th></tr></thead><tbody><tr><td>喜ばせること</td><td>自分で行う</td><td>神に任せる</td></tr><tr><td>ためになること</td><td>神に任せる</td><td>自分で行う（教える）</td></tr><tr><td>守るもの</td><td>師の身体</td><td>弟子の魂</td></tr><tr><td>物のやりとり</td><td>与えない（もともと貧しいから）</td><td>受け取らない（満ち足りているから）</td></tr></tbody></table></div>
+  <div class="cap2">師弟の間で物のやりとりがあると、関係が崩れる（§340）。弟子が師にできるのは、教えを身につけて生きることだけ（§345）。</div>
+</figure>
+<h3>他人の欠点を思わない</h3>
+<div class="key"><div class="lbl">欠点を見るのは自分の欠点</div>「（神や信者に）欠点があると思うなら、それは他人の欠点ではなく、自分の欠点である」<a class="src" href="srivacanabhusanam_kadan.html#s352">§352</a><br>「女神が、鬼女たちの過ちをラーマにもハヌマーンにも告げなかったように、他人が自分に犯した過ちを、神や信者に告げてはならない」<a class="src" href="srivacanabhusanam_kadan.html#s363">§363</a></div>
+<figure class="fig">
+  <figcaption>甘えとしての恨み言（§368–376）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>たとえ</th><th>言えること</th><th>なぜ言えるか</th></tr></thead><tbody><tr><td>道でつまずいた子が、母の背中を叩く</td><td>「どうして防いでくれなかったの」</td><td>母は力もあり、条件なしに自分の味方だから</td></tr><tr><td>井戸の縁から子を引き離さなかった母</td><td>「お母さんが突き落とした」</td><td>同上</td></tr></tbody></table></div>
+  <div class="cap2">詩人聖者たちが神に恨み言を言うのは、この甘えからだ、と本書は説明します。ただし本当は、救いを失うもとは自分の業、得るもとは神の慈悲です（§374）。</div>
+</figure>
+<h2 id="t5"><span class="num">7</span>主題5 神の理由なき慈悲（§381–407）</h2>
+<p>第5の主題は、本書で最も美しい一節から始まります<a class="src" href="srivacanabhusanam_kadan.html#s381">§381</a>。神は、人を救う口実を、人が気づかないうちにこしらえてくれる、というのです。</p>
+<figure class="fig">
+  <figcaption>神が人を救いへ導くまで（§381 の要約）</figcaption>
+<div class="flow"><div class="node plain"><b>心が移る</b>天にいても、外国に行った息子を思う父のように</div><div class="arr"><span class="ac">→</span></div><div class="node plain"><b>身体を与える</b>人と交わるために</div><div class="arr"><span class="ac">→</span></div><div class="node plain"><b>見えずに抱く</b>眠る子を背に抱く母のように</div><div class="arr"><span class="ac">→</span></div><div class="node plain"><b>待つ</b>人が悪いことをしても見守る</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>口実をこしらえる</b>「私の名を口にしたね」</div><div class="arr"><span class="ac">→</span></div><div class="node good"><b>一を十にする</b>生まれ変わるたびに増やす</div></div>
+</figure>
+<div class="tscroll"><table class="t"><thead><tr><th>こしらえられる功徳</th><th>意味（伝統的な理解）</th><th>§381 の例</th></tr></thead><tbody><tr><td>偶然の功徳</td><td>たまたまなされた善</td><td>神の町のことを口にした</td></tr><tr><td>ついでの功徳</td><td>別のことのついでの善</td><td>神の名を口にした</td></tr><tr><td>付随した功徳</td><td>別の目的の行いに伴った善</td><td>信者の渇きを癒した・木陰を与えた</td></tr></tbody></table></div><p>金細工師が、試金石にこすれ落ちた金の粉を蠟で集めて小さな金の粒にするように、神は人のほんのわずかな善を拾い集め、それを「あなたの功徳だ」と言って救いの口実にします。</p>
+<div class="key"><div class="lbl">「功徳」と名づけるのは誰か</div>「聖典も命じておらず、私たちも知らないこれを、なぜ『功徳』と名づけるのか、と問うなら、名づけるのは私たちではなく、神である」<a class="src" href="srivacanabhusanam_kadan.html#s396">§396</a><br>「業の結果と同じく、慈悲の結果も、味わい尽くさなければ終わらない」<a class="src" href="srivacanabhusanam_kadan.html#s402">§402</a></div>
+<figure class="fig">
+  <figcaption>恐れと安心（§404–407）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>原因</th><th>何を知ることか</th></tr></thead><tbody><tr><td>恐れ</td><td>業</td><td>取り除かれるべきもの（自分の業）</td></tr><tr><td>安心</td><td>慈悲</td><td>取り除いてくださる方（神）</td></tr></tbody></table></div>
+  <div class="cap2">神は完全に自由なので、救うかどうかは神次第。だから神を自分で手段とすると、恐れと安心が交互にやってくる（§405・407）。これが、次の主題への橋渡しになります。</div>
+</figure>
+<h2 id="t6"><span class="num">8</span>主題6 最後の拠り所は師（§408–463）</h2>
+<p>本書の結論は、師が弟子を「自分のもの」として引き受けてくれること――師の庇護（<i>ācārya-abhimāna</i>）――こそが、最も確かな救いの道だ、というものです。</p>
+<figure class="fig">
+  <figcaption>頼るものの移り変わり（§443–447・462）</figcaption>
+<div class="flow"><div class="node plain"><b>信愛の修行</b>（<i>bhakti</i>）自分で行う</div><div class="arr lbl"><span class="ac">→</span><span>自分の力が不安で手を離れる</span></div><div class="node plain"><b>神にすがる</b>（<i>prapatti</i>）</div><div class="arr lbl"><span class="ac">→</span><span>神の自由が不安で手を離れる</span></div><div class="node good"><b>師の庇護</b>師に引き受けてもらう</div></div>
+  <div class="cap2">「<i>bhakti</i> ができない者には <i>prapatti</i>、<i>prapatti</i> もできない者には師の庇護」（§462）</div>
+</figure>
+<figure class="fig">
+  <figcaption>神と師の比較（§427–439）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>神</th><th>師</th></tr></thead><tbody><tr><td>頼り方</td><td>手を取って頼む</td><td>足にすがって頼む（断れない）</td></tr><tr><td>与えるもの</td><td>師に出会わせてくれる</td><td>神に出会わせてくれる</td></tr><tr><td>関係の働き</td><td>輪廻にも解脱にも関わる</td><td>解脱だけに関わる</td></tr><tr><td>恩</td><td>与えるもの（神ご自身）が大きいので、より大きい</td><td>返しきれない</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>師との関係が崩れると（§437–439）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>たとえ</th><th>関係があれば</th><th>崩れれば</th></tr></thead><tbody><tr><td>結婚の紐</td><td>装身具を作って身に着けられる</td><td>装身具はすべて恥を招く</td></tr><tr><td>太陽と蓮</td><td>太陽が蓮を咲かせる</td><td>水を離れた蓮を、同じ太陽が枯らす</td></tr></tbody></table></div>
+</figure>
+<div class="key"><div class="lbl">本書の結び</div>「これ（師の庇護）は、まず本性に若葉を出させ、次に花を咲かせ、最後に実を結ばせる」<a class="src" href="srivacanabhusanam_kadan.html#s463">§463</a></div>
+<figure class="fig">
+  <figcaption>師の庇護が本性を育てる（§463）</figcaption>
+<div class="flow"><div class="node plain"><b>若葉</b></div><div class="arr"><span class="ac">→</span></div><div class="node "><b>花</b></div><div class="arr"><span class="ac">→</span></div><div class="node good"><b>実</b></div></div>
+</figure>
+<h2 id="quotes"><span class="num">9</span>名句で読む</h2>
+<p>本書は短い文の積み重ねなので、印象的な一文がたくさんあります。代表的なものを集めました。</p>
+<figure class="fig">
+  <figcaption>本書の名句</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>節</th><th>名句（和訳）</th><th>主題</th></tr></thead><tbody><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s5">§5</a></td><td>『ラーマーヤナ』は囚われの身となった方の偉大さを、『マハーバーラタ』は使者として出向いた方の偉大さを説く</td><td>1</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s15">§15</a></td><td>罪や欠点そのものを、受け入れるための引き出物にしてしまう</td><td>1</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s39">§39</a></td><td>神像は、川の水がたまった池のようである</td><td>2</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s70">§70</a></td><td>到達する者も、到達させる者も、到達を喜ぶ者も、神ご自身である</td><td>2</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s77">§77</a></td><td>我執という埃を払えば、自己の消えない名は「しもべ」である</td><td>2</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s115">§115</a></td><td>他の手段を捨てる理由は、無知や無力ではない。本性に反することである</td><td>3</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s143">§143</a></td><td>神がこの者を得ようと思うときには、大罪さえ妨げにならない</td><td>3</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s177">§177</a></td><td>自分で得る善は買った乳、神によって得る善は母の乳</td><td>3</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s209">§209</a></td><td>救いに関係するのは、神との関係があるかないかである</td><td>3</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s352">§352</a></td><td>欠点があると思うなら、それは他人の欠点ではなく、自分の欠点である</td><td>4</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s396">§396</a></td><td>功徳と名づけるのは、私たちではなく神である</td><td>5</td></tr><tr><td><a class="src" href="srivacanabhusanam_kadan.html#s463">§463</a></td><td>まず若葉を出させ、次に花を咲かせ、最後に実を結ばせる</td><td>6</td></tr></tbody></table></div>
+</figure>
+<h2 id="compare"><span class="num">10</span>他の宗教と比べると</h2>
+<figure class="fig">
+  <figcaption>本書の考えと、他の宗教の似た考え</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>本書の考え</th><th>似た考え</th><th>違い</th></tr></thead><tbody><tr><td>女神のとりなし（§1–22）</td><td>カトリックの聖母マリアの取り次ぎ、観音菩薩の慈悲</td><td>女神は神と永遠に一体で、神の一部</td></tr><tr><td>すがることさえ手段ではない（§55・142）</td><td>親鸞の他力（信心も阿弥陀仏から賜る）、ルターの「恵みのみ」</td><td>本書の神は永遠の人格神で、魂も永遠</td></tr><tr><td>罪や欠点こそ受け入れの理由（§15）</td><td>『歎異抄』の悪人正機、放蕩息子のたとえ（ルカ15章）</td><td>本書は罪を勧めているのではない（§279–280）</td></tr><tr><td>生まれを問わない（§195–216）</td><td>パウロ「ユダヤ人もギリシア人もなく…」、初期仏教、シク教</td><td>身分制度の廃止ではなく、救いと信者の価値の領域での平等</td></tr><tr><td>神が功徳をこしらえる（§381）</td><td>キリスト教の「先行する恵み」、阿弥陀仏の本願</td><td>インドの業思想の中で、神が業の仕組みを逆手にとる</td></tr><tr><td>奉仕は手段でなく喜び（§283）</td><td>浄土真宗の報恩感謝の念仏、ルターの「信仰の実り」</td><td>—</td></tr><tr><td>師の庇護が最後の拠り所（§443–463）</td><td>禅の師資相承、チベット仏教のグルへの帰依</td><td>親鸞は「弟子一人ももたず」と、逆の立場をとった</td></tr></tbody></table></div>
+  <div class="cap2">比較は入門のために大きく単純化しています。詳しくは「<a href="pillai_lokacarya_nyumon.html#compare">ピッライ・ローカーチャーリヤの宗教思想入門</a>」の比較表も参照してください。</div>
+</figure>
+<h2 id="think"><span class="num">11</span>考えてみよう</h2>
+<ol class="q card"><li>「罪や欠点こそ受け入れの理由になる」（§15）という考えと、「まず自分を正してから神に近づく」という考えを比べてみましょう。それぞれ、人にどんな影響を与えるでしょうか。</li><li>バラタは正しくすがったのに願いが聞き入れられず、グハは作法も知らないのに迎えられました（§142–145）。この話から、本書は何を言おうとしているのでしょうか。</li><li>「信者の生まれを詮索するのは重罪」（§195）という主張は、身分制度のある社会でどんな意味をもったでしょうか。今の社会でいえば、どんな場面に当てはまるでしょう。</li><li>「欠点があると思うなら、それは自分の欠点である」（§352）。この考えを、日常の人間関係に当てはめるとどうなるでしょう。よい面と、危うい面の両方を考えてみましょう。</li><li>神が人の気づかないうちに「功徳」をこしらえる（§381）という考えは、人の努力や責任をどう位置づけていると思いますか。</li><li>本書は、神に直接すがるより師に頼る方が確かだ、と結論します（§443–447）。その理由を整理し、あなたの考えを述べてみましょう。</li></ol><h2 id="glossary"><span class="num">12</span>用語集と関連ページ</h2>
+<figure class="fig">
+  <figcaption>用語集</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>用語</th><th>読み</th><th>意味</th></tr></thead><tbody><tr><td><i>puruṣakāra</i></td><td>プルシャカーラ</td><td>とりなし役（女神）</td></tr><tr><td><i>upāya</i>・<i>upeya</i></td><td>ウパーヤ・ウペーヤ</td><td>手段・目的</td></tr><tr><td><i>prapatti</i></td><td>プラパッティ</td><td>神にすがること（帰依）</td></tr><tr><td><i>prapanna</i></td><td>プラパンナ</td><td>神にすがった人</td></tr><tr><td><i>arcā</i></td><td>アルチャー</td><td>寺院の神像としての神</td></tr><tr><td><i>dāsya</i></td><td>ダーシャ</td><td>しもべであること</td></tr><tr><td><i>bhāgavata</i></td><td>バーガヴァタ</td><td>神の信者</td></tr><tr><td><i>bhāgavata-apacāra</i></td><td>バーガヴァタ・アパチャーラ</td><td>神の信者への冒瀆</td></tr><tr><td><i>maṅgalāśāsana</i></td><td>マンガラーシャーサナ</td><td>神の安寧を祈ること</td></tr><tr><td><i>kaiṅkarya</i></td><td>カインカリヤ</td><td>奉仕</td></tr><tr><td><i>ācārya</i></td><td>アーチャーリヤ</td><td>師</td></tr><tr><td><i>nirhetuka-kṛpā</i></td><td>ニルヘートゥカ・クリパー</td><td>理由なき慈悲</td></tr><tr><td><i>ācārya-abhimāna</i></td><td>アーチャーリヤ・アビマーナ</td><td>師が弟子を自分のものとして引き受けること</td></tr><tr><td><i>Āḻvār</i></td><td>アールワール</td><td>6〜9世紀ごろのタミルの詩人聖者たち</td></tr></tbody></table></div>
+</figure>
+<div class="card"><b>本サイトの関連ページ</b><ul style='margin:6px 0 0;padding-left:20px'><li><a href='srivacanabhusanam_kadan.html'>『シュリーヴァチャナブーシャナム』科段・和訳・図解</a>（全463節の和訳。このページの節番号ボタンから移動できます）</li><li><a href='pillai_lokacarya_nyumon.html'>ピッライ・ローカーチャーリヤの宗教思想入門</a>（三著作をまとめた思想の入門）</li><li><a href='tattvatraya_nyumon.html'>『タットヴァトラヤ』入門</a>（世界観：魂・物質・神）</li><li><a href='mumukshuppadi_kadan.html'>『ムムクシュッパディ』科段・和訳・図解</a></li></ul><p class='note' style='margin-top:8px'>このページの引用は本サイトの和訳（OCR テキストに基づく試訳）によります。人物の生まれや「伝統的な理解」とした説明は、本文に書かれていない伝承を補ったものです。</p></div>
+
+</div>
+</body>
+</html>

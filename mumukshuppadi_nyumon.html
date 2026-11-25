@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="iast-fonts.css">
+<title>ムムクシュッパディ入門</title>
+<style>
+  :root{
+    --ink:#1f2328; --sub:#5b6370; --line:#d9dde3; --bg:#fbfaf7; --card:#ffffff;
+    --accent:#8a4b12; --accent-bg:#fdf3e1; --l1:#2d3748; --l2:#4a5568;
+    --gray-bg:#f1f2f4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+      --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+    --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'IAST Sans',"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    line-height:1.85;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+  header.hero{background:linear-gradient(135deg,#2d3748,#4a5568);color:#fff;border-radius:16px;padding:26px 22px;margin-bottom:28px}
+  .hero .kicker{font-size:13px;letter-spacing:.08em;opacity:.8}
+  .hero h1{font-size:25px;line-height:1.4;margin:6px 0 10px}
+  .hero p{margin:0;opacity:.92;font-size:14.5px}
+  h2{font-size:21px;margin:44px 0 14px;padding-bottom:6px;border-bottom:3px solid var(--ink)}
+  h3{font-size:17px;margin:26px 0 10px}
+  p{margin:10px 0}
+  i, .iast{font-style:italic}
+  .note{font-size:13.5px;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0}
+  .toc a{color:var(--ink)}
+  .toc ol{margin:6px 0;padding-left:22px}
+
+  /* 科段 */
+  .kd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin:14px 0}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;
+    padding:5px 14px;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);white-space:nowrap}
+  .row .t{min-width:0}
+  .row .s{font-variant-numeric:tabular-nums;color:var(--sub);font-size:13.5px;white-space:nowrap}
+  .row .s::before{content:"§ "}
+  .lv1{background:var(--l1);color:#fff;font-size:17px;font-weight:700;border-bottom:none}
+  .lv1 .n,.lv1 .s{color:#fff}
+  .lv2{background:var(--accent-bg);font-weight:700}
+  .lv3{padding-left:34px}
+  .lv4{padding-left:58px;font-size:15px}
+  .lv5{padding-left:82px;font-size:14.5px}
+  .gloss{display:block;font-size:13px;color:var(--sub);font-weight:400}
+  .pending{color:var(--sub);font-style:normal;font-size:13.5px}
+
+  /* 解説 */
+  .sutra{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:12px 16px;margin:16px 0}
+  .sutra .hd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:4px}
+  .sutra .no{font-weight:700;font-size:17px;color:var(--accent)}
+  .sutra .ref{font-size:12.5px;color:var(--sub);background:var(--gray-bg);border-radius:999px;padding:0 9px}
+  .sutra .tr{font-size:16.5px;margin:4px 0 8px}
+  .sutra .ex{font-size:15px;border-top:1px dashed var(--line);padding-top:8px}
+  .sutra .ex p{margin:6px 0}
+  ul{padding-left:22px;margin:6px 0}
+  body{counter-reset:fig}
+  :root{--good:#2f855a;--good-bg:#e6f4ec;--bad:#c53030;--bad-bg:#fdeaea}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}}
+  :root[data-theme="dark"]{--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}
+  .fig{counter-increment:fig;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:22px 0}
+  .fig figcaption{font-weight:700;margin-bottom:10px;font-size:15.5px}
+  .fig figcaption::before{content:"図" counter(fig) "　";color:var(--accent)}
+  .cap2{font-size:13.5px;color:var(--sub);margin-top:10px;line-height:1.7}
+  .tscroll{overflow-x:auto}
+  table.t{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.6}
+  .t th,.t td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+  .t th{background:var(--gray-bg);white-space:nowrap}
+  .t tr.grp td{background:var(--accent-bg);font-weight:700;color:var(--accent)}
+  .good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+  .flow{display:flex;align-items:stretch}
+  .node{flex:1 1 0;min-width:0;background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;padding:9px 10px;text-align:center;font-size:14px;line-height:1.6}
+  .node b{display:block;font-size:15px;margin-bottom:2px}
+  .node.plain{background:var(--card);border-color:var(--line)}
+  .node.good{background:var(--good-bg);border-color:var(--good);color:var(--ink);font-weight:400}
+  .node.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink);font-weight:400}
+  .node .sm{display:block;font-size:12.5px;color:var(--sub);margin-top:4px}
+  .node .sep{display:block;border-top:1px dashed var(--line);margin:7px 0}
+  .arr{flex:0 0 28px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-weight:700;font-size:20px}
+  .arr.lbl{flex:0 0 96px;flex-direction:column;font-size:12px;font-weight:400;line-height:1.35;text-align:center;padding:0 4px}
+  .arr.lbl .ac{font-size:20px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .res{margin-top:12px;border:2px dashed var(--accent);border-radius:10px;padding:8px 12px;text-align:center;font-weight:700}
+  .tree ul{list-style:none;margin:0;padding-left:20px}
+  .tree>ul{padding-left:0}
+  .tree li{position:relative;padding:5px 0 5px 18px}
+  .tree>ul>li{padding-left:0}
+  .tree ul ul>li::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
+  .tree ul ul>li::after{content:"";position:absolute;left:0;top:20px;width:14px;border-top:2px solid var(--line)}
+  .tree ul ul>li:last-child::before{bottom:auto;height:20px}
+  .tree .box{display:inline-block;border:1.5px solid var(--line);border-radius:8px;padding:3px 10px;background:var(--card);font-size:14.5px}
+  .tree .box.hl{border-color:var(--accent);background:var(--accent-bg);font-weight:700}
+  @media (max-width:640px){
+    .flow{flex-direction:column}
+    .arr{flex-basis:26px}.arr .ac{display:inline-block;transform:rotate(90deg)}
+    .arr.lbl{flex-direction:row;gap:8px;flex-basis:auto;padding:4px 0}
+    .grid2,.grid3{grid-template-columns:1fr}
+    table.t{font-size:13.5px}.t th{white-space:normal}.t th,.t td{padding:6px 7px}
+  }
+
+  #exp ~ h3{border-left:4px solid var(--accent);padding-left:10px;margin-top:34px}
+  .h3n{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+  .chk{font-size:12px;font-weight:700;color:#b7791f;border:1px solid #b7791f;border-radius:999px;padding:0 8px}
+
+  @media (max-width:640px){
+    .hero h1{font-size:21px}
+    .row{grid-template-columns:auto 1fr;padding:5px 10px}
+    .row .s{grid-column:2;font-size:12.5px}
+    .lv3{padding-left:18px}.lv4{padding-left:28px}.lv5{padding-left:38px}
+  }
+
+  .key{background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px;padding:12px 16px;margin:18px 0}
+  .key .lbl{font-weight:700;color:var(--accent);font-size:14px;margin-bottom:4px}
+  a.src{font-size:12.5px;white-space:nowrap;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:0 7px;margin:0 2px}
+  a.src:hover{background:var(--accent-bg)}
+  h2 .num{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;padding:0 9px;margin-right:8px;font-size:16px}
+  .q li{margin:8px 0}
+  .verse{font-size:17px;text-align:center;line-height:1.9;margin:6px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">大学1年生のための宗教思想入門</div>
+  <h1>『ムムクシュッパディ』入門<br><span style="font-size:.7em">三つの秘密の句で読む、救いの道筋</span></h1>
+  <p>ピッライ・ローカーチャーリヤが「解脱を求める者」のために書いた入門書を、三つの秘密の句に沿って、図と表でわかりやすく紹介します。</p>
+  <p style="margin-top:8px"><a href="index.html" style="color:#fff">← 原典研究の書庫（リンク集）へ</a></p>
+</header>
+<nav class="card toc"><b>目次</b><ol start="0"><li><a href="#intro">はじめに：どんな本か</a></li><li><a href="#map">全体の地図：三つの秘密の句</a></li><li><a href="#tm1">第1章 ティルマントラ（1）由来と偉大さ</a></li><li><a href="#tm2">第1章 ティルマントラ（2）一語ずつ読む</a></li><li><a href="#dv1">第2章 ドヴァヤ（1）女神の足にすがる</a></li><li><a href="#dv2">第2章 ドヴァヤ（2）仕えることを願う</a></li><li><a href="#cs1">第3章 最後の詩節（1）すべてを捨てて、私だけに</a></li><li><a href="#cs2">第3章 最後の詩節（2）悲しむな</a></li><li><a href="#whole">三章を通して見えること</a></li><li><a href="#quotes">名句で読む</a></li><li><a href="#compare">他の宗教と比べると</a></li><li><a href="#think">考えてみよう</a></li><li><a href="#glossary">用語集と関連ページ</a></li></ol></nav>
+<h2 id="intro"><span class="num">0</span>はじめに：どんな本か</h2>
+<p>『ムムクシュッパディ』（<i>Mumukṣuppaḍi</i>）は、13〜14世紀の南インドの思想家ピッライ・ローカーチャーリヤ（<i>Piḷḷai Lokācārya</i>）の著作です。書名は、サンスクリット語の <i>mumukṣu</i>（解脱を求める者）と、タミル語の <i>paḍi</i>（段・道筋）を合わせたもので、「解脱を求める者のための道筋」という意味になります。</p>
+<p>全289節の短い文（<i>sūtra</i>）からなり、ヒンドゥー教ヴィシュヌ派の一派シュリーヴァイシュナヴァ派で、救いの教えを学ぶ人が最初に読む入門書として大切にされてきました。</p>
+<div class="key"><div class="lbl">本書の最初の一文</div>「解脱を求める者が知るべき秘密（<i>rahasya</i>）は三つ」<a class="src" href="mumukshuppadi_kadan.html#s1">§1</a><br>この三つの秘密の句を、一語ずつ解説していくのが本書の内容です。</div>
+<figure class="fig">
+  <figcaption>ピッライ・ローカーチャーリヤの三つの著作</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>著作</th><th>節</th><th>扱うこと</th><th>このサイトのページ</th></tr></thead><tbody><tr><td>タットヴァトラヤ</td><td>202</td><td>世界観：魂・物質・神</td><td><a href="tattvatraya_nyumon.html">入門</a>・<a href="tattvatraya_kadan.html">和訳</a></td></tr><tr><td><b>ムムクシュッパディ</b></td><td><b>289</b></td><td><b>三つの秘密の句の解説</b></td><td><b>このページ</b>・<a href="mumukshuppadi_kadan.html">和訳</a></td></tr><tr><td>シュリーヴァチャナブーシャナム</td><td>463</td><td>救いの教えの詳しい議論</td><td><a href="srivacanabhusanam_nyumon.html">入門</a>・<a href="srivacanabhusanam_kadan.html">和訳</a></td></tr></tbody></table></div>
+  <div class="cap2">三著作をまとめた思想の入門は「<a href="pillai_lokacarya_nyumon.html">ピッライ・ローカーチャーリヤの宗教思想入門</a>」にあります。</div>
+</figure>
+<div class="key"><div class="lbl">このページの要点（先に結論）</div><ol style='margin:4px 0 0;padding-left:20px'><li>第1の句（ティルマントラ）は、「私は神のもの、私は私のためのものではない、神に仕えたい」という自分の本当の姿を教える。</li><li>第2の句（ドヴァヤ）は、女神のとりなしを通して神の足にすがり、二人に仕えることを願う、という実践を教える。</li><li>第3の句（最後の詩節）は、「すべてを捨てて私だけにすがれ。私が救う。悲しむな」という神の約束を伝える。</li><li>そして、すがることさえ救いの手段ではない。救いは神だけによる。</li></ol></div>
+<h2 id="map"><span class="num">1</span>全体の地図：三つの秘密の句</h2>
+<figure class="fig">
+  <figcaption>三つの秘密の句（<i>rahasya-traya</i>）と本書の三章</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>章</th><th>句</th><th>本文</th><th>節</th></tr></thead><tbody><tr><td>第1章</td><td>ティルマントラ（<i>tirumantra</i>）</td><td><div class='verse'><i>oṃ namo nārāyaṇāya</i></div>「オーム、ナーラーヤナに帰命します」</td><td>§1–115</td></tr><tr><td>第2章</td><td>ドヴァヤ（<i>dvaya</i>、「二つ」）</td><td><div class='verse'><i>śrīman-nārāyaṇa-caraṇau śaraṇaṃ prapadye<br>śrīmate nārāyaṇāya namaḥ</i></div>「シュリーと共にあるナーラーヤナの両足を拠り所としてすがります。シュリーと共にあるナーラーヤナに帰命します」</td><td>§116–187</td></tr><tr><td>第3章</td><td>最後の詩節（<i>carama-śloka</i>）</td><td><div class='verse'><i>sarvadharmān parityajya mām ekaṃ śaraṇaṃ vraja<br>ahaṃ tvā sarvapāpebhyo mokṣayiṣyāmi mā śucaḥ</i></div>「すべての務めを捨てて、私ひとりを拠り所としてすがれ。私があなたをすべての罪から解き放とう。悲しむな」（『バガヴァッド・ギーター』18.66）</td><td>§188–289</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>三つの句の役割分担（伝統的な理解）</figcaption>
+<div class="flow"><div class="node "><b>ティルマントラ</b>自分の本当の姿を知る<span class='sm'>本性（<i>svarūpa</i>）</span></div><div class="arr"><span class="ac">→</span></div><div class="node "><b>ドヴァヤ</b>実際にすがり、仕えることを願う<span class='sm'>実践（<i>anuṣṭhāna</i>）</span></div><div class="arr"><span class="ac">→</span></div><div class="node good"><b>最後の詩節</b>神の命令と約束<span class='sm'>根拠（<i>vidhi</i>）</span></div></div>
+  <div class="cap2">最後の詩節で神が「すがれ」と命じ、ドヴァヤでそれを実行する。その土台に、ティルマントラが教える「私は神のもの」という自覚がある、という関係です。</div>
+</figure>
+<figure class="fig">
+  <figcaption>救いは何によって得られるか（§118）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>教え</th><th>救いを得るのは…</th></tr></thead><tbody><tr><td>他の聖典（祭式・修行）</td><td>身体による行いによって</td></tr><tr><td>ティルマントラ</td><td>自己（自分の本性を知ること）によって</td></tr><tr><td>最後の詩節</td><td>神ご自身によって</td></tr><tr><td>ドヴァヤ</td><td>女神（とりなし）によって</td></tr></tbody></table></div>
+</figure>
+<h2 id="tm1"><span class="num">2</span>第1章 ティルマントラ（1）由来と偉大さ（§1–27）</h2>
+<p>ティルマントラ（<i>tirumantra</i>、「聖なる <i>mantra</i>」）は、<i>oṃ namo nārāyaṇāya</i> という八音節の句です。本書は、この句がどこから来て、なぜ大切なのかから説き始めます。</p>
+<div class="key"><div class="lbl">神が自ら先生と弟子になった</div>「輪廻する者たちが、自分も神も忘れ…苦しんでいるのを見て、神は自らの慈悲によって、自ら弟子にも師にもなってティルマントラを明らかにされた」<a class="src" href="mumukshuppadi_kadan.html#s5">§5</a><br>「弟子にもなったのは、弟子としての正しいあり方を世の人が知らないので、それを示すため」<a class="src" href="mumukshuppadi_kadan.html#s6">§6</a></div>
+<div class="key"><div class="lbl">父から受け継いだ財産</div>「あらゆる聖典から得る知は、自分で稼いだ財のようなものである。ティルマントラから得る知は、父祖から受け継いだ財のようなものである」<a class="src" href="mumukshuppadi_kadan.html#s7">§7</a><br>自分で稼いだ財は努力して得るもので失うこともありますが、受け継いだ財はもともと自分のものです。ティルマントラの知は、「魂はもともと神のもの」という本来の関係を知ることだ、という意味です。</div>
+<figure class="fig">
+  <figcaption>神の <i>mantra</i> の分類（§8–12）</figcaption>
+<div class="tree"><ul><li><span class="box">神の <i>mantra</i>（数多い）</span><ul><li><span class="box">遍在する神そのものを表すもの（三つ）</span><ul><li><span class="box hl">八音節：<i>oṃ namo nārāyaṇāya</i> ★最もすぐれる</span></li><li><span class="box">十二音節：<i>oṃ namo bhagavate vāsudevāya</i></span></li><li><span class="box">六音節：<i>oṃ viṣṇave namaḥ</i></span></li></ul></li><li><span class="box">ラーマ・クリシュナなど化身の <i>mantra</i></span></li></ul></li></ul></div>
+</figure>
+<figure class="fig">
+  <figcaption>名前の力（§14–21）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>ことがら</th><th>内容</th></tr></thead><tbody><tr><td>名は神そのものにまさる</td><td>神が遠くにいても、名は身近にあって助ける（§14–15）</td></tr><tr><td>例証</td><td>衣をはがされそうになったドラウパディーが神の名を呼ぶと、衣が尽きることなく伸び続けた（§16）</td></tr><tr><td>唱え方</td><td>順序を間違えても力は失われない（§17）</td></tr><tr><td>誰にでも</td><td>富を求める人には富を、修行する人には完成を、すがった人には本当の自分を知る喜びを与える（§19–21）</td></tr></tbody></table></div>
+</figure>
+<h2 id="tm2"><span class="num">3</span>第1章 ティルマントラ（2）一語ずつ読む（§28–115）</h2>
+<figure class="fig">
+  <figcaption>ティルマントラの組み立て（§28–30）</figcaption>
+<div class="grid3"><div class="node"><b><i>oṃ</i></b>1音節<span class="sep"></span><b>神に属すること</b>（<i>śeṣatva</i>）</div><div class="node"><b><i>namo</i></b>2音節<span class="sep"></span><b>神に依存すること</b>（<i>pāratantrya</i>）</div><div class="node"><b><i>nārāyaṇāya</i></b>5音節<span class="sep"></span><b>神に仕えること</b>（<i>kaiṅkarya</i>）</div></div><div class="res">1＋2＋5＝8音節・三つの句・三つの意味</div>
+</figure>
+<h3><i>oṃ</i>：私はただ神のもの</h3>
+<p><i>oṃ</i> は、<i>a</i>・<i>u</i>・<i>m</i> の三つの音からできています。本書はこの一つ一つに意味を読み取ります。</p>
+<figure class="fig">
+  <figcaption><i>oṃ</i> の三つの音（§31–74）</figcaption>
+<div class="flow"><div class="node "><b><i>a</i></b>神（すべての原因・守る者）</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>u</i></b>「〜だけ」</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>m</i></b>私（知る者・魂）</div></div><div class="res">「私（<i>m</i>）は、ただ（<i>u</i>）神（<i>a</i>）のためにある」</div>
+  <div class="cap2">音の順番も大切で、神を先に、自分を後に置くのは、自分の値打ちが「神のもの」であることにあるからだ、とされます（§71）。</div>
+</figure>
+<div class="key"><div class="lbl">従うことは苦しみか</div>「従属は苦しみそのものだと、世間では見られているではないか、と問うなら、そうと決まっているわけではない。愛する相手に従属しているあり方は、楽しいものと見られているからである」<a class="src" href="mumukshuppadi_kadan.html#s52">§52</a><a class="src" href="mumukshuppadi_kadan.html#s53">§53</a><br>「自己を盗むとは、自分は誰にも従属しない者だと思うことである」<a class="src" href="mumukshuppadi_kadan.html#s57">§57</a></div>
+<p>また本書は、<i>a</i> の中に女神シュリーも含まれていると読みます<a class="src" href="mumukshuppadi_kadan.html#s40">§40</a>。文面に女神の名がなくても、夫の寝床も子の揺りかごも離れない母のように、女神は神から決して離れないからです<a class="src" href="mumukshuppadi_kadan.html#s42">§42</a>。</p>
+<h3><i>namaḥ</i>：私は私のためのものではない</h3>
+<p><i>namaḥ</i> を本書は <i>na</i>（〜でない）＋ <i>maḥ</i>（私のもの）と分けて、「私は私のものではない」と読みます<a class="src" href="mumukshuppadi_kadan.html#s78">§78</a><a class="src" href="mumukshuppadi_kadan.html#s80">§80</a>。これによって、救いを妨げる三つのものが取り除かれます。</p>
+<figure class="fig">
+  <figcaption>三つの妨げ（§83–85）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>妨げ</th><th>どういう妨げか</th><th>取り除く心（<i>Āḻvār</i> の言葉）</th></tr></thead><tbody><tr><td>本性の妨げ</td><td>自分を自分のものと思う</td><td>「私はあなた、私の持ち物もあなた」</td></tr><tr><td>手段の妨げ</td><td>神以外のもの（自分の力）を頼る</td><td>「苦しみを除くのも除かないのもあなた」</td></tr><tr><td>目的の妨げ</td><td>神に仕えること以外を望む</td><td>「私たちのほかの欲望を変えてください」</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>誰のためにあるか（§91）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>存在</th><th>誰のためにあるか</th></tr></thead><tbody><tr><td>神</td><td>自分自身のため</td></tr><tr><td>物質</td><td>他者（神）のためだけ</td></tr><tr><td>私（以前の考え）</td><td>自分のためにも、他者のためにも</td></tr><tr><td>私（<i>namaḥ</i> の教え）</td><td><b>物質と同じく、ただ神のためだけ</b></td></tr></tbody></table></div>
+</figure>
+<h3><i>nārāyaṇāya</i>：神に仕えたい</h3>
+<figure class="fig">
+  <figcaption><i>nārāyaṇa</i> の二つの読み方（§95–101）</figcaption>
+<div class="grid2"><div class="node plain"><b>読み方①</b>「すべてのもののよりどころ」<br>すべてが神に支えられている<span class='sep'></span><b>→ 神の至高さ</b></div><div class="node plain"><b>読み方②</b>「すべてのものを住まいとする方」<br>神がすべての中に宿る<span class='sep'></span><b>→ 神の近さ</b></div></div>
+</figure>
+<p>語尾の <i>-āya</i>（〜のために）は、「神のために、あらゆる奉仕をしたい」という願いを表します<a class="src" href="mumukshuppadi_kadan.html#s105">§105</a>。そして第1章は、こうまとめられます。</p>
+<div class="key"><div class="lbl">ティルマントラを一文で</div>「神だけのものである私は、自分のためのものではない。すべての主であるナーラーヤナにだけ、あらゆる奉仕をさせていただける者となりたい」<a class="src" href="mumukshuppadi_kadan.html#s115">§115</a></div>
+<figure class="fig">
+  <figcaption>ティルマントラの一文要約（§115）</figcaption>
+<div class="flow"><div class="node "><b><i>oṃ</i></b>私は、ただ神だけのもの</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>namaḥ</i></b>私は、私自身のためのものではない</div><div class="arr"><span class="ac">→</span></div><div class="node good"><b><i>nārāyaṇāya</i></b>すべての主に、あらゆる奉仕をさせていただきたい</div></div>
+  <div class="cap2">八音節の句を、結婚の聖紐（八本の糸を三つに撚ったもの）にたとえて、神と魂を結ぶものだとも言います（§113）。</div>
+</figure>
+<h2 id="dv1"><span class="num">4</span>第2章 ドヴァヤ（1）女神の足にすがる（§116–164）</h2>
+<p>ドヴァヤ（<i>dvaya</i>、「二つ」）は、前半と後半の二つの文からなる句です。前半は「すがること」、後半は「仕えることを願うこと」を表します<a class="src" href="mumukshuppadi_kadan.html#s122">§122</a>。</p>
+<figure class="fig">
+  <figcaption>ドヴァヤを語ごとに読む（§122 以下）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>語</th><th>意味</th><th>節</th></tr></thead><tbody><tr class="grp"><td colspan="3">前半：手段としてすがる</td></tr><tr><td><i>śrī-mat</i></td><td>女神シュリーを常に伴う</td><td>§123–135</td></tr><tr><td><i>nārāyaṇa</i></td><td>六つの徳を備えた神の</td><td>§136–143</td></tr><tr><td><i>caraṇau</i></td><td>両の足を</td><td>§144–148</td></tr><tr><td><i>śaraṇam</i></td><td>確かな手段として</td><td>§149–153</td></tr><tr><td><i>prapadye</i></td><td>（心で）すがります</td><td>§154–159</td></tr><tr class="grp"><td colspan="3">後半：目的として仕えることを願う</td></tr><tr><td><i>śrīmate</i></td><td>シュリーと共にある方に</td><td>§165–170</td></tr><tr><td><i>nārāyaṇāya</i></td><td>すべての主に（奉仕を）</td><td>§171–179</td></tr><tr><td><i>namaḥ</i></td><td>自分のためではなく</td><td>§180–187</td></tr></tbody></table></div>
+</figure>
+<h3>女神のとりなし</h3>
+<figure class="fig">
+  <figcaption>とりなし役としての女神（§126–128）</figcaption>
+<div class="flow"><div class="node plain"><b>人</b>罪を負う者</div><div class="arr lbl"><span class="ac">→</span><span>母として苦しみを見過ごせない</span></div><div class="node "><b>女神シュリー</b>とりなし役</div><div class="arr lbl"><span class="ac">→</span><span>妻として愛されている</span></div><div class="node plain"><b>神</b>罪を見れば怒りうる</div></div>
+</figure>
+<figure class="fig">
+  <figcaption>女神がそばにいたか、いなかったか（§135）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>罪</th><th>女神（シーター）は</th><th>結果</th></tr></thead><tbody><tr><td>鴉</td><td>シーターを傷つけた</td><td>そばにいた</td><td><span class='good'>赦された</span></td></tr><tr><td>魔王ラーヴァナ</td><td>シーターをラーマから引き離した</td><td>引き離されていた</td><td><span class='bad'>滅びた</span></td></tr></tbody></table></div>
+  <div class="cap2">とりなし役がいれば救われる。だから必要なのは「願う心」だけで、時を選ぶ必要もない（§134）。</div>
+</figure>
+<figure class="fig">
+  <figcaption>神の六つの徳と、取り除かれる不安（§137–138）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>徳</th><th>意味</th><th>取り除かれる不安</th></tr></thead><tbody><tr><td><i>vātsalya</i></td><td>母のような慈しみ</td><td>「過ちを見て嫌われないか」</td></tr><tr><td><i>svāmitva</i></td><td>主であること</td><td>「本当に救ってくださるのか」</td></tr><tr><td><i>sauśīlya</i></td><td>へだてなく交わること</td><td>「偉大すぎて近寄れない」</td></tr><tr><td><i>saulabhya</i></td><td>近づきやすさ</td><td>「目に見えず頼れない」</td></tr><tr><td><i>jñāna</i>・<i>śakti</i></td><td>全知・全能</td><td>「妨げを除けるのか」</td></tr></tbody></table></div>
+  <div class="cap2">近づきやすさの極みは、寺院の神像である（§139）。</div>
+</figure>
+<h3>すがるのは一度でよい</h3>
+<figure class="fig">
+  <figcaption>すがること（<i>prapadye</i>）（§155–159）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>手段として</th><th>喜びとして</th></tr></thead><tbody><tr><td>一度すがること</td><td><span class='good'>それで足りる（手段は神）</span></td><td>—</td></tr><tr><td>何度も思い返すこと</td><td><span class='bad'>「何度も必要」と思うと、手段が崩れる</span></td><td><span class='good'>不安な時に思い返す・甘美なので続けてしまう</span></td></tr></tbody></table></div>
+  <div class="cap2">すがるのは心によるもので、言葉や身体の作法がそろう必要はない（§155–156）。</div>
+</figure>
+<h2 id="dv2"><span class="num">5</span>第2章 ドヴァヤ（2）仕えることを願う（§160–187）</h2>
+<p>後半の文は、救いの「目的」を表します。神は全知なのに、なぜわざわざ願うのでしょうか。本書の答えは、「この者の言葉を聞けば、神の心は喜ばれる」です<a class="src" href="mumukshuppadi_kadan.html#s163">§163</a><a class="src" href="mumukshuppadi_kadan.html#s164">§164</a>。</p>
+<figure class="fig">
+  <figcaption>前半と後半で変わる女神の役割（§167）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>場面</th><th>神は</th><th>女神は</th></tr></thead><tbody><tr><td>前半（すがる）</td><td>手段</td><td>とりなし役</td></tr><tr><td>後半（仕える）</td><td>目的</td><td>共に目的。奉仕を増す方</td></tr></tbody></table></div>
+  <div class="cap2">ラーマとシーターの二人に仕えたラクシュマナが、従者の理想とされます（§169）。</div>
+</figure>
+<figure class="fig">
+  <figcaption>奉仕の「雑草」（§179–184）</figcaption>
+<div class="grid2"><div class="node good"><b>神の喜びのための奉仕</b>従者の本性の実現であり、目的でもある（§179）</div><div class="node bad"><b>自分が楽しむための奉仕</b>「雑草」。最後の <i>namaḥ</i> によって抜かれる（§181–182）</div></div>
+  <div class="cap2">「あなただけのために、私たちは仕えよう」（アーンダールの詩、§184）</div>
+</figure>
+<h2 id="cs1"><span class="num">6</span>第3章 最後の詩節（1）すべてを捨てて、私だけに（§188–248）</h2>
+<p>第3章は、『バガヴァッド・ギーター』の「最後の詩節」（18.66）を解説します。戦場で戦う意味を見失った英雄アルジュナに、神クリシュナはさまざまな修行の道を教えました。しかしアルジュナはそれが難しく、悲しみに沈みます。そこでクリシュナが最後に語ったのが、この詩節です<a class="src" href="mumukshuppadi_kadan.html#s188">§188</a>。</p>
+<figure class="fig">
+  <figcaption>最後の詩節を語ごとに読む</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>語</th><th>意味</th><th>この語が示すこと</th></tr></thead><tbody><tr class="grp"><td colspan="3">前半：人のなすべきこと（§189）</td></tr><tr><td><i>sarvadharmān</i></td><td>すべての務めを</td><td>捨てるもの：救いの手段と思って行うすべての修行</td></tr><tr><td><i>parityajya</i></td><td>（残らず）捨てて</td><td>捨て方：「手段ではなかった」と知って、すっかり捨てる</td></tr><tr><td><i>mām</i></td><td>私を</td><td>すがる相手：御者の姿でアルジュナの前にいる神</td></tr><tr><td><i>ekam</i></td><td>ただ一人</td><td>神は他の何も必要としない。すがることさえ手段ではない</td></tr><tr><td><i>śaraṇam</i></td><td>拠り所として</td><td>神が手段であること</td></tr><tr><td><i>vraja</i></td><td>すがれ（心に定めよ）</td><td>心で受け入れること</td></tr><tr class="grp"><td colspan="3">後半：神のなすこと（§189）</td></tr><tr><td><i>aham</i></td><td>私が</td><td>全知・全能の神ご自身が</td></tr><tr><td><i>tvā</i></td><td>あなたを</td><td>無力で、神だけにすがる者を</td></tr><tr><td><i>sarvapāpebhyaḥ</i></td><td>すべての罪から</td><td>恐れているすべての妨げから</td></tr><tr><td><i>mokṣayiṣyāmi</i></td><td>解き放とう</td><td>罪が自ら去っていく</td></tr><tr><td><i>mā śucaḥ</i></td><td>悲しむな</td><td>悲しむ理由はない</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>捨てるもの・捨てないもの（§199–214）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>例</th></tr></thead><tbody><tr class="grp"><td colspan="2">捨てるもの（救いの手段と思って行うもの）</td></tr><tr><td>三つの修行</td><td>行い・知・信愛の道（<i>karma</i>・<i>jñāna</i>・<i>bhakti</i>）</td></tr><tr><td>善い行い</td><td>聖地に住む、神の名を唱える、灯明をともす、花輪を作る</td></tr><tr class="grp"><td colspan="2">捨てないもの</td></tr><tr><td>悪いことをしないこと</td><td>「悪いことをせよ」とは言っていない（§210）</td></tr></tbody></table></div>
+  <div class="cap2">善い行いそのものが悪いのではなく、それを「救いの手段」と思うことを捨てる、という意味です。</div>
+</figure>
+<figure class="fig">
+  <figcaption>神という手段と、人が行う手段（§220–221）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>神（<i>siddhopāya</i>）</th><th>人が行う手段（<i>sādhyopāya</i>）</th></tr></thead><tbody><tr><td>成り立ち</td><td>すでに成り立っている</td><td>行って作り出す</td></tr><tr><td>知と力</td><td>全知・全能</td><td>知も力もない</td></tr><tr><td>失敗</td><td>ない</td><td>ありうる</td></tr><tr><td>目的との関係</td><td>手段がそのまま目的</td><td>目的とは別</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>手段でないのに、なぜすがるのか（§233）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>理由</th><th>意味</th></tr></thead><tbody><tr><td>全員救済の難点を避ける</td><td>すがる必要がないなら、全員がすでに救われているはずになってしまう</td></tr><tr><td>心の安らぎ</td><td>すがった人の心が落ち着く</td></tr><tr><td>知ある者の自然な働き</td><td>知をもつ者として当然の応答</td></tr><tr><td>愛から自然に出る</td><td>神を慕う心から自然に出てくる</td></tr><tr><td>本性にかなう</td><td>神に属するという本性にふさわしい</td></tr><tr><td>拒まないことの表れ</td><td>神の救いを拒んでいないことを示す</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>自分でつかむか、神に運ばれるか（§235–237）</figcaption>
+<div class="grid2"><div class="node bad"><b>子猿の喩え</b>子が母にしがみつく<br>＝ 自分が神をつかむ<span class='sm'>我執が混じる（§235）</span></div><div class="node good"><b>子猫の喩え</b>母が子をくわえて運ぶ<br>＝ 神が受け入れてくださる<span class='sm'>これこそが守り（§236）</span></div></div>
+  <div class="cap2">猿と猫の喩えは本文にはなく、この学派の教えを説明するときによく使われるものです。</div>
+</figure>
+<h2 id="cs2"><span class="num">7</span>第3章 最後の詩節（2）悲しむな（§249–289）</h2>
+<figure class="fig">
+  <figcaption>罪が去っていく仕組み（§265–268）</figcaption>
+<div class="flow"><div class="node plain"><b>罪</b>神の罰から生じたもの</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>神が憐れむ</b>罰の理由がなくなる</div><div class="arr"><span class="ac">→</span></div><div class="node good"><b>罪は自ら去る</b></div></div>
+  <div class="cap2">「私の身体についた汚れを、私自身が払い落とさないことがあろうか」（§268）。魂は神の身体なので、魂の罪は神ご自身が払う、という考えです。</div>
+</figure>
+<div class="key"><div class="lbl">悲しむな</div>「私が罪を赦して、それを功徳とさえ思っているのに、あなたが悲しむことがあろうか」<a class="src" href="mumukshuppadi_kadan.html#s273">§273</a></div>
+<p>では、なぜ神は最初からこの教えを説かず、まず難しい修行の道を教えたのでしょうか。本書は、アルジュナの心を試し、我執を取り除くためだった、と答えます<a class="src" href="mumukshuppadi_kadan.html#s278">§278</a><a class="src" href="mumukshuppadi_kadan.html#s279">§279</a>。そして、捨てた修行は無駄になるのではなく、形を変えて生き方の中に残ると言います。</p>
+<figure class="fig">
+  <figcaption>捨てた修行の行き先（§282）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>捨てた修行</th><th></th><th>救われた人の生き方の中での形</th></tr></thead><tbody><tr><td>行いの道</td><td>→</td><td>神への奉仕</td></tr><tr><td>知の道</td><td>→</td><td>自分の本性を明らかにすること</td></tr><tr><td>信愛の道</td><td>→</td><td>神を慕う心</td></tr><tr><td>すがること</td><td>→</td><td>本性のありのままの知</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>ラーマとクリシュナの言葉（§285）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>言葉</th><th>意味</th></tr></thead><tbody><tr><td>ラーマ（敵方のヴィビーシャナを受け入れた時）</td><td>「罪とともに来てもかまわない」</td><td>罪は救いの妨げにならない</td></tr><tr><td>クリシュナ（最後の詩節）</td><td>「善い行いも捨てて来なさい」</td><td>善い行いは救いの条件にならない</td></tr></tbody></table></div>
+  <div class="cap2">救いに必要なのは、神の救いを妨げないことと、願うことだけ（§284）。</div>
+</figure>
+<h2 id="whole"><span class="num">8</span>三章を通して見えること</h2>
+<figure class="fig">
+  <figcaption>三つの句に共通する考え</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>考え</th><th>ティルマントラ</th><th>ドヴァヤ</th><th>最後の詩節</th></tr></thead><tbody><tr><td>私は神のもの</td><td><i>oṃ</i>（§51・55）</td><td>後半の <i>nārāyaṇāya</i>（§172）</td><td><i>tvā</i>（§256）</td></tr><tr><td>自分の力に頼らない</td><td><i>namaḥ</i>（§80–85）</td><td><i>prapadye</i>（§156・159）</td><td><i>ekam</i>（§227–237）</td></tr><tr><td>神こそ手段</td><td>§25</td><td><i>śaraṇam</i>（§149–153）</td><td><i>mām</i>・<i>śaraṇam</i>（§215–243）</td></tr><tr><td>女神の役割</td><td><i>a</i> の中に女神（§40–47）</td><td><i>śrī</i>（§123–135・165–170）</td><td>—</td></tr><tr><td>奉仕を願う</td><td><i>nārāyaṇāya</i>（§105–112）</td><td>後半（§171–187）</td><td>捨てた行いは奉仕に（§282）</td></tr></tbody></table></div>
+</figure>
+<h2 id="quotes"><span class="num">9</span>名句で読む</h2>
+<figure class="fig">
+  <figcaption>本書の名句</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>節</th><th>名句（和訳）</th></tr></thead><tbody><tr><td><a class="src" href="mumukshuppadi_kadan.html#s1">§1</a></td><td>解脱を求める者が知るべき秘密は三つ</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s7">§7</a></td><td>聖典から得る知は自分で稼いだ財、ティルマントラから得る知は父祖から受け継いだ財</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s53">§53</a></td><td>愛する相手に従属しているあり方は、楽しいものと見られている</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s57">§57</a></td><td>自己を盗むとは、自分は誰にも従属しない者だと思うこと</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s115">§115</a></td><td>すべての主にだけ、あらゆる奉仕をさせていただける者となりたい</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s118">§118</a></td><td>ティルマントラは自己によって、最後の詩節は神によって、ドヴァヤは女神によって救いを得ると説く</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s135">§135</a></td><td>女神がそばにいたので鴉は命拾いし、そばにいなかったのでラーヴァナは滅びた</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s164">§164</a></td><td>この者の言葉を聞けば、神の心は喜ばれる</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s236">§236</a></td><td>神が受け入れてくださることこそが、守りとなる</td></tr><tr><td><a class="src" href="mumukshuppadi_kadan.html#s273">§273</a></td><td>私が罪を赦して、それを功徳とさえ思っているのに、あなたが悲しむことがあろうか</td></tr></tbody></table></div>
+</figure>
+<h2 id="compare"><span class="num">10</span>他の宗教と比べると</h2>
+<figure class="fig">
+  <figcaption>本書の考えと、他の宗教の似た考え</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>本書の考え</th><th>似た考え</th><th>違い</th></tr></thead><tbody><tr><td>短い聖なる句を唱え、その意味を深く味わう</td><td>浄土教の念仏「南無阿弥陀仏」、カトリックのロザリオ、イスラームのズィクル</td><td>本書は句を「唱えること」より「意味を知ること」を重んじる</td></tr><tr><td>「<i>namaḥ</i>」＝私は私のものではない</td><td>仏教の「南無」（帰依）、パウロ「生きているのは、もはやわたしではない」</td><td>本書では「神のしもべ」という自己理解に結びつく</td></tr><tr><td>女神のとりなし</td><td>聖母マリアの取り次ぎ、観音菩薩</td><td>女神は神と永遠に一体</td></tr><tr><td>すがることさえ手段ではない</td><td>親鸞の他力、ルターの「恵みのみ」</td><td>本書の神は人格神で、魂も永遠</td></tr><tr><td>「悲しむな」という約束</td><td>イエス「心を騒がせるな」（ヨハネ14章）</td><td>—</td></tr></tbody></table></div>
+  <div class="cap2">比較は入門のために大きく単純化しています。</div>
+</figure>
+<h2 id="think"><span class="num">11</span>考えてみよう</h2>
+<ol class="q card"><li>「聖典から得る知は自分で稼いだ財、ティルマントラの知は受け継いだ財」（§7）。このたとえは、どんな知のあり方の違いを表しているでしょうか。</li><li>「愛する相手に従属しているあり方は楽しい」（§53）。従うことが喜びになるのは、どんな場合でしょうか。身近な例で考えてみましょう。</li><li>本書は、八音節の短い句を、一音ずつ・一語ずつ、何十もの節を使って解説します。短い言葉に多くの意味を読み込む方法の長所と短所を考えてみましょう。</li><li>神は全知なのに、なぜ人は願いを言葉にするのか。「言葉を聞けば神の心は喜ぶ」（§164）という答えを、祈りの意味という観点から考えてみましょう。</li><li>「すがることさえ手段ではない」のに、なぜすがるのか。§233 の六つの理由のうち、あなたが最も説得力を感じるのはどれですか。</li><li>捨てた修行は、形を変えて生き方の中に残る（§282）。この考えは、宗教の「救い」と「日々の生活」の関係について、何を示しているでしょうか。</li></ol><h2 id="glossary"><span class="num">12</span>用語集と関連ページ</h2>
+<figure class="fig">
+  <figcaption>用語集</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>用語</th><th>読み</th><th>意味</th></tr></thead><tbody><tr><td><i>mumukṣu</i></td><td>ムムクシュ</td><td>解脱を求める者</td></tr><tr><td><i>rahasya-traya</i></td><td>ラハスヤ・トラヤ</td><td>三つの秘密の句</td></tr><tr><td><i>tirumantra</i></td><td>ティルマントラ</td><td>八音節の句 <i>oṃ namo nārāyaṇāya</i></td></tr><tr><td><i>dvaya</i></td><td>ドヴァヤ</td><td>二つの文からなる句</td></tr><tr><td><i>carama-śloka</i></td><td>チャラマ・シュローカ</td><td>最後の詩節（『ギーター』18.66）</td></tr><tr><td><i>śeṣatva</i></td><td>シェーシャトヴァ</td><td>神に属すること</td></tr><tr><td><i>pāratantrya</i></td><td>パーラタントリヤ</td><td>神に依存すること</td></tr><tr><td><i>kaiṅkarya</i></td><td>カインカリヤ</td><td>奉仕</td></tr><tr><td><i>puruṣakāra</i></td><td>プルシャカーラ</td><td>とりなし役（女神）</td></tr><tr><td><i>prapatti</i></td><td>プラパッティ</td><td>神にすがること</td></tr><tr><td><i>siddhopāya</i></td><td>シッドーパーヤ</td><td>すでに成り立っている手段（＝神）</td></tr><tr><td><i>virodhi</i></td><td>ヴィローディ</td><td>妨げ</td></tr></tbody></table></div>
+</figure>
+<div class="card"><b>本サイトの関連ページ</b><ul style='margin:6px 0 0;padding-left:20px'><li><a href='mumukshuppadi_kadan.html'>『ムムクシュッパディ』科段・和訳・図解</a>（全289節の和訳。このページの節番号ボタンから移動できます）</li><li><a href='pillai_lokacarya_nyumon.html'>ピッライ・ローカーチャーリヤの宗教思想入門</a></li><li><a href='tattvatraya_nyumon.html'>『タットヴァトラヤ』入門</a></li><li><a href='srivacanabhusanam_nyumon.html'>『シュリーヴァチャナブーシャナム』入門</a></li></ul><p class='note' style='margin-top:8px'>このページの引用は本サイトの和訳（OCR テキストに基づく試訳）によります。「伝統的な理解」とした説明は、本文に書かれていない伝承を補ったものです。</p></div>
+
+</div>
+</body>
+</html>
