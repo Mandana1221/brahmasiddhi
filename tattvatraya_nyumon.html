@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="iast-fonts.css">
+<title>タットヴァトラヤ入門</title>
+<style>
+  :root{
+    --ink:#1f2328; --sub:#5b6370; --line:#d9dde3; --bg:#fbfaf7; --card:#ffffff;
+    --accent:#8a4b12; --accent-bg:#fdf3e1; --l1:#2d3748; --l2:#4a5568;
+    --gray-bg:#f1f2f4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+      --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+    --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'IAST Sans',"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    line-height:1.85;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+  header.hero{background:linear-gradient(135deg,#2d3748,#4a5568);color:#fff;border-radius:16px;padding:26px 22px;margin-bottom:28px}
+  .hero .kicker{font-size:13px;letter-spacing:.08em;opacity:.8}
+  .hero h1{font-size:25px;line-height:1.4;margin:6px 0 10px}
+  .hero p{margin:0;opacity:.92;font-size:14.5px}
+  h2{font-size:21px;margin:44px 0 14px;padding-bottom:6px;border-bottom:3px solid var(--ink)}
+  h3{font-size:17px;margin:26px 0 10px}
+  p{margin:10px 0}
+  i, .iast{font-style:italic}
+  .note{font-size:13.5px;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0}
+  .toc a{color:var(--ink)}
+  .toc ol{margin:6px 0;padding-left:22px}
+
+  /* 科段 */
+  .kd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin:14px 0}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;
+    padding:5px 14px;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);white-space:nowrap}
+  .row .t{min-width:0}
+  .row .s{font-variant-numeric:tabular-nums;color:var(--sub);font-size:13.5px;white-space:nowrap}
+  .row .s::before{content:"§ "}
+  .lv1{background:var(--l1);color:#fff;font-size:17px;font-weight:700;border-bottom:none}
+  .lv1 .n,.lv1 .s{color:#fff}
+  .lv2{background:var(--accent-bg);font-weight:700}
+  .lv3{padding-left:34px}
+  .lv4{padding-left:58px;font-size:15px}
+  .lv5{padding-left:82px;font-size:14.5px}
+  .gloss{display:block;font-size:13px;color:var(--sub);font-weight:400}
+  .pending{color:var(--sub);font-style:normal;font-size:13.5px}
+
+  /* 解説 */
+  .sutra{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:12px 16px;margin:16px 0}
+  .sutra .hd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:4px}
+  .sutra .no{font-weight:700;font-size:17px;color:var(--accent)}
+  .sutra .ref{font-size:12.5px;color:var(--sub);background:var(--gray-bg);border-radius:999px;padding:0 9px}
+  .sutra .tr{font-size:16.5px;margin:4px 0 8px}
+  .sutra .ex{font-size:15px;border-top:1px dashed var(--line);padding-top:8px}
+  .sutra .ex p{margin:6px 0}
+  ul{padding-left:22px;margin:6px 0}
+  body{counter-reset:fig}
+  :root{--good:#2f855a;--good-bg:#e6f4ec;--bad:#c53030;--bad-bg:#fdeaea}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}}
+  :root[data-theme="dark"]{--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}
+  .fig{counter-increment:fig;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:22px 0}
+  .fig figcaption{font-weight:700;margin-bottom:10px;font-size:15.5px}
+  .fig figcaption::before{content:"図" counter(fig) "　";color:var(--accent)}
+  .cap2{font-size:13.5px;color:var(--sub);margin-top:10px;line-height:1.7}
+  .tscroll{overflow-x:auto}
+  table.t{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.6}
+  .t th,.t td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+  .t th{background:var(--gray-bg);white-space:nowrap}
+  .t tr.grp td{background:var(--accent-bg);font-weight:700;color:var(--accent)}
+  .good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+  .flow{display:flex;align-items:stretch}
+  .node{flex:1 1 0;min-width:0;background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;padding:9px 10px;text-align:center;font-size:14px;line-height:1.6}
+  .node b{display:block;font-size:15px;margin-bottom:2px}
+  .node.plain{background:var(--card);border-color:var(--line)}
+  .node.good{background:var(--good-bg);border-color:var(--good);color:var(--ink);font-weight:400}
+  .node.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink);font-weight:400}
+  .node .sm{display:block;font-size:12.5px;color:var(--sub);margin-top:4px}
+  .node .sep{display:block;border-top:1px dashed var(--line);margin:7px 0}
+  .arr{flex:0 0 28px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-weight:700;font-size:20px}
+  .arr.lbl{flex:0 0 96px;flex-direction:column;font-size:12px;font-weight:400;line-height:1.35;text-align:center;padding:0 4px}
+  .arr.lbl .ac{font-size:20px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .res{margin-top:12px;border:2px dashed var(--accent);border-radius:10px;padding:8px 12px;text-align:center;font-weight:700}
+  .tree ul{list-style:none;margin:0;padding-left:20px}
+  .tree>ul{padding-left:0}
+  .tree li{position:relative;padding:5px 0 5px 18px}
+  .tree>ul>li{padding-left:0}
+  .tree ul ul>li::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
+  .tree ul ul>li::after{content:"";position:absolute;left:0;top:20px;width:14px;border-top:2px solid var(--line)}
+  .tree ul ul>li:last-child::before{bottom:auto;height:20px}
+  .tree .box{display:inline-block;border:1.5px solid var(--line);border-radius:8px;padding:3px 10px;background:var(--card);font-size:14.5px}
+  .tree .box.hl{border-color:var(--accent);background:var(--accent-bg);font-weight:700}
+  @media (max-width:640px){
+    .flow{flex-direction:column}
+    .arr{flex-basis:26px}.arr .ac{display:inline-block;transform:rotate(90deg)}
+    .arr.lbl{flex-direction:row;gap:8px;flex-basis:auto;padding:4px 0}
+    .grid2,.grid3{grid-template-columns:1fr}
+    table.t{font-size:13.5px}.t th{white-space:normal}.t th,.t td{padding:6px 7px}
+  }
+
+  #exp ~ h3{border-left:4px solid var(--accent);padding-left:10px;margin-top:34px}
+  .h3n{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+  .chk{font-size:12px;font-weight:700;color:#b7791f;border:1px solid #b7791f;border-radius:999px;padding:0 8px}
+
+  @media (max-width:640px){
+    .hero h1{font-size:21px}
+    .row{grid-template-columns:auto 1fr;padding:5px 10px}
+    .row .s{grid-column:2;font-size:12.5px}
+    .lv3{padding-left:18px}.lv4{padding-left:28px}.lv5{padding-left:38px}
+  }
+
+  .edmark{margin:26px 0 6px;font-size:13px;color:var(--sub);border-top:2px dotted var(--line);padding-top:6px}
+  .edmark b{color:var(--accent)}
+  .kd .row .t i{font-style:italic}
+
+  .edmark{margin:26px 0 6px;font-size:13px;color:var(--sub);border-top:2px dotted var(--line);padding-top:6px}
+  .edmark b{color:var(--accent)}
+  .kd .row .t i{font-style:italic}
+
+  .key{background:var(--accent-bg);border:2px solid var(--accent);border-radius:12px;padding:12px 16px;margin:18px 0}
+  .key .lbl{font-weight:700;color:var(--accent);font-size:14px;margin-bottom:4px}
+  a.src{font-size:12.5px;white-space:nowrap;color:var(--accent);text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:0 7px;margin:0 2px}
+  a.src:hover{background:var(--accent-bg)}
+  h2 .num{display:inline-block;background:var(--accent);color:#fff;border-radius:6px;padding:0 9px;margin-right:8px;font-size:16px}
+  .q li{margin:8px 0}
+  .lamp{display:flex;align-items:center;justify-content:center;gap:18px;flex-wrap:wrap;margin:6px 0}
+  .lamp svg{max-width:100%;height:auto}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="hero">
+  <div class="kicker">大学1年生のための宗教思想入門</div>
+  <h1>『タットヴァトラヤ』入門<br><span style="font-size:.7em">魂・物質・神 ― 三つの実在で世界を読む</span></h1>
+  <p>ピッライ・ローカーチャーリヤが、救いの教えの土台として説いた世界観を、図と表でわかりやすく紹介します。</p>
+  <p style="margin-top:8px"><a href="index.html" style="color:#fff">← 原典研究の書庫（リンク集）へ</a></p>
+</header>
+<nav class="card toc"><b>目次</b><ol start="0"><li><a href="#intro">はじめに：この本は何のための本か</a></li><li><a href="#three">三つの実在の全体図</a></li><li><a href="#bodysoul">鍵となる考え：「身体と魂」</a></li><li><a href="#cit">第1章 魂：私とは何か</a></li><li><a href="#jnana">魂と知：灯火のたとえ</a></li><li><a href="#kinds">魂の三つの種類と、魂の数</a></li><li><a href="#acit">第2章 物質：世界は何からできているか</a></li><li><a href="#tattva">二十四の原理と宇宙卵</a></li><li><a href="#isvara">第3章 神：どんな方か</a></li><li><a href="#cause">神は世界をどう生み出すか</a></li><li><a href="#evil">神はなぜ苦しみを許すのか</a></li><li><a href="#forms">神の五つの現れ方</a></li><li><a href="#debate">本書が退ける他の考え</a></li><li><a href="#west">西洋の思想と比べると</a></li><li><a href="#salvation">この世界観と救いの教え</a></li><li><a href="#think">考えてみよう</a></li><li><a href="#glossary">用語集</a></li></ol></nav>
+<h2 id="intro"><span class="num">0</span>はじめに：この本は何のための本か</h2>
+<p>『タットヴァトラヤ』（<i>Tattvatraya</i>）は、13〜14世紀の南インドの思想家ピッライ・ローカーチャーリヤ（<i>Piḷḷai Lokācārya</i>）の著作です。書名は「三つの実在」という意味で、全202節の短い文（<i>sūtra</i>）で、世界が何からできているかを説明します。</p>
+<div class="key"><div class="lbl">本書の最初の一文</div>「解脱を求める者に解脱が生じるためには、三つの実在の知が生じなければならない」<a class="src" href="tattvatraya_kadan.html#s1">§1</a></div>
+<p>この一文が本書の目的をよく表しています。本書は、世界の成り立ちを知ること自体を目的にした「自然哲学」の本ではありません。輪廻（生まれ変わり）から抜け出して救われるためには、まず「自分とは何か」「世界とは何か」「神とは何か」を正しく知る必要がある――そのための基礎知識の本です。</p>
+<figure class="fig">
+  <figcaption>ピッライ・ローカーチャーリヤの三つの著作の関係</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>著作</th><th>扱うこと</th><th>たとえると</th></tr></thead><tbody><tr><td><b>タットヴァトラヤ</b>（このページ）</td><td>三つの実在：魂・物質・神</td><td>地図：世界がどうなっているか</td></tr><tr><td><a href="mumukshuppadi_kadan.html">ムムクシュッパディ</a></td><td>三つの秘密の句（<i>mantra</i>）</td><td>道案内：どう救われるか</td></tr><tr><td><a href="srivacanabhusanam_kadan.html">シュリーヴァチャナブーシャナム</a></td><td>救いの教えの詳しい議論</td><td>旅の心得：救われた人はどう生きるか</td></tr></tbody></table></div>
+  <div class="cap2">救いの教えについては、<a href="pillai_lokacarya_nyumon.html">ピッライ・ローカーチャーリヤの宗教思想入門</a>で紹介しています。このページは、その土台にある世界観の入門です。</div>
+</figure>
+<div class="key"><div class="lbl">このページの要点（先に結論）</div><ol style='margin:4px 0 0;padding-left:20px'><li>世界には、魂（<i>cit</i>）・物質（<i>acit</i>）・神（<i>Īśvara</i>）の三つの実在がある。</li><li>魂と物質は、神の「身体」である。神は、それらすべてに宿る「魂」である。</li><li>魂は小さく永遠で、知る主体。その知は灯火の光のように広がる。魂の本質は「神に属すること」。</li><li>物質は、天界をつくる清らかな物質、この世をつくる物質、そして時間の三種類。</li><li>神は世界の造り手であり材料でもあるが、神の本性は変化しない。世界は神の遊び。</li></ol></div>
+<h2 id="three"><span class="num">1</span>三つの実在の全体図</h2>
+<figure class="fig">
+  <figcaption>三つの実在（<i>tattva-traya</i>）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>魂（<i>cit</i>）</th><th>物質（<i>acit</i>）</th><th>神（<i>Īśvara</i>）</th></tr></thead><tbody><tr><td>ひとことで</td><td>知をもつもの</td><td>知をもたないもの</td><td>すべての主</td></tr><tr><td>例</td><td>私・あなた・動物の魂</td><td>身体・山・星・天界の宮殿・時間</td><td>ヴィシュヌ（<i>Nārāyaṇa</i>）</td></tr><tr><td>大きさ</td><td>原子のように小さい</td><td>さまざま</td><td>どこにでもある</td></tr><tr><td>変化</td><td>本性は変化しない</td><td>変化する</td><td>本性は変化しない</td></tr><tr><td>数</td><td>無数</td><td>三種類</td><td>一人</td></tr><tr><td>本書の章</td><td>第1章（§1–76）</td><td>第2章（§77–140）</td><td>第3章（§141–202）</td></tr></tbody></table></div>
+</figure>
+<p>インドの哲学では、「世界は究極的には何からできているか」をめぐって、さまざまな説が争われてきました。たとえば、すべては一つの絶対者だけだとする説（不二一元論）、精神と物質の二つだとする説（サーンキヤ）、固定した実体はないとする説（仏教）などです。本書は、魂・物質・神の三つがすべて実在し、しかも互いに切り離せない形で結びついている、という立場に立ちます。</p>
+<figure class="fig">
+  <figcaption>世界はいくつのもので成り立つか：インドの諸学派</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>学派</th><th>究極の実在</th><th>本書から見ると</th></tr></thead><tbody><tr><td>不二一元論（<i>Advaita</i>）</td><td>絶対者（<i>brahman</i>）一つだけ。他は見かけ</td><td>魂も物質も実在する、と反論</td></tr><tr><td>サーンキヤ</td><td>精神（無数）と物質（一つ）の二つ。神は不要</td><td>神がいなければ物質は動かない、と反論（§156）</td></tr><tr><td>ニヤーヤ・ヴァイシェーシカ</td><td>原子・虚空・時間・方角・魂など多くの実体</td><td>原子は根拠がない、などと反論（§154）</td></tr><tr><td>仏教</td><td>固定した実体はない（無我・刹那滅）</td><td>時間も虚空も実在する、と反論（§126・130）</td></tr><tr><td><b>本書（<i>Viśiṣṭādvaita</i>）</b></td><td><b>魂・物質・神の三つ。ただし魂と物質は神の身体</b></td><td>—</td></tr></tbody></table></div>
+</figure>
+<h2 id="bodysoul"><span class="num">2</span>鍵となる考え：「身体と魂」</h2>
+<p>本書を理解するいちばんの鍵は、「身体と魂」の関係です。私たちの身体は魂によって動かされ、魂に支えられ、魂のために存在しています。本書は、これと同じ関係が、魂と神、物質と神の間にもある、と考えます。</p>
+<figure class="fig">
+  <figcaption>身体と魂のたとえ</figcaption>
+<div class="flow"><div class="node plain"><b>物質</b>魂の身体</div><div class="arr lbl"><span class="ac">→</span><span>を身体とする</span></div><div class="node "><b>魂</b>物質を身体とし、自分も神の身体である</div><div class="arr lbl"><span class="ac">→</span><span>（と物質）を身体とする</span></div><div class="node good"><b>神</b>魂と物質の全体を身体とする「魂」</div></div><div class="tscroll"><table class="t"><thead><tr><th>身体と魂の関係</th><th>神と世界の関係（本書）</th><th>出典</th></tr></thead><tbody><tr><td>魂が身体を動かす</td><td>神が魂のすべての働きを統御する</td><td><a class="src" href="tattvatraya_kadan.html#s38">§38</a></td></tr><tr><td>魂がいなければ身体は死ぬ</td><td>神がいなければ魂も存在しない</td><td><a class="src" href="tattvatraya_kadan.html#s39">§39</a></td></tr><tr><td>身体は魂のために使われる</td><td>魂は神の望むままに用いられる</td><td><a class="src" href="tattvatraya_kadan.html#s40">§40</a></td></tr><tr><td>身体は魂から離れて存在できない</td><td>魂は神から離れて存在できない</td><td><a class="src" href="tattvatraya_kadan.html#s41">§41</a></td></tr><tr><td>身体の幼さ・老いは魂に及ばない</td><td>世界の欠点は神に及ばない</td><td><a class="src" href="tattvatraya_kadan.html#s145">§145</a></td></tr></tbody></table></div>
+</figure>
+<div class="key"><div class="lbl">財産ではなく、身体</div>「（魂は）家・田・息子・妻などのように持ち主から離れて存在しうるものとは違って、身体のように、離れて存在することができない」<a class="src" href="tattvatraya_kadan.html#s41">§41</a><br>神と魂の関係は、持ち主と財産のような外からの関係ではなく、魂と身体のような、内側からの切り離せない関係だ、ということです。この考えは、ラーマーヌジャの哲学（<i>Viśiṣṭādvaita</i>）の中心にあります。</div>
+<h2 id="cit"><span class="num">3</span>第1章 魂：私とは何か</h2>
+<p>第1章は、魂（自己、<i>ātman</i>）とは何かを論じます。著者はまず、魂の特徴を一息に十三個並べます<a class="src" href="tattvatraya_kadan.html#s4">§4</a>。</p>
+<figure class="fig">
+  <figcaption>魂の十三の特徴（§4）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>特徴</th><th>ひとことで</th><th>節</th></tr></thead><tbody><tr><td>身体・感官などと異なる</td><td>身体は「私の身体」、魂は「私」</td><td><a class="src" href="tattvatraya_kadan.html#s6">§6</a></td></tr><tr><td>自ら現れる（<i>ajaḍa</i>）</td><td>知を介さずに自分に現れる</td><td><a class="src" href="tattvatraya_kadan.html#s8">§8</a></td></tr><tr><td>歓喜を本性とする</td><td>「よく眠れた」と言えるのはそのため</td><td><a class="src" href="tattvatraya_kadan.html#s10">§10</a></td></tr><tr><td>永遠</td><td>生とは身体との結びつき、死とは別離</td><td><a class="src" href="tattvatraya_kadan.html#s12">§12</a></td></tr><tr><td>原子大</td><td>心臓から出入りすると聖典が言う</td><td><a class="src" href="tattvatraya_kadan.html#s14">§14</a></td></tr><tr><td>見えない・思考を超える</td><td>目にも見えず、物質と同類とも考えられない</td><td><a class="src" href="tattvatraya_kadan.html#s18">§18</a><a class="src" href="tattvatraya_kadan.html#s19">§19</a></td></tr><tr><td>部分がない・変化しない</td><td>武器も火も水も風も傷つけられない</td><td><a class="src" href="tattvatraya_kadan.html#s22">§22</a></td></tr><tr><td>知の拠り所</td><td>知る主体であり、行為し、結果を受ける</td><td><a class="src" href="tattvatraya_kadan.html#s26">§26</a><a class="src" href="tattvatraya_kadan.html#s29">§29</a></td></tr><tr><td>神に統御される</td><td>すべての働きは神の意志による</td><td><a class="src" href="tattvatraya_kadan.html#s38">§38</a></td></tr><tr><td>神に支えられる</td><td>神がいなければ存在しない</td><td><a class="src" href="tattvatraya_kadan.html#s39">§39</a></td></tr><tr><td>神に従属する（<i>śeṣa</i>）</td><td>白檀や花のように神の喜びのためにある</td><td><a class="src" href="tattvatraya_kadan.html#s40">§40</a></td></tr></tbody></table></div>
+</figure>
+<h3>「私」と「私の身体」は違う</h3>
+<p>魂が身体と違うことを、本書は日常の言葉づかいから論証します<a class="src" href="tattvatraya_kadan.html#s6">§6</a>。</p>
+<figure class="fig">
+  <figcaption>魂と身体の違い（§6）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>身体</th><th>魂</th></tr></thead><tbody><tr><td>言い方</td><td>「私の身体」「これ」</td><td>「私」</td></tr><tr><td>いつ現れるか</td><td>ある時は現れ、ある時は現れない（眠っている時など）</td><td>常に現れる</td></tr><tr><td>数</td><td>多い（手・足・目・心…）</td><td>一つ</td></tr></tbody></table></div>
+  <div class="cap2">それでも論証に不安が残るなら、最終的な根拠は聖典にある、と著者は言います（§7）。理屈と聖典の両方を使うのが、この学派の特徴です。</div>
+</figure>
+<h3>魂は「知そのもの」ではなく「知る主体」</h3>
+<p>インドには「魂とは純粋な知そのものだ」という説（不二一元論など）があります。本書はこれに対して、私たちは「私は知である」とは言わず「私は知っている」と言う、と反論します<a class="src" href="tattvatraya_kadan.html#s28">§28</a>。知る主体があるからこそ、行為する者・結果を受ける者でもありうるのです<a class="src" href="tattvatraya_kadan.html#s29">§29</a>。</p>
+<figure class="fig">
+  <figcaption>行為するのは誰か（§29–35）</figcaption>
+<div class="grid2"><div class="node plain"><b>サーンキヤ学派</b>行為するのは物質だけ。魂はただ見ている<span class='sm'>→ それでは「〜せよ」という聖典の命令が無意味になる（§32）</span></div><div class="node good"><b>本書</b>魂は行為の主体である。ただしその主体性も神に支えられている（§35）</div></div>
+</figure>
+<div class="key"><div class="lbl">魂の定義</div>「（魂の）定義は、従属することを伴った『知る者であること』である」<a class="src" href="tattvatraya_kadan.html#s61">§61</a><br>ただの「知る者」ではなく、「神に属する知る者」。ここに、この学派の人間観が凝縮されています。</div>
+<h2 id="jnana"><span class="num">4</span>魂と知：灯火のたとえ</h2>
+<p>魂は原子のように小さく、心臓にあるとされます<a class="src" href="tattvatraya_kadan.html#s14">§14</a>。では、なぜ足の痛みも頭の痛みも感じられるのでしょうか。本書の答えは、「灯火は一か所にあっても、光は部屋中に広がる」です<a class="src" href="tattvatraya_kadan.html#s16">§16</a>。</p>
+<figure class="fig">
+  <figcaption>灯火のたとえ：魂そのものと、属性としての知</figcaption>
+<div class="lamp"><svg viewBox="0 0 320 200" width="320" role="img" aria-label="灯火の炎と広がる光"><circle cx="160" cy="95" r="70" fill="none" stroke="currentColor" stroke-opacity=".25" stroke-dasharray="4 4"/><circle cx="160" cy="95" r="45" fill="none" stroke="currentColor" stroke-opacity=".35" stroke-dasharray="4 4"/><path d="M160 70 C150 88 150 100 160 110 C170 100 170 88 160 70 Z" fill="#e0a96d" stroke="#8a4b12"/><rect x="148" y="110" width="24" height="10" rx="3" fill="#8a4b12"/><text x="160" y="190" text-anchor="middle" font-size="12" fill="currentColor">炎 ＝ 魂そのもの（小さく、一か所に）</text><text x="160" y="20" text-anchor="middle" font-size="12" fill="currentColor">光 ＝ 知（辺りに広がる・伸び縮みする）</text></svg></div><div class="tscroll"><table class="t"><thead><tr><th></th><th>魂そのもの（炎）</th><th>知（光）</th></tr></thead><tbody><tr><td>大きさ</td><td>原子大</td><td>広がる（伸び縮みする）</td></tr><tr><td>照らすもの</td><td>自分だけ</td><td>自分以外のもの</td></tr><tr><td>誰に現れるか</td><td>自分自身に</td><td>魂に</td></tr><tr><td>共通点</td><td>永遠の実体・自ら現れる・歓喜を本性とする</td><td>同左</td></tr></tbody></table></div>
+  <div class="cap2">この「属性としての知」（<i>dharma-bhūta-jñāna</i>）はラーマーヌジャ学派独特の考えです（§62–64）。</div>
+</figure>
+<figure class="fig">
+  <figcaption>「知が生まれた」「知が消えた」と言うのはなぜか（§66–72）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>日常の経験</th><th>本書の説明</th></tr></thead><tbody><tr><td>「わかった」「忘れた」</td><td>知そのものは永遠。感官を通って広がったり退いたりするのを、生まれた・消えたと言う（§67）</td></tr><tr><td>いろいろな知があるように見える</td><td>一つの知が、いろいろな方向に広がるから（§68）</td></tr><tr><td>熟睡中・気絶中は何も知らない</td><td>その時、知は広がっていないから（§72）</td></tr><tr><td>毒や武器を見ると不快</td><td>知は本来心地よい。不快さは「身体が自分だ」という思い違いから来る（§73–75）</td></tr></tbody></table></div>
+</figure>
+<h2 id="kinds"><span class="num">5</span>魂の三つの種類と、魂の数</h2>
+<figure class="fig">
+  <figcaption>魂の三つの種類（§42–48）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>種類</th><th>意味</th><th>例</th><th>知の広がり（伝統的理解）</th></tr></thead><tbody><tr><td><i>baddha</i>（束縛された魂）</td><td>輪廻している</td><td>私たち</td><td>縮んでいる</td></tr><tr><td><i>mukta</i>（解脱した魂）</td><td>輪廻から抜け出した</td><td>救われた魂たち</td><td>解脱した時から遍く広がる</td></tr><tr><td><i>nitya</i>（永遠の魂）</td><td>一度も輪廻したことがない</td><td>神の寝床の蛇 <i>Ādiśeṣa</i>、従者の長 <i>Viṣvaksena</i></td><td>常に遍く広がる</td></tr></tbody></table></div>
+  <div class="cap2">魂が汚れるのは、火にかけた鍋の水が熱くなるように、物質と結びつくからだとされます（§46）。</div>
+</figure>
+<p>では、魂はいくつあるのでしょうか。不二一元論は「魂はただ一つ」と言います。本書はこれに、身近な経験から反論します<a class="src" href="tattvatraya_kadan.html#s49">§49</a>〜<a class="src" href="tattvatraya_kadan.html#s60">§60</a>。</p>
+<figure class="fig">
+  <figcaption>「魂はただ一つ」への反論（§49–60）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>反論</th><th>節</th></tr></thead><tbody><tr><td>魂が一つなら、一人が楽しんでいる時に、別の人が苦しむことはありえない</td><td><a class="src" href="tattvatraya_kadan.html#s50">§50</a></td></tr><tr><td>輪廻する人と解脱した人、弟子と先生の区別が説明できない</td><td><a class="src" href="tattvatraya_kadan.html#s53">§53</a></td></tr><tr><td>生まれの違い（不平等な創造）が説明できない</td><td><a class="src" href="tattvatraya_kadan.html#s54">§54</a></td></tr><tr><td>解脱した後も区別は残る。大きさも重さも形も同じ米粒でも、一粒一粒は別物</td><td><a class="src" href="tattvatraya_kadan.html#s57">§57</a><a class="src" href="tattvatraya_kadan.html#s59">§59</a></td></tr></tbody></table></div>
+</figure>
+<h2 id="acit"><span class="num">6</span>第2章 物質：世界は何からできているか</h2>
+<p>第2章は物質（<i>acit</i>）を論じます。物質とは「知をもたず、変化するもの」です<a class="src" href="tattvatraya_kadan.html#s77">§77</a>。本書は物質を三種類に分けます。</p>
+<figure class="fig">
+  <figcaption>物質の三つの種類（§78–120）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>種類</th><th>何をつくるか</th><th>特徴</th></tr></thead><tbody><tr><td><i>śuddha-sattva</i>（純粋な物質）</td><td>神の天界の宮殿・塔門・広間</td><td>知と歓喜を生む。神の意志だけで形を変える（§79）</td></tr><tr><td><i>miśra-sattva</i>（混じった物質）＝ <i>prakṛti</i></td><td>この世の宇宙・私たちの身体</td><td>三つの性質（<i>guṇa</i>）をもち、知と歓喜を覆い隠す（§85）</td></tr><tr><td><i>sattva-śūnya</i>（時間）</td><td>変化を可能にする</td><td>時の単位に変化する。どこにでもある（§120）</td></tr></tbody></table></div><div class="res">天界の物質は上に果てしなく、この世の物質は下に果てしなく広がり、時間はどこにでもある（§123）</div>
+</figure>
+<p>天界まで「物質」でできている、という点が面白いところです。救われた魂は、天界で清らかな物質の身体をもち、宮殿で神に仕えるのです。仏教の涅槃のように「すべてが消える」のではなく、具体的で豊かな世界が救いの先に待っている、という考え方です。</p>
+<figure class="fig">
+  <figcaption>この世の物質の三つの名（§86）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>名</th><th>理由</th><th>不二一元論での意味との違い</th></tr></thead><tbody><tr><td><i>prakṛti</i></td><td>変化を生むから</td><td>—</td></tr><tr><td><i>avidyā</i>（無知）</td><td>知と対立するから</td><td>不二一元論では世界を見せる根本の無知。ここでは知を覆う物質</td></tr><tr><td><i>māyā</i></td><td>不思議な創造をなすから</td><td>不二一元論では「幻」。ここでは実在する世界をつくる不思議な力</td></tr></tbody></table></div>
+  <div class="cap2">同じ <i>māyā</i> という言葉でも、学派によって意味がまったく違います。本書では、世界は幻ではなく実在します。</div>
+</figure>
+<figure class="fig">
+  <figcaption>三つの性質（<i>guṇa</i>）（§93–95）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>性質</th><th>生むもの</th><th>イメージ</th></tr></thead><tbody><tr><td><i>sattva</i></td><td>知・楽</td><td>明るさ・澄んだ心</td></tr><tr><td><i>rajas</i></td><td>欲望・渇望・行いへの執着</td><td>激しさ・落ち着かない心</td></tr><tr><td><i>tamas</i></td><td>誤った知・不注意・怠惰・眠り</td><td>重さ・暗さ</td></tr></tbody></table></div>
+  <div class="cap2">この三つの性質は『バガヴァッド・ギーター』第14章でも有名です。三つが釣り合っていると世界はまだ展開せず、釣り合いが崩れると世界が現れる（§96）。</div>
+</figure>
+<h2 id="tattva"><span class="num">7</span>二十四の原理と宇宙卵</h2>
+<p>この世の物質は、根本物質（<i>prakṛti</i>）から順に展開して、二十四の原理（<i>tattva</i>）になります<a class="src" href="tattvatraya_kadan.html#s87">§87</a>。もともとはサーンキヤ学派の体系ですが、本書ではすべてが神の意志によって展開し、神の身体とされます。</p>
+<figure class="fig">
+  <figcaption>二十四の原理の展開（§88–106）</figcaption>
+<div class="tree"><ul><li><span class="box hl">根本物質（<i>prakṛti</i>）</span><ul><li><span class="box"><i>mahat</i>（決定するはたらき）</span><ul><li><span class="box"><i>ahaṅkāra</i>（「私のもの」と思うはたらき）</span><ul><li><span class="box">→ 十一の感官：目・耳・鼻・舌・皮膚／言葉・手・足・排泄器・生殖器／意（<i>manas</i>）</span></li><li><span class="box">→ 五つの微細要素：音・手触り・色形・味・香り</span></li><li><span class="box">→ 五つの元素：虚空・風・火・水・地</span></li></ul></li></ul></li></ul></li></ul></div>
+  <div class="cap2">1（根本物質）＋1（<i>mahat</i>）＋1（<i>ahaṅkāra</i>）＋11（感官）＋5（微細要素）＋5（元素）＝24</div>
+</figure>
+<figure class="fig">
+  <figcaption>五つの元素（§113–118・134–139）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>元素</th><th>感じられる性質</th><th>働き</th><th>色・手触り</th></tr></thead><tbody><tr><td>虚空</td><td>音</td><td>場所を与える</td><td>（混じり合って）黒く見える</td></tr><tr><td>風</td><td>手触り</td><td>運ぶ</td><td>熱くも冷たくもない</td></tr><tr><td>火</td><td>色形</td><td>煮る</td><td>赤・熱い</td></tr><tr><td>水</td><td>味</td><td>濡らす・まとめる</td><td>白・冷たい・甘い</td></tr><tr><td>地</td><td>香り</td><td>支える</td><td>色と味はさまざま</td></tr></tbody></table></div>
+</figure>
+<p>こうしてできた原理を、神は「土と砂と水を混ぜて壁を築くように」一つにまとめ、巨大な卵（宇宙卵、<i>aṇḍa</i>）をつくり、その中に創造神ブラフマーを生みます<a class="src" href="tattvatraya_kadan.html#s110">§110</a>。</p>
+<figure class="fig">
+  <figcaption>宇宙卵（§110–112）</figcaption>
+<div class="grid2"><div class="node plain"><b>一つの宇宙卵</b>十四の世界をもつ<br>七つの覆いに包まれる（外側ほど十倍）<br>中に創造神ブラフマー</div><div class="node good"><b>宇宙卵は無数にある</b>水の泡のように同時に生まれる<br>神にとっては「遊びの毬」（§112）</div></div>
+  <div class="cap2">現代の「多元宇宙」を思わせるような、壮大な宇宙観です。</div>
+</figure>
+<h2 id="isvara"><span class="num">8</span>第3章 神：どんな方か</h2>
+<p>第3章は神（<i>Īśvara</i>）を論じます。本書の神は、ヴィシュヌ（<i>Nārāyaṇa</i>）であり、女神ラクシュミーたちの夫です<a class="src" href="tattvatraya_kadan.html#s141">§141</a>。</p>
+<figure class="fig">
+  <figcaption>神の主な特徴（§141–148）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>特徴</th><th>意味</th></tr></thead><tbody><tr><td>あらゆる穢れと対立する</td><td>闇に対する光、蛇に対する鷲のように、欠点を寄せつけない</td></tr><tr><td>無限</td><td>永遠で、どこにでも行き渡り、すべての内側から支配する</td></tr><tr><td>知と歓喜を本性とする</td><td>どこまでも心地よく輝く</td></tr><tr><td>数限りない徳をもつ</td><td>知・力・慈悲など。永遠・無限・無数で、並ぶものがない</td></tr><tr><td>身体をもつ</td><td>清らかな物質（<i>śuddha-sattva</i>）からなる、美しく輝く身体</td></tr></tbody></table></div>
+</figure>
+<div class="key"><div class="lbl">神の徳は、欠けたところに向かう</div>「知は無知な者に、力は無力な者に、忍耐は罪ある者に、慈悲は苦しむ者に、<i>vātsalya</i>（母のような慈しみ）は欠点のある者に…近づきやすさは会いたいと願う者に（向かう）」<a class="src" href="tattvatraya_kadan.html#s150">§150</a></div>
+<figure class="fig">
+  <figcaption>神の徳と、それが向かう相手（§150）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>神の徳</th><th>向かう相手</th></tr></thead><tbody><tr><td>知</td><td>無知な者</td></tr><tr><td>力</td><td>無力な者</td></tr><tr><td>忍耐</td><td>罪ある者</td></tr><tr><td>慈悲</td><td>苦しむ者</td></tr><tr><td>母のような慈しみ</td><td>欠点のある者</td></tr><tr><td>まっすぐさ</td><td>曲がった者</td></tr><tr><td>近づきやすさ</td><td>会いたいと願う者</td></tr></tbody></table></div>
+  <div class="cap2">神の徳は、人間の欠けたところを埋めるためにある。救いの教えの「罪や欠点こそ受け入れの理由になる」という考えの土台です。</div>
+</figure>
+<p>続く §151 は、神が人にどう接するかを、たたみかけるように描いた本書で最も長い一節です。月の光やそよ風のように「ただ他者のためだけにあり」、人の生まれを問わず、自分のした善は忘れて相手のわずかな善だけを覚えている。そして、過ちを指摘する女神と言い争ってまで人を守る――そういう神です<a class="src" href="tattvatraya_kadan.html#s151">§151</a>。</p>
+<h2 id="cause"><span class="num">9</span>神は世界をどう生み出すか</h2>
+<figure class="fig">
+  <figcaption>世界の原因は何か（§152–159）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>説</th><th>学派</th><th>本書の反論</th></tr></thead><tbody><tr><td>原子が集まって世界ができた</td><td>ヴァイシェーシカなど</td><td>原子を知る根拠がなく、聖典にも反する</td></tr><tr><td>根本物質がひとりでに展開した</td><td>サーンキヤ</td><td>知をもたない物質は、神が導かなければ動かない</td></tr><tr><td>個々の魂が世界をつくった</td><td>—</td><td>魂は業に縛られ、苦しんでいる</td></tr><tr><td><b>神だけが原因</b></td><td><b>本書</b></td><td>—</td></tr></tbody></table></div>
+</figure>
+<p>では、神はどのように世界の原因なのでしょうか。ここで本書は、とても大胆な主張をします。神は、世界を外から造る「造り手」であると同時に、自分自身が世界となる「材料」でもある、というのです<a class="src" href="tattvatraya_kadan.html#s165">§165</a>。</p>
+<figure class="fig">
+  <figcaption>造り手と材料：陶工と粘土のたとえ</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>壺の場合</th><th>世界の場合（本書）</th></tr></thead><tbody><tr><td>造り手（動力因）</td><td>陶工</td><td>神</td></tr><tr><td>材料（質料因）</td><td>粘土</td><td>神（その身体である魂と物質）</td></tr><tr><td>材料は変化するか</td><td>粘土は壺に変わる</td><td>変化するのは神の身体だけで、神の本性は変化しない（§166–169）</td></tr></tbody></table></div>
+  <div class="cap2">「神が世界になるなら、神も変化してしまうのでは？」という問題を、「身体と魂」の考えで解いています。人が成長して身体が変わっても魂は変わらないのと同じです。</div>
+</figure>
+<figure class="fig">
+  <figcaption>なぜ、どのように創るのか（§160–164）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>問い</th><th>答え</th></tr></thead><tbody><tr><td>なぜ創るのか</td><td>無知や業や誰かの命令によらず、自分の意志で（§160）</td></tr><tr><td>大変ではないか</td><td>意志だけで行うので苦労はない（§161）</td></tr><tr><td>何のために</td><td>ただの遊び（<i>līlā</i>）（§162）</td></tr><tr><td>世界を壊すのも遊びか</td><td>破壊もまた遊び（§164）</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>創造・維持・破壊（§171–177）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>働き</th><th>意味</th><th>誰を通して</th><th>性質</th></tr></thead><tbody><tr><td>創造</td><td>物質を変化させ、魂に身体と感官を与えて知を広げさせる</td><td>創造神ブラフマーなど</td><td><i>rajas</i></td></tr><tr><td>維持</td><td>作物にとっての田の水のように入りこんで守る</td><td>ヴィシュヌなどの化身</td><td><i>sattva</i></td></tr><tr><td>破壊</td><td>行儀の悪い子を閉じ込める父のように、感官を壊しておく</td><td>破壊神ルドラ（シヴァ）など</td><td><i>tamas</i></td></tr></tbody></table></div>
+  <div class="cap2">ヒンドゥー教でよく知られる「ブラフマー・ヴィシュヌ・シヴァ」の三神を、すべて一人の神の働きとしてまとめています。</div>
+</figure>
+<h2 id="evil"><span class="num">10</span>神はなぜ苦しみを許すのか</h2>
+<p>善い神が世界を造ったのなら、なぜある人は幸せに、ある人は不幸に生まれるのでしょうか。これは「神義論」と呼ばれる、宗教哲学の大問題です。本書もこの問いを立てています<a class="src" href="tattvatraya_kadan.html#s178">§178</a>。</p>
+<figure class="fig">
+  <figcaption>神は不公平で無慈悲か（§178–179）</figcaption>
+<div class="grid2"><div class="node plain"><b>問い</b>ある者を幸福に、ある者を不幸に創るなら、神は不公平で無慈悲ではないか</div><div class="node good"><b>答え</b>① 各自の業（行いの結果）に基づいている<br>② 土を食べた子の舌に印をつけて叱る母のように、相手のためを思っている</div></div>
+</figure>
+<figure class="fig">
+  <figcaption>比較：苦しみの問題への答え方</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>思想</th><th>苦しみの理由</th><th>本書との関係</th></tr></thead><tbody><tr><td><b>本書</b></td><td>業の結果／親の愛としてのしつけ</td><td>—</td></tr><tr><td>インドの業思想一般</td><td>自分の過去の行いの結果</td><td>①は共通</td></tr><tr><td>キリスト教（アウグスティヌスなど）</td><td>人間の自由意志による罪の結果</td><td>「人間の側の原因」とする点は①と近い</td></tr><tr><td>キリスト教（エイレナイオスなど）</td><td>魂を成長させるための試練</td><td>②の「しつけ」の考えと近い</td></tr><tr><td>ライプニッツ</td><td>この世界は可能な世界の中で最善</td><td>—</td></tr></tbody></table></div>
+  <div class="cap2">各思想の欄は、入門のために大きく単純化したものです。</div>
+</figure>
+<h2 id="forms"><span class="num">11</span>神の五つの現れ方</h2>
+<p>神は一人ですが、五つの形で現れるとされます<a class="src" href="tattvatraya_kadan.html#s182">§182</a>。これは、救いの教えで「なぜ寺院の神像にすがるのか」を理解する鍵になります。</p>
+<figure class="fig">
+  <figcaption>神の五つの現れ方（§182–202）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>現れ方</th><th>どんな姿か</th><th>何のために</th></tr></thead><tbody><tr><td><i>para</i>（至高）</td><td>天界の神</td><td>救われた魂たちに味わわれるため</td></tr><tr><td><i>vyūha</i>（分身）</td><td>サンカルシャナ・プラデュムナ・アニルッダの三つの姿</td><td>創造・維持・破壊、瞑想する人への恵み</td></tr><tr><td><i>vibhava</i>（化身）</td><td>ラーマ・クリシュナ・魚・亀・猪など</td><td>善い者を守り、悪を滅ぼし、正しい教えを立てるため（『ギーター』4.8）</td></tr><tr><td><i>antaryāmin</i>（内なる支配者）</td><td>すべての人の心臓の蓮華に住む</td><td>天国でも地獄でも寄り添い、守るため</td></tr><tr><td><i>arcā</i>（神像）</td><td>寺院や家々の神像</td><td>誰でもいつでも近づけるように</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>どれが一番近づきやすいか：水のたとえ（『シュリーヴァチャナブーシャナム』§39 より）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>現れ方</th><th>水にたとえると</th><th>渇いた人がすぐ飲めるか</th></tr></thead><tbody><tr><td><i>antaryāmin</i></td><td>地中の水</td><td>×（掘らないと届かない）</td></tr><tr><td><i>para</i></td><td>世界を囲む海の水</td><td>×（遠すぎる）</td></tr><tr><td><i>vyūha</i></td><td>乳の海</td><td>×（届かない）</td></tr><tr><td><i>vibhava</i></td><td>増水した川</td><td>△（その時代の人だけ）</td></tr><tr><td><b><i>arcā</i></b></td><td><b>川の水がたまった池</b></td><td><b>◎ いつでも誰でも</b></td></tr></tbody></table></div>
+  <div class="cap2">「飲めるか」の欄は、たとえの意味を補ったものです。</div>
+</figure>
+<div class="key"><div class="lbl">神像の逆説</div>「持ち主と持ち物の関係を入れ替えて、無知な者のように、無力な者のように、他に依存する者のようにしていながら、限りない慈悲に圧倒されて、望むものをすべて与えてくださる」<a class="src" href="tattvatraya_kadan.html#s202">§202</a><br>神像は人に運ばれ、飾られ、神官に世話をされる「持ち物」のように見えます。しかし実は、そうして身を任せることで、神は人にすべてを与えている――本書はこの逆説で終わります。</div>
+<figure class="fig">
+  <figcaption>化身の二種類（§189–192）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>主要な化身</th><th>二次的な現れ</th></tr></thead><tbody><tr><td>例</td><td>ラーマ・クリシュナなど</td><td>ブラフマー・シヴァ・火の神など</td></tr><tr><td>たとえ</td><td>灯火から灯した灯火（元と同じ明るさ）</td><td>我執をもつ魂に神が宿ったもの</td></tr><tr><td>救いを求める人は</td><td><span class='good'>礼拝してよい</span></td><td><span class='bad'>礼拝すべきでない</span></td></tr></tbody></table></div>
+  <div class="cap2">他の神々も神の一部として認めつつ、救いを求める人は「ヴィシュヌだけ」を拝むべきだ、という立場です。</div>
+</figure>
+<h2 id="debate"><span class="num">12</span>本書が退ける他の考え</h2>
+<figure class="fig">
+  <figcaption>本書の批判の対象（まとめ）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>学派</th><th>本書が退ける説</th><th>本書の立場</th><th>節</th></tr></thead><tbody><tr><td>不二一元論</td><td>魂はただ一つ／魂は知そのもの</td><td>魂は無数で、知る主体</td><td><a class="src" href="tattvatraya_kadan.html#s28">§28</a><a class="src" href="tattvatraya_kadan.html#s49">§49</a></td></tr><tr><td>サーンキヤ</td><td>行為するのは物質だけ／根本物質が世界の原因</td><td>魂も行為し、原因は神</td><td><a class="src" href="tattvatraya_kadan.html#s31">§31</a><a class="src" href="tattvatraya_kadan.html#s155">§155</a></td></tr><tr><td>ニヤーヤ・ヴァイシェーシカ</td><td>原子が原因／感官は元素から／方角は独立した実体</td><td>原因は神。感官は <i>ahaṅkāra</i> から</td><td><a class="src" href="tattvatraya_kadan.html#s107">§107</a><a class="src" href="tattvatraya_kadan.html#s127">§127</a><a class="src" href="tattvatraya_kadan.html#s153">§153</a></td></tr><tr><td>ジャイナ教</td><td>魂は身体と同じ大きさ</td><td>魂は原子大</td><td><a class="src" href="tattvatraya_kadan.html#s23">§23</a></td></tr><tr><td>仏教</td><td>時間はない／虚空は「ないこと」</td><td>時間も虚空も実在する</td><td><a class="src" href="tattvatraya_kadan.html#s125">§125</a><a class="src" href="tattvatraya_kadan.html#s129">§129</a></td></tr></tbody></table></div>
+</figure>
+<h2 id="west"><span class="num">13</span>西洋の思想と比べると</h2>
+<p>本書の考えは、西洋の哲学や神学とも比べることができます。比べてみると、本書の特徴がよりはっきりします。</p>
+<figure class="fig">
+  <figcaption>比較：神と世界の関係</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>思想</th><th>神と世界の関係</th><th>本書との違い</th></tr></thead><tbody><tr><td><b>本書</b></td><td>世界は神の身体。神は世界に宿るが、世界を超えてもいる</td><td>—</td></tr><tr><td>キリスト教（正統派）</td><td>神は世界を「無から」造った。造り主と被造物ははっきり別</td><td>本書では神自身が世界の材料でもある</td></tr><tr><td>スピノザ（汎神論）</td><td>神＝自然。世界のすべてが神そのもの</td><td>本書では神の本性は世界と区別され、変化しない</td></tr><tr><td>汎在神論（<i>panentheism</i>）</td><td>世界は神の中にあるが、神は世界より大きい</td><td>最も近い。本書を汎在神論と呼ぶ研究者もいる</td></tr></tbody></table></div>
+</figure>
+<figure class="fig">
+  <figcaption>比較：心（魂）と身体</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>思想</th><th>心と身体の関係</th><th>本書との違い</th></tr></thead><tbody><tr><td><b>本書</b></td><td>魂（知る主体）と身体は別。魂は原子大で永遠</td><td>—</td></tr><tr><td>デカルト（心身二元論）</td><td>考える心と、広がりをもつ物体は別の実体</td><td>心と身体を区別する点は近い。ただし本書では「知」は広がる</td></tr><tr><td>現代の唯物論</td><td>心は脳の働き</td><td>本書では魂は身体と別の永遠の実体</td></tr><tr><td>仏教（無我）</td><td>固定した「私」はない</td><td>本書は永遠の「私」を認める</td></tr></tbody></table></div>
+  <div class="cap2">各思想の欄は、入門のために大きく単純化したものです。</div>
+</figure>
+<h2 id="salvation"><span class="num">14</span>この世界観と救いの教え</h2>
+<p>最後に、この世界観が、ピッライ・ローカーチャーリヤの救いの教えとどうつながるかを見ておきましょう。</p>
+<figure class="fig">
+  <figcaption>世界観から救いの教えへ</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>本書の世界観</th><th>そこから出てくる救いの教え</th></tr></thead><tbody><tr><td>魂の定義は「神に属する知る者」（§61）</td><td>人間の本当の姿は「神のしもべ」</td></tr><tr><td>行為の主体性も神に依存する（§35）</td><td>救いは自分の力ではなく神の力による。すがることさえ救いの手段ではない</td></tr><tr><td>魂は神の身体。神と切り離せない（§41）</td><td>神との関係は、こちらが何かをする前から、もともと成り立っている</td></tr><tr><td>神の徳は欠けたところに向かう（§150）</td><td>罪や欠点こそ、神が受け入れてくれる理由になる</td></tr><tr><td>神像に、すべての徳が完全にそろう（§201）</td><td>すがる相手は、寺院の神像としての神</td></tr><tr><td>二次的な現れ（シヴァなど）は礼拝の対象でない（§192）</td><td>ヴィシュヌ以外の神を拝まない</td></tr></tbody></table></div>
+  <div class="cap2">救いの教えについては「<a href="pillai_lokacarya_nyumon.html">ピッライ・ローカーチャーリヤの宗教思想入門</a>」で詳しく紹介しています。</div>
+</figure>
+<h2 id="think"><span class="num">15</span>考えてみよう</h2>
+<ol class="q card"><li>本書は、「私は知である」ではなく「私は知っている」と言うことから、魂は知る主体だと論じました（§28）。日常の言葉づかいから哲学的な結論を引き出すこの方法に、あなたは説得力を感じますか。</li><li>魂は原子のように小さいが、その知は灯火の光のように身体中に広がる（§16）。このたとえは、現代の「心と脳」の問題を考えるヒントになるでしょうか。</li><li>「魂はただ一つ」という説への本書の反論（§50–59）を、不二一元論の側から再反論するとしたら、どう答えるでしょうか。</li><li>神は世界の造り手であり材料でもあるが、変化しない（§165–169）。これと、キリスト教の「無からの創造」を比べてみましょう。それぞれの長所と短所は何でしょう。</li><li>世界の創造の目的は「遊び」だ、という考え（§162）について、どう思いますか。世界に苦しみがあることと、どう両立するでしょうか（§178–179 も参照）。</li><li>神が「人の手で運ばれる神像」として現れることの意味を、§202 をもとに考えてみましょう。</li></ol><h2 id="glossary"><span class="num">16</span>用語集</h2>
+<figure class="fig">
+  <figcaption>用語集</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>用語</th><th>読み</th><th>意味</th></tr></thead><tbody><tr><td><i>tattva-traya</i></td><td>タットヴァ・トラヤ</td><td>三つの実在（魂・物質・神）</td></tr><tr><td><i>cit</i></td><td>チット</td><td>魂。知をもつもの</td></tr><tr><td><i>acit</i></td><td>アチット</td><td>物質。知をもたないもの</td></tr><tr><td><i>Īśvara</i></td><td>イーシュヴァラ</td><td>神（ここではヴィシュヌ）</td></tr><tr><td><i>ātman</i></td><td>アートマン</td><td>自己・魂</td></tr><tr><td><i>dharma-bhūta-jñāna</i></td><td>ダルマ・ブータ・ジュニャーナ</td><td>属性としての知。灯火の光のように広がる</td></tr><tr><td><i>śeṣa</i></td><td>シェーシャ</td><td>神に属し、神の喜びのためにあるもの</td></tr><tr><td><i>baddha・mukta・nitya</i></td><td>バッダ・ムクタ・ニティヤ</td><td>束縛された魂・解脱した魂・永遠の魂</td></tr><tr><td><i>prakṛti</i></td><td>プラクリティ</td><td>根本物質。この世をつくる物質</td></tr><tr><td><i>guṇa</i></td><td>グナ</td><td>物質の三つの性質（<i>sattva・rajas・tamas</i>）</td></tr><tr><td><i>śuddha-sattva</i></td><td>シュッダ・サットヴァ</td><td>天界をつくる清らかな物質</td></tr><tr><td><i>aṇḍa</i></td><td>アンダ</td><td>宇宙卵</td></tr><tr><td><i>līlā</i></td><td>リーラー</td><td>神の遊び</td></tr><tr><td><i>śarīra-śarīri-bhāva</i></td><td>シャリーラ・シャリーリ・バーヴァ</td><td>身体と魂の関係</td></tr><tr><td><i>Viśiṣṭādvaita</i></td><td>ヴィシシュタードヴァイタ</td><td>ラーマーヌジャの哲学（限定不二一元論）</td></tr><tr><td><i>para・vyūha・vibhava・antaryāmin・arcā</i></td><td>パラ・ヴューハ・ヴィバヴァ・アンタルヤーミン・アルチャー</td><td>神の五つの現れ方</td></tr></tbody></table></div>
+</figure>
+<div class="card"><b>本サイトの関連ページ</b><ul style='margin:6px 0 0;padding-left:20px'><li><a href='tattvatraya_kadan.html'>『タットヴァトラヤ』科段・和訳・図解</a>（全202節の和訳。このページの節番号ボタンから移動できます）</li><li><a href='pillai_lokacarya_nyumon.html'>ピッライ・ローカーチャーリヤの宗教思想入門</a></li><li><a href='mumukshuppadi_kadan.html'>『ムムクシュッパディ』科段・和訳・図解</a></li><li><a href='srivacanabhusanam_kadan.html'>『シュリーヴァチャナブーシャナム』科段・和訳・図解</a></li></ul><p class='note' style='margin-top:8px'>このページの引用は本サイトの和訳（1927年刊テルグ文字版の OCR に基づく試訳）によります。他の思想との比較は、入門のために大きく単純化しています。</p></div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,2255 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="iast-fonts.css">
+<title>ムムクシュッパディ科段</title>
+<style>
+  :root{
+    --ink:#1f2328; --sub:#5b6370; --line:#d9dde3; --bg:#fbfaf7; --card:#ffffff;
+    --accent:#8a4b12; --accent-bg:#fdf3e1; --l1:#2d3748; --l2:#4a5568;
+    --gray-bg:#f1f2f4;
+  }
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme="light"]){
+      --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+      --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+    }
+  }
+  :root[data-theme="dark"]{
+    --ink:#e6e8eb; --sub:#9aa3ad; --line:#3a3f47; --bg:#17191c; --card:#1f2226;
+    --accent:#e0a96d; --accent-bg:#2c2418; --l1:#3a4252; --l2:#4a5568; --gray-bg:#262a30;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);
+    font-family:'IAST Sans',"Hiragino Sans","Hiragino Kaku Gothic ProN","Noto Sans JP","Yu Gothic",system-ui,sans-serif;
+    line-height:1.85;font-size:16px}
+  .wrap{max-width:920px;margin:0 auto;padding:24px 16px 80px}
+  header.hero{background:linear-gradient(135deg,#2d3748,#4a5568);color:#fff;border-radius:16px;padding:26px 22px;margin-bottom:28px}
+  .hero .kicker{font-size:13px;letter-spacing:.08em;opacity:.8}
+  .hero h1{font-size:25px;line-height:1.4;margin:6px 0 10px}
+  .hero p{margin:0;opacity:.92;font-size:14.5px}
+  h2{font-size:21px;margin:44px 0 14px;padding-bottom:6px;border-bottom:3px solid var(--ink)}
+  h3{font-size:17px;margin:26px 0 10px}
+  p{margin:10px 0}
+  i, .iast{font-style:italic}
+  .note{font-size:13.5px;color:var(--sub)}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin:16px 0}
+  .toc a{color:var(--ink)}
+  .toc ol{margin:6px 0;padding-left:22px}
+
+  /* 科段 */
+  .kd{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:6px 0;margin:14px 0}
+  .row{display:grid;grid-template-columns:auto 1fr auto;gap:10px;align-items:baseline;
+    padding:5px 14px;border-bottom:1px dashed var(--line)}
+  .row:last-child{border-bottom:none}
+  .row .n{font-variant-numeric:tabular-nums;font-weight:700;color:var(--accent);white-space:nowrap}
+  .row .t{min-width:0}
+  .row .s{font-variant-numeric:tabular-nums;color:var(--sub);font-size:13.5px;white-space:nowrap}
+  .row .s::before{content:"§ "}
+  .lv1{background:var(--l1);color:#fff;font-size:17px;font-weight:700;border-bottom:none}
+  .lv1 .n,.lv1 .s{color:#fff}
+  .lv2{background:var(--accent-bg);font-weight:700}
+  .lv3{padding-left:34px}
+  .lv4{padding-left:58px;font-size:15px}
+  .lv5{padding-left:82px;font-size:14.5px}
+  .gloss{display:block;font-size:13px;color:var(--sub);font-weight:400}
+  .pending{color:var(--sub);font-style:normal;font-size:13.5px}
+
+  /* 解説 */
+  .sutra{background:var(--card);border:1px solid var(--line);border-left:5px solid var(--accent);
+    border-radius:10px;padding:12px 16px;margin:16px 0}
+  .sutra .hd{display:flex;flex-wrap:wrap;gap:6px 12px;align-items:baseline;margin-bottom:4px}
+  .sutra .no{font-weight:700;font-size:17px;color:var(--accent)}
+  .sutra .ref{font-size:12.5px;color:var(--sub);background:var(--gray-bg);border-radius:999px;padding:0 9px}
+  .sutra .tr{font-size:16.5px;margin:4px 0 8px}
+  .sutra .ex{font-size:15px;border-top:1px dashed var(--line);padding-top:8px}
+  .sutra .ex p{margin:6px 0}
+  ul{padding-left:22px;margin:6px 0}
+  body{counter-reset:fig}
+  :root{--good:#2f855a;--good-bg:#e6f4ec;--bad:#c53030;--bad-bg:#fdeaea}
+  @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}}
+  :root[data-theme="dark"]{--good:#68d391;--good-bg:#1c2e24;--bad:#fc8181;--bad-bg:#3a1f1f}
+  .fig{counter-increment:fig;background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:22px 0}
+  .fig figcaption{font-weight:700;margin-bottom:10px;font-size:15.5px}
+  .fig figcaption::before{content:"図" counter(fig) "　";color:var(--accent)}
+  .cap2{font-size:13.5px;color:var(--sub);margin-top:10px;line-height:1.7}
+  .tscroll{overflow-x:auto}
+  table.t{border-collapse:collapse;width:100%;font-size:14.5px;line-height:1.6}
+  .t th,.t td{border:1px solid var(--line);padding:7px 9px;vertical-align:top;text-align:left}
+  .t th{background:var(--gray-bg);white-space:nowrap}
+  .t tr.grp td{background:var(--accent-bg);font-weight:700;color:var(--accent)}
+  .good{color:var(--good);font-weight:700}.bad{color:var(--bad);font-weight:700}
+  .flow{display:flex;align-items:stretch}
+  .node{flex:1 1 0;min-width:0;background:var(--accent-bg);border:2px solid var(--accent);border-radius:10px;padding:9px 10px;text-align:center;font-size:14px;line-height:1.6}
+  .node b{display:block;font-size:15px;margin-bottom:2px}
+  .node.plain{background:var(--card);border-color:var(--line)}
+  .node.good{background:var(--good-bg);border-color:var(--good);color:var(--ink);font-weight:400}
+  .node.bad{background:var(--bad-bg);border-color:var(--bad);color:var(--ink);font-weight:400}
+  .node .sm{display:block;font-size:12.5px;color:var(--sub);margin-top:4px}
+  .node .sep{display:block;border-top:1px dashed var(--line);margin:7px 0}
+  .arr{flex:0 0 28px;display:flex;align-items:center;justify-content:center;color:var(--sub);font-weight:700;font-size:20px}
+  .arr.lbl{flex:0 0 96px;flex-direction:column;font-size:12px;font-weight:400;line-height:1.35;text-align:center;padding:0 4px}
+  .arr.lbl .ac{font-size:20px;font-weight:700}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+  .res{margin-top:12px;border:2px dashed var(--accent);border-radius:10px;padding:8px 12px;text-align:center;font-weight:700}
+  .tree ul{list-style:none;margin:0;padding-left:20px}
+  .tree>ul{padding-left:0}
+  .tree li{position:relative;padding:5px 0 5px 18px}
+  .tree>ul>li{padding-left:0}
+  .tree ul ul>li::before{content:"";position:absolute;left:0;top:0;bottom:0;border-left:2px solid var(--line)}
+  .tree ul ul>li::after{content:"";position:absolute;left:0;top:20px;width:14px;border-top:2px solid var(--line)}
+  .tree ul ul>li:last-child::before{bottom:auto;height:20px}
+  .tree .box{display:inline-block;border:1.5px solid var(--line);border-radius:8px;padding:3px 10px;background:var(--card);font-size:14.5px}
+  .tree .box.hl{border-color:var(--accent);background:var(--accent-bg);font-weight:700}
+  @media (max-width:640px){
+    .flow{flex-direction:column}
+    .arr{flex-basis:26px}.arr .ac{display:inline-block;transform:rotate(90deg)}
+    .arr.lbl{flex-direction:row;gap:8px;flex-basis:auto;padding:4px 0}
+    .grid2,.grid3{grid-template-columns:1fr}
+    table.t{font-size:13.5px}.t th{white-space:normal}.t th,.t td{padding:6px 7px}
+  }
+
+  #exp ~ h3{border-left:4px solid var(--accent);padding-left:10px;margin-top:34px}
+  .h3n{color:var(--accent);margin-right:8px;font-variant-numeric:tabular-nums}
+  .chk{font-size:12px;font-weight:700;color:#b7791f;border:1px solid #b7791f;border-radius:999px;padding:0 8px}
+
+  @media (max-width:640px){
+    .hero h1{font-size:21px}
+    .row{grid-template-columns:auto 1fr;padding:5px 10px}
+    .row .s{grid-column:2;font-size:12.5px}
+    .lv3{padding-left:18px}.lv4{padding-left:28px}.lv5{padding-left:38px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header class="hero">
+  <div class="kicker">Piḷḷai Lokācārya 作　科段・和訳・図解（全章）</div>
+  <h1>『ムムクシュッパディ』<i>Mumukṣuppaḍi</i><br>科段と解説</h1>
+  <p>節の番号（§）は acharya.org 刊行の原典にあるものです。術語は IAST で記しています。</p>
+  <p style="margin-top:8px"><a href="index.html" style="color:#fff">← 原典研究の書庫（リンク集）へ</a></p>
+</header>
+
+<nav class="card toc">
+  <b>目次</b>
+  <ol>
+    <li><a href="#whole">全体の科段</a></li>
+    <li><a href="#zukai">図解：全体の見取り図</a></li>
+    <li><a href="#tm">ティルマントラ章の詳しい科段（§1–115）</a></li>
+    <li><a href="#dv">ドヴァヤ章の詳しい科段（§116–187）</a></li>
+    <li><a href="#cs">チャラマ・シュローカ章の詳しい科段（§188–289）</a></li>
+    <li><a href="#exp">解説：ティルマントラ章（§1–115）</a></li>
+    <li><a href="#exp2">解説：ドヴァヤ章（§116–187）</a></li>
+    <li><a href="#exp3">解説：チャラマ・シュローカ章（§188–289）</a></li>
+  </ol>
+</nav>
+
+<!-- ============ 全体 ============ -->
+<h2 id="whole">全体の科段</h2>
+<div class="kd">
+  <div class="row lv2"><span class="n">1</span><span class="t"><i>tirumantra-prakaraṇa</i></span><span class="s">1–115</span></div>
+  <div class="row lv2"><span class="n">2</span><span class="t"><i>dvaya-prakaraṇa</i></span><span class="s">116–187</span></div>
+  <div class="row lv2"><span class="n">3</span><span class="t"><i>carama-śloka-prakaraṇa</i></span><span class="s">188–289</span></div>
+</div>
+<p class="note">全289節に和訳と科段番号を付けています（目次から各章の解説へ移動できます）。</p>
+
+<h2 id="zukai">図解：全体の見取り図</h2>
+<p>本文に入る前に、本書全体の組み立てと、繰り返し出てくる術語を図表で確認しておきます。</p>
+
+<figure class="fig">
+  <figcaption>三つの <i>rahasya</i> と本書の三章</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>章</th><th><i>rahasya</i></th><th>本文</th><th>節</th><th>主に説くこと</th><th>救いは何によって（§118）</th></tr></thead><tbody><tr><td>1</td><td><i>tirumantra</i></td><td><i>oṃ namo nārāyaṇāya</i></td><td>§1–115</td><td>自己と主の関係（<i>svarūpa</i>）</td><td>自己（本性を知ること）</td></tr><tr><td>2</td><td><i>dvaya</i></td><td><i>śrīman-nārāyaṇa-caraṇau śaraṇaṃ prapadye / śrīmate nārāyaṇāya namaḥ</i></td><td>§116–187</td><td>女神のとりなしで御足にすがり、奉仕を願う</td><td><i>Periya Pirāṭṭiyār</i>（とりなし）</td></tr><tr><td>3</td><td><i>carama-śloka</i></td><td><i>Bhagavadgītā</i> 18.66</td><td>§188–289</td><td>主ご自身が手段であり、救いを約束すること</td><td><i>Īśvara</i></td></tr></tbody></table></div>
+</figure>
+
+<figure class="fig">
+  <figcaption>三章のつながり</figcaption>
+<div class="flow"><div class="node "><b>第1章 <i>tirumantra</i></b>「私は主のもの」と知る</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>第2章 <i>dvaya</i></b>女神を通して御足にすがり、仕えることを願う</div><div class="arr"><span class="ac">→</span></div><div class="node "><b>第3章 <i>carama-śloka</i></b>「私が救う、悲しむな」という主の約束に安心する</div></div>
+  <div class="cap2">伝統的には、<i>tirumantra</i> は本性（<i>svarūpa</i>）を、<i>dvaya</i> は実践（<i>anuṣṭhāna</i>）を、<i>carama-śloka</i> はその命令（<i>vidhi</i>）を説く、と整理されます（§2 の解説も参照）。</div>
+</figure>
+
+<figure class="fig">
+  <figcaption>本書でよく出てくる術語</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>術語</th><th>意味</th><th>主に出てくる節</th></tr></thead><tbody><tr><td><i>svarūpa</i></td><td>本性。自己が本来どういうものか</td><td>§21, 26, 55–57</td></tr><tr><td><i>śeṣatva</i></td><td>主に属すること（従属）</td><td>§30, 51–65</td></tr><tr><td><i>pāratantrya</i></td><td>主に依存すること</td><td>§30</td></tr><tr><td><i>kaiṅkarya</i></td><td>主への奉仕</td><td>§30, 105–112, 175–187</td></tr><tr><td><i>upāya</i></td><td>手段</td><td>§25, 149–159, 218–248</td></tr><tr><td><i>upeya</i>／<i>prāpya</i></td><td>目的。到達されるべきもの</td><td>§25–26, 150, 160–162</td></tr><tr><td><i>phala</i></td><td>結果</td><td>§26–27, 87</td></tr><tr><td><i>virodhi</i></td><td>妨げ</td><td>§36–38, 81–86</td></tr><tr><td><i>puruṣakāra</i></td><td>とりなし役（女神 <i>Śrī</i>）</td><td>§119, 126–135, 167</td></tr><tr><td><i>prapatti</i></td><td>帰依。主にすがること</td><td>§21, 154–159, 262</td></tr><tr><td><i>ākiñcanya</i>・<i>ananyagatitva</i></td><td>何も持たないこと・ほかに行く当てがないこと</td><td>§120</td></tr><tr><td><i>siddhopāya</i>／<i>sādhyopāya</i></td><td>すでに成り立っている手段（主）／人が行って作り出す手段</td><td>§220–221</td></tr></tbody></table></div>
+</figure>
+
+<!-- ============ ティルマントラ章 ============ -->
+<h2 id="tm">ティルマントラ章の詳しい科段（§1–115）</h2>
+<div class="kd">
+  <div class="row lv1"><span class="n">1</span><span class="t"><i>tirumantra-prakaraṇa</i></span><span class="s">1–115</span></div>
+
+  <!-- 1.1 -->
+  <div class="row lv2"><span class="n">1.1</span><span class="t">序：<i>rahasya-traya</i> を示し、念想の心構えを説く</span><span class="s">1–4</span></div>
+  <div class="row lv3"><span class="n">1.1.1</span><span class="t"><i>rahasya</i> が三つであることを示す</span><span class="s">1</span></div>
+  <div class="row lv3"><span class="n">1.1.2</span><span class="t">第一が <i>tirumantra</i> であることを示す</span><span class="s">2</span></div>
+  <div class="row lv3"><span class="n">1.1.3</span><span class="t"><i>anusandhāna</i>（念想）の心構え</span><span class="s">3–4</span></div>
+  <div class="row lv4"><span class="n">1.1.3.1</span><span class="t"><i>prema</i> をもって念想すべきこと</span><span class="s">3</span></div>
+  <div class="row lv4"><span class="n">1.1.3.2</span><span class="t"><i>mantra</i>・<i>vastu</i>・<i>ācārya</i> の三つへの <i>prema</i></span><span class="s">4</span></div>
+
+  <!-- 1.2 -->
+  <div class="row lv2"><span class="n">1.2</span><span class="t"><i>tirumantra</i> の由来と偉大さ</span><span class="s">5–27</span></div>
+  <div class="row lv3"><span class="n">1.2.1</span><span class="t">由来：<i>Sarveśvara</i> が <i>śiṣya</i> と <i>ācārya</i> を兼ねて説いた</span><span class="s">5–6</span></div>
+  <div class="row lv4"><span class="n">1.2.1.1</span><span class="t"><i>kṛpā</i> による啓示</span><span class="s">5</span></div>
+  <div class="row lv4"><span class="n">1.2.1.2</span><span class="t">自ら <i>śiṣya</i> となった理由</span><span class="s">6</span></div>
+  <div class="row lv3"><span class="n">1.2.2</span><span class="t"><i>tirumantra</i> から得る知の価値（<i>paitṛka dhana</i> の喩え）</span><span class="s">7</span></div>
+  <div class="row lv3"><span class="n">1.2.3</span><span class="t">数ある <i>mantra</i> の中で最も優れていること</span><span class="s">8–12</span></div>
+  <div class="row lv4"><span class="n">1.2.3.1</span><span class="t"><i>mantra</i> は数多い</span><span class="s">8</span></div>
+  <div class="row lv4"><span class="n">1.2.3.2</span><span class="t"><i>vyāpaka</i> と <i>avyāpaka</i> の二種に分かれる</span><span class="s">9</span></div>
+  <div class="row lv4"><span class="n">1.2.3.3</span><span class="t"><i>vyāpaka</i> の三つが <i>śreṣṭha</i></span><span class="s">10</span></div>
+  <div class="row lv4"><span class="n">1.2.3.4</span><span class="t">その中でも <i>tirumantra</i> が <i>pradhāna</i></span><span class="s">11</span></div>
+  <div class="row lv4"><span class="n">1.2.3.5</span><span class="t">他の二つの欠点（<i>aśiṣṭa-parigraha</i>・<i>apūrti</i>）</span><span class="s">12</span></div>
+  <div class="row lv3"><span class="n">1.2.4</span><span class="t"><i>Veda</i>・<i>ṛṣi</i>・<i>Āḻvār</i>・<i>ācārya</i> がみな愛好した</span><span class="s">13</span></div>
+  <div class="row lv3"><span class="n">1.2.5</span><span class="t">功徳（<i>prabhāva</i>）</span><span class="s">14–21</span></div>
+  <div class="row lv4"><span class="n">1.2.5.1</span><span class="t"><i>vācaka</i>（御名）の力は <i>vācya</i>（主）の力にまさる</span><span class="s">14</span></div>
+  <div class="row lv4"><span class="n">1.2.5.2</span><span class="t">主が遠くにあっても、<i>mantra</i> は身近にあって助ける</span><span class="s">15</span></div>
+  <div class="row lv4"><span class="n">1.2.5.3</span><span class="t">例証：<i>Draupadī</i> の衣</span><span class="s">16</span></div>
+  <div class="row lv4"><span class="n">1.2.5.4</span><span class="t">唱える作法（<i>krama</i>）が欠けても力は失われない</span><span class="s">17</span></div>
+  <div class="row lv4"><span class="n">1.2.5.5</span><span class="t">求める者に応じて一切を与える</span><span class="s">18–21</span></div>
+  <div class="row lv5"><span class="n">1.2.5.5.1</span><span class="t">総説：「<i>kulam tarum</i>」の句のとおり</span><span class="s">18</span></div>
+  <div class="row lv5"><span class="n">1.2.5.5.2</span><span class="t"><i>aiśvarya</i>・<i>kaivalya</i>・<i>bhagavallābha</i> を求める者へ</span><span class="s">19</span></div>
+  <div class="row lv5"><span class="n">1.2.5.5.3</span><span class="t"><i>karma</i>・<i>jñāna</i>・<i>bhakti</i> の道を行く者へ</span><span class="s">20</span></div>
+  <div class="row lv5"><span class="n">1.2.5.5.4</span><span class="t"><i>prapanna</i> へ</span><span class="s">21</span></div>
+  <div class="row lv3"><span class="n">1.2.6</span><span class="t">説く内容の総括</span><span class="s">22–27</span></div>
+  <div class="row lv4"><span class="n">1.2.6.1</span><span class="t">知るべき意味はすべてこの中にある</span><span class="s">22</span></div>
+  <div class="row lv4"><span class="n">1.2.6.2</span><span class="t">すなわち <i>artha-pañcaka</i></span><span class="s">23</span></div>
+  <div class="row lv4"><span class="n">1.2.6.3</span><span class="t"><i>pūrvācārya</i> たちの態度</span><span class="s">24</span></div>
+  <div class="row lv4"><span class="n">1.2.6.4</span><span class="t"><i>Īśvara</i> こそが <i>upāya</i> であり <i>upeya</i></span><span class="s">25</span></div>
+  <div class="row lv4"><span class="n">1.2.6.5</span><span class="t"><i>svarūpa</i>・<i>prāpya</i>／<i>svarūpa</i>・<i>upāya</i>・<i>phala</i></span><span class="s">26</span></div>
+  <div class="row lv4"><span class="n">1.2.6.6</span><span class="t"><i>phala</i> の詳細は他の著作に譲る</span><span class="s">27</span></div>
+
+  <!-- 1.3 -->
+  <div class="row lv2"><span class="n">1.3</span><span class="t">句の構成：八音節・三句・三義</span><span class="s">28–30</span></div>
+  <div class="row lv3"><span class="n">1.3.1</span><span class="t">八音節（<i>tiruvakṣara</i>）・三句（<i>pada</i>）からなる</span><span class="s">28</span></div>
+  <div class="row lv3"><span class="n">1.3.2</span><span class="t">三句が三つの意味を説く</span><span class="s">29</span></div>
+  <div class="row lv3"><span class="n">1.3.3</span><span class="t">三義＝<i>śeṣatva</i>・<i>pāratantrya</i>・<i>kaiṅkarya</i></span><span class="s">30</span></div>
+
+  <!-- 1.4 -->
+  <div class="row lv2"><span class="n">1.4</span><span class="t">第一句 <i>praṇava</i> の解釈</span><span class="s">31–74</span></div>
+  <div class="row lv3"><span class="n">1.4.1</span><span class="t">総説</span><span class="s">31–34</span></div>
+  <div class="row lv4"><span class="n">1.4.1.1</span><span class="t">第一句は <i>praṇava</i></span><span class="s">31</span></div>
+  <div class="row lv4"><span class="n">1.4.1.2</span><span class="t"><i>a</i>・<i>u</i>・<i>m</i> の三音節</span><span class="s">32</span></div>
+  <div class="row lv4"><span class="n">1.4.1.3</span><span class="t">三 <i>Veda</i> から取り出したもの（乳を攪拌してバターを取る喩え）</span><span class="s">33</span></div>
+  <div class="row lv4"><span class="n">1.4.1.4</span><span class="t">ゆえに <i>sakala-veda-sāra</i></span><span class="s">34</span></div>
+  <div class="row lv3"><span class="n">1.4.2</span><span class="t"><i>akāra</i></span><span class="s">35–57</span></div>
+  <div class="row lv4"><span class="n">1.4.2.1</span><span class="t"><i>kāraṇatva</i> と <i>rakṣakatva</i></span><span class="s">35</span></div>
+  <div class="row lv4"><span class="n">1.4.2.2</span><span class="t"><i>rakṣaṇa</i> の中身と、相手に応じた違い</span><span class="s">36–39</span></div>
+  <div class="row lv5"><span class="n">1.4.2.2.1</span><span class="t"><i>rakṣaṇa</i>＝<i>virodhi</i> を除き <i>apekṣita</i> を与えること</span><span class="s">36</span></div>
+  <div class="row lv5"><span class="n">1.4.2.2.2</span><span class="t"><i>cetana</i> の程度に応じて異なる</span><span class="s">37</span></div>
+  <div class="row lv5"><span class="n">1.4.2.2.3</span><span class="t"><i>saṃsārin</i>・<i>mumukṣu</i>・<i>mukta</i>／<i>nitya</i> の三類</span><span class="s">38</span></div>
+  <div class="row lv5"><span class="n">1.4.2.2.4</span><span class="t">詳細は <i>Prapannaparitrāṇa</i> に譲る</span><span class="s">39</span></div>
+  <div class="row lv4"><span class="n">1.4.2.3</span><span class="t"><i>Śrī</i> との結びつき（<i>śrī-sambandha</i>）も念想する</span><span class="s">40–47</span></div>
+  <div class="row lv5"><span class="n">1.4.2.3.1</span><span class="t">総説：<i>rakṣaṇa</i> には <i>Pirāṭṭi</i> の臨在が必要</span><span class="s">40</span></div>
+  <div class="row lv5"><span class="n">1.4.2.3.2</span><span class="t">証言：<i>Bhagavatsenāpatimiśra</i> の言葉</span><span class="s">41</span></div>
+  <div class="row lv5"><span class="n">1.4.2.3.3</span><span class="t">喩え：夫と子を離れない母／<i>Yaśodā</i></span><span class="s">42–43</span></div>
+  <div class="row lv5"><span class="n">1.4.2.3.4</span><span class="t">喩え：家の主人と主婦</span><span class="s">44</span></div>
+  <div class="row lv5"><span class="n">1.4.2.3.5</span><span class="t">両者は離れない（光と光源、花と香り）</span><span class="s">45–46</span></div>
+  <div class="row lv5"><span class="n">1.4.2.3.6</span><span class="t">結論：両者の結びつきこそが目指すもの</span><span class="s">47</span></div>
+  <div class="row lv4"><span class="n">1.4.2.4</span><span class="t">隠れた <i>caturthī</i>（為格）と <i>śeṣatva</i></span><span class="s">48–54</span></div>
+  <div class="row lv5"><span class="n">1.4.2.4.1</span><span class="t"><i>caturthī</i> が省かれている理由</span><span class="s">48–50</span></div>
+  <div class="row lv5"><span class="n">1.4.2.4.2</span><span class="t"><i>Īśvara</i> に対する <i>śeṣa</i> であることを示す</span><span class="s">51</span></div>
+  <div class="row lv5"><span class="n">1.4.2.4.3</span><span class="t">問答：<i>śeṣatva</i> は苦ではないか</span><span class="s">52–53</span></div>
+  <div class="row lv5"><span class="n">1.4.2.4.4</span><span class="t"><i>śeṣatva</i> は主の <i>kalyāṇa-guṇa</i> によって生じる</span><span class="s">54</span></div>
+  <div class="row lv4"><span class="n">1.4.2.5</span><span class="t"><i>śeṣatva</i> こそが <i>ātman</i> の <i>svarūpa</i>（<i>svātantrya</i> は <i>ātmāpahāra</i>）</span><span class="s">55–57</span></div>
+  <div class="row lv3"><span class="n">1.4.3</span><span class="t"><i>ukāra</i>：<i>avadhāraṇa</i>（限定）</span><span class="s">58–65</span></div>
+  <div class="row lv4"><span class="n">1.4.3.1</span><span class="t"><i>sthāna-pramāṇa</i> によって限定の意味をもつ</span><span class="s">58–59</span></div>
+  <div class="row lv4"><span class="n">1.4.3.2</span><span class="t">異説：<i>Periya Pirāṭṭiyār</i> に対する <i>śeṣa</i></span><span class="s">60</span></div>
+  <div class="row lv4"><span class="n">1.4.3.3</span><span class="t">他者への従属（<i>anya-śeṣatva</i>）を除くことが要（<i>puroḍāśa</i> の喩え）</span><span class="s">61–64</span></div>
+  <div class="row lv4"><span class="n">1.4.3.4</span><span class="t">自分にも他者にも属さない</span><span class="s">65</span></div>
+  <div class="row lv3"><span class="n">1.4.4</span><span class="t"><i>makāra</i>：<i>ātman</i></span><span class="s">66–71</span></div>
+  <div class="row lv4"><span class="n">1.4.4.1</span><span class="t">第25字・<i>jñāna-vācin</i> として <i>ātman</i> を指す</span><span class="s">66</span></div>
+  <div class="row lv4"><span class="n">1.4.4.2</span><span class="t"><i>samaṣṭi-vācaka</i>・<i>jātyeka-vacana</i></span><span class="s">67–68</span></div>
+  <div class="row lv4"><span class="n">1.4.4.3</span><span class="t"><i>jñātṛ</i> として身体から区別される</span><span class="s">69–70</span></div>
+  <div class="row lv4"><span class="n">1.4.4.4</span><span class="t"><i>śeṣatva</i> を先に、<i>ātman</i> を後に説く理由</span><span class="s">71</span></div>
+  <div class="row lv3"><span class="n">1.4.5</span><span class="t"><i>praṇava</i> のまとめ（<i>jīva</i> と <i>para</i> の関係）</span><span class="s">72–74</span></div>
+
+  <!-- 1.5 -->
+  <div class="row lv2"><span class="n">1.5</span><span class="t">第二句 <i>namas</i> の解釈</span><span class="s">75–94</span></div>
+  <div class="row lv3"><span class="n">1.5.1</span><span class="t">後の二句は <i>praṇava</i> を詳しく説いたもの</span><span class="s">75–77</span></div>
+  <div class="row lv3"><span class="n">1.5.2</span><span class="t">語の分解（<i>na</i>＋<i>maḥ</i>）と意味</span><span class="s">78–80</span></div>
+  <div class="row lv3"><span class="n">1.5.3</span><span class="t"><i>virodhi</i> を取り除く</span><span class="s">81–88</span></div>
+  <div class="row lv4"><span class="n">1.5.3.1</span><span class="t">自分を自分のものと思うことの害</span><span class="s">81</span></div>
+  <div class="row lv4"><span class="n">1.5.3.2</span><span class="t"><i>namas</i> は <i>virodhi</i> を除く</span><span class="s">82</span></div>
+  <div class="row lv4"><span class="n">1.5.3.3</span><span class="t">三つの <i>virodhi</i>（<i>svarūpa</i>・<i>upāya</i>・<i>prāpya</i>）とその除去</span><span class="s">83–85</span></div>
+  <div class="row lv4"><span class="n">1.5.3.4</span><span class="t"><i>maḥ</i>＝<i>svarūpa-nāśa</i>、<i>namaḥ</i>＝<i>svarūpa-ujjīvana</i></span><span class="s">86–87</span></div>
+  <div class="row lv4"><span class="n">1.5.3.5</span><span class="t"><i>Āḻvār</i> の言葉による証</span><span class="s">88</span></div>
+  <div class="row lv3"><span class="n">1.5.4</span><span class="t"><i>bhāgavata-śeṣatva</i></span><span class="s">89–90</span></div>
+  <div class="row lv3"><span class="n">1.5.5</span><span class="t"><i>acit</i> のように「主のためだけの者」となる</span><span class="s">91–94</span></div>
+  <div class="row lv4"><span class="n">1.5.5.1</span><span class="t"><i>namas</i> が求める心のあり方</span><span class="s">91</span></div>
+  <div class="row lv4"><span class="n">1.5.5.2</span><span class="t"><i>bhoga</i> の場面での態度</span><span class="s">92–93</span></div>
+  <div class="row lv4"><span class="n">1.5.5.3</span><span class="t">この自覚の功徳（<i>kṛtakṛtya</i>）</span><span class="s">94</span></div>
+
+  <!-- 1.6 -->
+  <div class="row lv2"><span class="n">1.6</span><span class="t">第三句 <i>nārāyaṇāya</i> の解釈</span><span class="s">95–112</span></div>
+  <div class="row lv3"><span class="n">1.6.1</span><span class="t"><i>nārāyaṇa</i> の語義</span><span class="s">95–99</span></div>
+  <div class="row lv4"><span class="n">1.6.1.1</span><span class="t"><i>nārāṇām ayanam</i></span><span class="s">95</span></div>
+  <div class="row lv4"><span class="n">1.6.1.2</span><span class="t"><i>nāra</i>＝常住のものの総体、その列挙</span><span class="s">96–97</span></div>
+  <div class="row lv4"><span class="n">1.6.1.3</span><span class="t"><i>ayana</i>＝<i>āśraya</i></span><span class="s">98</span></div>
+  <div class="row lv4"><span class="n">1.6.1.4</span><span class="t">別解：それらを <i>āśraya</i> としてもつ者</span><span class="s">99</span></div>
+  <div class="row lv3"><span class="n">1.6.2</span><span class="t">そこから導かれる主の性質</span><span class="s">100–104</span></div>
+  <div class="row lv4"><span class="n">1.6.2.1</span><span class="t"><i>paratva</i> と <i>saulabhya</i></span><span class="s">100</span></div>
+  <div class="row lv4"><span class="n">1.6.2.2</span><span class="t"><i>antaryāmitva</i>・<i>upāyatva</i>・<i>upeyatva</i></span><span class="s">101</span></div>
+  <div class="row lv4"><span class="n">1.6.2.3</span><span class="t">あらゆる縁者（<i>sarva-vidha-bandhu</i>）</span><span class="s">102</span></div>
+  <div class="row lv4"><span class="n">1.6.2.4</span><span class="t">主は我らのためにある</span><span class="s">103–104</span></div>
+  <div class="row lv3"><span class="n">1.6.3</span><span class="t">語尾 <i>āya</i>（<i>caturthī</i>）：<i>kaiṅkarya</i> を祈り求める</span><span class="s">105–112</span></div>
+  <div class="row lv4"><span class="n">1.6.3.1</span><span class="t">あらゆる <i>kaiṅkarya</i> を求める</span><span class="s">105</span></div>
+  <div class="row lv4"><span class="n">1.6.3.2</span><span class="t">問答：<i>namas</i> の後で祈り求めてよいのか</span><span class="s">106–107</span></div>
+  <div class="row lv4"><span class="n">1.6.3.3</span><span class="t">祈りの言葉を示す</span><span class="s">108</span></div>
+  <div class="row lv4"><span class="n">1.6.3.4</span><span class="t">渇仰（眠れぬほどの思い）</span><span class="s">109–111</span></div>
+  <div class="row lv4"><span class="n">1.6.3.5</span><span class="t">あらゆる場所・時・状態での <i>kaiṅkarya</i></span><span class="s">112</span></div>
+
+  <!-- 1.7 -->
+  <div class="row lv2"><span class="n">1.7</span><span class="t">結び</span><span class="s">113–115</span></div>
+  <div class="row lv3"><span class="n">1.7.1</span><span class="t"><i>maṅgala-sūtra</i> の喩え</span><span class="s">113</span></div>
+  <div class="row lv3"><span class="n">1.7.2</span><span class="t"><i>Īśvara</i> が <i>pati</i> として守る</span><span class="s">114</span></div>
+  <div class="row lv3"><span class="n">1.7.3</span><span class="t">全体のまとめ</span><span class="s">115</span></div>
+</div>
+
+<h2 id="dv">ドヴァヤ章の詳しい科段（§116–187）</h2>
+<div class="kd">
+  <div class="row lv1"><span class="n">2</span><span class="t"><i>dvaya-prakaraṇa</i></span><span class="s">116–187</span></div>
+  <div class="row lv2"><span class="n">2.1</span><span class="t">序：<i>adhikārin</i>（資格者）について</span><span class="s">116–121</span></div>
+  <div class="row lv3"><span class="n">2.1.1</span><span class="t"><i>vaiṣṇava</i> の <i>adhikārin</i> に求められるあり方</span><span class="s">116</span></div>
+  <div class="row lv3"><span class="n">2.1.2</span><span class="t">この <i>adhikārin</i> は <i>rahasya-traya</i> を念想すべきこと</span><span class="s">117</span></div>
+  <div class="row lv3"><span class="n">2.1.3</span><span class="t">三つの <i>rahasya</i> の違い：何によって救いを得るか</span><span class="s">118–119</span></div>
+  <div class="row lv4"><span class="n">2.1.3.1</span><span class="t"><i>tirumantra</i> は自己により、<i>carama-śloka</i> は <i>Īśvara</i> により、<i>dvaya</i> は <i>Periya Pirāṭṭiyār</i> により</span><span class="s">118</span></div>
+  <div class="row lv4"><span class="n">2.1.3.2</span><span class="t"><i>Pirāṭṭi</i> による、とは <i>puruṣakāra</i>（とりなし）のこと</span><span class="s">119</span></div>
+  <div class="row lv3"><span class="n">2.1.4</span><span class="t"><i>dvaya</i> の <i>adhikārin</i>：<i>ākiñcanya</i> と <i>ananyagatitva</i></span><span class="s">120–121</span></div>
+  <div class="row lv2"><span class="n">2.2</span><span class="t">総説：前半は <i>upāya</i>、後半は <i>kaiṅkarya</i> の祈り</span><span class="s">122</span></div>
+  <div class="row lv2"><span class="n">2.3</span><span class="t">前半 <i>śrīman-nārāyaṇa-caraṇau śaraṇaṃ prapadye</i> の解釈</span><span class="s">123–159</span></div>
+  <div class="row lv3"><span class="n">2.3.1</span><span class="t"><i>śrī</i></span><span class="s">123–135</span></div>
+  <div class="row lv4"><span class="n">2.3.1.1</span><span class="t">語義（<i>śrīyate</i>／<i>śrayate</i>）</span><span class="s">123–125</span></div>
+  <div class="row lv4"><span class="n">2.3.1.2</span><span class="t"><i>puruṣakāra</i> としての <i>Śrī</i></span><span class="s">126–129</span></div>
+  <div class="row lv4"><span class="n">2.3.1.3</span><span class="t"><i>matup</i>（<i>-mat</i>）：両者の結びつきは常住</span><span class="s">130–133</span></div>
+  <div class="row lv4"><span class="n">2.3.1.4</span><span class="t">帰依に必要なのは <i>ruci</i>（願い）のみ（鴉と <i>Rāvaṇa</i> の例）</span><span class="s">134–135</span></div>
+  <div class="row lv3"><span class="n">2.3.2</span><span class="t"><i>nārāyaṇa</i></span><span class="s">136–143</span></div>
+  <div class="row lv4"><span class="n">2.3.2.1</span><span class="t"><i>svātantrya</i> を和らげる六つの徳（<i>vātsalya</i>・<i>svāmitva</i>・<i>sauśīlya</i>・<i>saulabhya</i>・<i>jñāna</i>・<i>śakti</i>）</span><span class="s">136–138</span></div>
+  <div class="row lv4"><span class="n">2.3.2.2</span><span class="t"><i>saulabhya</i> の極み：<i>arcāvatāra</i></span><span class="s">139–142</span></div>
+  <div class="row lv4"><span class="n">2.3.2.3</span><span class="t"><i>rakṣakatva</i> と <i>bhogyatva</i> は聖なる身体に現れる</span><span class="s">143</span></div>
+  <div class="row lv3"><span class="n">2.3.3</span><span class="t"><i>caraṇau</i></span><span class="s">144–148</span></div>
+  <div class="row lv4"><span class="n">2.3.3.1</span><span class="t">語義と、結びつきの美しさ・<i>upāya</i> の完全さ</span><span class="s">144–145</span></div>
+  <div class="row lv4"><span class="n">2.3.3.2</span><span class="t"><i>Pirāṭṭi</i> も主も離れない御足（喩え）</span><span class="s">146–147</span></div>
+  <div class="row lv4"><span class="n">2.3.3.3</span><span class="t">聖なる身体を念想する</span><span class="s">148</span></div>
+  <div class="row lv3"><span class="n">2.3.4</span><span class="t"><i>śaraṇam</i></span><span class="s">149–153</span></div>
+  <div class="row lv4"><span class="n">2.3.4.1</span><span class="t">語義：<i>iṣṭa-prāpti</i> と <i>aniṣṭa-nivāraṇa</i> の確かな <i>upāya</i></span><span class="s">149</span></div>
+  <div class="row lv4"><span class="n">2.3.4.2</span><span class="t"><i>prāpya</i> そのものが <i>prāpaka</i> となる</span><span class="s">150–152</span></div>
+  <div class="row lv4"><span class="n">2.3.4.3</span><span class="t">他の <i>upāya</i> を排除する</span><span class="s">153</span></div>
+  <div class="row lv3"><span class="n">2.3.5</span><span class="t"><i>prapadye</i></span><span class="s">154–159</span></div>
+  <div class="row lv4"><span class="n">2.3.5.1</span><span class="t">語義と、心による帰依</span><span class="s">154–155</span></div>
+  <div class="row lv4"><span class="n">2.3.5.2</span><span class="t">言葉・身体の行為は必須ではない</span><span class="s">156</span></div>
+  <div class="row lv4"><span class="n">2.3.5.3</span><span class="t">現在形の意味：念想を続けること</span><span class="s">157–158</span></div>
+  <div class="row lv4"><span class="n">2.3.5.4</span><span class="t">念想を手段と思えば <i>upāya</i> が崩れる</span><span class="s">159</span></div>
+  <div class="row lv2"><span class="n">2.4</span><span class="t">後半 <i>śrīmate nārāyaṇāya namaḥ</i> の解釈</span><span class="s">160–187</span></div>
+  <div class="row lv3"><span class="n">2.4.1</span><span class="t">総説：<i>prāpya</i> を説く／他の目的を捨てる</span><span class="s">160–162</span></div>
+  <div class="row lv3"><span class="n">2.4.2</span><span class="t">問答：全知の主に祈る必要があるのか</span><span class="s">163–164</span></div>
+  <div class="row lv3"><span class="n">2.4.3</span><span class="t"><i>śrīmate</i></span><span class="s">165–170</span></div>
+  <div class="row lv4"><span class="n">2.4.3.1</span><span class="t">語義：<i>Periya Pirāṭṭiyār</i> と共にある者に</span><span class="s">165–166</span></div>
+  <div class="row lv4"><span class="n">2.4.3.2</span><span class="t"><i>upāya</i> の場面では <i>puruṣakāra</i>、<i>prāpya</i> の場面では <i>prāpya</i></span><span class="s">167–168</span></div>
+  <div class="row lv4"><span class="n">2.4.3.3</span><span class="t">両者そろった所で仕える（<i>Iḷaiya Perumāḷ</i> の例）</span><span class="s">169–170</span></div>
+  <div class="row lv3"><span class="n">2.4.4</span><span class="t"><i>nārāyaṇāya</i></span><span class="s">171–179</span></div>
+  <div class="row lv4"><span class="n">2.4.4.1</span><span class="t">語義：<i>sarva-śeṣin</i> に</span><span class="s">171–174</span></div>
+  <div class="row lv4"><span class="n">2.4.4.2</span><span class="t"><i>caturthī</i>：<i>kaiṅkarya</i> を祈る</span><span class="s">175–176</span></div>
+  <div class="row lv4"><span class="n">2.4.4.3</span><span class="t"><i>kaiṅkarya</i> は常住であり、常に祈り求める</span><span class="s">177–178</span></div>
+  <div class="row lv4"><span class="n">2.4.4.4</span><span class="t">主に喜びを与えることが従者の本性であり目的</span><span class="s">179</span></div>
+  <div class="row lv3"><span class="n">2.4.5</span><span class="t"><i>namaḥ</i></span><span class="s">180–187</span></div>
+  <div class="row lv4"><span class="n">2.4.5.1</span><span class="t"><i>kaiṅkarya</i> の雑草を抜く（自分のためにすること）</span><span class="s">180–183</span></div>
+  <div class="row lv4"><span class="n">2.4.5.2</span><span class="t">「あなただけのために」仕える</span><span class="s">184–185</span></div>
+  <div class="row lv4"><span class="n">2.4.5.3</span><span class="t">この句にも祈りがある（結び）</span><span class="s">186–187</span></div>
+</div>
+
+<h2 id="cs">チャラマ・シュローカ章の詳しい科段（§188–289）</h2>
+<div class="kd">
+  <div class="row lv1"><span class="n">3</span><span class="t"><i>carama-śloka-prakaraṇa</i></span><span class="s">188–289</span></div>
+  <div class="row lv2"><span class="n">3.1</span><span class="t">序：<i>carama-śloka</i> という名の由来</span><span class="s">188</span></div>
+  <div class="row lv2"><span class="n">3.2</span><span class="t">総説：前半は <i>adhikāri-kṛtya</i>、後半は <i>upāya-kṛtya</i></span><span class="s">189–193</span></div>
+  <div class="row lv3"><span class="n">3.2.1</span><span class="t">前半と後半の分担</span><span class="s">189</span></div>
+  <div class="row lv3"><span class="n">3.2.2</span><span class="t"><i>adhikārin</i> のなすべきこと＝<i>upāya-parigraha</i>（<i>sāṅga</i> に命じる）</span><span class="s">190–192</span></div>
+  <div class="row lv3"><span class="n">3.2.3</span><span class="t">前半は六つの語</span><span class="s">193</span></div>
+  <div class="row lv2"><span class="n">3.3</span><span class="t">前半 <i>sarvadharmān parityajya mām ekaṃ śaraṇaṃ vraja</i> の解釈</span><span class="s">194–248</span></div>
+  <div class="row lv3"><span class="n">3.3.1</span><span class="t"><i>sarvadharmān</i></span><span class="s">194–202</span></div>
+  <div class="row lv4"><span class="n">3.3.1.1</span><span class="t"><i>dharma</i>＝結果を得る手段（ここでは <i>mokṣa</i> の手段）</span><span class="s">194–197</span></div>
+  <div class="row lv4"><span class="n">3.3.1.2</span><span class="t">複数形の理由と、その列挙</span><span class="s">198–199</span></div>
+  <div class="row lv4"><span class="n">3.3.1.3</span><span class="t"><i>sarva</i>：日々の義務（<i>nitya-karman</i>）まで含む</span><span class="s">200–201</span></div>
+  <div class="row lv4"><span class="n">3.3.1.4</span><span class="t"><i>dharma</i> と呼ぶのは <i>Arjuna</i> の考えに合わせて</span><span class="s">202</span></div>
+  <div class="row lv3"><span class="n">3.3.2</span><span class="t"><i>parityajya</i></span><span class="s">203–214</span></div>
+  <div class="row lv4"><span class="n">3.3.2.1</span><span class="t">捨て方：「手段ではない」と知って捨てる</span><span class="s">203–204</span></div>
+  <div class="row lv4"><span class="n">3.3.2.2</span><span class="t"><i>pari</i>：残りなく捨てる</span><span class="s">205</span></div>
+  <div class="row lv4"><span class="n">3.3.2.3</span><span class="t"><i>lyap</i>（<i>-ya</i>）：捨ててから帰依する</span><span class="s">206–208</span></div>
+  <div class="row lv4"><span class="n">3.3.2.4</span><span class="t">問答：<i>adharma</i> を許すことになるか</span><span class="s">209–214</span></div>
+  <div class="row lv3"><span class="n">3.3.3</span><span class="t"><i>mām</i></span><span class="s">215–223</span></div>
+  <div class="row lv4"><span class="n">3.3.3.1</span><span class="t">語義：すべてを守るこの私を</span><span class="s">215–217</span></div>
+  <div class="row lv4"><span class="n">3.3.3.2</span><span class="t">捨てた手段にまさる、確立された <i>dharma</i></span><span class="s">218–221</span></div>
+  <div class="row lv4"><span class="n">3.3.3.3</span><span class="t">徳と、御者（<i>sārathya</i>）の姿</span><span class="s">222–223</span></div>
+  <div class="row lv3"><span class="n">3.3.4</span><span class="t"><i>ekam</i></span><span class="s">224–240</span></div>
+  <div class="row lv4"><span class="n">3.3.4.1</span><span class="t"><i>avadhāraṇa</i>：ただ私一人を（証句）</span><span class="s">224–226</span></div>
+  <div class="row lv4"><span class="n">3.3.4.2</span><span class="t">帰依そのものを手段と見ない</span><span class="s">227–230</span></div>
+  <div class="row lv4"><span class="n">3.3.4.3</span><span class="t">主だけが働く：<i>nairapekṣya</i></span><span class="s">231–234</span></div>
+  <div class="row lv4"><span class="n">3.3.4.4</span><span class="t">主の受け入れこそが守り（自分の把握は <i>ahaṅkāra</i>）</span><span class="s">235–237</span></div>
+  <div class="row lv4"><span class="n">3.3.4.5</span><span class="t">「<i>ciṟṟa vēṇṭā</i>」と <i>upakāra-smṛti</i> の位置</span><span class="s">238–240</span></div>
+  <div class="row lv3"><span class="n">3.3.5</span><span class="t"><i>śaraṇam</i>：<i>upāya</i> として</span><span class="s">241–243</span></div>
+  <div class="row lv3"><span class="n">3.3.6</span><span class="t"><i>vraja</i></span><span class="s">244–248</span></div>
+  <div class="row lv4"><span class="n">3.3.6.1</span><span class="t">語義：心に定めよ（<i>gati</i>＝<i>buddhi</i>）</span><span class="s">244–246</span></div>
+  <div class="row lv4"><span class="n">3.3.6.2</span><span class="t">心の行為であること</span><span class="s">247</span></div>
+  <div class="row lv4"><span class="n">3.3.6.3</span><span class="t">前半のまとめ</span><span class="s">248</span></div>
+  <div class="row lv2"><span class="n">3.4</span><span class="t">後半 <i>ahaṃ tvā sarvapāpebhyo mokṣayiṣyāmi mā śucaḥ</i> の解釈</span><span class="s">249–276</span></div>
+  <div class="row lv3"><span class="n">3.4.1</span><span class="t"><i>aham</i>：全知・全能・到達されるべきこの私が</span><span class="s">249–254</span></div>
+  <div class="row lv3"><span class="n">3.4.2</span><span class="t"><i>tvā</i>：無知・無力で、私だけを手段とするあなたを</span><span class="s">255–256</span></div>
+  <div class="row lv3"><span class="n">3.4.3</span><span class="t"><i>sarvapāpebhyaḥ</i></span><span class="s">257–262</span></div>
+  <div class="row lv4"><span class="n">3.4.3.1</span><span class="t">語義：恐れているすべての罪から</span><span class="s">257–260</span></div>
+  <div class="row lv4"><span class="n">3.4.3.2</span><span class="t">捨てた手段を罪と思うな／動揺した帰依</span><span class="s">261–262</span></div>
+  <div class="row lv3"><span class="n">3.4.4</span><span class="t"><i>mokṣayiṣyāmi</i></span><span class="s">263–268</span></div>
+  <div class="row lv3"><span class="n">3.4.5</span><span class="t"><i>mā śucaḥ</i></span><span class="s">269–273</span></div>
+  <div class="row lv3"><span class="n">3.4.6</span><span class="t">補説：<i>Uḍaiyavar</i> と <i>Vaṅgipurattu Nambi</i> の言葉</span><span class="s">274–276</span></div>
+  <div class="row lv2"><span class="n">3.5</span><span class="t">結び：他の手段の位置づけと <i>adhikārin</i></span><span class="s">277–289</span></div>
+  <div class="row lv3"><span class="n">3.5.1</span><span class="t">なぜ最後にこれを説き、先に他の手段を説いたのか</span><span class="s">277–281</span></div>
+  <div class="row lv3"><span class="n">3.5.2</span><span class="t"><i>karma</i>・<i>jñāna</i>・<i>bhakti</i>・<i>prapatti</i> の行き先</span><span class="s">282–283</span></div>
+  <div class="row lv3"><span class="n">3.5.3</span><span class="t">求められるのは妨げないことと願うこと</span><span class="s">284–285</span></div>
+  <div class="row lv3"><span class="n">3.5.4</span><span class="t"><i>adhikārin</i>：<i>āstika</i> と <i>viśvāsa</i>（<i>Embār</i> の言葉）</span><span class="s">286–288</span></div>
+  <div class="row lv3"><span class="n">3.5.5</span><span class="t">結語：<i>Āḻvār</i> の詩句を意味として念想する</span><span class="s">289</span></div>
+</div>
+
+<!-- ============ 解説 ============ -->
+<h2 id="exp">解説：ティルマントラ章（§1–115）</h2>
+<h3><span class="h3n">1.1</span>序（§1–4）</h3>
+
+<div class="sutra">
+  <div class="hd"><span class="no">§1</span><span class="ref">科段 1.1.1</span></div>
+  <div class="tr">「<i>mumukṣu</i>（解脱を求める者）が知るべき <i>rahasya</i>（秘義）は三つ。」</div>
+  <div class="ex">
+    <p>作品全体の主題を示す一文です。三つの <i>rahasya</i>（<i>rahasya-traya</i>）は次のとおりで、そのまま本書の三章になります。</p>
+    <ul>
+      <li><i>tirumantra</i>（八音節の <i>mantra</i>）：<i>oṃ namo nārāyaṇāya</i></li>
+      <li><i>dvaya</i>：<i>śrīman-nārāyaṇa-caraṇau śaraṇaṃ prapadye / śrīmate nārāyaṇāya namaḥ</i></li>
+      <li><i>carama-śloka</i>：<i>Bhagavadgītā</i> 18.66</li>
+    </ul>
+    <p>書名の <i>paḍi</i> はタミル語で「段・道筋」を意味し、書名は「<i>mumukṣu</i> のための道筋」と理解できます。</p>
+  </div>
+</div>
+
+<div class="sutra">
+  <div class="hd"><span class="no">§2</span><span class="ref">科段 1.1.2</span></div>
+  <div class="tr">「そのうち第一の <i>rahasya</i> は <i>tirumantra</i> である。」</div>
+  <div class="ex">
+    <p>伝統的な解釈では、<i>tirumantra</i> は魂と神の関係（<i>svarūpa</i>）を教え、<i>carama-śloka</i> は救いの手段（<i>upāya</i>）を命じ、<i>dvaya</i> はその実践（<i>anuṣṭhāna</i>）を示す、と役割が分けられます。そのため、土台となる <i>tirumantra</i> が最初に置かれます。</p>
+  </div>
+</div>
+
+<div class="sutra">
+  <div class="hd"><span class="no">§3</span><span class="ref">科段 1.1.3.1</span></div>
+  <div class="tr">「<i>tirumantra</i> の偉大さにふさわしく、<i>prema</i>（愛情）をもって大切に <i>anusandhāna</i>（念想）すべきである。」</div>
+</div>
+
+<div class="sutra">
+  <div class="hd"><span class="no">§4</span><span class="ref">科段 1.1.3.2</span></div>
+  <div class="tr">「<i>mantra</i> と、<i>mantra</i> の中で説かれる <i>vastu</i> と、<i>mantra</i> を授ける <i>ācārya</i>。この三つに深い <i>prema</i> があってこそ、<i>mantra</i> は <i>kāryakara</i>（実際に効果をもつもの）となる。」</div>
+  <div class="ex">
+    <p>念想の対象を、<i>mantra</i>（ことば）・<i>vastu</i>（ことばが指す神）・<i>ācārya</i>（ことばを伝える師）の三つに分けています。師への敬愛まで条件に含めている点に、この学派の特色が表れています。</p>
+  </div>
+</div>
+
+<h3><span class="h3n">1.2.1–2</span>由来と知の価値（§5–7）</h3>
+<div class="sutra">
+  <div class="hd"><span class="no">§5</span><span class="ref">科段 1.2.1.1</span></div>
+  <div class="tr">「<i>saṃsārin</i>（輪廻する者）たちは、自分も <i>Īśvara</i> も忘れ、<i>Īśvara</i> への <i>kaiṅkarya</i>（奉仕）を失い、失ったという自覚さえないまま、<i>saṃsāra</i> という大海に沈んで苦しんでいる。<i>Sarveśvara</i>（一切の主）はその姿を見て、自らの <i>kṛpā</i>（慈悲）によって、彼らが自分を知って岸に上がれるように、自ら <i>śiṣya</i> にも <i>ācārya</i> にもなって <i>tirumantra</i> を明らかにされた。」</div>
+  <div class="ex">
+    <p><i>Badarikāśrama</i> で <i>Nārāyaṇa</i> が <i>ācārya</i> として、<i>Nara</i> が <i>śiṣya</i> として、二人一組で現れたという伝承を踏まえています。</p>
+  </div>
+</div>
+
+<div class="sutra">
+  <div class="hd"><span class="no">§6</span><span class="ref">科段 1.2.1.2</span></div>
+  <div class="tr">「<i>śiṣya</i> にもなった理由：弟子としての正しいあり方を世の人が知らないので、それを示すため。」</div>
+</div>
+
+<div class="sutra">
+  <div class="hd"><span class="no">§7</span><span class="ref">科段 1.2.2</span></div>
+  <div class="tr">「あらゆる <i>śāstra</i> から得る知は、自分で稼いだ財（<i>svayam-ārjita</i>）のようなものである。<i>tirumantra</i> から得る知は、父祖から受け継いだ財（<i>paitṛka dhana</i>）のようなものである。」</div>
+  <div class="ex">
+    <p>自分で稼いだ財は努力して得るもので、失うこともあります。それに対して父祖伝来の財は、もともと自分に権利がある財です。つまり <i>tirumantra</i> の知は、魂がもともと神（いわば「父」）に属しているという本来の関係を知ることであり、外から新しく手に入れる知識とは性質が違う、という意味です。</p>
+  </div>
+</div>
+
+<h3><span class="h3n">1.2.3</span>数ある <i>mantra</i> の中で最も優れていること（§8–12）</h3>
+
+<figure class="fig">
+  <figcaption><i>Bhagavān</i> の <i>mantra</i> の分類（§8–12）</figcaption>
+<div class="tree"><ul><li><span class="box">主の <i>mantra</i>（数多い §8）</span>
+  <ul>
+    <li><span class="box">① <i>vyāpaka</i>：遍在する主そのものを表す（優れている §10）</span>
+      <ul>
+        <li><span class="box hl">八音節 <i>tirumantra</i>：<i>oṃ namo nārāyaṇāya</i> ★最もすぐれる §11</span></li>
+        <li><span class="box">十二音節：<i>oṃ namo bhagavate vāsudevāya</i></span></li>
+        <li><span class="box">六音節：<i>oṃ viṣṇave namaḥ</i></span></li>
+      </ul>
+    </li>
+    <li><span class="box">② <i>avyāpaka</i>：<i>Rāma</i>・<i>Kṛṣṇa</i> など化身の <i>mantra</i></span></li>
+  </ul>
+</li></ul></div>
+  <div class="cap2">十二音節と六音節の二つには、<i>aśiṣṭa-parigraha</i>・<i>apūrti</i> という欠点がある、とされます（§12）。</div>
+</figure>
+
+<div class="sutra" id="s8">
+  <div class="hd"><span class="no">§8</span><span class="ref">科段 1.2.3.1</span></div>
+  <div class="tr">「<i>Bhagavān</i> の <i>mantra</i> は数多い。」</div>
+</div>
+
+<div class="sutra" id="s9">
+  <div class="hd"><span class="no">§9</span><span class="ref">科段 1.2.3.2</span></div>
+  <div class="tr">「それらは <i>vyāpaka</i> と <i>avyāpaka</i> の二種類に分かれる。」</div>
+  <div class="ex"><p><i>vyāpaka</i>（遍在者を表すもの）とは、遍く行き渡る <i>Viṣṇu</i> そのものを表す <i>mantra</i> のことで、八音節の <i>tirumantra</i>、十二音節の <i>mantra</i>（<i>oṃ namo bhagavate vāsudevāya</i>）、六音節の <i>mantra</i>（<i>oṃ viṣṇave namaḥ</i>）の三つを指すと伝統的に説明されます。<i>avyāpaka</i> は、<i>Rāma</i> や <i>Kṛṣṇa</i> などの <i>avatāra</i> の <i>mantra</i> です。</p></div>
+</div>
+
+<div class="sutra" id="s10">
+  <div class="hd"><span class="no">§10</span><span class="ref">科段 1.2.3.3</span></div>
+  <div class="tr">「<i>avyāpaka</i> の <i>mantra</i> よりも、<i>vyāpaka</i> の三つが <i>śreṣṭha</i>（優れたもの）である。」</div>
+</div>
+
+<div class="sutra" id="s11">
+  <div class="hd"><span class="no">§11</span><span class="ref">科段 1.2.3.4</span></div>
+  <div class="tr">「この三つの中でも、大いなる <i>tirumantra</i> が <i>pradhāna</i>（主たるもの）である。」</div>
+</div>
+
+<div class="sutra" id="s12">
+  <div class="hd"><span class="no">§12</span><span class="ref">科段 1.2.3.5</span><span class="chk">要確認</span></div>
+  <div class="tr">「他の二つには <i>aśiṣṭa-parigraha</i>（ふさわしくない者にも用いられていること）と <i>apūrti</i>（意味が十分に表されていないこと）がある。」</div>
+  <div class="ex"><p>二つの欠点がそれぞれどちらの <i>mantra</i> に当たるのかは、注釈で確認が必要です。</p></div>
+</div>
+
+<h3><span class="h3n">1.2.4</span>愛好されてきたこと（§13）</h3>
+
+<div class="sutra" id="s13">
+  <div class="hd"><span class="no">§13</span><span class="ref">科段 1.2.4</span></div>
+  <div class="tr">「それゆえ、<i>Veda</i> も <i>ṛṣi</i> も <i>Āḻvār</i> も <i>ācārya</i> も、これ（<i>tirumantra</i>）を愛した。」</div>
+</div>
+
+<h3><span class="h3n">1.2.5</span>功徳（§14–21）</h3>
+
+<div class="sutra" id="s14">
+  <div class="hd"><span class="no">§14</span><span class="ref">科段 1.2.5.1</span></div>
+  <div class="tr">「<i>vācaka</i>（表すことば）の偉大さは、<i>vācya</i>（表されるもの＝主）の偉大さとは比べものにならない。」</div>
+  <div class="ex"><p>「御名は、御名で呼ばれる主その方にもまさる」という考えです。次の §15–16 がその理由と例証です。</p></div>
+</div>
+
+<div class="sutra" id="s15">
+  <div class="hd"><span class="no">§15</span><span class="ref">科段 1.2.5.2</span></div>
+  <div class="tr">「主が遠くにおられても、これ（<i>mantra</i>）は身近にあって助ける。」</div>
+</div>
+
+<div class="sutra" id="s16">
+  <div class="hd"><span class="no">§16</span><span class="ref">科段 1.2.5.3</span></div>
+  <div class="tr">「<i>Draupadī</i> の危難のときに衣を増やしたのは、御名ではないか。」</div>
+  <div class="ex"><p><i>Mahābhārata</i> で、衣をはがされそうになった <i>Draupadī</i> が主の御名を呼ぶと、衣が尽きることなく伸び続けた、という有名な場面です。その時 <i>Kṛṣṇa</i> 本人は遠くにいました。</p></div>
+</div>
+
+<div class="sutra" id="s17">
+  <div class="hd"><span class="no">§17</span><span class="ref">科段 1.2.5.4</span></div>
+  <div class="tr">「唱える順序（<i>krama</i>）を守らずに唱えても、その本来の力が損なわれることはない。」</div>
+</div>
+
+<div class="sutra" id="s18">
+  <div class="hd"><span class="no">§18</span><span class="ref">科段 1.2.5.5.1</span></div>
+  <div class="tr">「これこそが、『<i>kulam tarum</i>（家柄を与える）』という詩句のとおり、望まれるものすべてを与える。」</div>
+  <div class="ex"><p>引かれているのは <i>Tirumaṅkai Āḻvār</i> の詩句で、御名 <i>Nārāyaṇa</i> が家柄も富もあらゆるものを与える、とたたえるものです。</p></div>
+</div>
+
+<div class="sutra" id="s19">
+  <div class="hd"><span class="no">§19</span><span class="ref">科段 1.2.5.5.2</span></div>
+  <div class="tr">「<i>aiśvarya</i>（世俗の繁栄）・<i>kaivalya</i>（自己の独存の享受）・<i>bhagavallābha</i>（主の獲得）を望んだ者には、それぞれ望むものを与える。」</div>
+</div>
+
+<div class="sutra" id="s20">
+  <div class="hd"><span class="no">§20</span><span class="ref">科段 1.2.5.5.3</span></div>
+  <div class="tr">「<i>karma</i>・<i>jñāna</i>・<i>bhakti</i> の道を行う者には、<i>virodhi</i>（妨げ）を取り除いて、その道を完成させてくれる。」</div>
+</div>
+
+<div class="sutra" id="s21">
+  <div class="hd"><span class="no">§21</span><span class="ref">科段 1.2.5.5.4</span></div>
+  <div class="tr">「<i>prapatti</i>（帰依）の道にある者には、<i>svarūpa-jñāna</i>（自分の本性についての知）を生じさせ、<i>kālakṣepa</i>（日々の過ごし方）と <i>bhoga</i>（喜び）の因となる。」</div>
+  <div class="ex"><p>すでに主に身を委ねた <i>prapanna</i> にとっては、<i>tirumantra</i> は「手段」ではなく、本性を知り、日々それを味わうためのものになる、という区別です。</p></div>
+</div>
+
+<h3><span class="h3n">1.2.6</span>説く内容の総括（§22–27）</h3>
+
+<figure class="fig">
+  <figcaption>求める者に応じて <i>tirumantra</i> が与えるもの（§19–21）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>求める者</th><th>与えられるもの</th><th>節</th></tr></thead><tbody><tr><td><i>aiśvarya</i>・<i>kaivalya</i>・<i>bhagavallābha</i> を望む者</td><td>望んだものそのもの</td><td>§19</td></tr><tr><td><i>karma</i>・<i>jñāna</i>・<i>bhakti</i> の道を行う者</td><td>妨げを除いて、その道を完成させる</td><td>§20</td></tr><tr><td><i>prapanna</i>（すでに帰依した者）</td><td>本性の知、日々の過ごし方、喜び</td><td>§21</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s22">
+  <div class="hd"><span class="no">§22</span><span class="ref">科段 1.2.6.1</span></div>
+  <div class="tr">「『ほかのすべてを語るとしても』という詩句のとおり、知るべき意味はすべてこの中にある。」</div>
+</div>
+
+<div class="sutra" id="s23">
+  <div class="hd"><span class="no">§23</span><span class="ref">科段 1.2.6.2</span></div>
+  <div class="tr">「すなわち <i>artha-pañcaka</i>（五つの意味）である。」</div>
+  <div class="ex"><p><i>artha-pañcaka</i> は、(1) 到達されるべき主の本性、(2) 到達する者（自己）の本性、(3) 手段（<i>upāya</i>）、(4) 結果（<i>phala</i>）、(5) 妨げ（<i>virodhi</i>）の五つを指します。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption><i>artha-pañcaka</i>（五つの意味 §23）と、本章で扱う箇所</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>五つの意味</th><th>内容</th><th>本章で主に扱う科段</th></tr></thead><tbody><tr><td>① 主の本性</td><td>到達されるべき方</td><td>1.4.2（<i>akāra</i>）、1.6（<i>nārāyaṇāya</i>）</td></tr><tr><td>② 自己の本性</td><td>到達する者</td><td>1.4.4（<i>makāra</i>）</td></tr><tr><td>③ 手段（<i>upāya</i>）</td><td>主こそが手段</td><td>1.2.6.4（§25）</td></tr><tr><td>④ 結果（<i>phala</i>）</td><td>主への奉仕</td><td>1.6.3（<i>āya</i>）</td></tr><tr><td>⑤ 妨げ（<i>virodhi</i>）</td><td>救いを妨げるもの</td><td>1.4.2.2、1.5.3（<i>namas</i>）</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s24">
+  <div class="hd"><span class="no">§24</span><span class="ref">科段 1.2.6.3</span></div>
+  <div class="tr">「<i>pūrvācārya</i>（先師）たちは、この意味を知る前は自分を『生まれた者』とは思わなかった。この意味の知が生じた後は、『生まれた後は（主を）忘れなかった』という詩句のとおり、これ以外のことでは時を過ごすことを知らなかった。」</div>
+  <div class="ex"><p>真の意味で「生まれた」と言えるのは、<i>tirumantra</i> の意味を知った時だ、という考えです。</p></div>
+</div>
+
+<div class="sutra" id="s25">
+  <div class="hd"><span class="no">§25</span><span class="ref">科段 1.2.6.4</span></div>
+  <div class="tr">「ことば（<i>vācaka</i>）よりも、それが表す主（<i>vācya</i>）に深くとどまるべき根拠は、<i>Īśvara</i> こそが <i>upāya</i>（手段）であり <i>upeya</i>（目的）であると心得ることにある。」</div>
+</div>
+
+<div class="sutra" id="s26">
+  <div class="hd"><span class="no">§26</span><span class="ref">科段 1.2.6.5</span></div>
+  <div class="tr">「これ自体が説く意味は、<i>svarūpa</i>（本性）と、本性にふさわしい <i>prāpya</i>（到達されるべきもの）である。あるいは <i>svarūpa</i>・<i>upāya</i>・<i>phala</i> と言ってもよい。」</div>
+</div>
+
+<div class="sutra" id="s27">
+  <div class="hd"><span class="no">§27</span><span class="ref">科段 1.2.6.6</span></div>
+  <div class="tr">「<i>phala</i> がどのようなものかは、<i>Prameyaśekhara</i> と <i>Arcirādigati</i> で述べた。」</div>
+  <div class="ex"><p>どちらも著者 <i>Piḷḷai Lokācārya</i> 自身の作品です。著者は本書の中で、詳しい議論を自分の他の著作に何度も譲っています（§39・§70 も同じ）。</p></div>
+</div>
+
+<h3><span class="h3n">1.3</span>句の構成（§28–30）</h3>
+
+<div class="sutra" id="s28">
+  <div class="hd"><span class="no">§28</span><span class="ref">科段 1.3.1</span></div>
+  <div class="tr">「これ（<i>tirumantra</i>）は八つの <i>tiruvakṣara</i>（聖なる音節）からなり、三つの <i>pada</i>（句）からなる。」</div>
+  <div class="ex"><p><i>oṃ</i>（1音節）＋ <i>namo</i>（2音節）＋ <i>nārāyaṇāya</i>（5音節）＝ 8音節。三つの句は <i>praṇava</i>（<i>oṃ</i>）・<i>namas</i>・<i>nārāyaṇāya</i> です。</p></div>
+</div>
+
+<div class="sutra" id="s29">
+  <div class="hd"><span class="no">§29</span><span class="ref">科段 1.3.2</span></div>
+  <div class="tr">「三つの句が三つの意味を説く。」</div>
+</div>
+
+<div class="sutra" id="s30">
+  <div class="hd"><span class="no">§30</span><span class="ref">科段 1.3.3</span></div>
+  <div class="tr">「すなわち <i>śeṣatva</i>（主に従属すること）・<i>pāratantrya</i>（主に依存すること）・<i>kaiṅkarya</i>（主への奉仕）である。」</div>
+  <div class="ex"><p><i>praṇava</i> が <i>śeṣatva</i> を、<i>namas</i> が <i>pāratantrya</i> を、<i>nārāyaṇāya</i> が <i>kaiṅkarya</i> を説く、という対応です。この章の後半（科段 1.4–1.6）はこの順に進みます。</p></div>
+</div>
+
+<h3><span class="h3n">1.4.1</span><i>praṇava</i> の総説（§31–34）</h3>
+
+<figure class="fig">
+  <figcaption><i>tirumantra</i> の組み立て（§28–30）</figcaption>
+<div class="grid3">
+  <div class="node"><b>第1句 <i>oṃ</i></b>1音節（<i>a・u・m</i>）<span class="sep"></span><b>śeṣatva</b>主に属すること<span class="sm">科段 1.4（§31–74）</span></div>
+  <div class="node"><b>第2句 <i>namo</i></b>2音節<span class="sep"></span><b>pāratantrya</b>主に依存すること<span class="sm">科段 1.5（§75–94）</span></div>
+  <div class="node"><b>第3句 <i>nārāyaṇāya</i></b>5音節<span class="sep"></span><b>kaiṅkarya</b>主への奉仕<span class="sm">科段 1.6（§95–112）</span></div>
+</div>
+<div class="res">1 ＋ 2 ＋ 5 ＝ 8音節（§28）・三句が三つの意味を説く（§29–30）</div>
+</figure>
+
+<div class="sutra" id="s31">
+  <div class="hd"><span class="no">§31</span><span class="ref">科段 1.4.1.1</span></div>
+  <div class="tr">「このうち第一の句は <i>praṇava</i> である。」</div>
+</div>
+
+<div class="sutra" id="s32">
+  <div class="hd"><span class="no">§32</span><span class="ref">科段 1.4.1.2</span></div>
+  <div class="tr">「これは <i>a</i>・<i>u</i>・<i>m</i> という三つの <i>tiruvakṣara</i> からなる。」</div>
+</div>
+
+<div class="sutra" id="s33">
+  <div class="hd"><span class="no">§33</span><span class="ref">科段 1.4.1.3</span></div>
+  <div class="tr">「三つの壺に凝乳を満たしてかき混ぜ、バターを集めるように、三つの <i>Veda</i> からも三つの音節を取り出した。」</div>
+</div>
+
+<div class="sutra" id="s34">
+  <div class="hd"><span class="no">§34</span><span class="ref">科段 1.4.1.4</span></div>
+  <div class="tr">「それゆえ、これは <i>sakala-veda-sāra</i>（全 <i>Veda</i> の精髄）である。」</div>
+</div>
+
+<h3><span class="h3n">1.4.2</span><i>akāra</i>（§35–57）</h3>
+
+<div class="sutra" id="s35">
+  <div class="hd"><span class="no">§35</span><span class="ref">科段 1.4.2.1</span></div>
+  <div class="tr">「このうち <i>akāra</i> は、あらゆる音の <i>kāraṇa</i>（もと）であり、<i>nārāyaṇa</i> という語の要約（<i>saṅgraha</i>）でもある。それゆえ、あらゆる世界の <i>kāraṇa</i> であり <i>sarva-rakṣaka</i>（すべてを守る者）である <i>Emperumāṉ</i>（主）を表す。」</div>
+  <div class="ex"><p>「<i>a</i> がすべての音のもとであるように、主はすべての世界のもとである」という対応関係が、この解釈の土台です。</p></div>
+</div>
+
+<div class="sutra" id="s36">
+  <div class="hd"><span class="no">§36</span><span class="ref">科段 1.4.2.2.1</span></div>
+  <div class="tr">「<i>rakṣaṇa</i>（守護）とは、<i>virodhi</i>（妨げ）を取り除くことと、<i>apekṣita</i>（望むもの）を与えることである。」</div>
+</div>
+
+<div class="sutra" id="s37">
+  <div class="hd"><span class="no">§37</span><span class="ref">科段 1.4.2.2.2</span></div>
+  <div class="tr">「この二つは、<i>cetana</i>（衆生）それぞれの程度に応じたものとなる。」</div>
+</div>
+
+<div class="sutra" id="s38">
+  <div class="hd"><span class="no">§38</span><span class="ref">科段 1.4.2.2.3</span></div>
+  <div class="tr">「<i>saṃsārin</i> にとっての <i>virodhi</i> は敵による苦しみなど、<i>apekṣita</i> は飲食など。<i>mumukṣu</i> にとっての <i>virodhi</i> は <i>saṃsāra</i> との結びつき、<i>apekṣita</i> は <i>paramapada</i>（主の天界）への到達。<i>mukta</i>（解脱者）と <i>nitya</i>（永遠の従者）にとっての <i>virodhi</i> は <i>kaiṅkarya</i> が欠けること、<i>apekṣita</i> は <i>kaiṅkarya</i> が増すこと。」</div>
+</div>
+
+<figure class="fig">
+  <figcaption>相手に応じた守護の中身（§38）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>守られる者</th><th>除かれる妨げ（<i>virodhi</i>）</th><th>与えられる望み（<i>apekṣita</i>）</th></tr></thead><tbody><tr><td><i>saṃsārin</i>（輪廻する者）</td><td>敵による苦しみなど</td><td>飲食など</td></tr><tr><td><i>mumukṣu</i>（解脱を求める者）</td><td><i>saṃsāra</i> との結びつき</td><td><i>paramapada</i> への到達</td></tr><tr><td><i>mukta</i>・<i>nitya</i>（解脱者・永遠の従者）</td><td>奉仕が欠けること</td><td>奉仕が増すこと</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s39">
+  <div class="hd"><span class="no">§39</span><span class="ref">科段 1.4.2.2.4</span></div>
+  <div class="tr">「『<i>Īśvara</i> 以外の者は <i>rakṣaka</i>（守護者）ではない』ということは、<i>Prapannaparitrāṇa</i> で述べた。」</div>
+</div>
+
+<div class="sutra" id="s40">
+  <div class="hd"><span class="no">§40</span><span class="ref">科段 1.4.2.3.1</span></div>
+  <div class="tr">「守護するときには <i>Pirāṭṭi</i>（女神 <i>Śrī</i>）がそばにいることが必要であるから、ここで <i>śrī-sambandha</i>（<i>Śrī</i> との結びつき）を念想すべきである。」</div>
+  <div class="ex"><p><i>tirumantra</i> の文面には <i>Śrī</i> の名は出てきません。それでも <i>akāra</i> の中に <i>Śrī</i> を読み込むべきだ、というのが §40–47 の主張です。</p></div>
+</div>
+
+<div class="sutra" id="s41">
+  <div class="hd"><span class="no">§41</span><span class="ref">科段 1.4.2.3.2</span></div>
+  <div class="tr">「これについて <i>Bhagavatsenāpatimiśra</i> の言葉がある。『彼女が彼の胸を離れることがあれば、この音節（<i>a</i>）から離れることもあろう』。」</div>
+  <div class="ex"><p><i>Śrī</i> は主の胸に常に住むとされるので、「決して離れない」という意味になります。</p></div>
+</div>
+
+<div class="sutra" id="s42">
+  <div class="hd"><span class="no">§42</span><span class="ref">科段 1.4.2.3.3</span></div>
+  <div class="tr">「夫の寝床も、子の揺りかごも、どちらも離れずにいる母のように、（<i>Śrī</i> は）最初の句と最後の句のどちらも離れずにいる。」</div>
+</div>
+
+<div class="sutra" id="s43">
+  <div class="hd"><span class="no">§43</span><span class="ref">科段 1.4.2.3.3</span></div>
+  <div class="tr">「<i>Nandagopa</i> と <i>Kṛṣṇa</i> のどちらからも離れなかった <i>Yaśodā</i> のように。」</div>
+</div>
+
+<div class="sutra" id="s44">
+  <div class="hd"><span class="no">§44</span><span class="ref">科段 1.4.2.3.4</span><span class="chk">要確認</span></div>
+  <div class="tr">「人が奴隷を雇うとき、証文には『主婦のため』とは書かない。それでも奉仕は主婦にもする。同じように、私たちは <i>Pirāṭṭi</i> にも仕える者である。」</div>
+  <div class="ex"><p>文面に名前がなくても関係は成り立っている、という喩えです。</p></div>
+</div>
+
+<div class="sutra" id="s45">
+  <div class="hd"><span class="no">§45</span><span class="ref">科段 1.4.2.3.5</span></div>
+  <div class="tr">「それゆえ、（両者が）離れて存在することはない。」</div>
+</div>
+
+<div class="sutra" id="s46">
+  <div class="hd"><span class="no">§46</span><span class="ref">科段 1.4.2.3.5</span></div>
+  <div class="tr">「光と光を放つもの、花と香りのように。」</div>
+</div>
+
+<div class="sutra" id="s47">
+  <div class="hd"><span class="no">§47</span><span class="ref">科段 1.4.2.3.6</span></div>
+  <div class="tr">「それゆえ、この両者の結びつきこそが目指すもの（<i>uddeśya</i>）となる。」</div>
+</div>
+
+<figure class="fig">
+  <figcaption>女神 <i>Śrī</i> が主から離れないことの喩え（§42–46）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>喩え</th><th>離れない二つのもの</th><th>節</th></tr></thead><tbody><tr><td>母</td><td>夫の寝床と、子の揺りかご</td><td>§42</td></tr><tr><td><i>Yaśodā</i></td><td><i>Nandagopa</i> と <i>Kṛṣṇa</i></td><td>§43</td></tr><tr><td>主婦</td><td>（証文に名はなくても）家の主人に仕えられる</td><td>§44</td></tr><tr><td>光</td><td>光と光を放つもの</td><td>§46</td></tr><tr><td>花</td><td>花と香り</td><td>§46</td></tr></tbody></table></div>
+  <div class="cap2">どの喩えも、<i>tirumantra</i> の文面に <i>Śrī</i> の名がなくても、<i>akāra</i> の中に女神が含まれている、ということを示しています。</div>
+</figure>
+
+<div class="sutra" id="s48">
+  <div class="hd"><span class="no">§48</span><span class="ref">科段 1.4.2.4.1</span></div>
+  <div class="tr">「ここでは <i>caturthī</i>（為格語尾）が加わった上で、省かれている。」</div>
+  <div class="ex"><p><i>a</i> は本来「<i>a</i> のために」（為格）の意味で読むべきだが、その語尾が表に出ていない、という文法的な説明です。</p></div>
+</div>
+
+<div class="sutra" id="s49">
+  <div class="hd"><span class="no">§49</span><span class="ref">科段 1.4.2.4.1</span></div>
+  <div class="tr">「<i>caturthī</i> が加わっていると、どうして分かるのか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s50">
+  <div class="hd"><span class="no">§50</span><span class="ref">科段 1.4.2.4.1</span></div>
+  <div class="tr">「（<i>akāra</i> は）<i>nārāyaṇa</i> という語の要約だからである。」</div>
+  <div class="ex"><p>要約されている元の語が <i>nārāyaṇāya</i>（<i>Nārāyaṇa</i> のために）と為格なので、その要約である <i>a</i> も為格として読める、という理屈です。</p></div>
+</div>
+
+<div class="sutra" id="s51">
+  <div class="hd"><span class="no">§51</span><span class="ref">科段 1.4.2.4.2</span></div>
+  <div class="tr">「これによって、（自己は）<i>Īśvara</i> の <i>śeṣa</i>（従属者）である、と説く。」</div>
+</div>
+
+<div class="sutra" id="s52">
+  <div class="hd"><span class="no">§52</span><span class="ref">科段 1.4.2.4.3</span></div>
+  <div class="tr">「<i>śeṣatva</i>（他に従属すること）は苦しみそのものだと、世間では見られているではないか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s53">
+  <div class="hd"><span class="no">§53</span><span class="ref">科段 1.4.2.4.3</span></div>
+  <div class="tr">「そうと決まっているわけではない。愛する相手に従属しているあり方は、楽しいものと見られているからである。」</div>
+</div>
+
+<div class="sutra" id="s54">
+  <div class="hd"><span class="no">§54</span><span class="ref">科段 1.4.2.4.4</span></div>
+  <div class="tr">「<i>akāra</i> によって主の <i>kalyāṇa-guṇa</i>（すぐれた徳）が説かれているので、この <i>śeṣatva</i> も主の徳によって生じたものである。」</div>
+  <div class="ex"><p>主の徳に引かれて自然に仕えるのだから、強いられた隷属とは違う、という意味です。</p></div>
+</div>
+
+<div class="sutra" id="s55">
+  <div class="hd"><span class="no">§55</span><span class="ref">科段 1.4.2.5</span></div>
+  <div class="tr">「<i>śeṣatva</i> こそが、自己（<i>ātman</i>）の <i>svarūpa</i>（本性）である。」</div>
+</div>
+
+<div class="sutra" id="s56">
+  <div class="hd"><span class="no">§56</span><span class="ref">科段 1.4.2.5</span></div>
+  <div class="tr">「<i>śeṣatva</i> がないときには、<i>svarūpa</i> もない。」</div>
+</div>
+
+<div class="sutra" id="s57">
+  <div class="hd"><span class="no">§57</span><span class="ref">科段 1.4.2.5</span></div>
+  <div class="tr">「<i>ātmāpahāra</i>（自己を盗むこと）とは、自分は <i>svatantra</i>（誰にも従属しない者）だと思うことである。<i>svatantra</i> であるならば、自己は無いに等しいものとなってしまう。」</div>
+  <div class="ex"><p>本来主のものである自己を自分のものと思うのは、主から自己を「盗む」ことだ、という考えです。</p></div>
+</div>
+
+<h3><span class="h3n">1.4.3</span><i>ukāra</i>（§58–65）</h3>
+
+<div class="sutra" id="s58">
+  <div class="hd"><span class="no">§58</span><span class="ref">科段 1.4.3.1</span></div>
+  <div class="tr">「<i>sthāna-pramāṇa</i>（置かれた位置による判断）によって、<i>ukāra</i> は <i>avadhāraṇa</i>（「〜だけ」という限定）の意味をもつ。」</div>
+  <div class="ex"><p><i>sthāna-pramāṇa</i> は <i>Mīmāṃsā</i> の解釈規則の一つで、語が置かれた位置からその役割を判断するものです。<i>u</i> は <i>a</i>（主）と <i>m</i>（自己）の間に置かれているので、「自己は主だけのものである」という限定を表す、と解釈されます。</p></div>
+</div>
+
+<div class="sutra" id="s59">
+  <div class="hd"><span class="no">§59</span><span class="ref">科段 1.4.3.1</span></div>
+  <div class="tr">「これによって、（自己は）他の者の <i>śeṣa</i> ではない、と説く。」</div>
+</div>
+
+<div class="sutra" id="s60">
+  <div class="hd"><span class="no">§60</span><span class="ref">科段 1.4.3.2</span></div>
+  <div class="tr">「（<i>ukāra</i> は）<i>Periya Pirāṭṭiyār</i>（大女神 <i>Śrī</i>）に対する <i>śeṣa</i> を説く、と言う人々もいる。」</div>
+</div>
+
+<div class="sutra" id="s61">
+  <div class="hd"><span class="no">§61</span><span class="ref">科段 1.4.3.3</span></div>
+  <div class="tr">「その中でも、他の者への従属（<i>anya-śeṣatva</i>）を取り除くことが主眼である。」</div>
+</div>
+
+<div class="sutra" id="s62">
+  <div class="hd"><span class="no">§62</span><span class="ref">科段 1.4.3.3</span></div>
+  <div class="tr">「神々に捧げる供物（<i>puroḍāśa</i>）を犬に与えるように、<i>Īśvara</i> のものである自己を、<i>saṃsārin</i> たちのものにしてしまうこと（が問題なのである）。」</div>
+</div>
+
+<div class="sutra" id="s63">
+  <div class="hd"><span class="no">§63</span><span class="ref">科段 1.4.3.3</span></div>
+  <div class="tr">「<i>bhagavac-cheṣatva</i>（主への従属）においてさえ、他の者への従属を取り除くことが主眼である。」</div>
+</div>
+
+<div class="sutra" id="s64">
+  <div class="hd"><span class="no">§64</span><span class="ref">科段 1.4.3.3</span></div>
+  <div class="tr">「『忘れてさえ他の神を拝まない人々』という詩句があるからである。」</div>
+</div>
+
+<div class="sutra" id="s65">
+  <div class="hd"><span class="no">§65</span><span class="ref">科段 1.4.3.4</span></div>
+  <div class="tr">「これによって、（自己は）自分にも他者にも属さない、と説く。」</div>
+</div>
+
+<h3><span class="h3n">1.4.4</span><i>makāra</i>（§66–71）</h3>
+
+<div class="sutra" id="s66">
+  <div class="hd"><span class="no">§66</span><span class="ref">科段 1.4.4.1</span></div>
+  <div class="tr">「<i>makāra</i> は第25番目の音節であり、<i>jñāna-vācin</i>（知を表すもの）であるから、自己（<i>ātman</i>）を表す。」</div>
+  <div class="ex"><p>子音 <i>ka</i> から数えると <i>ma</i> は25番目です。これを25番目の原理（<i>tattva</i>）である自己に重ねる解釈です。また語根 <i>man</i>（考える）との関係から「知るもの」を表すとされます。</p></div>
+</div>
+
+<div class="sutra" id="s67">
+  <div class="hd"><span class="no">§67</span><span class="ref">科段 1.4.4.2</span></div>
+  <div class="tr">「これは <i>samaṣṭi-vācaka</i>（全体をまとめて表す語）である。」</div>
+</div>
+
+<div class="sutra" id="s68">
+  <div class="hd"><span class="no">§68</span><span class="ref">科段 1.4.4.2</span></div>
+  <div class="tr">「<i>jātyeka-vacana</i>（種類全体を表す単数）である。」</div>
+  <div class="ex"><p><i>m</i> は一人の自己ではなく、すべての自己をまとめて表している、という意味です。</p></div>
+</div>
+
+<div class="sutra" id="s69">
+  <div class="hd"><span class="no">§69</span><span class="ref">科段 1.4.4.3</span></div>
+  <div class="tr">「これによって、自己は <i>jñātṛ</i>（知る主体）であると、身体から区別して述べた。」</div>
+</div>
+
+<div class="sutra" id="s70">
+  <div class="hd"><span class="no">§70</span><span class="ref">科段 1.4.4.3</span></div>
+  <div class="tr">「身体からの区別については <i>Tattvaśekhara</i> で述べた。」</div>
+</div>
+
+<div class="sutra" id="s71">
+  <div class="hd"><span class="no">§71</span><span class="ref">科段 1.4.4.4</span></div>
+  <div class="tr">「香りや輝きがあるから花や宝石を大切にするように、主に従属するものであるからこそ自己を大切にする。そうでなければ『命があっても何の値打ちもない』という詩句のとおり、捨てるべきものである。それを示すために、先に <i>śeṣatva</i> を述べてから、自己を述べている。」</div>
+  <div class="ex"><p><i>a</i>（主）→ <i>u</i>（限定）→ <i>m</i>（自己）という音の順番そのものに、意味を見いだしています。</p></div>
+</div>
+
+<h3><span class="h3n">1.4.5</span><i>praṇava</i> のまとめ（§72–74）</h3>
+
+<figure class="fig">
+  <figcaption><i>praṇava</i>（<i>oṃ</i>）の三音節が言っていること（§35–71）</figcaption>
+<div class="flow"><div class="node "><b><i>a</i></b>主（すべての原因・守る者）<span class="sm">＋隠れた為格「〜のために」§48–50</span></div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>u</i></b>「〜だけ」（他の者のためではない）<span class="sm">§58–65</span></div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>m</i></b>自己（知る者・すべての自己）<span class="sm">§66–70</span></div></div><div class="res">「自己（<i>m</i>）は、ただ（<i>u</i>）主（<i>a</i>）のためにある」＝ <i>śeṣatva</i></div>
+  <div class="cap2">音の順番（<i>a</i> → <i>u</i> → <i>m</i>）にも意味があり、主を先に、自己を後に置くのは、自己の値打ちが「主のもの」であることにあるからだ、とされます（§71）。</div>
+</figure>
+
+<div class="sutra" id="s72">
+  <div class="hd"><span class="no">§72</span><span class="ref">科段 1.4.5</span></div>
+  <div class="tr">「こうして <i>praṇava</i> によって、『<i>Kaṇṇapuram</i> の主のしもべである私が、ほかの誰かのものになろうか』という詩句のとおり、<i>jīva</i>（個我）と <i>para</i>（最高者）の関係が述べられた。」</div>
+</div>
+
+<div class="sutra" id="s73">
+  <div class="hd"><span class="no">§73</span><span class="ref">科段 1.4.5</span></div>
+  <div class="tr">「これによって、『蓮の女神の夫ただ一人だけを見つめる知』と言ったことになる。」</div>
+</div>
+
+<div class="sutra" id="s74">
+  <div class="hd"><span class="no">§74</span><span class="ref">科段 1.4.5</span></div>
+  <div class="tr">「<i>akāra</i> と <i>makāra</i> によって守る者と守られる者が、<i>caturthī</i> と <i>ukāra</i> によって守護の根拠となる関係と、その結果が述べられた。」</div>
+</div>
+
+<h3><span class="h3n">1.5</span>第二句 <i>namas</i>（§75–94）</h3>
+
+<figure class="fig">
+  <figcaption><i>praṇava</i> と後の二句の対応（§74・76・77）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th><i>praṇava</i> の要素</th><th>表すもの（§74）</th><th>詳しく説く句（§76）</th></tr></thead><tbody><tr><td><i>a</i></td><td>守る者（主）</td><td><i>nārāyaṇa</i> の語</td></tr><tr><td><i>u</i></td><td>（主だけに属するという）関係</td><td><i>namas</i></td></tr><tr><td><i>m</i></td><td>守られる者（自己）</td><td><i>-āya</i>（為格）　※異説：<i>nāra</i> の語</td></tr></tbody></table></div>
+  <div class="cap2">順番どおりなら <i>a</i> → <i>u</i> → <i>m</i> ですが、実際には <i>u</i> を説く <i>namas</i> が先に来ます。まず妨げを除いてから主を味わうべきだからです（§77）。</div>
+</figure>
+
+<div class="sutra" id="s75">
+  <div class="hd"><span class="no">§75</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「ここから先は <i>praṇava</i> を詳しく説く。」</div>
+</div>
+
+<div class="sutra" id="s76">
+  <div class="hd"><span class="no">§76</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「<i>ukāra</i> を詳しく説くのが <i>namas</i>、<i>akāra</i> を詳しく説くのが <i>nārāyaṇa</i> の語、<i>makāra</i> を詳しく説くのが <i>caturthī</i>（<i>-āya</i>）である。（<i>makāra</i> を説くのは）<i>nāra</i> の語だと言う人もいる。」</div>
+</div>
+
+<div class="sutra" id="s77">
+  <div class="hd"><span class="no">§77</span><span class="ref">科段 1.5.1</span></div>
+  <div class="tr">「（<i>a・u・m</i> の）順番どおりに説かないのは、まず妨げを取り除いてから（主を）味わうべきだからである。」</div>
+  <div class="ex"><p>順番どおりなら <i>a</i> → <i>u</i> → <i>m</i> ですが、実際には <i>u</i> の説明（<i>namas</i>）が先に来ます。妨げ（自分を自分のものと思うこと）を除くのが先だから、という説明です。</p></div>
+</div>
+
+<div class="sutra" id="s78">
+  <div class="hd"><span class="no">§78</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「<i>namas</i> は <i>na</i> と <i>maḥ</i> の二つの語からなる。」</div>
+</div>
+
+<div class="sutra" id="s79">
+  <div class="hd"><span class="no">§79</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「<i>maḥ</i> という語で『自分のものである』と言い、<i>na</i> でそれを否定する。」</div>
+  <div class="ex"><p><i>maḥ</i> を「私のもの（<i>mama</i>）」の意味にとる伝統的な語源解釈です。</p></div>
+</div>
+
+<div class="sutra" id="s80">
+  <div class="hd"><span class="no">§80</span><span class="ref">科段 1.5.2</span></div>
+  <div class="tr">「したがって、<i>namaḥ</i> という語によって『自分は自分のものではない』と言う。」</div>
+</div>
+
+<div class="sutra" id="s81">
+  <div class="hd"><span class="no">§81</span><span class="ref">科段 1.5.3.1</span></div>
+  <div class="tr">「他の者のものだと思っているのなら、（主は）自らのすぐれた姿を見せて取り戻すことができる。しかし自分のものだと思っていると、（救われる）資格そのものがなくなってしまう。」</div>
+</div>
+
+<div class="sutra" id="s82">
+  <div class="hd"><span class="no">§82</span><span class="ref">科段 1.5.3.2</span></div>
+  <div class="tr">「これによって、妨げを取り除く。」</div>
+</div>
+
+<div class="sutra" id="s83">
+  <div class="hd"><span class="no">§83</span><span class="ref">科段 1.5.3.3</span></div>
+  <div class="tr">「妨げは三つである。」</div>
+</div>
+
+<div class="sutra" id="s84">
+  <div class="hd"><span class="no">§84</span><span class="ref">科段 1.5.3.3</span></div>
+  <div class="tr">「すなわち、<i>svarūpa-virodhi</i>（本性についての妨げ）、<i>upāya-virodhi</i>（手段についての妨げ）、<i>prāpya-virodhi</i>（目的についての妨げ）である。」</div>
+</div>
+
+<div class="sutra" id="s85">
+  <div class="hd"><span class="no">§85</span><span class="ref">科段 1.5.3.3</span></div>
+  <div class="tr">「本性の妨げを除くとは『私はあなた、私の持ち物もあなた』と思うこと。手段の妨げを除くとは『苦しみを除くのも除かないのもあなた。ほかに除いてくれる者はない』と思うこと。目的の妨げを除くとは『私たちのほかの欲望を変えてください』と思うことである。」</div>
+  <div class="ex"><p>三つ目は <i>Āṇṭāḷ</i> の <i>Tiruppāvai</i> 第29歌の句です。ほかの二つも <i>Āḻvār</i> の詩句です。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>三つの妨げと、それを除く心（§83–85）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>妨げ</th><th>どういう妨げか</th><th>除く心（<i>Āḻvār</i> の句）</th></tr></thead><tbody><tr><td><i>svarūpa-virodhi</i>（本性の妨げ）</td><td>自分を自分のものと思うこと</td><td>「私はあなた、私の持ち物もあなた」</td></tr><tr><td><i>upāya-virodhi</i>（手段の妨げ）</td><td>主以外のもの（自分の力など）を手段と思うこと</td><td>「苦しみを除くのも除かないのもあなた。ほかに除く者はない」</td></tr><tr><td><i>prāpya-virodhi</i>（目的の妨げ）</td><td>主への奉仕以外のものを望むこと</td><td>「私たちのほかの欲望を変えてください」</td></tr></tbody></table></div>
+  <div class="cap2">「どういう妨げか」の欄は、§85 の句から読み取れる内容をまとめたものです。</div>
+</figure>
+
+<div class="sutra" id="s86">
+  <div class="hd"><span class="no">§86</span><span class="ref">科段 1.5.3.4</span></div>
+  <div class="tr">「<i>maḥ</i>（自分のもの）と言うことは本性の破滅であり、<i>namaḥ</i>（自分のものではない）と言うことは本性の蘇生である。」</div>
+</div>
+
+<div class="sutra" id="s87">
+  <div class="hd"><span class="no">§87</span><span class="ref">科段 1.5.3.4</span></div>
+  <div class="tr">「これ（<i>namas</i>）は、<i>svarūpa</i>・<i>upāya</i>・<i>phala</i> を示す。」</div>
+</div>
+
+<div class="sutra" id="s88">
+  <div class="hd"><span class="no">§88</span><span class="ref">科段 1.5.3.5</span></div>
+  <div class="tr">「『弓の主のめでたき足を拝む』で本性が、『<i>Veṅkaṭa</i> に住む方に <i>nama</i>』で手段が、『夕べに拝むことば』で結果が述べられた。」</div>
+  <div class="ex"><p>いずれも <i>Āḻvār</i> の詩句の中の <i>nama</i>（<i>namas</i>）が、三つの意味それぞれで使われている例です。</p></div>
+</div>
+
+<div class="sutra" id="s89">
+  <div class="hd"><span class="no">§89</span><span class="ref">科段 1.5.4</span></div>
+  <div class="tr">「『身についたものは、あなたのしもべたちへの奉仕』という詩句のとおり、ここで <i>bhāgavata-śeṣatva</i>（主の信者たちに仕えること）も念想すべきである。」</div>
+  <div class="ex"><p>主に仕えるだけでなく、主を慕う人々に仕えることが従属の究極の形だ、というのがこの学派の重要な主張です。</p></div>
+</div>
+
+<div class="sutra" id="s90">
+  <div class="hd"><span class="no">§90</span><span class="ref">科段 1.5.4</span></div>
+  <div class="tr">「これ（<i>bhāgavata-śeṣatva</i>）は <i>akāra</i> に含まれる、と言う人もいれば、<i>ukāra</i> に含まれる、と言う人もいる。」</div>
+</div>
+
+<div class="sutra" id="s91">
+  <div class="hd"><span class="no">§91</span><span class="ref">科段 1.5.5.1</span></div>
+  <div class="tr">「<i>Īśvara</i> は自分自身のためにある。<i>acit</i>（非精神的なもの）は他者のためにある。自己は自分のためにも他者のためにもある――これが以前の考えである。そうではなく、<i>acit</i> と同じように『ただあなたのためだけに私を受け取ってください』と言うのが <i>namas</i> である。」</div>
+</div>
+
+<figure class="fig">
+  <figcaption>誰のためにあるか（§91）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>存在</th><th>誰のためにあるか</th></tr></thead><tbody><tr><td><i>Īśvara</i>（主）</td><td>自分自身のため</td></tr><tr><td><i>acit</i>（物質など）</td><td>他者（主）のためだけ</td></tr><tr><td>自己（以前の考え）</td><td>自分のためにも、他者のためにも</td></tr><tr><td>自己（<i>namas</i> の教え）</td><td><b><i>acit</i> と同じく、ただ主のためだけ</b></td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s92">
+  <div class="hd"><span class="no">§92</span><span class="ref">科段 1.5.5.2</span><span class="chk">要確認</span></div>
+  <div class="tr">「すなわち、（主を）味わう場面で、<i>Īśvara</i> が（その魅力によって私たちを）崩すときに、『自分を保たねば』と崩れずにいようとはしないことである。」</div>
+  <div class="ex"><p>原文が短く、訳には解釈が入っています。</p></div>
+</div>
+
+<div class="sutra" id="s93">
+  <div class="hd"><span class="no">§93</span><span class="ref">科段 1.5.5.2</span></div>
+  <div class="tr">「（主が私たちを）崩す理由は前に述べた。また後にも述べる。」</div>
+</div>
+
+<div class="sutra" id="s94">
+  <div class="hd"><span class="no">§94</span><span class="ref">科段 1.5.5.3</span></div>
+  <div class="tr">「この思いが生じたそのときに <i>kṛtakṛtya</i>（なすべきことをなし終えた者）となる。この思いがないときは、あらゆる悪行をなしたに等しい。この思いの中に、あらゆる善行がある。この思いがないままに行う祭祀や贖罪などは無益である。この思いそのものによって、あらゆる罪が消え、あらゆる果報が得られる。」</div>
+</div>
+
+<h3><span class="h3n">1.6</span>第三句 <i>nārāyaṇāya</i>（§95–112）</h3>
+
+<div class="sutra" id="s95">
+  <div class="hd"><span class="no">§95</span><span class="ref">科段 1.6.1.1</span></div>
+  <div class="tr">「<i>nārāyaṇa</i> とは、<i>nārāṇām ayanam</i>（<i>nāra</i> たちの <i>ayana</i>）という意味である。」</div>
+</div>
+
+<div class="sutra" id="s96">
+  <div class="hd"><span class="no">§96</span><span class="ref">科段 1.6.1.2</span></div>
+  <div class="tr">「<i>nāra</i> とは、<i>nitya-vastu</i>（永遠に存在するもの）の集まりである。」</div>
+</div>
+
+<div class="sutra" id="s97">
+  <div class="hd"><span class="no">§97</span><span class="ref">科段 1.6.1.2</span></div>
+  <div class="tr">「それは次のようなものである。<i>jñāna</i>・<i>ānanda</i>・<i>amalatva</i> などの徳、<i>jñāna</i>・<i>śakti</i> などの徳、<i>vātsalya</i>・<i>sauśīlya</i> などの徳、聖なる身体、その輝き・柔らかさなど、聖なる装身具、聖なる武器、<i>Periya Pirāṭṭiyār</i> をはじめとする女神たち、<i>nityasūri</i>（永遠の従者）たち、傘や払子など、聖なる門を守る者たち、<i>gaṇādhipa</i> たち、<i>mukta</i> たち、<i>paramākāśa</i>（主の天界）、<i>prakṛti</i>（根本物質）、<i>baddha</i>（束縛された魂）たち、時間、<i>mahat</i> などの変化したもの、宇宙卵、宇宙卵の中の神々などのもの。」</div>
+</div>
+
+<div class="sutra" id="s98">
+  <div class="hd"><span class="no">§98</span><span class="ref">科段 1.6.1.3</span></div>
+  <div class="tr">「<i>ayana</i> とは、これらの <i>āśraya</i>（よりどころ）という意味である。」</div>
+</div>
+
+<div class="sutra" id="s99">
+  <div class="hd"><span class="no">§99</span><span class="ref">科段 1.6.1.4</span></div>
+  <div class="tr">「そうでなければ、これらを（自分の）よりどころとしてもつ者、という意味にもなる。」</div>
+  <div class="ex"><p>一つ目は「すべてのものが主に宿る」（主がよりどころ）、二つ目は「主がすべてのものの内に宿る」（すべてのものが主の宿る場所）という読み方です。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption><i>nārāyaṇa</i> の二つの読み方（§95–100）</figcaption>
+<div class="grid2">
+  <div class="node plain"><b>読み方①（§95・98）</b><i>nārāṇām ayanam</i><br>「<i>nāra</i>（常住のものすべて）のよりどころ」<br>＝ すべてのものが主に支えられている<span class="sep"></span><b>→ <i>paratva</i>（至高性）</b></div>
+  <div class="node plain"><b>読み方②（§99）</b><br>「<i>nāra</i> を自分のよりどころ（住まい）とする方」<br>＝ 主がすべてのものの内に宿っている<span class="sep"></span><b>→ <i>saulabhya</i>（近づきやすさ）</b></div>
+</div>
+  <div class="cap2">二つの読み方から、主の至高性と近づきやすさの両方が導かれます（§100）。さらに <i>antaryāmitva</i>・<i>upāyatva</i>・<i>upeyatva</i> も導かれます（§101）。</div>
+</figure>
+
+<div class="sutra" id="s100">
+  <div class="hd"><span class="no">§100</span><span class="ref">科段 1.6.2.1</span></div>
+  <div class="tr">「この二つ（の読み方）から結果として出てくるのは、<i>paratva</i>（至高性）と <i>saulabhya</i>（近づきやすさ）である。」</div>
+  <div class="ex"><p>すべてを支える主は至高であり（<i>paratva</i>）、すべての内に宿る主は身近である（<i>saulabhya</i>）、という対応です。</p></div>
+</div>
+
+<div class="sutra" id="s101">
+  <div class="hd"><span class="no">§101</span><span class="ref">科段 1.6.2.2</span></div>
+  <div class="tr">「<i>antaryāmitva</i>（内なる支配者であること）・<i>upāyatva</i>（手段であること）・<i>upeyatva</i>（目的であること）でもある。」</div>
+</div>
+
+<div class="sutra" id="s102">
+  <div class="hd"><span class="no">§102</span><span class="ref">科段 1.6.2.3</span></div>
+  <div class="tr">「『わが主、わが父』と言うことから、<i>Īśvara</i> こそがあらゆる縁（関係）である、と言う。」</div>
+</div>
+
+<div class="sutra" id="s103">
+  <div class="hd"><span class="no">§103</span><span class="ref">科段 1.6.2.4</span></div>
+  <div class="tr">「私たちが他者のものになっていたときでさえ、主は私たちのためにある。」</div>
+</div>
+
+<div class="sutra" id="s104">
+  <div class="hd"><span class="no">§104</span><span class="ref">科段 1.6.2.4</span><span class="chk">要確認</span></div>
+  <div class="tr">「夜の宿坊でひそかに施しをする人のように、（主は私たちの）内に主人として留まり、存在だけを支えて見守り続ける。」</div>
+  <div class="ex"><p>喩えの細部は注釈で確認が必要です。</p></div>
+</div>
+
+<div class="sutra" id="s105">
+  <div class="hd"><span class="no">§105</span><span class="ref">科段 1.6.3.1</span></div>
+  <div class="tr">「<i>āya</i>（〜のために）という語によって、『行けば傘となり』という詩句のとおり、あらゆる奉仕をしたいと願い求める。」</div>
+  <div class="ex"><p><i>Poykai Āḻvār</i> の詩句で、蛇 <i>Ādiśeṣa</i> が主の傘・座・寝床などあらゆる姿で仕えることを歌ったものです。</p></div>
+</div>
+
+<div class="sutra" id="s106">
+  <div class="hd"><span class="no">§106</span><span class="ref">科段 1.6.3.2</span></div>
+  <div class="tr">「<i>namas</i> によって『自分は自分と無関係だ』と言っておきながら、<i>kaiṅkarya</i> を祈り求めてよいのか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s107">
+  <div class="hd"><span class="no">§107</span><span class="ref">科段 1.6.3.2</span></div>
+  <div class="tr">「『（神殿の）階段となって横たわり、あなたの珊瑚の唇を見たい』という詩句のとおり、<i>kaiṅkarya</i> を願うことは自分の欲から来たものではなく、<i>svarūpa-prayukta</i>（本性から出たもの）である。」</div>
+  <div class="ex"><p><i>Kulaśekhara Āḻvār</i> の <i>Perumāḷ Tirumoḻi</i> の句です。</p></div>
+</div>
+
+<div class="sutra" id="s108">
+  <div class="hd"><span class="no">§108</span><span class="ref">科段 1.6.3.3</span></div>
+  <div class="tr">「それゆえ、『欠けることのない奉仕を私たちはしなければならない』という祈りを示している。」</div>
+  <div class="ex"><p><i>Nammāḻvār</i> の <i>Tiruvāymoḻi</i> 3.3.1 の句です。</p></div>
+</div>
+
+<div class="sutra" id="s109">
+  <div class="hd"><span class="no">§109</span><span class="ref">科段 1.6.3.4</span></div>
+  <div class="tr">「『目いっぱいに見て満ち足りるほどの愛をもつ者に、目が眠ることなどあろうか』という詩句のとおり、（主を）見る前は眠れない。見てしまえば『常に見る』（<i>sadā paśyanti</i>）のだから眠らない。」</div>
+</div>
+
+<div class="sutra" id="s110">
+  <div class="hd"><span class="no">§110</span><span class="ref">科段 1.6.3.4</span></div>
+  <div class="tr">「『むなしく多くの日々が過ぎてしまった』と失った日々を嘆く者には、眠る暇はない。」</div>
+</div>
+
+<div class="sutra" id="s111">
+  <div class="hd"><span class="no">§111</span><span class="ref">科段 1.6.3.4</span></div>
+  <div class="tr">「『あの時は生まれていなかった。生まれてからは忘れなかった』と言っていたではないか。」</div>
+</div>
+
+<div class="sutra" id="s112">
+  <div class="hd"><span class="no">§112</span><span class="ref">科段 1.6.3.5</span></div>
+  <div class="tr">「この奉仕は、『途切れることのない時のすべてにわたって、共にあり続け』という詩句のとおり、あらゆる場所・時・状態において行うものである。」</div>
+  <div class="ex"><p>これも <i>Tiruvāymoḻi</i> 3.3.1 の句で、§108 と同じ歌から引かれています。</p></div>
+</div>
+
+<h3><span class="h3n">1.7</span>結び（§113–115）</h3>
+
+<figure class="fig">
+  <figcaption>第1章のまとめ：<i>tirumantra</i> を一文で読む（§115）</figcaption>
+<div class="flow"><div class="node "><b><i>oṃ</i></b>私は、ただ主だけのもの</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>namaḥ</i></b>私は、私自身のためのものではない</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>nārāyaṇāya</i></b>すべての主に、あらゆる奉仕をさせていただきたい</div></div>
+</figure>
+
+<div class="sutra" id="s113">
+  <div class="hd"><span class="no">§113</span><span class="ref">科段 1.7.1</span></div>
+  <div class="tr">「八本の糸を三つに撚り合わせた <i>maṅgala-sūtra</i>（結婚の聖紐）のようなものが <i>tirumantra</i> である。」</div>
+  <div class="ex"><p>八本の糸＝八音節、三つの撚り＝三つの句、という喩えです。<i>maṅgala-sūtra</i> は夫と妻を結ぶものなので、<i>tirumantra</i> が主と自己の関係を結ぶことを表します。</p></div>
+</div>
+
+<div class="sutra" id="s114">
+  <div class="hd"><span class="no">§114</span><span class="ref">科段 1.7.2</span></div>
+  <div class="tr">「これによって、<i>Īśvara</i> が自己たちの <i>pati</i>（夫・主人）となって守る、と説く。」</div>
+</div>
+
+<div class="sutra" id="s115">
+  <div class="hd"><span class="no">§115</span><span class="ref">科段 1.7.3</span></div>
+  <div class="tr">「こうして <i>tirumantra</i> によって、『<i>Emperumāṉ</i> だけのものである私は、自分のためのものではない。<i>sarva-śeṣin</i>（すべての主）である <i>Nārāyaṇa</i> にだけ、あらゆる奉仕をさせていただける者となりたい』ということになった。」</div>
+  <div class="ex"><p>三つの句の意味（§30 の <i>śeṣatva</i>・<i>pāratantrya</i>・<i>kaiṅkarya</i>）を一文にまとめた、章全体の結論です。</p></div>
+</div>
+
+<h2 id="exp2">解説：ドヴァヤ章（§116–187）</h2>
+
+<h3><span class="h3n">2.1</span>序：<i>adhikārin</i>（資格者）について（§116–121）</h3>
+
+<div class="sutra" id="s116">
+  <div class="hd"><span class="no">§116</span><span class="ref">科段 2.1.1</span></div>
+  <div class="tr">「外のものへの執着を、その <i>vāsanā</i>（潜在的な印象）もろとも捨てること。<i>Emperumāṉ</i> こそが拠り所だと頼りきること。救いは確かだと確信していること。救いを待ちわびること。生きている間は、主が喜ばれる聖地に心を寄せ、主の徳を味わう <i>kaiṅkarya</i> を日々の楽しみとすること。そのように生きる <i>śrīvaiṣṇava</i> たちのすぐれた点を知って喜ぶこと。<i>tirumantra</i> と <i>dvaya</i> に専心すること。<i>ācārya</i> への <i>prema</i> が深いこと。<i>ācārya</i> に対しても <i>Emperumāṉ</i> に対しても恩を知る者（<i>kṛtajña</i>）として過ごすこと。<i>jñāna</i>・<i>virakti</i>（離欲）・<i>śānti</i>（静けさ）を備えた、最もすぐれた <i>sāttvika</i> の人々と共に住むこと。――これらが <i>vaiṣṇava</i> の <i>adhikārin</i> には必ず求められる。」</div>
+  <div class="ex"><p>本章は、本文に入る前に「誰がこれを学ぶべきか」を長い一文でまとめています。捨てること・頼ること・待つこと・味わうこと・師と仲間を大切にすること、という生き方の全体が条件として挙げられています。</p></div>
+</div>
+
+<div class="sutra" id="s117">
+  <div class="hd"><span class="no">§117</span><span class="ref">科段 2.1.2</span></div>
+  <div class="tr">「この <i>adhikārin</i> は、<i>rahasya-traya</i> を念想すべきである。」</div>
+</div>
+
+<div class="sutra" id="s118">
+  <div class="hd"><span class="no">§118</span><span class="ref">科段 2.1.3.1</span></div>
+  <div class="tr">「他のすべての聖典（<i>pramāṇa</i>）は、身体（による行い）によって救いを得ると説く。<i>tirumantra</i> は自己によって、<i>carama-śloka</i> は <i>Īśvara</i> によって、<i>dvaya</i> は <i>Periya Pirāṭṭiyār</i> によって救いを得ると説く。」</div>
+  <div class="ex"><p>三つの <i>rahasya</i> の特徴を一言でまとめた有名な一節です。<i>tirumantra</i> は「自分の本性（主のものであること）を知ること」、<i>carama-śloka</i> は「主ご自身が手段であること」、<i>dvaya</i> は「女神 <i>Śrī</i> のとりなし」を、それぞれ前面に出す、ということです。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>救いは何によって得られるか（§118）</figcaption>
+<div class="flow"><div class="node plain"><b>他の聖典</b>身体による行い</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>tirumantra</i></b>自己（本性を知ること）</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>carama-śloka</i></b><i>Īśvara</i>（主ご自身）</div><div class="arr"><span class="ac">→</span></div><div class="node "><b><i>dvaya</i></b><i>Periya Pirāṭṭiyār</i>（とりなし）</div></div>
+</figure>
+
+<div class="sutra" id="s119">
+  <div class="hd"><span class="no">§119</span><span class="ref">科段 2.1.3.2</span></div>
+  <div class="tr">「<i>Periya Pirāṭṭiyār</i> によって救いを得るとは、彼女が <i>puruṣakāra</i>（とりなし役）とならなければ、<i>Īśvara</i> は事をなさない、ということである。」</div>
+</div>
+
+<div class="sutra" id="s120">
+  <div class="hd"><span class="no">§120</span><span class="ref">科段 2.1.4</span></div>
+  <div class="tr">「<i>dvaya</i> の <i>adhikārin</i> とは、<i>ākiñcanya</i>（何も持たないこと）と <i>ananyagatitva</i>（ほかに行く当てがないこと）を備えた者である。」</div>
+  <div class="ex"><p>自分には救いに値する行いが何もなく、主のほかに頼る先もない、と自覚している者こそが <i>dvaya</i> を唱える資格者だ、という考えです。</p></div>
+</div>
+
+<div class="sutra" id="s121">
+  <div class="hd"><span class="no">§121</span><span class="ref">科段 2.1.4</span></div>
+  <div class="tr">「この二つについては <i>Prapannaparitrāṇa</i> で述べた。」</div>
+</div>
+
+<h3><span class="h3n">2.2</span>総説（§122）</h3>
+
+<div class="sutra" id="s122">
+  <div class="hd"><span class="no">§122</span><span class="ref">科段 2.2</span></div>
+  <div class="tr">「このうち前半では、<i>Periya Pirāṭṭiyār</i> を先に立てて、<i>Īśvara</i> の御足を <i>upāya</i>（手段）としてすがる。後半では、その両者がそろったところでの奉仕を願い求める。」</div>
+  <div class="ex"><p><i>dvaya</i> は二つの文からなります。前半 <i>śrīman-nārāyaṇa-caraṇau śaraṇaṃ prapadye</i>（<i>Śrī</i> と共にある <i>Nārāyaṇa</i> の御足を拠り所としてすがります）と、後半 <i>śrīmate nārāyaṇāya namaḥ</i>（<i>Śrī</i> と共にある <i>Nārāyaṇa</i> に帰命します）です。以下、語ごとに解釈が進みます。</p></div>
+</div>
+
+<h3><span class="h3n">2.3.1</span><i>śrī</i>（§123–135）</h3>
+
+<figure class="fig">
+  <figcaption><i>dvaya</i> を語ごとに読む（§122 以下）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>語</th><th>意味</th><th>科段</th><th>節</th></tr></thead><tbody><tr class="grp"><td colspan="4">前半：<i>upāya</i>（手段）としてすがる</td></tr><tr><td><i>śrī-mat</i></td><td>女神 <i>Śrī</i> を常に伴う</td><td>2.3.1</td><td>§123–135</td></tr><tr><td><i>nārāyaṇa</i></td><td>六つの徳を備えた主の</td><td>2.3.2</td><td>§136–143</td></tr><tr><td><i>caraṇau</i></td><td>両の御足を</td><td>2.3.3</td><td>§144–148</td></tr><tr><td><i>śaraṇam</i></td><td>外れることのない手段として</td><td>2.3.4</td><td>§149–153</td></tr><tr><td><i>prapadye</i></td><td>（心で）すがります</td><td>2.3.5</td><td>§154–159</td></tr><tr class="grp"><td colspan="4">後半：<i>prāpya</i>（目的）として奉仕を願う</td></tr><tr><td><i>śrīmate</i></td><td><i>Śrī</i> と共にある方に</td><td>2.4.3</td><td>§165–170</td></tr><tr><td><i>nārāyaṇāya</i></td><td>すべての主に（奉仕を）</td><td>2.4.4</td><td>§171–179</td></tr><tr><td><i>namaḥ</i></td><td>自分のためではなく</td><td>2.4.5</td><td>§180–187</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s123">
+  <div class="hd"><span class="no">§123</span><span class="ref">科段 2.3.1.1</span></div>
+  <div class="tr">「<i>śrī</i> とは、<i>Periya Pirāṭṭiyār</i> の聖なる名である。」</div>
+</div>
+
+<div class="sutra" id="s124">
+  <div class="hd"><span class="no">§124</span><span class="ref">科段 2.3.1.1</span></div>
+  <div class="tr">「<i>śrīyate</i>（頼られる）・<i>śrayate</i>（頼る）。」</div>
+  <div class="ex"><p><i>śrī</i> を動詞語根 <i>śri</i>（頼る）から説明する伝統的な語源解釈です。受動形では「すべての者から頼られる方」、能動形では「（彼女自身が）主に頼る方」の意味になります。</p></div>
+</div>
+
+<div class="sutra" id="s125">
+  <div class="hd"><span class="no">§125</span><span class="ref">科段 2.3.1.1</span></div>
+  <div class="tr">「その意味は、すべての者は彼女に頼ることで本性にかなったものを得、彼女自身もまた主に頼ることで本性にかなったものを得る、ということである。」</div>
+</div>
+
+<div class="sutra" id="s126">
+  <div class="hd"><span class="no">§126</span><span class="ref">科段 2.3.1.2</span></div>
+  <div class="tr">「ここでは彼女を <i>puruṣakāra</i> として説いている。」</div>
+</div>
+
+<div class="sutra" id="s127">
+  <div class="hd"><span class="no">§127</span><span class="ref">科段 2.3.1.2</span></div>
+  <div class="tr">「水の中に火が燃え上がるように、冷ややかな主の御心に、（衆生の）罪のために怒りが生じたとき、主に赦させるのは彼女の役目である。」</div>
+  <div class="ex"><p>本来やさしい主の心にも、罪を見れば怒りが生じうる。それを鎮めるのがとりなし役の <i>Śrī</i> だ、という説明です。</p></div>
+</div>
+
+<div class="sutra" id="s128">
+  <div class="hd"><span class="no">§128</span><span class="ref">科段 2.3.1.2</span></div>
+  <div class="tr">「彼女は母であるから衆生の苦しみに耐えられず、主にとっては妻であり愛しい方であるから、非の打ちどころのない <i>puruṣakāra</i> である。」</div>
+  <div class="ex"><p>衆生に対しては母として、主に対しては妻として、どちらからも近い立場にあることが、とりなし役にふさわしい理由とされます。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>とりなし役としての <i>Śrī</i>（§127–128）</figcaption>
+<div class="flow"><div class="node plain"><b>衆生</b>罪を負う者</div><div class="arr lbl"><span class="ac">→</span><span>母として苦しみに耐えられない</span></div><div class="node "><b><i>Śrī</i></b>とりなし役</div><div class="arr lbl"><span class="ac">→</span><span>妻として愛されている</span></div><div class="node plain"><b>主</b>罪を見れば怒りうる</div></div>
+  <div class="cap2">どちらの側からも近い立場にあるので、「非の打ちどころのない <i>puruṣakāra</i>」とされます。</div>
+</figure>
+
+<div class="sutra" id="s129">
+  <div class="hd"><span class="no">§129</span><span class="ref">科段 2.3.1.2</span><span class="chk">要確認</span></div>
+  <div class="tr">「主にさえ赦させる彼女であれば、自分の言葉に従ってくる者を赦させることは、言うまでもない。」</div>
+  <div class="ex"><p>原文が短く、誰が誰を「赦させる」のか、解釈が分かれうる箇所です。</p></div>
+</div>
+
+<div class="sutra" id="s130">
+  <div class="hd"><span class="no">§130</span><span class="ref">科段 2.3.1.3</span></div>
+  <div class="tr">「<i>matup</i>（<i>-mat</i> という語尾）によって、両者の結びつきも常住であると説く。」</div>
+  <div class="ex"><p><i>śrīmat</i>（<i>Śrī</i> をもつ者）の <i>-mat</i> は「常に持っている」ことを表す、という文法的な解釈です。<i>Śrī</i> が主から離れる時はない、ということになります。</p></div>
+</div>
+
+<div class="sutra" id="s131">
+  <div class="hd"><span class="no">§131</span><span class="ref">科段 2.3.1.3</span></div>
+  <div class="tr">「彼女と共にあることこそが、主という実在のありのままの姿である。」</div>
+</div>
+
+<div class="sutra" id="s132">
+  <div class="hd"><span class="no">§132</span><span class="ref">科段 2.3.1.3</span></div>
+  <div class="tr">「（彼女は）<i>Īśvara</i> の <i>svātantrya</i>（誰にも縛られない自由）と、<i>cetana</i> の罪を見ても、離れていくことはない。」</div>
+</div>
+
+<div class="sutra" id="s133">
+  <div class="hd"><span class="no">§133</span><span class="ref">科段 2.3.1.3</span></div>
+  <div class="tr">「<i>cetana</i> は、この二つ（主の自由と自分の罪）を思って恐れる必要はない。」</div>
+</div>
+
+<div class="sutra" id="s134">
+  <div class="hd"><span class="no">§134</span><span class="ref">科段 2.3.1.4</span></div>
+  <div class="tr">「これによって、（主に）すがるのに必要なのは <i>ruci</i>（願う心）だけであり、時を選ぶ必要はない、と説く。」</div>
+</div>
+
+<div class="sutra" id="s135">
+  <div class="hd"><span class="no">§135</span><span class="ref">科段 2.3.1.4</span></div>
+  <div class="tr">「彼女がそばにいたので鴉は命拾いし、そばにいなかったので <i>Rāvaṇa</i> は滅びた。」</div>
+  <div class="ex"><p><i>Rāmāyaṇa</i> の二つの話の対比です。<i>Sītā</i> を傷つけた鴉（<i>Kākāsura</i>）は、<i>Sītā</i> がそばにいたので <i>Rāma</i> に赦されました。<i>Sītā</i> を <i>Rāma</i> から引き離した <i>Rāvaṇa</i> には、とりなす者がおらず滅びました。</p></div>
+</div>
+
+<h3><span class="h3n">2.3.2</span><i>nārāyaṇa</i>（§136–143）</h3>
+
+<figure class="fig">
+  <figcaption><i>Śrī</i> がそばにいたか、いなかったか（§135）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th><i>Śrī</i>（<i>Sītā</i>）は</th><th>結果</th></tr></thead><tbody><tr><td>鴉（<i>Kākāsura</i>）</td><td>そばにいた</td><td><span class="good">赦されて命拾いした</span></td></tr><tr><td><i>Rāvaṇa</i></td><td><i>Rāma</i> から引き離された</td><td><span class="bad">滅びた</span></td></tr></tbody></table></div>
+  <div class="cap2">どれほど罪が重くても、とりなし役がいれば救われる。だから主にすがるのに必要なのは「願う心」（<i>ruci</i>）だけである（§134）。</div>
+</figure>
+
+<div class="sutra" id="s136">
+  <div class="hd"><span class="no">§136</span><span class="ref">科段 2.3.2.1</span></div>
+  <div class="tr">「<i>puruṣakāra</i> の力によって（主の）<i>svātantrya</i> が頭を下げると、頭をもたげてくる徳がある。それを説くのが <i>nārāyaṇa</i> の語である。」</div>
+</div>
+
+<div class="sutra" id="s137">
+  <div class="hd"><span class="no">§137</span><span class="ref">科段 2.3.2.1</span></div>
+  <div class="tr">「それは <i>vātsalya</i>（母のような慈しみ）・<i>svāmitva</i>（主であること）・<i>sauśīlya</i>（へだてなく交わること）・<i>saulabhya</i>（近づきやすさ）・<i>jñāna</i>（全知）・<i>śakti</i>（全能）である。」</div>
+</div>
+
+<div class="sutra" id="s138">
+  <div class="hd"><span class="no">§138</span><span class="ref">科段 2.3.2.1</span></div>
+  <div class="tr">「（衆生の）過ちを見ても嫌わないための <i>vātsalya</i>。事を成し遂げてくださると確信できるための <i>svāmitva</i>。主の偉大さを見ても尻込みしないための <i>sauśīlya</i>。目に見えて頼れるための <i>saulabhya</i>。妨げを除いて自らを与えてくださるための <i>jñāna</i> と <i>śakti</i>。」</div>
+  <div class="ex"><p>六つの徳のそれぞれが、すがる者の不安（「嫌われないか」「本当に救えるのか」「近寄れるのか」など）を一つずつ取り除く、という説明になっています。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption><i>nārāyaṇa</i> の六つの徳と、取り除かれる不安（§137–138）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>徳</th><th>意味</th><th>取り除かれる不安</th></tr></thead><tbody><tr><td><i>vātsalya</i></td><td>母のような慈しみ</td><td>「過ちを見て嫌われないか」</td></tr><tr><td><i>svāmitva</i></td><td>主であること</td><td>「本当に成し遂げてくださるのか」</td></tr><tr><td><i>sauśīlya</i></td><td>へだてなく交わること</td><td>「偉大すぎて近寄れない」</td></tr><tr><td><i>saulabhya</i></td><td>近づきやすさ</td><td>「目に見えず、頼りようがない」</td></tr><tr><td><i>jñāna</i>・<i>śakti</i></td><td>全知・全能</td><td>「妨げを除けるのか」</td></tr></tbody></table></div>
+  <div class="cap2">「取り除かれる不安」の欄は、§138 の説明を、すがる者の側の気持ちとして言い換えたものです。</div>
+</figure>
+
+<div class="sutra" id="s139">
+  <div class="hd"><span class="no">§139</span><span class="ref">科段 2.3.2.2</span></div>
+  <div class="tr">「ここで言う <i>saulabhya</i> の極みは <i>arcāvatāra</i>（寺院の神像としての顕現）である。」</div>
+</div>
+
+<div class="sutra" id="s140">
+  <div class="hd"><span class="no">§140</span><span class="ref">科段 2.3.2.2</span></div>
+  <div class="tr">「これは <i>para</i>（天界の姿）・<i>vyūha</i>（分身の姿）・<i>vibhava</i>（化身の姿）とは違い、肉眼で見ることができる。」</div>
+  <div class="ex"><p>主の顕現の五つの形（<i>para</i>・<i>vyūha</i>・<i>vibhava</i>・<i>antaryāmin</i>・<i>arcā</i>）のうち、今ここで誰でも目にできるのは <i>arcā</i> だけだ、という点が強調されています。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>主の五つの現れ方と、近づきやすさ（§139–140）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>現れ方</th><th>どんな姿か</th><th>今ここで肉眼で見られるか</th></tr></thead><tbody><tr><td><i>para</i></td><td><i>paramapada</i>（天界）の主</td><td>×</td></tr><tr><td><i>vyūha</i></td><td><i>Vāsudeva</i> などの分身</td><td>×</td></tr><tr><td><i>vibhava</i></td><td><i>Rāma</i>・<i>Kṛṣṇa</i> などの化身</td><td>×（過去のこと）</td></tr><tr><td><i>antaryāmin</i></td><td>すべての内に宿る主</td><td>×</td></tr><tr><td><b><i>arcā</i></b></td><td>寺院の神像（例：<i>Nampĕrumāḷ</i>）</td><td><b>◎</b></td></tr></tbody></table></div>
+  <div class="cap2">§140 は <i>para</i>・<i>vyūha</i>・<i>vibhava</i> の三つと比べています。<i>antaryāmin</i> を加えた五つの分類は、この学派の一般的な教えによります。</div>
+</figure>
+
+<div class="sutra" id="s141">
+  <div class="hd"><span class="no">§141</span><span class="ref">科段 2.3.2.2</span></div>
+  <div class="tr">「これら（の徳）はすべて、私たちには <i>Nampĕrumāḷ</i> のもとで見ることができる。」</div>
+  <div class="ex"><p><i>Nampĕrumāḷ</i> は <i>Śrīraṅgam</i> 寺院の祭礼用の神像で、この学派にとって最も身近な主の姿です。</p></div>
+</div>
+
+<div class="sutra" id="s142">
+  <div class="hd"><span class="no">§142</span><span class="ref">科段 2.3.2.2</span></div>
+  <div class="tr">「御手に握る聖なる武器、『恐れるな』と示す御手、冠をいただいた御顔、微笑み、蓮華の台座を踏みしめた御足――そのようにして立っておられる姿こそが、私たちの拠り所である。」</div>
+</div>
+
+<div class="sutra" id="s143">
+  <div class="hd"><span class="no">§143</span><span class="ref">科段 2.3.2.3</span></div>
+  <div class="tr">「<i>rakṣakatva</i>（守る者であること）と <i>bhogyatva</i>（味わわれるべき方であること）の両方が、聖なる身体に現れている。」</div>
+</div>
+
+<h3><span class="h3n">2.3.3</span><i>caraṇau</i>（§144–148）</h3>
+
+<div class="sutra" id="s144">
+  <div class="hd"><span class="no">§144</span><span class="ref">科段 2.3.3.1</span></div>
+  <div class="tr">「<i>caraṇau</i> とは、（両の）御足を、ということ。」</div>
+</div>
+
+<div class="sutra" id="s145">
+  <div class="hd"><span class="no">§145</span><span class="ref">科段 2.3.3.1</span></div>
+  <div class="tr">「これによって、両者がそろった姿の美しさと、<i>upāya</i> の完全さを説く。」</div>
+</div>
+
+<div class="sutra" id="s146">
+  <div class="hd"><span class="no">§146</span><span class="ref">科段 2.3.3.2</span></div>
+  <div class="tr">「<i>Pirāṭṭi</i> と主がたとえ（私たちを）見放したとしても、御足は見放さない。それは『堅き御足』である。」</div>
+  <div class="ex"><p>すがる者がつかまっている御足そのものが、決して離れない拠り所だ、という強い表現です。</p></div>
+</div>
+
+<div class="sutra" id="s147">
+  <div class="hd"><span class="no">§147</span><span class="ref">科段 2.3.3.2</span></div>
+  <div class="tr">「（御足は）主のもとへ従者が降りていく水場の入口である。子が母の乳房に口をつけるように。」</div>
+  <div class="ex"><p>従者が主に近づく自然な入口が御足である、という喩えです。</p></div>
+</div>
+
+<div class="sutra" id="s148">
+  <div class="hd"><span class="no">§148</span><span class="ref">科段 2.3.3.3</span></div>
+  <div class="tr">「これによって、<i>Pirāṭṭi</i> の住まいであり、徳を輝かせるものであり、<i>Śiśupāla</i> までも受け入れて結びつけた聖なる身体を思い起こす。」</div>
+  <div class="ex"><p><i>Śiśupāla</i> は <i>Kṛṣṇa</i> を罵り続けた敵でしたが、最後には <i>Kṛṣṇa</i> と一体になったと伝えられます。それほど広く受け入れる身体だ、という意味です。</p></div>
+</div>
+
+<h3><span class="h3n">2.3.4</span><i>śaraṇam</i>（§149–153）</h3>
+
+<div class="sutra" id="s149">
+  <div class="hd"><span class="no">§149</span><span class="ref">科段 2.3.4.1</span></div>
+  <div class="tr">「<i>śaraṇam</i> とは、<i>iṣṭa-prāpti</i>（望むものを得ること）と <i>aniṣṭa-nivāraṇa</i>（望まぬものを除くこと）のための、外れることのない <i>upāya</i> として、ということ。」</div>
+</div>
+
+<div class="sutra" id="s150">
+  <div class="hd"><span class="no">§150</span><span class="ref">科段 2.3.4.2</span></div>
+  <div class="tr">「これによって、<i>prāpya</i>（到達されるべきもの）そのものが <i>prāpaka</i>（到達させるもの）である、と説く。」</div>
+</div>
+
+<div class="sutra" id="s151">
+  <div class="hd"><span class="no">§151</span><span class="ref">科段 2.3.4.2</span></div>
+  <div class="tr">「前に述べた三つ（<i>śrī</i>・<i>nārāyaṇa</i>・<i>caraṇau</i>）は、<i>prāpya</i> ではないか。」</div>
+</div>
+
+<div class="sutra" id="s152">
+  <div class="hd"><span class="no">§152</span><span class="ref">科段 2.3.4.2</span></div>
+  <div class="tr">「この者（衆生）に何の手立てもないので、（それを）<i>upāya</i> にしている、というだけのことである。」</div>
+  <div class="ex"><p>本来は目的である主を、手段としても使わせていただく。それは自分に手段が何もないからだ、という説明で、§120 の <i>ākiñcanya</i> とつながります。</p></div>
+</div>
+
+<div class="sutra" id="s153">
+  <div class="hd"><span class="no">§153</span><span class="ref">科段 2.3.4.3</span></div>
+  <div class="tr">「『<i>śaraṇau śaraṇam</i>』（御足を拠り所として）と言うことによって、他の <i>upāya</i> とははっきり区別された <i>upāya</i> である、と説く。」</div>
+</div>
+
+<h3><span class="h3n">2.3.5</span><i>prapadye</i>（§154–159）</h3>
+
+<div class="sutra" id="s154">
+  <div class="hd"><span class="no">§154</span><span class="ref">科段 2.3.5.1</span></div>
+  <div class="tr">「<i>prapadye</i> とは、すがります、ということ。」</div>
+</div>
+
+<div class="sutra" id="s155">
+  <div class="hd"><span class="no">§155</span><span class="ref">科段 2.3.5.1</span></div>
+  <div class="tr">「言葉や身体ですがっても、すがることに欠けはない。しかし『<i>jñāna</i> によって解脱がある』のだから、心によるものであるべきである。」</div>
+</div>
+
+<div class="sutra" id="s156">
+  <div class="hd"><span class="no">§156</span><span class="ref">科段 2.3.5.2</span></div>
+  <div class="tr">「<i>upāya</i> は主であり、また、これら（言葉・身体・心）は直接の <i>upāya</i> ではないので、三つすべてそろわなければならない、という決まりはない。」</div>
+  <div class="ex"><p>すがる行為そのものは手段ではなく、手段はあくまで主である。だから形式的な要件にこだわる必要はない、という考えです。</p></div>
+</div>
+
+<div class="sutra" id="s157">
+  <div class="hd"><span class="no">§157</span><span class="ref">科段 2.3.5.3</span></div>
+  <div class="tr">「（<i>prapadye</i> を）現在形で示しているのは、<i>sattva</i> が頭をもたげて恐れを覚えたときに、（帰依を）念想するためである。」</div>
+</div>
+
+<div class="sutra" id="s158">
+  <div class="hd"><span class="no">§158</span><span class="ref">科段 2.3.5.3</span></div>
+  <div class="tr">「（念想が続くのは、）他の <i>upāya</i> に心が向かわないためであり、また日々の過ごし方として、その甘美さゆえにやめられないためである。」</div>
+</div>
+
+<div class="sutra" id="s159">
+  <div class="hd"><span class="no">§159</span><span class="ref">科段 2.3.5.4</span></div>
+  <div class="tr">「救いのためには何度も（帰依を）繰り返さなければならない、と思うなら、<i>upāya</i> が崩れてしまう。」</div>
+  <div class="ex"><p>帰依（<i>prapatti</i>）は一度で足りるとされます。繰り返し唱えるのは喜びとしてであって、救いの条件としてではありません。§157–159 はこの区別を説いています。</p></div>
+</div>
+
+<h3><span class="h3n">2.4.1–2</span>後半の総説と問答（§160–164）</h3>
+
+<figure class="fig">
+  <figcaption>帰依（<i>prapatti</i>）は一度で足りるか（§155–159）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>手段として</th><th>喜びとして</th></tr></thead><tbody><tr><td>一度の帰依</td><td><span class="good">足りる（手段は主）</span></td><td>—</td></tr><tr><td>繰り返し念想すること</td><td><span class="bad">「何度も必要」と思うと手段が崩れる（§159）</span></td><td><span class="good">恐れが生じたとき（§157）、甘美さゆえに（§158）</span></td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s160">
+  <div class="hd"><span class="no">§160</span><span class="ref">科段 2.4.1</span></div>
+  <div class="tr">「後半の文によって、<i>prāpya</i>（目的）を説く。」</div>
+</div>
+
+<div class="sutra" id="s161">
+  <div class="hd"><span class="no">§161</span><span class="ref">科段 2.4.1</span></div>
+  <div class="tr">「他の目的のためではない、ということである。」</div>
+</div>
+
+<div class="sutra" id="s162">
+  <div class="hd"><span class="no">§162</span><span class="ref">科段 2.4.1</span></div>
+  <div class="tr">「他の手段を捨てて究極の手段（<i>caramopāya</i>）にすがったのと同じように、他の目的である <i>aiśvarya</i> や <i>kaivalya</i> を捨てて、究極の目的を祈り求める。」</div>
+</div>
+
+<div class="sutra" id="s163">
+  <div class="hd"><span class="no">§163</span><span class="ref">科段 2.4.2</span></div>
+  <div class="tr">「この者がわざわざ祈り求める必要があるのか。全知の主が、この者の思いを知らないことがあろうか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s164">
+  <div class="hd"><span class="no">§164</span><span class="ref">科段 2.4.2</span></div>
+  <div class="tr">「この者のことばを聞けば、主の御心は喜ばれるのである。」</div>
+  <div class="ex"><p>祈りは主に情報を伝えるためではなく、主を喜ばせるためにある、という答えです。</p></div>
+</div>
+
+<h3><span class="h3n">2.4.3</span><i>śrīmate</i>（§165–170）</h3>
+
+<div class="sutra" id="s165">
+  <div class="hd"><span class="no">§165</span><span class="ref">科段 2.4.3.1</span></div>
+  <div class="tr">「<i>śrīmate</i>。」</div>
+</div>
+
+<div class="sutra" id="s166">
+  <div class="hd"><span class="no">§166</span><span class="ref">科段 2.4.3.1</span></div>
+  <div class="tr">「<i>Periya Pirāṭṭiyār</i> と共におられる方に。」</div>
+</div>
+
+<div class="sutra" id="s167">
+  <div class="hd"><span class="no">§167</span><span class="ref">科段 2.4.3.2</span></div>
+  <div class="tr">「主が手段である場面では、彼女は <i>puruṣakāra</i> となる。主が目的である場面では、彼女も目的であり、<i>kaiṅkarya</i> を増し加える者となる。」</div>
+  <div class="ex"><p>前半の <i>śrī</i> と後半の <i>śrī</i> とで、女神の役割が違うことを説明しています。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>前半と後半で変わる <i>Śrī</i> の役割（§167）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>場面</th><th>主は</th><th><i>Śrī</i> は</th></tr></thead><tbody><tr><td>前半（手段）</td><td><i>upāya</i>（手段）</td><td><i>puruṣakāra</i>（とりなし役）</td></tr><tr><td>後半（目的）</td><td><i>prāpya</i>（目的）</td><td>共に目的であり、奉仕を増し加える方</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s168">
+  <div class="hd"><span class="no">§168</span><span class="ref">科段 2.4.3.2</span></div>
+  <div class="tr">「ここでは、<i>tirumantra</i> で説かれた目的を、さらに詳しく念想する。」</div>
+</div>
+
+<div class="sutra" id="s169">
+  <div class="hd"><span class="no">§169</span><span class="ref">科段 2.4.3.3</span></div>
+  <div class="tr">「<i>Iḷaiya Perumāḷ</i>（<i>Lakṣmaṇa</i>）のように、両者がそろったところで仕えるのが（正しい）あり方である。」</div>
+  <div class="ex"><p><i>Rāmāyaṇa</i> で <i>Lakṣmaṇa</i> は、森で <i>Rāma</i> と <i>Sītā</i> の二人に仕えました。従者の理想の姿とされます。</p></div>
+</div>
+
+<div class="sutra" id="s170">
+  <div class="hd"><span class="no">§170</span><span class="ref">科段 2.4.3.3</span></div>
+  <div class="tr">「奉仕が心にかない、味わい深いものとなるのは、その両者がそろったところにおいてである。」</div>
+</div>
+
+<h3><span class="h3n">2.4.4</span><i>nārāyaṇāya</i>（§171–179）</h3>
+
+<div class="sutra" id="s171">
+  <div class="hd"><span class="no">§171</span><span class="ref">科段 2.4.4.1</span></div>
+  <div class="tr">「<i>nārāyaṇāya</i>。」</div>
+</div>
+
+<div class="sutra" id="s172">
+  <div class="hd"><span class="no">§172</span><span class="ref">科段 2.4.4.1</span></div>
+  <div class="tr">「<i>sarva-śeṣin</i>（すべての主）である方に。」</div>
+</div>
+
+<div class="sutra" id="s173">
+  <div class="hd"><span class="no">§173</span><span class="ref">科段 2.4.4.1</span></div>
+  <div class="tr">「ここで、聖なる身体と徳も説かれる。」</div>
+</div>
+
+<div class="sutra" id="s174">
+  <div class="hd"><span class="no">§174</span><span class="ref">科段 2.4.4.1</span></div>
+  <div class="tr">「（それらは）主であること（<i>śeṣitva</i>）に注目して見るべきである。」</div>
+</div>
+
+<div class="sutra" id="s175">
+  <div class="hd"><span class="no">§175</span><span class="ref">科段 2.4.4.2</span></div>
+  <div class="tr">「自分の主である方への <i>kaiṅkarya</i> こそが、味わい深いものだからである。」</div>
+</div>
+
+<div class="sutra" id="s176">
+  <div class="hd"><span class="no">§176</span><span class="ref">科段 2.4.4.2</span></div>
+  <div class="tr">「この <i>caturthī</i>（為格語尾 <i>-āya</i>）が <i>kaiṅkarya</i> を表している。」</div>
+</div>
+
+<div class="sutra" id="s177">
+  <div class="hd"><span class="no">§177</span><span class="ref">科段 2.4.4.3</span></div>
+  <div class="tr">「<i>kaiṅkarya</i> は常住のものである。」</div>
+</div>
+
+<div class="sutra" id="s178">
+  <div class="hd"><span class="no">§178</span><span class="ref">科段 2.4.4.3</span></div>
+  <div class="tr">「常に祈り求めて得るべきものである。」</div>
+</div>
+
+<div class="sutra" id="s179">
+  <div class="hd"><span class="no">§179</span><span class="ref">科段 2.4.4.4</span></div>
+  <div class="tr">「主に喜び（<i>atiśaya</i>）を生み出すことが、従者にとって <i>svarūpa-lābha</i>（本性の実現）であり、また目的でもある。」</div>
+  <div class="ex"><p>奉仕の目的は自分の喜びではなく主の喜びであり、それがそのまま従者の本性の実現になる、という考えです。次の <i>namaḥ</i> の解釈につながります。</p></div>
+</div>
+
+<h3><span class="h3n">2.4.5</span><i>namaḥ</i>（§180–187）</h3>
+
+<div class="sutra" id="s180">
+  <div class="hd"><span class="no">§180</span><span class="ref">科段 2.4.5.1</span></div>
+  <div class="tr">「<i>namaḥ</i>。」</div>
+</div>
+
+<div class="sutra" id="s181">
+  <div class="hd"><span class="no">§181</span><span class="ref">科段 2.4.5.1</span></div>
+  <div class="tr">「（この語は）<i>kaiṅkarya</i> の雑草を抜く。」</div>
+</div>
+
+<div class="sutra" id="s182">
+  <div class="hd"><span class="no">§182</span><span class="ref">科段 2.4.5.1</span></div>
+  <div class="tr">「雑草とは、自分のために（奉仕を）することである。」</div>
+  <div class="ex"><p>奉仕していても、「自分が楽しむため」という気持ちが混じれば、それは雑草だとされます。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>奉仕の「雑草」（§179–182）</figcaption>
+<div class="grid2">
+  <div class="node good"><b>主の喜びのための奉仕</b>従者の本性の実現であり、目的でもある（§179）</div>
+  <div class="node bad"><b>自分が楽しむための奉仕</b>「雑草」。<i>namaḥ</i> によって抜かれる（§181–182）</div>
+</div>
+</figure>
+
+<div class="sutra" id="s183">
+  <div class="hd"><span class="no">§183</span><span class="ref">科段 2.4.5.1</span></div>
+  <div class="tr">「ここで <i>avidyā</i>（無知）なども取り除かれる。」</div>
+</div>
+
+<div class="sutra" id="s184">
+  <div class="hd"><span class="no">§184</span><span class="ref">科段 2.4.5.2</span></div>
+  <div class="tr">「『あなただけのために、私たちは仕えよう』という言葉のとおりでなければならない。」</div>
+  <div class="ex"><p><i>Āṇṭāḷ</i> の <i>Tiruppāvai</i> 第29歌の句です。§85 で引かれた句と同じ歌にあります。</p></div>
+</div>
+
+<div class="sutra" id="s185">
+  <div class="hd"><span class="no">§185</span><span class="ref">科段 2.4.5.2</span><span class="chk">要確認</span></div>
+  <div class="tr">「（主の）美しさに心を奪われた者として（仕えるのである）。前に述べた <i>kaiṅkarya</i> もまたそうである。」</div>
+  <div class="ex"><p>原文の語（<i>saundarya-...</i>）の読み方に自信がありません。</p></div>
+</div>
+
+<div class="sutra" id="s186">
+  <div class="hd"><span class="no">§186</span><span class="ref">科段 2.4.5.3</span></div>
+  <div class="tr">「<i>kaiṅkarya</i> の祈りと同じように、この語にも常に祈りがこめられている。」</div>
+</div>
+
+<div class="sutra" id="s187">
+  <div class="hd"><span class="no">§187</span><span class="ref">科段 2.4.5.3</span></div>
+  <div class="tr">「『私たちの喜びの薬よ』と言っていたではないか。」</div>
+  <div class="ex"><p><i>Āḻvār</i> の詩句です。主との交わりの喜びそのものも、主のためのものであるように、という祈りで章が閉じられます。</p></div>
+</div>
+
+<h2 id="exp3">解説：チャラマ・シュローカ章（§188–289）</h2>
+
+<h3><span class="h3n">3.1</span>序：名の由来（§188）</h3>
+
+<div class="sutra" id="s188">
+  <div class="hd"><span class="no">§188</span><span class="ref">科段 3.1</span></div>
+  <div class="tr">「前にいくつかの <i>upāya</i>（手段）を説いたところ、<i>Arjuna</i> はそれらが難しく、また自分の本性に反するものだと思って、悲しみに沈んだ。その <i>Arjuna</i> の悲しみを除くために、『これ以上に説くべきことはない』と言えるほどの究極の手段（<i>caramopāya</i>）を説かれたので、これを <i>carama-śloka</i>（最後の詩節）と呼ぶ。」</div>
+  <div class="ex"><p><i>carama-śloka</i> は <i>Bhagavadgītā</i> 18.66 です。<i>sarvadharmān parityajya mām ekaṃ śaraṇaṃ vraja / ahaṃ tvā sarvapāpebhyo mokṣayiṣyāmi mā śucaḥ</i>（すべての <i>dharma</i> を捨てて、私ひとりを拠り所としてすがれ。私があなたをすべての罪から解き放とう。悲しむな）。<i>carama</i>（最後の）は、<i>Gītā</i> の教えの最後であり、究極でもある、という意味です。</p></div>
+</div>
+
+<h3><span class="h3n">3.2</span>総説（§189–193）</h3>
+
+<figure class="fig">
+  <figcaption><i>carama-śloka</i>（<i>Bhagavadgītā</i> 18.66）を語ごとに読む</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>語</th><th>意味</th><th>この語が示すこと（§248 など）</th><th>科段</th></tr></thead><tbody><tr class="grp"><td colspan="4">前半：資格者（<i>adhikārin</i>）のなすべきこと（§189）</td></tr><tr><td><i>sarvadharmān</i></td><td>すべての <i>dharma</i> を</td><td>捨てられるもの</td><td>3.3.1</td></tr><tr><td><i>parityajya</i></td><td>捨てて</td><td>捨て方</td><td>3.3.2</td></tr><tr><td><i>mām</i></td><td>私を</td><td>すがるべき手段</td><td>3.3.3</td></tr><tr><td><i>ekam</i></td><td>ただ一人</td><td>手段が他を必要としないこと</td><td>3.3.4</td></tr><tr><td><i>śaraṇam</i></td><td>拠り所として</td><td>手段であること</td><td>3.3.5</td></tr><tr><td><i>vraja</i></td><td>すがれ（心に定めよ）</td><td>手段を受け入れること</td><td>3.3.6</td></tr><tr class="grp"><td colspan="4">後半：主（<i>upāya</i>）のなすべきこと（§189）</td></tr><tr><td><i>aham</i></td><td>私が</td><td>全知・全能の主ご自身</td><td>3.4.1</td></tr><tr><td><i>tvā</i></td><td>あなたを</td><td>無力で、主だけにすがる者</td><td>3.4.2</td></tr><tr><td><i>sarvapāpebhyaḥ</i></td><td>すべての罪から</td><td>恐れているすべての妨げ</td><td>3.4.3</td></tr><tr><td><i>mokṣayiṣyāmi</i></td><td>解き放とう</td><td>罪が自ら去っていく</td><td>3.4.4</td></tr><tr><td><i>mā śucaḥ</i></td><td>悲しむな</td><td>悲しむ理由はない</td><td>3.4.5</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s189">
+  <div class="hd"><span class="no">§189</span><span class="ref">科段 3.2.1</span></div>
+  <div class="tr">「このうち前半では <i>adhikārin</i>（資格者）のなすべきことを、後半では <i>upāya</i>（手段である主）のなすべきことを説かれる。」</div>
+</div>
+
+<div class="sutra" id="s190">
+  <div class="hd"><span class="no">§190</span><span class="ref">科段 3.2.2</span></div>
+  <div class="tr">「<i>adhikārin</i> のなすべきこととは、<i>upāya-parigraha</i>（手段を受け入れること）である。」</div>
+</div>
+
+<div class="sutra" id="s191">
+  <div class="hd"><span class="no">§191</span><span class="ref">科段 3.2.2</span></div>
+  <div class="tr">「それを <i>sāṅga</i>（付随する要素とともに）命じておられる。」</div>
+</div>
+
+<div class="sutra" id="s192">
+  <div class="hd"><span class="no">§192</span><span class="ref">科段 3.2.2</span></div>
+  <div class="tr">「<i>rāga</i>（愛着）によって自然に得られる手段であっても、命令として示されれば、ためらわずにすぐ受け入れられるようになるではないか。」</div>
+  <div class="ex"><p>主にすがることは、本来なら命じられなくても自然にすべきことです。それでもあえて命令形（<i>vraja</i>）で説くのは、迷わず受け入れさせるためだ、という説明です。</p></div>
+</div>
+
+<div class="sutra" id="s193">
+  <div class="hd"><span class="no">§193</span><span class="ref">科段 3.2.3</span></div>
+  <div class="tr">「このうち前半は六つの語からなる。」</div>
+  <div class="ex"><p><i>sarvadharmān</i>・<i>parityajya</i>・<i>mām</i>・<i>ekam</i>・<i>śaraṇam</i>・<i>vraja</i> の六語です。以下、この順に解釈が進みます。</p></div>
+</div>
+
+<h3><span class="h3n">3.3.1</span><i>sarvadharmān</i>（§194–202）</h3>
+
+<div class="sutra" id="s194">
+  <div class="hd"><span class="no">§194</span><span class="ref">科段 3.3.1.1</span></div>
+  <div class="tr">「<i>sarvadharmān</i>。」</div>
+</div>
+
+<div class="sutra" id="s195">
+  <div class="hd"><span class="no">§195</span><span class="ref">科段 3.3.1.1</span></div>
+  <div class="tr">「すべての <i>dharma</i> を。」</div>
+</div>
+
+<div class="sutra" id="s196">
+  <div class="hd"><span class="no">§196</span><span class="ref">科段 3.3.1.1</span></div>
+  <div class="tr">「<i>dharma</i> とは、結果を得る手段となるものである。」</div>
+</div>
+
+<div class="sutra" id="s197">
+  <div class="hd"><span class="no">§197</span><span class="ref">科段 3.3.1.1</span></div>
+  <div class="tr">「ここで言う <i>dharma</i> の語は、目に見える結果の手段を言うのではなく、解脱（<i>mokṣa</i>）を結果とする手段を言う。」</div>
+</div>
+
+<div class="sutra" id="s198">
+  <div class="hd"><span class="no">§198</span><span class="ref">科段 3.3.1.2</span></div>
+  <div class="tr">「それらは <i>śruti</i> と <i>smṛti</i> に定められていて数多いので、複数形が使われている。」</div>
+</div>
+
+<div class="sutra" id="s199">
+  <div class="hd"><span class="no">§199</span><span class="ref">科段 3.3.1.2</span></div>
+  <div class="tr">「それらとは、<i>karma</i>・<i>jñāna</i>・<i>bhakti</i> の <i>yoga</i>、<i>avatāra-rahasya-jñāna</i>（化身の秘義を知ること）、<i>puruṣottama-vidyā</i>、聖地に住むこと、御名を唱えること、聖なる灯明をともすこと、花輪を作ることなどを、手段だと思って行うことである。」</div>
+  <div class="ex"><p>聖地に住むことや花輪を作ることなど、それ自体は良い行いも、「救いの手段」と思って行うなら、ここで捨てるべき <i>dharma</i> に含まれます。</p></div>
+</div>
+
+<div class="sutra" id="s200">
+  <div class="hd"><span class="no">§200</span><span class="ref">科段 3.3.1.3</span></div>
+  <div class="tr">「<i>sarva</i>（すべての）の語によって、そうした個々の手段を行うための資格を生み出す <i>nitya-karman</i>（日々の義務）までを言う。」</div>
+</div>
+
+<div class="sutra" id="s201">
+  <div class="hd"><span class="no">§201</span><span class="ref">科段 3.3.1.3</span></div>
+  <div class="tr">「したがって、<i>śruti</i> と <i>smṛti</i> に定められた、<i>nitya</i>（日々の）・<i>naimittika</i>（機会ごとの）などの形をとる <i>karma-yoga</i> などの手段を、という意味である。」</div>
+</div>
+
+<div class="sutra" id="s202">
+  <div class="hd"><span class="no">§202</span><span class="ref">科段 3.3.1.4</span></div>
+  <div class="tr">「これらを <i>dharma</i> と呼ぶのは、迷っていた <i>Arjuna</i> の考え（に合わせたもの）である。」</div>
+  <div class="ex"><p>主の立場から見れば、これらはこの資格者にとって本当の手段ではない。それでも <i>dharma</i> と呼ぶのは、<i>Arjuna</i> がそう考えていたからだ、という説明です。</p></div>
+</div>
+
+<h3><span class="h3n">3.3.2</span><i>parityajya</i>（§203–214）</h3>
+
+<figure class="fig">
+  <figcaption>捨てるべき <i>dharma</i> と、捨てないもの（§199–214）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>種類</th><th>例</th></tr></thead><tbody><tr class="grp"><td colspan="2">捨てるもの（救いの手段と思って行うもの）</td></tr><tr><td>三つの <i>yoga</i></td><td><i>karma</i>・<i>jñāna</i>・<i>bhakti</i></td></tr><tr><td>知の修行</td><td><i>avatāra-rahasya-jñāna</i>、<i>puruṣottama-vidyā</i></td></tr><tr><td>善い行い</td><td>聖地に住む、御名を唱える、灯明をともす、花輪を作る</td></tr><tr><td>日々の義務</td><td><i>nitya</i>・<i>naimittika</i> の <i>karma</i>（§200–201）</td></tr><tr class="grp"><td colspan="2">捨てないもの</td></tr><tr><td>悪行をしないこと</td><td>「<i>adharma</i> を行え」とは言っていない（§209–214）</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s203">
+  <div class="hd"><span class="no">§203</span><span class="ref">科段 3.3.2.1</span></div>
+  <div class="tr">「<i>parityajya</i>。」</div>
+</div>
+
+<div class="sutra" id="s204">
+  <div class="hd"><span class="no">§204</span><span class="ref">科段 3.3.2.1</span></div>
+  <div class="tr">「<i>tyāga</i>（捨てること）とは、他の手段を思い返して、貝殻を銀と見誤る者のように、また方角を取り違える者のように、手段でないものを手段だと思っていた、という自覚とともに捨てることである。」</div>
+</div>
+
+<div class="sutra" id="s205">
+  <div class="hd"><span class="no">§205</span><span class="ref">科段 3.3.2.2</span></div>
+  <div class="tr">「<i>pari</i> という接頭辞によって、罪を捨てるときのように、好みや潜在的な印象まで、さらに恥じらいとともに、跡を残さないように捨てよ、と言う。」</div>
+</div>
+
+<div class="sutra" id="s206">
+  <div class="hd"><span class="no">§206</span><span class="ref">科段 3.3.2.3</span></div>
+  <div class="tr">「<i>lyap</i>（<i>-ya</i> という語尾）によって、『<i>snātvā bhuñjīta</i>（沐浴してから食べよ）』と言うように、他の手段を捨ててから（主に）すがるべきだ、と言う。」</div>
+  <div class="ex"><p><i>parityajya</i> の <i>-ya</i> は「〜してから」を表す語尾です。「捨てること」が「すがること」に先立つ、という文法的な読みです。</p></div>
+</div>
+
+<div class="sutra" id="s207">
+  <div class="hd"><span class="no">§207</span><span class="ref">科段 3.3.2.3</span><span class="chk">要確認</span></div>
+  <div class="tr">「『勇者は弓を投げ捨てた』という句のとおり、これら（他の手段）は手段でないだけでなく、足かせでもある、と言う。」</div>
+  <div class="ex"><p>引用句の出典と文脈は注釈で確認が必要です。</p></div>
+</div>
+
+<div class="sutra" id="s208">
+  <div class="hd"><span class="no">§208</span><span class="ref">科段 3.3.2.3</span></div>
+  <div class="tr">「<i>Cakravartin</i>（<i>Daśaratha</i>）のように、（主を）失う原因となる。」</div>
+  <div class="ex"><p><i>Daśaratha</i> 王は、自分の約束（真実という <i>dharma</i>）を守ったために、<i>Rāma</i> を森へ送ることになりました。<i>dharma</i> にこだわることが、かえって主を失う原因になる例です。</p></div>
+</div>
+
+<div class="sutra" id="s209">
+  <div class="hd"><span class="no">§209</span><span class="ref">科段 3.3.2.4</span></div>
+  <div class="tr">「『すべての <i>dharma</i> を捨てて』と言うので、<i>adharma</i>（悪行）が入り込むことになる、と言った人々がいた。」</div>
+</div>
+
+<div class="sutra" id="s210">
+  <div class="hd"><span class="no">§210</span><span class="ref">科段 3.3.2.4</span></div>
+  <div class="tr">「そうではない。『<i>adharma</i> を行え』とは言っていないからである。」</div>
+</div>
+
+<div class="sutra" id="s211">
+  <div class="hd"><span class="no">§211</span><span class="ref">科段 3.3.2.4</span></div>
+  <div class="tr">「（<i>dharma</i> を）捨てること自体が、それ（<i>adharma</i> を行え）と言ったことにならないか、と問うなら、」</div>
+</div>
+
+<div class="sutra" id="s212">
+  <div class="hd"><span class="no">§212</span><span class="ref">科段 3.3.2.4</span></div>
+  <div class="tr">「ならない。<i>dharma</i> の語は、<i>adharma</i> をやめること（<i>nivṛtti</i>）を表してはいないからである。」</div>
+  <div class="ex"><p>捨てるのは「積極的に行う善行（手段）」であって、「悪行をしないこと」まで捨てるわけではない、という区別です。</p></div>
+</div>
+
+<div class="sutra" id="s213">
+  <div class="hd"><span class="no">§213</span><span class="ref">科段 3.3.2.4</span></div>
+  <div class="tr">「たとえ表していたとしても、それを除いた残り（を捨てよ）と言っている、というだけのことである。」</div>
+</div>
+
+<div class="sutra" id="s214">
+  <div class="hd"><span class="no">§214</span><span class="ref">科段 3.3.2.4</span></div>
+  <div class="tr">「自分の本性と、<i>Īśvara</i> と、（目指す）結果とを見るならば、それら（悪行）が入り込む余地はない。」</div>
+</div>
+
+<h3><span class="h3n">3.3.3</span><i>mām</i>（§215–223）</h3>
+
+<div class="sutra" id="s215">
+  <div class="hd"><span class="no">§215</span><span class="ref">科段 3.3.3.1</span></div>
+  <div class="tr">「<i>mām</i>。」</div>
+</div>
+
+<div class="sutra" id="s216">
+  <div class="hd"><span class="no">§216</span><span class="ref">科段 3.3.3.1</span><span class="chk">要確認</span></div>
+  <div class="tr">「すべてを守る者として、あなたの使いとなり、あなたの同意を待ち、あなたの欠点を味わうべきものとして受け取り、あなたの避難所となり、――水が熱されると肌を焼くように、取りなしてくれるはずの者が引き離そうとするときでさえ――見捨てずに守るこの私を。」</div>
+  <div class="ex"><p>最後の部分は、§146（女神や主が見放しても御足は見放さない）と同じ考えです。本来やさしい水も熱すれば肌を焼くように、とりなし役の女神でさえ離そうとする場合があっても、なお守る、という意味です。</p></div>
+</div>
+
+<div class="sutra" id="s217">
+  <div class="hd"><span class="no">§217</span><span class="ref">科段 3.3.3.1</span></div>
+  <div class="tr">「これによって、<i>para</i>・<i>vyūha</i> の姿や、他の神々の内なる支配者としての姿を除外する。」</div>
+  <div class="ex"><p>「私」とは、いま <i>Arjuna</i> の目の前にいる <i>Kṛṣṇa</i> その方を指す、ということです。</p></div>
+</div>
+
+<div class="sutra" id="s218">
+  <div class="hd"><span class="no">§218</span><span class="ref">科段 3.3.3.2</span></div>
+  <div class="tr">「<i>dharma</i> を確立するために生まれた方ご自身が、『すべての <i>dharma</i> を捨てて私にすがれ』と言われたことによって、（ご自身こそが）<i>sākṣād-dharma</i>（<i>dharma</i> そのもの）である、と言う。」</div>
+</div>
+
+<div class="sutra" id="s219">
+  <div class="hd"><span class="no">§219</span><span class="ref">科段 3.3.3.2</span></div>
+  <div class="tr">「これによって、捨てた手段よりすぐれていることを言う。」</div>
+</div>
+
+<div class="sutra" id="s220">
+  <div class="hd"><span class="no">§220</span><span class="ref">科段 3.3.3.2</span></div>
+  <div class="tr">「すなわち、<i>siddha</i>（すでに成り立っている）であり、<i>parama-cetana</i>（最高の知ある者）であり、<i>sarva-śakti</i>（全能）であり、<i>nirapāya</i>（失敗がない）であり、<i>prāpya</i>（目的そのもの）であり、他の助けを必要としない（<i>sahāyāntara-nirapekṣa</i>）ことである。」</div>
+</div>
+
+<div class="sutra" id="s221">
+  <div class="hd"><span class="no">§221</span><span class="ref">科段 3.3.3.2</span></div>
+  <div class="tr">「他の手段は <i>sādhya</i>（行って作り出すもの）なので、成り立つためには <i>cetana</i>（行う者）を必要とする。また知をもたず無力なので、結果を生むためには <i>Īśvara</i> を必要とする。この手段（主）はそれらとは正反対なので、他を必要としない。」</div>
+  <div class="ex"><p><i>siddhopāya</i>（すでに成り立っている手段＝主）と <i>sādhyopāya</i>（人が行って作り出す手段）の対比は、この学派の中心的な考え方です。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>主という手段と、他の手段の比較（§220–221）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>主（<i>siddhopāya</i>）</th><th>他の手段（<i>sādhyopāya</i>）</th></tr></thead><tbody><tr><td>成り立ち</td><td>すでに成り立っている</td><td>人が行って作り出す</td></tr><tr><td>知</td><td>最高の知ある者</td><td>知をもたない</td></tr><tr><td>力</td><td>全能</td><td>無力</td></tr><tr><td>失敗</td><td>ない</td><td>ありうる</td></tr><tr><td>目的との関係</td><td>目的そのもの</td><td>目的とは別のもの</td></tr><tr><td>他への依存</td><td>何も必要としない</td><td>行う者と <i>Īśvara</i> を必要とする</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s222">
+  <div class="hd"><span class="no">§222</span><span class="ref">科段 3.3.3.3</span></div>
+  <div class="tr">「ここには <i>vātsalya</i>・<i>svāmitva</i>・<i>sauśīlya</i>・<i>saulabhya</i> という特別な徳が、はっきりと輝いている。」</div>
+  <div class="ex"><p>§137 で <i>nārāyaṇa</i> の語に見た徳と同じものが、ここでは <i>Kṛṣṇa</i> の姿の上に現れている、という指摘です。</p></div>
+</div>
+
+<div class="sutra" id="s223">
+  <div class="hd"><span class="no">§223</span><span class="ref">科段 3.3.3.3</span></div>
+  <div class="tr">「手に鞭と手綱を握り、小さな口に縄をくわえ、軍勢の塵にまみれた髪をし、戦車の下に御足を垂らして立っておられる、御者（<i>sārathya</i>）の姿を、<i>mām</i>（私）として示している。」</div>
+</div>
+
+<h3><span class="h3n">3.3.4</span><i>ekam</i>（§224–240）</h3>
+
+<div class="sutra" id="s224">
+  <div class="hd"><span class="no">§224</span><span class="ref">科段 3.3.4.1</span></div>
+  <div class="tr">「<i>ekam</i>。」</div>
+</div>
+
+<div class="sutra" id="s225">
+  <div class="hd"><span class="no">§225</span><span class="ref">科段 3.3.4.1</span></div>
+  <div class="tr">「この <i>eka</i> の語は、<i>sthāna-pramāṇa</i>（置かれた位置による判断）によって、<i>avadhāraṇa</i>（「〜だけ」という限定）の意味を示す。」</div>
+</div>
+
+<div class="sutra" id="s226">
+  <div class="hd"><span class="no">§226</span><span class="ref">科段 3.3.4.1</span><span class="chk">要確認</span></div>
+  <div class="tr">「『<i>mām eva ye prapadyante</i>（私だけにすがる者は）』、『<i>tam eva</i> …（彼だけを…）』、『<i>tvam evopāyabhūto me bhava</i>（あなただけが私の手段となってください）』、『あなたの御足だけを拠り所と定めて仰いだ』などと言うとおりである。」</div>
+  <div class="ex"><p>二つ目の句は、原文の読み取りに自信がないため一部のみ示しています。</p></div>
+</div>
+
+<div class="sutra" id="s227">
+  <div class="hd"><span class="no">§227</span><span class="ref">科段 3.3.4.2</span></div>
+  <div class="tr">「これによって、<i>vraja</i>（すがれ）という（衆生の側の）受け入れに、手段としての性格があることを除外する。」</div>
+  <div class="ex"><p>「すがる」という自分の行為すら手段ではない、という本書の最も鋭い主張の一つです。§227–240 はこの論点をめぐる議論です。</p></div>
+</div>
+
+<div class="sutra" id="s228">
+  <div class="hd"><span class="no">§228</span><span class="ref">科段 3.3.4.2</span></div>
+  <div class="tr">「受け入れることさえも、主によって起こったものである。」</div>
+</div>
+
+<div class="sutra" id="s229">
+  <div class="hd"><span class="no">§229</span><span class="ref">科段 3.3.4.2</span></div>
+  <div class="tr">「（世界の）創造や化身などを通じて、主が（長い間）耕してこられた実りである。」</div>
+</div>
+
+<div class="sutra" id="s230">
+  <div class="hd"><span class="no">§230</span><span class="ref">科段 3.3.4.2</span></div>
+  <div class="tr">「『それもまた、あの方の恵み』。」</div>
+</div>
+
+<div class="sutra" id="s231">
+  <div class="hd"><span class="no">§231</span><span class="ref">科段 3.3.4.3</span></div>
+  <div class="tr">「これ（衆生の受け入れ）がなくても、主はご自身で事をなさる、と思うべきである。」</div>
+</div>
+
+<div class="sutra" id="s232">
+  <div class="hd"><span class="no">§232</span><span class="ref">科段 3.3.4.3</span></div>
+  <div class="tr">「そうでなければ、手段（主）が他を必要としないということ（<i>nairapekṣya</i>）が成り立たない。」</div>
+</div>
+
+<div class="sutra" id="s233">
+  <div class="hd"><span class="no">§233</span><span class="ref">科段 3.3.4.3</span></div>
+  <div class="tr">「これ（衆生の受け入れ）は、全員が解脱してしまうという難点（<i>sarva-mukti-prasaṅga</i>）を避けるためのもの、心を落ち着けるためのもの、知ある者として当然の働き、愛着から自然に生じるもの、本性にかなったもの、拒んでいないことを示すもの、である。」</div>
+  <div class="ex"><p>「すがることが手段でないなら、なぜすがる必要があるのか」という問いへの答えを、六つの観点から並べています。たとえば一つ目は、「主が一方的に救うなら、全員がすでに救われているはずだ」という難点を避けるため、という意味です。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>手段でないのに、なぜすがるのか：六つの理由（§233）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>理由</th><th>意味</th></tr></thead><tbody><tr><td><i>sarva-mukti-prasaṅga</i> の回避</td><td>すがることが要らないなら、全員がすでに救われているはずになってしまう</td></tr><tr><td><i>buddhi-samādhāna</i></td><td>すがった者の心が落ち着く</td></tr><tr><td><i>caitanya-kārya</i></td><td>知ある者として当然の働き</td></tr><tr><td><i>rāga-prāpta</i></td><td>主を慕う心から自然に出てくる</td></tr><tr><td><i>svarūpa-niṣṭha</i></td><td>主に属するという本性にかなう</td></tr><tr><td><i>apratiṣedha-dyotaka</i></td><td>主の救いを拒んでいないことを示す</td></tr></tbody></table></div>
+  <div class="cap2">「意味」の欄は、本文の短い術語を言い換えたものです。</div>
+</figure>
+
+<div class="sutra" id="s234">
+  <div class="hd"><span class="no">§234</span><span class="ref">科段 3.3.4.3</span></div>
+  <div class="tr">「前（<i>parityajya</i>）では、『主と他の手段』という（並び立つ）状態を崩された。ここでは、『主とこの者（の受け入れ）』という状態を崩される。」</div>
+</div>
+
+<div class="sutra" id="s235">
+  <div class="hd"><span class="no">§235</span><span class="ref">科段 3.3.4.4</span></div>
+  <div class="tr">「この者が主をつかむ、そのつかみ方は、<i>ahaṅkāra</i>（我執）を含んだものであり、過ちを生むものである。」</div>
+</div>
+
+<div class="sutra" id="s236">
+  <div class="hd"><span class="no">§236</span><span class="ref">科段 3.3.4.4</span></div>
+  <div class="tr">「主が受け入れてくださることこそが、守りとなる。」</div>
+  <div class="ex"><p>「子猿は母猿にしがみつく」のではなく「子猫は母猫にくわえられる」という、この学派でよく使われる喩え（後者）に通じる考え方です。</p></div>
+</div>
+
+<div class="sutra" id="s237">
+  <div class="hd"><span class="no">§237</span><span class="ref">科段 3.3.4.4</span></div>
+  <div class="tr">「他の手段には、やめることに過ち（<i>nivṛtti-doṣa</i>）がある。これ（帰依）には、行うことに過ち（<i>pravṛtti-doṣa</i>）がある。」</div>
+  <div class="ex"><p>定められた手段は、やめれば義務違反になります。逆に帰依は、自分の努力として「行う」と思えば過ちになる、という対比です。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>自分がつかむのか、主に受け入れられるのか（§235–237）</figcaption>
+<div class="grid2">
+  <div class="node bad"><b>子猿の喩え</b>子が母にしがみつく<br>＝ 自分が主をつかむ<span class="sm">我執を含み、過ちを生む（§235）</span></div>
+  <div class="node good"><b>子猫の喩え</b>母が子をくわえて運ぶ<br>＝ 主が受け入れてくださる<span class="sm">これこそが守り（§236）</span></div>
+</div><div class="tscroll"><table class="t"><thead><tr><th></th><th>過ちになるのは</th></tr></thead><tbody><tr><td>他の手段</td><td>やめること（<i>nivṛtti-doṣa</i>）</td></tr><tr><td>帰依</td><td>「自分が行う手段だ」と思って行うこと（<i>pravṛtti-doṣa</i>）</td></tr></tbody></table></div>
+  <div class="cap2">猿と猫の喩えは本文にはなく、この学派の教えを説明するときによく使われるものです。</div>
+</figure>
+
+<div class="sutra" id="s238">
+  <div class="hd"><span class="no">§238</span><span class="ref">科段 3.3.4.5</span></div>
+  <div class="tr">「『（自分で）動く必要はない』。」</div>
+  <div class="ex"><p><i>Nammāḻvār</i> の <i>Tiruvāymoḻi</i> の句（「動く必要はない、思うだけで足りる」）です。</p></div>
+</div>
+
+<div class="sutra" id="s239">
+  <div class="hd"><span class="no">§239</span><span class="ref">科段 3.3.4.5</span></div>
+  <div class="tr">「やめることについては、前に述べた。」</div>
+</div>
+
+<div class="sutra" id="s240">
+  <div class="hd"><span class="no">§240</span><span class="ref">科段 3.3.4.5</span></div>
+  <div class="tr">「恩を思い起こすこと（<i>upakāra-smṛti</i>）も、知ある者であることから生じるものであり、手段の中に入り込むものではない。」</div>
+</div>
+
+<h3><span class="h3n">3.3.5</span><i>śaraṇam</i>（§241–243）</h3>
+
+<div class="sutra" id="s241">
+  <div class="hd"><span class="no">§241</span><span class="ref">科段 3.3.5</span></div>
+  <div class="tr">「<i>śaraṇam</i>。」</div>
+</div>
+
+<div class="sutra" id="s242">
+  <div class="hd"><span class="no">§242</span><span class="ref">科段 3.3.5</span></div>
+  <div class="tr">「手段として。」</div>
+</div>
+
+<div class="sutra" id="s243">
+  <div class="hd"><span class="no">§243</span><span class="ref">科段 3.3.5</span></div>
+  <div class="tr">「この <i>śaraṇa</i> の語は、守る者・家・手段のいずれも示しうる語ではあるが、ここでは手段を示す。前の（語）と結びつけて読むべきだからである。」</div>
+</div>
+
+<h3><span class="h3n">3.3.6</span><i>vraja</i>（§244–248）</h3>
+
+<div class="sutra" id="s244">
+  <div class="hd"><span class="no">§244</span><span class="ref">科段 3.3.6.1</span></div>
+  <div class="tr">「<i>vraja</i>。」</div>
+</div>
+
+<div class="sutra" id="s245">
+  <div class="hd"><span class="no">§245</span><span class="ref">科段 3.3.6.1</span></div>
+  <div class="tr">「心に定めよ。」</div>
+</div>
+
+<div class="sutra" id="s246">
+  <div class="hd"><span class="no">§246</span><span class="ref">科段 3.3.6.1</span></div>
+  <div class="tr">「『行く』という意味の動詞は、『知る』という意味でもある、ということ。」</div>
+  <div class="ex"><p><i>gatyarthā buddhyarthāḥ</i>（「行く」意の語根は「知る」意をもつ）という文法家の原則を使った解釈です。<i>vraja</i>（行け）を「心に定めよ」と読みます。</p></div>
+</div>
+
+<div class="sutra" id="s247">
+  <div class="hd"><span class="no">§247</span><span class="ref">科段 3.3.6.2</span></div>
+  <div class="tr">「言葉や身体による行為も、これに付随するものとして行われうるが、『<i>jñāna</i> によって解脱がある』のだから、心による実践を言う。」</div>
+  <div class="ex"><p>§155（ドヴァヤ章）と同じ考えです。</p></div>
+</div>
+
+<div class="sutra" id="s248">
+  <div class="hd"><span class="no">§248</span><span class="ref">科段 3.3.6.3</span></div>
+  <div class="tr">「こうして（前半は）、捨てられるもの、捨て方、すがるべき手段、手段が他を必要としないこと、手段であること、手段を受け入れること、を述べている。」</div>
+  <div class="ex"><p>前半の六語（<i>sarvadharmān</i>・<i>parityajya</i>・<i>mām</i>・<i>ekam</i>・<i>śaraṇam</i>・<i>vraja</i>）の意味を、順番にまとめた一文です。</p></div>
+</div>
+
+<h3><span class="h3n">3.4.1–2</span><i>aham</i>・<i>tvā</i>（§249–256）</h3>
+
+<div class="sutra" id="s249">
+  <div class="hd"><span class="no">§249</span><span class="ref">科段 3.4.1</span></div>
+  <div class="tr">「<i>aham</i>。」</div>
+</div>
+
+<div class="sutra" id="s250">
+  <div class="hd"><span class="no">§250</span><span class="ref">科段 3.4.1</span></div>
+  <div class="tr">「（この語で）主はご自身のなすべきことを語られる。」</div>
+</div>
+
+<div class="sutra" id="s251">
+  <div class="hd"><span class="no">§251</span><span class="ref">科段 3.4.1</span></div>
+  <div class="tr">「全知であり、全能であり、（あなたにとって）ふさわしい主である、この私が。」</div>
+</div>
+
+<div class="sutra" id="s252">
+  <div class="hd"><span class="no">§252</span><span class="ref">科段 3.4.1</span></div>
+  <div class="tr">「この者がこれまでいた状態も、これから向かう先も知り尽くし、知ったとおりに成し遂げるのにふさわしい徳を示し、また（この者の救いを）ご自身の得として成し遂げるのにふさわしい、特別な結びつきを示している。」</div>
+</div>
+
+<div class="sutra" id="s253">
+  <div class="hd"><span class="no">§253</span><span class="ref">科段 3.4.1</span></div>
+  <div class="tr">「（<i>Arjuna</i> のために）とった御者の姿を見て、主を見ずに自分を見て恐れていた（<i>Arjuna</i> の）恐れが消えるように、ご自身本来のあり方を <i>aham</i>（私）と示している。」</div>
+</div>
+
+<div class="sutra" id="s254">
+  <div class="hd"><span class="no">§254</span><span class="ref">科段 3.4.1</span></div>
+  <div class="tr">「前に見せた（御者として従う）<i>pāratantrya</i> も、この <i>svātantrya</i>（自由）の極みの現れではないか。」</div>
+  <div class="ex"><p><i>Arjuna</i> に仕える御者となったのは、主が弱いからではなく、自由な主が自ら選んだことだ、という意味です。</p></div>
+</div>
+
+<div class="sutra" id="s255">
+  <div class="hd"><span class="no">§255</span><span class="ref">科段 3.4.2</span></div>
+  <div class="tr">「<i>tvā</i>。」</div>
+</div>
+
+<div class="sutra" id="s256">
+  <div class="hd"><span class="no">§256</span><span class="ref">科段 3.4.2</span></div>
+  <div class="tr">「無知で、無力で、（自分で手段を行うことが）ふさわしくなく、ただ私だけを手段としてすがっているあなたを。」</div>
+</div>
+
+<h3><span class="h3n">3.4.3</span><i>sarvapāpebhyaḥ</i>（§257–262）</h3>
+
+<div class="sutra" id="s257">
+  <div class="hd"><span class="no">§257</span><span class="ref">科段 3.4.3.1</span></div>
+  <div class="tr">「<i>sarvapāpebhyaḥ</i>。」</div>
+</div>
+
+<div class="sutra" id="s258">
+  <div class="hd"><span class="no">§258</span><span class="ref">科段 3.4.3.1</span></div>
+  <div class="tr">「私への到達を妨げるものとして、あなたがいくつかの罪を思って恐れている、その罪すべてから。」</div>
+</div>
+
+<div class="sutra" id="s259">
+  <div class="hd"><span class="no">§259</span><span class="ref">科段 3.4.3.1</span></div>
+  <div class="tr">「『偽りの知も、悪しき行いも、汚れの器（である身体）も』という句のとおり、<i>avidyā</i>（無知）・<i>karma</i>（業）・<i>vāsanā</i>（潜在的な印象）・<i>ruci</i>（好み）・<i>prakṛti</i>（物質）との結びつきを言う。」</div>
+</div>
+
+<div class="sutra" id="s260">
+  <div class="hd"><span class="no">§260</span><span class="ref">科段 3.4.3.1</span><span class="chk">要確認</span></div>
+  <div class="tr">「草をむしる癖のように、生まれつきの習いで続けてしまうもの、世間の非難を恐れて、あるいは憐れみから、あるいは心の乱れから行うもの――これらすべてを（罪として）考えている。」</div>
+  <div class="ex"><p>帰依した後も、習慣や世間体などから、捨てたはずの手段（善行）を行ってしまうことがあります。そういうものも含めて主が除く、という意味です。原文の一語（<i>cuṇṭiyana</i>?）が読めていません。</p></div>
+</div>
+
+<div class="sutra" id="s261">
+  <div class="hd"><span class="no">§261</span><span class="ref">科段 3.4.3.2</span><span class="chk">要確認</span></div>
+  <div class="tr">「狂った者がさまよううちに、たまたま村にたどり着くようなものである。捨てた手段を（習いで）行ってしまっても、それが害になるのではないかと思う必要はない。」</div>
+  <div class="ex"><p>喩えの意味は注釈で確認が必要です。</p></div>
+</div>
+
+<div class="sutra" id="s262">
+  <div class="hd"><span class="no">§262</span><span class="ref">科段 3.4.3.2</span></div>
+  <div class="tr">「心乱れて、手段だと思って行う <i>prapatti</i>（帰依）も、<i>pātaka</i>（大罪）に等しい。」</div>
+  <div class="ex"><p>帰依でさえ「自分の行う手段」と思えば罪になる、という §227 の主張の裏返しです。</p></div>
+</div>
+
+<h3><span class="h3n">3.4.4</span><i>mokṣayiṣyāmi</i>（§263–268）</h3>
+
+<div class="sutra" id="s263">
+  <div class="hd"><span class="no">§263</span><span class="ref">科段 3.4.4</span></div>
+  <div class="tr">「<i>mokṣayiṣyāmi</i>。」</div>
+</div>
+
+<div class="sutra" id="s264">
+  <div class="hd"><span class="no">§264</span><span class="ref">科段 3.4.4</span></div>
+  <div class="tr">「解き放たれた者となるようにしてあげよう。」</div>
+</div>
+
+<div class="sutra" id="s265">
+  <div class="hd"><span class="no">§265</span><span class="ref">科段 3.4.4</span></div>
+  <div class="tr">「<i>ṇic</i>（使役形）によって、『私も（何かする）必要はない、あなたも必要はない。それら（罪）は自ら離れていく』と言われる。」</div>
+  <div class="ex"><p><i>mokṣayiṣyāmi</i> は使役形（「解き放たせよう」）です。主が直接手を下すまでもなく、罪の方が自分から去っていく、という読み方です。</p></div>
+</div>
+
+<div class="sutra" id="s266">
+  <div class="hd"><span class="no">§266</span><span class="ref">科段 3.4.4</span></div>
+  <div class="tr">「（罪は）私の <i>nigraha</i>（罰）の結果として生じたものである。私が憐れむならば、とどまっていられようか、ということ。」</div>
+</div>
+
+<div class="sutra" id="s267">
+  <div class="hd"><span class="no">§267</span><span class="ref">科段 3.4.4</span></div>
+  <div class="tr">「無始の時から、罪を見てあなたが受けてきた苦しみを、今度はそれら（罪）が受けるようにしてやる。」</div>
+</div>
+
+<div class="sutra" id="s268">
+  <div class="hd"><span class="no">§268</span><span class="ref">科段 3.4.4</span></div>
+  <div class="tr">「これからは、あなたをあなた自身の手にさえ渡しはしない。私の身体についた汚れを、私自身が払い落とさないことがあろうか。」</div>
+  <div class="ex"><p>この学派では、魂は主の身体（<i>śarīra</i>）とされます。だから魂の汚れ（罪）は「主の身体についた汚れ」であり、主ご自身が払う、という意味です。</p></div>
+</div>
+
+<h3><span class="h3n">3.4.5–6</span><i>mā śucaḥ</i> と補説（§269–276）</h3>
+
+<figure class="fig">
+  <figcaption>罪が去っていく仕組み（§265–268）</figcaption>
+<div class="flow"><div class="node plain"><b>罪</b>主の罰（<i>nigraha</i>）から生じたもの<span class="sm">§266</span></div><div class="arr"><span class="ac">→</span></div><div class="node "><b>主が憐れむ</b>罰の理由がなくなる</div><div class="arr"><span class="ac">→</span></div><div class="node good"><b>罪は自ら離れていく</b>使役形 <i>mokṣayiṣyāmi</i><span class="sm">§265・267</span></div></div>
+  <div class="cap2">魂は主の身体なので、魂の汚れは「主の身体の汚れ」として主ご自身が払う（§268）。</div>
+</figure>
+
+<div class="sutra" id="s269">
+  <div class="hd"><span class="no">§269</span><span class="ref">科段 3.4.5</span></div>
+  <div class="tr">「<i>mā śucaḥ</i>。」</div>
+</div>
+
+<div class="sutra" id="s270">
+  <div class="hd"><span class="no">§270</span><span class="ref">科段 3.4.5</span></div>
+  <div class="tr">「あなたにはあなたのことに関わる資格がなく、私があなたのことを引き受けて行っているのだから、『あなたに悲しむ理由はないではないか』と言って、（<i>Arjuna</i> の）悲しみを除いてやる。」</div>
+</div>
+
+<div class="sutra" id="s271">
+  <div class="hd"><span class="no">§271</span><span class="ref">科段 3.4.5</span></div>
+  <div class="tr">「（罪を）除く者（主）のあり方を語り、除かれるべきもの（罪）があなたを襲うことはないと語って、『あなたに悲しむ理由はないではないか』と言われる。」</div>
+</div>
+
+<div class="sutra" id="s272">
+  <div class="hd"><span class="no">§272</span><span class="ref">科段 3.4.5</span></div>
+  <div class="tr">「『哀れな心よ、なぜ苦しみの海に沈んでいるのか』と言われる。」</div>
+  <div class="ex"><p><i>Āḻvār</i> の詩句と同じ言い方で、主の言葉を言い換えています。</p></div>
+</div>
+
+<div class="sutra" id="s273">
+  <div class="hd"><span class="no">§273</span><span class="ref">科段 3.4.5</span></div>
+  <div class="tr">「私が罪を赦して、それを功徳とさえ思っているのに、あなたが悲しむことがあろうか。」</div>
+</div>
+
+<div class="sutra" id="s274">
+  <div class="hd"><span class="no">§274</span><span class="ref">科段 3.4.6</span><span class="chk">要確認</span></div>
+  <div class="tr">「<i>Uyyakkoṇṭār</i> について <i>Uḍaiyavar</i>（<i>Rāmānuja</i>）が語った言葉を思い起こすべきである。」</div>
+  <div class="ex"><p>その言葉の内容は本文に書かれていません。注釈で確認が必要です。</p></div>
+</div>
+
+<div class="sutra" id="s275">
+  <div class="hd"><span class="no">§275</span><span class="ref">科段 3.4.6</span></div>
+  <div class="tr">「これについては、<i>Īśvara</i> の <i>svātantrya</i>（自由）に目を向けよ。」</div>
+  <div class="ex"><p>業の法則からすれば、罪が簡単に消えるはずはない。しかし主は自由なので、それができる、という説明です。</p></div>
+</div>
+
+<div class="sutra" id="s276">
+  <div class="hd"><span class="no">§276</span><span class="ref">科段 3.4.6</span><span class="chk">要確認</span></div>
+  <div class="tr">「『これは <i>anuvāda</i>（すでに成り立っていることを言い直したもの）の部類である』というのが、<i>Vaṅgipurattu Nambi</i> の言葉である。」</div>
+  <div class="ex"><p>「これ」がどの句を指すのか（<i>mā śucaḥ</i> か、詩節全体か）は、注釈で確認が必要です。</p></div>
+</div>
+
+<h3><span class="h3n">3.5</span>結び（§277–289）</h3>
+
+<div class="sutra" id="s277">
+  <div class="hd"><span class="no">§277</span><span class="ref">科段 3.5.1</span></div>
+  <div class="tr">「<i>Arjuna</i> は、<i>Kṛṣṇa</i> が（使者や御者として）命じられるままに働く姿や、<i>ṛṣi</i> たちの言葉や、<i>Kṛṣṇa</i> が自分の事を引き受けて行う姿を見て、『この方こそ私たちの拠り所だ』と確信した。その後で、（<i>Kṛṣṇa</i> は）ご自身にすがれと言われたからである。」</div>
+  <div class="ex"><p>「なぜ <i>Gītā</i> の最後になって、ようやくこれを説いたのか」という問いへの答えです。</p></div>
+</div>
+
+<div class="sutra" id="s278">
+  <div class="hd"><span class="no">§278</span><span class="ref">科段 3.5.1</span></div>
+  <div class="tr">「それ以前に（他の手段を）説いたのはすべて、この者の心を試すためである。」</div>
+</div>
+
+<div class="sutra" id="s279">
+  <div class="hd"><span class="no">§279</span><span class="ref">科段 3.5.1</span></div>
+  <div class="tr">「<i>Veda-puruṣa</i>（<i>Veda</i>）が他の手段を定めたのは、言うことを聞かない牛に棒をくくりつける者のように、<i>ahaṅkāra</i>（我執）と <i>mamakāra</i>（我所執）から生じた驕りを取り除いて、本性の知を生じさせるためである。」</div>
+</div>
+
+<div class="sutra" id="s280">
+  <div class="hd"><span class="no">§280</span><span class="ref">科段 3.5.1</span></div>
+  <div class="tr">「<i>saṃnyāsin</i> が以前の持ち物を捨てるように、ここまで（知が）生じた者がこれら（他の手段）を捨てても、過ちにはならない。」</div>
+</div>
+
+<div class="sutra" id="s281">
+  <div class="hd"><span class="no">§281</span><span class="ref">科段 3.5.1</span></div>
+  <div class="tr">「この者は、これらを（無にするように）そのまま捨てたのではない。」</div>
+</div>
+
+<div class="sutra" id="s282">
+  <div class="hd"><span class="no">§282</span><span class="ref">科段 3.5.2</span></div>
+  <div class="tr">「<i>karma</i> は <i>kaiṅkarya</i>（奉仕）の中に、<i>jñāna</i> は本性を明らかにすることの中に、<i>bhakti</i> は目的への渇望の中に、<i>prapatti</i> は本性のありのままの知の中に入る。」</div>
+  <div class="ex"><p>捨てた手段は消えるのではなく、「手段」という性格を失って、帰依した者の生き方の中に形を変えて残る、という考えです。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption>捨てた手段の行き先（§282）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th>捨てた手段</th><th></th><th>帰依した者の生き方の中での形</th></tr></thead><tbody><tr><td><i>karma</i>（行い）</td><td>→</td><td><i>kaiṅkarya</i>（奉仕）</td></tr><tr><td><i>jñāna</i>（知）</td><td>→</td><td>本性を明らかにすること</td></tr><tr><td><i>bhakti</i>（信愛）</td><td>→</td><td>目的（主）への渇望</td></tr><tr><td><i>prapatti</i>（帰依）</td><td>→</td><td>本性のありのままの知</td></tr></tbody></table></div>
+</figure>
+
+<div class="sutra" id="s283">
+  <div class="hd"><span class="no">§283</span><span class="ref">科段 3.5.2</span></div>
+  <div class="tr">「一つの結果のために、難しい道と易しい道の両方を説いているのだから、その両方を除いた <i>bhagavat-prasāda</i>（主の恩寵）こそが手段であるべきである。」</div>
+</div>
+
+<div class="sutra" id="s284">
+  <div class="hd"><span class="no">§284</span><span class="ref">科段 3.5.3</span></div>
+  <div class="tr">「救いのために必要なのは、妨げないことと、願うことである。」</div>
+</div>
+
+<div class="sutra" id="s285">
+  <div class="hd"><span class="no">§285</span><span class="ref">科段 3.5.3</span></div>
+  <div class="tr">「<i>Cakravartin</i> の御子（<i>Rāma</i>）は『罪とともに来てもかまわない』と言われた。この方（<i>Kṛṣṇa</i>）は『功徳を捨てて来るべきだ』と言われた。」</div>
+  <div class="ex"><p><i>Rāma</i> が敵方から来た <i>Vibhīṣaṇa</i> を受け入れたときの言葉と、<i>carama-śloka</i> の「すべての <i>dharma</i> を捨てて」を対比しています。罪も功徳も、救いの妨げにも条件にもならない、ということです。</p></div>
+</div>
+
+<figure class="fig">
+  <figcaption><i>Rāma</i> と <i>Kṛṣṇa</i> の言葉の対比（§285）</figcaption>
+<div class="tscroll"><table class="t"><thead><tr><th></th><th>言葉</th><th>意味</th></tr></thead><tbody><tr><td><i>Rāma</i>（<i>Vibhīṣaṇa</i> を受け入れたとき）</td><td>「罪とともに来てもかまわない」</td><td>罪は救いの妨げにならない</td></tr><tr><td><i>Kṛṣṇa</i>（<i>carama-śloka</i>）</td><td>「功徳（<i>dharma</i>）を捨てて来るべきだ」</td><td>功徳は救いの条件にならない</td></tr></tbody></table></div>
+  <div class="cap2">救いに必要なのは、主の救いを妨げないことと、願うことだけである（§284）。</div>
+</figure>
+
+<div class="sutra" id="s286">
+  <div class="hd"><span class="no">§286</span><span class="ref">科段 3.5.4</span></div>
+  <div class="tr">「『<i>āstika</i>（信ずる者）としてこの意味に <i>ruci</i>（願い）と <i>viśvāsa</i>（信頼）をもって生きるか、<i>nāstika</i>（信じない者）として滅びるか、そのどちらかで、中間の立場はない』と、<i>Embār</i> が <i>Bhaṭṭar</i> に語った言葉。」</div>
+</div>
+
+<div class="sutra" id="s287">
+  <div class="hd"><span class="no">§287</span><span class="ref">科段 3.5.4</span></div>
+  <div class="tr">「決意（<i>vyavasāya</i>）のない者がこれに関わるのは、消化不良のときに食事をするようなものである。」</div>
+</div>
+
+<div class="sutra" id="s288">
+  <div class="hd"><span class="no">§288</span><span class="ref">科段 3.5.4</span></div>
+  <div class="tr">「『<i>Viṭṭucittar</i> がよく聞いておられよう』という句のとおり、<i>adhikārin</i> は限られている。」</div>
+  <div class="ex"><p><i>Viṭṭucittar</i> は <i>Periyāḻvār</i> のことで、引用は <i>Āṇṭāḷ</i> の詩句です。主の言葉を本当に聞いて信じる者は限られている、という意味です。</p></div>
+</div>
+
+<div class="sutra" id="s289">
+  <div class="hd"><span class="no">§289</span><span class="ref">科段 3.5.5</span></div>
+  <div class="tr">「『言葉を知る者』という歌と、『父となり』という歌を、この意味として念想すべきである。」</div>
+  <div class="ex"><p>どちらも <i>Āḻvār</i> の歌の書き出しです。<i>carama-śloka</i> の意味を <i>Āḻvār</i> の歌の中に味わうように、と勧めて本書が閉じられます。</p></div>
+</div>
+
+<div class="card note">
+  <b>注意</b><br>
+  科段の区切り方と解説は、伝統的な注釈（<i>Maṇavāḷa Māmuni</i> の注釈が有名です）の理解をもとにまとめたもので、注釈そのものを確認しながら書いたわけではありません。論文などで使うときは、注釈や研究書で確認してください。「要確認」の印を付けた節は、訳や解釈に特に自信がない箇所です。和訳は伝統的な理解に沿って意味が通るように補った箇所があります。
+</div>
+
+</div>
+</body>
+</html>
