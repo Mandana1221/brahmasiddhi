@@ -100,7 +100,7 @@ H.append(f"""<!DOCTYPE html>
 <header class="hero">
   <div class="kicker">Piḷḷai Lokācārya 作　科段・和訳・図解</div>
   <h1>『タットヴァトラヤ』<i>Tattvatraya</i><br>科段と解説</h1>
-  <p>節の番号（§）は1927年刊テルグ文字版（<i>Aṇṇaṅgarācārya</i> 校訂、全202節）によります。術語は IAST で記しています。<a href="pillai_lokacarya_nyumon.html" style="color:#fff">入門ページ</a>もあわせてご覧ください。</p>
+  <p>節の番号（§）は1927年刊テルグ文字版（<i>Aṇṇaṅgarācārya</i> 校訂、全202節）によります。術語は IAST で記しています。<a href="tattvatraya_nyumon.html" style="color:#fff">『タットヴァトラヤ』入門</a>（大学1年生向け）と<a href="pillai_lokacarya_nyumon.html" style="color:#fff">ピッライ・ローカーチャーリヤの宗教思想入門</a>もあわせてご覧ください。</p>
   <p style="margin-top:8px"><a href="index.html" style="color:#fff">← 原典研究の書庫（リンク集）へ</a></p>
 </header>
 """)
