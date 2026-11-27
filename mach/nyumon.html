@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>マッハ『感覚の分析』入門</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600&family=Noto+Sans+JP:wght@400;600&display=swap">
+<style>
+:root{
+  --bg:#f7f4ed; --text:#2a2722; --muted:#6b6560; --accent:#8b7332; --card:#f0ece3; --border:#d4cfc4;
+  --c1:#3a6e8f; --c2:#9a5b2e; --c3:#4f7a3d; --c4:#7a4f86; --c5:#a2403f;
+  --c1s:#dbe7ee; --c2s:#f1e1d3; --c3s:#dfead6; --c4s:#e9dfee; --c5s:#f2dad8;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#1e1d1a; --text:#d8d4cc; --muted:#9a958d; --accent:#c4a54a; --card:#28261f; --border:#3d3a32;
+    --c1:#7fb3d3; --c2:#d99a6c; --c3:#93c27e; --c4:#c39ad0; --c5:#e08886;
+    --c1s:#23313a; --c2s:#3a2c22; --c3s:#28331f; --c4s:#322838; --c5s:#3b2524;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#1e1d1a; --text:#d8d4cc; --muted:#9a958d; --accent:#c4a54a; --card:#28261f; --border:#3d3a32;
+  --c1:#7fb3d3; --c2:#d99a6c; --c3:#93c27e; --c4:#c39ad0; --c5:#e08886;
+  --c1s:#23313a; --c2s:#3a2c22; --c3s:#28331f; --c4s:#322838; --c5s:#3b2524;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:"Noto Serif JP","Hiragino Mincho ProN","Yu Mincho",serif;line-height:1.85;font-size:16px}
+.wrap{max-width:860px;margin:0 auto;padding:2.2em 16px 4em}
+header{text-align:center;border-bottom:1px solid var(--border);padding-bottom:1.6em;margin-bottom:2em}
+.kicker{font-family:"Noto Sans JP",sans-serif;font-size:.78em;letter-spacing:.18em;color:var(--accent)}
+h1{font-size:1.75em;letter-spacing:.06em;margin:.3em 0 .2em}
+.sub{color:var(--muted);font-size:.92em}
+.de{font-style:italic;color:var(--accent)}
+nav.toc{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:1em 1.3em;margin:1.5em 0 2.5em;font-family:"Noto Sans JP",sans-serif;font-size:.9em}
+nav.toc ol{padding-left:1.5em;columns:2;column-gap:2em}
+nav.toc a{color:var(--text);text-decoration:none;border-bottom:1px dotted var(--muted)}
+h2{font-size:1.3em;margin:2.6em 0 .8em;padding-bottom:.3em;border-bottom:2px solid var(--accent)}
+h2 .n{font-family:"Noto Sans JP",sans-serif;color:var(--accent);margin-right:.5em}
+h3{font-size:1.05em;margin:1.6em 0 .5em;color:var(--accent)}
+p{margin:.7em 0}
+a{color:var(--c1)}
+.point{background:var(--card);border-left:4px solid var(--accent);padding:.8em 1.1em;margin:1.2em 0;border-radius:0 6px 6px 0}
+.point b{color:var(--accent)}
+.quote{border:1px solid var(--border);border-radius:6px;padding:.9em 1.2em;margin:1.2em 0;font-size:.95em}
+.quote .src{display:block;text-align:right;color:var(--muted);font-size:.85em;margin-top:.3em}
+figure{margin:1.6em 0;text-align:center}
+figure svg{width:100%;height:auto;max-width:820px}
+figcaption{font-family:"Noto Sans JP",sans-serif;font-size:.82em;color:var(--muted);margin-top:.4em}
+.tw{overflow-x:auto;margin:1.2em 0}
+table{border-collapse:collapse;width:100%;font-size:.9em;font-family:"Noto Sans JP",sans-serif;line-height:1.6}
+th,td{border:1px solid var(--border);padding:.5em .65em;vertical-align:top;text-align:left}
+th{background:var(--card);font-weight:600}
+td.c{text-align:center;white-space:nowrap}
+.tag{display:inline-block;font-size:.75em;padding:.05em .5em;border-radius:3px;font-family:"Noto Sans JP",sans-serif;white-space:nowrap}
+.t1{background:var(--c1s);color:var(--c1)}.t2{background:var(--c2s);color:var(--c2)}.t3{background:var(--c3s);color:var(--c3)}.t4{background:var(--c4s);color:var(--c4)}.t5{background:var(--c5s);color:var(--c5)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:.9em;margin:1.2em 0}
+.card{background:var(--card);border:1px solid var(--border);border-radius:8px;padding:.9em 1em;font-size:.92em}
+.card h4{font-size:1em;margin-bottom:.3em}
+.qa{margin:1em 0}.qa dt{font-weight:600;color:var(--accent)}.qa dd{margin:0 0 .8em 1em}
+footer{margin-top:3em;padding-top:1.2em;border-top:1px solid var(--border);font-size:.85em;color:var(--muted);text-align:center}
+/* svg text */
+svg text{font-family:"Noto Sans JP",sans-serif;fill:var(--text)}
+svg .mut{fill:var(--muted)}
+svg .ln{stroke:var(--muted);stroke-width:1.6;fill:none}
+svg .bx{fill:var(--card);stroke:var(--border);stroke-width:1.2}
+@media (max-width:600px){nav.toc ol{columns:1}h1{font-size:1.4em}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div class="kicker">大学1年生のための入門解説</div>
+  <h1>マッハ『感覚の分析』を読む</h1>
+  <div class="de">Ernst Mach, Die Analyse der Empfindungen und das Verhältnis des Physischen zum Psychischen (9. Aufl., Jena 1922)</div>
+  <p class="sub">「世界は何からできているのか」「わたし（自我）とは何か」を、物理学者が感覚の研究から考え直した本。<br>全15章の見取り図を、図と表でやさしく案内します。</p>
+  <p class="sub"><a href="index.html">→ 独日対訳（序文・全15章・補遺）の目次へ</a></p>
+</header>
+
+<svg width="0" height="0" style="position:absolute"><defs>
+  <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0L10,5L0,10z" style="fill:var(--muted)"/></marker>
+</defs></svg>
+
+<nav class="toc"><ol>
+  <li><a href="#s1">この本はどんな本か</a></li>
+  <li><a href="#s2">ひとことで言うと</a></li>
+  <li><a href="#s3">全15章の地図</a></li>
+  <li><a href="#s4">要素の図式 ABC・KLM・αβγ</a></li>
+  <li><a href="#s5">物とは何か、自我とは何か</a></li>
+  <li><a href="#s6">左目から見た自画像</a></li>
+  <li><a href="#s7">先入見を取り除く</a></li>
+  <li><a href="#s8">「原因」から「関数」へ</a></li>
+  <li><a href="#s9">空間の感覚</a></li>
+  <li><a href="#s10">色・明るさ・記憶・時間・音</a></li>
+  <li><a href="#s11">物理学はどう変わるか</a></li>
+  <li><a href="#s12">受容と影響</a></li>
+  <li><a href="#s13">『認識と誤謬』との関係</a></li>
+  <li><a href="#s14">用語集・章一覧・考えてみよう</a></li>
+</ol></nav>
+
+<!-- 1 -->
+<h2 id="s1"><span class="n">1</span>この本はどんな本か</h2>
+<p>エルンスト・マッハ（1838–1916）は、音速の倍数「マッハ数」に名を残す物理学者です。同時に、目や耳や平衡感覚を自分で実験した感覚生理学者でもありました。『感覚の分析』はその両方の仕事から生まれた本で、物理学と心理学の関係を根本から考え直そうとしています。</p>
+
+<div class="tw"><table>
+<tr><th>項目</th><th>内容</th></tr>
+<tr><td>原題</td><td>『感覚の分析と、物理的なものの心理的なものに対する関係』</td></tr>
+<tr><td>初版</td><td>1886年（『感覚の分析への寄与』の題で出版）。版を重ねて大きく増補された。</td></tr>
+<tr><td>この対訳の底本</td><td>第9版（イェーナ、1922年）。序文・全15章・補遺。</td></tr>
+<tr><td>献辞</td><td>イギリスの統計学者・科学哲学者カール・ピアソンに献呈。</td></tr>
+<tr><td>中身</td><td>前半は哲学的な立場（要素一元論）、中心部は目・耳・時間などの感覚の研究、後半は物理学への帰結。</td></tr>
+<tr><td>特色</td><td>多くの図、自分自身の観察と実験、他の研究者への応答。</td></tr>
+</table></div>
+
+<div class="point"><b>マッハの自己紹介：</b>序文でマッハは、この本が代表しているのは「誰もが、とりわけどの自然研究者もなじんでいる一般的で自然な世界観」であり、それを「最も単純で最も確実な基礎」に戻そうとしているだけだ、と言います。突飛な哲学を唱えるつもりはない、というのです。</div>
+
+<!-- 2 -->
+<h2 id="s2"><span class="n">2</span>ひとことで言うと</h2>
+
+<figure>
+<svg viewBox="0 0 820 230" role="img" aria-label="この本の三つの主張">
+  <rect x="10" y="20" width="250" height="190" rx="10" fill="var(--c1s)" stroke="var(--c1)"/>
+  <rect x="285" y="20" width="250" height="190" rx="10" fill="var(--c4s)" stroke="var(--c4)"/>
+  <rect x="560" y="20" width="250" height="190" rx="10" fill="var(--c2s)" stroke="var(--c2)"/>
+  <text x="135" y="58" text-anchor="middle" font-size="18" font-weight="600" style="fill:var(--c1)">① 世界は「要素」から</text>
+  <text x="135" y="95" text-anchor="middle" font-size="14">色・音・熱さ・圧力・</text>
+  <text x="135" y="118" text-anchor="middle" font-size="14">空間・時間といった要素が</text>
+  <text x="135" y="141" text-anchor="middle" font-size="14">世界の最も単純な材料。</text>
+  <text x="135" y="185" text-anchor="middle" font-size="12" class="mut">第Ⅰ章</text>
+  <text x="410" y="58" text-anchor="middle" font-size="18" font-weight="600" style="fill:var(--c4)">② 物も自我も複合体</text>
+  <text x="410" y="95" text-anchor="middle" font-size="14">物体も「わたし」も、</text>
+  <text x="410" y="118" text-anchor="middle" font-size="14">要素の比較的安定した</text>
+  <text x="410" y="141" text-anchor="middle" font-size="14">結びつきにすぎない。</text>
+  <text x="410" y="185" text-anchor="middle" font-size="12" class="mut">第Ⅰ章「自我は救いえない」</text>
+  <text x="685" y="58" text-anchor="middle" font-size="18" font-weight="600" style="fill:var(--c2)">③ 物理と心理は観点の差</text>
+  <text x="685" y="95" text-anchor="middle" font-size="14">同じ要素を、どの依存関係に</text>
+  <text x="685" y="118" text-anchor="middle" font-size="14">注目して調べるかが違うだけ。</text>
+  <text x="685" y="141" text-anchor="middle" font-size="14">両者のあいだに裂け目はない。</text>
+  <text x="685" y="185" text-anchor="middle" font-size="12" class="mut">第Ⅰ・Ⅳ・ⅩⅣ章</text>
+</svg>
+<figcaption>図1　この本の三つの主張</figcaption>
+</figure>
+
+<p>私たちはふつう、「外に物があり、それが目や耳を刺激して、心のなかに感覚が生まれる」と考えます。マッハはこの図式を疑います。感覚の向こうに「物それ自体」があるのではなく、私たちが直接に出会う色や音や手触りそのものが、世界をつくっている材料だと考えるのです。この立場は「要素一元論」とか「中立一元論」と呼ばれます。</p>
+
+<!-- 3 -->
+<h2 id="s3"><span class="n">3</span>全15章の地図</h2>
+
+<figure>
+<svg viewBox="0 0 820 430" role="img" aria-label="全15章を三つの部に分けた地図">
+  <rect x="10" y="10" width="800" height="100" rx="10" fill="var(--c1s)" stroke="var(--c1)"/>
+  <text x="25" y="38" font-size="16" font-weight="600" style="fill:var(--c1)">第一部　認識論的な土台（Ⅰ〜Ⅲ）</text>
+  <text x="25" y="64" font-size="13">Ⅰ 反形而上学的予備考察（本書の核心）　Ⅱ 先入見について</text>
+  <text x="25" y="86" font-size="13">Ⅲ アヴェナリウスおよび他の研究者との関係</text>
+  <rect x="10" y="130" width="800" height="190" rx="10" fill="var(--c3s)" stroke="var(--c3)"/>
+  <text x="25" y="158" font-size="16" font-weight="600" style="fill:var(--c3)">第二部　感覚の分析（Ⅳ〜ⅩⅢ）</text>
+  <text x="25" y="184" font-size="13" font-weight="600">方法</text>
+  <text x="80" y="184" font-size="13">Ⅳ 感覚の研究のための主要な観点　Ⅴ 物理学と生物学。因果性と目的論</text>
+  <text x="25" y="208" font-size="13" font-weight="600">空間</text>
+  <text x="80" y="208" font-size="13">Ⅵ 目の空間感覚　Ⅶ 空間感覚のさらなる研究（最大の章）</text>
+  <text x="80" y="228" font-size="13">Ⅸ 空間についての生物学的・目的論的考察</text>
+  <text x="25" y="252" font-size="13" font-weight="600">心</text>
+  <text x="80" y="252" font-size="13">Ⅷ 意志　Ⅹ 視覚感覚の相互関係と他の心的要素との関係　ⅩⅠ 感覚・記憶・連合</text>
+  <text x="25" y="276" font-size="13" font-weight="600">時と音</text>
+  <text x="80" y="276" font-size="13">ⅩⅡ 時間感覚　ⅩⅢ 音の感覚</text>
+  <text x="25" y="302" font-size="12" class="mut">自分自身の観察・実験と多くの図をもとに、目・耳・平衡感覚・時間を一つずつ調べる</text>
+  <rect x="10" y="340" width="800" height="80" rx="10" fill="var(--c2s)" stroke="var(--c2)"/>
+  <text x="25" y="368" font-size="16" font-weight="600" style="fill:var(--c2)">第三部　物理学への帰結（ⅩⅣ〜ⅩⅤ）＋補遺</text>
+  <text x="25" y="394" font-size="13">ⅩⅣ 以上の研究が物理学の把握に及ぼす影響　ⅩⅤ ここで述べた見解の受容</text>
+  <path class="ln" d="M410,112 L410,127" marker-end="url(#ar)"/>
+  <path class="ln" d="M410,322 L410,337" marker-end="url(#ar)"/>
+</svg>
+<figcaption>図2　全15章の見取り図（部の区分は本解説によるもの）</figcaption>
+</figure>
+
+<div class="point"><b>読み方のヒント：</b>まず第Ⅰ章（30頁ほど）を読めば、本の考え方はほぼつかめます。次に、興味のある感覚の章（目なら第Ⅵ章、音なら第ⅩⅢ章、時間なら第ⅩⅡ章）を一つ選び、最後に第ⅩⅣ章で物理学への帰結を読むのがおすすめです。第Ⅶ章と第ⅩⅢ章は専門的で長いので、後回しにしてかまいません。</div>
+
+<!-- 4 -->
+<h2 id="s4"><span class="n">4</span>要素の図式 ABC・KLM・αβγ（第Ⅰ章）</h2>
+<p>マッハは要素を三つのグループに分けて記号で呼びます。どれも同じ種類の要素ですが、注目する依存関係が違います。</p>
+
+<figure>
+<svg viewBox="0 0 820 330" role="img" aria-label="ABC, KLM, αβγの図式">
+  <rect x="20" y="40" width="230" height="110" rx="10" fill="var(--c1s)" stroke="var(--c1)"/>
+  <text x="135" y="78" text-anchor="middle" font-size="22" font-weight="600" style="fill:var(--c1)">A B C …</text>
+  <text x="135" y="105" text-anchor="middle" font-size="13">身体の外の要素</text>
+  <text x="135" y="125" text-anchor="middle" font-size="12" class="mut">机の色・形・硬さ、空の青…</text>
+  <rect x="295" y="40" width="230" height="110" rx="10" fill="var(--c3s)" stroke="var(--c3)"/>
+  <text x="410" y="78" text-anchor="middle" font-size="22" font-weight="600" style="fill:var(--c3)">K L M …</text>
+  <text x="410" y="105" text-anchor="middle" font-size="13">自分の身体の要素</text>
+  <text x="410" y="125" text-anchor="middle" font-size="12" class="mut">目・手・神経系の状態…</text>
+  <rect x="570" y="40" width="230" height="110" rx="10" fill="var(--c4s)" stroke="var(--c4)"/>
+  <text x="685" y="78" text-anchor="middle" font-size="22" font-weight="600" style="fill:var(--c4)">α β γ …</text>
+  <text x="685" y="105" text-anchor="middle" font-size="13">意志・記憶・感情など</text>
+  <text x="685" y="125" text-anchor="middle" font-size="12" class="mut">心の内側の要素</text>
+  <path d="M252,95 L291,95" style="stroke:var(--c3);stroke-width:2;fill:none" marker-end="url(#ar)"/>
+  <path d="M291,105 L254,105" style="stroke:var(--c3);stroke-width:2;fill:none" marker-end="url(#ar)"/>
+  <path d="M527,95 L566,95" style="stroke:var(--c4);stroke-width:2;fill:none" marker-end="url(#ar)"/>
+  <path d="M566,105 L529,105" style="stroke:var(--c4);stroke-width:2;fill:none" marker-end="url(#ar)"/>
+  <path d="M135,152 C135,205 410,205 410,152" style="stroke:var(--c2);stroke-dasharray:5 4;stroke-width:1.6;fill:none"/>
+  <rect x="20" y="215" width="380" height="100" rx="10" class="bx"/>
+  <text x="35" y="243" font-size="14" font-weight="600" style="fill:var(--c1)">物理学的に調べる</text>
+  <text x="35" y="267" font-size="13">A B C どうしの依存関係を調べる。</text>
+  <text x="35" y="289" font-size="13">例：熱すると金属が伸びる。</text>
+  <rect x="420" y="215" width="380" height="100" rx="10" class="bx"/>
+  <text x="435" y="243" font-size="14" font-weight="600" style="fill:var(--c4)">心理学的・生理学的に調べる</text>
+  <text x="435" y="267" font-size="13">A B C が K L M（身体）にどう依存するかを調べる。</text>
+  <text x="435" y="289" font-size="13">例：同じ立方体も、近いと大きく遠いと小さく見える。</text>
+</svg>
+<figcaption>図3　要素の三つのグループと二つの研究の向き（第Ⅰ章の図式による）</figcaption>
+</figure>
+
+<div class="quote">厳密に言えば、A B C … はつねに K L M … によって共に規定されている。立方体は、近くにあれば大きく、遠くにあれば小さく、右目では左目とは違って見え、ときには二重に見え、目を閉じればまったく見えない。<span class="src">第Ⅰ章より</span></div>
+
+<div class="tw"><table>
+<tr><th>同じ「緑」という要素</th><th>物理学者の見方</th><th>心理学者・生理学者の見方</th></tr>
+<tr><td>注目する関係</td><td>緑が光源・物体の表面など、他の外の要素にどう依存するか</td><td>緑が目の網膜や神経の状態にどう依存するか</td></tr>
+<tr><td>そのときの呼び名</td><td>物理的な性質（色、光の波長）</td><td>感覚</td></tr>
+<tr><td>結論</td><td colspan="2">「緑」そのものは同じ。物理的か心理的かは、要素の種類ではなく、研究の向きの違いにすぎない。</td></tr>
+</table></div>
+
+<!-- 5 -->
+<h2 id="s5"><span class="n">5</span>物とは何か、自我とは何か（第Ⅰ章）</h2>
+<h3>物は要素の「まとまり」</h3>
+<p>机は、茶色・四角い形・硬さ・冷たさ……といった要素がいつもいっしょに現れる、比較的安定したまとまりです。いつもいっしょなので一つの名前（「机」）をつけ、変わらない芯（実体）があるかのように考えます。これは記憶と言葉を節約するための「経済」だ、とマッハは言います。</p>
+
+<figure>
+<svg viewBox="0 0 820 250" role="img" aria-label="物体は要素の複合体">
+  <g font-size="13" text-anchor="middle">
+    <circle cx="140" cy="70" r="42" fill="var(--c2s)" stroke="var(--c2)"/><text x="140" y="75">茶色</text>
+    <circle cx="240" cy="55" r="42" fill="var(--c1s)" stroke="var(--c1)"/><text x="240" y="60">四角い形</text>
+    <circle cx="90" cy="160" r="42" fill="var(--c3s)" stroke="var(--c3)"/><text x="90" y="165">硬さ</text>
+    <circle cx="200" cy="170" r="42" fill="var(--c4s)" stroke="var(--c4)"/><text x="200" y="175">冷たさ</text>
+    <circle cx="295" cy="140" r="42" fill="var(--c5s)" stroke="var(--c5)"/><text x="295" y="145">叩いた音</text>
+  </g>
+  <ellipse cx="195" cy="115" rx="175" ry="110" style="fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:6 4"/>
+  <path class="ln" d="M375,115 L455,115" marker-end="url(#ar)"/>
+  <rect x="460" y="60" width="340" height="110" rx="10" class="bx"/>
+  <text x="630" y="95" text-anchor="middle" font-size="18" font-weight="600" style="fill:var(--accent)">「机」という名前</text>
+  <text x="630" y="122" text-anchor="middle" font-size="13">いつもいっしょに現れるまとまりに</text>
+  <text x="630" y="142" text-anchor="middle" font-size="13">一つの名前をつけて記憶を節約する</text>
+  <text x="410" y="240" text-anchor="middle" font-size="12" class="mut">要素の向こうに見えない「物自体」を想定する必要はない（第Ⅰ・Ⅱ章）</text>
+</svg>
+<figcaption>図4　物体は要素の比較的安定した複合体</figcaption>
+</figure>
+
+<h3>「自我は救いえない」</h3>
+<p>自我（わたし）も同じです。自分の身体と結びついた記憶・気分・感情のまとまりが、ゆっくりとしか変わらないので、変わらない「わたし」があるように感じられます。しかし子どもの頃の自分と今の自分は、記憶の鎖でつながっているだけで、別人と言えるほど違います。夢のなかでは自我はぼやけたり二重になったりもします。</p>
+
+<div class="quote">自我は救いえない（Das Ich ist unrettbar）。<span class="src">第Ⅰ章。永遠に続く実体としての自我は守りきれない、という意味</span></div>
+
+<div class="tw"><table>
+<tr><th></th><th>ふつうの考え</th><th>マッハの考え</th></tr>
+<tr><td>自我とは</td><td>変わらない一つの実体（魂）</td><td>記憶・気分・感情などの、比較的持続する要素のまとまり</td></tr>
+<tr><td>境界</td><td>はっきりしている（皮膚の内と外）</td><td>はっきりしない。動かせる。広げれば全世界を含みうる</td></tr>
+<tr><td>持続性</td><td>絶対的</td><td>相対的。変化がゆっくりなので持続して見えるだけ</td></tr>
+<tr><td>死について</td><td>自我が消滅する恐ろしい出来事</td><td>大切な内容は他の人々のなかで生き続ける。自我への執着を和らげる</td></tr>
+</table></div>
+
+<p>マッハは、この見方がかえって人を楽にすると言います。自我への執着が薄れれば、他人の自我を軽んじることも少なくなり、研究者や芸術家の仕事は、個人を超えた共同の生のなかで生き続けるからです。</p>
+
+<!-- 6 -->
+<h2 id="s6"><span class="n">6</span>左目から見た自画像（第Ⅰ章の図1）</h2>
+<p>『感覚の分析』で最も有名な図は、マッハが寝椅子に横たわり、自分の<b>左目から見えるもの</b>をそのまま描いたスケッチです。眉の弓、鼻の側面、ひげ、伸ばした脚、そして部屋の窓や本棚が、一つの視野のなかに描かれています。</p>
+
+<figure>
+<svg viewBox="0 0 820 340" role="img" aria-label="左目から見た視野の模式図">
+  <path d="M60,170 C60,60 300,20 470,40 C650,60 760,120 760,190 C760,270 600,320 420,320 C220,320 60,280 60,170 Z" class="bx"/>
+  <path d="M70,150 C140,70 330,40 470,50" style="stroke:var(--c2);stroke-width:10;fill:none;opacity:.55"/>
+  <text x="230" y="70" font-size="13" style="fill:var(--c2)">眉の弓</text>
+  <path d="M600,60 C560,140 560,220 610,300 L760,300 L760,60 Z" style="fill:var(--c2s);stroke:var(--c2)"/>
+  <text x="680" y="185" text-anchor="middle" font-size="13" style="fill:var(--c2)">鼻</text>
+  <path d="M200,290 L470,215 L520,230 L250,315 Z" style="fill:var(--c1s);stroke:var(--c1)"/>
+  <text x="350" y="275" text-anchor="middle" font-size="13" style="fill:var(--c1)">自分の脚</text>
+  <rect x="140" y="105" width="110" height="80" style="fill:var(--c3s);stroke:var(--c3)"/>
+  <text x="195" y="150" text-anchor="middle" font-size="13" style="fill:var(--c3)">窓</text>
+  <rect x="300" y="95" width="160" height="90" style="fill:var(--c4s);stroke:var(--c4)"/>
+  <text x="380" y="145" text-anchor="middle" font-size="13" style="fill:var(--c4)">本棚・部屋</text>
+  <text x="410" y="335" text-anchor="middle" font-size="12" class="mut">（模式図。原図はマッハ自身のスケッチ。対訳の第Ⅰ章で図版の位置を示している）</text>
+</svg>
+<figcaption>図5　「左目から見た自画像」の模式図</figcaption>
+</figure>
+
+<p>この図が言いたいことは、視野のなかで「自分の身体」と「外の世界」が同じ一つの面に並んでいる、ということです。鼻や脚（K L M）も、窓や本棚（A B C）も、見えるという点では同じ種類の要素です。違うのは、目を動かしたり脚を動かしたりしたときに、それぞれがどう変わるかという<b>依存関係</b>だけです。</p>
+
+<!-- 7 -->
+<h2 id="s7"><span class="n">7</span>先入見を取り除く（第Ⅱ・Ⅲ章）</h2>
+<p>第Ⅱ章は、物理学で正しい問いを心理学にそのまま持ちこむと、ありもしない問題が生まれる、と警告します。有名な例が「網膜の像は逆さなのに、なぜ世界は正立して見えるのか」という問いです。</p>
+
+<div class="tw"><table>
+<tr><th>問い</th><th>物理学の問いとして</th><th>心理学の問いとして</th></tr>
+<tr><td>上にある点が、網膜ではなぜ下に像を結ぶのか</td><td>正当。レンズの光学で答えられる</td><td>—</td></tr>
+<tr><td>逆さの網膜像なのに、なぜ正立して見えるのか</td><td>—</td><td>意味のない問い。網膜の各部位の光の感覚には、はじめから空間感覚が結びついており、網膜の下側に対応する場所を我々は「上」と呼ぶのである</td></tr>
+</table></div>
+
+<p>第Ⅲ章では、同じような考えに独立にたどり着いた人々との関係が述べられます。</p>
+<div class="tw"><table>
+<tr><th>人物</th><th>マッハとの関係</th></tr>
+<tr><td>ヒューム</td><td>出発点は本質的に同じ（自我を知覚の束とみる）</td></tr>
+<tr><td>R. アヴェナリウス</td><td>「経験批判論」。独立に近い考えに到達した</td></tr>
+<tr><td>W. シュッペ（内在哲学）</td><td>きわめて近い。『認識と誤謬』を献呈した相手</td></tr>
+<tr><td>スピノザ</td><td>接点を挙げるならここから始めなければならない、とマッハ自身が言う</td></tr>
+<tr><td>コント（実証主義）</td><td>心理学的事実を物理学的事実と同等に重要な認識源泉とみる点で、マッハは離れる</td></tr>
+</table></div>
+
+<!-- 8 -->
+<h2 id="s8"><span class="n">8</span>「原因」から「関数」へ（第Ⅴ・ⅩⅣ・ⅩⅤ章）</h2>
+<p>マッハは、「AがBを引き起こす」という<b>原因と結果</b>の考えを、数学の<b>関数</b>の考えで置き換えようとします。自然のなかでは、ある要素が変わると別の要素がそれに応じて変わる、という相互の依存関係があるだけで、一方的に「押し出す力」のような原因があるわけではない、というのです。</p>
+
+<figure>
+<svg viewBox="0 0 820 240" role="img" aria-label="原因と関数の比較">
+  <rect x="20" y="20" width="370" height="200" rx="10" fill="var(--c5s)" stroke="var(--c5)"/>
+  <text x="205" y="50" text-anchor="middle" font-size="16" font-weight="600" style="fill:var(--c5)">古い考え：原因と結果</text>
+  <circle cx="110" cy="120" r="36" class="bx"/><text x="110" y="125" text-anchor="middle" font-size="14">原因</text>
+  <circle cx="300" cy="120" r="36" class="bx"/><text x="300" y="125" text-anchor="middle" font-size="14">結果</text>
+  <path d="M148,120 L260,120" style="stroke:var(--c5);stroke-width:3;fill:none" marker-end="url(#ar)"/>
+  <text x="205" y="185" text-anchor="middle" font-size="12">一方向に「引き起こす」何かを想定する</text>
+  <rect x="430" y="20" width="370" height="200" rx="10" fill="var(--c1s)" stroke="var(--c1)"/>
+  <text x="615" y="50" text-anchor="middle" font-size="16" font-weight="600" style="fill:var(--c1)">マッハ：関数的な依存関係</text>
+  <circle cx="520" cy="120" r="36" class="bx"/><text x="520" y="125" text-anchor="middle" font-size="14">p（圧力）</text>
+  <circle cx="710" cy="120" r="36" class="bx"/><text x="710" y="125" text-anchor="middle" font-size="14">v（体積）</text>
+  <path d="M558,112 L668,112" style="stroke:var(--c1);stroke-width:2;fill:none" marker-end="url(#ar)"/>
+  <path d="M672,128 L562,128" style="stroke:var(--c1);stroke-width:2;fill:none" marker-end="url(#ar)"/>
+  <text x="615" y="185" text-anchor="middle" font-size="12">pv＝一定：互いに依存し合う関係を記述するだけ</text>
+</svg>
+<figcaption>図6　「原因」の考えから「関数」の考えへ</figcaption>
+</figure>
+
+<div class="quote">私は明確に要素の関数的関係について語っている。それによってミルの「（感覚の）可能性」は不要になっただけでなく、はるかに堅固なもの——数学的な関数概念——に置き換えられたのである。<span class="src">第ⅩⅤ章より</span></div>
+
+<p>第Ⅴ章では、生物学で使われる「目的」の考え（目的論）も取り上げます。夜蛾の幼虫がなぜ外に開く弁のついた繭を紡ぐのか、その原因は分からなくても、「自己保存の目的にかなう」と考えれば理解の手がかりになる。因果的な説明がまだ不完全な領域では、目的論的な考察を導きの糸として使ってよい、とマッハは言います。</p>
+
+<!-- 9 -->
+<h2 id="s9"><span class="n">9</span>空間の感覚（第Ⅵ・Ⅶ・Ⅸ章）</h2>
+<h3>幾何学で同じでも、見た目は違う（第Ⅵ章）</h3>
+<p>正方形を45度回すと、幾何学的にはまったく同じ（合同な）図形なのに、私たちには「ひし形」というまったく別の形に見えます。また、左右対称の図形はすぐに「似ている」と感じますが、上下対称の図形はそれほど似て見えません。これは、私たちの身体が左右対称にできていることと関係しています。</p>
+
+<figure>
+<svg viewBox="0 0 820 230" role="img" aria-label="正方形とひし形、左右対称と上下対称">
+  <rect x="50" y="55" width="90" height="90" style="fill:var(--c1s);stroke:var(--c1);stroke-width:2"/>
+  <rect x="215" y="55" width="90" height="90" transform="rotate(45 260 100)" style="fill:var(--c1s);stroke:var(--c1);stroke-width:2"/>
+  <text x="95" y="185" text-anchor="middle" font-size="13">正方形</text>
+  <text x="260" y="185" text-anchor="middle" font-size="13">「ひし形」に見える</text>
+  <text x="178" y="215" text-anchor="middle" font-size="12" class="mut">幾何学的には合同</text>
+  <line x1="410" y1="20" x2="410" y2="210" style="stroke:var(--border)"/>
+  <path d="M470,60 L520,60 L540,120 L470,140 Z" style="fill:var(--c3s);stroke:var(--c3);stroke-width:2"/>
+  <path d="M630,60 L580,60 L560,120 L630,140 Z" style="fill:var(--c3s);stroke:var(--c3);stroke-width:2"/>
+  <line x1="550" y1="40" x2="550" y2="160" style="stroke:var(--muted);stroke-dasharray:4 3"/>
+  <text x="550" y="185" text-anchor="middle" font-size="13">左右対称</text><text x="550" y="205" text-anchor="middle" font-size="12" class="mut">すぐ似ていると感じる</text>
+  <path d="M690,40 L740,40 L760,80 L690,92 Z" style="fill:var(--c5s);stroke:var(--c5);stroke-width:2"/>
+  <path d="M690,150 L740,150 L760,110 L690,98 Z" style="fill:var(--c5s);stroke:var(--c5);stroke-width:2"/>
+  <text x="725" y="185" text-anchor="middle" font-size="13">上下対称</text><text x="725" y="205" text-anchor="middle" font-size="12" class="mut">似て見えにくい</text>
+</svg>
+<figcaption>図7　生理学的な空間は幾何学の空間と違う（第Ⅵ章の例による）</figcaption>
+</figure>
+
+<h3>動きとめまいの感覚（第Ⅶ章）</h3>
+<p>マッハは回転する椅子や装置を自分でつくり、身体を回転させる実験をしました。回転が一定の速さで続くと回転の感覚は消え、止まると逆向きに回っているように感じます。この感覚は内耳の<b>迷路（半規管）</b>から生まれ、無意識の眼の動きも引き起こします。本文ではブロイアーの観察も引かれています。マッハは、同じ頃のブロイアー、クラム・ブラウンと並んで、半規管が回転の加速を感じる器官だという理論を唱えた一人として知られます。</p>
+
+<figure>
+<svg viewBox="0 0 820 220" role="img" aria-label="回転の速さと回転感覚のずれ">
+  <line x1="60" y1="170" x2="790" y2="170" class="ln"/>
+  <line x1="60" y1="30" x2="60" y2="200" class="ln"/>
+  <text x="790" y="190" text-anchor="end" font-size="12" class="mut">時間 →</text>
+  <path d="M60,170 L160,70 L520,70 L620,170 L790,170" style="stroke:var(--c1);stroke-width:3;fill:none"/>
+  <path d="M60,170 L160,70 C260,90 380,160 520,168 L620,200 C680,190 740,175 790,171" style="stroke:var(--c5);stroke-width:3;fill:none;stroke-dasharray:7 5"/>
+  <text x="330" y="60" text-anchor="middle" font-size="13" style="fill:var(--c1)">実際の回転の速さ</text>
+  <text x="380" y="140" font-size="13" style="fill:var(--c5)">回転の感覚（だんだん消える）</text>
+  <text x="625" y="215" font-size="12" style="fill:var(--c5)">止めると逆回転の感覚</text>
+  <text x="110" y="200" text-anchor="middle" font-size="11" class="mut">加速</text>
+  <text x="340" y="190" text-anchor="middle" font-size="11" class="mut">一定の速さ</text>
+  <text x="570" y="190" text-anchor="middle" font-size="11" class="mut">減速</text>
+</svg>
+<figcaption>図8　感じられるのは回転そのものではなく、回転の加速（模式図）</figcaption>
+</figure>
+
+<h3>生理学的空間と幾何学的空間（第Ⅸ章）</h3>
+<div class="tw"><table>
+<tr><th></th><th><span class="tag t5">生理学的空間</span></th><th><span class="tag t1">幾何学的空間</span></th></tr>
+<tr><td>何に依存するか</td><td>要素 A B C が身体 K L M にどう依存するか</td><td>物体どうし（A B C 相互）の比較</td></tr>
+<tr><td>方向</td><td>上下・前後・左右が感覚として違う</td><td>どの方向も同等</td></tr>
+<tr><td>由来</td><td>生き延びるための適応の産物</td><td>物体どうしを比べ、重ね、測る経験から生じる</td></tr>
+<tr><td>鏡像</td><td>左右の手のような鏡像どうしは、生理学的にはほぼ同じに見える</td><td>合同にできないので等価ではない</td></tr>
+<tr><td>カントの逆説</td><td colspan="2">左右の手が合同にできないというカントの逆説は、生理学的な等価と幾何学的・物理学的な等価を十分に分けなかったことから生じる、とマッハは言う。</td></tr>
+</table></div>
+
+<!-- 10 -->
+<h2 id="s10"><span class="n">10</span>色・明るさ・記憶・時間・音（第Ⅷ・Ⅹ〜ⅩⅢ章）</h2>
+<div class="cards">
+  <div class="card"><h4><span class="tag t4">Ⅷ</span> 意志</h4>意志を特別な心の力とは考えない。反射運動から出発し、経験で変えられた反射の働きとして、有機的・物理的に説明できるはずだとする。</div>
+  <div class="card"><h4><span class="tag t3">Ⅹ</span> 視覚感覚の関係</h4>明るさの差は奥行きの感じを生み、立体感を助ける。明るさの変化のしかたと、見える面の膨らみとが対応する（明暗の境界が強調されて見える現象の研究にもつながる）。幻像（ファンタスマ）も論じる。</div>
+  <div class="card"><h4><span class="tag t3">ⅩⅠ</span> 感覚・記憶・連合</h4>記憶と連合がなければ、感覚はまとまりのないモザイクにすぎない。色のついた丸いものの眺めも、果実の匂いや味の記憶で補われてはじめて関心を引く。</div>
+  <div class="card"><h4><span class="tag t2">ⅩⅡ</span> 時間感覚</h4>時間感覚は他のすべての感覚に付き添い、切り離せない。音の連なりが違っても同じリズムはすぐに分かる。だから特別な固有の時間感覚がある、とマッハは考える。</div>
+  <div class="card"><h4><span class="tag t2">ⅩⅢ</span> 音の感覚</h4>音の高さ・音程・協和と不協和。協和をうなりがないことだけで説明するヘルムホルツの説への異論を検討し、音の感覚の分析を試みる。</div>
+</div>
+
+<div class="tw"><table>
+<tr><th>感覚</th><th>マッハの主な問い</th><th>現代とのつながり</th></tr>
+<tr><td>視覚（形）</td><td>なぜ正方形とひし形は違って見えるのか</td><td>知覚心理学、ゲシュタルト心理学</td></tr>
+<tr><td>視覚（明るさ）</td><td>明るさの境界はなぜ強調されて見えるのか</td><td>「マッハ・バンド」（側抑制）</td></tr>
+<tr><td>平衡感覚</td><td>回転や加速はどこで感じられるのか</td><td>前庭感覚の生理学（半規管・耳石器）</td></tr>
+<tr><td>時間</td><td>リズムはどう感じられるのか</td><td>時間知覚の心理学</td></tr>
+<tr><td>聴覚</td><td>音程や協和は何によって感じられるのか</td><td>音響心理学、音楽心理学</td></tr>
+</table></div>
+
+<!-- 11 -->
+<h2 id="s11"><span class="n">11</span>物理学はどう変わるか（第Ⅳ・ⅩⅣ章）</h2>
+<p>最後にマッハは、以上の感覚の研究が物理学に何をもたらすかを考えます。最初の収穫は、「心的なものと物理的なもののあいだに裂け目はなく、内も外もない」という洞察です。そこから物理学の見方がいくつも変わります。</p>
+
+<figure>
+<svg viewBox="0 0 820 250" role="img" aria-label="連続性の原理と十分な分化の原理">
+  <rect x="20" y="30" width="370" height="190" rx="10" fill="var(--c1s)" stroke="var(--c1)"/>
+  <text x="205" y="60" text-anchor="middle" font-size="16" font-weight="600" style="fill:var(--c1)">連続性の原理</text>
+  <text x="40" y="95" font-size="13">A と B をいっしょに考える習慣ができると、</text>
+  <text x="40" y="117" font-size="13">少し違う場面でもその習慣を保とうとする。</text>
+  <text x="40" y="150" font-size="13">例：光の屈折を知ると、別の物質でも</text>
+  <text x="40" y="172" font-size="13">屈折を予想する。</text>
+  <text x="40" y="205" font-size="12" class="mut">＝節約（経済）への努力</text>
+  <rect x="430" y="30" width="370" height="190" rx="10" fill="var(--c2s)" stroke="var(--c2)"/>
+  <text x="615" y="60" text-anchor="middle" font-size="16" font-weight="600" style="fill:var(--c2)">十分な分化の原理</text>
+  <text x="450" y="95" font-size="13">事実が習慣とずれれば、そのずれが</text>
+  <text x="450" y="117" font-size="13">「乱れ」として感じられ、考えが修正される。</text>
+  <text x="450" y="150" font-size="13">例：物質ごとに屈折率が違うことを</text>
+  <text x="450" y="172" font-size="13">見分けるようになる。</text>
+  <text x="450" y="205" font-size="12" class="mut">＝事実の多様さに応える</text>
+  <path class="ln" d="M392,125 L426,125" marker-end="url(#ar)"/>
+  <path class="ln" d="M426,140 L394,140" marker-end="url(#ar)"/>
+</svg>
+<figcaption>図9　思考が事実に適応していく二つの原理（第Ⅳ・ⅩⅣ章）</figcaption>
+</figure>
+
+<div class="tw"><table>
+<tr><th>テーマ</th><th>マッハの主張（第ⅩⅣ章）</th></tr>
+<tr><td>思考の経済</td><td>概念や法則は、多くの事実を少ない手間で表すための経済的な手段である</td></tr>
+<tr><td>説明とは</td><td>「説明」は、弱い（なじみの薄い）思考を、強い（よく検証された）思考で支えたいという欲求。だから力学的説明（圧力と衝突）が権威をもつ</td></tr>
+<tr><td>原子・分子</td><td>物理学・化学の経験を経済的に記号化した、限られた目的のための思考の道具。代数の記号を実在と取り違えないように、原子も実在と取り違えてはならない</td></tr>
+<tr><td>物質</td><td>感性的要素の比較的安定した複合体のための、自然に生じた思考記号</td></tr>
+<tr><td>記述</td><td>経験は、感覚の数値特性を空間・時間座標の関数として方程式で表すことで記述できる</td></tr>
+<tr><td>「われわれは知らないだろう」</td><td>デュ・ボワ＝レーモンの「イグノラビムス」に対し、原理的に解けないと思われる問題は、問いの立て方が誤っているのだと答える</td></tr>
+</table></div>
+
+<!-- 12 -->
+<h2 id="s12"><span class="n">12</span>受容と影響（第ⅩⅤ章と、その後）</h2>
+<p>第ⅩⅤ章でマッハは、本書への反応に答えています。個々の観察は認められたが、根本の見方はたいてい退けられた、と率直に書いています。そして、自分の立場はバークリー的な観念論でも唯我論でもないこと、世界を「感覚の総和」と言っているのではなく、要素の<b>関数的関係</b>を語っているのだということを、くり返し説明します。</p>
+
+<figure>
+<svg viewBox="0 0 820 260" role="img" aria-label="マッハの影響関係">
+  <circle cx="410" cy="130" r="64" fill="var(--card)" stroke="var(--accent)" stroke-width="2"/>
+  <text x="410" y="124" text-anchor="middle" font-size="15" font-weight="600" style="fill:var(--accent)">『感覚の分析』</text>
+  <text x="410" y="146" text-anchor="middle" font-size="12">1886–1922</text>
+  <g font-size="13" text-anchor="middle">
+    <rect x="20" y="20" width="230" height="56" rx="8" fill="var(--c1s)" stroke="var(--c1)"/><text x="135" y="44">アインシュタイン</text><text x="135" y="64" font-size="11">観察できるものから概念を組み立てる</text>
+    <rect x="20" y="102" width="230" height="56" rx="8" fill="var(--c1s)" stroke="var(--c1)"/><text x="135" y="126">ウィーン学団・論理実証主義</text><text x="135" y="146" font-size="11">「エルンスト・マッハ協会」（1928）</text>
+    <rect x="20" y="184" width="230" height="56" rx="8" fill="var(--c1s)" stroke="var(--c1)"/><text x="135" y="208">ジェイムズ、ラッセル</text><text x="135" y="228" font-size="11">中立一元論</text>
+    <rect x="570" y="20" width="230" height="56" rx="8" fill="var(--c3s)" stroke="var(--c3)"/><text x="685" y="44">ゲシュタルト心理学</text><text x="685" y="64" font-size="11">エーレンフェルスの「形態質」</text>
+    <rect x="570" y="102" width="230" height="56" rx="8" fill="var(--c5s)" stroke="var(--c5)"/><text x="685" y="126">プランク</text><text x="685" y="146" font-size="11">物理学的世界像をめぐる論争（1908–10）</text>
+    <rect x="570" y="184" width="230" height="56" rx="8" fill="var(--c5s)" stroke="var(--c5)"/><text x="685" y="208">レーニン</text><text x="685" y="228" font-size="11">『唯物論と経験批判論』（1909）</text>
+  </g>
+  <g class="ln"><path d="M346,112 L252,50"/><path d="M346,130 L252,130"/><path d="M346,150 L252,210"/><path d="M474,112 L568,50"/><path d="M474,130 L568,130"/><path d="M474,150 L568,210"/></g>
+  <text x="135" y="12" text-anchor="middle" font-size="11" class="mut">影響</text>
+  <text x="685" y="12" text-anchor="middle" font-size="11" class="mut">心理学への影響（上）・批判（下二つ）</text>
+</svg>
+<figcaption>図10　『感覚の分析』をめぐる人々（本書の外の科学史・思想史による）</figcaption>
+</figure>
+
+<div class="tw"><table>
+<tr><th>評価される点</th><th>批判される点</th></tr>
+<tr><td>物理学と心理学を一つの枠組みで考えようとした</td><td>「要素」の身分があいまい。感覚なのか、中立的な何かなのか</td></tr>
+<tr><td>自分の身体で行った感覚の実験と観察が豊か</td><td>他人の心や、誰も見ていないときの世界を説明しにくい（唯我論・観念論ではないかという批判）</td></tr>
+<tr><td>実体や物自体といった余計な想定を取り除いた</td><td>原子のような観察できない対象に懐疑的すぎた（原子の実在はまもなく確かめられた）</td></tr>
+<tr><td>概念や法則を「経済的な道具」とみる見方を広めた</td><td>科学の目的を記述に限るのは狭すぎる、という批判（プランクなど）</td></tr>
+</table></div>
+
+<!-- 13 -->
+<h2 id="s13"><span class="n">13</span>『認識と誤謬』との関係</h2>
+<p>マッハは『感覚の分析』（1886年）のほぼ20年後に<a href="https://keikataoka1969-boop.github.io/vidhiviveka/erkenntnis/nyumon.html">『認識と誤謬』（1905年）</a>を書きました。本文中でも互いに参照し合っています。二冊は姉妹編として読めます。</p>
+<div class="tw"><table>
+<tr><th></th><th>『感覚の分析』</th><th>『認識と誤謬』</th></tr>
+<tr><td>問い</td><td>世界と自我は何からできているか</td><td>研究者はどのように新しい知識を得るか</td></tr>
+<tr><td>中心</td><td>要素一元論、感覚の生理学</td><td>研究の心理学（思考実験・仮説・類比など）</td></tr>
+<tr><td>空間・時間</td><td>目・耳・平衡感覚の実験（第Ⅵ・Ⅶ・Ⅸ・ⅩⅡ章）</td><td>生理学的空間・時間から幾何学・物理学へ（第ⅩⅩ〜ⅩⅩⅣ章）</td></tr>
+<tr><td>共通する考え</td><td colspan="2">思考の経済、思考の事実への適応、物と自我は要素の複合体、原因より関数</td></tr>
+</table></div>
+
+<!-- 14 -->
+<h2 id="s14"><span class="n">14</span>用語集・章一覧・考えてみよう</h2>
+<div class="tw"><table>
+<tr><th>訳語</th><th>原語</th><th>意味</th></tr>
+<tr><td>要素</td><td>Element</td><td>色・音・熱さ・圧力・空間・時間など、それ以上分けられない最も単純な構成要素</td></tr>
+<tr><td>感覚</td><td>Empfindung</td><td>要素が身体（K L M）への依存において考えられたときの呼び名</td></tr>
+<tr><td>複合体</td><td>Komplex</td><td>要素の比較的安定した結びつき。物体や自我</td></tr>
+<tr><td>関数的依存関係</td><td>funktionale Abhängigkeit</td><td>ある要素が変わると別の要素がどう変わるかという関係</td></tr>
+<tr><td>形而上学</td><td>Metaphysik</td><td>経験を超えたもの（物自体・実体など）についての議論。マッハはこれを科学から除こうとする</td></tr>
+<tr><td>物自体</td><td>Ding an sich</td><td>感覚の背後にあると想定される、知りえない物の本体（カント）</td></tr>
+<tr><td>思考の経済</td><td>Denkökonomie</td><td>最小の手間で最大の事実を表そうとする傾向</td></tr>
+<tr><td>連続性の原理</td><td>Prinzip der Kontinuität</td><td>一度身につけた考えの結びつきを、できるだけ保とうとする傾向</td></tr>
+<tr><td>目的論</td><td>Teleologie</td><td>目的から理解しようとする見方。生物学で導きの糸になる</td></tr>
+<tr><td>迷路（半規管）</td><td>Labyrinth</td><td>内耳にある平衡感覚の器官。回転の加速を感じる</td></tr>
+</table></div>
+
+<div class="tw"><table>
+<tr><th>章</th><th>題名</th><th>一言で</th><th>おすすめ</th></tr>
+<tr><td class="c"><a href="vorwort.html">序文</a></td><td>序文</td><td>「自然な世界観を最も単純な基礎に戻すだけ」</td><td class="c">★</td></tr>
+<tr><td class="c"><a href="kapitel_01.html">Ⅰ</a></td><td>反形而上学的予備考察</td><td>要素一元論、ABC・KLM・αβγ、自我は救いえない</td><td class="c">★★★</td></tr>
+<tr><td class="c"><a href="kapitel_02.html">Ⅱ</a></td><td>先入見について</td><td>逆さの網膜像の問題など、持ちこまれた偏見</td><td class="c">★★</td></tr>
+<tr><td class="c"><a href="kapitel_03.html">Ⅲ</a></td><td>アヴェナリウスおよび他の研究者との関係</td><td>ヒューム、アヴェナリウス、シュッペ、ジェイムズ</td><td class="c">★</td></tr>
+<tr><td class="c"><a href="kapitel_04.html">Ⅳ</a></td><td>感覚の研究のための主要な観点</td><td>連続性と十分な分化の原理</td><td class="c">★★</td></tr>
+<tr><td class="c"><a href="kapitel_05.html">Ⅴ</a></td><td>物理学と生物学。因果性と目的論</td><td>目的論を導きの糸として使う</td><td class="c">★★</td></tr>
+<tr><td class="c"><a href="kapitel_06.html">Ⅵ</a></td><td>目の空間感覚</td><td>正方形とひし形、対称の感覚</td><td class="c">★★★</td></tr>
+<tr><td class="c"><a href="kapitel_07.html">Ⅶ</a></td><td>空間感覚のさらなる研究</td><td>眼球運動、回転とめまい、半規管（最大の章）</td><td class="c">★</td></tr>
+<tr><td class="c"><a href="kapitel_08.html">Ⅷ</a></td><td>意志</td><td>意志を特別な力としない</td><td class="c">★</td></tr>
+<tr><td class="c"><a href="kapitel_09.html">Ⅸ</a></td><td>空間についての生物学的・目的論的考察</td><td>空間感覚は適応の産物。幾何学との違い</td><td class="c">★★</td></tr>
+<tr><td class="c"><a href="kapitel_10.html">Ⅹ</a></td><td>視覚感覚の相互関係</td><td>明るさと奥行き、幻像</td><td class="c">★</td></tr>
+<tr><td class="c"><a href="kapitel_11.html">ⅩⅠ</a></td><td>感覚・記憶・連合</td><td>記憶なしの感覚は理解されない</td><td class="c">★★</td></tr>
+<tr><td class="c"><a href="kapitel_12.html">ⅩⅡ</a></td><td>時間感覚</td><td>リズムと時間の感覚</td><td class="c">★★</td></tr>
+<tr><td class="c"><a href="kapitel_13.html">ⅩⅢ</a></td><td>音の感覚</td><td>音程・協和（専門的）</td><td class="c">★</td></tr>
+<tr><td class="c"><a href="kapitel_14.html">ⅩⅣ</a></td><td>物理学の把握に及ぼす影響</td><td>思考の経済、説明、原子、記述</td><td class="c">★★★</td></tr>
+<tr><td class="c"><a href="kapitel_15.html">ⅩⅤ</a></td><td>ここで述べた見解の受容</td><td>批判への応答。唯我論ではない</td><td class="c">★★</td></tr>
+<tr><td class="c"><a href="zusaetze.html">補遺</a></td><td>補遺</td><td>日常の世界観は捨てなくてよい</td><td class="c">★</td></tr>
+</table></div>
+
+<h3>考えてみよう（レポートのヒント）</h3>
+<dl class="qa">
+  <dt>Q1. あなたの「自我」は、10年前のあなたと同じですか。</dt>
+  <dd>第Ⅰ章の「自我は救いえない」を読み、何が同じで何が変わったかを、記憶・身体・習慣に分けて考えてみましょう。</dd>
+  <dt>Q2. 自分の目から見えるものを描いてみましょう。</dt>
+  <dd>マッハの「左目から見た自画像」のように、視野の端に見える鼻や手も描くと、「自分」と「外」の境界がどこにあるか考えるきっかけになります。</dd>
+  <dt>Q3. 「原因」という言葉を使わずに、身近な現象を説明できますか。</dt>
+  <dd>「ボールが落ちる」「お湯が冷める」などを、関数的な依存関係として言いかえてみましょう。</dd>
+  <dt>Q4. 「誰も見ていない森で木が倒れたら音はするか」に、マッハならどう答えるでしょうか。</dt>
+  <dd>第ⅩⅤ章の「世界は感覚の単なる総和ではない」「要素の関数的関係」という答え方を手がかりにしてみましょう。</dd>
+</dl>
+
+<footer>
+  <p><a href="index.html">独日対訳（序文・全15章・補遺）の目次へ</a>　｜　<a href="https://keikataoka1969-boop.github.io/vidhiviveka/erkenntnis/nyumon.html">『認識と誤謬』入門へ</a></p>
+  <p>本解説は、マッハ『感覚の分析』第9版（1922年）の独日対訳にもとづく入門案内です。要約は本解説者によるもので、引用は対訳の訳文によります。受容史の一部（図10など）は本書の外の思想史によります。</p>
+</footer>
+</div>
+</body>
+</html>
