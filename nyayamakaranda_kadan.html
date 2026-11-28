@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nyāyamakaranda 読解ガイド</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Noto+Serif:ital,wght@0,400;0,600;1,400&family=Shippori+Mincho+B1:wght@600;800&display=swap">
+<style>
+/* Layout: 一本の読書カラム。左に章番号の柱、図表は本文幅いっぱい。pūrvapakṣa=黄土、siddhānta=藍で全図表を通して色分け */
+:root{
+  --bg:#f5f6f2; --surface:#ffffff; --ink:#1f2a2e; --muted:#5b6866; --rule:#d5dbd6;
+  --sid:#2f4a8a; --sid-soft:#e3e8f4; --pp:#9a6a12; --pp-soft:#f5ead2; --neu:#4f6b63; --neu-soft:#e3ece8;
+  --f-head:"Shippori Mincho B1","Noto Serif JP",serif;
+  --f-body:"Noto Sans JP","Hiragino Sans",system-ui,sans-serif;
+  --f-term:"Noto Serif","Georgia",serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#141a1c; --surface:#1b2326; --ink:#e3e8e6; --muted:#9aa8a5; --rule:#33403f;
+  --sid:#9db3ec; --sid-soft:#22304e; --pp:#e2b45c; --pp-soft:#3a2f17; --neu:#9cc3b6; --neu-soft:#1f3330; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#141a1c; --surface:#1b2326; --ink:#e3e8e6; --muted:#9aa8a5; --rule:#33403f;
+  --sid:#9db3ec; --sid-soft:#22304e; --pp:#e2b45c; --pp-soft:#3a2f17; --neu:#9cc3b6; --neu-soft:#1f3330; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--f-body);font-size:16px;line-height:1.85}
+.wrap{max-width:860px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:2.5rem 5rem}
+h1,h2,h3,h4{font-family:var(--f-head);text-wrap:balance;line-height:1.4;margin:0}
+h1{font-size:clamp(1.9rem,5vw,2.8rem);font-weight:800}
+h2{font-size:1.6rem;font-weight:800;margin-top:3.5rem;padding-top:1.2rem;border-top:2px solid var(--ink)}
+h3{font-size:1.25rem;font-weight:600;margin-top:2.4rem}
+h4{font-size:1.05rem;font-weight:600;margin-top:1.6rem}
+p{margin:.8rem 0}
+i,.t{font-family:var(--f-term);font-style:italic}
+.eyebrow{font-size:.78rem;letter-spacing:.12em;color:var(--muted);text-transform:uppercase}
+.lede{color:var(--muted);max-width:60ch}
+.meta{display:flex;flex-wrap:wrap;gap:.4rem 1.4rem;font-size:.88rem;color:var(--muted);margin-top:1rem}
+.pg{font-family:var(--f-term);font-size:.8em;color:var(--muted);white-space:nowrap;font-variant-numeric:tabular-nums}
+.legend{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;font-size:.85rem;margin:1.2rem 0}
+.chip{display:inline-flex;align-items:center;gap:.4rem}
+.chip::before{content:"";width:.85rem;height:.85rem;border-radius:3px;background:var(--c);display:inline-block}
+.pp{--c:var(--pp)} .sid{--c:var(--sid)} .neu{--c:var(--neu)}
+nav.toc{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1rem 1.2rem;margin-top:1.6rem}
+nav.toc ol{margin:.3rem 0 0;padding-left:1.4rem}
+nav.toc a{color:var(--sid)}
+.tbl{overflow-x:auto;margin:1rem 0}
+table{border-collapse:collapse;width:100%;font-size:.92rem;background:var(--surface)}
+th,td{border:1px solid var(--rule);padding:.5rem .65rem;vertical-align:top;text-align:left}
+th{background:var(--neu-soft);font-weight:600}
+td.num{font-variant-numeric:tabular-nums;white-space:nowrap;font-family:var(--f-term)}
+tr.part td{background:var(--sid-soft);font-weight:600}
+.outline{background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1rem 1rem 1rem .4rem;overflow-x:auto}
+.outline ul{list-style:none;margin:0;padding-left:1.15rem;border-left:1px dashed var(--rule)}
+.outline>ul{border-left:0;padding-left:.6rem}
+.outline li{margin:.25rem 0;line-height:1.6}
+.outline .k{font-family:var(--f-term);font-weight:600;color:var(--muted);margin-right:.35rem}
+.tag{font-size:.72rem;padding:.05rem .4rem;border-radius:3px;margin-right:.35rem;white-space:nowrap;vertical-align:1px}
+.tag.p{background:var(--pp-soft);color:var(--pp)} .tag.s{background:var(--sid-soft);color:var(--sid)} .tag.n{background:var(--neu-soft);color:var(--neu)}
+figure{margin:1.4rem 0;background:var(--surface);border:1px solid var(--rule);border-radius:6px;padding:1rem}
+figure .svg{overflow-x:auto}
+figure svg{display:block;max-width:100%;height:auto;margin:0 auto}
+figcaption{font-size:.85rem;color:var(--muted);margin-top:.6rem}
+svg text{font-family:var(--f-body);fill:var(--ink)}
+svg .term{font-family:var(--f-term);font-style:italic}
+svg .box-s{fill:var(--sid-soft);stroke:var(--sid)} svg .box-p{fill:var(--pp-soft);stroke:var(--pp)} svg .box-n{fill:var(--neu-soft);stroke:var(--neu)}
+svg .ln{stroke:var(--muted);fill:none;stroke-width:1.4} svg .ln-s{stroke:var(--sid);fill:none;stroke-width:1.6} svg .ln-p{stroke:var(--pp);fill:none;stroke-width:1.6}
+svg .x{stroke:var(--pp);stroke-width:2.2}
+svg .mut{fill:var(--muted)} svg .s{fill:var(--sid)} svg .p{fill:var(--pp)}
+blockquote{margin:1rem 0;padding:.6rem 1rem;border-left:3px solid var(--neu);background:var(--neu-soft);font-size:.95rem}
+blockquote .t{display:block;margin-bottom:.2rem}
+.pair{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1rem 0}
+.pair>div{min-width:0;background:var(--surface);border:1px solid var(--rule);border-top:3px solid var(--c);border-radius:4px;padding:.7rem 1rem}
+.pair h4{margin:0 0 .3rem}
+@media (max-width:640px){.pair{grid-template-columns:1fr}}
+.note{font-size:.85rem;color:var(--muted)}
+a{color:var(--sid)}
+a:focus-visible{outline:2px solid var(--sid);outline-offset:2px}
+</style>
+<style>.back{font-size:.85rem;margin:0 0 1.2rem}</style>
+</head>
+<body>
+
+
+<div class="wrap">
+<p class="back"><a href="index.html">← 原典研究の書庫</a></p>
+<header>
+  <p class="eyebrow">Ānandabodha · Nyāyamakaranda · ṭīkā by Citsukha</p>
+  <h1>Nyāyamakaranda 読解ガイド</h1>
+  <p class="lede">アーナンダボーダ（Ānandabodha）の不二一元論（Advaita Vedānta）の論書『Nyāyamakaranda』を、目次 → 科段 → 解説の順にたどります。チトスカ（Citsukha）の注釈が示す論の区切りを手がかりにしています。</p>
+  <div class="meta"><span>底本：Chowkhamba Sanskrit Series, Benares 1907</span><span>頁番号は原書の頁</span><span>術語はIAST</span></div>
+  <div class="legend">
+    <span class="chip pp">pūrvapakṣa（反対者の主張）</span>
+    <span class="chip sid">siddhānta（著者の結論）</span>
+    <span class="chip neu">中立・補説</span>
+  </div>
+  <nav class="toc" aria-label="このページの構成">
+    <strong>このページの構成</strong>
+    <ol>
+      <li><a href="#mokuji">簡潔な目次</a></li>
+      <li><a href="#kadan">詳細な科段</a></li>
+      <li><a href="#kaisetsu">解説（科段順）</a></li>
+      <li><a href="#furoku">付録：Pramāṇamālā と Nyāyadīpāvalī</a></li>
+    </ol>
+  </nav>
+</header>
+
+<!-- ============ 1. 目次 ============ -->
+<h2 id="mokuji">1. 簡潔な目次</h2>
+<p>原書の柱（奇数頁上部の見出し）と、注釈者チトスカの区切りの語（<i>utthāpayati</i>「反論を立てる」、<i>upasaṃharati</i>「結論する」など）から再構成した章立てです。</p>
+<div class="tbl"><table>
+<thead><tr><th>番号</th><th>章題（原書の柱）</th><th>内容</th><th>原書頁</th></tr></thead>
+<tbody>
+<tr><td class="num">0</td><td>—</td><td>帰敬偈・撰述の趣旨</td><td class="num">1–3</td></tr>
+<tr class="part"><td colspan="4">1　差別（bheda）の否定</td></tr>
+<tr><td class="num">1.1</td><td><i>kṣetrajñabhedanirāsa</i></td><td>個我（身体ごとの我）は多数であるという説の否定</td><td class="num">4–30</td></tr>
+<tr><td class="num">1.2</td><td><i>jñeyabhedanirāsa</i></td><td>対象どうしの差別が知覚などで確かめられるという説の否定</td><td class="num">31–56</td></tr>
+<tr class="part"><td colspan="4">2　錯誤論（khyātivāda）</td></tr>
+<tr><td class="num">2.1</td><td><i>akhyātivāda</i></td><td>プラバーカラ派の「無把握説」の提示と論破</td><td class="num">57–81</td></tr>
+<tr><td class="num">2.2</td><td><i>anyathākhyātivāda</i></td><td>ニヤーヤ派の「別様把握説」の提示と論破</td><td class="num">81–99</td></tr>
+<tr><td class="num">2.3</td><td><i>ātmakhyāti</i></td><td>瑜伽行派の「識の形が外に現れる」説の論破</td><td class="num">99–102</td></tr>
+<tr><td class="num">2.4</td><td><i>asatkhyāti</i></td><td>中観派の「非存在が現れる」説の論破</td><td class="num">102–110</td></tr>
+<tr><td class="num">2.5</td><td><i>anirvacanīyakhyāti</i></td><td>自説「言表不可能なものの現れ」の確立</td><td class="num">111–128</td></tr>
+<tr class="part"><td colspan="4">3　世界の虚妄性と自己の自照性</td></tr>
+<tr><td class="num">3.1</td><td><i>prapañcamithyātvānumāne bādhakavidhūnana</i></td><td>「世界は虚妄」という推論に向けられた難点の除去</td><td class="num">128–130</td></tr>
+<tr><td class="num">3.2</td><td><i>ātmanaḥ svaprakāśatva</i>・<i>saṃvidrūpatva</i></td><td>自己は自ら輝き、自己は意識そのものである</td><td class="num">130–145</td></tr>
+<tr class="part"><td colspan="4">4　認識手段と聖典</td></tr>
+<tr><td class="num">4.1</td><td><i>pratyakṣādīnāṃ sāṃvyavahārikaprāmāṇya</i></td><td>知覚などは世俗的に有効、不二の聖典は真実に有効</td><td class="num">145–155</td></tr>
+<tr><td class="num">4.2</td><td><i>siddhe saṅgatigrahasattvasthāpana</i></td><td>語は「既成のもの」についても意味を学べる</td><td class="num">156–179</td></tr>
+<tr><td class="num">4.3</td><td><i>pravartakatvanirdhāraṇa</i></td><td>人を行為へ促すものは何か（命令の意味の論）</td><td class="num">180–257</td></tr>
+<tr><td class="num">4.4</td><td><i>akhaṇḍārthatvasamarthana</i></td><td>「satyaṃ jñānam…」「tat tvam asi」は分割されない一つの意味を表す</td><td class="num">257–270</td></tr>
+<tr class="part"><td colspan="4">5　解脱</td></tr>
+<tr><td class="num">5.1</td><td><i>mokṣanirūpaṇa</i></td><td>諸学派の解脱説の論破と自説「無明の消滅」</td><td class="num">270–308</td></tr>
+<tr><td class="num">5.2</td><td><i>avidyāśrayatvālocana</i></td><td>無明の拠り所は個我かブラフマンか</td><td class="num">309–336</td></tr>
+<tr><td class="num">5.3</td><td><i>mokṣasya jñānaikaphalatva</i></td><td>解脱は知だけによる（知と行為の併修説の否定）</td><td class="num">336–352</td></tr>
+<tr><td class="num">5.4</td><td><i>dvaitaparāsana</i>・<i>anirvācyatāpratipādana</i>・<i>advaitasarvasva</i></td><td>無明の消滅そのものの存在身分と全体の結び</td><td class="num">352–360</td></tr>
+</tbody></table></div>
+<p class="note">同じ巻に、アーナンダボーダの小品 <i>Pramāṇamālā</i>（24頁）と <i>Nyāyadīpāvalī</i>（15頁）が付いています（<a href="#furoku">付録</a>）。番号は次の科段と共通です。</p>
+
+<figure>
+<div class="svg"><svg viewBox="0 0 760 250" role="img" aria-labelledby="f1t">
+<title id="f1t">全体の論の流れ</title>
+<defs><marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0,0 L10,5 L0,10 z" class="mut"/></marker></defs>
+<rect x="10" y="20" width="135" height="90" rx="6" class="box-p"/>
+<text x="77" y="48" text-anchor="middle" font-weight="700">第1部</text><text x="77" y="70" text-anchor="middle" font-size="13">差別は証明</text><text x="77" y="88" text-anchor="middle" font-size="13">されない</text>
+<rect x="160" y="20" width="135" height="90" rx="6" class="box-n"/>
+<text x="227" y="48" text-anchor="middle" font-weight="700">第2部</text><text x="227" y="70" text-anchor="middle" font-size="13">差別の現れは</text><text x="227" y="88" text-anchor="middle" font-size="13">錯誤（無明）</text>
+<rect x="310" y="20" width="135" height="90" rx="6" class="box-n"/>
+<text x="377" y="48" text-anchor="middle" font-weight="700">第3部</text><text x="377" y="70" text-anchor="middle" font-size="13">世界は虚妄、</text><text x="377" y="88" text-anchor="middle" font-size="13">自己は自照</text>
+<rect x="460" y="20" width="135" height="90" rx="6" class="box-n"/>
+<text x="527" y="48" text-anchor="middle" font-weight="700">第4部</text><text x="527" y="70" text-anchor="middle" font-size="13">聖典が不二を</text><text x="527" y="88" text-anchor="middle" font-size="13">真に知らせる</text>
+<rect x="610" y="20" width="140" height="90" rx="6" class="box-s"/>
+<text x="680" y="48" text-anchor="middle" font-weight="700">第5部</text><text x="680" y="70" text-anchor="middle" font-size="13">知による無明の</text><text x="680" y="88" text-anchor="middle" font-size="13">消滅＝解脱</text>
+<path d="M145 65 H158" class="ln" marker-end="url(#ar)"/><path d="M295 65 H308" class="ln" marker-end="url(#ar)"/><path d="M445 65 H458" class="ln" marker-end="url(#ar)"/><path d="M595 65 H608" class="ln" marker-end="url(#ar)"/>
+<text x="77" y="140" text-anchor="middle" font-size="12" class="mut">pp. 4–56</text><text x="227" y="140" text-anchor="middle" font-size="12" class="mut">pp. 57–128</text><text x="377" y="140" text-anchor="middle" font-size="12" class="mut">pp. 128–145</text><text x="527" y="140" text-anchor="middle" font-size="12" class="mut">pp. 145–270</text><text x="680" y="140" text-anchor="middle" font-size="12" class="mut">pp. 270–360</text>
+<text x="380" y="185" text-anchor="middle" font-size="13">障害を除く（1・2）→ 世界の身分を定める（3）→ 知る手段を確保する（4）→ 目的を示す（5）</text>
+<text x="380" y="215" text-anchor="middle" font-size="12" class="mut">帰敬偈の「<tspan class="term">śuddhasukhādvitīyavapus</tspan>（清浄・安楽・無二の身体）」を論証する順序</text>
+</svg></div>
+<figcaption>図1　全体の論の流れ。差別の論証を崩し、差別の現れを無明の錯誤として説明し、そのうえで聖典による不二の知と解脱へ進みます。</figcaption>
+</figure>
+
+<!-- ============ 2. 科段 ============ -->
+<h2 id="kadan">2. 詳細な科段</h2>
+<p>番号は階層を表します（例：1 第1部 → 1.1 章 → 1.1.5 節 → 1.1.5.1 項）。0 は序です。各項目の右の数字は原書の頁です。印は <span class="tag p">前主張</span> 反対者の主張、<span class="tag s">答破</span> 著者の反論・自説、<span class="tag n">補</span> 補説・結び、を表します。</p>
+
+<div class="outline">
+<ul>
+<li><span class="k">0</span>帰敬偈と撰述の趣旨 <span class="pg">1–3</span>
+  <ul>
+  <li><span class="k">0.1</span><span class="tag n">補</span>帰敬偈「<i>yadbhāsā nikhilaṃ vibhāti…</i>」：ブラフマンは自ら輝き、世界を輝かせる <span class="pg">1–2</span></li>
+  <li><span class="k">0.2</span><span class="tag n">補</span>「先人の諸論書の花々から、正しい論理の蜜（<i>nyāyamakaranda</i>）を集める」 <span class="pg">3</span></li>
+  </ul></li>
+
+<li><span class="k">1</span>差別（<i>bheda</i>）の否定 <span class="pg">4–56</span>
+ <ul>
+ <li><span class="k">1.1</span>個我の多数性（<i>kṣetrajñabheda</i>）の否定 <span class="pg">4–30</span>
+  <ul>
+  <li><span class="k">1.1.1</span><span class="tag p">前主張</span>苦楽の振り分け（<i>vyavasthā</i>）は我が多数でなければ説明できない。「<i>nānātmāno vyavasthātaḥ</i>」 <span class="pg">4–5</span></li>
+  <li><span class="k">1.1.2</span><span class="tag p">前主張</span>我の多数性を示す三つの推論 <span class="pg">5–6</span></li>
+  <li><span class="k">1.1.3</span><span class="tag p">前主張</span>一我を説く聖典は別の意味（最高我が一つ、など）にとるべき <span class="pg">7–8</span></li>
+  <li><span class="k">1.1.4</span><span class="tag s">答破</span>振り分けとは何か：差別を前提にすれば循環（<i>parasparāśraya</i>） <span class="pg">9</span></li>
+  <li><span class="k">1.1.5</span><span class="tag s">答破</span>苦と楽は相容れないか：三種の対立（共存不可・殺すもの殺されるもの・有と無）のどれも拠り所の別を示さない <span class="pg">10–18</span>
+    <ul>
+    <li><span class="k">1.1.5.1</span><span class="tag s">答破</span>一身の中で同時に熱さと冷たさを感じる例 <span class="pg">10–12</span></li>
+    <li><span class="k">1.1.5.2</span><span class="tag s">答破</span>ジャイナ教の「我は身体と同じ大きさ」説の否定 <span class="pg">13–14</span></li>
+    <li><span class="k">1.1.5.3</span><span class="tag s">答破</span>「我が一なら他人の苦も感じるはず」への答：結びつけるもの（<i>anusandhātṛ</i>）であるブラフマンは享受者ではない <span class="pg">14–17</span></li>
+    <li><span class="k">1.1.5.4</span><span class="tag s">答破</span>サーンキヤ頌「<i>jananamaraṇakaraṇānāṃ pratiniyamāt…</i>」も同様に退く <span class="pg">18</span></li>
+    </ul></li>
+  <li><span class="k">1.1.6</span><span class="tag s">答破</span>三つの推論の誤り（不成・不定・既成の証明） <span class="pg">19–24</span></li>
+  <li><span class="k">1.1.7</span><span class="tag s">答破</span>聖典の証言：「<i>eko devaḥ sarvabhūteṣu</i>」、水に映る月の喩え <span class="pg">24–26</span></li>
+  <li><span class="k">1.1.8</span><span class="tag s">答破</span>空間の喩え：耳の孔ごとの空間が「聴覚」になるように、身体ごとに限られて「個我」となる <span class="pg">26–27</span></li>
+  <li><span class="k">1.1.9</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>プラバーカラ派「他人は推論の対象で、自分とは別」 <span class="pg">27–29</span></li>
+  <li><span class="k">1.1.10</span><span class="tag s">答破</span>逆の推論「すべての生きた身体は同一の我に統べられる」 <span class="pg">29–30</span></li>
+  </ul></li>
+ <li><span class="k">1.2</span>対象の差別（<i>jñeyabheda</i>）の否定 <span class="pg">31–56</span>
+  <ul>
+  <li><span class="k">1.2.1</span><span class="tag n">補</span>接続偈「<i>pratyakṣe 'pi pratikṣetraṃ bhedaḥ…</i>」 <span class="pg">31</span></li>
+  <li><span class="k">1.2.2</span><span class="tag p">前主張</span>差別は知覚で確かめられるので、不二の聖典は比喩的意味にとるべき <span class="pg">31</span></li>
+  <li><span class="k">1.2.3</span><span class="tag s">答破</span>知覚は差別をどう捉えるか：①差別だけ、②物→差別、③差別→物、④同時、のどれも成り立たない <span class="pg">32–38</span></li>
+  <li><span class="k">1.2.4</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>仏教（Dharmakīrti 系）：無分別知覚が「これは青」「青以外ではない」の二つの分別を生む <span class="pg">39–44</span></li>
+  <li><span class="k">1.2.5</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>差別は物の本性（<i>svarūpabheda</i>）だとする説 <span class="pg">44–49</span></li>
+  <li><span class="k">1.2.6</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>差別は物とは別の属性（<i>dharmabheda</i>）だとする説（無限遡及は根を損なわないので害がない、という主張を含む） <span class="pg">49–53</span></li>
+  <li><span class="k">1.2.7</span><span class="tag s">答破</span>推論・聖典・要請（<i>arthāpatti</i>）・類比・無の知覚も差別を捉えない <span class="pg">54–55</span></li>
+  <li><span class="k">1.2.8</span><span class="tag s">答破</span>推論「差別の知は認識手段に基づかない。夢の差別の知のように」 <span class="pg">55–56</span></li>
+  <li><span class="k">1.2.9</span><span class="tag n">補</span>結偈：すべての差別は無明とその習気が作る錯覚にすぎない <span class="pg">56</span></li>
+  </ul></li>
+ </ul></li>
+
+<li><span class="k">2</span>錯誤論（<i>khyātivāda</i>）：「これは銀だ」（<i>idaṃ rajatam</i>） <span class="pg">57–128</span>
+ <ul>
+ <li><span class="k">2.1</span><i>akhyāti</i>（プラバーカラ派） <span class="pg">57–81</span>
+  <ul>
+  <li><span class="k">2.1.1</span><span class="tag p">前主張</span>錯誤とは、知覚「これ」と想起「銀」の区別を把握しないこと（<i>vivekāgraha</i>）。全ての認識は正しい <span class="pg">57–65</span></li>
+  <li><span class="k">2.1.2</span><span class="tag s">答破</span>「把握しないこと」は人を銀の方へ動かせない。動かすのは「これが銀だ」という肯定的な把握 <span class="pg">65–73</span></li>
+  <li><span class="k">2.1.3</span><span class="tag s">答破</span>想起とする根拠の否定、否定知「これは銀ではない」が打ち消すものの説明、推論の誤り <span class="pg">73–81</span></li>
+  </ul></li>
+ <li><span class="k">2.2</span><i>anyathākhyāti</i>（ニヤーヤ派） <span class="pg">81–99</span>
+  <ul>
+  <li><span class="k">2.2.1</span><span class="tag p">前主張</span>目の病などのせいで、貝殻そのものが別のもの（銀）の姿で現れる。銀は他所に実在する <span class="pg">81–84</span></li>
+  <li><span class="k">2.2.2</span><span class="tag s">答破</span>無を「別の有」とする説、「同一性」が現れる説、「他所に実在」の根拠をそれぞれ否定 <span class="pg">84–99</span></li>
+  </ul></li>
+ <li><span class="k">2.3</span><i>ātmakhyāti</i>（瑜伽行派） <span class="pg">99–102</span>
+  <ul>
+  <li><span class="k">2.3.1</span><span class="tag p">前主張</span>銀は識の形が外にあるかのように現れたもの <span class="pg">99–100</span></li>
+  <li><span class="k">2.3.2</span><span class="tag s">答破</span>否定知は銀そのものを打ち消している。「外に現れる」こと自体が偽りなら、内にあるとする意味がない <span class="pg">100–102</span></li>
+  </ul></li>
+ <li><span class="k">2.4</span><i>asatkhyāti</i>（中観派） <span class="pg">102–110</span>
+  <ul>
+  <li><span class="k">2.4.1</span><span class="tag p">前主張</span>識は非存在（<i>asat</i>）を照らす力をもつ。その力が「無明」と呼ばれる <span class="pg">102–104</span></li>
+  <li><span class="k">2.4.2</span><span class="tag s">答破</span>非存在はその力の対象（<i>śakya</i>）になれない。存在する識と非存在との間に関係がない <span class="pg">104–110</span></li>
+  </ul></li>
+ <li><span class="k">2.5</span><i>anirvacanīyakhyāti</i>（自説） <span class="pg">111–128</span>
+  <ul>
+  <li><span class="k">2.5.1</span><span class="tag n">補</span>師（<i>ācāryāḥ</i>）の説：錯誤とは言表不可能なものの現れ <span class="pg">111</span></li>
+  <li><span class="k">2.5.2</span><span class="tag p">前主張</span>五つの難点：定義できない（片目と両目の喩え）・認識手段がない・二つの経験と矛盾・常住か無常か・無明は質料因になれない <span class="pg">111–115</span></li>
+  <li><span class="k">2.5.3</span><span class="tag s">答破</span>定義：有とも無とも異なり、しかもその両方と異なること <span class="pg">115</span></li>
+  <li><span class="k">2.5.4</span><span class="tag s">答破</span>認識手段は要請（<i>arthāpatti</i>）：無なら現れず、有なら打ち消されない <span class="pg">116–117</span></li>
+  <li><span class="k">2.5.5</span><span class="tag s">答破</span>経験との矛盾はない。存在性の三層説も紹介 <span class="pg">117–121</span></li>
+  <li><span class="k">2.5.6</span><span class="tag s">答破</span>無明は無始で言表不可能な質料因。推論による論証 <span class="pg">122–124</span></li>
+  <li><span class="k">2.5.7</span><span class="tag s">答破</span>別の定義：打ち消し（<i>bādha</i>）の対象であること。打ち消しの意味 <span class="pg">124–126</span></li>
+  <li><span class="k">2.5.8</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>ジャイナ教：銀は「有かつ無」 <span class="pg">126–127</span></li>
+  <li><span class="k">2.5.9</span><span class="tag n">補</span>結論と偈：世界も無明の展開である（<i>jāḍya</i>・<i>dṛśyatva</i> の二つの証因） <span class="pg">127–128</span></li>
+  </ul></li>
+ </ul></li>
+
+<li><span class="k">3</span>世界の虚妄性と自己の自照性 <span class="pg">128–145</span>
+ <ul>
+ <li><span class="k">3.1</span>世界の虚妄性の推論への難点の除去 <span class="pg">128–130</span>
+  <ul>
+  <li><span class="k">3.1.1</span><span class="tag p">前主張</span>推論への三難：主題を捉える知覚に打ち消される・主題が成立しない・自己について不定 <span class="pg">128</span></li>
+  <li><span class="k">3.1.2</span><span class="tag s">答破</span>第一・第二の難を退ける：主題は「世に知られていること」だけで成り立つ <span class="pg">129–130</span></li>
+  </ul></li>
+ <li><span class="k">3.2</span>自己と意識の自照性 <span class="pg">130–145</span>
+  <ul>
+  <li><span class="k">3.2.1</span><span class="tag s">答破</span>自己は他に依らずに輝く（推論と消去法）。意によって知覚されるという説の否定（刀の刃は自らを切らない） <span class="pg">130–131</span></li>
+  <li><span class="k">3.2.2</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>プラバーカラ派：自己は対象知の中で「主体」として現れる <span class="pg">132–135</span></li>
+  <li><span class="k">3.2.3</span><span class="tag s">答破</span>聖典「<i>atrāyaṃ puruṣaḥ svayaṃjyotiḥ</i>」「<i>vijñānam ānandaṃ brahma</i>」 <span class="pg">136–137</span></li>
+  <li><span class="k">3.2.4</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>ニヤーヤ派：知は別の知（<i>anuvyavasāya</i>）によって知られる。これに対し、疑い・無限遡及・時間差・世界が闇になるという難点 <span class="pg">137–142</span></li>
+  <li><span class="k">3.2.5</span><span class="tag s">答破</span>「自分に作用するのは矛盾」への答：灯火（<i>āloka</i>）の喩え <span class="pg">142–143</span></li>
+  <li><span class="k">3.2.6</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>仏教：知は刹那ごとに滅する <span class="pg">143–145</span></li>
+  <li><span class="k">3.2.7</span><span class="tag n">補</span>結論：自己＝意識＝自照。したがって推論は自己について不定にならない <span class="pg">145</span></li>
+  </ul></li>
+ </ul></li>
+
+<li><span class="k">4</span>認識手段と聖典 <span class="pg">145–270</span>
+ <ul>
+ <li><span class="k">4.1</span>知覚などの世俗的有効性 <span class="pg">145–155</span>
+  <ul>
+  <li><span class="k">4.1.1</span><span class="tag s">答破</span>二偈：知覚などは世俗的に、不二の聖典は真実に有効 <span class="pg">145–146</span></li>
+  <li><span class="k">4.1.2</span><span class="tag s">答破</span>偽のものから真の知が生じる例：音の長短（<i>nāga</i> と <i>naga</i>）、映像からの本体の推知 <span class="pg">146–148</span></li>
+  <li><span class="k">4.1.3</span><span class="tag s">答破</span>後のものが強い（<i>paurvāparye pūrvadaurbalyam</i>）。仏典との違い <span class="pg">149–153</span></li>
+  <li><span class="k">4.1.4</span><span class="tag s">答破</span>カタカの実の粉の喩え：聖典の知も、他の汚れを沈めてから自らも沈む <span class="pg">154–155</span></li>
+  </ul></li>
+ <li><span class="k">4.2</span>既成のものについての語義の習得（<i>siddhe saṅgatigraha</i>） <span class="pg">156–179</span>
+  <ul>
+  <li><span class="k">4.2.1</span><span class="tag p">前主張</span>プラバーカラ派：語の意味は長老の言動から学ばれ、すべて「なすべきこと（<i>kārya</i>）」に関係する <span class="pg">156–157</span></li>
+  <li><span class="k">4.2.2</span><span class="tag s">答破</span>「息子が生まれた」（<i>putras te jātaḥ</i>）と聞いて喜ぶ例：既成の事柄についても意味は学べる <span class="pg">158–170</span></li>
+  <li><span class="k">4.2.3</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>ヴェーダーンタ文は「知れ」という命令（<i>bodhavidhi</i>）か：三種の知（言葉による知・瞑想・直証）のどれも命令の対象にならない <span class="pg">161, 171–173</span></li>
+  <li><span class="k">4.2.4</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>自己が歓喜であることは経験と矛盾するか：自己は最高の愛の対象（<i>parapremāspada</i>）なので歓喜である <span class="pg">161–162, 173–179</span></li>
+  </ul></li>
+ <li><span class="k">4.3</span>行為を促すもの（<i>pravartaka</i>）の確定 <span class="pg">180–257</span>
+  <ul>
+  <li><span class="k">4.3.1</span><span class="tag p">前主張</span>候補の列挙：語・語の働き・動詞の意味・結果の手段であることの知・欲求・「なすべきこと」 <span class="pg">180</span></li>
+  <li><span class="k">4.3.2</span><span class="tag p">前主張</span>プラバーカラ派が消去法で「なすべきこと（<i>niyoga</i>）」を残す <span class="pg">181–193</span></li>
+  <li><span class="k">4.3.3</span><span class="tag s">答破</span>著者：促すのは「望むものの手段であること（<i>samīhitasādhanatā</i>）」で、行為によって達成できるという限定が付く。ヴァーチャスパティの言葉を引用 <span class="pg">194–205</span></li>
+  <li><span class="k">4.3.4</span><span class="tag s">答破</span>「これは私のなすべきことだ」という意識は、実は「しようとする欲求（<i>cikīrṣā</i>）」である <span class="pg">206–211</span></li>
+  <li><span class="k">4.3.5</span><span class="tag s">答破</span>ヴェーダの命令は他の手段で知られない「新得力（<i>apūrva</i>）」を表すか：その意味は学びようがない <span class="pg">212–226</span></li>
+  <li><span class="k">4.3.6</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>プラバーカラ派の一派：命令の意味は「行為しないことと相容れないもの」 <span class="pg">226–253</span></li>
+  <li><span class="k">4.3.7</span><span class="tag s">答破</span>三時を離れた命令という説の否定。結論：命令の意味は「求められているものの手段であること（<i>apekṣitopāyatā</i>）」 <span class="pg">254–256</span></li>
+  <li><span class="k">4.3.8</span><span class="tag n">補</span>既成のものについての語義習得の結び <span class="pg">257</span></li>
+  </ul></li>
+ <li><span class="k">4.4</span>分割されない意味（<i>akhaṇḍārtha</i>） <span class="pg">257–270</span>
+  <ul>
+  <li><span class="k">4.4.1</span><span class="tag p">前主張</span>「<i>vijñāna</i>」「<i>ānanda</i>」が同義語なら並べて使えない。別義語なら一つの意味にならない <span class="pg">257–260</span></li>
+  <li><span class="k">4.4.2</span><span class="tag s">答破</span>「最も明るいもの、それが月」の喩え：別々の語が、それぞれ別のものを除きつつ、同じ一つのものを指す <span class="pg">260–264</span></li>
+  <li><span class="k">4.4.3</span><span class="tag n">補</span>ヴァーチャスパティ・ミシュラの説。文法家・ヴァイシェーシカ・ミーマーンサーへの応答 <span class="pg">264–267</span></li>
+  <li><span class="k">4.4.4</span><span class="tag s">答破</span>「この人はあのデーヴァダッタだ」（<i>so 'yaṃ devadattaḥ</i>）と「<i>tat tvam asi</i>」 <span class="pg">268–270</span></li>
+  </ul></li>
+ </ul></li>
+
+<li><span class="k">5</span>解脱 <span class="pg">270–360</span>
+ <ul>
+ <li><span class="k">5.1</span>諸説の論破と自説 <span class="pg">270–308</span>
+  <ul>
+  <li><span class="k">5.1.1</span><span class="tag p">前主張</span>諸説の列挙：中観・瑜伽行・ニヤーヤ・ジャイナ・不滅の身体を得る説・サーンキヤ／ヨーガ・自説 <span class="pg">270–271</span></li>
+  <li><span class="k">5.1.2</span><span class="tag s">答破</span>仏教（相続の断絶）の否定 <span class="pg">272–275</span></li>
+  <li><span class="k">5.1.3</span><span class="tag s">答破</span>ニヤーヤ（特殊な性質の断絶）の否定：熟睡でさえ楽を経験している <span class="pg">276–281</span></li>
+  <li><span class="k">5.1.4</span><span class="tag s">答破</span>ジャイナ（上昇）、不滅の身体を得る説の否定 <span class="pg">281</span></li>
+  <li><span class="k">5.1.5</span><span class="tag s">答破</span>サーンキヤ（精神原理と物質原理の弁別）の否定：踊り子の喩えの批判 <span class="pg">282–288</span></li>
+  <li><span class="k">5.1.6</span><span class="tag s">答破</span>自説：常住無上の楽の顕現＝全ての苦の断絶＝無明の消滅（<i>avidyāstamaya</i>） <span class="pg">288–289</span></li>
+  <li><span class="k">5.1.7</span><span class="tag p">前主張</span>プラバーカラ派の反論：不二はどの認識手段の対象でもない。解脱は法と非法が尽きて身体が断たれること <span class="pg">290–297</span></li>
+  <li><span class="k">5.1.8</span><span class="tag s">答破</span>その反論への逐条の答 <span class="pg">297–306</span></li>
+  <li><span class="k">5.1.9</span><span class="tag s">答破</span>行為（業）を尽くすことで解脱するのは不可能 <span class="pg">307–308</span></li>
+  </ul></li>
+ <li><span class="k">5.2</span>無明の拠り所（<i>avidyāśraya</i>） <span class="pg">309–336</span>
+  <ul>
+  <li><span class="k">5.2.1</span><span class="tag p">前主張</span>「無明は誰のものか」：ブラフマンは純粋な光なので無明をもてない。個我なら循環する（無明が個我を作り、個我が無明をもつ） <span class="pg">309–313</span></li>
+  <li><span class="k">5.2.2</span><span class="tag p">前主張</span>『ブラフマシッディ』の説（無明は個我に依る。種と芽のように無始）も循環を免れない <span class="pg">310–313</span></li>
+  <li><span class="k">5.2.3</span><span class="tag p">前主張</span>一我説への難：束縛と解脱の区別、師と弟子の区別が立たない。ゆえに世界と人の別は実在する <span class="pg">314–318</span></li>
+  <li><span class="k">5.2.4</span><span class="tag s">答破</span>光そのものは無明と対立しない。無明の拠り所はブラフマン <span class="pg">318–325</span></li>
+  <li><span class="k">5.2.5</span><span class="tag s">答破</span>師と弟子の区別は夢のように成り立つ。無明が残る間だけの区別 <span class="pg">325–333</span></li>
+  <li><span class="k">5.2.6</span><span class="tag s">答破</span>「個我は無数なので輪廻は尽きない」という説の否定 <span class="pg">333–335</span></li>
+  <li><span class="k">5.2.7</span><span class="tag n">補</span>結論：「ブラフマン自身が自らの無明によって輪廻し、知によって解脱する」 <span class="pg">336</span></li>
+  </ul></li>
+ <li><span class="k">5.3</span>解脱は知だけによる <span class="pg">336–352</span>
+  <ul>
+  <li><span class="k">5.3.1</span><span class="tag s">答破</span>無明を除くのは真実の直証だけ <span class="pg">336–338</span></li>
+  <li><span class="k">5.3.2</span><span class="tag p">前主張</span>知と行為の併修（<i>samuccaya</i>）説：イーシャー・ウパニシャッド「<i>vidyāṃ cāvidyāṃ ca…</i>」、『ブラフマプラカーシカー』の著者の解釈 <span class="pg">338–349</span></li>
+  <li><span class="k">5.3.3</span><span class="tag s">答破</span>行為は心を浄める間接的な助けにとどまる。「ゆえに知だけが解脱の手段であり、行為はわずかも手段ではない」 <span class="pg">349–352</span></li>
+  </ul></li>
+ <li><span class="k">5.4</span>無明の消滅の存在身分と結び <span class="pg">352–360</span>
+  <ul>
+  <li><span class="k">5.4.1</span><span class="tag p">前主張</span>消滅は自己そのものか（無始の自己が「消滅」とは言えない）、有か（二元になる）、無か（作り出せない） <span class="pg">352–355</span></li>
+  <li><span class="k">5.4.2</span><span class="tag s">答破</span>消滅もまた言表不可能（<i>anirvācya</i>）な第五の種類 <span class="pg">355–357</span></li>
+  <li><span class="k">5.4.3</span><span class="tag p">前主張</span>→<span class="tag s">答破</span>「自己こそ無知の消滅」とする一派の説の吟味 <span class="pg">357–359</span></li>
+  <li><span class="k">5.4.4</span><span class="tag n">補</span>結偈：著者名を織り込んだ奥書 <span class="pg">359–360</span></li>
+  </ul></li>
+ </ul></li>
+</ul>
+</div>
+
+<!-- ============ 3. 解説 ============ -->
+<h2 id="kaisetsu">3. 解説（科段順）</h2>
+
+<h3>0　帰敬偈と書名 <span class="pg">pp. 1–3</span></h3>
+<blockquote><span class="t">yadbhāsā nikhilaṃ vibhāti viṣayo yo na svayaṃ jyotiṣām …<br>tasmai śuddhasukhādvitīyavapuṣe śaśvan namo viṣṇave</span>
+その光によってすべてが輝き、しかも自らは光るものの対象とならない者。清浄・安楽・無二を身体とするヴィシュヌに常に帰命する。</blockquote>
+<p>第一偈には、本書全体の主張がすでに詰め込まれています。チトスカは次のように読み解きます。</p>
+<div class="tbl"><table>
+<thead><tr><th>偈の語句</th><th>チトスカの読み</th><th>対応する本文</th></tr></thead>
+<tbody>
+<tr><td><i>yadbhāsā nikhilaṃ vibhāti</i></td><td>ブラフマンは自ら輝く知（<i>jñānasvabhāva</i>）であり、世界の原因</td><td>3.2（自照性）</td></tr>
+<tr><td><i>viṣayo yo na svayaṃ jyotiṣām</i></td><td>他の光（太陽など）の対象にならない：自照</td><td>3.2</td></tr>
+<tr><td><i>līlāmayān</i></td><td>世界の創造は遊戯であり、目的を必要としない</td><td>—</td></tr>
+<tr><td><i>śuddha</i>・<i>sukha</i></td><td>手段に依らず、程度の差のない楽：歓喜性</td><td>4.2（<i>parapremāspada</i>）</td></tr>
+<tr><td><i>advitīya</i></td><td>同類・異類・自分の中の部分、いずれの区別もない</td><td>1（差別の否定）</td></tr>
+</tbody></table></div>
+<p>第二偈で著者は、自分は先人の諸論書（<i>nibandha</i>）を花として、そこから正しい論理（<i>nyāya</i>）の蜜（<i>makaranda</i>）を集めるのだ、と述べています。書名はここから来ています。</p>
+
+<h3>1.1　個我は多数ではない <span class="pg">pp. 4–30</span></h3>
+<p>反対者（サーンキヤ、ヴァイシェーシカなど）は、「ある人が楽しいとき、別の人は苦しい」という苦楽の振り分け（<i>vyavasthā</i>）を根拠に、我は身体ごとに別だと主張します。ヴァイシェーシカ・スートラの「<i>nānātmāno vyavasthātaḥ</i>」（我は多数である、振り分けのゆえに）がその典拠です。</p>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 270" role="img" aria-labelledby="f2t">
+<title id="f2t">振り分けの論証に対する三つの答え</title>
+<rect x="250" y="12" width="260" height="56" rx="6" class="box-p"/>
+<text x="380" y="36" text-anchor="middle" font-weight="700">前主張</text>
+<text x="380" y="56" text-anchor="middle" font-size="13">苦楽の振り分け → 我は多数</text>
+<path d="M300 68 L130 110" class="ln"/><path d="M380 68 L380 110" class="ln"/><path d="M460 68 L630 110" class="ln"/>
+<rect x="10" y="110" width="240" height="140" rx="6" class="box-s"/>
+<text x="130" y="134" text-anchor="middle" font-weight="700">答①　循環</text>
+<text x="130" y="160" text-anchor="middle" font-size="12.5">「チャイトラは楽、マイトラは苦」</text>
+<text x="130" y="180" text-anchor="middle" font-size="12.5">という振り分け自体が、</text>
+<text x="130" y="200" text-anchor="middle" font-size="12.5">二人が別だという前提に依る</text>
+<text x="130" y="228" text-anchor="middle" font-size="12" class="term">parasparāśraya</text>
+<rect x="260" y="110" width="240" height="140" rx="6" class="box-s"/>
+<text x="380" y="134" text-anchor="middle" font-weight="700">答②　対立しない</text>
+<text x="380" y="160" text-anchor="middle" font-size="12.5">日に焼かれつつ冷水に浸かる人は</text>
+<text x="380" y="180" text-anchor="middle" font-size="12.5">同時に苦と楽を感じる。</text>
+<text x="380" y="200" text-anchor="middle" font-size="12.5">一つの拠り所に両立する</text>
+<text x="380" y="228" text-anchor="middle" font-size="12" class="term">na sahānavasthāna</text>
+<rect x="510" y="110" width="240" height="140" rx="6" class="box-s"/>
+<text x="630" y="134" text-anchor="middle" font-weight="700">答③　限定による区別</text>
+<text x="630" y="160" text-anchor="middle" font-size="12.5">足の痛み・頭の痛みが一人の中で</text>
+<text x="630" y="180" text-anchor="middle" font-size="12.5">分かれるように、身体という</text>
+<text x="630" y="200" text-anchor="middle" font-size="12.5">限定（<tspan class="term">upādhi</tspan>）で分かれるだけ</text>
+<text x="630" y="228" text-anchor="middle" font-size="12" class="term">kālpanika pradeśabheda</text>
+</svg></div>
+<figcaption>図2　振り分けの論証への三つの答え。振り分けは実在する我の多数性を示しません。</figcaption>
+</figure>
+<p>答②で著者は、苦と楽の「対立（<i>virodha</i>）」を三通りに分けて検討しています。</p>
+<div class="tbl"><table>
+<thead><tr><th>対立の種類</th><th>意味</th><th>なぜ拠り所の別を示さないか</th><th>頁</th></tr></thead>
+<tbody>
+<tr><td><i>sahānavasthāna</i></td><td>同じ場所に共存できない</td><td>熱さと冷たさは同時に一つの意識に現れる</td><td class="num">10–12</td></tr>
+<tr><td><i>vadhyaghātakabhāva</i></td><td>一方が他方を滅ぼす</td><td>滅ぼし合うには同じ場所にいなければならない</td><td class="num">18</td></tr>
+<tr><td><i>bhāvābhāvātmatā</i></td><td>有と無の関係</td><td>同じ空に、鳥がいる時といない時がある</td><td class="num">18</td></tr>
+</tbody></table></div>
+<p>最も重い反論は「我が一つなら、チャイトラはマイトラの痛みも自分のものとして感じ、その棘を抜こうとするはずだ」というものです。著者の答えはこうです。</p>
+<ul>
+<li>手の痛みと足の痛みを一人が結びつけて意識するのは、身体という一つの限定の中での話です。身体が違えば、限定された個我どうしは互いの経験を結びつけません。</li>
+<li>すべてを結びつけている本体（<i>anusandhātṛ</i>）はブラフマンです。しかしブラフマンは経験を享受しません。聖典に「<i>anaśnann anyo 'bhicākaśīti</i>」（もう一方は食べずにただ見ている）とあるとおりです。</li>
+</ul>
+<p>反対者の三つの推論は、不成（証因が主題にない）・不定・既成の証明などの論理的な誤りとして退けられます。そのうえで著者は空間（<i>ākāśa</i>）の喩えを出します。耳の孔で区切られた空間がその人の聴覚になるように、一つの意識が身体ごとに区切られて「個我（<i>jīva</i>）」になる、というのです <span class="pg">p. 26</span>。</p>
+
+<h3>1.2　差別は知覚されない <span class="pg">pp. 31–56</span></h3>
+<p>次の反論は「青と黄色が違うことは目で見ればわかる。だから『<i>ekam evādvitīyam</i>』などの聖典は比喩にすぎない」というものです。著者はまず、知覚が差別（<i>bheda</i>）をどのように捉えるのかを問います。</p>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 300" role="img" aria-labelledby="f3t">
+<title id="f3t">知覚による差別の把握の四つの可能性</title>
+<rect x="230" y="10" width="300" height="50" rx="6" class="box-p"/>
+<text x="380" y="40" text-anchor="middle" font-size="14">知覚は「AはBと違う」をどう捉える？</text>
+<path d="M300 60 L95 100" class="ln"/><path d="M350 60 L285 100" class="ln"/><path d="M410 60 L475 100" class="ln"/><path d="M460 60 L665 100" class="ln"/>
+<g font-size="12.5">
+<rect x="10" y="100" width="170" height="70" rx="6" class="box-n"/><text x="95" y="128" text-anchor="middle" font-weight="700">① 差別だけ</text><text x="95" y="150" text-anchor="middle">物を捉えずに</text>
+<rect x="200" y="100" width="170" height="70" rx="6" class="box-n"/><text x="285" y="128" text-anchor="middle" font-weight="700">② 物 → 差別</text><text x="285" y="150" text-anchor="middle">順に捉える</text>
+<rect x="390" y="100" width="170" height="70" rx="6" class="box-n"/><text x="475" y="128" text-anchor="middle" font-weight="700">③ 差別 → 物</text><text x="475" y="150" text-anchor="middle">順に捉える</text>
+<rect x="580" y="100" width="170" height="70" rx="6" class="box-n"/><text x="665" y="128" text-anchor="middle" font-weight="700">④ 同時に</text><text x="665" y="150" text-anchor="middle">両方を一挙に</text>
+</g>
+<g font-size="12">
+<path d="M95 170 V200" class="ln-p"/><path d="M285 170 V200" class="ln-p"/><path d="M475 170 V200" class="ln-p"/><path d="M665 170 V200" class="ln-p"/>
+<rect x="10" y="200" width="170" height="86" rx="6" class="box-p"/><text x="95" y="222" text-anchor="middle">何と何の差別か</text><text x="95" y="240" text-anchor="middle">分からないものは</text><text x="95" y="258" text-anchor="middle">捉えられない</text>
+<rect x="200" y="200" width="360" height="86" rx="6" class="box-p"/><text x="380" y="222" text-anchor="middle">知は二瞬間しか続かず、「まず物、次に差別」</text><text x="380" y="240" text-anchor="middle">と働きを順に重ねる余地がない</text><text x="380" y="262" text-anchor="middle" class="term">kṣaṇabhaṅginyā dhiyo vyāpārakramānupapatti</text>
+<rect x="580" y="200" width="170" height="86" rx="6" class="box-p"/><text x="665" y="222" text-anchor="middle">差別の知は物の知</text><text x="665" y="240" text-anchor="middle">から生じるので、</text><text x="665" y="258" text-anchor="middle">同時には生じない</text>
+</g>
+</svg></div>
+<figcaption>図3　四つの可能性（pp. 32–38）。どれも成り立たないので、知覚は差別を捉えません。</figcaption>
+</figure>
+<p>続いて、差別の本性について三つの学説が順に検討されます。</p>
+<div class="tbl"><table>
+<thead><tr><th>学説</th><th>主張</th><th>著者の批判</th><th>頁</th></tr></thead>
+<tbody>
+<tr><td>仏教（<i>apoha</i> 系）</td><td>無分別の知覚が青を捉えると同時に「青でないもの」を退ける。そこから「これは青」と「これは他ではない」の二つの分別が生じる</td><td>青を捉えることと青以外を退けることは別。後者は推論であって知覚ではない。退けることと関係づけることが互いに依存して循環する</td><td class="num">39–44</td></tr>
+<tr><td><i>svarūpabheda</i></td><td>すべての物は本性として差別そのもの。青を捉えれば青以外との違いも捉えている</td><td>差別が本性なら、どんな物も一つのものとしてまとまらない。原子さえ一つでなくなり、世界は空になる</td><td class="num">44–49</td></tr>
+<tr><td><i>dharmabheda</i>（ニヤーヤ系）</td><td>差別は物とは別の属性。差別の差別…と無限に続いても、根を損なわない遡及は害がない</td><td>差別を認識するには、先にその差別の差別を認識しなければならず、根から損なう遡及（<i>mūlakṣayakarī anavasthā</i>）になる</td><td class="num">49–53</td></tr>
+</tbody></table></div>
+<p>最後に、推論・聖典・要請・類比・無の知覚も、結局はどれも先に差別を把握していることを前提にしているので、差別を確立できないと述べます <span class="pg">pp. 54–55</span>。結論の推論は次のとおりです。</p>
+<div class="tbl"><table>
+<tbody>
+<tr><th>主張</th><td>問題の差別の知は、認識手段に基づかない（<i>vivādapadaṃ bhedasaṃvedanaṃ na pramāṇanibandhanam</i>）</td></tr>
+<tr><th>理由</th><td>その認識手段が確かめられていないから／差別の知であるから</td></tr>
+<tr><th>喩例</th><td>夢の中の差別の現れのように</td></tr>
+</tbody></table></div>
+
+<h3>2　錯誤論（2.1–2.5） <span class="pg">pp. 57–128</span></h3>
+<p>差別が確かめられないのに、なぜ差別が見えるのでしょうか。著者は、それは無明が作る錯誤だと答えます。では錯誤とは何なのか。古典的な例「貝殻（<i>śukti</i>）を見て『これは銀だ』（<i>idaṃ rajatam</i>）と思う」を使って、五つの説を比べます。</p>
+<div class="tbl"><table>
+<thead><tr><th>説</th><th>学派</th><th>「これは銀だ」で起きていること</th><th>著者の主な批判</th><th>頁</th></tr></thead>
+<tbody>
+<tr><td><i>akhyāti</i>（無把握）</td><td>プラバーカラ派</td><td>「これ」の知覚と「銀」の想起の二つがあり、両者の区別を把握していないだけ。誤った知はない</td><td>区別の不把握は人を動かさない。銀を求める人が貝殻へ手を伸ばすのは、「これが銀だ」と結びつけているから</td><td class="num">57–81</td></tr>
+<tr><td><i>anyathākhyāti</i>（別様把握）</td><td>ニヤーヤ派</td><td>目の病などのせいで、貝殻そのものが他所に実在する銀の姿で現れる</td><td>他所の銀がここで直接見える理由がない。否定知「これは銀ではない」が何を否定しているのか説明できない</td><td class="num">81–99</td></tr>
+<tr><td><i>ātmakhyāti</i>（自己把握）</td><td>瑜伽行派</td><td>銀は識の中の形で、それが外にあるかのように現れる</td><td>否定知は銀そのものを打ち消している。外に現れることが偽りなら、内にあると言っても意味がない</td><td class="num">99–102</td></tr>
+<tr><td><i>asatkhyāti</i>（非存在把握）</td><td>中観派</td><td>識が非存在の銀を照らし出す。その力が無明</td><td>非存在は力の対象になれず、存在する識と結びつく関係もない。非存在がありありと見えることもない</td><td class="num">102–110</td></tr>
+<tr><td><i>anirvacanīyakhyāti</i></td><td><strong>自説</strong></td><td>有とも無とも言えない銀が、無明を質料因として生じ、現れる</td><td>—</td><td class="num">111–128</td></tr>
+</tbody></table></div>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 240" role="img" aria-labelledby="f4t">
+<title id="f4t">有・無・言表不可能の関係</title>
+<rect x="20" y="20" width="200" height="120" rx="8" class="box-n"/>
+<text x="120" y="50" text-anchor="middle" font-weight="700" class="term">sat（有）</text>
+<text x="120" y="78" text-anchor="middle" font-size="13">例：自己（<tspan class="term">cidātman</tspan>）</text>
+<text x="120" y="104" text-anchor="middle" font-size="13">打ち消されない</text>
+<rect x="540" y="20" width="200" height="120" rx="8" class="box-n"/>
+<text x="640" y="50" text-anchor="middle" font-weight="700" class="term">asat（無）</text>
+<text x="640" y="78" text-anchor="middle" font-size="13">例：人の角（<tspan class="term">naraviṣāṇa</tspan>）</text>
+<text x="640" y="104" text-anchor="middle" font-size="13">決して現れない</text>
+<rect x="270" y="20" width="220" height="120" rx="8" class="box-s"/>
+<text x="380" y="50" text-anchor="middle" font-weight="700" class="term">anirvacanīya</text>
+<text x="380" y="78" text-anchor="middle" font-size="13">例：貝殻の上の銀</text>
+<text x="380" y="100" text-anchor="middle" font-size="13">現れる（だから無ではない）</text>
+<text x="380" y="122" text-anchor="middle" font-size="13">打ち消される（だから有ではない）</text>
+<path d="M220 80 H268" class="ln"/><path d="M490 80 H538" class="ln"/>
+<text x="380" y="180" text-anchor="middle" font-size="13">要請（<tspan class="term">arthāpatti</tspan>）：「現れ」と「打ち消し」の両方を説明できるのは、有とも無とも異なるものだけ</text>
+<text x="380" y="210" text-anchor="middle" font-size="12" class="mut">定義：一つ一つの種類と異なることに限定された、両方の種類と異なること（p. 115）</text>
+</svg></div>
+<figcaption>図4　言表不可能（<i>anirvacanīya</i>）の位置。「両目がない人」と「片目がない人」の区別の喩えで、定義の不備を突く反論にも答えています（pp. 111–115）。</figcaption>
+</figure>
+<p>「最初は銀が有ると経験し、次に無いと経験するのだから、言表不可能というのは経験と矛盾する」という反論には、二つの答えがあります <span class="pg">pp. 117–121</span>。</p>
+<div class="pair">
+<div style="--c:var(--sid)"><h4>著者自身の答え</h4>
+<p>「これは銀だ」で現れている「有る」も、貝殻の「これ」と同じく、言表不可能な結びつきにすぎない。否定知「これは銀ではない」は、世間の本物の銀が三時にわたって無いことを捉えている。</p></div>
+<div style="--c:var(--neu)"><h4>ある人々（<i>kecit</i>）の答え</h4>
+<p>存在性（<i>sattā</i>）には三層ある。言表不可能とは「最高の有ではない」という意味。チトスカはこれを『ヴィヴァラナ』の師の説としています。</p></div>
+</div>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 210" role="img" aria-labelledby="f5t">
+<title id="f5t">存在性の三層</title>
+<rect x="40" y="20" width="680" height="50" rx="6" class="box-s"/><text x="60" y="51" font-weight="700" class="term">pāramārthika</text><text x="240" y="51" font-size="13">最高の有：ブラフマンだけ</text>
+<rect x="100" y="80" width="620" height="50" rx="6" class="box-n"/><text x="120" y="111" font-weight="700" class="term">māyopādhika</text><text x="300" y="111" font-size="13">働きを果たす力（<tspan class="term">arthakriyāsāmarthya</tspan>）をもつ有：空間など</text>
+<rect x="160" y="140" width="560" height="50" rx="6" class="box-p"/><text x="180" y="171" font-weight="700" class="term">avidyopādhika</text><text x="360" y="171" font-size="13">現れている間だけの有：貝殻の上の銀など</text>
+</svg></div>
+<figcaption>図5　存在性の三層（pp. 118–119）。後世ヴェーダーンタで一般的になる「<i>pāramārthika / vyāvahārika / prātibhāsika</i>」の三分と同じ発想です。</figcaption>
+</figure>
+<p>銀は時々しか現れないので、原因がなければなりません。それが無始で言表不可能な無明です。推論の形は次のとおりです <span class="pg">p. 124</span>。</p>
+<div class="tbl"><table><tbody>
+<tr><th>主張</th><td>問題のもの（錯誤の銀など）は、無始で言表不可能なものを質料因とする</td></tr>
+<tr><th>理由</th><td>有や無を質料因とすることが不合理である場合の、結果であるから</td></tr>
+<tr><th>逆の喩例</th><td>そうでないものは、そうした結果でもない。両派が認めるもの（ブラフマン）のように</td></tr>
+</tbody></table></div>
+<p>最後に、打ち消し（<i>bādha</i>）とは何かを定めます。著者が引く「師たち（<i>ācāryāḥ</i>）」の定義は、「展開物を伴う無明の消滅（<i>savilāsāvidyānivṛtti</i>）」です <span class="pg">p. 125</span>。別の人々の定義は「捉えられたまさにその場所での否定」で、チトスカはこれも『ヴィヴァラナ』の師の説としています <span class="pg">p. 126</span>。</p>
+<blockquote><span class="t">sati caivaṃ prapañco 'pi syād avidyāvijṛmbhitaḥ |<br>jāḍyadṛśyatvahetubhyāṃ rajatasvapnadṛśyavat ||</span>
+このようであれば、世界もまた無明の展開である。非精神的であることと、見られる対象であることのゆえに。銀や夢の光景のように。<span class="pg">p. 128</span></blockquote>
+
+<h3>3　世界の虚妄性と自己の自照性（3.1–3.2） <span class="pg">pp. 128–145</span></h3>
+<p>上の偈の推論「見られる対象であるから虚妄」に対して、「自己も見られる（知られる）のだから、自己も虚妄になってしまう（不定）」という反論が出ます。これに答えるため、著者は自己が他に依らずに輝く（<i>aparādhīnaprakāśa</i>・<i>svaprakāśa</i>）ことを、二段階で論証します。</p>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 300" role="img" aria-labelledby="f6t">
+<title id="f6t">知が別の知で知られるとすると無限遡及になる</title>
+<text x="190" y="24" text-anchor="middle" font-weight="700" class="p">ニヤーヤ派の説</text>
+<g font-size="13">
+<rect x="40" y="40" width="300" height="40" rx="5" class="box-p"/><text x="190" y="65" text-anchor="middle">知₁「壺がある」</text>
+<rect x="40" y="100" width="300" height="40" rx="5" class="box-p"/><text x="190" y="125" text-anchor="middle">知₂「私は壺を知った」（<tspan class="term">anuvyavasāya</tspan>）</text>
+<rect x="40" y="160" width="300" height="40" rx="5" class="box-p"/><text x="190" y="185" text-anchor="middle">知₃「知₂を知った」</text>
+<text x="190" y="228" text-anchor="middle" font-size="20" class="p">⋮</text>
+<path d="M190 80 V98" class="ln-p"/><path d="M190 140 V158" class="ln-p"/>
+<text x="190" y="262" text-anchor="middle" font-size="12.5">無限遡及・時間がかかりすぎる・</text>
+<text x="190" y="282" text-anchor="middle" font-size="12.5">直後に「見たかどうか」を疑えるはず</text>
+</g>
+<text x="570" y="24" text-anchor="middle" font-weight="700" class="s">著者の説</text>
+<circle cx="570" cy="120" r="62" class="box-s"/>
+<text x="570" y="115" text-anchor="middle" font-size="14" font-weight="700">意識（<tspan class="term">saṃvid</tspan>）</text>
+<text x="570" y="137" text-anchor="middle" font-size="12.5">自分も対象も照らす</text>
+<path d="M632 120 H700" class="ln-s"/><text x="712" y="125" font-size="13">壺</text>
+<path d="M545 63 Q570 20 595 63" class="ln-s"/>
+<text x="570" y="222" text-anchor="middle" font-size="12.5">灯火（<tspan class="term">āloka</tspan>）は壺を照らすが、</text>
+<text x="570" y="242" text-anchor="middle" font-size="12.5">自分を照らすのに別の灯火を要しない</text>
+<text x="570" y="270" text-anchor="middle" font-size="12" class="mut">「自分に作用する」矛盾もない：作用がないから（pp. 142–143）</text>
+</svg></div>
+<figcaption>図6　知が別の知に知られるとする説（左）と、自照説（右）。</figcaption>
+</figure>
+<div class="tbl"><table>
+<thead><tr><th>段階</th><th>相手</th><th>相手の主張</th><th>著者の答え</th><th>頁</th></tr></thead>
+<tbody>
+<tr><td rowspan="2">自己は自照</td><td>ニヤーヤ派</td><td>自己は意（<i>manas</i>）による知覚の対象</td><td>そうなると自己は自分の知の作用を受ける対象（<i>karman</i>）になる。行為者が同時に対象にはなれない。指は自分に触れず、刀の刃は自分を切らない</td><td class="num">130–131</td></tr>
+<tr><td>プラバーカラ派</td><td>自己は対象の知の中で「私」として現れる（対象・知・主体の三つが一度に現れる）</td><td>意識によって輝くことは、意識の対象であることと不可分。対象でないなら意識に依って輝くのでもない（シンシャパー樹と「樹」の喩え）</td><td class="num">132–135</td></tr>
+<tr><td rowspan="2">意識は自照</td><td>ニヤーヤ派</td><td>知は後の知（<i>anuvyavasāya</i>）に知られる</td><td>図6の難点。さらに、知が自照でなければ物も知も輝かず、世界が闇（<i>āndhya</i>）になる</td><td class="num">137–142</td></tr>
+<tr><td>仏教</td><td>知は刹那ごとに生滅し、自己ではありえない</td><td>青の知・黄の知と区別されるのは対象であって、意識そのものに差別は見られない</td><td class="num">143–145</td></tr>
+</tbody></table></div>
+<p>こうして「自己＝意識＝自照」が確立し、自己は「見られる対象」には含まれなくなります。そのため、世界の虚妄性の推論が自己について不定になることはありません <span class="pg">p. 145</span>。</p>
+
+<h3>4.1　知覚は世俗的に、聖典は真実に有効 <span class="pg">pp. 145–155</span></h3>
+<p>「すべてが幻（<i>māyā</i>）なら、聖典もその一部ではないか」という問いに、著者は二つの偈で答えます。</p>
+<div class="pair">
+<div style="--c:var(--neu)"><h4>知覚など</h4><p><i>prāmāṇyaṃ vyāvahārikam</i><br>対象が真実には打ち消されるので、有効性は世俗的。</p></div>
+<div style="--c:var(--sid)"><h4>不二の聖典</h4><p><i>tattvāvedanalakṣaṇam</i><br>対象が打ち消されないので、有効性は真実。</p></div>
+</div>
+<p>偽りのものから真の知が生じる例として、二つが挙げられます。</p>
+<ul>
+<li><strong>音の長短</strong>：長短は本来、発音する音声の性質ですが、語に移して聞かれます。それでも「<i>nāga</i>（象）」と「<i>naga</i>（山）」を聞き分けて正しく理解できます <span class="pg">p. 147</span>。</li>
+<li><strong>映像</strong>：偽りの映像から、本体である顔の存在が推知できます <span class="pg">p. 147</span>。</li>
+</ul>
+<p>知覚と聖典が衝突したときは、ミーマーンサーの原則「後のものが強い（<i>paurvāparye pūrvadaurbalyam</i>）」によって聖典が勝ちます。後の知は先の知を前提として必要とせず、むしろ打ち消すからです <span class="pg">pp. 149–151</span>。</p>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 190" role="img" aria-labelledby="f7t">
+<title id="f7t">カタカの実の粉の喩え</title>
+<g font-size="13">
+<rect x="20" y="30" width="200" height="110" rx="8" class="box-p"/><text x="120" y="62" text-anchor="middle" font-weight="700">濁った水</text><text x="120" y="90" text-anchor="middle">無明による</text><text x="120" y="110" text-anchor="middle">差別の現れ</text>
+<rect x="280" y="30" width="200" height="110" rx="8" class="box-n"/><text x="380" y="62" text-anchor="middle" font-weight="700">粉を入れる</text><text x="380" y="90" text-anchor="middle">聖典による知</text><text x="380" y="110" text-anchor="middle">（これも幻の一部）</text>
+<rect x="540" y="30" width="200" height="110" rx="8" class="box-s"/><text x="640" y="62" text-anchor="middle" font-weight="700">澄んだ水</text><text x="640" y="90" text-anchor="middle">他の汚れと共に</text><text x="640" y="110" text-anchor="middle">粉自身も沈む</text>
+<path d="M220 85 H278" class="ln" marker-end="url(#ar)"/><path d="M480 85 H538" class="ln" marker-end="url(#ar)"/>
+<text x="380" y="172" text-anchor="middle">聖典の知は無明の現れを除き、そのあと自らも消える（p. 154）</text>
+</g>
+</svg></div>
+<figcaption>図7　カタカ（<i>kataka</i>）の実の粉の喩え。</figcaption>
+</figure>
+
+<h3>4.2　既成のものについても語の意味は学べる <span class="pg">pp. 156–179</span></h3>
+<p>プラバーカラ派によれば、子どもは長老どうしのやりとり（「牛を連れて来い」と言われた人が牛を連れて来る）を見て語の意味を学びます。だから語の意味はすべて「なすべきこと（<i>kārya</i>）」と結びついて学ばれ、「ブラフマンは有る」のような既成の事柄（<i>siddha</i>）を述べる文は、それだけでは認識手段になりません。</p>
+<p>著者は「息子が生まれましたよ（<i>putras te jātaḥ</i>）」と告げられて父が喜ぶ例で反論します <span class="pg">pp. 158–170</span>。見ていた子どもは、喜びの原因が「息子の誕生」という既成の事柄の知だと推して、語の意味を学ぶことができます。</p>
+<div class="tbl"><table>
+<thead><tr><th>「アートマンを知るべし」の「知」</th><th>命令の対象になりうるか</th></tr></thead>
+<tbody>
+<tr><td>① 言葉による知（<i>śābdī</i>）</td><td>聞けばおのずと生じるので、命令する必要がない</td></tr>
+<tr><td>② 瞑想（<i>bhāvanā</i>）</td><td>ブラフマン自体は常住で作れない。心の変化だとしても、それは直証という結果そのもの</td></tr>
+<tr><td>③ 直証（<i>sākṣātkāra</i>）</td><td>結果は本来望ましいもので、命令の余地がない</td></tr>
+</tbody></table></div>
+<p>こうして、ヴェーダーンタの文は「知れ」という命令（<i>bodhavidhi</i>）を主とするものではないと結論されます <span class="pg">p. 173</span>。</p>
+<p>「自己は歓喜（<i>ānanda</i>）として経験されていない」という反論には、次のように答えます。人は何よりも自分自身を愛する（<i>parapremāspada</i>）。愛は楽か楽の手段にしか向かず、自己は何かの手段として愛されるのではない。したがって自己は楽そのものである <span class="pg">pp. 173–179</span>。</p>
+
+<h3>4.3　人を行為へ促すものは何か <span class="pg">pp. 180–257</span></h3>
+<p>本書でいちばん長い論争です。「〜すべし」という命令形（<i>liṅ</i>）が表し、人を行為へ促すもの（<i>pravartaka</i>）は何か。答えによって、聖典の文の読み方が大きく変わります。</p>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 330" role="img" aria-labelledby="f8t">
+<title id="f8t">行為を促すものの候補の吟味</title>
+<g font-size="12.5">
+<text x="20" y="24" font-weight="700">候補</text><text x="420" y="24" font-weight="700">退けられる理由</text>
+<rect x="20" y="36" width="380" height="34" rx="4" class="box-p"/><text x="30" y="58">語そのもの・語の働き（<tspan class="term">abhidhāvyāpāra</tspan>）</text><text x="420" y="58">意味を知らない人は聞いても動かない</text>
+<rect x="20" y="78" width="380" height="34" rx="4" class="box-p"/><text x="30" y="100">動詞の意味（<tspan class="term">bhāvārtha</tspan>）の知</text><text x="420" y="100">知っただけでは動かない</text>
+<rect x="20" y="120" width="380" height="34" rx="4" class="box-p"/><text x="30" y="142">結果の手段であることの知だけ</text><text x="420" y="142">過去や現在の手段には動かない</text>
+<rect x="20" y="162" width="380" height="34" rx="4" class="box-p"/><text x="30" y="184">欲求（<tspan class="term">rāga</tspan>）だけ</text><text x="420" y="184">結果への欲求で手段へは動かない</text>
+<rect x="20" y="204" width="380" height="34" rx="4" class="box-p"/><text x="30" y="226">なすべきこと（<tspan class="term">kārya / niyoga</tspan>）</text><text x="420" y="226">その実体は欲求（<tspan class="term">cikīrṣā</tspan>）。新得力は学べない</text>
+<rect x="20" y="246" width="380" height="34" rx="4" class="box-p"/><text x="30" y="268">行為しないことと相容れないもの</text><text x="420" y="268">結局は欲求のことを言い換えているだけ</text>
+<rect x="20" y="288" width="720" height="36" rx="4" class="box-s"/><text x="30" y="311" font-weight="700">著者：望むものの手段であること（<tspan class="term">samīhitasādhanatā</tspan>）＋行為によって達成できること</text>
+</g>
+</svg></div>
+<figcaption>図8　候補と吟味の流れ。プラバーカラ派はいったん消去法で「なすべきこと」を残しますが（pp. 181–193）、著者はそれも退けます。</figcaption>
+</figure>
+<blockquote><span class="t">kartavyataikārthasamavāyinī samīhitasādhanatā vidhiḥ</span>
+命令とは、なすべきことと同じものに属する「望むものの手段であること」である。（ヴァーチャスパティ、<span class="pg">p. 197</span>で引用）</blockquote>
+<p>プラバーカラ派は、ヴェーダの命令は他の手段では知られない新得力（<i>apūrva</i>）を表すと考えます。著者はこれに対し、他の手段で一度も知られたことのないものに、語の意味を結びつけて学ぶことはできないと論じます <span class="pg">pp. 212–226</span>。結論は「命令の意味は、求められているものの手段であること（<i>apekṣitopāyatā</i>）」です <span class="pg">p. 256</span>。</p>
+<p class="note">この長い議論がここにある理由：命令の意味が「既成の事柄のうちの手段であること」に帰着するなら、語はもともと既成の事柄について働くことになります。そうであれば、不二のブラフマンを述べる文も十分に認識手段になります。</p>
+
+<h3>4.4　分割されない一つの意味 <span class="pg">pp. 257–270</span></h3>
+<p>「<i>satyaṃ jñānam anantaṃ brahma</i>」の「真実」「知」「無限」は、同じ意味（同義語）なのか、別の意味なのか。同義語なら並べて言う必要がなく、別の意味ならブラフマンに複数の性質があることになり、不二が崩れます。</p>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 250" role="img" aria-labelledby="f9t">
+<title id="f9t">最も明るいものが月という喩え</title>
+<text x="380" y="22" text-anchor="middle" font-size="13">「この光の群れの中で、月はどれ？」—「最も明るいもの（<tspan class="term">prakṛṣṭaprakāśaḥ</tspan>）が月だ」</text>
+<g font-size="12.5">
+<circle cx="120" cy="120" r="70" class="box-n"/><text x="120" y="112" text-anchor="middle">「最も」</text><text x="120" y="132" text-anchor="middle">暗いものを除く</text>
+<circle cx="260" cy="120" r="70" class="box-n"/><text x="260" y="112" text-anchor="middle">「光るもの」</text><text x="260" y="132" text-anchor="middle">光らないものを除く</text>
+<path d="M330 120 H400" class="ln" marker-end="url(#ar)"/>
+<circle cx="470" cy="120" r="34" class="box-s"/><text x="470" y="125" text-anchor="middle" font-weight="700">月</text>
+<text x="620" y="100" text-anchor="middle">語はそれぞれ別のものを</text>
+<text x="620" y="120" text-anchor="middle">除きながら、同じ一つの</text>
+<text x="620" y="140" text-anchor="middle">ものを指す</text>
+</g>
+<text x="380" y="222" text-anchor="middle" font-size="13">同様に「真実」「知」「無限」は、偽・非精神・有限をそれぞれ除き、一つのブラフマンを指す</text>
+</svg></div>
+<figcaption>図9　分割されない意味（<i>akhaṇḍārtha</i>）の喩え（pp. 261–263）。</figcaption>
+</figure>
+<p>「<i>tat tvam asi</i>」も同じ仕方で読みます。「この人はあのデーヴァダッタだ」と言うとき、「あの時あの場所」と「この時この場所」は一致しません。それでも、その両方に限定された一人の人物が同一だと理解されます <span class="pg">p. 268</span>。同じように、「それ（<i>tat</i>）」と「汝（<i>tvam</i>）」から矛盾する部分を捨て、残る部分を保つ解釈（<i>jahadajahallakṣaṇā</i>）によって、個我と最高我の同一性が示されます <span class="pg">p. 269</span>。</p>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 210" role="img" aria-labelledby="f10t">
+<title id="f10t">tat tvam asi の読み方</title>
+<g font-size="13">
+<rect x="20" y="20" width="300" height="120" rx="8" class="box-n"/><text x="170" y="46" text-anchor="middle" font-weight="700" class="term">tat（それ）</text>
+<text x="170" y="74" text-anchor="middle" class="p">全知・間接性 ✕ 捨てる</text><text x="170" y="104" text-anchor="middle" class="s">純粋意識 ○ 保つ</text>
+<rect x="440" y="20" width="300" height="120" rx="8" class="box-n"/><text x="590" y="46" text-anchor="middle" font-weight="700" class="term">tvam（汝）</text>
+<text x="590" y="74" text-anchor="middle" class="p">少知・直接性 ✕ 捨てる</text><text x="590" y="104" text-anchor="middle" class="s">純粋意識 ○ 保つ</text>
+<path d="M320 100 H438" class="ln-s"/><text x="380" y="92" text-anchor="middle" class="s">＝</text>
+<text x="380" y="180" text-anchor="middle">矛盾する部分を捨て、残る部分を保つ（<tspan class="term">jahadajahallakṣaṇā</tspan>）→ 一つの意識の同一性</text>
+</g>
+</svg></div>
+<figcaption>図10　「<i>tat tvam asi</i>」の読み方。</figcaption>
+</figure>
+
+<h3>5.1　諸学派の解脱説と自説 <span class="pg">pp. 270–308</span></h3>
+<div class="tbl"><table>
+<thead><tr><th>学派</th><th>解脱とは</th><th>著者の批判</th><th>頁</th></tr></thead>
+<tbody>
+<tr><td>中観派</td><td>灯火が消えるような、意識の相続の断絶（「<i>pradīpasyeva nirvāṇam</i>」）</td><td>解脱を享受する主体がいない。自分の消滅を誰が望むか</td><td class="num">270, 272–275</td></tr>
+<tr><td>瑜伽行派</td><td>汚れのない意識の流れ（習気の断絶）</td><td>真実の観想が輪廻の習気を断てないなら、まして貪りなどの習気は断てず、輪廻が続いてしまう</td><td class="num">270, 274–275</td></tr>
+<tr><td>ニヤーヤ派</td><td>知・楽など、自己の特殊な性質がすべて断たれること</td><td>気絶と変わらない。知られない苦の不在は人の目的にならない。熟睡でも「楽に眠った」と楽を経験している</td><td class="num">270, 276–281</td></tr>
+<tr><td>ジャイナ教</td><td>自己が絶えず上昇すること</td><td>自己を中ぐらいの大きさとする前提がすでに否定されている</td><td class="num">270, 281</td></tr>
+<tr><td>（ヴィシュヌ派・カーパーリカ派）</td><td>不滅の身体などを得ること</td><td>身体であるかぎり滅びる</td><td class="num">271, 281</td></tr>
+<tr><td>サーンキヤ／ヨーガ</td><td>精神原理と物質原理の弁別による、精神原理の自存</td><td>楽の直証がなければ目的にならない。束縛と解脱が物質原理（知性）の側にあり、精神原理には関係しない。踊り子の喩えは成り立たない</td><td class="num">271, 282–288</td></tr>
+<tr><td><strong>自説</strong></td><td>常住無上の楽の顕現＝全ての苦の断絶。それは無明の消滅（<i>avidyāstamaya</i>）にほかならない</td><td>—</td><td class="num">271, 288–289</td></tr>
+</tbody></table></div>
+<blockquote><span class="t">avidyāstamayo mokṣaḥ sā saṃsāra udāhṛtā</span>
+解脱とは無明の消滅であり、その無明が輪廻と呼ばれる。<span class="pg">p. 289</span></blockquote>
+<p>これにプラバーカラ派が全面的に反論します <span class="pg">pp. 290–297</span>。不二はどの認識手段の対象でもない（知覚は一つ一つを別々に捉える／『ブラフマシッディ』の「普遍としての有だけが実在」説も成り立たない／聖典は行為を主とし、「<i>neti neti</i>」は存在するものの否定にならない）。そのうえで、解脱とは法と非法が尽きて身体が断たれることだ、と主張します。著者はこれを「空を反芻するようなもの（<i>ākāśaromanthanāyamānam</i>）」と呼び、逐一答えます <span class="pg">pp. 297–306</span>。さらに、無数の生で積んだ業を尽くし切ることはできないので、業の消尽によって解脱することは不可能だと述べます <span class="pg">pp. 307–308</span>。</p>
+
+<h3>5.2　無明はどこにあるのか <span class="pg">pp. 309–336</span></h3>
+<figure>
+<div class="svg"><svg viewBox="0 0 760 300" role="img" aria-labelledby="f11t">
+<title id="f11t">無明の拠り所をめぐる両刀論法</title>
+<rect x="250" y="12" width="260" height="50" rx="6" class="box-p"/><text x="380" y="43" text-anchor="middle" font-size="14">無明は誰のものか（<tspan class="term">kasyāvidyā</tspan>）</text>
+<path d="M310 62 L170 100" class="ln"/><path d="M450 62 L590 100" class="ln"/>
+<g font-size="12.5">
+<rect x="20" y="100" width="300" height="80" rx="6" class="box-p"/><text x="170" y="126" text-anchor="middle" font-weight="700">ブラフマン</text><text x="170" y="148" text-anchor="middle">純粋な光が無明をもつのは矛盾</text><text x="170" y="168" text-anchor="middle">（前主張 p. 309）</text>
+<rect x="440" y="100" width="300" height="80" rx="6" class="box-p"/><text x="590" y="126" text-anchor="middle" font-weight="700">個我</text><text x="590" y="148" text-anchor="middle">無明が個我を作り、個我が無明をもつ</text><text x="590" y="168" text-anchor="middle">循環（『ブラフマシッディ』説の難点）</text>
+<path d="M170 180 V212" class="ln-s"/>
+<rect x="20" y="212" width="300" height="80" rx="6" class="box-s"/><text x="170" y="238" text-anchor="middle" font-weight="700">著者：ブラフマン</text><text x="170" y="260" text-anchor="middle">光そのものは無明と対立しない。</text><text x="170" y="280" text-anchor="middle">無明を除くのは心の変化としての知</text>
+<rect x="440" y="212" width="300" height="80" rx="6" class="box-n"/><text x="590" y="238" text-anchor="middle" font-weight="700">師と弟子の区別は？</text><text x="590" y="260" text-anchor="middle">夢の中で師が教えるように、</text><text x="590" y="280" text-anchor="middle">無明がある間だけ成り立つ</text>
+</g>
+</svg></div>
+<figcaption>図11　無明の拠り所をめぐる議論。結論は「ブラフマン自身が自らの無明によって輪廻し、知によって解脱する。ゆえに無明はブラフマンに依り、個我に依るのではない」（p. 336）。</figcaption>
+</figure>
+<p>反対者は、一我説では束縛されている者と解脱した者の区別も、師と弟子の区別もつかないと責めます <span class="pg">pp. 314–318</span>。著者はこれを「夢の中の区別」として認めます。区別は無明がある間だけのもので、無明が消えればどんな区別も要らない、という立場です <span class="pg">pp. 325–333</span>。また「個我は無数なので、輪廻が尽きることはない」という多我説も、数が知られていないことは無数であることの証明にならない、として退けます <span class="pg">pp. 333–335</span>。</p>
+
+<h3>5.3　解脱は知だけによる <span class="pg">pp. 336–352</span></h3>
+<div class="pair">
+<div style="--c:var(--pp)"><h4>併修説（前主張）</h4>
+<p>イーシャー・ウパニシャッド「<i>vidyāṃ cāvidyāṃ ca yas tad vedobhayaṃ saha…</i>」：行為によって死（輪廻）を越え、知によって不死を得る。知と行為は別々の働きで共に解脱に役立つ。『ブラフマプラカーシカー』の著者による解釈も紹介される <span class="pg">pp. 338–349</span>。</p></div>
+<div style="--c:var(--sid)"><h4>著者</h4>
+<p>行為は心を浄めて知を生じさせる間接的な助けにすぎない。無明を除くのは真実の直証だけ。「<i>tasmāj jñānam evaikaṃ mokṣasādhanaṃ na punaḥ karmaleśo 'pi</i>」（ゆえに知だけが解脱の手段であり、行為はわずかも手段ではない） <span class="pg">p. 352</span>。</p></div>
+</div>
+
+<h3>5.4　無明の消滅そのものは何か <span class="pg">pp. 352–360</span></h3>
+<p>最後の問いは、解脱である「無明の消滅（<i>avidyānivṛtti</i>）」はどういう存在かです。</p>
+<div class="tbl"><table>
+<thead><tr><th>可能性</th><th>難点</th><th>判定</th></tr></thead>
+<tbody>
+<tr><td>自己そのもの</td><td>消滅は「消滅するものの存在」を前提とする。無始の自己が消滅だとは言えない</td><td>✕</td></tr>
+<tr><td>有（<i>sat</i>）</td><td>自己以外の実在が一つ増え、二元になる</td><td>✕</td></tr>
+<tr><td>無（<i>tuccha</i>）</td><td>知によって作り出されるものにならない</td><td>✕</td></tr>
+<tr><td>言表不可能（<i>anirvācya</i>）</td><td>有・無の消去法と、世に知られた事実から、第五の種類として認められる。二元にも、解脱がなくなることにもならない</td><td>○ 自説</td></tr>
+</tbody></table></div>
+<p>「自己こそ無知の消滅（<i>ātmaivājñānahāniḥ</i>）」とする一派の説も吟味されます <span class="pg">pp. 357–359</span>。本書は著者名を織り込んだ偈で終わります <span class="pg">p. 360</span>。</p>
+
+<!-- ============ 付録 ============ -->
+<h2 id="furoku">付録　同じ巻の二つの小品</h2>
+<div class="tbl"><table>
+<thead><tr><th>作品</th><th>分量</th><th>内容</th></tr></thead>
+<tbody>
+<tr><td><i>Pramāṇamālā</i>「論証の花輪」</td><td class="num">24頁</td><td>不二を論証する推論を花輪のように並べた小品。冒頭は「歓喜は苦の不在ではない（積極的なものだ）」の推論で始まり、差別や物質的なものが言表不可能であることを論じ、終わり近くでは解脱における知と行為の関係を扱います。末尾の偈で「論証という九つの宝石の花輪」と自ら呼んでいます。</td></tr>
+<tr><td><i>Nyāyadīpāvalī</i>「論理の灯明の列」</td><td class="num">15頁</td><td>「問題のもの（世界）は虚妄である。見られる対象であるから。銀のように（<i>vivādapadaṃ mithyā, dṛśyatvāt, rajatavat</i>）」という推論を掲げ、主題の不成立・不定などの難点に順に答えます。後半では錯誤論と、行為の動機の問題にも触れます。</td></tr>
+</tbody></table></div>
+
+<p class="note" style="margin-top:3rem">この解説について：章立ては原書の柱とチトスカの注釈の区切りの語から、科段と要約はOCRテキスト（誤字を含む）を読んで作りました。頁の境目や細かな論点の帰属（例：どの説を誰の説とするか）は、PDFの原文で確認してください。</p>
+</div>
+
+</body>
+</html>
